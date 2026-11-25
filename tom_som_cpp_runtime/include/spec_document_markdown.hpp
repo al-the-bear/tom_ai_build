@@ -59,6 +59,16 @@ inline constexpr const char* kSpecMarkdownRejectMissingValue = "missingValue";
 /* A heading line without a parseable `<!--[id]-->` headline comment. */
 inline constexpr const char* kSpecMarkdownRejectMalformedHeading =
     "malformedHeading";
+/* A form-table row, a section-table row or a records column names no field
+ * the form declares. */
+inline constexpr const char* kSpecMarkdownRejectUnknownField = "unknownField";
+/* A block that breaks the layout grammar (SOM §11.4, §11.5): a table without
+ * its delimiter row or with a row of another cell count, a field given twice,
+ * a `refs` / `records` div beside other text or item headings or not holding
+ * what it should, an unclosed `refs` / `records` fence. The message says
+ * which. */
+inline constexpr const char* kSpecMarkdownRejectMalformedBlock =
+    "malformedBlock";
 
 /* One rejected block in a Markdown import (SOM §11.7). Reported, never silently
  * dropped: each carries the source line, the offending anchor (section path or

@@ -2,6 +2,23 @@
 
 ## Unreleased
 
+- **The Markdown parser reads the reading view's table layout** (SOM §11.4,
+  §11.5): form tables `| TomSpecField | Value |` (a code span holding `\|`,
+  reference links read as their link texts, prose before and after a table as
+  the form's preamble, slot markers before a table), `records` divs (an `Id`
+  column, an optional `Title` column, `<br>` titles), `refs` divs (reference
+  lines), section tables `| Section | TomSpecField | Value |`, and heading
+  anchors `<a id="ID">` equal to the id or its qualified form (removed from the
+  title). The older `Field:` layout reads as before.
+- **Two new rejection reasons**: `kSpecMarkdownRejectUnknownField` (a row or a
+  records column naming no field) and `kSpecMarkdownRejectMalformedBlock` (a
+  table without its delimiter row or with a row of another cell count, a field
+  given twice — the first kept —, a malformed or unclosed `refs` / `records`
+  div). The conformance runner runs the 28 `readingView` import cases and lands
+  `expected.tables.md` into the document `expected.tomspecs.md` lands.
+- The emitter writes a value line shaped like a layout table header with one
+  escape space, which the parser removes, so a value never reads as a table.
+
 - **The reading notation's scanner** (`spec_notation.hpp`, DocSpecs
   specification, Reading Notation RN-1 to RN-13): `scanNotation(text,
   tomSpecs)` returns a value's fenced divs, bracketed spans and citation shapes

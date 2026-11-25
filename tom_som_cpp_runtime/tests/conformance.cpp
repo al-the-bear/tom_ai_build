@@ -558,18 +558,26 @@ static void test_markdown_round_trip(Checker& c, const som::SpecModel& model) {
   c.check("md.parse.headline", hl == "Reference to the Spec", hl);
 }
 
+/* Markdown/YAML convergence: parsing either golden (`expected.tables.md`, the
+ * reading view's tables, and `expected.tomspecs.md`, the `Field:` lines) and
+ * applying it must reproduce `state.json` (the YAML-route memory) exactly. */
 static void test_markdown_memory_landing(Checker& c, const som::SpecModel& model) {
-  std::string expected_md = read_corpus(kExportGolden);
   som::JsonPtr sj = read_json("state.json");
   som::DocumentJson canonical = som::documentJsonFromJson(sj);
-  som::SpecMarkdownImport imported =
-      som::SpecDocument::fromMarkdown(expected_md, model);
-  c.check("md.land.clean", imported.rejections().empty(),
-          rej_str(imported.result));
-  som::DocumentJson dj = imported.document.toJson();
-  std::string got = som::documentJsonToCanonicalJson(dj);
   std::string want = som::documentJsonToCanonicalJson(canonical);
-  c.check("md.land.memory", got == want, "got " + got + " want " + want);
+  const std::pair<const char*, const char*> goldens[] = {
+      {"tables", "expected.tables.md"}, {"fields", kExportGolden}};
+  for (const auto& golden : goldens) {
+    const std::string label = golden.first;
+    som::SpecMarkdownImport imported =
+        som::SpecDocument::fromMarkdown(read_corpus(golden.second), model);
+    c.check("md.land." + label + ".clean", imported.rejections().empty(),
+            rej_str(imported.result));
+    som::DocumentJson dj = imported.document.toJson();
+    std::string got = som::documentJsonToCanonicalJson(dj);
+    c.check("md.land." + label + ".memory", got == want,
+            "got " + got + " want " + want);
+  }
 }
 
 /* The SOM §11.7 rejection protocol: nothing is silently dropped. Each case
@@ -584,10 +592,15 @@ static void test_markdown_import_rejections(Checker& c, const som::SpecModel& mo
   std::size_t n = som::jsonArrayLen(cases);
   for (std::size_t i = 0; i < n; i++) {
     som::JsonRef kase = som::jsonArrayAt(cases, i);
-    // The reading view's table forms (`readingView`) are read by the Dart and
-    // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
-    if (som::jsonBoolOr(kase, "readingView")) continue;
     std::string name = som::jsonStrOr(kase, "name");
+    // The reading view's table layout is read (tspubnondart62); the readable
+    // header and the styled-div headings are the strip-document port's
+    // (tspubnondart97, runtime_parity.md § Reading view).
+    if (som::jsonBoolOr(kase, "readingView") &&
+        (som::jsonGet(kase, "readableHeader") != nullptr ||
+         name.rfind("styled-div headings", 0) == 0)) {
+      continue;
+    }
     som::SpecMarkdownResult result =
         som::markdownParse(model, som::jsonStrOr(kase, "markdown"));
 

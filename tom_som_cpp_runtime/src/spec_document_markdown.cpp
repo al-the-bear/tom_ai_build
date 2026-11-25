@@ -11,8 +11,10 @@
 #include "spec_document_markdown.hpp"
 
 #include <algorithm>
+#include <functional>
 #include <map>
 #include <memory>
+#include <optional>
 #include <set>
 #include <stdexcept>
 #include <string>
@@ -309,6 +311,232 @@ bool matchFieldLabel(const std::string& s, std::string* label,
   *label = s.substr(0, nameEnd);
   *value = s.substr(i);
   return true;
+}
+
+/* ---- reading-view layout lines (SOM §11.4, §11.5) ------------------------ */
+
+/* Whether `s` holds `word` at `*p`, any ASCII case; advances `*p` past it. */
+bool matchWordCi(const std::string& s, std::size_t* p, const char* word) {
+  std::size_t i = *p;
+  for (const char* w = word; *w != '\0'; w++, i++) {
+    if (i >= s.size() || toLowerC(s[i]) != toLowerC(*w)) {
+      return false;
+    }
+  }
+  *p = i;
+  return true;
+}
+
+void skipWs(const std::string& s, std::size_t* p) {
+  while (*p < s.size() && isWs(s[*p])) {
+    (*p)++;
+  }
+}
+
+/* The rest of a layout header after its first `|` at `p`:
+ * `\s*(?:(Section)\s*\|\s*)?TomSpecField\s*\|\s*Value\s*\|?\s*$`, any case.
+ * Sets `*isSection` for a section-table header. */
+bool matchLayoutHeaderRest(const std::string& s, std::size_t p,
+                           bool* isSection) {
+  skipWs(s, &p);
+  bool section = false;
+  std::size_t q = p;
+  if (matchWordCi(s, &q, "Section")) {
+    skipWs(s, &q);
+    if (q < s.size() && s[q] == '|') {
+      q++;
+      skipWs(s, &q);
+      section = true;
+      p = q;
+    }
+  }
+  if (!matchWordCi(s, &p, "TomSpecField")) {
+    return false;
+  }
+  skipWs(s, &p);
+  if (p >= s.size() || s[p] != '|') {
+    return false;
+  }
+  p++;
+  skipWs(s, &p);
+  if (!matchWordCi(s, &p, "Value")) {
+    return false;
+  }
+  skipWs(s, &p);
+  if (p < s.size() && s[p] == '|') {
+    p++;
+  }
+  skipWs(s, &p);
+  if (p != s.size()) {
+    return false;
+  }
+  if (isSection != nullptr) {
+    *isSection = section;
+  }
+  return true;
+}
+
+/* A line that reads as the header of a form table or a section table:
+ * `| TomSpecField | Value |` or `| Section | TomSpecField | Value |` at
+ * column 0, any case. The header alone makes a table layout. */
+bool matchLayoutTableHeader(const std::string& s, bool* isSection) {
+  return !s.empty() && s[0] == '|' && matchLayoutHeaderRest(s, 1, isSection);
+}
+
+/* A value line shaped like a layout header after `minSpaces` or more spaces
+ * (0: the emitter escapes it with one space; 1: the parse removes it). */
+bool matchHeaderShaped(const std::string& s, std::size_t minSpaces) {
+  std::size_t i = 0;
+  while (i < s.size() && s[i] == ' ') {
+    i++;
+  }
+  return i >= minSpaces && i < s.size() && s[i] == '|' &&
+         matchLayoutHeaderRest(s, i + 1, nullptr);
+}
+
+/* `^ {0,3}\|`: a line that starts a table row. */
+bool matchTableLine(const std::string& s) {
+  std::size_t i = 0;
+  while (i < 3 && i < s.size() && s[i] == ' ') {
+    i++;
+  }
+  return i < s.size() && s[i] == '|';
+}
+
+/* `^:?-+:?$`: a cell of a table's delimiter row. */
+bool matchDelimiterCell(const std::string& c) {
+  std::size_t i = 0;
+  std::size_t n = c.size();
+  if (i < n && c[i] == ':') {
+    i++;
+  }
+  if (n > i && c[n - 1] == ':') {
+    n--;
+  }
+  if (i >= n) {
+    return false;
+  }
+  for (std::size_t k = i; k < n; k++) {
+    if (c[k] != '-') {
+      return false;
+    }
+  }
+  return true;
+}
+
+/* One `\[([^\]]+)\]\([^)]*\)` at `p`: its text, and `*end` after it. */
+bool matchLinkAt(const std::string& s, std::size_t p, std::string* text,
+                 std::size_t* end) {
+  if (p >= s.size() || s[p] != '[') {
+    return false;
+  }
+  std::size_t close = s.find(']', p + 1);
+  if (close == std::string::npos || close == p + 1) {
+    return false;
+  }
+  if (close + 1 >= s.size() || s[close + 1] != '(') {
+    return false;
+  }
+  std::size_t paren = s.find(')', close + 2);
+  if (paren == std::string::npos) {
+    return false;
+  }
+  if (text != nullptr) {
+    *text = s.substr(p + 1, close - p - 1);
+  }
+  *end = paren + 1;
+  return true;
+}
+
+/* `^\[[^\]]+\]\([^)]*\)(, \[[^\]]+\]\([^)]*\))*$`: a cell of links only; their
+ * texts in `*texts`. */
+bool matchLinkCell(const std::string& s, std::vector<std::string>* texts) {
+  std::size_t p = 0;
+  std::vector<std::string> out;
+  for (;;) {
+    std::string text;
+    std::size_t end = 0;
+    if (!matchLinkAt(s, p, &text, &end)) {
+      return false;
+    }
+    out.push_back(text);
+    if (end == s.size()) {
+      break;
+    }
+    if (s.compare(end, 2, ", ") != 0) {
+      return false;
+    }
+    p = end + 2;
+  }
+  *texts = std::move(out);
+  return true;
+}
+
+/* The first `\[([^\]]+)\]\([^)]*\)` anywhere in `s`: its text, or "" with
+ * false. */
+bool findLinkText(const std::string& s, std::string* text) {
+  for (std::size_t p = s.find('['); p != std::string::npos;
+       p = s.find('[', p + 1)) {
+    std::size_t end = 0;
+    if (matchLinkAt(s, p, text, &end)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/* `^:{3,}\s*(?:\{\.(refs|records)\}|(refs|records))\s*$`: the opening fence
+ * of a list body's div; its kind in `*kind`. */
+bool matchListDivOpen(const std::string& s, std::string* kind) {
+  std::size_t p = 0;
+  while (p < s.size() && s[p] == ':') {
+    p++;
+  }
+  if (p < 3) {
+    return false;
+  }
+  skipWs(s, &p);
+  bool braces = p < s.size() && s[p] == '{';
+  if (braces) {
+    if (s.compare(p, 2, "{.") != 0) {
+      return false;
+    }
+    p += 2;
+  }
+  std::string k;
+  if (s.compare(p, 4, "refs") == 0) {
+    k = "refs";
+  } else if (s.compare(p, 7, "records") == 0) {
+    k = "records";
+  } else {
+    return false;
+  }
+  p += k.size();
+  if (braces) {
+    if (p >= s.size() || s[p] != '}') {
+      return false;
+    }
+    p++;
+  }
+  skipWs(s, &p);
+  if (p != s.size()) {
+    return false;
+  }
+  *kind = k;
+  return true;
+}
+
+/* `^:{3,}\s*$`: a closing fence. */
+bool matchDivCloseLine(const std::string& s) {
+  std::size_t p = 0;
+  while (p < s.size() && s[p] == ':') {
+    p++;
+  }
+  if (p < 3) {
+    return false;
+  }
+  skipWs(s, &p);
+  return p == s.size();
 }
 
 /* Strip leading + trailing newlines (SOM §11.3). Blank lines inside the value
@@ -794,6 +1022,9 @@ std::string prepareValue(const std::string& value, const std::string& path) {
       b += line;
     } else if (matchEscapable(line)) {
       b.push_back('\\');
+      b += line;
+    } else if (matchHeaderShaped(line, 0)) {
+      b.push_back(' ');  // DI-2: a value line is never a layout table.
       b += line;
     } else {
       b += line;
@@ -1321,6 +1552,84 @@ struct MdFrame {
   std::size_t line = 0;
   bool ignored = false;
   std::vector<std::string> body;
+  // The scope this heading's descendants' anchors are qualified with, and the
+  // id of the nearest heading at or above it that is no list container (SOM
+  // §11.2, qualifyAnchor).
+  std::optional<std::vector<std::string>> anchorScope;
+  std::optional<std::string> anchorSection;
+};
+
+/* The qualified anchor of a heading `id` (SOM §11.2) and the scope its
+ * descendants' anchors are qualified with: below a list item, or in a
+ * `@SameAs` copy, an anchor is the ids from the scope's start joined by `/`;
+ * elsewhere it is the id itself. `section` is the id of the nearest heading
+ * above that is no list container. */
+enum class AnchorKind { kPlain, kContainer, kItem, kCopy };
+
+std::pair<std::string, std::optional<std::vector<std::string>>> qualifyAnchor(
+    const std::optional<std::vector<std::string>>& scope,
+    const std::optional<std::string>& section, const std::string& id,
+    AnchorKind kind) {
+  auto join = [](const std::vector<std::string>& parts) {
+    std::string out;
+    for (std::size_t i = 0; i < parts.size(); i++) {
+      if (i > 0) out += "/";
+      out += parts[i];
+    }
+    return out;
+  };
+  auto withId = [&id](std::vector<std::string> parts) {
+    parts.push_back(id);
+    return parts;
+  };
+  const std::string joined = scope.has_value() ? join(withId(*scope)) : id;
+  switch (kind) {
+    case AnchorKind::kContainer:
+      return {joined, scope};
+    case AnchorKind::kItem:
+      return {joined, withId(scope.value_or(std::vector<std::string>{}))};
+    case AnchorKind::kCopy: {
+      std::vector<std::string> sc =
+          scope.has_value()
+              ? *scope
+              : (section.has_value() ? std::vector<std::string>{*section}
+                                     : std::vector<std::string>{});
+      sc.push_back(id);
+      return {join(sc), sc};
+    }
+    case AnchorKind::kPlain:
+      break;
+  }
+  if (!scope.has_value()) return {joined, std::nullopt};
+  return {joined, withId(*scope)};
+}
+
+/* The title with the renderer's anchor removed (DI-3): `<a id="X"></a>` at its
+ * start, X the section id or its qualified anchor, then `<br>` as line
+ * breaks (SOM §11.2). */
+std::string titleWithoutAnchor(const std::string& raw, const std::string& id,
+                               const std::string& anchor) {
+  std::string t = raw;
+  for (const std::string* a : {&id, &anchor}) {
+    const std::string tag = "<a id=\"" + *a + "\"></a>";
+    if (t.compare(0, tag.size(), tag) == 0) {
+      std::size_t p = tag.size();
+      while (p < t.size() && isWs(t[p])) {
+        p++;
+      }
+      t = t.substr(p);
+      break;
+    }
+  }
+  return replaceAllStr(t, "<br>", "\n");
+}
+
+/* One table read off body lines: its header cells, the body rows with their
+ * line indexes, and the index after it. */
+struct MdTable {
+  std::vector<std::string> header;
+  std::vector<std::pair<std::size_t, std::vector<std::string>>> rows;
+  std::size_t end = 0;
 };
 
 class MdParser {
@@ -1337,6 +1646,45 @@ class MdParser {
   std::vector<MdListState> lists_;  // first-seen order
   std::vector<MdFrame> stack_;
   int currentFormIdx_ = 0;
+  // The fields given so far per form path, for the given-twice rule.
+  std::map<std::string, std::set<std::string>> given_;
+
+  const MdListState* findListState(const std::string& listPath) const {
+    for (const auto& s : lists_) {
+      if (s.listPath == listPath) {
+        return &s;
+      }
+    }
+    return nullptr;
+  }
+
+  /* The 1-based source line of `frame`'s body line `i`. */
+  static std::size_t bodyLine(const MdFrame& frame, std::size_t i) {
+    return frame.line + 1 + i;
+  }
+
+  MdTable readTable(const std::vector<std::string>& lines, std::size_t start,
+                    const std::function<std::size_t(std::size_t)>& lineOf,
+                    const std::string& anchor);
+  bool givenTwice(const std::string& formPath, const std::string& field,
+                  std::size_t line);
+  void stageRow(const std::string& formPath,
+                const std::vector<SomFormFieldMeta>& fields,
+                const std::string& label, const std::string& cell,
+                std::size_t line);
+  void extractSectionTables(MdFrame& frame, const SomMetaNode& node);
+  bool sectionTableTarget(const MdFrame& frame, const SomMetaNode& node,
+                          const std::string& section, std::string* formPath,
+                          std::vector<SomFormFieldMeta>* fields);
+  void finalizeListBody(MdFrame& frame, const SomMetaNode& listNode);
+  void stageReferenceLine(const MdFrame& frame, const SomMetaNode& listNode,
+                          const std::vector<std::string>& inner,
+                          std::size_t at);
+  void stageRecordTable(const MdFrame& frame, const SomMetaNode& listNode,
+                        const std::vector<std::string>& inner, std::size_t at);
+  void itemIdentity(const SomMetaNode& listNode, const std::string& id,
+                    long long* n, std::string* storedId, bool* hasN) const;
+  bool isCopyNode(const SomMetaNode& n) const;
 
   void pushRejection(std::size_t line, const std::string& reason,
                      const std::string& message, const std::string& anchor) {
@@ -1382,11 +1730,12 @@ class MdParser {
   void finalizeFrame(MdFrame& frame);
   void finalizeTop();
   void closeTo(int level);
-  void openItem(int level, const std::string& listPath,
-                const SomMetaNode& listNode, long long n,
-                const std::string& storedId, bool hasN,
-                const std::string& title, const std::string& codeSpec,
-                const std::string& units, std::size_t line);
+  std::string openItem(int level, const std::string& listPath,
+                       const SomMetaNode& listNode, long long n,
+                       const std::string& storedId, bool hasN,
+                       const std::string& title, const std::string& codeSpec,
+                       const std::string& units, std::size_t line,
+                       bool push = true);
   void openItemHeading(int level, const std::string& listPath,
                        const SomMetaNode& listNode, const std::string& id,
                        const std::string& title, const std::string& codeSpec,
@@ -1410,12 +1759,95 @@ std::string restoreValue(const std::vector<std::string>& body) {
     }
     if (!fence.inFence() && matchEscapedHeading(line)) {
       b.append(line, 1, std::string::npos);
+    } else if (!fence.inFence() && matchHeaderShaped(line, 1)) {
+      b.append(line, 1, std::string::npos);  // DI-2: the emitter's escape space
     } else {
       b += line;
     }
     fence.feed(line);
   }
   return stripBlankLines(b);
+}
+
+/* ---- layout tables (SOM §11.4, §11.5) ------------------------------------ */
+
+/* The cells of a table row: split on every `|` not preceded by a backslash,
+ * the outer pipes dropped, each cell trimmed; `\|` stays in the cell. */
+std::vector<std::string> rowCells(const std::string& line) {
+  std::string t = trimSpace(line);
+  if (!t.empty() && t[0] == '|') {
+    t = t.substr(1);
+  }
+  if (!t.empty() && t.back() == '|' &&
+      !(t.size() >= 2 && t[t.size() - 2] == '\\')) {
+    t.pop_back();
+  }
+  std::vector<std::string> cells;
+  std::string b;
+  for (std::size_t i = 0; i < t.size(); i++) {
+    char c = t[i];
+    if (c == '\\' && i + 1 < t.size() && t[i + 1] == '|') {
+      b += "\\|";
+      i++;
+    } else if (c == '|') {
+      cells.push_back(trimSpace(b));
+      b.clear();
+    } else {
+      b.push_back(c);
+    }
+  }
+  cells.push_back(trimSpace(b));
+  return cells;
+}
+
+std::string decodeCodeSpan(const std::string& value);
+
+/* A cell's value for field `f`: `\|` unescaped, a reference field's links read
+ * as their link texts, a `code` field's code span decoded. */
+std::string cellValue(const std::string& cell, const SomFormFieldMeta& f) {
+  std::string text = replaceAllStr(cell, "\\|", "|");
+  std::vector<std::string> texts;
+  if (!f.refersTo.empty() && !f.code && matchLinkCell(text, &texts)) {
+    std::string out;
+    for (std::size_t i = 0; i < texts.size(); i++) {
+      if (i > 0) out += ", ";
+      out += texts[i];
+    }
+    return out;
+  }
+  return f.code ? decodeCodeSpan(text) : text;
+}
+
+/* A cell's id with the renderer's anchor (`<a id="X"></a>X`) removed, and a
+ * link the cell is read as its text (`[X](<file>#X)`, SOM §11.5). */
+std::string cellId(const std::string& cell) {
+  std::string id = cell;
+  if (id.compare(0, 7, "<a id=\"") == 0) {
+    std::size_t q = id.find('"', 7);
+    if (q != std::string::npos && id.compare(q + 1, 5, "></a>") == 0) {
+      std::size_t p = q + 6;
+      while (p < id.size() && isWs(id[p])) {
+        p++;
+      }
+      id = id.substr(p);
+    }
+  }
+  // `^\[([^\]]+)\]\([^)\s]*\)$`
+  if (!id.empty() && id[0] == '[') {
+    std::size_t close = id.find(']');
+    if (close != std::string::npos && close > 1 && close + 1 < id.size() &&
+        id[close + 1] == '(' && id.back() == ')') {
+      bool clean = true;
+      for (std::size_t k = close + 2; k + 1 < id.size(); k++) {
+        if (id[k] == ')' || isWs(id[k])) {
+          clean = false;
+          break;
+        }
+      }
+      if (clean) return id.substr(1, close - 1);
+    }
+  }
+  return id;
 }
 
 /* The inverse of the emitter's code span (SOM §11.4 rule 8): a single-line
@@ -1466,58 +1898,89 @@ const SomFormFieldMeta* formFieldCi(const SomMetaNode& node,
   return nullptr;
 }
 
-/* Parses an id-bearing `@Form` section's body: the preamble text before the
- * first field label binds to the form's own content (SOM §11.4 rule 7);
- * everything from the first label on binds to the named fields. */
+/* Parses an id-bearing `@Form` section's body: `FieldName:` paragraphs and
+ * form-table rows bind to the named fields wherever they stand (SOM §11.4);
+ * the text that belongs to no field — before the first field, or after a
+ * table — is the form's preamble, its own content (rule 7). */
 void MdParser::finalizeForm(MdFrame& frame, const SomMetaNode& node,
                             const std::string& path) {
+  static const std::vector<SomFormFieldMeta> kNone;
+  const std::vector<SomFormFieldMeta>& declared =
+      node.form.has_value() ? node.form->fields : kNone;
   SpecMarkdownFenceTracker fence;
-  const std::string* currentField = nullptr;
-  bool currentCode = false;
-  bool haveField = false;
+  const SomFormFieldMeta* currentField = nullptr;
+  bool discard = false;
   std::vector<std::string> current;
+  // The preamble's parts: the text before the first field, and text a table
+  // interrupts; joined by one blank line.
+  std::vector<std::vector<std::string>> preambleParts(1);
 
-  auto flush = [&](std::size_t lineNo) {
-    (void)lineNo;
-    std::string value = restoreValue(current);
-    if (haveField && currentCode) {
-      value = decodeCodeSpan(value);
-    }
-    if (haveField) {
-      if (!value.empty()) {
-        stagedSetForm(path, *currentField, value);
+  auto flush = [&]() {
+    if (currentField != nullptr && !discard) {
+      std::string value = restoreValue(current);
+      if (currentField->code) {
+        value = decodeCodeSpan(value);
       }
-    } else if (!value.empty()) {
-      stagedSetContent(path, value);
+      if (!value.empty()) {
+        stagedSetForm(path, currentField->name, value);
+      }
     }
     current.clear();
+    discard = false;
   };
 
   for (std::size_t i = 0; i < frame.body.size(); i++) {
     const std::string& line = frame.body[i];
     if (!fence.inFence()) {
+      bool isSection = false;
+      if (matchLayoutTableHeader(line, &isSection) && !isSection) {
+        flush();
+        currentField = nullptr;
+        preambleParts.emplace_back();
+        MdTable table = readTable(
+            frame.body, i,
+            [&frame](std::size_t k) { return bodyLine(frame, k); }, path);
+        for (const auto& row : table.rows) {
+          stageRow(path, declared, row.second[0], row.second[1],
+                   bodyLine(frame, row.first));
+        }
+        i = table.end - 1;
+        continue;
+      }
       std::string label, value;
       if (matchFieldLabel(line, &label, &value)) {
         const SomFormFieldMeta* field = formFieldCi(node, label);
         if (field != nullptr) {
-          flush(frame.line + i);
-          haveField = true;
-          currentField = &field->name;
-          currentCode = field->code;
+          flush();
+          currentField = field;
+          discard = givenTwice(path, field->name, bodyLine(frame, i));
           current.push_back(value);
           fence.feed(line);
           continue;
         }
       }
     }
+    // Continuation: strip the one escape space of a label-shaped line.
+    std::vector<std::string>& target =
+        currentField == nullptr ? preambleParts.back() : current;
     if (!fence.inFence() && matchContinuationLabel(line)) {
-      current.push_back(line.substr(1));
+      target.push_back(line.substr(1));
     } else {
-      current.push_back(line);
+      target.push_back(line);
     }
     fence.feed(line);
   }
-  flush(frame.line + frame.body.size());
+  flush();
+  std::string preamble;
+  for (const auto& part : preambleParts) {
+    std::string v = restoreValue(part);
+    if (v.empty()) continue;
+    if (!preamble.empty()) preamble += "\n\n";
+    preamble += v;
+  }
+  if (!preamble.empty()) {
+    stagedSetContent(path, preamble);
+  }
 }
 
 /* A slot marker line (SOM §11.6): exactly `<!-- slot: <rel> -->`, `<rel>` a
@@ -1587,11 +2050,12 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
   bool currentCode = false;
   std::string currentFormPath;
   bool haveField = false;
+  bool discard = false;
   std::vector<std::string> current;
   currentFormIdx_ = 0;
 
   auto flush = [&]() {
-    if (haveField) {
+    if (haveField && !discard) {
       std::string v = restoreValue(current);
       if (currentCode) {
         v = decodeCodeSpan(v);
@@ -1601,6 +2065,28 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
       }
     }
     current.clear();
+    discard = false;
+  };
+
+  // The nearest form at or after the last hit (wrapping) declaring `label`.
+  auto findField = [&](const std::string& label, int* idx) {
+    const SomFormFieldMeta* found = nullptr;
+    std::string lower = lowerDup(label);
+    for (std::size_t k = 0; k < forms.size() && found == nullptr; k++) {
+      std::size_t at = ((std::size_t)currentFormIdx_ + k) % forms.size();
+      const SomMetaNode* fn = forms[at].node;
+      if (!fn->form.has_value()) {
+        continue;
+      }
+      for (const auto& f : fn->form->fields) {
+        if (lowerDup(f.name) == lower) {
+          *idx = (int)at;
+          found = &f;
+          break;
+        }
+      }
+    }
+    return found;
   };
 
   for (std::size_t i = 0; i < frame.body.size(); i++) {
@@ -1634,35 +2120,49 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
           continue;
         }
       }
+      bool isSection = false;
+      if (!forms.empty() && matchLayoutTableHeader(line, &isSection) &&
+          !isSection) {
+        // A form table ends the open field (SOM §11.4); its rows bind like
+        // `Field:` labels, each to the nearest form declaring it.
+        flush();
+        haveField = false;
+        currentField = nullptr;
+        currentFormPath.clear();
+        MdTable table = readTable(
+            frame.body, i,
+            [&frame](std::size_t k) { return bodyLine(frame, k); }, frame.path);
+        for (const auto& row : table.rows) {
+          int idx = -1;
+          const SomFormFieldMeta* hit = findField(row.second[0], &idx);
+          if (hit == nullptr) {
+            pushRejection(bodyLine(frame, row.first),
+                          kSpecMarkdownRejectUnknownField,
+                          "row \"" + row.second[0] +
+                              "\" names no field of this form",
+                          frame.path);
+            continue;
+          }
+          currentFormIdx_ = idx;
+          stageRow(specPathJoin(frame.path, forms[idx].rel), {*hit},
+                   row.second[0], row.second[1], bodyLine(frame, row.first));
+        }
+        i = table.end - 1;
+        continue;
+      }
       std::string label, value;
       if (!forms.empty() && matchFieldLabel(line, &label, &value)) {
         int foundIdx = -1;
-        const SomFormFieldMeta* found = nullptr;
-        std::string lower = lowerDup(label);
-        for (std::size_t k = 0; k < forms.size(); k++) {
-          std::size_t idx = ((std::size_t)currentFormIdx_ + k) % forms.size();
-          const SomMetaNode* fn = forms[idx].node;
-          if (!fn->form.has_value()) {
-            continue;
-          }
-          for (const auto& f : fn->form->fields) {
-            if (lowerDup(f.name) == lower) {
-              foundIdx = (int)idx;
-              found = &f;
-              break;
-            }
-          }
-          if (foundIdx >= 0) {
-            break;
-          }
-        }
-        if (foundIdx >= 0) {
+        const SomFormFieldMeta* found = findField(label, &foundIdx);
+        if (found != nullptr) {
           flush();
           currentFormIdx_ = foundIdx;
           haveField = true;
           currentField = &found->name;
           currentCode = found->code;
           currentFormPath = specPathJoin(frame.path, forms[foundIdx].rel);
+          discard = givenTwice(currentFormPath, *currentField,
+                               bodyLine(frame, i));
           current.push_back(value);
           fence.feed(line);
           continue;
@@ -1701,6 +2201,460 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
   }
 }
 
+/* ---- layout tables (SOM §11.4, §11.5) ------------------------------------ */
+
+/* Reads the table whose header is `lines[start]`; a broken delimiter row or a
+ * row of another cell count is a malformedBlock. */
+MdTable MdParser::readTable(
+    const std::vector<std::string>& lines, std::size_t start,
+    const std::function<std::size_t(std::size_t)>& lineOf,
+    const std::string& anchor) {
+  MdTable t;
+  t.end = start + 1;
+  while (t.end < lines.size() && matchTableLine(lines[t.end])) {
+    t.end++;
+  }
+  t.header = rowCells(lines[start]);
+  bool isDelimiter = false;
+  std::vector<std::string> delimiter;
+  if (start + 1 < t.end) {
+    delimiter = rowCells(lines[start + 1]);
+    isDelimiter = true;
+    for (const auto& c : delimiter) {
+      if (!matchDelimiterCell(c)) {
+        isDelimiter = false;
+        break;
+      }
+    }
+  }
+  if (!isDelimiter || delimiter.size() != t.header.size()) {
+    pushRejection(lineOf(start), kSpecMarkdownRejectMalformedBlock,
+                  !isDelimiter
+                      ? "table without its delimiter row"
+                      : "table whose delimiter row does not match its header",
+                  anchor);
+    return t;
+  }
+  for (std::size_t i = start + 2; i < t.end; i++) {
+    std::vector<std::string> cells = rowCells(lines[i]);
+    if (cells.size() != t.header.size()) {
+      pushRejection(lineOf(i), kSpecMarkdownRejectMalformedBlock,
+                    "table row with " + formatI64((long long)cells.size()) +
+                        " cells, the header has " +
+                        formatI64((long long)t.header.size()),
+                    anchor);
+      continue;
+    }
+    t.rows.emplace_back(i, std::move(cells));
+  }
+  return t;
+}
+
+/* Whether `field` of the form at `formPath` was given before; reports the
+ * repeat (malformedBlock, the first occurrence kept) when it was. */
+bool MdParser::givenTwice(const std::string& formPath, const std::string& field,
+                          std::size_t line) {
+  std::set<std::string>& given = given_[formPath];
+  if (given.insert(field).second) {
+    return false;
+  }
+  pushRejection(line, kSpecMarkdownRejectMalformedBlock,
+                "field \"" + field + "\" given twice", formPath);
+  return true;
+}
+
+/* Stages one row of a form table (or a section table). */
+void MdParser::stageRow(const std::string& formPath,
+                        const std::vector<SomFormFieldMeta>& fields,
+                        const std::string& label, const std::string& cell,
+                        std::size_t line) {
+  const std::string lower = lowerDup(label);
+  const SomFormFieldMeta* f = nullptr;
+  for (const auto& x : fields) {
+    if (lowerDup(x.name) == lower) {
+      f = &x;
+      break;
+    }
+  }
+  if (f == nullptr) {
+    pushRejection(line, kSpecMarkdownRejectUnknownField,
+                  "row \"" + label + "\" names no field of this form",
+                  formPath);
+    return;
+  }
+  std::string value = cellValue(cell, *f);
+  if (value.empty()) return;
+  if (givenTwice(formPath, f->name, line)) return;
+  stagedSetForm(formPath, f->name, value);
+}
+
+/* Reads and removes every section table of `frame`'s body (SOM §11.5). */
+void MdParser::extractSectionTables(MdFrame& frame, const SomMetaNode& node) {
+  std::vector<std::string>& body = frame.body;
+  SpecMarkdownFenceTracker fence;
+  for (std::size_t i = 0; i < body.size(); i++) {
+    const std::string line = body[i];
+    bool isSection = false;
+    if (fence.inFence() || !matchLayoutTableHeader(line, &isSection) ||
+        !isSection) {
+      fence.feed(line);
+      continue;
+    }
+    MdTable table = readTable(
+        body, i, [&frame](std::size_t k) { return bodyLine(frame, k); },
+        frame.path);
+    std::string formPath;
+    bool haveTarget = false;
+    std::vector<SomFormFieldMeta> fields;
+    bool skip = false;
+    for (const auto& row : table.rows) {
+      const std::vector<std::string>& cells = row.second;
+      const std::size_t lineNo = bodyLine(frame, row.first);
+      const std::string section = cellId(cells[0]);
+      if (section.empty() && skip) continue;
+      if (!section.empty()) {
+        haveTarget =
+            sectionTableTarget(frame, node, section, &formPath, &fields);
+        skip = !haveTarget;
+        if (!haveTarget) {
+          pushRejection(lineNo, kSpecMarkdownRejectUnknownSection,
+                        "section-table row names no child section of \"" +
+                            frame.path + "\"",
+                        section);
+          continue;
+        }
+      } else if (!haveTarget) {
+        pushRejection(lineNo, kSpecMarkdownRejectUnknownSection,
+                      "section-table row names no section", frame.path);
+        continue;
+      }
+      if (skip) continue;
+      stageRow(formPath, fields, cells[1], cells[2], lineNo);
+    }
+    for (std::size_t k = i; k < table.end; k++) {
+      body[k].clear();
+    }
+    i = table.end - 1;
+  }
+}
+
+/* The item class's own form (its class-level `@Form`, a transparent body
+ * slot), or nullptr when the class carries none or more than one. */
+const NodeRel* itemForm(MdCodec& c, const SomMetaNode& element,
+                        std::vector<NodeRel>* slots) {
+  *slots = bodySlots(c, element);
+  const NodeRel* form = nullptr;
+  for (const auto& s : *slots) {
+    if (kindEq(s.node->kind, kSomMetaKindForm)) {
+      if (form != nullptr) return nullptr;
+      form = &s;
+    }
+  }
+  return form;
+}
+
+/* The form a section-table `Section` cell names under `node`. */
+bool MdParser::sectionTableTarget(const MdFrame& frame, const SomMetaNode& node,
+                                  const std::string& section,
+                                  std::string* formPath,
+                                  std::vector<SomFormFieldMeta>* fields) {
+  // `section.split(/\s*\/\s*/)`
+  std::vector<std::string> parts;
+  {
+    std::string b;
+    for (char ch : section) {
+      if (ch == '/') {
+        parts.push_back(trimSpace(b));
+        b.clear();
+      } else {
+        b.push_back(ch);
+      }
+    }
+    parts.push_back(trimSpace(b));
+  }
+  for (const auto& nr : effectiveChildren(codec_, node)) {
+    const SomMetaNode& child = *nr.node;
+    const std::string childId = headingIdOf(codec_, child);
+    if (parts.size() == 1 && kindEq(child.kind, kSomMetaKindForm) &&
+        childId == section) {
+      *formPath = specPathJoin(frame.path, nr.rel);
+      *fields = child.form.has_value() ? child.form->fields
+                                       : std::vector<SomFormFieldMeta>{};
+      return true;
+    }
+    if (parts.size() == 2 && kindEq(child.kind, kSomMetaKindList) &&
+        childId == parts[0]) {
+      const SomMetaNode* element = child.elementNode.get();
+      std::vector<NodeRel> slots;
+      const NodeRel* form =
+          element != nullptr ? itemForm(codec_, *element, &slots) : nullptr;
+      if (form == nullptr) return false;
+      long long n = 0;
+      std::string storedId;
+      bool hasN = false;
+      itemIdentity(child, parts[1], &n, &storedId, &hasN);
+      const std::string listPath = specPathJoin(frame.path, nr.rel);
+      std::string itemPath;
+      if (const MdListState* state = findListState(listPath)) {
+        for (const auto& p : state->items) {
+          std::string key = p.substr(listPath.size() + 1);
+          for (const auto& kv : state->ids) {
+            if (kv.first == p) {
+              key = kv.second;
+              break;
+            }
+          }
+          if (key == parts[1]) {
+            itemPath = p;
+            break;
+          }
+        }
+      }
+      if (itemPath.empty()) {
+        itemPath = openItem(0, listPath, child, n, storedId, hasN, "", "", "",
+                            frame.line, false);
+      }
+      *formPath = specPathJoin(itemPath, form->rel);
+      *fields = form->node->form.has_value() ? form->node->form->fields
+                                             : std::vector<SomFormFieldMeta>{};
+      return true;
+    }
+  }
+  return false;
+}
+
+/* ---- list bodies: `refs` and `records` (SOM §11.5) ----------------------- */
+
+/* A list container's body: one `refs` or `records` div stands for its
+ * items. */
+void MdParser::finalizeListBody(MdFrame& frame, const SomMetaNode& listNode) {
+  std::vector<std::string>& body = frame.body;
+  SpecMarkdownFenceTracker fence;
+  for (std::size_t i = 0; i < body.size(); i++) {
+    const std::string line = body[i];
+    std::string kind;
+    if (fence.inFence() || !matchListDivOpen(line, &kind)) {
+      fence.feed(line);
+      continue;
+    }
+    std::size_t close = std::string::npos;
+    for (std::size_t k = i + 1; k < body.size(); k++) {
+      if (matchDivCloseLine(body[k])) {
+        close = k;
+        break;
+      }
+    }
+    if (close == std::string::npos) {
+      // The fence's lines read as text.
+      pushRejection(bodyLine(frame, i), kSpecMarkdownRejectMalformedBlock,
+                    "unclosed " + kind + " fence", frame.path);
+      return;
+    }
+    bool besideText = false;
+    for (std::size_t k = 0; k < body.size(); k++) {
+      if ((k < i || k > close) && !trimSpace(body[k]).empty()) {
+        besideText = true;
+      }
+    }
+    const MdListState* state = findListState(frame.path);
+    const bool hasItems = state != nullptr && !state->items.empty();
+    if (besideText || hasItems) {
+      pushRejection(bodyLine(frame, i), kSpecMarkdownRejectMalformedBlock,
+                    "a " + kind + " div beside " +
+                        (hasItems ? "item headings" : "other text") +
+                        " in a list container",
+                    frame.path);
+      for (std::size_t k = i; k <= close; k++) body[k].clear();
+      return;
+    }
+    std::vector<std::string> inner(body.begin() + i + 1, body.begin() + close);
+    if (kind == "refs") {
+      stageReferenceLine(frame, listNode, inner, i);
+    } else {
+      stageRecordTable(frame, listNode, inner, i);
+    }
+    for (std::size_t k = i; k <= close; k++) body[k].clear();
+    return;
+  }
+}
+
+/* The reference field of `element`'s items, with the rel of its form. */
+bool referenceField(MdCodec& c, const SomMetaNode& element, std::string* rel,
+                    const SomFormFieldMeta** field) {
+  auto isRef = [](const SomMetaNode& n) {
+    if (!kindEq(n.kind, kSomMetaKindForm) || !n.form.has_value() ||
+        n.form->fields.size() != 1 || n.form->fields[0].refersTo.empty()) {
+      return false;
+    }
+    for (const auto& e : n.extra) {
+      if (e.annotation == "Reference") return true;
+    }
+    return false;
+  };
+  for (const auto& s : bodySlots(c, element)) {
+    if (isRef(*s.node)) {
+      *rel = s.rel;
+      *field = &s.node->form->fields[0];
+      return true;
+    }
+  }
+  for (const auto& s : effectiveChildren(c, element)) {
+    if (isRef(*s.node)) {
+      *rel = s.rel;
+      *field = &s.node->form->fields[0];
+      return true;
+    }
+  }
+  return false;
+}
+
+/* A `refs` div: ids split on commas and whitespace, links read as their
+ * texts. */
+void MdParser::stageReferenceLine(const MdFrame& frame,
+                                  const SomMetaNode& listNode,
+                                  const std::vector<std::string>& inner,
+                                  std::size_t at) {
+  const SomMetaNode* element = listNode.elementNode.get();
+  std::string rel;
+  const SomFormFieldMeta* field = nullptr;
+  if (element == nullptr || !referenceField(codec_, *element, &rel, &field)) {
+    pushRejection(bodyLine(frame, at), kSpecMarkdownRejectMalformedBlock,
+                  "a refs div in a list whose items are not references",
+                  frame.path);
+    return;
+  }
+  std::vector<std::string> ids;
+  {
+    std::string joined;
+    for (std::size_t k = 0; k < inner.size(); k++) {
+      if (k > 0) joined.push_back(' ');
+      joined += inner[k];
+    }
+    std::string b;
+    auto take = [&]() {
+      if (b.empty()) return;
+      std::string text;
+      ids.push_back(findLinkText(b, &text) ? text : b);
+      b.clear();
+    };
+    for (char ch : joined) {
+      if (ch == ',' || isWs(ch)) {
+        take();
+      } else {
+        b.push_back(ch);
+      }
+    }
+    take();
+  }
+  if (ids.empty()) {
+    pushRejection(bodyLine(frame, at), kSpecMarkdownRejectMissingValue,
+                  "an empty refs div", frame.path);
+    return;
+  }
+  std::string pattern = listNode.sectionIdPattern;
+  if (pattern.empty() && element != nullptr) {
+    pattern = element->sectionIdPattern;
+  }
+  const std::string member =
+      !listNode.memberName.empty() ? listNode.memberName : listNode.segment();
+  for (std::size_t n = 1; n <= ids.size(); n++) {
+    const std::string positional =
+        effectiveListItemSectionId(nullptr, pattern, (long long)n, member);
+    long long number = 0;
+    std::string storedId;
+    bool hasN = false;
+    itemIdentity(listNode, positional, &number, &storedId, &hasN);
+    const std::string itemPath = openItem(0, frame.path, listNode, number,
+                                          storedId, hasN, "", "", "",
+                                          frame.line, false);
+    const std::string formPath =
+        rel == "." ? itemPath : specPathJoin(itemPath, rel);
+    stagedSetForm(formPath, field->name, ids[n - 1]);
+  }
+}
+
+/* A `records` div: one table, `Id` first, `Title` optionally second. */
+void MdParser::stageRecordTable(const MdFrame& frame,
+                                const SomMetaNode& listNode,
+                                const std::vector<std::string>& inner,
+                                std::size_t at) {
+  auto lineOf = [&frame, at](std::size_t k) {
+    return bodyLine(frame, at + 1 + k);
+  };
+  auto reject = [&](const std::string& message) {
+    pushRejection(bodyLine(frame, at), kSpecMarkdownRejectMalformedBlock,
+                  message, frame.path);
+  };
+  std::size_t start = 0;
+  while (start < inner.size() && trimSpace(inner[start]).empty()) {
+    start++;
+  }
+  if (start >= inner.size() || !matchTableLine(inner[start])) {
+    reject("a records div holding no table");
+    return;
+  }
+  const std::vector<std::string> header = rowCells(inner[start]);
+  if (header[0] != "Id") {
+    reject("a records table whose first column is not Id");
+    return;
+  }
+  const SomMetaNode* element = listNode.elementNode.get();
+  std::vector<NodeRel> slots;
+  const NodeRel* form =
+      element != nullptr ? itemForm(codec_, *element, &slots) : nullptr;
+  if (form == nullptr) {
+    reject("a records div in a list whose items have no single form");
+    return;
+  }
+  static const std::vector<SomFormFieldMeta> kNone;
+  const std::vector<SomFormFieldMeta>& fields =
+      form->node->form.has_value() ? form->node->form->fields : kNone;
+  const bool withTitle = header.size() > 1 && header[1] == "Title";
+  std::vector<const SomFormFieldMeta*> columns;
+  for (std::size_t h = withTitle ? 2 : 1; h < header.size(); h++) {
+    const std::string lower = lowerDup(header[h]);
+    const SomFormFieldMeta* f = nullptr;
+    for (const auto& x : fields) {
+      if (lowerDup(x.name) == lower) {
+        f = &x;
+        break;
+      }
+    }
+    if (f == nullptr) {
+      // The table is skipped whole.
+      pushRejection(lineOf(start), kSpecMarkdownRejectUnknownField,
+                    "records column \"" + header[h] +
+                        "\" names no field of the items",
+                    frame.path);
+      return;
+    }
+    columns.push_back(f);
+  }
+  MdTable table = readTable(inner, start, lineOf, frame.path);
+  for (const auto& row : table.rows) {
+    const std::vector<std::string>& cells = row.second;
+    long long n = 0;
+    std::string storedId;
+    bool hasN = false;
+    itemIdentity(listNode, cellId(cells[0]), &n, &storedId, &hasN);
+    const std::string title =
+        withTitle ? replaceAllStr(replaceAllStr(cells[1], "\\|", "|"), "<br>",
+                                  "\n")
+                  : std::string();
+    // openItem stages a title that differs from the `<stem> <n>` default.
+    const std::string itemPath = openItem(0, frame.path, listNode, n, storedId,
+                                          hasN, title, "", "",
+                                          lineOf(row.first), false);
+    const std::string formPath = specPathJoin(itemPath, form->rel);
+    for (std::size_t c = 0; c < columns.size(); c++) {
+      std::string value =
+          cellValue(cells[(withTitle ? 2 : 1) + c], *columns[c]);
+      if (value.empty()) continue;
+      stagedSetForm(formPath, columns[c]->name, value);
+    }
+  }
+}
+
 void MdParser::finalizeFrame(MdFrame& frame) {
   if (frame.ignored) {
     return;
@@ -1709,6 +2663,12 @@ void MdParser::finalizeFrame(MdFrame& frame) {
   if (node != nullptr && kindEq(node->kind, kSomMetaKindForm)) {
     finalizeForm(frame, *node, frame.path);
     return;
+  }
+  if (node != nullptr && kindEq(node->kind, kSomMetaKindList)) {
+    finalizeListBody(frame, *node);
+  } else if (node != nullptr && (kindEq(node->kind, kSomMetaKindSection) ||
+                                 kindEq(node->kind, kSomMetaKindComplex))) {
+    extractSectionTables(frame, *node);
   }
   std::vector<NodeRel> slots;
   if (node != nullptr) {
@@ -1738,11 +2698,13 @@ void MdParser::closeTo(int level) {
   }
 }
 
-void MdParser::openItem(int level, const std::string& listPath,
-                        const SomMetaNode& listNode, long long n,
-                        const std::string& storedId, bool hasN,
-                        const std::string& title, const std::string& codeSpec,
-                        const std::string& units, std::size_t line) {
+std::string MdParser::openItem(int level, const std::string& listPath,
+                               const SomMetaNode& listNode, long long n,
+                               const std::string& storedId, bool hasN,
+                               const std::string& title,
+                               const std::string& codeSpec,
+                               const std::string& units, std::size_t line,
+                               bool push) {
   MdListState& state = listState(listPath);
   long long number = n;
   if (!hasN) {
@@ -1774,65 +2736,16 @@ void MdParser::openItem(int level, const std::string& listPath,
   if (!units.empty()) {
     staged_.units[itemPath] = units;
   }
-  MdFrame f;
-  f.level = level;
-  f.node = listNode.elementNode.get();
-  f.path = itemPath;
-  f.line = line;
-  f.ignored = false;
-  stack_.push_back(std::move(f));
-}
-
-/* mdPatternMatches: pattern with "xxx" wildcard → `.+`. */
-bool patternMatches(const std::string& pattern, const std::string& id) {
-  std::size_t xxx = pattern.find("xxx");
-  if (xxx == std::string::npos) {
-    return pattern == id;
+  if (push) {
+    MdFrame f;
+    f.level = level;
+    f.node = listNode.elementNode.get();
+    f.path = itemPath;
+    f.line = line;
+    f.ignored = false;
+    stack_.push_back(std::move(f));
   }
-  std::size_t pp;   // index into pattern
-  std::size_t ip;   // index into id
-  std::size_t firstLen = xxx;
-  if (id.size() < firstLen || id.compare(0, firstLen, pattern, 0, firstLen) != 0) {
-    return false;
-  }
-  ip = firstLen;
-  pp = xxx + 3;
-  for (;;) {
-    std::size_t next = pattern.find("xxx", pp);
-    if (next == std::string::npos) {
-      break;
-    }
-    std::size_t plen = next - pp;
-    if (plen == 0) {
-      if (ip >= id.size()) {
-        return false;
-      }
-      ip += 1;
-      pp = next + 3;
-      continue;
-    }
-    std::size_t hit = std::string::npos;
-    for (std::size_t q = ip + 1; q + plen <= id.size(); q++) {
-      if (id.compare(q, plen, pattern, pp, plen) == 0) {
-        hit = q;
-        break;
-      }
-    }
-    if (hit == std::string::npos) {
-      return false;
-    }
-    ip = hit + plen;
-    pp = next + 3;
-  }
-  std::size_t lastLen = pattern.size() - pp;
-  std::size_t rem = id.size() - ip;
-  if (lastLen == 0) {
-    return rem >= 1;  // `.+$`
-  }
-  if (rem < lastLen + 1) {
-    return false;
-  }
-  return id.compare(id.size() - lastLen, lastLen, pattern, pp, lastLen) == 0;
+  return itemPath;
 }
 
 /* Anonymous member id: `^<member>-([0-9]+)$`. */
@@ -1905,12 +2818,31 @@ void MdParser::openItemHeading(int level, const std::string& listPath,
                                const std::string& id, const std::string& title,
                                const std::string& codeSpec,
                                const std::string& units, std::size_t line) {
+  long long n = 0;
+  std::string storedId;
+  bool hasN = false;
+  itemIdentity(listNode, id, &n, &storedId, &hasN);
+  openItem(level, listPath, listNode, n, storedId, hasN, title, codeSpec, units,
+           line);
+}
+
+// How an item `id` of `listNode` is read, as a heading's, a records row's or a
+// section-table row's: the item number it names (`*hasN`; else the next free
+// one) and the id it stores ("" for none). The `<member>-<n>` fallback id is
+// positional and stores nothing; the `@SectionIdPattern` resolved with a
+// number names item <n> and is stored, the section id being the item's
+// identity and the path only its position (SOM §11.6); any other id is the
+// next item, carrying it (YRD3).
+void MdParser::itemIdentity(const SomMetaNode& listNode, const std::string& id,
+                            long long* n, std::string* storedId,
+                            bool* hasN) const {
   std::string member =
       !listNode.memberName.empty() ? listNode.memberName : listNode.segment();
-  long long n = 0;
-  if (anonMemberMatch(member, id, &n)) {
-    openItem(level, listPath, listNode, n, "", true, title, codeSpec, units,
-             line);
+  *n = 0;
+  storedId->clear();
+  *hasN = false;
+  if (anonMemberMatch(member, id, n)) {
+    *hasN = true;
     return;
   }
   const SomMetaNode* element = listNode.elementNode.get();
@@ -1918,27 +2850,33 @@ void MdParser::openItemHeading(int level, const std::string& listPath,
   if (pattern.empty() && element != nullptr) {
     pattern = element->sectionIdPattern;
   }
-  if (!pattern.empty()) {
-    long long num = 0;
-    if (numberedPatternMatch(pattern, id, &num)) {
-      // The pattern with `xxx` as a number parses back as item <n> AND is
-      // stored: the section id is the item's identity and the path only its
-      // position, so an id that happens to equal the positional default must
-      // survive a later move or insert (SOM §11.6).
-      openItem(level, listPath, listNode, num, id, true, title, codeSpec,
-               units, line);
-      return;
-    }
-    if (patternMatches(pattern, id)) {
-      openItem(level, listPath, listNode, 0, id, false, title, codeSpec,
-               units, line);
-      return;
+  long long num = 0;
+  if (!pattern.empty() && numberedPatternMatch(pattern, id, &num)) {
+    *n = num;
+    *storedId = id;
+    *hasN = true;
+    return;
+  }
+  *storedId = id;
+}
+
+/* Whether `n` is a `@SameAs` copy (SOM §11.2): its anchor and its
+ * descendants' are qualified with the section above it. */
+bool MdParser::isCopyNode(const SomMetaNode& n) const {
+  if (n.memberName.empty() || n.parent == nullptr) {
+    return false;
+  }
+  const SpecClass* cls = codec_.model().classNamed(n.parent->className);
+  const SpecField* f = cls != nullptr ? cls->fieldNamed(n.memberName) : nullptr;
+  if (f == nullptr) {
+    return false;
+  }
+  for (const auto& a : f->annotations) {
+    if (a.name == "SameAs") {
+      return true;
     }
   }
-  // Any other id under the container is an anonymous next item carrying the
-  // stored id — stored ids round-trip through Markdown too (YRD3).
-  openItem(level, listPath, listNode, 0, id, false, title, codeSpec, units,
-           line);
+  return false;
 }
 
 void MdParser::openHeading(int level, const std::string& rest,
@@ -1954,8 +2892,11 @@ void MdParser::openHeading(int level, const std::string& rest,
     pushIgnoredFrame(level, line);
     return;
   }
-  // A `<br>` in a heading title is a stored line break (SOM §11.2).
-  title = replaceAllStr(title, "<br>", "\n");
+  // Reading view (DI-3): an anchor equal to the section id after the id
+  // comment, or to its qualified form (SOM §11.2), is the renderer's, not part
+  // of the title; a `<br>` in a heading title is a stored line break.
+  const std::string rawTitle = title;
+  title = titleWithoutAnchor(rawTitle, id, id);
   // codespecs_mapping.md §9.2: the codeSpec mapping parsed from the heading
   // comment's key=value region, "" when the heading carries no `codeSpec` key.
   std::string codeSpec = markdownCodeSpecOf(region);
@@ -1986,8 +2927,13 @@ void MdParser::openHeading(int level, const std::string& rest,
   // 1. Under a `-LST` container frame (SOM §11.2), every child heading is one of
   //    that list's items — resolved positionally, not by the schema tree.
   if (kindEq(pNode->kind, kSomMetaKindList)) {
-    openItemHeading(level, parentPath, *pNode, id, title, codeSpec, units,
+    auto q = qualifyAnchor(stack_.back().anchorScope,
+                           stack_.back().anchorSection, id, AnchorKind::kItem);
+    openItemHeading(level, parentPath, *pNode, id,
+                    titleWithoutAnchor(rawTitle, id, q.first), codeSpec, units,
                     line);
+    stack_.back().anchorScope = q.second;
+    stack_.back().anchorSection = id;
     return;
   }
 
@@ -2000,6 +2946,13 @@ void MdParser::openHeading(int level, const std::string& rest,
     const SomMetaNode* en = nr.node;
     if (headingIdOf(codec_, *en) == id) {
       std::string path = specPathJoin(parentPath, nr.rel);
+      const bool container = kindEq(en->kind, kSomMetaKindList);
+      auto q = qualifyAnchor(
+          stack_.back().anchorScope, stack_.back().anchorSection, id,
+          container ? AnchorKind::kContainer
+                    : (isCopyNode(*en) ? AnchorKind::kCopy : AnchorKind::kPlain));
+      std::optional<std::string> parentSection = stack_.back().anchorSection;
+      const std::string title = titleWithoutAnchor(rawTitle, id, q.first);
       // SOM §11.7: stage the heading text as a stored headline ONLY when it
       // differs from the derived default (byte-stability).
       if (!title.empty() && title != mdTitleOf(*en)) {
@@ -2020,6 +2973,8 @@ void MdParser::openHeading(int level, const std::string& rest,
       f.path = path;
       f.line = line;
       f.ignored = false;
+      f.anchorScope = q.second;
+      f.anchorSection = container ? parentSection : std::optional<std::string>(id);
       stack_.push_back(std::move(f));
       handled = true;
       break;
@@ -2076,6 +3031,7 @@ void MdParser::openRoot(int level, const std::string& id,
       f.path = seg;
       f.line = line;
       f.ignored = false;
+      f.anchorSection = seg;
       stack_.push_back(std::move(f));
       return;
     }
