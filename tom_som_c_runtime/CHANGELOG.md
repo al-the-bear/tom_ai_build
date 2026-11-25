@@ -2,6 +2,26 @@
 
 ## Unreleased
 
+- **The reading notation's scanner** (DocSpecs specification, Reading
+  Notation RN-1 to RN-13), the C port of Dart's `spec_notation.dart`:
+  `spec_notation.h` / `.c` with `spec_scan_notation`, `SpecNotationScan`,
+  `SpecNotationElement` (byte and UTF-16 offsets, nesting),
+  `SpecNotationFinding`, `SpecNotationFindingCode`, `spec_notation_severity`
+  and `SPEC_REGISTERED_NOTATION_KINDS`, and the corpus forms
+  (`spec_notation_scan_elements_json`, `spec_notation_scan_findings_json`).
+  The DocSpecs validator reports its nine findings as rules (`unclosedDiv`,
+  `strayClosingFence`, `unclosedSpan`, `divWithoutKind`, `unknownKind`,
+  `markAcrossNotation`, `annotationInsideDiv`, `divInsideAnnotation`,
+  `rejectedBlock`), one value per section's own body, and with the new
+  `tom_specs` mode (`docspecs_validator_new_with`) one per form field's value;
+  `validate_spec_document` validates in that mode, as Dart does. The
+  conformance runner reads both tables of `notation_cases.json`.
+- **`multiParagraph` in the form-field meta**: `SomFormFieldMeta.multi_paragraph`
+  (and `FormFieldSpec.multi_paragraph`) is read from the meta's
+  `multiParagraph` key and written by the bridge; the generated `tom_som_c_v0`
+  meta tree carries it. `som_meta_node_diff` compares a form field's `code`
+  and `multiParagraph` flags (`tests/spec_meta_diff_test.c`).
+
 - **Section order and unique id paths in the DocSpecs validator** (SOM §14,
   the DocSpecs specification's Validation Rules 3 and 5): two new rules,
   `sectionOutOfOrder` (the root's children follow `document: sections:`; a

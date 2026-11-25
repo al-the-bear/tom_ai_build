@@ -88,6 +88,10 @@ typedef struct {
                            * (`Field.code`): the markdown codec writes it as an
                            * inline code span and unwraps it on import (SOM
                            * §11.4 rule 8) */
+  int multi_paragraph;    /* whether the value may hold several paragraphs
+                           * (`Field.multiParagraph`): the reading view writes
+                           * it as a `Field:` block rather than a table cell
+                           * (SOM §11.4) */
 } SomFormFieldMeta;
 
 /* SomFormMeta is the form metadata of a @Form node (SOM §7.1 FormMeta). */

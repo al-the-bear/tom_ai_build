@@ -1907,6 +1907,22 @@ static void test_docspecs(Checker *c) {
     free(want_s);
   }
 
+  /* The reading notation's rules are exercised by notation_cases.json's
+   * validatorCases (run in test_notation), as the Dart runner counts them. */
+  SomJson *notation = read_json("notation_cases.json");
+  const SomJson *ncases = som_json_get(notation, "validatorCases");
+  for (size_t i = 0; i < som_json_array_len(ncases); i++) {
+    const SomJson *warr =
+        som_json_get(som_json_array_at(ncases, i), "violations");
+    for (size_t k = 0; k < som_json_array_len(warr); k++) {
+      const char *rule = som_json_str_or(som_json_array_at(warr, k), "rule");
+      for (size_t r = 0; r < DOCSPECS_ALL_RULES_COUNT; r++) {
+        if (strcmp(rule, DOCSPECS_ALL_RULES[r]) == 0) covered[r] = 1;
+      }
+    }
+  }
+  som_json_free(notation);
+
   SomBuf uncovered;
   som_buf_init(&uncovered);
   for (size_t r = 0; r < DOCSPECS_ALL_RULES_COUNT; r++) {
@@ -5379,6 +5395,122 @@ static char *json_canonical(const SomJson *v) {
   return som_buf_take(&b);
 }
 
+/* ---- the reading notation (notation_cases.json, RN-1 to RN-13) ---------- */
+
+/* `cases`: spec_scan_notation's elements (UTF-16 offsets, source / content,
+ * nesting) and findings, as canonical JSON against the corpus's. Then
+ * `validatorCases`: the DocSpecs validator's notation rules over whole
+ * documents, with and without `tomSpecs`. Hand-maintained in the corpus. */
+static void test_notation(Checker *c) {
+  SomJson *table = read_json("notation_cases.json");
+  const SomJson *cases = som_json_get(table, "cases");
+  size_t n = som_json_array_len(cases);
+  check(c, "notation.cases", n > 0, "no cases");
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *kase = som_json_array_at(cases, i);
+    const char *name = som_json_str_or(kase, "name");
+    SpecNotationScan scan;
+    spec_scan_notation(som_json_str_or(kase, "text"),
+                       som_json_bool_or(kase, "tomSpecs"), &scan);
+    char *parts[2] = {spec_notation_scan_elements_json(&scan),
+                      spec_notation_scan_findings_json(&scan)};
+    const char *keys[2] = {"elements", "findings"};
+    for (int p = 0; p < 2; p++) {
+      char *perr = NULL;
+      SomJson *got_json = som_json_parse(parts[p], &perr);
+      char *got = got_json != NULL ? json_canonical(got_json)
+                                   : som_strdup(perr != NULL ? perr : "?");
+      char *want = json_canonical(som_json_get(kase, keys[p]));
+      char tag[512], detail[8192];
+      snprintf(tag, sizeof(tag), "notation scan[%s].%s", name, keys[p]);
+      snprintf(detail, sizeof(detail), "%s != %s", got, want);
+      check(c, tag, strcmp(got, want) == 0, detail);
+      free(got);
+      free(want);
+      free(perr);
+      som_json_free(got_json);
+      free(parts[p]);
+    }
+    spec_notation_scan_free(&scan);
+  }
+
+  char *yaml = read_corpus("docspecs_schema.yaml");
+  DocSpecsSchema *schema = NULL;
+  char *serr = NULL;
+  if (!docspecs_schema_from_yaml_text(yaml, &schema, &serr)) {
+    fprintf(stderr, "docspecs schema: %s\n", serr ? serr : "(no message)");
+    exit(2);
+  }
+  free(yaml);
+  const SomJson *vcases = som_json_get(table, "validatorCases");
+  size_t vn = som_json_array_len(vcases);
+  int seen[SPEC_NOTATION_FINDING_CODE_COUNT] = {0};
+  for (size_t i = 0; i < vn; i++) {
+    const SomJson *kase = som_json_array_at(vcases, i);
+    const char *name = som_json_str_or(kase, "name");
+    DocSpecsValidator val =
+        docspecs_validator_new_with(schema, som_json_bool_or(kase, "tomSpecs"));
+    DocSpecsViolationList got_list;
+    docspecs_violation_list_init(&got_list);
+    docspecs_validator_validate_markdown(&val, som_json_str_or(kase, "markdown"),
+                                         &got_list);
+    SomBuf got;
+    som_buf_init(&got);
+    for (size_t k = 0; k < got_list.len; k++) {
+      if (k > 0) som_buf_putc(&got, '/');
+      som_buf_puts(&got, got_list.items[k].rule);
+      som_buf_putc(&got, '|');
+      som_buf_puts(&got, got_list.items[k].section_id);
+      som_buf_putc(&got, '|');
+      som_buf_puti(&got, got_list.items[k].line);
+    }
+    docspecs_violation_list_free(&got_list);
+    SomBuf want;
+    som_buf_init(&want);
+    const SomJson *warr = som_json_get(kase, "violations");
+    for (size_t k = 0; k < som_json_array_len(warr); k++) {
+      const SomJson *wv = som_json_array_at(warr, k);
+      const char *rule = som_json_str_or(wv, "rule");
+      for (int code = 0; code < SPEC_NOTATION_FINDING_CODE_COUNT; code++) {
+        if (strcmp(rule, spec_notation_finding_code_name(
+                             (SpecNotationFindingCode)code)) == 0) {
+          seen[code] = 1;
+        }
+      }
+      long long line_no = 0;
+      som_json_as_i64(som_json_get(wv, "line"), &line_no);
+      if (k > 0) som_buf_putc(&want, '/');
+      som_buf_puts(&want, rule);
+      som_buf_putc(&want, '|');
+      som_buf_puts(&want, som_json_str_or(wv, "sectionId"));
+      som_buf_putc(&want, '|');
+      som_buf_puti(&want, line_no);
+    }
+    char *got_s = som_buf_take(&got);
+    char *want_s = som_buf_take(&want);
+    char tag[512], detail[4096];
+    snprintf(tag, sizeof(tag), "notation validate[%s]", name);
+    snprintf(detail, sizeof(detail), "%s != %s", got_s, want_s);
+    check(c, tag, strcmp(got_s, want_s) == 0, detail);
+    free(got_s);
+    free(want_s);
+  }
+  SomBuf missing;
+  som_buf_init(&missing);
+  for (int code = 0; code < SPEC_NOTATION_FINDING_CODE_COUNT; code++) {
+    if (seen[code]) continue;
+    if (missing.len > 0) som_buf_putc(&missing, ',');
+    som_buf_puts(&missing,
+                 spec_notation_finding_code_name((SpecNotationFindingCode)code));
+  }
+  char *missing_s = som_buf_take(&missing);
+  check(c, "notation.validatorCases report every notation rule",
+        missing_s[0] == '\0', missing_s);
+  free(missing_s);
+  docspecs_schema_free(schema);
+  som_json_free(table);
+}
+
 /* Appends `s` as a JSON string literal, or `null` when `s` is NULL. */
 static void buf_json_str(SomBuf *b, const char *s) {
   if (s == NULL) {
@@ -5799,6 +5931,7 @@ int main(int argc, char **argv) {
   test_section_id(&c);
   test_serialization_order(&c);
   test_docspecs(&c);
+  test_notation(&c);
   test_docspecs_replace(&c);
   test_docspecs_path(&c, model);
   test_text_pattern(&c);

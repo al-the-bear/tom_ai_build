@@ -12846,6 +12846,7 @@ static void meta_build_acceptance_process_decision(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("How accept/reject/conditional decisions are made");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -15113,6 +15114,7 @@ static void meta_build_actor_entry_identification(SomMetaNode *n) {
   n->form->fields[7].required = 0;
   n->form->fields[7].hint = som_strdup("Explain the actor’s purpose in one or two sentences");
   n->form->fields[7].order = 7;
+  n->form->fields[7].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -15434,6 +15436,7 @@ static void meta_build_actor_overview_overview(SomMetaNode *n) {
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("Describe the method used to discover actors");
   n->form->fields[6].order = 6;
+  n->form->fields[6].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -15507,6 +15510,7 @@ static void meta_build_actor_overview_categorization(SomMetaNode *n) {
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("List time-triggered or scheduled actors");
   n->form->fields[4].order = 4;
+  n->form->fields[4].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -18790,6 +18794,7 @@ static void meta_build_applicable_regulation_entry_content(SomMetaNode *n) {
   n->form->fields[8].required = 0;
   n->form->fields[8].hint = som_strdup("A summary of the main requirements");
   n->form->fields[8].order = 8;
+  n->form->fields[8].multi_paragraph = 1;
 }
 static void meta_build_applicable_regulation_entry_compliance_measures(SomMetaNode *n) {
   meta_set(&n->class_name, "ApplicableRegulationEntry");
@@ -19526,12 +19531,14 @@ static void meta_build_architecture_component_entry_purpose(SomMetaNode *n) {
   n->form->fields[1].required = 1;
   n->form->fields[1].hint = som_strdup("What this component does");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
   n->form->fields[2].name = som_strdup("responsibilities");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Responsibilities");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("List of responsibilities");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -19772,6 +19779,7 @@ static void meta_build_architecture_decision_record_outcome(SomMetaNode *n) {
   n->form->fields[3].required = 1;
   n->form->fields[3].hint = som_strdup("What was decided");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -19819,6 +19827,7 @@ static void meta_build_architecture_decision_record_consequences(SomMetaNode *n)
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("Impact of this decision");
   n->form->fields[4].order = 4;
+  n->form->fields[4].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -19897,6 +19906,7 @@ static void meta_build_architecture_overview_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Brief description of the chosen architecture");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
 }
 static void meta_build_architecture_overview_drivers(SomMetaNode *n) {
   meta_set(&n->class_name, "ArchitectureOverview");
@@ -19922,12 +19932,14 @@ static void meta_build_architecture_overview_drivers(SomMetaNode *n) {
   n->form->fields[1].required = 1;
   n->form->fields[1].hint = som_strdup("Why this architecture style was chosen");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
   n->form->fields[2].name = som_strdup("technicalDrivers");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Technical Drivers");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Technical requirements driving the choice");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -21659,6 +21671,7 @@ static void meta_build_authorization_requirement_spec_content(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Why this requirement and not a wider or narrower one");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
 }
 static void meta_build_authorization_requirement_spec_role_requirement(SomMetaNode *n) {
   meta_set(&n->class_name, "AuthorizationRequirementSpec");
@@ -21791,6 +21804,7 @@ static void meta_build_authorization_requirement_spec_custom_requirement(SomMeta
   n->form->fields[2].required = 1;
   n->form->fields[2].hint = som_strdup("What the handler must decide, in business terms — this is the specification the handler is implemented against");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("Case");
@@ -21840,6 +21854,7 @@ static void meta_build_authorization_role_entry_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Purpose of the role and the access it grants");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
 }
 static void meta_build_authorization_role_entry_structure(SomMetaNode *n) {
   meta_set(&n->class_name, "AuthorizationRoleEntry");
@@ -24365,12 +24380,14 @@ static void meta_build_bounded_context_entry_scope(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Why this context exists");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->form->fields[3].name = som_strdup("ubiquitousLanguage");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Ubiquitous Language");
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Key terms and their definitions");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -24456,12 +24473,14 @@ static void meta_build_bounded_context_entry_implementation(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Domain events this context publishes");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->form->fields[3].name = som_strdup("consumedEvents");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Consumed Events");
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Domain events this context subscribes to");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -24497,6 +24516,7 @@ static void meta_build_bounded_context_entry_integration(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Public API endpoints exposed");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -25223,6 +25243,7 @@ static void meta_build_build_toolchain_entry_profiles(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("E.g., Debug, Release, Profile, Production");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -25457,6 +25478,7 @@ static void meta_build_build_tools_configuration_scripts(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Custom build scripts location");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -25901,6 +25923,7 @@ static void meta_build_business_goal_entry_measurement(SomMetaNode *n) {
   n->form->fields[4].required = 1;
   n->form->fields[4].hint = som_strdup("Desired end-state value for the metric");
   n->form->fields[4].order = 4;
+  n->form->fields[4].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -27232,6 +27255,7 @@ static void meta_build_business_rule_entry_identity(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Natural language statement from business perspective");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
 }
 static void meta_build_business_rule_entry_classification(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessRuleEntry");
@@ -32889,6 +32913,7 @@ static void meta_build_coding_standard_entry_rule_details(SomMetaNode *n) {
   n->form->fields[2].required = 1;
   n->form->fields[2].hint = som_strdup("Clear statement of the coding rule");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -33822,6 +33847,7 @@ static void meta_build_communication_patterns_synchronous(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Request-response, Service mesh");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -33857,6 +33883,7 @@ static void meta_build_communication_patterns_asynchronous(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Pub/Sub, Event sourcing, CQRS");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -33892,6 +33919,7 @@ static void meta_build_communication_patterns_data_exchange(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("API contracts and schemas");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -34189,6 +34217,7 @@ static void meta_build_compatibility_characteristic_compatibility_content(SomMet
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Protocols/formats for exchanging and using information");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
 }
 static void meta_build_compatibility_characteristic_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "CompatibilityCharacteristic");
@@ -35424,6 +35453,7 @@ static void meta_build_component_entry_vendor(SomMetaNode *n) {
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("Why this component is needed in business terms");
   n->form->fields[4].order = 4;
+  n->form->fields[4].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -39365,6 +39395,7 @@ static void meta_build_constraint_register_entry_content(SomMetaNode *n) {
   n->form->fields[3].required = 1;
   n->form->fields[3].hint = som_strdup("");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
 }
 static void meta_build_content_scanning_policy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ContentScanningPolicy");
@@ -45774,6 +45805,7 @@ static void meta_build_data_attribute_entry_identity(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Clear definition of what this attribute represents");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
 }
 static void meta_build_data_attribute_entry_data_type_spec(SomMetaNode *n) {
   meta_set(&n->class_name, "DataAttributeEntry");
@@ -46996,6 +47028,7 @@ static void meta_build_data_entity_entry_identity(SomMetaNode *n) {
   n->form->fields[7].required = 0;
   n->form->fields[7].hint = som_strdup("Clear definition of what this entity represents");
   n->form->fields[7].order = 7;
+  n->form->fields[7].multi_paragraph = 1;
 }
 static void meta_build_data_entity_entry_classification(SomMetaNode *n) {
   meta_set(&n->class_name, "DataEntityEntry");
@@ -48532,6 +48565,7 @@ static void meta_build_data_migration_strategy_approach(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Other approaches evaluated and why rejected");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -53156,6 +53190,7 @@ static void meta_build_deliverable_entry_identity(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("What this deliverable contains and its purpose");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -54238,6 +54273,7 @@ static void meta_build_dependency_management_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Package registry URLs (public and private)");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
 }
 static void meta_build_dependency_management_versioning(SomMetaNode *n) {
   meta_set(&n->class_name, "DependencyManagement");
@@ -54414,6 +54450,7 @@ static void meta_build_dependency_register_entry_content(SomMetaNode *n) {
   n->form->fields[4].required = 1;
   n->form->fields[4].hint = som_strdup("");
   n->form->fields[4].order = 4;
+  n->form->fields[4].multi_paragraph = 1;
 }
 static void meta_build_dependency_scanning_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DependencyScanningRequirements");
@@ -55320,6 +55357,7 @@ static void meta_build_deployment_target_entry_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Development, Staging, Production");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
 }
 static void meta_build_deployment_target_entry_platform(SomMetaNode *n) {
   meta_set(&n->class_name, "DeploymentTargetEntry");
@@ -55515,6 +55553,7 @@ static void meta_build_deployment_target_entry_compliance(SomMetaNode *n) {
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("Store guidelines, regulatory requirements");
   n->form->fields[4].order = 4;
+  n->form->fields[4].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -59191,6 +59230,7 @@ static void meta_build_document_relevant_sections_content(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Brief summary or key extract of the applicable content.");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
 }
 static void meta_build_document_relevant_sections_sections(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentRelevantSections");
@@ -60754,6 +60794,7 @@ static void meta_build_efficiency_throughput(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Horizontal, vertical, auto-scaling");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -60830,12 +60871,14 @@ static void meta_build_efficiency_verification(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Load test scenarios, thresholds");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->form->fields[3].name = som_strdup("performanceSlaDefinition");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Performance SLA Definition");
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("SLA for performance metrics");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -61592,12 +61635,14 @@ static void meta_build_entitlement_entry_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Brief description.");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->form->fields[3].name = som_strdup("conditions");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Conditions");
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Conditions under which the entitlement applies.");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
 }
 static void meta_build_entitlement_entry_resource_key_references(SomMetaNode *n) {
   meta_set(&n->class_name, "EntitlementEntry");
@@ -61959,6 +62004,7 @@ static void meta_build_entity_relationship_entry_identity(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Business meaning of this relationship");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
 }
 static void meta_build_entity_relationship_entry_participants(SomMetaNode *n) {
   meta_set(&n->class_name, "EntityRelationshipEntry");
@@ -66660,6 +66706,7 @@ static void meta_build_extension_entry_content(SomMetaNode *n) {
   n->form->fields[7].required = 0;
   n->form->fields[7].hint = som_strdup("What happens along this extension path");
   n->form->fields[7].order = 7;
+  n->form->fields[7].multi_paragraph = 1;
 }
 static void meta_build_extension_entry_resume_point(SomMetaNode *n) {
   meta_set(&n->class_name, "ExtensionEntry");
@@ -66838,6 +66885,7 @@ static void meta_build_external_actor_entry_interaction(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("What information flows to and from this actor");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -68027,6 +68075,7 @@ static void meta_build_external_system_context_entry_integration(SomMetaNode *n)
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("The business need this integration serves");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -70983,6 +71032,7 @@ static void meta_build_framework_requirement_entry_content(SomMetaNode *n) {
   n->form->fields[1].required = 1;
   n->form->fields[1].hint = som_strdup("What problem this framework solves");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
 }
 static void meta_build_framework_requirement_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "FrameworkRequirementEntry");
@@ -71096,6 +71146,7 @@ static void meta_build_framework_requirement_entry_scope(SomMetaNode *n) {
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("Where this framework integrates in the architecture");
   n->form->fields[4].order = 4;
+  n->form->fields[4].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -71207,6 +71258,7 @@ static void meta_build_framework_requirement_entry_justification(SomMetaNode *n)
   n->form->fields[3].required = 1;
   n->form->fields[3].hint = som_strdup("Reason for selecting this framework");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -71769,6 +71821,7 @@ static void meta_build_functional_requirement_entry_details(SomMetaNode *n) {
   n->form->fields[2].required = 1;
   n->form->fields[2].hint = som_strdup("Detailed \"the system shall...\" statement of the requirement");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -71857,12 +71910,14 @@ static void meta_build_functional_requirement_entry_source(SomMetaNode *n) {
   n->form->fields[1].required = 1;
   n->form->fields[1].hint = som_strdup("Who requested it: stakeholder name, workshop, or document");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
   n->form->fields[2].name = som_strdup("rationale");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Rationale (why this requirement is needed)");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Why this requirement is needed");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -72961,6 +73016,7 @@ static void meta_build_glossary_entry_content(SomMetaNode *n) {
   n->form->fields[3].required = 1;
   n->form->fields[3].hint = som_strdup("");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
 }
 static void meta_build_goal_dependencies_content(SomMetaNode *n) {
   meta_set(&n->class_name, "GoalDependencies");
@@ -77636,6 +77692,7 @@ static void meta_build_integration_architecture_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Point-to-point, Hub-and-spoke, ESB, API-led");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
 }
 static void meta_build_integration_architecture_systems(SomMetaNode *n) {
   meta_set(&n->class_name, "IntegrationArchitecture");
@@ -77667,6 +77724,7 @@ static void meta_build_integration_architecture_systems(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("REST, SOAP, File, Database, Events");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -77737,6 +77795,7 @@ static void meta_build_integration_architecture_security(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("How integrations are authenticated");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -78411,6 +78470,7 @@ static void meta_build_interaction_catalog_overview(SomMetaNode *n) {
   n->form->fields[7].required = 0;
   n->form->fields[7].hint = som_strdup("Reference the TOM-xxx process each interaction realizes");
   n->form->fields[7].order = 7;
+  n->form->fields[7].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -79373,6 +79433,7 @@ static void meta_build_interaction_pattern_entry_definition(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("What this pattern involves");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -80892,6 +80953,7 @@ static void meta_build_interface_technical_spec_webhook_spec(SomMetaNode *n) {
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("Event types delivered via webhook");
   n->form->fields[5].order = 5;
+  n->form->fields[5].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -81698,12 +81760,14 @@ static void meta_build_iso25010_coverage_entry_content(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
   n->form->fields[2].name = som_strdup("targetMetric");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Target Metric");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
 }
 static void meta_build_it_landscape_position_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ItLandscapePosition");
@@ -81771,18 +81835,21 @@ static void meta_build_it_landscape_position_position_details(SomMetaNode *n) {
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("Systems this will replace or retire");
   n->form->fields[6].order = 6;
+  n->form->fields[6].multi_paragraph = 1;
   n->form->fields[7].name = som_strdup("dependsOnSystems");
   n->form->fields[7].type_name = som_strdup("String");
   n->form->fields[7].description = som_strdup("Depends On Systems (systems this requires to operate)");
   n->form->fields[7].required = 0;
   n->form->fields[7].hint = som_strdup("Systems this requires to operate");
   n->form->fields[7].order = 7;
+  n->form->fields[7].multi_paragraph = 1;
   n->form->fields[8].name = som_strdup("dataOwnership");
   n->form->fields[8].type_name = som_strdup("String");
   n->form->fields[8].description = som_strdup("Data Ownership (what master data does this system own)");
   n->form->fields[8].required = 0;
   n->form->fields[8].hint = som_strdup("What master data this system owns");
   n->form->fields[8].order = 8;
+  n->form->fields[8].multi_paragraph = 1;
 }
 static void meta_build_it_security_operations_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ItSecurityOperations");
@@ -81844,6 +81911,7 @@ static void meta_build_it_security_operations_access(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("PAM solution, just-in-time");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -84350,6 +84418,7 @@ static void meta_build_lifecycle_transition_entry_trigger(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("What initiates this transition");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -84890,6 +84959,7 @@ static void meta_build_locale_rollout_plan_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Big bang, phased, pilot");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
 }
 static void meta_build_localization_process_content(SomMetaNode *n) {
   meta_set(&n->class_name, "LocalizationProcess");
@@ -86009,6 +86079,7 @@ static void meta_build_main_scenario_step_entry_content(SomMetaNode *n) {
   n->form->fields[8].required = 0;
   n->form->fields[8].hint = som_strdup("The rule enforced at this step, as prose — it may cite a business rule (BIRU-…) or a Project Idea rule (C6.5); not resolved");
   n->form->fields[8].order = 8;
+  n->form->fields[8].multi_paragraph = 1;
 }
 static void meta_build_main_scenario_step_entry_server_call_steps(SomMetaNode *n) {
   meta_set(&n->class_name, "MainScenarioStepEntry");
@@ -88297,6 +88368,7 @@ static void meta_build_mfa_category_requirement_entry_authenticators(SomMetaNode
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("TOTP | WebAuthn | FIDO2 | SMS | Push | Passkey — allowed second-factor types");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -91347,6 +91419,7 @@ static void meta_build_module_entry_description(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Specific features/functions");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -92856,6 +92929,7 @@ static void meta_build_must_pass_criterion_entry_definition(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("What must be achieved");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -97605,12 +97679,14 @@ static void meta_build_opportunity_statement_opportunity_details(SomMetaNode *n)
   n->form->fields[7].required = 0;
   n->form->fields[7].hint = som_strdup("What becomes possible that was not possible before");
   n->form->fields[7].order = 7;
+  n->form->fields[7].multi_paragraph = 1;
   n->form->fields[8].name = som_strdup("improvements");
   n->form->fields[8].type_name = som_strdup("String");
   n->form->fields[8].description = som_strdup("Improvements (quantitative and qualitative improvements expected)");
   n->form->fields[8].required = 0;
   n->form->fields[8].hint = som_strdup("Quantitative and qualitative improvements expected");
   n->form->fields[8].order = 8;
+  n->form->fields[8].multi_paragraph = 1;
 }
 static void meta_build_org_change_risks_content(SomMetaNode *n) {
   meta_set(&n->class_name, "OrgChangeRisks");
@@ -98677,6 +98753,7 @@ static void meta_build_organizational_requirement_entry_content(SomMetaNode *n) 
   n->form->fields[0].required = 1;
   n->form->fields[0].hint = som_strdup("Full statement of the organizational change needed");
   n->form->fields[0].order = 0;
+  n->form->fields[0].multi_paragraph = 1;
 }
 static void meta_build_organizational_requirement_entry_classification(SomMetaNode *n) {
   meta_set(&n->class_name, "OrganizationalRequirementEntry");
@@ -98726,6 +98803,7 @@ static void meta_build_organizational_requirement_entry_classification(SomMetaNo
   n->form->fields[4].required = 1;
   n->form->fields[4].hint = som_strdup("Stakeholder or document that originated it");
   n->form->fields[4].order = 4;
+  n->form->fields[4].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -99406,12 +99484,14 @@ static void meta_build_other_agreement_entry_content(SomMetaNode *n) {
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("Principal terms of the agreement");
   n->form->fields[5].order = 5;
+  n->form->fields[5].multi_paragraph = 1;
   n->form->fields[6].name = som_strdup("obligations");
   n->form->fields[6].type_name = som_strdup("String");
   n->form->fields[6].description = som_strdup("Obligations");
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("Obligations the agreement imposes");
   n->form->fields[6].order = 6;
+  n->form->fields[6].multi_paragraph = 1;
 }
 static void meta_build_out_of_scope_content(SomMetaNode *n) {
   meta_set(&n->class_name, "OutOfScope");
@@ -99635,6 +99715,7 @@ static void meta_build_package_organization_structure(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Top-level directory organization");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -99670,12 +99751,14 @@ static void meta_build_package_organization_types(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Foundation packages required by all");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->form->fields[3].name = som_strdup("featurePackages");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Feature Packages");
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Business feature packages");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -101333,6 +101416,7 @@ static void meta_build_periodic_review_policy_content(SomMetaNode *n) {
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("Who performs reviews (e.g., manager, security team, CISO)");
   n->form->fields[5].order = 5;
+  n->form->fields[5].multi_paragraph = 1;
 }
 static void meta_build_periodic_review_policy_notes(SomMetaNode *n) {
   meta_set(&n->class_name, "PeriodicReviewPolicy");
@@ -103329,6 +103413,7 @@ static void meta_build_portability_content(SomMetaNode *n) {
   n->form->fields[9].required = 0;
   n->form->fields[9].hint = som_strdup("Export formats, import capabilities");
   n->form->fields[9].order = 9;
+  n->form->fields[9].multi_paragraph = 1;
 }
 static void meta_build_portability_narrative(SomMetaNode *n) {
   meta_set(&n->class_name, "Portability");
@@ -103507,12 +103592,14 @@ static void meta_build_postconditions_and_guarantees_content(SomMetaNode *n) {
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("What holds true only after successful completion");
   n->form->fields[5].order = 5;
+  n->form->fields[5].multi_paragraph = 1;
   n->form->fields[6].name = som_strdup("notificationsGenerated");
   n->form->fields[6].type_name = som_strdup("String");
   n->form->fields[6].description = som_strdup("Notifications Generated — who is notified");
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("Notifications sent and their recipients");
   n->form->fields[6].order = 6;
+  n->form->fields[6].multi_paragraph = 1;
 }
 static void meta_build_preconditions_and_triggers_content(SomMetaNode *n) {
   meta_set(&n->class_name, "PreconditionsAndTriggers");
@@ -103567,6 +103654,7 @@ static void meta_build_preconditions_and_triggers_content(SomMetaNode *n) {
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("State assumed true before the interaction starts");
   n->form->fields[6].order = 6;
+  n->form->fields[6].multi_paragraph = 1;
 }
 static void meta_build_primary_navigation_content(SomMetaNode *n) {
   meta_set(&n->class_name, "PrimaryNavigation");
@@ -104525,18 +104613,21 @@ static void meta_build_problem_statement_problem_details(SomMetaNode *n) {
   n->form->fields[7].required = 0;
   n->form->fields[7].hint = som_strdup("Quantifiable measures of the problem's cost");
   n->form->fields[7].order = 7;
+  n->form->fields[7].multi_paragraph = 1;
   n->form->fields[8].name = som_strdup("rootCauses");
   n->form->fields[8].type_name = som_strdup("String");
   n->form->fields[8].description = som_strdup("Root Causes (underlying reasons for problem)");
   n->form->fields[8].required = 0;
   n->form->fields[8].hint = som_strdup("Underlying reasons that cause the problem");
   n->form->fields[8].order = 8;
+  n->form->fields[8].multi_paragraph = 1;
   n->form->fields[9].name = som_strdup("consequencesOfInaction");
   n->form->fields[9].type_name = som_strdup("String");
   n->form->fields[9].description = som_strdup("Consequences of Inaction (what happens if not addressed)");
   n->form->fields[9].required = 0;
   n->form->fields[9].hint = som_strdup("What happens if the problem is not addressed");
   n->form->fields[9].order = 9;
+  n->form->fields[9].multi_paragraph = 1;
 }
 static void meta_build_problem_statement_related_pain_points(SomMetaNode *n) {
   meta_set(&n->class_name, "ProblemStatement");
@@ -105067,6 +105158,7 @@ static void meta_build_process_catalog_overview(SomMetaNode *n) {
   n->form->fields[7].required = 0;
   n->form->fields[7].hint = som_strdup("What the catalog does and does not cover");
   n->form->fields[7].order = 7;
+  n->form->fields[7].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -105614,6 +105706,7 @@ static void meta_build_process_design_principle_entry_content(SomMetaNode *n) {
   n->form->fields[7].required = 0;
   n->form->fields[7].hint = som_strdup("The principle expressed as a directive");
   n->form->fields[7].order = 7;
+  n->form->fields[7].multi_paragraph = 1;
 }
 static void meta_build_process_design_principles_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessDesignPrinciples");
@@ -106062,6 +106155,7 @@ static void meta_build_process_identification_definition(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("What the process actually does");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -107513,6 +107607,7 @@ static void meta_build_process_relationship_entry_content(SomMetaNode *n) {
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("State what data flows between them");
   n->form->fields[6].order = 6;
+  n->form->fields[6].multi_paragraph = 1;
 }
 static void meta_build_process_relationships_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessRelationships");
@@ -108078,18 +108173,21 @@ static void meta_build_process_steps_overview_content(SomMetaNode *n) {
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("State the design scope of the use cases");
   n->form->fields[5].order = 5;
+  n->form->fields[5].multi_paragraph = 1;
   n->form->fields[6].name = som_strdup("traceabilityApproach");
   n->form->fields[6].type_name = som_strdup("String");
   n->form->fields[6].description = som_strdup("Traceability Approach — link to TOM, ISC documents");
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("Explain how interactions trace to TOM and ISC");
   n->form->fields[6].order = 6;
+  n->form->fields[6].multi_paragraph = 1;
   n->form->fields[7].name = som_strdup("detailLevel");
   n->form->fields[7].type_name = som_strdup("String");
   n->form->fields[7].description = som_strdup("Detail Level — brief, casual, fully dressed");
   n->form->fields[7].required = 0;
   n->form->fields[7].hint = som_strdup("Choose the Cockburn detail level applied");
   n->form->fields[7].order = 7;
+  n->form->fields[7].multi_paragraph = 1;
 }
 static void meta_build_process_technology_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessTechnology");
@@ -108539,6 +108637,7 @@ static void meta_build_process_vision_success_criteria(SomMetaNode *n) {
   n->form->fields[7].required = 0;
   n->form->fields[7].hint = som_strdup("Expected business-level outcomes");
   n->form->fields[7].order = 7;
+  n->form->fields[7].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -110837,6 +110936,7 @@ static void meta_build_quality_gate_adjustment_details_content(SomMetaNode *n) {
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("Modified pass/fail criteria after adjustment");
   n->form->fields[4].order = 4;
+  n->form->fields[4].multi_paragraph = 1;
 }
 static void meta_build_quality_gate_adjustment_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "QualityGateAdjustmentEntry");
@@ -111218,6 +111318,7 @@ static void meta_build_quality_gate_check_entry_definition(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Detailed description of check");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -113101,6 +113202,7 @@ static void meta_build_regulatory_compliance_entry_requirements(SomMetaNode *n) 
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Main requirements to meet");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -113319,12 +113421,14 @@ static void meta_build_regulatory_requirement_entry_content(SomMetaNode *n) {
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("Why and how the regulation applies to this project");
   n->form->fields[6].order = 6;
+  n->form->fields[6].multi_paragraph = 1;
   n->form->fields[7].name = som_strdup("evidenceRequired");
   n->form->fields[7].type_name = som_strdup("String");
   n->form->fields[7].description = som_strdup("Evidence Required");
   n->form->fields[7].required = 0;
   n->form->fields[7].hint = som_strdup("Proof needed to demonstrate compliance");
   n->form->fields[7].order = 7;
+  n->form->fields[7].multi_paragraph = 1;
 }
 static void meta_build_related_document_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "RelatedDocumentEntry");
@@ -113632,6 +113736,7 @@ static void meta_build_relevant_section_entry_content(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Brief summary or key extract of the applicable content.");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
 }
 static void meta_build_reliability_content(SomMetaNode *n) {
   meta_set(&n->class_name, "Reliability");
@@ -117969,18 +118074,21 @@ static void meta_build_requirements_overview_requirements_form(SomMetaNode *n) {
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("How requirements are elicited, analysed, and managed");
   n->form->fields[5].order = 5;
+  n->form->fields[5].multi_paragraph = 1;
   n->form->fields[6].name = som_strdup("changeControlProcess");
   n->form->fields[6].type_name = som_strdup("String");
   n->form->fields[6].description = som_strdup("Change Control Process (how requirement changes are handled)");
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("How requirement changes are proposed, reviewed, and approved");
   n->form->fields[6].order = 6;
+  n->form->fields[6].multi_paragraph = 1;
   n->form->fields[7].name = som_strdup("mustHaveCount");
   n->form->fields[7].type_name = som_strdup("String");
   n->form->fields[7].description = som_strdup("Must-Have Requirements (estimated)");
   n->form->fields[7].required = 0;
   n->form->fields[7].hint = som_strdup("The number of Must-Have requirements (functional and organizational, by priority). Counted from the requirement lists once they exist; until then an estimate.");
   n->form->fields[7].order = 7;
+  n->form->fields[7].multi_paragraph = 1;
 }
 static void meta_build_requirements_overview_traceability_matrix(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementsOverview");
@@ -121147,6 +121255,7 @@ static void meta_build_risk_identification_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Detailed description of the risk event and its causes");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
 }
 static void meta_build_risk_identification_source_details(SomMetaNode *n) {
   meta_set(&n->class_name, "RiskIdentification");
@@ -121708,6 +121817,7 @@ static void meta_build_role_adjustment_entry_details(SomMetaNode *n) {
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("Which responsibilities are impacted by this change");
   n->form->fields[4].order = 4;
+  n->form->fields[4].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -121813,12 +121923,14 @@ static void meta_build_role_adjustment_entry_risk(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("What could go wrong due to this adjustment");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
   n->form->fields[2].name = som_strdup("mitigationMeasures");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Mitigation Measures");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("How risks from this adjustment are mitigated");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -123553,6 +123665,7 @@ static void meta_build_runtime_environment_network(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Connectivity requirements");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -123582,6 +123695,7 @@ static void meta_build_runtime_environment_variables(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Mandatory environment variables");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -123734,6 +123848,7 @@ static void meta_build_scalability_architecture_capacity(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Peak load expectations");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -124800,6 +124915,7 @@ static void meta_build_scheduled_job_entry_cron_trigger(SomMetaNode *n) {
   n->form->fields[0].required = 1;
   n->form->fields[0].hint = som_strdup("The recurrence expression, verbatim (e.g. 0 2 * * * for daily at 02:00)");
   n->form->fields[0].order = 0;
+  n->form->fields[0].multi_paragraph = 1;
   n->extra_len = 2;
   n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -125639,6 +125755,7 @@ static void meta_build_scope_item_entry_content(SomMetaNode *n) {
   n->form->fields[3].required = 1;
   n->form->fields[3].hint = som_strdup("Describe the feature, process, or system in scope or excluded");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
 }
 static void meta_build_screen_action_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenActionEntry");
@@ -125681,6 +125798,7 @@ static void meta_build_screen_action_entry_content(SomMetaNode *n) {
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("What the action does — the stated behavior of an action no scenario step contributes to");
   n->form->fields[4].order = 4;
+  n->form->fields[4].multi_paragraph = 1;
 }
 static void meta_build_screen_action_entry_visual(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenActionEntry");
@@ -126460,6 +126578,7 @@ static void meta_build_screen_element_entry_presentation(SomMetaNode *n) {
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("Design rationale or open questions");
   n->form->fields[4].order = 4;
+  n->form->fields[4].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -126927,6 +127046,7 @@ static void meta_build_screen_entry_content(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Business purpose — what the user accomplishes here");
   n->form->fields[0].order = 0;
+  n->form->fields[0].multi_paragraph = 1;
 }
 static void meta_build_screen_entry_classification(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenEntry");
@@ -127087,6 +127207,7 @@ static void meta_build_screen_entry_presentation(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -127925,6 +128046,7 @@ static void meta_build_screen_section_entry_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("What this zone contains");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
 }
 static void meta_build_screen_section_entry_layout(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenSectionEntry");
@@ -128134,6 +128256,7 @@ static void meta_build_screen_state_entry_content(SomMetaNode *n) {
   n->form->fields[7].required = 0;
   n->form->fields[7].hint = som_strdup("When this state occurs");
   n->form->fields[7].order = 7;
+  n->form->fields[7].multi_paragraph = 1;
 }
 static void meta_build_screen_states_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenStates");
@@ -128369,18 +128492,21 @@ static void meta_build_security_authentication(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("OAuth2, SAML, OIDC, MFA");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
   n->form->fields[2].name = som_strdup("passwordPolicy");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Password Policy");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Complexity, rotation, history");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->form->fields[3].name = som_strdup("sessionManagement");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Session Management");
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Timeout, concurrent sessions");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -128416,6 +128542,7 @@ static void meta_build_security_authorization(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Controls to prevent escalation");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -129030,12 +129157,14 @@ static void meta_build_security_characteristic_security_content(SomMetaNode *n) 
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Zero-trust, defence-in-depth, least-privilege");
   n->form->fields[0].order = 0;
+  n->form->fields[0].multi_paragraph = 1;
   n->form->fields[1].name = som_strdup("securityComplianceTarget");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Security Compliance Target");
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("ISO 27001, SOC 2, GDPR, sector-specific");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
 }
 static void meta_build_security_characteristic_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityCharacteristic");
@@ -129785,6 +129914,7 @@ static void meta_build_security_requirement_entry_content(SomMetaNode *n) {
   n->form->fields[0].required = 1;
   n->form->fields[0].hint = som_strdup("Full requirement statement, e.g., The system shall encrypt data at rest");
   n->form->fields[0].order = 0;
+  n->form->fields[0].multi_paragraph = 1;
 }
 static void meta_build_security_requirement_entry_classification(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityRequirementEntry");
@@ -129846,6 +129976,7 @@ static void meta_build_security_requirement_entry_classification(SomMetaNode *n)
   n->form->fields[6].required = 1;
   n->form->fields[6].hint = som_strdup("Stakeholder, standard, or document that originated it");
   n->form->fields[6].order = 6;
+  n->form->fields[6].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -131397,6 +131528,7 @@ static void meta_build_server_operation_entry_content(SomMetaNode *n) {
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("What the operation does, from the caller's point of view");
   n->form->fields[4].order = 4;
+  n->form->fields[4].multi_paragraph = 1;
 }
 static void meta_build_server_operation_entry_authorization(SomMetaNode *n) {
   meta_set(&n->class_name, "AuthorizationRequirementSpec");
@@ -135436,6 +135568,7 @@ static void meta_build_software_layer_entry_responsibilities(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Specific functions this layer handles");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -136400,6 +136533,7 @@ static void meta_build_stage_entry_identity(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Brief description of what this stage delivers");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
 }
 static void meta_build_stage_entry_timeline(SomMetaNode *n) {
   meta_set(&n->class_name, "StageEntry");
@@ -136531,6 +136665,7 @@ static void meta_build_stage_entry_scope(SomMetaNode *n) {
   n->form->fields[7].required = 0;
   n->form->fields[7].hint = som_strdup("High-level summary of features included in this stage");
   n->form->fields[7].order = 7;
+  n->form->fields[7].multi_paragraph = 1;
 }
 static void meta_build_stage_entry_dependencies(SomMetaNode *n) {
   meta_set(&n->class_name, "StageEntry");
@@ -136618,6 +136753,7 @@ static void meta_build_stage_entry_quality(SomMetaNode *n) {
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("Conditions that must be met for stage completion");
   n->form->fields[5].order = 5;
+  n->form->fields[5].multi_paragraph = 1;
 }
 static void meta_build_stage_entry_deployment(SomMetaNode *n) {
   meta_set(&n->class_name, "StageEntry");
@@ -139067,6 +139203,7 @@ static void meta_build_staging_dependencies_content(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Prerequisites before staged deployment can begin");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
 }
 static void meta_build_staging_drivers_content(SomMetaNode *n) {
   meta_set(&n->class_name, "StagingDrivers");
@@ -139182,6 +139319,7 @@ static void meta_build_staging_strategy_approach_selection(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Other staging approaches evaluated and why rejected");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -139784,6 +139922,7 @@ static void meta_build_stakeholder_entry_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("The scope-framing value this group gains from the system");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
 }
 static void meta_build_stakeholder_register_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "StakeholderRegisterEntry");
@@ -139832,12 +139971,14 @@ static void meta_build_stakeholder_register_entry_content(SomMetaNode *n) {
   n->form->fields[4].required = 1;
   n->form->fields[4].hint = som_strdup("");
   n->form->fields[4].order = 4;
+  n->form->fields[4].multi_paragraph = 1;
   n->form->fields[5].name = som_strdup("interest");
   n->form->fields[5].type_name = som_strdup("String");
   n->form->fields[5].description = som_strdup("Interest (what they care about)");
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("");
   n->form->fields[5].order = 5;
+  n->form->fields[5].multi_paragraph = 1;
 }
 static void meta_build_stakeholders_and_beneficiaries_content(SomMetaNode *n) {
   meta_set(&n->class_name, "StakeholdersAndBeneficiaries");
@@ -140904,6 +141045,7 @@ static void meta_build_strategic_alignment_alignment_details(SomMetaNode *n) {
   n->form->fields[8].required = 0;
   n->form->fields[8].hint = som_strdup("Other projects or programs this connects to");
   n->form->fields[8].order = 8;
+  n->form->fields[8].multi_paragraph = 1;
 }
 static void meta_build_sub_function_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SubFunctionEntry");
@@ -140983,6 +141125,7 @@ static void meta_build_sub_stage_entry_overview(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Brief description of this sub-stage or milestone");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
 }
 static void meta_build_sub_stage_entry_timeline(SomMetaNode *n) {
   meta_set(&n->class_name, "SubStageEntry");
@@ -143610,36 +143753,42 @@ static void meta_build_system_description_description_summary(SomMetaNode *n) {
   n->form->fields[8].required = 0;
   n->form->fields[8].hint = som_strdup("Microservices, Monolithic, Serverless, Event-driven, Layered, Modular Monolith, Service-oriented, Peer-to-peer, Client-server");
   n->form->fields[8].order = 8;
+  n->form->fields[8].multi_paragraph = 1;
   n->form->fields[9].name = som_strdup("interfaceTypes");
   n->form->fields[9].type_name = som_strdup("String");
   n->form->fields[9].description = som_strdup("Types of user and system interfaces");
   n->form->fields[9].required = 0;
   n->form->fields[9].hint = som_strdup("Web UI, Mobile App, Desktop App, REST API, GraphQL API, gRPC API, CLI, Voice Interface, Chat/Bot Interface, Hardware");
   n->form->fields[9].order = 9;
+  n->form->fields[9].multi_paragraph = 1;
   n->form->fields[10].name = som_strdup("securityClassification");
   n->form->fields[10].type_name = som_strdup("String");
   n->form->fields[10].description = som_strdup("Overall security posture requirement");
   n->form->fields[10].required = 0;
   n->form->fields[10].hint = som_strdup("Public/Open, Internal Use, Confidential, Highly Confidential, Regulated (HIPAA/GDPR/SOX), Government/Classified");
   n->form->fields[10].order = 10;
+  n->form->fields[10].multi_paragraph = 1;
   n->form->fields[11].name = som_strdup("expectedUserLoad");
   n->form->fields[11].type_name = som_strdup("String");
   n->form->fields[11].description = som_strdup("Anticipated concurrent user volume");
   n->form->fields[11].required = 0;
   n->form->fields[11].hint = som_strdup("Single User, Team (<100), Enterprise (100-1000), Large Enterprise (1000-10000), Consumer (10000+)");
   n->form->fields[11].order = 11;
+  n->form->fields[11].multi_paragraph = 1;
   n->form->fields[12].name = som_strdup("keyDifferentiators");
   n->form->fields[12].type_name = som_strdup("String");
   n->form->fields[12].description = som_strdup("What makes this system unique");
   n->form->fields[12].required = 0;
   n->form->fields[12].hint = som_strdup("e.g., AI-powered recommendations, real-time collaboration");
   n->form->fields[12].order = 12;
+  n->form->fields[12].multi_paragraph = 1;
   n->form->fields[13].name = som_strdup("criticalCapabilities");
   n->form->fields[13].type_name = som_strdup("String");
   n->form->fields[13].description = som_strdup("Most important system capabilities");
   n->form->fields[13].required = 0;
   n->form->fields[13].hint = som_strdup("e.g., Multi-tenant data isolation, offline-first sync");
   n->form->fields[13].order = 13;
+  n->form->fields[13].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -145178,12 +145327,14 @@ static void meta_build_system_quality_goals_governance_content(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Overall quality philosophy: proactive, reactive, hybrid");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
   n->form->fields[2].name = som_strdup("qualityStandards");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Applicable Quality Standards");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("ISO 25010, ISO 9001, CMMI, industry-specific");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
 }
 static void meta_build_system_quality_goals_governance(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemQualityGoals");
@@ -145870,12 +146021,14 @@ static void meta_build_system_stage_plan_content(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("BigBang / PhasedByFunction / PhasedByGeography / PhasedByUserGroup / Incremental / Hybrid");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
   n->form->fields[2].name = som_strdup("parallelismApproach");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Parallelism Approach");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Sequential / PartialOverlap / FullyParallel — whether stages can overlap in execution");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
 }
 static void meta_build_system_stage_plan_timeline(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemStagePlan");
@@ -145938,12 +146091,14 @@ static void meta_build_system_stage_plan_coordination(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Key dependencies between stages that affect sequencing");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
   n->form->fields[2].name = som_strdup("regulatoryComplianceConsiderations");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Regulatory/Compliance Considerations");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Regulatory requirements affecting staging order or timing — e.g. SOX, GDPR data readiness, PCI-DSS");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
 }
 static void meta_build_system_stage_plan_readiness(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemStagePlan");
@@ -146277,6 +146432,7 @@ static void meta_build_system_summary_complexity(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Brief list of top 3 risks");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
 }
 static void meta_build_system_task_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemTaskEntry");
@@ -147522,6 +147678,7 @@ static void meta_build_target_platform_entry_content(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Server, Desktop, Mobile, IoT");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
 }
 static void meta_build_target_platform_entry_version(SomMetaNode *n) {
   meta_set(&n->class_name, "TargetPlatformEntry");
@@ -147617,6 +147774,7 @@ static void meta_build_target_platform_entry_requirements(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Specific OS features or capabilities needed");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -148892,6 +149050,7 @@ static void meta_build_technical_goal_entry_measurement(SomMetaNode *n) {
   n->form->fields[6].required = 1;
   n->form->fields[6].hint = som_strdup("Target value to be achieved");
   n->form->fields[6].order = 6;
+  n->form->fields[6].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -149527,12 +149686,14 @@ static void meta_build_technical_requirement_entry_details(SomMetaNode *n) {
   n->form->fields[4].required = 1;
   n->form->fields[4].hint = som_strdup("Full requirement statement, e.g., The system shall respond within 100ms");
   n->form->fields[4].order = 4;
+  n->form->fields[4].multi_paragraph = 1;
   n->form->fields[5].name = som_strdup("source");
   n->form->fields[5].type_name = som_strdup("String");
   n->form->fields[5].description = som_strdup("Source (who requested)");
   n->form->fields[5].required = 1;
   n->form->fields[5].hint = som_strdup("Stakeholder, document, or standard that originated it");
   n->form->fields[5].order = 5;
+  n->form->fields[5].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -149790,6 +149951,7 @@ static void meta_build_technical_requirements_summary_form(SomMetaNode *n) {
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("e.g., 99.99% availability, sub-100ms latency, 10k concurrent users");
   n->form->fields[5].order = 5;
+  n->form->fields[5].multi_paragraph = 1;
 }
 static void meta_build_technical_requirements_requirements(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalRequirements");
@@ -153464,6 +153626,7 @@ static void meta_build_tooling_content(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Summary of the baseline tool stack all teams are expected to use");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
 }
 static void meta_build_tooling_stack(SomMetaNode *n) {
   meta_set(&n->class_name, "Tooling");
@@ -157045,6 +157208,7 @@ static void meta_build_trust_boundary_entry_content(SomMetaNode *n) {
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("Mechanisms protecting this boundary");
   n->form->fields[5].order = 5;
+  n->form->fields[5].multi_paragraph = 1;
 }
 static void meta_build_typography_style_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TypographyStyleEntry");
@@ -160086,6 +160250,7 @@ static void meta_build_user_category_definition_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Brief description of this category.");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
 }
 static void meta_build_user_category_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "UserCategoryEntry");
@@ -160110,6 +160275,7 @@ static void meta_build_user_category_entry_content(SomMetaNode *n) {
   n->form->fields[1].required = 1;
   n->form->fields[1].hint = som_strdup("One- or two-sentence summary of this user type");
   n->form->fields[1].order = 1;
+  n->form->fields[1].multi_paragraph = 1;
 }
 static void meta_build_user_category_entry_usage(SomMetaNode *n) {
   meta_set(&n->class_name, "UserCategoryEntry");
@@ -161101,6 +161267,7 @@ static void meta_build_user_lifecycle_transition_entry_content(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("UserRequest | AdminAction | SystemEvent | ScheduledJob");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
 }
 static void meta_build_user_lifecycle_transition_entry_approval(SomMetaNode *n) {
   meta_set(&n->class_name, "UserLifecycleTransitionEntry");
@@ -161167,6 +161334,7 @@ static void meta_build_user_lifecycle_transition_entry_effects(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Actions performed on transition (revoke tokens, send email, deprovision)");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -162845,12 +163013,14 @@ static void meta_build_value_proposition_value_details(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Top 3-5 benefits in priority order");
   n->form->fields[2].order = 2;
+  n->form->fields[2].multi_paragraph = 1;
   n->form->fields[3].name = som_strdup("quantifiableBenefits");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Quantifiable Benefits (measurable improvements with targets)");
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Measurable improvements with concrete targets");
   n->form->fields[3].order = 3;
+  n->form->fields[3].multi_paragraph = 1;
 }
 static void meta_build_value_proposition_benefits(SomMetaNode *n) {
   meta_set(&n->class_name, "ValueProposition");

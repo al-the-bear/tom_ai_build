@@ -15,7 +15,9 @@ int validate_spec_document(const SpecModel *model, const SpecDocument *document,
                                           &rendition, err)) {
     return 0;
   }
-  DocSpecsValidator val = docspecs_validator_new(schema);
+  /* A SOM rendition is a TomSpecs rendition: the reading notation is scanned
+   * value by value, kinds and classes checked (as Dart's tomSpecs: true). */
+  DocSpecsValidator val = docspecs_validator_new_with(schema, 1);
   size_t first = out->len;
   docspecs_validator_validate_markdown(&val, rendition.markdown, out);
   for (size_t i = first; i < out->len; i++) {

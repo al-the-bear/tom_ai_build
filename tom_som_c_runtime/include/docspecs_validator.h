@@ -52,12 +52,25 @@
 /* A section's id repeats an earlier sibling's, so its id path (the ids from
  * the root down to it) is not unique. */
 #define DOCSPECS_RULE_DUPLICATE_ID_PATH "duplicateIdPath"
+/* The reading notation's findings (DocSpecs specification, RN-10), reported
+ * by spec_scan_notation per value: a section's own body, and in a TomSpecs
+ * rendition each form field's value apart. The names are the scan's finding
+ * codes (spec_notation.h). */
+#define DOCSPECS_RULE_UNCLOSED_DIV "unclosedDiv"
+#define DOCSPECS_RULE_STRAY_CLOSING_FENCE "strayClosingFence"
+#define DOCSPECS_RULE_UNCLOSED_SPAN "unclosedSpan"
+#define DOCSPECS_RULE_DIV_WITHOUT_KIND "divWithoutKind"
+#define DOCSPECS_RULE_UNKNOWN_KIND "unknownKind"
+#define DOCSPECS_RULE_MARK_ACROSS_NOTATION "markAcrossNotation"
+#define DOCSPECS_RULE_ANNOTATION_INSIDE_DIV "annotationInsideDiv"
+#define DOCSPECS_RULE_DIV_INSIDE_ANNOTATION "divInsideAnnotation"
+#define DOCSPECS_RULE_REJECTED_BLOCK "rejectedBlock"
 
 /* The complete §14 vocabulary, in declaration order — the enumerable form of
  * what Dart gets for free from its enum. The conformance runner diffs it
  * against the rules the shared corpus exercises, so a rule added here without a
  * corpus case fails the suite instead of going unnoticed. */
-#define DOCSPECS_ALL_RULES_COUNT 13
+#define DOCSPECS_ALL_RULES_COUNT 22
 extern const char *const DOCSPECS_ALL_RULES[DOCSPECS_ALL_RULES_COUNT];
 
 /* ---- violation ----------------------------------------------------------- */
@@ -272,10 +285,19 @@ void docspecs_schema_free(DocSpecsSchema *s);
 /* A never-fail-fast validator of a parsed document against a schema. */
 typedef struct {
   const DocSpecsSchema *schema; /* borrowed */
+  int tom_specs; /* whether the documents are TomSpecs renditions: the reading
+                  * notation is then scanned value by value (a form field's
+                  * value apart from the next), and a div without a class and
+                  * an unregistered kind are reported too */
 } DocSpecsValidator;
 
-/* Binds a schema to the validator (borrowed; must outlive the validator). */
+/* Binds a schema to the validator (borrowed; must outlive the validator);
+ * `tom_specs` off. */
 DocSpecsValidator docspecs_validator_new(const DocSpecsSchema *schema);
+
+/* The same, with `tom_specs` set as given. */
+DocSpecsValidator docspecs_validator_new_with(const DocSpecsSchema *schema,
+                                              int tom_specs);
 
 /* Parses + validates in one step, writing ALL findings to `*out`
  * (init/free with docspecs_violation_list_*). */

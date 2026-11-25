@@ -111,6 +111,7 @@ static void test_trees_agree_with_bridge(void) {
 
   SomMetaRootEntry rows[SOM_META_ROOT_COUNT];
   size_t n = som_meta_roots(rows, SOM_META_ROOT_COUNT);
+  int seen_multi_paragraph = 0;
   ok(model->roots_len == n, "model root count matches generated tree count");
 
   for (size_t i = 0; i < n; i++) {
@@ -132,8 +133,27 @@ static void test_trees_agree_with_bridge(void) {
       g_passed++;
     }
     free(diff);
+    /* The diff compares `multiParagraph`, but two trees that both lost it
+     * agree: the flag must also be set where the model sets it, on both
+     * sides (ACPRDE's decisionCriteria, `Field.multiParagraph`). */
+    const SomMetaNode *gen_form = som_meta_tree_by_id(rows[i].tree, "ACPRDE");
+    const SomMetaNode *bri_form = som_meta_tree_by_id(bridge, "ACPRDE");
+    if (gen_form != NULL && gen_form->form != NULL) {
+      const SomFormFieldMeta *g =
+          som_form_meta_field_named(gen_form->form, "decisionCriteria");
+      const SomFormFieldMeta *b =
+          bri_form != NULL && bri_form->form != NULL
+              ? som_form_meta_field_named(bri_form->form, "decisionCriteria")
+              : NULL;
+      ok(g != NULL && g->multi_paragraph,
+         "generated tree carries multiParagraph (ACPRDE.decisionCriteria)");
+      ok(b != NULL && b->multi_paragraph,
+         "bridge tree carries multiParagraph (ACPRDE.decisionCriteria)");
+      seen_multi_paragraph = 1;
+    }
     som_meta_tree_free(bridge);
   }
+  ok(seen_multi_paragraph, "a tree holds ACPRDE, the multiParagraph check ran");
 
   /* Every model root has a generated tree (same set, by type). */
   for (size_t r = 0; r < model->roots_len; r++) {

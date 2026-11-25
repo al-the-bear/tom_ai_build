@@ -424,7 +424,9 @@ static char *meta_form_diff(const char *at, const SomFormMeta *a,
         !strarr_eq(fa->enum_values, fa->enum_values_len, fb->enum_values,
                    fb->enum_values_len) ||
         !strarr_eq(fa->refers_to, fa->refers_to_len, fb->refers_to,
-                   fb->refers_to_len)) {
+                   fb->refers_to_len) ||
+        (fa->code != 0) != (fb->code != 0) ||
+        (fa->multi_paragraph != 0) != (fb->multi_paragraph != 0)) {
       SomBuf buf;
       som_buf_init(&buf);
       som_buf_puts(&buf, at);

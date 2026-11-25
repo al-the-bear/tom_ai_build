@@ -7,6 +7,7 @@
 #include <string.h>
 
 #include "spec_document_markdown.h"
+#include "spec_notation.h"
 
 const char *const DOCSPECS_ALL_RULES[DOCSPECS_ALL_RULES_COUNT] = {
     DOCSPECS_RULE_UNKNOWN_SECTION,
@@ -22,6 +23,15 @@ const char *const DOCSPECS_ALL_RULES[DOCSPECS_ALL_RULES_COUNT] = {
     DOCSPECS_RULE_MALFORMED_HEADING,
     DOCSPECS_RULE_SECTION_OUT_OF_ORDER,
     DOCSPECS_RULE_DUPLICATE_ID_PATH,
+    DOCSPECS_RULE_UNCLOSED_DIV,
+    DOCSPECS_RULE_STRAY_CLOSING_FENCE,
+    DOCSPECS_RULE_UNCLOSED_SPAN,
+    DOCSPECS_RULE_DIV_WITHOUT_KIND,
+    DOCSPECS_RULE_UNKNOWN_KIND,
+    DOCSPECS_RULE_MARK_ACROSS_NOTATION,
+    DOCSPECS_RULE_ANNOTATION_INSIDE_DIV,
+    DOCSPECS_RULE_DIV_INSIDE_ANNOTATION,
+    DOCSPECS_RULE_REJECTED_BLOCK,
 };
 
 /* ---- small helpers ------------------------------------------------------- */
@@ -1361,8 +1371,14 @@ const DocSpecsSectionType *docspecs_schema_resolve_section_type(
 /* ---- validator ----------------------------------------------------------- */
 
 DocSpecsValidator docspecs_validator_new(const DocSpecsSchema *schema) {
+  return docspecs_validator_new_with(schema, 0);
+}
+
+DocSpecsValidator docspecs_validator_new_with(const DocSpecsSchema *schema,
+                                              int tom_specs) {
   DocSpecsValidator v;
   v.schema = schema;
+  v.tom_specs = tom_specs;
   return v;
 }
 
@@ -1831,6 +1847,115 @@ static void validate_id_paths(DocSpecsSection *const *sections, size_t len,
   }
 }
 
+/* ---- the reading notation ------------------------------------------------ */
+
+/* `^([A-Za-z][A-Za-z0-9_]*): ?(.*)$`: a form field's label line. Writes the
+ * label's length; the rest must hold no line terminator. */
+static int field_label_line(const char *line, size_t *label_len) {
+  size_t n = strlen(line);
+  if (n == 0 || !((line[0] >= 'A' && line[0] <= 'Z') ||
+                  (line[0] >= 'a' && line[0] <= 'z'))) {
+    return 0;
+  }
+  size_t i = 1;
+  while (i < n && ((line[i] >= 'A' && line[i] <= 'Z') ||
+                   (line[i] >= 'a' && line[i] <= 'z') ||
+                   (line[i] >= '0' && line[i] <= '9') || line[i] == '_')) {
+    i++;
+  }
+  if (i >= n || line[i] != ':') return 0;
+  if (strchr(line + i + 1, '\r') != NULL) return 0;
+  *label_len = i;
+  return 1;
+}
+
+/* Whether the form has a field named `label` (its first `len` bytes), in any
+ * case. */
+static int form_has_label(const DocSpecsFormType *form, const char *label,
+                          size_t len) {
+  for (size_t f = 0; f < form->fields_len; f++) {
+    const char *name = form->fields[f].name;
+    if (strlen(name) != len) continue;
+    size_t k = 0;
+    while (k < len) {
+      char a = name[k], b = label[k];
+      if (a >= 'A' && a <= 'Z') a = (char)(a - 'A' + 'a');
+      if (b >= 'A' && b <= 'Z') b = (char)(b - 'A' + 'a');
+      if (a != b) break;
+      k++;
+    }
+    if (k == len) return 1;
+  }
+  return 0;
+}
+
+/* Scans the body lines [first, last) of `section` as one value and appends
+ * its findings, their lines counted from the section's first body line. */
+static void scan_notation_value(const DocSpecsValidator *val,
+                                const DocSpecsSection *section, size_t first,
+                                size_t last, DocSpecsViolationList *out) {
+  SomBuf text;
+  som_buf_init(&text);
+  for (size_t i = first; i < last; i++) {
+    if (i > first) som_buf_putc(&text, '\n');
+    som_buf_puts(&text, section->body_lines.items[i]);
+  }
+  char *value = som_buf_take(&text);
+  SpecNotationScan scan;
+  spec_scan_notation(value, val->tom_specs, &scan);
+  int body_start = docspecs_section_body_start_line(section);
+  for (size_t k = 0; k < scan.findings_len; k++) {
+    const SpecNotationFinding *f = &scan.findings[k];
+    dv_push(out, spec_notation_finding_code_name(f->code),
+            body_start + (int)first + f->line - 1, som_strdup(f->message),
+            section->id, "");
+  }
+  spec_notation_scan_free(&scan);
+  free(value);
+}
+
+/* The reading notation of every section's own body: one value per section,
+ * and in a TomSpecs rendition one per form field of a form-formatted section
+ * (its preamble included). */
+static void validate_notation(const DocSpecsValidator *val,
+                              const DocSpecsDocument *doc,
+                              DocSpecsViolationList *out) {
+  size_t count = 0;
+  const DocSpecsSection **all = docspecs_document_all_sections(doc, &count);
+  for (size_t s = 0; s < count; s++) {
+    const DocSpecsSection *section = all[s];
+    size_t lines = section->body_lines.len;
+    const DocSpecsFormType *form = NULL;
+    if (val->tom_specs && section->id[0] != '\0') {
+      const DocSpecsSectionType *type =
+          docspecs_schema_resolve_section_type(val->schema, section->id);
+      if (type != NULL && type->format[0] != '\0') {
+        form = docspecs_schema_form_type(val->schema, type->format);
+      }
+    }
+    if (form == NULL) {
+      scan_notation_value(val, section, 0, lines, out);
+      continue;
+    }
+    SpecMarkdownFenceTracker fence;
+    spec_markdown_fence_init(&fence);
+    size_t first = 0;
+    for (size_t i = 0; i < lines; i++) {
+      const char *line = section->body_lines.items[i];
+      size_t label_len = 0;
+      if (!spec_markdown_fence_in_fence(&fence) && i > first &&
+          field_label_line(line, &label_len) &&
+          form_has_label(form, line, label_len)) {
+        scan_notation_value(val, section, first, i, out);
+        first = i;
+      }
+      spec_markdown_fence_feed(&fence, line);
+    }
+    scan_notation_value(val, section, first, lines, out);
+  }
+  free((void *)all);
+}
+
 void docspecs_validator_validate(const DocSpecsValidator *val,
                                  const DocSpecsDocument *doc,
                                  DocSpecsViolationList *out) {
@@ -1862,6 +1987,7 @@ void docspecs_validator_validate(const DocSpecsValidator *val,
             "");
   }
   validate_document_sections(val, root, out);
+  validate_notation(val, doc, out);
   validate_id_paths(doc->sections, doc->sections_len, out);
 }
 

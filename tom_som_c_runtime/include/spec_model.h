@@ -178,6 +178,10 @@ typedef struct {
      false. A reference field without it holds one id, and the instance tier
      reports a list in it (`multipleReferences`). */
   int multiple;
+  /* Whether the value may hold several paragraphs (`Field.multiParagraph`):
+     the reading view writes it as a `Field:` block. Read from the
+     `multiParagraph` key; absent means false. */
+  int multi_paragraph;
 } FormFieldSpec;
 
 typedef struct {

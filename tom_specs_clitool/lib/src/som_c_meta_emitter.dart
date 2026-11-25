@@ -1014,6 +1014,11 @@ class SomCMetaEmitter {
       if (ff.code) {
         b.writeln('\tn->form->fields[$i].code = 1;');
       }
+      // SOM §11.4: a value of several paragraphs is written as a `Field:`
+      // block in the reading view; zero-inited for every other field.
+      if (ff.multiParagraph) {
+        b.writeln('\tn->form->fields[$i].multi_paragraph = 1;');
+      }
     }
   }
 
