@@ -126,7 +126,10 @@ unpublished_drift:
     03_sau11: tool/model_surface.stamp.json restamped for model 1.13.0;
     BCK-4.2 and IMP-4.1 hold Tom UAM's real Blueprint to what its migration
     has reached (sauvoc5_akxp-uam-blueprint-clean-assertions), the outline
-    excerpt in tom_specs_model_rules.md re-cut.
+    excerpt in tom_specs_model_rules.md re-cut. 04_sau11: the document-set
+    commands :spec-sync-report, :spec-backfill, :spec-prefill,
+    :spec-derive-fields and :spec-rename-id (lib/src/spec_sync_cli.dart),
+    writes staged before the document of record moves.
   tom_specs_core: >-
     section automation in progress — 02_sau2 (2026-11-23): the link
     annotations (SyncedWith, ListRelation, SummaryOf, DerivedFrom, InverseOf,

@@ -19,7 +19,8 @@ import '../bin/tomspecs.dart';
 /// impact walk) after `spec-validate`, `spec-readable` (the readable
 /// rendition and its merge back) after `spec-render`, `spec-mark-secondary`
 /// (the marker tool) after `spec-accept-marks`, `spec-fill-frem` (FREM
-/// from git) after `spec-coverage`.
+/// from git) after `spec-coverage`, and the document-set commands
+/// `spec-sync-report` … `spec-rename-id` after `spec-fill-frem`.
 const _tsb7 = [
   'spec-validate',
   'spec-impact-walk',
@@ -35,6 +36,11 @@ const _tsb7 = [
   'spec-authorization',
   'spec-coverage',
   'spec-fill-frem',
+  'spec-sync-report',
+  'spec-backfill',
+  'spec-prefill',
+  'spec-derive-fields',
+  'spec-rename-id',
   'spec-answers',
   'codespecs-validate',
   'codespecs-areas',

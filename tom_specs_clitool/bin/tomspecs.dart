@@ -26,6 +26,7 @@ import 'dart:io';
 import 'package:args/args.dart' hide OptionType;
 import 'package:tom_build_base/tom_build_base_v2.dart';
 import 'package:tom_specs_clitool/src/spec_checks_cli.dart';
+import 'package:tom_specs_clitool/src/spec_sync_cli.dart';
 import 'package:tom_specs_clitool/src/version.versioner.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart'
     show
@@ -285,7 +286,7 @@ final List<TomspecsCommand> tomspecsCommands = [
         name: 'drop',
         description:
             'Kinds dropped with their text (provenance, trace, editorial, '
-            'aside, comments, all); also -drop:<names>.',
+            'aside, linked, derived, comments, all); also -drop:<names>.',
         valueName: 'names',
       ),
       OptionDefinition.option(
@@ -461,6 +462,36 @@ final List<TomspecsCommand> tomspecsCommands = [
         valueName: 'doc.tomspecs.md',
       ),
     ],
+  ),
+  _tool(
+    'spec-sync-report',
+    'Validate a set of documents against each other; writes nothing',
+    specSyncReportParser,
+    runSpecSyncReport,
+  ),
+  _tool(
+    'spec-backfill',
+    "Carry the Phase 3 documents' values into the Blueprint",
+    specBackfillParser,
+    runSpecBackfill,
+  ),
+  _tool(
+    'spec-prefill',
+    'Start a Phase 3 document from the Blueprint',
+    specPrefillParser,
+    runSpecPrefill,
+  ),
+  _tool(
+    'spec-derive-fields',
+    'Derive the derived places of one document',
+    specDeriveFieldsParser,
+    runSpecDeriveFields,
+  ),
+  _tool(
+    'spec-rename-id',
+    'Rename a section id in every document of a set',
+    specRenameIdParser,
+    runSpecRenameId,
   ),
   _tool(
     'spec-answers',
