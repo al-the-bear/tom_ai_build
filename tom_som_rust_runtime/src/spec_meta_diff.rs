@@ -231,6 +231,8 @@ fn meta_form_diff(at: &str, a: &Option<SomFormMeta>, b: &Option<SomFormMeta>) ->
             || x.order != y.order
             || x.enum_values != y.enum_values
             || x.refers_to != y.refers_to
+            || x.code != y.code
+            || x.multi_paragraph != y.multi_paragraph
         {
             return format!("{}: form field {} differs", at, x.name);
         }

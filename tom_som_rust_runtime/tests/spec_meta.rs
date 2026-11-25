@@ -754,3 +754,48 @@ fn spec_meta() {
     meta_test_item_path(&mut c);
     c.finish();
 }
+
+/// A form node whose one field carries the given `code` / `multi_paragraph`
+/// flags, for the meta diff's form-field branch.
+fn form_node(code: bool, multi_paragraph: bool) -> SomMetaNode {
+    SomMetaNode {
+        class_name: "DocumentControl".to_string(),
+        member_name: "documentControl".to_string(),
+        section_id: "DOCO".to_string(),
+        kind: SOM_META_KIND_FORM.to_string(),
+        type_name: "DocumentControl".to_string(),
+        form: Some(SomFormMeta {
+            fields: vec![SomFormFieldMeta {
+                name: "decisionCriteria".to_string(),
+                type_name: "String".to_string(),
+                order: 0,
+                code,
+                multi_paragraph,
+                ..SomFormFieldMeta::default()
+            }],
+        }),
+        ..SomMetaNode::new()
+    }
+}
+
+/// The meta diff's form-field branch compares `code` and `multi_paragraph`:
+/// two trees that differ in nothing but one of the flags disagree.
+#[test]
+fn spec_meta_diff_form_field_flags() {
+    use tom_som_rust_runtime::som_meta_node_diff;
+    let differs = |a: SomMetaNode, b: SomMetaNode| -> bool {
+        som_meta_node_diff(&a, &b)
+            .is_some_and(|d| d.contains("form field decisionCriteria differs"))
+    };
+    let agree = |a: SomMetaNode, b: SomMetaNode| som_meta_node_diff(&a, &b).is_none();
+    assert!(agree(form_node(false, false), form_node(false, false)));
+    assert!(agree(form_node(true, true), form_node(true, true)));
+    assert!(
+        differs(form_node(false, true), form_node(false, false)),
+        "multi_paragraph alone must differ"
+    );
+    assert!(
+        differs(form_node(true, false), form_node(false, false)),
+        "code alone must differ"
+    );
+}

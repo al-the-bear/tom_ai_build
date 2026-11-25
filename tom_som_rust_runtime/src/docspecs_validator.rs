@@ -30,6 +30,7 @@ use crate::spec_document_markdown::{
     md_heading_line, MarkdownFenceTracker, SpecDocumentMarkdown, SpecMarkdownResult,
 };
 use crate::spec_model::SpecModel;
+use crate::spec_notation::scan_notation;
 use crate::yaml::{yaml_parse, YamlValue};
 
 // The vocabulary of validation violation rules (Dart-parity names).
@@ -63,11 +64,36 @@ pub const DOCSPECS_RULE_SECTION_OUT_OF_ORDER: &str = "sectionOutOfOrder";
 /// the root down to it) is not unique.
 pub const DOCSPECS_RULE_DUPLICATE_ID_PATH: &str = "duplicateIdPath";
 
+// The reading notation's findings (DocSpecs specification, RN-10), reported
+// by [`scan_notation`](crate::spec_notation::scan_notation) per value: a section's own body, and in a TomSpecs
+// rendition each form field's value apart. Each is the
+// [`NotationFindingCode::as_str`](crate::spec_notation::NotationFindingCode::as_str)
+// of its code.
+
+/// An opening fence without its closing fence.
+pub const DOCSPECS_RULE_UNCLOSED_DIV: &str = "unclosedDiv";
+/// A closing fence without an open div.
+pub const DOCSPECS_RULE_STRAY_CLOSING_FENCE: &str = "strayClosingFence";
+/// A span's attribute braces do not close on the paragraph.
+pub const DOCSPECS_RULE_UNCLOSED_SPAN: &str = "unclosedSpan";
+/// A div whose attributes hold no class (TomSpecs renditions only).
+pub const DOCSPECS_RULE_DIV_WITHOUT_KIND: &str = "divWithoutKind";
+/// An unregistered kind (TomSpecs renditions only; a warning).
+pub const DOCSPECS_RULE_UNKNOWN_KIND: &str = "unknownKind";
+/// An inline review mark crosses the boundary of a span or citation.
+pub const DOCSPECS_RULE_MARK_ACROSS_NOTATION: &str = "markAcrossNotation";
+/// A comment or question block stands inside a div.
+pub const DOCSPECS_RULE_ANNOTATION_INSIDE_DIV: &str = "annotationInsideDiv";
+/// A div stands inside a comment or question block.
+pub const DOCSPECS_RULE_DIV_INSIDE_ANNOTATION: &str = "divInsideAnnotation";
+/// A `rejected` block waits for its resolution.
+pub const DOCSPECS_RULE_REJECTED_BLOCK: &str = "rejectedBlock";
+
 /// The complete §14 vocabulary, in declaration order — the enumerable form of
 /// what Dart gets for free from its enum. The conformance runner diffs it
 /// against the rules the shared corpus exercises, so a rule added here without
 /// a corpus case fails the suite instead of going unnoticed.
-pub const DOCSPECS_ALL_RULES: [&str; 13] = [
+pub const DOCSPECS_ALL_RULES: [&str; 22] = [
     DOCSPECS_RULE_UNKNOWN_SECTION,
     DOCSPECS_RULE_MISSING_REQUIRED_SECTION,
     DOCSPECS_RULE_ID_PATTERN_MISMATCH,
@@ -81,6 +107,15 @@ pub const DOCSPECS_ALL_RULES: [&str; 13] = [
     DOCSPECS_RULE_MALFORMED_HEADING,
     DOCSPECS_RULE_SECTION_OUT_OF_ORDER,
     DOCSPECS_RULE_DUPLICATE_ID_PATH,
+    DOCSPECS_RULE_UNCLOSED_DIV,
+    DOCSPECS_RULE_STRAY_CLOSING_FENCE,
+    DOCSPECS_RULE_UNCLOSED_SPAN,
+    DOCSPECS_RULE_DIV_WITHOUT_KIND,
+    DOCSPECS_RULE_UNKNOWN_KIND,
+    DOCSPECS_RULE_MARK_ACROSS_NOTATION,
+    DOCSPECS_RULE_ANNOTATION_INSIDE_DIV,
+    DOCSPECS_RULE_DIV_INSIDE_ANNOTATION,
+    DOCSPECS_RULE_REJECTED_BLOCK,
 ];
 
 /// One validation finding.
@@ -803,12 +838,25 @@ fn docspecs_pattern_check(node: Option<&YamlValue>) -> Option<DocSpecsPatternChe
 /// A never-fail-fast validator of a parsed document against a schema.
 pub struct DocSpecsValidator {
     pub schema: DocSpecsSchema,
+    /// The documents are TomSpecs renditions: the reading notation is then
+    /// scanned value by value (a form field's value apart from the next), and
+    /// a div without a class and an unregistered kind are reported too.
+    pub tom_specs: bool,
 }
 
 impl DocSpecsValidator {
     /// Binds a schema to the validator.
     pub fn new(schema: DocSpecsSchema) -> DocSpecsValidator {
-        DocSpecsValidator { schema }
+        DocSpecsValidator {
+            schema,
+            tom_specs: false,
+        }
+    }
+
+    /// Binds a schema to a validator of TomSpecs renditions (`tom_specs`
+    /// true) or of plain DocSpecs documents (false, as [`Self::new`]).
+    pub fn with_tom_specs(schema: DocSpecsSchema, tom_specs: bool) -> DocSpecsValidator {
+        DocSpecsValidator { schema, tom_specs }
     }
 
     /// Parses + validates in one step.
@@ -853,8 +901,63 @@ impl DocSpecsValidator {
             });
         }
         self.validate_document_sections(root, &mut v);
+        self.validate_notation(doc, &mut v);
         Self::validate_id_paths(&doc.sections, &mut v);
         v
+    }
+
+    /// The reading notation of every section's own body: one value per
+    /// section, and in a TomSpecs rendition one per form field of a
+    /// form-formatted section (its preamble included).
+    fn validate_notation(&self, doc: &DocSpecsDocument, v: &mut Vec<DocSpecsViolation>) {
+        for section in doc.all_sections() {
+            for (first, lines) in self.notation_values(section) {
+                let scan = scan_notation(&lines.join("\n"), self.tom_specs);
+                for f in &scan.findings {
+                    v.push(DocSpecsViolation {
+                        rule: f.code.as_str().to_string(),
+                        line: section.body_start_line() + first + f.line - 1,
+                        message: f.message.clone(),
+                        section_id: section.id.clone(),
+                        path: String::new(),
+                    });
+                }
+            }
+        }
+    }
+
+    /// The values of `section`'s own body as (index of the first line,
+    /// lines).
+    fn notation_values<'a>(&self, section: &'a DocSpecsSection) -> Vec<(usize, &'a [String])> {
+        let body = &section.body_lines[..];
+        let form = if self.tom_specs && !section.id.is_empty() {
+            self.schema
+                .resolve_section_type(&section.id)
+                .filter(|t| !t.format.is_empty())
+                .and_then(|t| self.schema.form_types.get(&t.format))
+        } else {
+            None
+        };
+        let Some(form) = form else {
+            return vec![(0, body)];
+        };
+        let labels: Vec<String> = form.fields.iter().map(|f| f.name.to_lowercase()).collect();
+        let mut values = Vec::new();
+        let mut fence = MarkdownFenceTracker::new();
+        let mut first = 0;
+        for (i, line) in body.iter().enumerate() {
+            if !fence.in_fence() && i > first {
+                if let Some((label, _)) = dv_field_label(line) {
+                    if labels.contains(&label.to_lowercase()) {
+                        values.push((first, &body[first..i]));
+                        first = i;
+                    }
+                }
+            }
+            fence.feed(line);
+        }
+        values.push((first, &body[first..]));
+        values
     }
 
     /// Every section's id path (the ids from the root down to it) is unique:

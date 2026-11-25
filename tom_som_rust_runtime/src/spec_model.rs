@@ -250,6 +250,10 @@ pub struct FormFieldSpec {
     /// markdown codec writes it as an inline code span and unwraps it on
     /// import (SOM §11.4 rule 8). Omitted from the export when `false`.
     pub code: bool,
+    /// Whether the field's values hold paragraphs or blocks
+    /// (`Field.multiParagraph`): the markdown renderer writes them as a
+    /// `Field:` paragraph, never as a row of the form table (SOM §11.4).
+    pub multi_paragraph: bool,
 }
 
 /// A single field of a [`SpecClass`].
@@ -867,6 +871,7 @@ fn field_from_json(f: &Json) -> SpecField {
                 product_of: ff_product_of,
                 rank_of: ff_rank_of,
                 code: ff.bool_or("code"),
+                multi_paragraph: ff.bool_or("multiParagraph"),
             });
         }
     }

@@ -32,6 +32,7 @@ pub mod spec_meta_bridge;
 pub mod spec_meta_diff;
 pub mod spec_model;
 pub mod spec_node_creation;
+pub mod spec_notation;
 pub mod spec_paths;
 pub mod spec_query;
 pub mod spec_reflection;
@@ -59,6 +60,10 @@ pub use docspecs_validator::{
     DOCSPECS_RULE_MISSING_REQUIRED_SECTION, DOCSPECS_RULE_SECTION_OUT_OF_ORDER,
     DOCSPECS_RULE_TEXT_LENGTH_OUT, DOCSPECS_RULE_TEXT_REQUIRED, DOCSPECS_RULE_TOO_FEW_ITEMS,
     DOCSPECS_RULE_TOO_MANY_ITEMS, DOCSPECS_RULE_UNKNOWN_SECTION,
+    DOCSPECS_RULE_ANNOTATION_INSIDE_DIV, DOCSPECS_RULE_DIV_INSIDE_ANNOTATION,
+    DOCSPECS_RULE_DIV_WITHOUT_KIND, DOCSPECS_RULE_MARK_ACROSS_NOTATION,
+    DOCSPECS_RULE_REJECTED_BLOCK, DOCSPECS_RULE_STRAY_CLOSING_FENCE, DOCSPECS_RULE_UNCLOSED_DIV,
+    DOCSPECS_RULE_UNCLOSED_SPAN, DOCSPECS_RULE_UNKNOWN_KIND,
 };
 pub use json::Json;
 pub use som_facade::{
@@ -134,6 +139,10 @@ pub use spec_model::{
 };
 pub use spec_node_creation::{
     check_add_node, SpecCreationCode, SpecCreationError, SpecNodeCreator,
+};
+pub use spec_notation::{
+    notation_severity, registered_notation_kinds, scan_notation, NotationElement,
+    NotationFinding, NotationFindingCode, NotationScan, REGISTERED_NOTATION_KINDS,
 };
 pub use spec_paths::{
     SPEC_PATH_SEPARATOR,

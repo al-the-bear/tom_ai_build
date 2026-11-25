@@ -30,7 +30,7 @@ pub fn validate_spec_document(
     root_type: Option<&str>,
 ) -> Result<Vec<DocSpecsViolation>, String> {
     let rendition = document.to_markdown_with_map(model, root_type)?;
-    let found = DocSpecsValidator::new(schema.clone()).validate_markdown(&rendition.markdown);
+    let found = DocSpecsValidator::with_tom_specs(schema.clone(), true).validate_markdown(&rendition.markdown);
     Ok(found
         .into_iter()
         .map(|mut v| {

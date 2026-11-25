@@ -77,6 +77,70 @@ fn generated_trees_agree_with_bridge() {
     }
 }
 
+/// The form fields flagged `multi_paragraph` under `node` (each node once).
+fn count_multi_paragraph(
+    node: &Rc<som::SomMetaNode>,
+    seen: &mut std::collections::HashSet<*const som::SomMetaNode>,
+) -> usize {
+    if !seen.insert(Rc::as_ptr(node)) {
+        return 0;
+    }
+    let mut n = node
+        .form
+        .as_ref()
+        .map_or(0, |f| f.fields.iter().filter(|ff| ff.multi_paragraph).count());
+    for c in &node.children {
+        n += count_multi_paragraph(c, seen);
+    }
+    if let Some(e) = &node.element_node {
+        n += count_multi_paragraph(e, seen);
+    }
+    n
+}
+
+/// The form-field `multi_paragraph` flag (`Field.multiParagraph`) reaches
+/// both trees. The diff above compares it, but two trees that both lost it
+/// would agree: the flag must also be set where the model sets it, on the
+/// generated and on the bridge tree (ACPRDE's `decisionCriteria`), and the
+/// generated trees must carry it at all.
+#[test]
+fn multi_paragraph_reaches_both_trees() {
+    let model = load_model();
+    let mut seen_acprde = false;
+    let mut generated = 0;
+    let mut bridged = 0;
+    for entry in meta::som_meta_roots() {
+        let tree = (entry.tree)();
+        let bridge =
+            som::build_som_meta_tree(&model, entry.type_name).expect("build_som_meta_tree");
+        generated += count_multi_paragraph(&tree.root, &mut Default::default());
+        bridged += count_multi_paragraph(&bridge.root, &mut Default::default());
+        let Some(gen_form) = tree.by_id("ACPRDE").and_then(|n| n.form.clone()) else {
+            continue;
+        };
+        let bri_form = bridge.by_id("ACPRDE").and_then(|n| n.form.clone());
+        assert!(
+            gen_form
+                .field_named("decisionCriteria")
+                .is_some_and(|f| f.multi_paragraph),
+            "{}: generated tree lacks multi_paragraph on ACPRDE.decisionCriteria",
+            entry.type_name
+        );
+        assert!(
+            bri_form
+                .as_ref()
+                .and_then(|f| f.field_named("decisionCriteria"))
+                .is_some_and(|f| f.multi_paragraph),
+            "{}: bridge tree lacks multi_paragraph on ACPRDE.decisionCriteria",
+            entry.type_name
+        );
+        seen_acprde = true;
+    }
+    assert!(seen_acprde, "no tree holds ACPRDE");
+    assert!(generated > 0, "the generated trees carry no multi_paragraph flag");
+    assert_eq!(bridged, generated, "bridge != generated multi_paragraph count");
+}
+
 /// Proves each registry entry describes itself consistently: both access roots
 /// sit at the declared segment and both resolve to the entry's own tree root.
 #[test]

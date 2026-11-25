@@ -90,6 +90,10 @@ pub struct SomFormFieldMeta {
     /// markdown codec writes it as an inline code span and unwraps it on
     /// import (SOM §11.4 rule 8).
     pub code: bool,
+    /// Whether the field's values hold paragraphs or blocks
+    /// (`Field.multiParagraph`): the markdown renderer writes them as a
+    /// `Field:` paragraph, never as a row of the form table (SOM §11.4).
+    pub multi_paragraph: bool,
 }
 
 /// The form metadata of a `@Form` node (SOM §7.1 FormMeta).

@@ -97,6 +97,7 @@ use tom_som_rust_runtime::{
     spec_default_units, spec_generation_units, spec_impact_document_files, spec_impact_level,
     spec_impact_walk, spec_impact_walk_markdown, SpecImpactFolder, SPEC_STANDARD_EMITTERS,
     validate_spec_document, DocSpecsDocument, DocSpecsSchema, DocSpecsValidator, DOCSPECS_ALL_RULES,
+    scan_notation, NotationFindingCode,
 };
 
 const MODEL_VERSION: &str = "1.0";
@@ -231,6 +232,7 @@ fn conformance() {
     test_node_creation_cases(&mut c, &model);
     test_node_creation_script(&mut c, &model);
     test_docspecs(&mut c);
+    test_notation(&mut c);
     test_docspecs_replace(&mut c);
     test_docspecs_paths(&mut c, &model);
     test_generation_units(&mut c, &model);
@@ -1096,6 +1098,11 @@ fn test_validation(c: &mut Checker, model: &SpecModel) {
 /// produces; matching them is what proves this port implements each rule at
 /// all, rather than merely declaring its name. `str_or` yields `""` for the
 /// corpus's JSON null, which is exactly this port's absent-section-id value.
+/// The `readingView` cases of `docspecs_cases.json` the reading notation's
+/// scanner port (`spec_notation.rs`) makes run: the rest wait for the reading
+/// view's validator port.
+const READING_NOTATION_DOCSPECS_CASES: [&str; 1] = ["readingView: rejected block"];
+
 fn test_docspecs(c: &mut Checker) {
     let schema = DocSpecsSchema::from_yaml_text(&read_corpus("docspecs_schema.yaml"))
         .expect("docspecs schema");
@@ -1115,8 +1122,11 @@ fn test_docspecs(c: &mut Checker) {
     let mut covered: Vec<String> = Vec::new();
     for cc in cases.as_array().unwrap() {
         // The reading view's table forms (`readingView`) are read by the Dart and
-        // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
-        if cc.get("readingView").and_then(|v| v.as_bool()) == Some(true) {
+        // TypeScript runtimes only until their ports (runtime_parity.md § Reading view);
+        // the reading notation's case (a rejected block, RN-11) runs since its scanner port.
+        if cc.get("readingView").and_then(|v| v.as_bool()) == Some(true)
+            && !READING_NOTATION_DOCSPECS_CASES.contains(&cc.str_or("name").as_str())
+        {
             continue;
         }
         let name = cc.str_or("name");
@@ -1144,6 +1154,14 @@ fn test_docspecs(c: &mut Checker) {
         );
     }
 
+    // The reading notation's rules are exercised by notation_cases.json's
+    // validator cases (test_notation), not by the nine-runtime table.
+    let notation = read_json("notation_cases.json");
+    for cc in notation.get("validatorCases").and_then(|v| v.as_array()).unwrap_or(&[]) {
+        for v in cc.get("violations").and_then(|v| v.as_array()).unwrap_or(&[]) {
+            covered.push(v.str_or("rule"));
+        }
+    }
     let uncovered: Vec<&str> = DOCSPECS_ALL_RULES
         .iter()
         .copied()
@@ -1154,6 +1172,82 @@ fn test_docspecs(c: &mut Checker) {
         uncovered.is_empty(),
         &format!("uncovered: {:?}", uncovered),
     );
+}
+
+/// The reading notation (`notation_cases.json`): each text value scanned with
+/// `scan_notation` — its elements (UTF-16 `start`/`end`, `line`/`endLine`,
+/// `source`/`content`, nesting) and findings — and the validator cases, the
+/// nine notation rules of the embedded DocSpecs validator (DocSpecs
+/// specification, Reading Notation RN-1 … RN-13).
+fn test_notation(c: &mut Checker) {
+    let table = read_json("notation_cases.json");
+    let mut codes: Vec<String> = Vec::new();
+    for cc in table.get("cases").and_then(|v| v.as_array()).expect("cases") {
+        let name = cc.str_or("name");
+        let text = cc.str_or("text");
+        let tom_specs = cc.get("tomSpecs").and_then(|v| v.as_bool()) == Some(true);
+        let scan = scan_notation(&text, tom_specs);
+        let elements = Json::Array(scan.elements.iter().map(|e| e.to_json(&text)).collect());
+        let findings = Json::Array(scan.findings.iter().map(|f| f.to_json()).collect());
+        let want_elements = cc.get("elements").cloned().unwrap_or(Json::Null);
+        let want_findings = cc.get("findings").cloned().unwrap_or(Json::Null);
+        c.check(
+            &format!("notation.scan[{}].elements", name),
+            elements == want_elements,
+            &format!("{:?} != {:?}", elements, want_elements),
+        );
+        c.check(
+            &format!("notation.scan[{}].findings", name),
+            findings == want_findings,
+            &format!("{:?} != {:?}", findings, want_findings),
+        );
+        for f in want_findings.as_array().unwrap_or(&[]) {
+            codes.push(f.str_or("code"));
+        }
+    }
+    let uncovered: Vec<&str> = NotationFindingCode::ALL
+        .iter()
+        .map(|c| c.as_str())
+        .filter(|c| !codes.iter().any(|got| got == c))
+        .collect();
+    c.check(
+        "notation.codeCoverage",
+        uncovered.is_empty(),
+        &format!("uncovered: {:?}", uncovered),
+    );
+    let schema = DocSpecsSchema::from_yaml_text(&read_corpus("docspecs_schema.yaml"))
+        .expect("docspecs schema");
+    for cc in table
+        .get("validatorCases")
+        .and_then(|v| v.as_array())
+        .expect("validatorCases")
+    {
+        let tom_specs = cc.get("tomSpecs").and_then(|v| v.as_bool()) == Some(true);
+        let validator = DocSpecsValidator::with_tom_specs(schema.clone(), tom_specs);
+        let got: Vec<(String, String, i64)> = validator
+            .validate_markdown(&cc.str_or("markdown"))
+            .iter()
+            .map(|v| (v.rule.clone(), v.section_id.clone(), v.line as i64))
+            .collect();
+        let want: Vec<(String, String, i64)> = cc
+            .get("violations")
+            .and_then(|v| v.as_array())
+            .unwrap_or(&[])
+            .iter()
+            .map(|v| {
+                (
+                    v.str_or("rule"),
+                    v.str_or("sectionId"),
+                    v.get("line").and_then(|l| l.as_i64()).unwrap_or(-1),
+                )
+            })
+            .collect();
+        c.check(
+            &format!("notation.validate[{}]", cc.str_or("name")),
+            got == want,
+            &format!("{:?} != {:?}", got, want),
+        );
+    }
 }
 
 /// `DocSpecsDocument::replace_section_body` over `docspecs_replace_cases.json`:
