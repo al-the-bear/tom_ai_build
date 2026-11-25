@@ -668,6 +668,7 @@ class FormFieldSpec {
     productOf = [],
     rankOf = null,
     code = false,
+    multiParagraph = false,
     multiple = false,
     derivedFrom = null,
     inverseOf = null,
@@ -725,6 +726,12 @@ class FormFieldSpec {
      */
     this.code = code;
     /**
+     * Whether the field's values hold paragraphs or blocks
+     * (`Field.multiParagraph`): the markdown renderer writes them as a `Field:`
+     * paragraph, never as a row of the form table (SOM §11.4).
+     */
+    this.multiParagraph = multiParagraph;
+    /**
      * Whether a reference field holds several ids, comma-separated
      * (`Field.multiple`, uamtc17); a reference field without it holds one, and
      * the instance tier reports a list in it (`multipleReferences`).
@@ -764,6 +771,7 @@ class FormFieldSpec {
       productOf: (j.productOf || []).map(String),
       rankOf: typeof j.rankOf === 'string' ? j.rankOf : null,
       code: j.code === true,
+      multiParagraph: j.multiParagraph === true,
       multiple: j.multiple === true,
       derivedFrom: _isObject(j.derivedFrom)
         ? SpecDerivation.fromArguments(_objectMap(j.derivedFrom))

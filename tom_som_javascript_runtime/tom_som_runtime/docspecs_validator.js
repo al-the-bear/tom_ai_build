@@ -20,6 +20,7 @@
  */
 
 const { MarkdownFenceTracker, SpecDocumentMarkdown } = require('./spec_document_markdown');
+const { scanNotation } = require('./spec_notation');
 const yaml = require('./yaml');
 
 /** The vocabulary of validation violation rules (Dart-parity names). */
@@ -39,6 +40,18 @@ const DocSpecsViolationRule = Object.freeze({
   SECTION_OUT_OF_ORDER: 'sectionOutOfOrder',
   /** A section's id repeats an earlier sibling's: its id path is not unique. */
   DUPLICATE_ID_PATH: 'duplicateIdPath',
+  // The reading notation's findings (DocSpecs specification, RN-10), reported
+  // by scanNotation per value: a section's own body, and in a TomSpecs
+  // rendition each form field's value apart.
+  UNCLOSED_DIV: 'unclosedDiv',
+  STRAY_CLOSING_FENCE: 'strayClosingFence',
+  UNCLOSED_SPAN: 'unclosedSpan',
+  DIV_WITHOUT_KIND: 'divWithoutKind',
+  UNKNOWN_KIND: 'unknownKind',
+  MARK_ACROSS_NOTATION: 'markAcrossNotation',
+  ANNOTATION_INSIDE_DIV: 'annotationInsideDiv',
+  DIV_INSIDE_ANNOTATION: 'divInsideAnnotation',
+  REJECTED_BLOCK: 'rejectedBlock',
 });
 
 /** One validation finding. */
@@ -600,8 +613,16 @@ const _FIELD_LABEL = /^([A-Za-z][A-Za-z0-9_]*): ?(.*)$/;
 
 /** Never-fail-fast validator of a parsed document against a schema. */
 class DocSpecsValidator {
-  constructor(schema) {
+  /**
+   * @param {DocSpecsSchema} schema
+   * @param {{tomSpecs?: boolean}} [options] `tomSpecs`: the documents are
+   *   TomSpecs renditions — the reading notation is then scanned value by
+   *   value (a form field's value apart from the next), and a div without a
+   *   class and an unregistered kind are reported too.
+   */
+  constructor(schema, options = {}) {
     this.schema = schema;
+    this.tomSpecs = options.tomSpecs === true;
   }
 
   /**
@@ -650,8 +671,58 @@ class DocSpecsValidator {
       ));
     }
     this._validateDocumentSections(root, v);
+    this._validateNotation(doc, v);
     this._validateIdPaths(doc.sections, v);
     return v;
+  }
+
+  /**
+   * The reading notation of every section's own body: one value per section,
+   * and in a TomSpecs rendition one per form field of a form-formatted
+   * section (its preamble included).
+   */
+  _validateNotation(doc, v) {
+    for (const section of doc.allSections) {
+      for (const [first, lines] of this._notationValues(section)) {
+        const scan = scanNotation(lines.join('\n'), { tomSpecs: this.tomSpecs });
+        for (const f of scan.findings) {
+          v.push(new DocSpecsViolation(
+            f.code,
+            section.bodyStartLine + first + f.line - 1,
+            f.message,
+            section.id,
+          ));
+        }
+      }
+    }
+  }
+
+  /** The values of a section's own body as [index of the first line, lines]. */
+  _notationValues(section) {
+    const body = section.bodyLines;
+    const type =
+      this.tomSpecs && section.id != null
+        ? this.schema.resolveSectionType(section.id)
+        : null;
+    const form =
+      type != null && type.format != null ? this.schema.formTypes[type.format] : undefined;
+    if (form === undefined) return [[0, body]];
+    const labels = new Set(form.fields.map((f) => f.name.toLowerCase()));
+    const values = [];
+    const fence = new MarkdownFenceTracker();
+    let first = 0;
+    for (let i = 0; i < body.length; i++) {
+      if (!fence.inFence && i > first) {
+        const m = _FIELD_LABEL.exec(body[i]);
+        if (m != null && labels.has(m[1].toLowerCase())) {
+          values.push([first, body.slice(first, i)]);
+          first = i;
+        }
+      }
+      fence.feed(body[i]);
+    }
+    values.push([first, body.slice(first)]);
+    return values;
   }
 
   /**

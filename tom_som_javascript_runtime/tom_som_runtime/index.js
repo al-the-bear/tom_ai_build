@@ -250,6 +250,15 @@ const {
 const { buildSomMetaTree } = require('./spec_meta_bridge');
 const { somMetaNodeDiff } = require('./spec_meta_diff');
 const {
+  NotationElement,
+  NotationFinding,
+  NotationFindingCode,
+  NotationScan,
+  notationSeverity,
+  registeredNotationKinds,
+  scanNotation,
+} = require('./spec_notation');
+const {
   FORMAT_VERSION,
   SpecYamlFormatException,
   SpecYamlContents,
@@ -518,6 +527,14 @@ module.exports = {
   SomListMetaRef,
   buildSomMetaTree,
   somMetaNodeDiff,
+  // the reading notation (DocSpecs specification, Reading Notation)
+  NotationElement,
+  NotationFinding,
+  NotationFindingCode,
+  NotationScan,
+  notationSeverity,
+  registeredNotationKinds,
+  scanNotation,
   // yaml codec
   FORMAT_VERSION,
   SpecYamlFormatException,

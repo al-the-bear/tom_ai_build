@@ -80,7 +80,7 @@ and how to pin.
 | `spec_codespecs_gate.js` | The Phase-4 Stage-A gate (`CodeSpecsGate`) — checks A1–A5 of `codespecs_prompt.md` §4 run as one over model, document, catalogue and DocSpecs schema; a check that could not run is reported not run, never passed. |
 | `spec_document_yaml.js` | Byte-stable `*.tomspecs.yaml` codec (`SOM §12`). |
 | `spec_document_markdown.js` | DocSpecs-conform Markdown import/export codec (`SOM §11`): the emitter writes `Field:` lines; the parser reads them and the reading view's form, record and section tables, reference lines and heading anchors (SOM §11.4, §11.5). |
-| `docspecs_validator.js` | Schema-free DocSpecs parse, schema loader, and never-fail-fast validator (`SOM §14`). |
+| `docspecs_validator.js` | Schema-free DocSpecs parse, schema loader, and never-fail-fast validator (`SOM §14`), with the nine reading-notation rules (`{ tomSpecs: true }`: scanned per form-field value, unknown kinds and classless divs reported). |
 | `som_facade.js` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList`) for the generated `tom_som_javascript_v0`. |
 | `spec_review_annotations.js` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks (`SpecReviewAnnotations`: insert, answer, decide, comment on a change, assign comment ids, strip, validate), conflict blocks, change times and attribution; `formatCommentBlock` / `formatQuestionBlock` / `formatConflictBlock`. |
 | `spec_review_merge.js` | Team review (SOM §11.9.8): `mergeReviews` merges the returned copies of a round into one document with votes, individual answers and conflict blocks (`SpecReviewMergeResult`, `SpecReviewMergeReport`). |
@@ -88,7 +88,8 @@ and how to pin.
 | `spec_document_assembly.js` | Fragments of one document assembled into one (`assembleSpecDocuments`, `SpecDocumentAssembly`), refusing overlapping values (`SpecAssemblyOverlap`). |
 | `spec_meta.js` | The metadata tree types (`SomMetaTree`, `SomMetaNode`, `SomMetaKind`, …) the YAML codec and the facade navigate by. |
 | `spec_meta_bridge.js` | `buildSomMetaTree` — the metadata tree of a model, for one root or all. |
-| `spec_meta_diff.js` | `somMetaNodeDiff` — the first difference between two metadata trees, or `null`. |
+| `spec_meta_diff.js` | `somMetaNodeDiff` — the first difference between two metadata trees, or `null` (form fields compared with their `code` and `multiParagraph` flags). |
+| `spec_notation.js` | The reading notation's scanner (DocSpecs Reading Notation): `scanNotation` returns a value's divs, spans and citations (`NotationElement`, UTF-16 ranges) and the notation's findings (`NotationFinding`, `NotationFindingCode`, `notationSeverity`), which the DocSpecs validator reports as rules. |
 | `spec_section_id.js` | List-item section ids (AA1): `generateListItemSectionId`, `encodeTwoLetterDate`, `effectiveListItemSectionId`, `K_SECTION_ID_SLOT`, `SpecSectionIdCollision`. |
 | `spec_serialization_order.js` | `SpecSerializationOrder` — the model's member order, which every codec writes in. |
 | `spec_schema_validation.js` | `validateSpecDocument` — the DocSpecs schema tier over a document's Markdown rendition. |

@@ -131,7 +131,9 @@ function _formDiff(at, a, b) {
       fa.hint !== fb.hint ||
       fa.order !== fb.order ||
       !_listEq(fa.enumValues, fb.enumValues) ||
-      !_listEq(fa.refersTo, fb.refersTo)
+      !_listEq(fa.refersTo, fb.refersTo) ||
+      Boolean(fa.code) !== Boolean(fb.code) ||
+      Boolean(fa.multiParagraph) !== Boolean(fb.multiParagraph)
     ) {
       return `${at}: form field ${fa.name} differs`;
     }

@@ -32,7 +32,7 @@ const { DocSpecsValidator, DocSpecsViolation } = require('./docspecs_validator')
  */
 function validateSpecDocument(model, document, schema, rootType = null) {
   const rendition = document.toMarkdownWithMap(model, rootType);
-  return new DocSpecsValidator(schema)
+  return new DocSpecsValidator(schema, { tomSpecs: true })
     .validateMarkdown(rendition.markdown)
     .map(
       (v) =>

@@ -86,6 +86,29 @@ function testGeneratedTreesAgreeWithBridge(model) {
   }
 }
 
+// The form-field `multiParagraph` flag (`Field.multiParagraph`) reaches both
+// trees: the generated tree carries it as emitted, the bridge reads it from
+// the meta, and the agreement above compares it field by field.
+function testMultiParagraphReachesBothTrees(model) {
+  const count = (node, seen = new Set()) => {
+    if (node === null || node === undefined || seen.has(node)) return 0;
+    seen.add(node);
+    let n = 0;
+    if (node.form) n += node.form.fields.filter((f) => f.multiParagraph === true).length;
+    for (const c of node.children || []) n += count(c, seen);
+    if (node.elementNode) n += count(node.elementNode, seen);
+    return n;
+  };
+  let generated = 0;
+  let bridged = 0;
+  for (const [rootType, tree] of Object.entries(GENERATED_TREES)) {
+    generated += count(tree.root);
+    bridged += count(buildSomMetaTree(model, rootType).root);
+  }
+  check('multiParagraph.generated', generated > 0, String(generated));
+  check('multiParagraph.bridge', bridged === generated, `${bridged} != ${generated}`);
+}
+
 function testRegistryEntriesAreSelfConsistent() {
   for (const [key, e] of Object.entries(m.SOM_META_ROOTS)) {
     check(`registry.key.${key}`, e.type === key);
@@ -188,6 +211,7 @@ function testIdTreeSurface() {
 function main() {
   const model = loadModel();
   testGeneratedTreesAgreeWithBridge(model);
+  testMultiParagraphReachesBothTrees(model);
   testRegistryEntriesAreSelfConsistent();
   testDotNotationSurface();
   testIdTreeSurface();

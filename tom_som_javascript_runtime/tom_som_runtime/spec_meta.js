@@ -77,6 +77,7 @@ class SomFormFieldMeta {
     enumValues = null,
     refersTo = null,
     code = false,
+    multiParagraph = false,
   }) {
     /** The exact model field name (`approvedBy`). */
     this.name = name;
@@ -110,6 +111,12 @@ class SomFormFieldMeta {
      * §11.4 rule 8).
      */
     this.code = Boolean(code);
+    /**
+     * Whether the field's values hold paragraphs or blocks
+     * (`Field.multiParagraph`): the markdown renderer writes them as a `Field:`
+     * paragraph, never as a row of the form table (SOM §11.4).
+     */
+    this.multiParagraph = Boolean(multiParagraph);
   }
 }
 

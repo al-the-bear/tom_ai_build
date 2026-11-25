@@ -205,6 +205,7 @@ function _fieldNode(model, owner, field, stack) {
             enumValues: ff.enumValues,
             refersTo: ff.refersTo,
             code: ff.code,
+            multiParagraph: ff.multiParagraph,
           }),
       ),
     );

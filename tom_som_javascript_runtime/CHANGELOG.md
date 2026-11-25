@@ -2,6 +2,26 @@
 
 ## Unreleased
 
+- **The reading notation's scanner** (DocSpecs specification, Reading
+  Notation RN-1 … RN-13): `spec_notation.js` with `scanNotation(text,
+  { tomSpecs })` returning a `NotationScan` — the value's fenced divs,
+  bracketed spans and citation shapes as `NotationElement`s (kind, classes,
+  id, attributes, UTF-16 ranges, lines, nesting) and its `NotationFinding`s
+  (`NotationFindingCode`, `notationSeverity`), with `registeredNotationKinds`.
+  The embedded DocSpecs validator reports its nine notation rules
+  (`unclosedDiv`, `unclosedSpan`, `strayClosingFence`, `divWithoutKind`,
+  `unknownKind`, `annotationInsideDiv`, `divInsideAnnotation`,
+  `markAcrossNotation`, `rejectedBlock`) per value: a section's own body, and
+  with the new option `{ tomSpecs: true }` (which `validateSpecDocument`
+  passes) each form field's value apart; a div without a class and an
+  unregistered kind are reported only then. The conformance runner reads both
+  tables of `notation_cases.json`.
+- **The form-field meta's `multiParagraph` flag** (`Field.multiParagraph`, a
+  value of paragraphs or blocks): read from `spec_model.meta.json` into
+  `FormFieldSpec` and `SomFormFieldMeta` beside `code`, carried by the
+  bridge, written into the generated `_v0` meta tree, and compared — with
+  `code`, which it did not compare before — by `somMetaNodeDiff`.
+
 - **The Markdown parser reads the reading view's table layout** (SOM §11.4,
   §11.5): form tables `| TomSpecField | Value |` (a code span holding `\|`,
   reference links read as their link texts, the prose before and after a

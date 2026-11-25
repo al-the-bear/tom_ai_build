@@ -39,6 +39,7 @@ const {
   SomMetaKind,
   SomMetaNode,
   SomMetaTree,
+  somMetaNodeDiff,
 } = require('../tom_som_runtime');
 
 let _passed = 0;
@@ -543,7 +544,48 @@ function testItemPath() {
   _check('itemPath.nestedList', _raises(() => nested.itemPath(1)));
 }
 
+// The form-field flags: `multiParagraph` (and `code`) default to false, are
+// carried as given, and the meta diff reports two trees that differ only in
+// one of them (SOM §7.1, §11.4).
+function testFormFieldFlags() {
+  const form = (multiParagraph, code) =>
+    new SomMetaNode({
+      className: 'Owner',
+      memberName: 'details',
+      kind: SomMetaKind.FORM,
+      typeName: 'Details',
+      sectionId: 'DET',
+      form: new SomFormMeta([
+        new SomFormFieldMeta({
+          name: 'notes',
+          typeName: 'String',
+          order: 0,
+          multiParagraph,
+          code,
+        }),
+      ]),
+    });
+  const plain = new SomFormFieldMeta({ name: 'x', typeName: 'String', order: 0 });
+  _check('flags.multiParagraph.default', plain.multiParagraph === false);
+  _check('flags.code.default', plain.code === false);
+  _check('flags.multiParagraph.carried', form(true, false).form.fields[0].multiParagraph === true);
+  _check('flags.same', somMetaNodeDiff(form(true, false), form(true, false)) === null);
+  const mp = somMetaNodeDiff(form(true, false), form(false, false));
+  _check(
+    'flags.multiParagraph.diff',
+    mp !== null && mp.includes('form field notes differs'),
+    String(mp),
+  );
+  const code = somMetaNodeDiff(form(false, true), form(false, false));
+  _check(
+    'flags.code.diff',
+    code !== null && code.includes('form field notes differs'),
+    String(code),
+  );
+}
+
 function main() {
+  testFormFieldFlags();
   testWiring();
   testMetadataSlots();
   testById();
