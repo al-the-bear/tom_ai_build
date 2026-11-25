@@ -395,11 +395,19 @@ function testYamlDecodeRoundTrip(tree) {
   _check('yaml.decode.reencode', actual === expected, _byteDiff('yaml.decode.reencode', actual, expected));
 }
 
-// The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
-// Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
-// The emitter port tspubnondart71 (runtime_parity.md § Reading view) brings this runtime to tables.
-const EMITTED_LAYOUT = 'fields';
-const EXPORT_GOLDEN = 'expected.tomspecs.md';
+// The layout this runtime emits: `tables` (SOM §11.4, §11.5). Its export
+// golden is `expected.tables.md`; `expected.tomspecs.md`, the `Field:`-line
+// layout, is parsed only.
+const EMITTED_LAYOUT = 'tables';
+const EXPORT_GOLDEN = `expected.${EMITTED_LAYOUT}.md`;
+
+/**
+ * The expectation of case `c` for this runtime's layout: `expectTables` when
+ * the case has one (its renditions' lines differ by layout), else `expect`.
+ */
+function _expectFor(c) {
+  return EMITTED_LAYOUT === 'tables' && 'expectTables' in c ? c.expectTables : c.expect;
+}
 
 function testMarkdownExport(model) {
   const doc = _documentFromState(_readJson('state.json'));
@@ -564,15 +572,16 @@ function testAnswers(model) {
     const name = `answers[${c.name}]`;
     try {
       const got = _runAnswerCase(model, c);
+      const want = _expectFor(c);
       _check(
         `${name}.extracts`,
-        _deepEqual(got.extracts, c.expect.extracts),
-        _jsonMismatch(got.extracts, c.expect.extracts),
+        _deepEqual(got.extracts, want.extracts),
+        _jsonMismatch(got.extracts, want.extracts),
       );
       _check(
         `${name}.markdown`,
-        got.markdown === c.expect.markdown,
-        _byteDiff(name, got.markdown, c.expect.markdown),
+        got.markdown === want.markdown,
+        _byteDiff(name, got.markdown, want.markdown),
       );
     } catch (e) {
       _check(name, false, `threw ${String(e)}`);
@@ -2639,7 +2648,7 @@ function testCodeSpecsGate(meta) {
           })),
         })),
       };
-      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+      _check(name, _deepEqual(got, _expectFor(c)), _jsonMismatch(got, _expectFor(c)));
     } catch (e) {
       _check(name, false, `threw ${String(e)}`);
     }

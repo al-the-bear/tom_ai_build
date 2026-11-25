@@ -135,11 +135,11 @@ describe('Markdown', () => {
     const md = d.toMarkdown(model);
     assert.ok(
       md.includes(
-        '## <!--[TTL] codeSpec="DemoTitle" units="u_a,u_b"--> Document Title\n',
+        '## <!--[TTL] codeSpec="DemoTitle" units="u_a,u_b"--> <a id="TTL"></a> Document Title\n',
       ),
       md,
     );
-    assert.ok(md.includes('## <!--[SUM] units="u_a"--> Summary\n'), md);
+    assert.ok(md.includes('## <!--[SUM] units="u_a"--> <a id="SUM"></a> Summary\n'), md);
   });
 
   test('parses units in every quoting, beside or without codeSpec', () => {

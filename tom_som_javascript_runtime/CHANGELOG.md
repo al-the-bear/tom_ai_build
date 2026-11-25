@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- **The Markdown emitter writes the reading view's tables** (SOM §11.4,
+  §11.5), as Dart and TypeScript do: form tables `| TomSpecField | Value |`
+  between `Field:` paragraphs, record tables in a `::: {.records}` div,
+  reference lines in a `::: {.refs}` div, section tables
+  `| Section | TomSpecField | Value |`, and an HTML anchor in every heading
+  (`<a id="ID"></a>`, qualified below a list item and in a `@SameAs` copy,
+  SOM §11.2). A value that cannot be one table cell (a `multiParagraph`
+  field, several paragraphs, a block, a line shaped like a layout header)
+  stays a `Field:` paragraph; a wrapped one-paragraph value is one cell
+  (`SpecDocumentMarkdown.wrappedParagraphJoined`, SOM §11.4 rule 13). The
+  constructor takes `{ fileStem, documentFiles }`, the files a reference to
+  another root links to. The conformance runner's emitted layout is `tables`:
+  the export is held to `expected.tables.md` and `answer_cases.json` /
+  `codespecs_gate_cases.json` are read from their `expectTables` results.
+
 - **The DocSpecs validator reads the reading view's forms** (DocSpecs
   specification, List Bodies, Findings in list bodies and tables): form
   tables give a section's fields (a required field missing from table and

@@ -46,6 +46,7 @@
 const { SomMetaKind } = require('./spec_meta');
 const { buildSomMetaTree } = require('./spec_meta_bridge');
 const { effectiveListItemSectionId } = require('./spec_section_id');
+const { splitListItemSegment } = require('./spec_paths');
 
 /** Why an imported Markdown block was rejected (SOM §11.7 rejection protocol). */
 const SpecMarkdownRejectReason = Object.freeze({
@@ -265,6 +266,147 @@ function _qualifyAnchor(scope, section, id, opts = {}) {
   return [joined(scope), scope === null ? null : [...scope, id]];
 }
 
+// A section id as a reference holds it: upper-case segments joined by `-`.
+const _ID_SHAPE = /^[A-Z][A-Z0-9]*(-[A-Z0-9]+)*$/;
+// A one-line value that Markdown reads as a block: a list item, a block quote
+// (review comment and question blocks among them), a fence or a fenced div. A
+// table needs two lines, so it is caught by the line break.
+const _BLOCK_START = /^\s*([-*+]\s|\d+[.)]\s|>|```|~~~|:::)/;
+
+/**
+ * A line that is a block of its own, or would make the line above one, beyond
+ * `_BLOCK_START`: a table row, an ATX heading, a setext underline or a
+ * thematic break, an HTML block.
+ */
+const _WRAPPED_LINE_BLOCK = /^(?:\||#{1,6}(?:\s|$)|=+$|(?:[-*_]\s*){3,}$|<)/;
+
+/**
+ * The keys of `sorted` at or below `prefix`: a binary search to the first key
+ * not before it, then the run sharing it as a prefix, so a large document is
+ * not scanned once per list item.
+ */
+function _under(sorted, prefix) {
+  let lo = 0;
+  let hi = sorted.length;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (sorted[mid] < prefix) {
+      lo = mid + 1;
+    } else {
+      hi = mid;
+    }
+  }
+  const out = [];
+  for (let i = lo; i < sorted.length && sorted[i].startsWith(prefix); i++) {
+    const k = sorted[i];
+    if (k.length === prefix.length || k.charCodeAt(prefix.length) === 0x2f) {
+      out.push(k);
+    }
+  }
+  return out;
+}
+
+/** Whether a code field's value is written as an inline code span (SOM §11.4 rule 8). */
+function _isInlineCode(value) {
+  return SpecDocumentMarkdown._isInlineCode(value);
+}
+
+/** `value` as a CommonMark inline code span. */
+function _encodeCodeSpan(value) {
+  return SpecDocumentMarkdown._encodeCodeSpan(value);
+}
+
+/**
+ * One root's anchors (SOM §11.2): the anchor of the heading a path names,
+ * qualified below a list item and in a `@SameAs` copy. The port of the
+ * anchor walk of the TypeScript runtime's `_Navigation`; the `linked` marker
+ * and the summary links it also writes there are later ports.
+ */
+class _Navigation {
+  constructor(codec, root) {
+    this.codec = codec;
+    this.root = root;
+    this.tree = codec._treeFor(root.type);
+    /** @type {Map<string, string>} */
+    this._anchors = new Map();
+  }
+
+  /** The heading id of the item at `itemPath` of `listNode`, as the emitter
+   *  writes it. */
+  itemId(listNode, itemPath) {
+    const d = this.codec.document;
+    const split = splitListItemSegment(itemPath.split('/').pop());
+    const listPath = itemPath.substring(0, itemPath.lastIndexOf('/') + 1) + split.base;
+    const pos = d.listItems(listPath).indexOf(itemPath) + 1;
+    return effectiveListItemSectionId(
+      d.itemSectionId(itemPath),
+      listNode.sectionIdPattern ??
+        (listNode.elementNode ? listNode.elementNode.sectionIdPattern : null) ??
+        null,
+      pos === 0 ? split.seq : pos,
+      listNode.memberName ?? listNode.segment,
+    );
+  }
+
+  /** The anchor of the heading `path` names in this document. */
+  anchorOf(path) {
+    const hit = this._anchors.get(path);
+    if (hit !== undefined) return hit;
+    const segs = path.split('/');
+    let node = this.tree.root;
+    let cur = segs[0];
+    let anchor = node.segment;
+    let scope = null;
+    let section = node.segment;
+    for (let i = 1; i < segs.length; i++) {
+      const seg = segs[i];
+      const child = node.childBySegment(seg);
+      if (child !== null) {
+        cur = `${cur}/${seg}`;
+        node = child;
+        if (
+          this.codec._isTransparentSection(child) ||
+          SpecDocumentMarkdown._isTransparentValue(child)
+        ) {
+          continue;
+        }
+        const id = this.codec._headingIdOf(child);
+        const container = child.kind === SomMetaKind.LIST;
+        const [a, s] = _qualifyAnchor(scope, section, id, {
+          container,
+          copy: !container && this.codec._isCopyNode(child),
+        });
+        anchor = a;
+        scope = s;
+        if (!container) section = id;
+        continue;
+      }
+      const split = splitListItemSegment(seg);
+      const base = split === null ? null : split.base;
+      const listNode = base === null ? null : node.childBySegment(base);
+      if (listNode === null || listNode.kind !== SomMetaKind.LIST) break;
+      const itemPath = `${cur}/${seg}`;
+      const id = this.itemId(listNode, itemPath);
+      const [a, s] = _qualifyAnchor(scope, section, id, { item: true });
+      anchor = a;
+      scope = s;
+      section = id;
+      cur = itemPath;
+      const element = listNode.elementNode ?? null;
+      node = element ?? listNode;
+      if (element === null && i < segs.length - 1) break;
+    }
+    this._anchors.set(path, anchor);
+    return anchor;
+  }
+
+  /** The `Id` cell of a records row standing for a summary element: the
+   *  summary links are a later port, so none. */
+  summaryIdCell() {
+    return null;
+  }
+}
+
 const _ESCAPABLE = /^\\*#/;
 
 // A line that would parse as a form-field label: `Word:` at column 0
@@ -296,15 +438,51 @@ const _DIV_CLOSE = /^:{3,}\s*$/;
  * DocSpecs Markdown import/export format (SOM §11).
  */
 class SpecDocumentMarkdown {
-  constructor(model, document) {
+  /**
+   * @param {object} model
+   * @param {object} document
+   * @param {{fileStem?: string|null, documentFiles?: Object<string, string>}} [options]
+   *   `fileStem` and `documentFiles` name the files a reference to another
+   *   document root links to: `<fileStem>.<root id in lower case>.tomspecs.md`
+   *   unless `documentFiles` names the root's file (keyed by its section id or
+   *   type).
+   */
+  constructor(model, document, options = {}) {
     this.model = model;
     this.document = document;
+    this.fileStem =
+      options.fileStem !== undefined && options.fileStem !== null ? options.fileStem : null;
+    this.documentFiles = options.documentFiles || {};
+    /** The document's keys of one kind, sorted once per export for `_under`. */
+    this._sortedKeys = new Map();
+    /** The root the current export renders (the target of same-document links). */
+    this._currentRoot = null;
+    /** The anchors of the root the current export renders (SOM §11.2). */
+    this._nav = null;
+    /** The class names each root reaches, for reference links. */
+    this._reach = new Map();
     // Metadata trees per root type, built lazily (the generated facades
     // will hand these in directly; until then the bridge derives them).
     /** @type {Map<string, import('./spec_meta').SomMetaTree>} */
     this._trees = new Map();
     /** The paths of the headings written by the current export, in order. */
     this._headingPaths = [];
+  }
+
+  _sorted(kind, keys) {
+    let sorted = this._sortedKeys.get(kind);
+    if (sorted === undefined) {
+      sorted = Array.from(keys).sort((x, y) => (x < y ? -1 : x > y ? 1 : 0));
+      this._sortedKeys.set(kind, sorted);
+    }
+    return sorted;
+  }
+
+  /** Whether a generated part stands at or beneath `path` of the current
+   *  export, which writes its heading even without a value; this runtime
+   *  writes no generated parts yet (SOM §11.12). */
+  _forced(path) { // eslint-disable-line no-unused-vars
+    return false;
   }
 
   _treeFor(rootType) {
@@ -513,13 +691,81 @@ class SpecDocumentMarkdown {
   }
 
   /**
-   * Renders the populated subtree of `root` as a DocSpecs-conform Markdown
-   * document. Throws an {@link Error} on the two conditions this format cannot
-   * represent without losing the round-trip: a content value containing an
-   * unterminated fenced code block (which would shield the remainder of the
-   * document from heading detection), and a form holding a field the model does
-   * not declare (SOM §9, "Form-field order").
+   * The body slot unmarked body text binds to on import (SOM §11.6): the
+   * first non-form slot; with none, the form on the `content` member, else
+   * the first form; with no slot at all the owner itself (`.`).
    */
+  /**
+   * Whether `n` is a `@SameAs` copy (SOM §11.2): its anchor and its
+   * descendants' are qualified with the section above it.
+   */
+  _isCopyNode(n) {
+    const member = n.memberName;
+    const parent = n.parent;
+    if (member === null || parent === null) return false;
+    const cls = this.model.classNamed(parent.className);
+    const f = cls ? cls.fieldNamed(member) : null;
+    return (f ? f.sameAs : null) != null;
+  }
+  /**
+   * Extracts the `codeSpec="..."` value from a heading-comment key=value region
+   * (group 2 of {@link headlineComment}), trimmed, or the empty string when
+   * absent (csmc8, codespecs_mapping.md §9.2) — as TS and Dart read it.
+   *
+   * @returns {string}
+   */
+  static codeSpecOf(region) {
+    if (region === null || region === undefined) return '';
+    const m = SpecDocumentMarkdown._codeSpecPattern.exec(region);
+    if (m === null) return '';
+    const v = m[1] !== undefined ? m[1] : m[2] !== undefined ? m[2] : m[3];
+    return (v !== undefined ? v : '').trim();
+  }
+  /**
+   * Extracts the `units="…"` value from a heading-comment key=value region
+   * (SOM §11.2): the same quoting rules as {@link codeSpecOf} — double-quoted,
+   * single-quoted or bare. The key must start the region or follow
+   * whitespace, so a `units=` inside a quoted codeSpec value is not read as
+   * the key. Returns the empty string when the region carries no `units` key.
+   *
+   * @returns {string}
+   */
+  static unitsOf(region) {
+    if (region === null || region === undefined) return '';
+    const m = SpecDocumentMarkdown._unitsPattern.exec(region);
+    if (m === null) return '';
+    const v = m[1] !== undefined ? m[1] : m[2] !== undefined ? m[2] : m[3];
+    return (v !== undefined ? v : '').trim();
+  }
+  /**
+   * Emit-side value normalisation (SOM §11.3): blank lines inside a value are
+   * kept as written; trim leading/trailing blank lines, escape heading-like lines outside
+   * fences. Throws an {@link Error} for an unterminated fence.
+   */
+  /**
+   * Whether a code field's `value` is written as an inline code span: it is
+   * non-empty and on one line. A multi-line value keeps the prose rendering —
+   * a code span cannot cross a line break without markdown joining the lines.
+   */
+  static _isInlineCode(value) {
+    return value.length > 0 && !value.includes('\n');
+  }
+  /**
+   * `value` as a CommonMark inline code span: delimited by one backtick more
+   * than the longest backtick run inside it, and padded with one space on
+   * each side when it begins or ends with a backtick or a space — the padding
+   * CommonMark strips again, so the span's content is exactly `value`.
+   */
+  static _encodeCodeSpan(value) {
+    let longest = 0;
+    for (const m of value.matchAll(/`+/g)) {
+      if (m[0].length > longest) longest = m[0].length;
+    }
+    const fence = '`'.repeat(longest + 1);
+    const pad = /^[` ]|[` ]$/.test(value) ? ' ' : '';
+    return `${fence}${pad}${value}${pad}${fence}`;
+  }
+
   exportRoot(root) {
     return this.exportRootWithMap(root).markdown;
   }
@@ -529,26 +775,22 @@ class SpecDocumentMarkdown {
    * the one place that knows which node a heading came from.
    *
    * A caller holding a rendition line (a DocSpecs schema finding, an editor
-   * cursor) resolves it through {@link SpecMarkdownRendition#pathAtLine}
+   * cursor) resolves it through {@link SpecMarkdownRendition.pathAtLine}
    * instead of re-deriving the renderer's layout. Section ids repeat across a
    * document, so the id alone does not say which node a line belongs to.
-   *
-   * @param {import('./spec_model').SpecRoot} root
-   * @returns {SpecMarkdownRendition}
    */
-  exportRootWithMap(root) {
+  exportRootWithMap(
+    root,
+  ) {
     this._headingPaths = [];
     const markdown = this._exportRoot(root);
-    /** @type {Map<number, string>} */
     const headingPaths = new Map();
     const fence = new MarkdownFenceTracker();
     const lines = markdown.split('\n');
     let next = 0;
     for (let i = 0; i < lines.length && next < this._headingPaths.length; i++) {
       const line = lines[i];
-      // A heading line as `_writeHeading` writes it. Body text never matches:
-      // heading-like body lines are escaped (SOM §11.3) and fenced ones skipped.
-      if (!fence.inFence && /^#+ <!--\[/.test(line)) {
+      if (!fence.inFence && SpecDocumentMarkdown._emittedHeading.test(line)) {
         headingPaths.set(i + 1, this._headingPaths[next++]);
       }
       fence.feed(line);
@@ -556,7 +798,21 @@ class SpecDocumentMarkdown {
     return new SpecMarkdownRendition(markdown, headingPaths);
   }
 
+  /**
+   * A heading line as {@link _writeHeading} writes it. Body text never
+   * matches: heading-like body lines are escaped (SOM §11.3) and fenced ones
+   * skipped.
+   */
+  static _emittedHeading =
+    /^(?:#+ <!--\[|<div class="heading[0-9]+"[^>]*><!--\[)/;
+
+  /** The paths of the headings written by the current export, in order. */
+  _headingPaths = [];
+
   _exportRoot(root) {
+    this._currentRoot = root;
+    this._nav = new _Navigation(this, root);
+    this._sortedKeys.clear();
     const tree = this._treeFor(root.type);
     const node = tree.root;
     const b = new _Buffer();
@@ -576,6 +832,7 @@ class SpecDocumentMarkdown {
     );
     this._writeSectionBody(b, node, rootSeg);
     this._writeChildren(b, node, rootSeg, 2);
+    this._nav = null;
     return b.toString();
   }
 
@@ -606,20 +863,27 @@ class SpecDocumentMarkdown {
       b.writeln();
     };
 
-    const text = (rel, value, valuePath) => {
-      if (value === null || value === undefined) return;
+    const text = (
+      rel,
+      value,
+      valuePath,
+    ) => {
+      if (value === null || value === undefined) {
+        return;
+      }
       const prepared = this._prepareValue(value, valuePath);
-      if (!prepared) return;
-      if (written || rel !== defaultRel) marker(rel);
+      if (prepared === '') {
+        return;
+      }
+      if (written || rel !== defaultRel) {
+        marker(rel);
+      }
       for (const line of prepared.split('\n')) {
         b.writeln(hasForms && _LABEL_SHAPED.test(line) ? ` ${line}` : line);
       }
       b.writeln();
       written = true;
     };
-
-    const fieldsOf = (slot) =>
-      slot.form !== null && slot.form !== undefined ? slot.form.fields : [];
 
     text('.', this.document.content(path), path);
     for (const [slot, rel] of slots) {
@@ -628,12 +892,16 @@ class SpecDocumentMarkdown {
         text(rel, this.document.content(slotPath), slotPath);
         continue;
       }
-      if (!this._formHasValues(slot, slotPath)) continue;
+      if (!this._formHasValues(slot, slotPath)) {
+        continue;
+      }
       const preamble = this.document.content(slotPath);
       const hasPreamble =
         preamble !== null &&
         preamble !== undefined &&
         this._prepareValue(preamble, slotPath) !== '';
+      const fieldsOf = (n) =>
+        n.form !== null && n.form !== undefined ? n.form.fields : [];
       const labels = new Set(fieldsOf(slot).map((f) => f.name.toLowerCase()));
       const collides = formSlots.some(
         ([o, oRel]) =>
@@ -643,7 +911,9 @@ class SpecDocumentMarkdown {
       const needsMarker = hasPreamble
         ? written || rel !== defaultRel
         : collides && (written || formSlots[0][1] !== rel);
-      if (needsMarker) marker(rel);
+      if (needsMarker) {
+        marker(rel);
+      }
       this._writeForm(b, slot, slotPath);
       written = true;
     }
@@ -653,20 +923,9 @@ class SpecDocumentMarkdown {
    * The body slot unmarked body text binds to on import (SOM §11.6): the
    * first non-form slot; with none, the form on the `content` member, else
    * the first form; with no slot at all the owner itself (`.`).
+   *
+   * @internal
    */
-  /**
-   * Whether `n` is a `@SameAs` copy (SOM §11.2): its anchor and its
-   * descendants' are qualified with the section above it.
-   */
-  _isCopyNode(n) {
-    const member = n.memberName;
-    const parent = n.parent;
-    if (member === null || parent === null) return false;
-    const cls = this.model.classNamed(parent.className);
-    const f = cls ? cls.fieldNamed(member) : null;
-    return (f ? f.sameAs : null) != null;
-  }
-
   /**
    * The item class's own form (its class-level `@Form`, a transparent body
    * slot), or `null` when the class carries none or more than one.
@@ -680,18 +939,27 @@ class SpecDocumentMarkdown {
 
   _defaultBodyRel(slots) {
     for (const [slot, rel] of slots) {
-      if (slot.kind !== SomMetaKind.FORM) return rel;
+      if (slot.kind !== SomMetaKind.FORM) {
+        return rel;
+      }
     }
     for (const [, rel] of slots) {
-      if (rel === 'content') return rel;
+      if (rel === 'content') {
+        return rel;
+      }
     }
     return slots.length === 0 ? '.' : slots[0][1];
   }
 
-  _writeChildren(b, node, basePath, depth) {
+  _writeChildren(
+    b,
+    node,
+    basePath,
+    depth,
+  ) {
     for (const [child, rel] of this._effectiveChildren(node)) {
       const path = `${basePath}/${rel}`;
-      if (!this.document.hasValuesUnder(path)) {
+      if (!this.document.hasValuesUnder(path) && !this._forced(path)) {
         continue;
       }
       const kind = child.kind;
@@ -701,7 +969,7 @@ class SpecDocumentMarkdown {
         kind === SomMetaKind.ENUM_VALUE
       ) {
         const value = this.document.content(path);
-        if (value === null) {
+        if (value === null && !this._forced(path)) {
           continue;
         }
         this._writeHeading(
@@ -737,9 +1005,12 @@ class SpecDocumentMarkdown {
           path,
           this.document.codeSpec(path),
           this.document.units(path),
+          this._writeSectionTable(new _Buffer(), child, path),
         );
         this._writeSectionBody(b, child, path);
-        this._writeChildren(b, child, path, depth + 1);
+        if (!this._writeSectionTable(b, child, path)) {
+          this._writeChildren(b, child, path, depth + 1);
+        }
       } else if (kind === SomMetaKind.LIST) {
         this._writeListItems(b, child, path, depth);
       }
@@ -753,9 +1024,14 @@ class SpecDocumentMarkdown {
    * type by — but carries **no content of its own** (schema content
    * min/max-text-length 0). Item identity is purely positional.
    */
-  _writeListItems(b, node, listPath, depth) {
+  _writeListItems(
+    b,
+    node,
+    listPath,
+    depth,
+  ) {
     const items = this.document.listItems(listPath);
-    if (items.length === 0) return;
+    if (items.length === 0 && !this._forced(listPath)) return;
     // The container heading: its id is the list's `-LST` `@SectionId` (else the
     // member segment for a pattern-less list); its title is the member name.
     this._writeHeading(
@@ -781,14 +1057,20 @@ class SpecDocumentMarkdown {
         ? element.sectionIdPattern
         : null) ||
       null;
+    if (
+      this._writeReferenceLine(b, node, items, pattern) ||
+      this._writeRecordTable(b, node, items, pattern)
+    ) {
+      return;
+    }
     for (let i = 0; i < items.length; i++) {
       const itemPath = items[i];
       const pos = i + 1;
-      // YRD3: a stored `@SectionId` (AA1 generated or a
-      // criterion-5 override) IS the md heading id. Only items without one
-      // fall back to the `@SectionIdPattern` resolved with the 1-based
-      // position (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`), then to `<member>-<pos>`
-      // for pattern-less lists. Items sit one level below the container.
+      // YRD3: a stored `@SectionId` (AA1 generated or a criterion-5 override)
+      // IS the item's heading id — it round-trips through md as well as yaml.
+      // Anonymous items fall back to the `@SectionIdPattern` resolved with the
+      // 1-based position (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`); pattern-less lists
+      // fall back to `<member>-<pos>`. Items sit one level below the container.
       const itemId = effectiveListItemSectionId(
         this.document.itemSectionId(itemPath),
         pattern,
@@ -803,17 +1085,491 @@ class SpecDocumentMarkdown {
         itemPath,
         this.document.codeSpec(itemPath),
         this.document.units(itemPath),
+        element !== null &&
+          element !== undefined &&
+          !element.recursive &&
+          this._writeSectionTable(new _Buffer(), element, itemPath),
       );
       if (element === null || element === undefined) {
         // Scalar list: the item's value is its body.
         this._writeBody(b, this.document.content(itemPath) || '', itemPath);
       } else {
         this._writeSectionBody(b, element, itemPath);
-        if (!element.recursive) {
+        if (
+          !element.recursive &&
+          !this._writeSectionTable(b, element, itemPath)
+        ) {
           this._writeChildren(b, element, itemPath, depth + 2);
         }
       }
     }
+  }
+
+  // --- Reading view: reference lines, record tables, section tables --------
+
+  _hasKeys(path) {
+    const codeSpec = this.document.codeSpec(path);
+    const units = this.document.units(path);
+    return (
+      (codeSpec !== null && codeSpec !== undefined && codeSpec !== '') ||
+      (units !== null && units !== undefined && units !== '')
+    );
+  }
+
+  /**
+   * The id of item `pos` (1-based) of `node` at `itemPath`, as its heading
+   * carries it.
+   */
+  _itemId(
+    node,
+    itemPath,
+    pos,
+    pattern,
+  ) {
+    return effectiveListItemSectionId(
+      this.document.itemSectionId(itemPath),
+      pattern,
+      pos,
+      node.memberName || node.segment,
+    );
+  }
+
+  /**
+   * Whether the item at `itemPath` holds values only in its form at
+   * `formPath`, all of them table cells: no preamble, no other content, form
+   * or list, no `codeSpec` / `units`, no headline other than the item's own
+   * when `allowHeadline`.
+   */
+  _isFormOnlyItem(
+    form,
+    itemPath,
+    formPath,
+    allowHeadline,
+  ) {
+    const doc = this.document;
+    if (_under(this._sorted('content', doc.contentPaths), itemPath).length > 0) return false;
+    if (_under(this._sorted('lists', doc.listPaths), itemPath).length > 0) return false;
+    if (_under(this._sorted('units', doc.unitsPaths), itemPath).length > 0) return false;
+    if (_under(this._sorted('forms', doc.formPaths), itemPath).some((k) => k !== formPath)) {
+      return false;
+    }
+    for (const h of _under(this._sorted('headlines', doc.headlinePaths), itemPath)) {
+      if (!allowHeadline || h !== itemPath) return false;
+    }
+    if (this._hasKeys(itemPath) || this._hasKeys(formPath)) return false;
+    if (this._undeclaredFormFields(form, formPath).length > 0) return false;
+    let any = false;
+    for (const f of form.form !== null && form.form !== undefined
+      ? form.form.fields
+      : []) {
+      const value = doc.formField(formPath, f.name);
+      if (value === null) continue;
+      if (!SpecDocumentMarkdown._isCellValue(f, value)) return false;
+      any = true;
+    }
+    return any;
+  }
+
+  /**
+   * A list whose every item holds only one reference id becomes one `refs`
+   * div of links in list order (BP-11). All or nothing; returns whether it was
+   * written.
+   */
+  _writeReferenceLine(
+    b,
+    node,
+    items,
+    pattern,
+  ) {
+    const element = node.elementNode;
+    if (element === null || element === undefined || element.recursive) {
+      return false;
+    }
+    let ref = null;
+    for (const [child, rel] of this._effectiveChildren(element)) {
+      const fields =
+        child.form !== null && child.form !== undefined ? child.form.fields : [];
+      if (
+        child.kind === SomMetaKind.FORM &&
+        fields.length === 1 &&
+        fields[0].refersTo.length > 0 &&
+        child.extra.some((e) => e.annotation === 'Reference')
+      ) {
+        ref = [child, rel];
+        break;
+      }
+    }
+    if (ref === null) return false;
+    const field = ref[0].form .fields[0];
+    const doc = this.document;
+    const links = [];
+    for (let i = 0; i < items.length; i++) {
+      const itemPath = items[i];
+      const refPath = `${itemPath}/${ref[1]}`;
+      const stored = doc.itemSectionId(itemPath);
+      const positional = effectiveListItemSectionId(
+        null,
+        pattern,
+        i + 1,
+        node.memberName || node.segment,
+      );
+      if (stored !== null && stored !== undefined && stored !== positional) {
+        return false;
+      }
+      if (
+        _under(this._sorted('content', doc.contentPaths), itemPath).length > 0 ||
+        _under(this._sorted('lists', doc.listPaths), itemPath).length > 0 ||
+        _under(this._sorted('units', doc.unitsPaths), itemPath).length > 0 ||
+        _under(this._sorted('headlines', doc.headlinePaths), itemPath).length > 0 ||
+        _under(this._sorted('forms', doc.formPaths), itemPath).some((k) => k !== refPath) ||
+        this._hasKeys(itemPath) ||
+        this._hasKeys(refPath)
+      ) {
+        return false;
+      }
+      const names = [...doc.formFieldNames(refPath)];
+      if (names.length !== 1 || names[0] !== field.name) return false;
+      const id = (doc.formField(refPath, field.name) || '').trim();
+      if (!_ID_SHAPE.test(id)) return false;
+      links.push(this._link(field, id) || id);
+    }
+    b.writeln('::: {.refs}');
+    b.writeln(links.join(', '));
+    b.writeln(':::');
+    b.writeln();
+    return true;
+  }
+
+  /**
+   * A list whose every item is one form of table cells becomes a `records`
+   * div with one table: `Id` (with its anchor), `Title` when any item has a
+   * stored headline, one column per declared field any item populates
+   * (BP-11). All or nothing; returns whether it was written.
+   */
+  _writeRecordTable(
+    b,
+    node,
+    items,
+    pattern,
+  ) {
+    const element = node.elementNode;
+    if (element === null || element === undefined || element.recursive) {
+      return false;
+    }
+    const formSlot = this._itemForm(element);
+    if (formSlot === null) return false;
+    const [form, rel] = formSlot;
+    for (const itemPath of items) {
+      if (!this._isFormOnlyItem(form, itemPath, `${itemPath}/${rel}`, true)) {
+        return false;
+      }
+    }
+    const doc = this.document;
+    const declared =
+      form.form !== null && form.form !== undefined ? form.form.fields : [];
+    const columns = declared.filter((f) =>
+      items.some((i) => doc.formField(`${i}/${rel}`, f.name) !== null),
+    );
+    const withTitle = items.some((i) => doc.headline(i) !== null);
+    const header = [
+      'Id',
+      ...(withTitle ? ['Title'] : []),
+      ...columns.map((f) => SpecDocumentMarkdown.formLabel(f.name)),
+    ];
+    b.writeln('::: {.records}');
+    b.writeln(`| ${header.join(' | ')} |`);
+    b.writeln(`| ${header.map(() => '---').join(' | ')} |`);
+    for (let i = 0; i < items.length; i++) {
+      const itemPath = items[i];
+      const id = this._itemId(node, itemPath, i + 1, pattern);
+      // A summary naming its detail element by its own id links it from
+      // the Id cell (SOM §11.5, §11.11).
+      const listPath = itemPath.substring(0, itemPath.lastIndexOf('-'));
+      const cells = [
+        this._nav?.summaryIdCell(itemPath, listPath, id) ??
+          `<a id="${this._nav?.anchorOf(itemPath) ?? id}"></a>${id}`,
+      ];
+      if (withTitle) {
+        cells.push(
+          (doc.headline(itemPath) || '')
+            .replace(/\n/g, '<br>')
+            .replace(/\|/g, '\\|'),
+        );
+      }
+      for (const f of columns) {
+        const v = doc.formField(`${itemPath}/${rel}`, f.name);
+        cells.push(v === null ? '' : this._linkedCellText(f, v));
+      }
+      b.writeln(`| ${cells.join(' | ')} |`);
+    }
+    b.writeln(':::');
+    b.writeln();
+    return true;
+  }
+
+  /**
+   * A section whose populated children are all single forms of table cells
+   * with default headlines (or lists of such single-form items) becomes one
+   * `| Section | TomSpecField | Value |` table after its own body; the
+   * children's headings are not written (DP-part-renditions-4). All or
+   * nothing; returns whether it was written.
+   */
+  /** @internal */
+  _writeSectionTable(
+    b,
+    node,
+    path,
+  ) {
+    const doc = this.document;
+    const rows = [];
+    let children = 0;
+    const addRows = (
+      sectionCell,
+      form,
+      formPath,
+    ) => {
+      let first = true;
+      for (const f of form.form !== null && form.form !== undefined
+        ? form.form.fields
+        : []) {
+        const value = doc.formField(formPath, f.name);
+        if (value === null) continue;
+        rows.push(
+          `| ${first ? sectionCell : ''} | ` +
+            `${SpecDocumentMarkdown.formLabel(f.name)} | ` +
+            `${this._linkedCellText(f, value)} |`,
+        );
+        first = false;
+      }
+    };
+
+    for (const [child, rel] of this._effectiveChildren(node)) {
+      const childPath = `${path}/${rel}`;
+      if (!doc.hasValuesUnder(childPath)) continue;
+      children++;
+      const childId = this._headingIdOf(child);
+      if (child.kind === SomMetaKind.FORM) {
+        if (!this._isFormOnlyItem(child, childPath, childPath, false)) {
+          return false;
+        }
+        addRows(
+          `<a id="${this._nav?.anchorOf(childPath) ?? childId}"></a>${childId}`,
+          child,
+          childPath,
+        );
+      } else if (child.kind === SomMetaKind.LIST) {
+        const element = child.elementNode;
+        if (element === null || element === undefined || element.recursive) {
+          return false;
+        }
+        if (doc.headline(childPath) !== null || this._hasKeys(childPath)) {
+          return false;
+        }
+        const formSlot = this._itemForm(element);
+        if (formSlot === null) return false;
+        const [form, rel2] = formSlot;
+        const items = doc.listItems(childPath);
+        const pattern = child.sectionIdPattern || element.sectionIdPattern || null;
+        for (let i = 0; i < items.length; i++) {
+          const itemPath = items[i];
+          if (
+            !this._isFormOnlyItem(form, itemPath, `${itemPath}/${rel2}`, false)
+          ) {
+            return false;
+          }
+          const itemId = this._itemId(child, itemPath, i + 1, pattern);
+          addRows(
+            `<a id="${this._nav?.anchorOf(itemPath) ?? itemId}"></a>` +
+              `${childId} / ${itemId}`,
+            form,
+            `${itemPath}/${rel2}`,
+          );
+        }
+      } else {
+        return false;
+      }
+    }
+    if (children === 0 || rows.length === 0) return false;
+    b.writeln('| Section | TomSpecField | Value |');
+    b.writeln('| --- | --- | --- |');
+    for (const row of rows) {
+      b.writeln(row);
+    }
+    b.writeln();
+    return true;
+  }
+
+  /**
+   * `value` as a table cell, every reference id of a `refersTo` field written
+   * as a link to its section (reading view, DI-14).
+   */
+  /** @internal */
+  _linkedCellText(f, value) {
+    if (f.refersTo.length === 0 || f.code) {
+      return SpecDocumentMarkdown._cellText(f, value);
+    }
+    value = SpecDocumentMarkdown.wrappedParagraphJoined(value) ?? value;
+    const ids = value.split(',').map((v) => v.trim());
+    if (ids.length === 0 || !ids.every((id) => _ID_SHAPE.test(id))) {
+      return SpecDocumentMarkdown._cellText(f, value);
+    }
+    const links = ids.map((id) => this._link(f, id));
+    if (links.some((l) => l === null)) {
+      return SpecDocumentMarkdown._cellText(f, value);
+    }
+    return links.join(', ');
+  }
+
+  /**
+   * `[ID](<file>#ID)` for a reference id of form field `f`, `[ID](#ID)` when
+   * the target lives in the document being rendered; `null` when no target of
+   * `f` names a section id (`<SECTIONID>.@sectionId`), which has no anchor.
+   */
+  _link(f, id) {
+    const classIds = f.refersTo
+      .filter((t) => t.endsWith('.@sectionId'))
+      .map((t) => t.substring(0, t.length - 11));
+    if (classIds.length === 0) return null;
+    const current = this._currentRoot;
+    for (const classId of classIds) {
+      const className = this._classBySectionId(classId);
+      if (
+        className !== null &&
+        current !== null &&
+        this._reachedBy(current).has(className)
+      ) {
+        return `[${id}](#${id})`;
+      }
+    }
+    const file = this._fileFor(this._classBySectionId(classIds[0]));
+    return file === null ? `[${id}](#${id})` : `[${id}](${file}#${id})`;
+  }
+
+  _classBySectionId(sectionId) {
+    for (const c of this.model.classes.values()) {
+      if (c.sectionId === sectionId) return c.name;
+    }
+    return null;
+  }
+
+  _reach = new Map();
+
+  /** The class names the meta tree of `root` reaches. */
+  _reachedBy(root) {
+    let names = this._reach.get(root.type);
+    if (names !== undefined) return names;
+    const found = new Set        ();
+    const walk = (n) => {
+      found.add(n.className);
+      if (n.recursive) return;
+      for (const c of n.children) {
+        walk(c);
+      }
+      const e = n.elementNode;
+      if (e !== null && e !== undefined) walk(e);
+    };
+    walk(this._treeFor(root.type).root);
+    names = found;
+    this._reach.set(root.type, names);
+    return names;
+  }
+
+  /**
+   * The rendition file of the root a reference to `className` points into:
+   * the root other than the current one that reaches the class, the most
+   * specific (fewest classes) first, so a detailed document wins over a
+   * projection such as the Solution Blueprint. The CodeSpecs projection is
+   * no document anyone renders, so it is never a target.
+   */
+  _fileFor(className) {
+    if (className === null) return null;
+    const currentType =
+      this._currentRoot !== null ? this._currentRoot.type : null;
+    const candidates = this.model.roots
+      .filter(
+        (r) =>
+          r.type !== currentType &&
+          !(this.model.classNamed(r.type)?.isCodeSpecsProjection ?? false) &&
+          this._reachedBy(r).has(className),
+      )
+      .sort((a, b) => this._reachedBy(a).size - this._reachedBy(b).size);
+    if (candidates.length === 0) return null;
+    return this._fileOfRoot(candidates[0]);
+  }
+
+  /**
+   * The rendition file of `root`: `<fileStem>.<root id>.tomspecs.md`, or the
+   * name {@link documentFiles} gives it.
+   *
+   * @internal
+   */
+  _fileOfRoot(root) {
+    const id = root.sectionId !== null ? root.sectionId : root.type;
+    const mapped =
+      this.documentFiles[id] !== undefined
+        ? this.documentFiles[id]
+        : this.documentFiles[root.type];
+    if (mapped !== undefined) return mapped;
+    const stem = this.fileStem;
+    const name = `${id.toLowerCase()}.tomspecs.md`;
+    return stem === null || stem === '' ? name : `${stem}.${name}`;
+  }
+
+  /**
+   * Whether `value` of form field `f` is written as a table row (reading
+   * view, part *What the model says about reading*): not when the model flags
+   * the field `multiParagraph`, nor when the value holds a line break other
+   * than the soft breaks of one wrapped paragraph (`wrappedParagraphJoined`;
+   * a `code` value keeps every line break), is a block of Markdown, holds a
+   * backslash directly before `|`, or holds `<!--`. There is no length limit.
+   */
+  static _isCellValue(f, value) {
+    if (f.multiParagraph) return false;
+    if (value.includes('\\|') || value.includes('<!--')) return false;
+    if (
+      value.includes('\n') &&
+      (f.code || SpecDocumentMarkdown.wrappedParagraphJoined(value) === null)
+    ) {
+      return false;
+    }
+    return !_BLOCK_START.test(value);
+  }
+
+  /**
+   * `value` on one line when it is one paragraph wrapped over several lines
+   * — no blank line, and no line that Markdown reads as a block or a block's
+   * start (a list item, a quote, a fence, a fenced div, a table row, a
+   * heading, a setext underline or a thematic break), that ends in a hard
+   * break (a trailing backslash or spaces) or that starts with a space: its
+   * soft line breaks, which Markdown reads as spaces, become spaces (SOM
+   * §11.4). Null for any other value, a one-line value among them.
+   */
+  static wrappedParagraphJoined(value) {
+    if (!value.includes('\n')) return null;
+    const lines = value.split('\n');
+    for (const l of lines) {
+      if (
+        l === '' ||
+        l !== l.trim() ||
+        l.endsWith('\\') ||
+        _BLOCK_START.test(l) ||
+        _WRAPPED_LINE_BLOCK.test(l)
+      ) {
+        return null;
+      }
+    }
+    return lines.join(' ');
+  }
+
+  /**
+   * The table cell for `value`: a `code: true` value as its inline code span,
+   * every `|` written `\|`.
+   */
+  static _cellText(f, value) {
+    value = SpecDocumentMarkdown.wrappedParagraphJoined(value) ?? value;
+    const text =
+      f.code && _isInlineCode(value) ? _encodeCodeSpan(value) : value;
+    return text.replace(/\|/g, '\\|');
   }
 
   /**
@@ -827,7 +1583,8 @@ class SpecDocumentMarkdown {
    * (SOM §12.8).
    */
   _undeclaredFormFields(node, path) {
-    const fields = node.form !== null && node.form !== undefined ? node.form.fields : [];
+    const fields =
+      node.form !== null && node.form !== undefined ? node.form.fields : [];
     const declared = new Set(fields.map((f) => f.name));
     const out = [];
     for (const name of this.document.formFieldNames(path)) {
@@ -874,7 +1631,8 @@ class SpecDocumentMarkdown {
     if (this.document.hasContent(path)) {
       return true;
     }
-    const fields = node.form !== null && node.form !== undefined ? node.form.fields : [];
+    const fields =
+      node.form !== null && node.form !== undefined ? node.form.fields : [];
     for (const f of fields) {
       if (this.document.formField(path, f.name) !== null) {
         return true;
@@ -884,39 +1642,49 @@ class SpecDocumentMarkdown {
   }
 
   /**
-   * Writes a `@Form` section body: the preamble content (when set) followed by
-   * one `FieldName: value` group per populated field (SOM §11.4), consecutive
-   * groups separated by one blank line. Throws when the form holds a field the
-   * model does not declare.
+   * Writes a `@Form` section body (SOM §11.4): the preamble, then the
+   * declared fields in model order — each run of consecutive cell values one
+   * `| TomSpecField | Value |` table, each paragraph value a `Field:` group at
+   * its place (table – text – table). Groups are one blank line apart. A value
+   * line that would read as a table header is escaped by
+   * {@link _prepareValue}. Throws when the form holds a field the model does
+   * not declare.
    */
   _writeForm(b, node, path) {
     this._checkFormDeclared(node, path);
-    const fields = node.form !== null && node.form !== undefined ? node.form.fields : [];
-    const fieldBuf = new _Buffer();
+    const fields =
+      node.form !== null && node.form !== undefined ? node.form.fields : [];
+    const groups = [];
+    let table = null;
     for (const f of fields) {
       const value = this.document.formField(path, f.name);
       if (value === null) {
         continue;
       }
-      // SOM §11.4 rule 2: one blank line between consecutive field groups, so
-      // a markdown viewer renders each field as its own paragraph (and a list
-      // ending a value cannot swallow the next label as a lazy continuation).
-      // Parse trims each value's trailing blank lines, so it is lossless.
-      if (fieldBuf.toString() !== '') {
-        fieldBuf.writeln();
+      const label = SpecDocumentMarkdown.formLabel(f.name);
+      if (SpecDocumentMarkdown._isCellValue(f, value)) {
+        if (table === null) {
+          table = ['| TomSpecField | Value |', '| --- | --- |'];
+          groups.push(table);
+        }
+        table.push(`| ${label} | ${this._linkedCellText(f, value)} |`);
+        continue;
       }
+      table = null;
       // SOM §11.4 rule 8: a single-line code value is written as an inline
       // code span, so markdown leaves it literal (`](` is not a link).
       const lines =
-        f.code && SpecDocumentMarkdown._isInlineCode(value)
-          ? [SpecDocumentMarkdown._encodeCodeSpan(value)]
+        f.code && _isInlineCode(value)
+          ? [_encodeCodeSpan(value)]
           : this._prepareValue(value, path).split('\n');
-      fieldBuf.writeln(`${SpecDocumentMarkdown.formLabel(f.name)}: ${lines[0]}`);
-      for (const line of lines.slice(1)) {
-        // SOM §11.4 generalised: any continuation line that could be mistaken
-        // for a field-label line gains one leading space; parse strips it.
-        fieldBuf.writeln(_LABEL_SHAPED.test(line) ? ` ${line}` : line);
-      }
+      groups.push([
+        `${label}: ${lines[0]}`,
+        // Any continuation line that could be mistaken for a field-label line
+        // gains one leading space; parse strips it.
+        ...lines
+          .slice(1)
+          .map((line) => (_LABEL_SHAPED.test(line) ? ` ${line}` : line)),
+      ]);
     }
 
     const preamble = this.document.content(path);
@@ -929,12 +1697,19 @@ class SpecDocumentMarkdown {
         for (const line of prepared.split('\n')) {
           b.writeln(_LABEL_SHAPED.test(line) ? ` ${line}` : line);
         }
-        if (fieldBuf.toString() !== '') {
+        if (groups.length > 0) {
           b.writeln();
         }
       }
     }
-    b.write(fieldBuf.toString());
+    for (let i = 0; i < groups.length; i++) {
+      if (i > 0) {
+        b.writeln();
+      }
+      for (const line of groups[i]) {
+        b.writeln(line);
+      }
+    }
     b.writeln();
   }
 
@@ -945,59 +1720,41 @@ class SpecDocumentMarkdown {
    * grammar accepts `#{7,}` accordingly. Capping would silently flatten
    * distinct nesting positions into siblings and break schema validation.
    *
-   * Records `path` — the document path the heading renders — for
-   * {@link exportRootWithMap}.
+   * When `codeSpec` is non-empty it is emitted as a `codeSpec="…"` key inside
+   * the same headline comment (codespecs_mapping.md §9.2): `## <!--[ID]
+   * codeSpec="A,B"--> Title`. When `units` is non-empty it follows as a
+   * second key, `units="…"`, after `codeSpec` (SOM §11.2).
    */
-  _writeHeading(b, depth, id, title, path, codeSpec, units) {
+  _writeHeading(
+    b,
+    depth,
+    id,
+    title,
+    path,
+    codeSpec = null,
+    units = null,
+    sectionTable = false,
+  ) {
     this._headingPaths.push(path);
-    // csmc8 (codespecs_mapping.md §9.2): a stored codeSpec rides inside the
-    // heading comment as `codeSpec="A,B"`. Byte-stable: when there is none, the
-    // comment is emitted exactly as before (`<!--[ID]-->`). Stored units
-    // (SOM §11.2) follow as a second key, `units="…"`, after `codeSpec`.
-    let meta = '';
-    if (codeSpec !== null && codeSpec !== undefined && codeSpec !== '') {
-      meta += ` codeSpec="${codeSpec}"`;
-    }
+    // SOM §11.2: below a list item or a `@SameAs` copy the anchor is
+    // qualified.
+    const nav = this._nav;
+    const anchor = nav !== null ? nav.anchorOf(path) : id;
+    let code =
+      codeSpec !== null && codeSpec !== undefined && codeSpec !== ''
+        ? ` codeSpec="${codeSpec}"`
+        : '';
     if (units !== null && units !== undefined && units !== '') {
-      meta += ` units="${units}"`;
+      code += ` units="${units}"`;
     }
     // A heading is one line: a stored headline's line breaks travel as `<br>`.
+    // Reading view (DI-3): the section id as an HTML anchor after the id
+    // comment and its keys, so `#<ID>` links jump in every viewer.
     b.writeln(
-      `${'#'.repeat(depth)} <!--[${id}]${meta}--> ${title.replaceAll('\n', '<br>')}`,
+      `${'#'.repeat(depth)} <!--[${id}]${code}--> <a id="${anchor}"></a> ` +
+        title.replace(/\n/g, '<br>'),
     );
     b.writeln();
-  }
-
-  /**
-   * Extracts the `codeSpec="..."` value from a heading-comment key=value region
-   * (group 2 of {@link headlineComment}), trimmed, or the empty string when
-   * absent (csmc8, codespecs_mapping.md §9.2) — as TS and Dart read it.
-   *
-   * @returns {string}
-   */
-  static codeSpecOf(region) {
-    if (region === null || region === undefined) return '';
-    const m = SpecDocumentMarkdown._codeSpecPattern.exec(region);
-    if (m === null) return '';
-    const v = m[1] !== undefined ? m[1] : m[2] !== undefined ? m[2] : m[3];
-    return (v !== undefined ? v : '').trim();
-  }
-
-  /**
-   * Extracts the `units="…"` value from a heading-comment key=value region
-   * (SOM §11.2): the same quoting rules as {@link codeSpecOf} — double-quoted,
-   * single-quoted or bare. The key must start the region or follow
-   * whitespace, so a `units=` inside a quoted codeSpec value is not read as
-   * the key. Returns the empty string when the region carries no `units` key.
-   *
-   * @returns {string}
-   */
-  static unitsOf(region) {
-    if (region === null || region === undefined) return '';
-    const m = SpecDocumentMarkdown._unitsPattern.exec(region);
-    if (m === null) return '';
-    const v = m[1] !== undefined ? m[1] : m[2] !== undefined ? m[2] : m[3];
-    return (v !== undefined ? v : '').trim();
   }
 
   /**
@@ -1017,35 +1774,11 @@ class SpecDocumentMarkdown {
   }
 
   /**
-   * Emit-side value normalisation (SOM §11.3): blank lines inside a value are
-   * kept as written; trim leading/trailing blank lines, escape heading-like lines outside
-   * fences. Throws an {@link Error} for an unterminated fence.
+   * Emit-side value normalisation (SOM §11.3): blank lines are kept as written;
+   * trim leading/trailing blank lines, escape heading-like lines and lines
+   * shaped like a layout table header (SOM §11.4) outside fences. Throws an
+   * {@link Error} for an unterminated fence.
    */
-  /**
-   * Whether a code field's `value` is written as an inline code span: it is
-   * non-empty and on one line. A multi-line value keeps the prose rendering —
-   * a code span cannot cross a line break without markdown joining the lines.
-   */
-  static _isInlineCode(value) {
-    return value.length > 0 && !value.includes('\n');
-  }
-
-  /**
-   * `value` as a CommonMark inline code span: delimited by one backtick more
-   * than the longest backtick run inside it, and padded with one space on
-   * each side when it begins or ends with a backtick or a space — the padding
-   * CommonMark strips again, so the span's content is exactly `value`.
-   */
-  static _encodeCodeSpan(value) {
-    let longest = 0;
-    for (const m of value.matchAll(/`+/g)) {
-      if (m[0].length > longest) longest = m[0].length;
-    }
-    const fence = '`'.repeat(longest + 1);
-    const pad = /^[` ]|[` ]$/.test(value) ? ' ' : '';
-    return `${fence}${pad}${value}${pad}${fence}`;
-  }
-
   _prepareValue(value, path) {
     let collapsed = value.replace(/^\n+/, '');
     collapsed = collapsed.replace(/\n+$/, '');
@@ -1098,6 +1831,11 @@ class SpecDocumentMarkdown {
   }
 
   // --- Import (SOM §11.7) ---------------------------------------------------
+
+  /**
+   * Parses `text` into staged values + a rejection report, **without**
+   * mutating the document. {@link SpecDocument.applyMarkdownResult} applies the result as a full overwrite.
+   */
 
   /**
    * Parses `text` into staged values + a rejection report, **without**

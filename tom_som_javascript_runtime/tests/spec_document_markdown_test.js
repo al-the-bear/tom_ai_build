@@ -196,12 +196,12 @@ function testExportFormat() {
   _check('export.docspec.prefix', first.startsWith('<!-- docspec: demo-document/'), first);
   _check('export.docspec.suffix', first.endsWith('-->'), first);
 
-  _check('export.heading.root', md.includes('# <!--[D00]--> Demo Document'));
-  _check('export.heading.overview', md.includes('## <!--[D00-OVR]--> Overview'));
-  _check('export.heading.status', md.includes('## <!--[D00-ST]--> Status'));
-  _check('export.heading.header', md.includes('## <!--[D00-HDR]--> Header'));
-  _check('export.heading.meta', md.includes('## <!--[D00-MET]--> Meta'));
-  _check('export.heading.note', md.includes('### <!--[D00-MET-NOTE]--> Note'));
+  _check('export.heading.root', md.includes('# <!--[D00]--> <a id="D00"></a> Demo Document'));
+  _check('export.heading.overview', md.includes('## <!--[D00-OVR]--> <a id="D00-OVR"></a> Overview'));
+  _check('export.heading.status', md.includes('## <!--[D00-ST]--> <a id="D00-ST"></a> Status'));
+  _check('export.heading.header', md.includes('## <!--[D00-HDR]--> <a id="D00-HDR"></a> Header'));
+  _check('export.heading.meta', md.includes('## <!--[D00-MET]--> <a id="D00-MET"></a> Meta'));
+  _check('export.heading.note', md.includes('### <!--[D00-MET-NOTE]--> <a id="D00-MET-NOTE"></a> Note'));
 
   _check('export.content.plain', md.includes('An overview paragraph.\nWith two lines.'));
   _check(
@@ -211,15 +211,17 @@ function testExportFormat() {
   _check('export.content.noFieldAnchor', !md.includes('<!-- field:'));
   _check('export.content.noPathHeading', !md.includes('D00/D00-OVR'));
 
-  _check('export.form.sparse.author', md.includes('Author: Ada Lovelace'));
+  _check('export.form.sparse.author', md.includes('| Author | Ada Lovelace |'));
   _check('export.form.sparse.noReviewer', !md.includes('Reviewer'));
 
   // The list container heads (SOM §11.2): `D00-ITM` at the owner's child level,
   // its numbered items one level below it, item fields one deeper.
-  _check('export.item.container', md.includes('## <!--[D00-ITM]--> Items'));
-  _check('export.item.1', md.includes('### <!--[items-1]--> Demo Item 1'));
-  _check('export.item.2', md.includes('### <!--[items-2]--> Demo Item 2'));
-  _check('export.item.label', md.includes('#### <!--[D01-LBL]--> Label'));
+  _check('export.item.container', md.includes('## <!--[D00-ITM]--> <a id="D00-ITM"></a> Items'));
+  _check('export.item.1', md.includes('### <!--[items-1]--> <a id="items-1"></a> Demo Item 1'));
+  _check('export.item.2', md.includes('### <!--[items-2]--> <a id="items-2"></a> Demo Item 2'));
+  // Below a list item the anchor is qualified (SOM §11.2).
+  _check('export.item.label', md.includes('#### <!--[D01-LBL]--> <a id="items-1/D01-LBL"></a> Label'));
+  _check('export.item2.label', md.includes('#### <!--[D01-LBL]--> <a id="items-2/D01-LBL"></a> Label'));
 
   _check('export.noSchemaDescription', !md.includes('A demo document.'));
 }
@@ -229,10 +231,10 @@ function testExportStoredItemId() {
   const item = doc.addListItem('D00/D00-ITM', 'D01-CUSTOM');
   doc.setContent(`${item}/D01-LBL`, 'Custom-id item');
   const md = _export(doc);
-  // YRD3: a stored id IS the item's heading id in md — the positional
-  // fallback is used only for anonymous items.
-  _check('export.storedId.container', md.includes('## <!--[D00-ITM]--> Items'), md);
-  _check('export.storedId.heading', md.includes('### <!--[D01-CUSTOM]--> Demo Item 1'), md);
+  // YRD3: a stored id IS the item's md heading id (positional only as
+  // fallback), one level below the `-LST` container heading.
+  _check('export.storedId.container', md.includes('## <!--[D00-ITM]--> <a id="D00-ITM"></a> Items'), md);
+  _check('export.storedId.heading', md.includes('### <!--[D01-CUSTOM]--> <a id="D01-CUSTOM"></a> Demo Item 1'), md);
   _check('export.storedId.noPositional', !md.includes('items-1'), md);
 }
 
@@ -362,8 +364,7 @@ function testRoundTripStoredItemId() {
   const item = doc.addListItem('D00/D00-ITM', 'D01-CUSTOM');
   doc.setContent(`${item}/D01-LBL`, 'Custom-id item');
   const md1 = _export(doc);
-  // YRD3: a stored id round-trips through md — it is the heading id and is
-  // recovered on parse.
+  // YRD3: a stored id round-trips through md as the item's heading id.
   _check('storedId.inMd', md1.includes('<!--[D01-CUSTOM]-->'), md1);
   const [reloaded, report] = _reload(md1);
   _check('storedId.clean', report.isClean, _rejStr(report));
@@ -385,7 +386,9 @@ function testRoundTripLabelShapedContinuation() {
   doc.setFormField(
     'D00/D00-HDR',
     'author',
-    'Ada Lovelace\nNote: also a mathematician\nplain line',
+    // A hard break keeps it a paragraph (a wrapped paragraph would be one
+    // table cell, SOM §11.4).
+    'Ada Lovelace  \nNote: also a mathematician\nplain line',
   );
   const md1 = _export(doc);
   // The label-shaped continuation is space-escaped on emit.
@@ -396,13 +399,13 @@ function testRoundTripLabelShapedContinuation() {
   _check(
     'formCont.value',
     reloaded.formField('D00/D00-HDR', 'author') ===
-      'Ada Lovelace\nNote: also a mathematician\nplain line',
+      'Ada Lovelace  \nNote: also a mathematician\nplain line',
     JSON.stringify(reloaded.formField('D00/D00-HDR', 'author')),
   );
   _check('formCont.byteStable', _export(reloaded) === md1);
 }
 
-// --- a form section's preamble (SOM §11.4 rule 7) -----------------------------
+// --- a form section's preamble (SOM §11.4 rule 7) ----------------------------
 
 function testFormPreambleParses() {
   const md =
@@ -431,7 +434,10 @@ function testFormPreambleEmits() {
   const md = _export(doc);
   _check(
     'formPre.emitOrder',
-    md.includes('why this header exists\n\nAuthor: Ada Lovelace\n'),
+    md.includes(
+      'why this header exists\n\n| TomSpecField | Value |\n| --- | --- |\n' +
+        '| Author | Ada Lovelace |\n',
+    ),
     md,
   );
 }
@@ -450,7 +456,7 @@ function testFormPreambleOnly() {
     reloaded.content('D00/D00-HDR') === 'nothing filled in yet',
     JSON.stringify(reloaded.content('D00/D00-HDR')),
   );
-  _check('formPreOnly.byteStable', _export(reloaded) === md1);
+  _check('formPreOnly.byteStable', _export(reloaded) === md1, _export(reloaded));
 }
 
 function testFormPreambleRoundTrip() {
@@ -469,7 +475,7 @@ function testFormPreambleRoundTrip() {
     'formPreRT.field',
     reloaded.formField('D00/D00-HDR', 'author') === 'Ada Lovelace',
   );
-  _check('formPreRT.byteStable', _export(reloaded) === md1);
+  _check('formPreRT.byteStable', _export(reloaded) === md1, _export(reloaded));
 }
 
 function testFormPreambleLabelShaped() {
@@ -496,7 +502,7 @@ function testFormPreambleLabelShaped() {
     'formPreLbl.field',
     reloaded.formField('D00/D00-HDR', 'author') === 'Ada Lovelace',
   );
-  _check('formPreLbl.byteStable', _export(reloaded) === md1);
+  _check('formPreLbl.byteStable', _export(reloaded) === md1, _export(reloaded));
 }
 
 // --- parse-rejection protocol (SOM §11.7) -------------------------------------
@@ -624,49 +630,53 @@ function testFenceShieldedHeadingsStayBody() {
   _check('fenceShield.noStatus', !('D00/D00-ST' in report.content));
 }
 
-// --- csmc8: stored codeSpec rides in the headline comment
-// (codespecs_mapping.md §9.2) -------------
+// --- codespecs_mapping.md §9.2 codeSpec forward-link (csmc8)
+// --------------------------------------
+
+const _CODE_SPEC = 'CsOrder,CsOrder.total,CsOrderRepository';
 
 function testCodeSpecRidesInHeadlineComment() {
   const doc = _populated();
-  doc.setCodeSpec('D00/D00-OVR', 'CsOrder,CsOrder.total,CsOrderRepository');
+  doc.setCodeSpec('D00/D00-OVR', _CODE_SPEC);
   const md = _export(doc);
+  // The codeSpec is emitted as a `codeSpec="…"` key inside the same heading
+  // comment as the section id, next to (before) the derived title.
   _check(
-    'codeSpec.md.attribute',
-    md.includes(
-      '## <!--[D00-OVR] codeSpec="CsOrder,CsOrder.total,' +
-        'CsOrderRepository"--> Overview',
-    ),
+    'codeSpec.md.inHeading',
+    md.includes(`## <!--[D00-OVR] codeSpec="${_CODE_SPEC}"--> <a id="D00-OVR"></a> Overview`),
     md,
   );
-  // Untouched sections stay byte-stable (no empty codeSpec attribute).
-  _check('codeSpec.md.untouched', md.includes('## <!--[D00-ST]--> Status'));
+  // A sibling heading with no codeSpec is untouched — no key emitted.
+  _check('codeSpec.md.siblingUntouched', md.includes('## <!--[D00-ST]--> <a id="D00-ST"></a> Status'), md);
 }
 
 function testCodeSpecParsedBackOut() {
   const doc = _populated();
-  doc.setCodeSpec('D00/D00-OVR', 'CsOrder,CsOrder.total');
+  doc.setCodeSpec('D00/D00-OVR', _CODE_SPEC);
   const md = _export(doc);
-  const report = _parse(md);
+  const [reloaded, report] = _reload(md);
+  _check('codeSpec.md.clean', report.isClean, _rejStr(report));
+  _check('codeSpec.md.staged', report.codeSpecs['D00/D00-OVR'] === _CODE_SPEC,
+    JSON.stringify(report.codeSpecs));
   _check(
-    'codeSpec.md.parsed',
-    report.codeSpecs['D00/D00-OVR'] === 'CsOrder,CsOrder.total',
-    JSON.stringify(report.codeSpecs),
+    'codeSpec.md.restored',
+    reloaded.codeSpec('D00/D00-OVR') === _CODE_SPEC,
+    String(reloaded.codeSpec('D00/D00-OVR')),
   );
+  // Sections without a codeSpec stay null.
+  _check('codeSpec.md.siblingNull', reloaded.codeSpec('D00/D00-ST') === null);
 }
 
 function testCodeSpecAndHeadlineRoundTripByteStable() {
   const doc = _populated();
+  doc.setCodeSpec('D00/D00-OVR', _CODE_SPEC);
   doc.setHeadline('D00/D00-OVR', 'Custom Overview');
-  doc.setCodeSpec('D00/D00-OVR', 'CsOrder,CsOrder.total,CsOrderRepository');
-  const md = _export(doc);
-  const [target] = _reload(md);
-  _check('codeSpec.md.byteStable', _export(target) === md);
-  _check(
-    'codeSpec.md.stored',
-    target.codeSpec('D00/D00-OVR') === 'CsOrder,CsOrder.total,CsOrderRepository',
-    String(target.codeSpec('D00/D00-OVR')),
-  );
+  const md1 = _export(doc);
+  const [reloaded] = _reload(md1);
+  const md2 = _export(reloaded);
+  _check('codeSpec.md.byteStable', md2 === md1, md2);
+  _check('codeSpec.md.headlineKept', reloaded.headline('D00/D00-OVR') === 'Custom Overview');
+  _check('codeSpec.md.codeSpecKept', reloaded.codeSpec('D00/D00-OVR') === _CODE_SPEC);
 }
 
 function main() {
