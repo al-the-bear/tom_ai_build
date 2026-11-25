@@ -340,6 +340,12 @@
 ///   and is written again; without generated parts the parse is the same;
 ///   a use-case traceability without interactions whose text opens with a
 ///   `derived` block gets the empty block first. Correct.
+/// * **a summary row without match** (SOM §11.5, a case-local model,
+///   reviewed 2026-11-25) — the highlights, a records table whose
+///   `@SummaryOf` names each topic by the topic's own id: the row's `Id` cell
+///   is `<a id="TOP-BETA"></a>[TOP-BETA](#TOP-BETA)`, the topics' rows keep
+///   their plain anchored ids; the parse stages exactly the document and the
+///   rendition of it is the same text. Correct.
 library;
 
 import 'dart:convert';
@@ -2443,7 +2449,11 @@ final SpecModel _som = SpecModel.fromJson(
 
 /// The model a case runs against: the fixture, or the real one.
 SpecModel _modelOf(SpecModel fixture, Map<String, dynamic> c) =>
-    c['model'] == 'som' ? _som : fixture;
+    c['inline'] is Map
+    ? SpecModel.fromJson(c['inline'] as Map<String, dynamic>)
+    : c['model'] == 'som'
+    ? _som
+    : fixture;
 
 /// The cut of Tom UAM's requirements in the corpus
 /// (`uam_requirements_cut.json`): the Blueprint's and the Requirements
@@ -3493,6 +3503,51 @@ Map<String, dynamic> _complex(
 // The table `link_rendition_cases.json`
 // ---------------------------------------------------------------------------
 
+/// A case-local model with a `@SummaryOf` whose `match` is null: the
+/// highlights name their topics by the topics' own ids, both lists written as
+/// records tables (SOM §11.5).
+Map<String, dynamic> _summaryRowMeta() => {
+  'metaSchemaVersion': 1,
+  'modelVersion': 1,
+  'modelVersionLabel': 'links-summary-row-1.0',
+  'generatedAt': '2026-11-25T08:00:00.000000Z',
+  'classCount': 3,
+  'rootCount': 1,
+  'roots': [
+    {'type': 'Notes', 'title': 'Notes', 'sectionId': 'NOTS'},
+  ],
+  'classes': {
+    'Notes': _cls(
+      'Notes',
+      'NOTS',
+      [
+        _list('topics', 'TOP-ITEM-LST', 'TOP-xxx', 'Topic'),
+        _list(
+          'highlights',
+          'HIL-ITEM-LST',
+          'TOP-xxx',
+          'Highlight',
+          annotations: [
+            _a('SummaryOf', {
+              'detail': 'TOP-ITEM-LST',
+              'relation': 'LinkRelation.subset',
+            }),
+          ],
+        ),
+      ],
+      annotations: [
+        _a('Document', {'name': 'Notes', 'description': 'a summary row'}),
+      ],
+    ),
+    'Topic': _cls('Topic', 'TOP', [
+      _form('content', null, [_ff('subject', 'String')]),
+    ]),
+    'Highlight': _cls('Highlight', 'HIL', [
+      _form('content', null, [_ff('note', 'String')]),
+    ]),
+  },
+};
+
 /// The rendition file stem the cases use (`links.<root>.tomspecs.md`).
 const _renditionStem = 'links';
 
@@ -3656,6 +3711,47 @@ Map<String, Object?> buildRenditionCases(Map<String, dynamic> meta) {
     return d;
   }
 
+  // A case over a case-local model (`inline`): a summary row whose
+  // `@SummaryOf` has no `match` links its detail element from its Id cell.
+  final inline = _summaryRowMeta();
+  final inlineModel = SpecModel.fromJson(inline);
+  Map<String, Object?> inlineKase(
+    String name,
+    List<String> intent,
+    SpecDocument doc,
+  ) {
+    final c = <String, dynamic>{
+      'name': name,
+      'intent': intent,
+      'inline': inline,
+      'fileStem': _renditionStem,
+      'state': SpecDocument.fromMarkdown(
+        _rendition(inlineModel, doc),
+        inlineModel,
+      ).document.toJson(),
+    };
+    return {...c, 'expect': renditionCase(model, jsonDecode(jsonEncode(c)))};
+  }
+
+  final notes = SpecDocument();
+  for (final (id, title) in [
+    ('TOP-ALPHA', 'The first topic'),
+    ('TOP-BETA', 'The second topic'),
+  ]) {
+    final t = notes.addListItem('NOTS/TOP-ITEM-LST', sectionId: id);
+    notes.setFormField('$t/content', 'subject', title);
+  }
+  final h = notes.addListItem('NOTS/HIL-ITEM-LST', sectionId: 'TOP-BETA');
+  notes.setFormField('$h/content', 'note', 'The one that matters.');
+  final inlineCases = [
+    inlineKase(
+      'a records row of a summary without match links its detail element '
+      'from its Id cell; the parser reads the cell as the id',
+      ['summaryRowLink', 'roundTrip', 'clean'],
+      notes,
+    ),
+  ];
+
   final somCases = [
     somKase(
       'the real model: the Requirements Specification writes its traceability '
@@ -3716,6 +3812,7 @@ Map<String, Object?> buildRenditionCases(Map<String, dynamic> meta) {
   return {
     'model': 'links.meta.json',
     'cases': [
+      ...inlineCases,
       ...somCases,
       kase(
         'the Blueprint: a sync held there with an exception, a detail element '
@@ -3928,6 +4025,9 @@ bool _renditionIntentHolds(String token, Map<String, dynamic> c) {
     'emptyGenerated' => md.contains(
       '::: {.derived}\n:::\n\n::: {.derived}\nTraced by hand.\n:::',
     ),
+    'summaryRowLink' =>
+      md.contains('| <a id="TOP-BETA"></a>[TOP-BETA](#TOP-BETA) |') &&
+          md.contains('| <a id="TOP-BETA"></a>TOP-BETA |'),
     'noMarkers' =>
       !md.contains('{.linked}') && md.contains('<a id="REQ-EXPORT/REQD"></a>'),
     'roundTrip' => !edited && parsed && reemit,

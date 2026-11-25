@@ -1627,6 +1627,13 @@ The table layout (§11.4) writes three more forms, and parse reads them:
   a stored headline when it differs from the default title, its cells as the
   item's form fields, decoded as in a form table. A column naming no field is
   an `unknownField` rejection at the header and the table is skipped whole.
+  The `Id` cell of a row standing for an element of a `@SummaryOf` list whose
+  `match` is null — the element named by its detail element's own id — links
+  that detail element (§11.11): `<a id="X"></a>[X](<file>#X)`, its anchor,
+  then the id as a link to the detail element's anchor, `#<anchor>` in this
+  document or `<file>#<anchor>` in the other one. Parse and the DocSpecs
+  validator read the cell as its id: the anchor removed, the link read as its
+  text.
 - **A section table.** A section whose populated children are all single
   forms of table cells (or lists of such single-form items) with default
   headlines is written as one table after its own body, the children's
@@ -1644,13 +1651,15 @@ The table layout (§11.4) writes three more forms, and parse reads them:
   each child from its rows, a list item's id read as a heading id is; a cell
   naming no child section is an `unknownSection` rejection and its rows are
   skipped.
-- A `refs` or `records` div is the container's whole body: beside other text
-  or item headings, holding no table, or with a first column other than `Id`,
-  it is a `malformedBlock` rejection, and so is an unclosed div. In every
+- A `refs` or `records` div is the container's whole body, after the
+  container's `linked` marker and generated block (§11.11, §11.12): beside
+  other text or item headings, holding no table, or with a first column other
+  than `Id`, it is a `malformedBlock` rejection, and so is an unclosed div. In every
   table a missing delimiter row, or a row of another cell count than the
   header, is a `malformedBlock` rejection.
-- Parse removes an anchor equal to its section id, in a heading, an `Id` cell
-  or a `Section` cell; any other anchor is text.
+- Parse removes an anchor equal to its section id or to its qualified form
+  (§11.2), in a heading, an `Id` cell or a `Section` cell; any other anchor
+  is text.
 
 With these, `parse(emit(doc))` stages exactly the document's values (a wrapped
 one-paragraph value written in a table cell joined, §11.4 rule 13), and
@@ -3143,6 +3152,11 @@ it is stored.
   side reads `held here` and the Blueprint's `held there`; the `heldHere`
   places of the `@SyncedWith` follow as exceptions,
   `held there except REQ.owner`.
+- **A records or section table** has no heading per row, so no marker stands
+  there. A row of a summary list whose `match` is set shows the matched
+  field as a link already (a `refersTo` cell); one whose `match` is null
+  writes its `Id` cell as the link to its detail element, the target computed
+  as `Summary of` computes it (§11.5).
 - **Parse** removes the first paragraph of a markable heading's body when it
   is exactly one `linked` span, whatever it says, and stores nothing; a
   marker edited or deleted by hand is rewritten by the next rendition. A

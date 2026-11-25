@@ -2,6 +2,169 @@
   "model": "links.meta.json",
   "cases": [
     {
+      "name": "a records row of a summary without match links its detail element from its Id cell; the parser reads the cell as the id",
+      "intent": [
+        "summaryRowLink",
+        "roundTrip",
+        "clean"
+      ],
+      "inline": {
+        "metaSchemaVersion": 1,
+        "modelVersion": 1,
+        "modelVersionLabel": "links-summary-row-1.0",
+        "generatedAt": "2026-11-25T08:00:00.000000Z",
+        "classCount": 3,
+        "rootCount": 1,
+        "roots": [
+          {
+            "type": "Notes",
+            "title": "Notes",
+            "sectionId": "NOTS"
+          }
+        ],
+        "classes": {
+          "Notes": {
+            "name": "Notes",
+            "sectionId": "NOTS",
+            "annotations": [
+              {
+                "name": "SectionId",
+                "arguments": {
+                  "id": "NOTS"
+                }
+              },
+              {
+                "name": "Document",
+                "arguments": {
+                  "name": "Notes",
+                  "description": "a summary row"
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "topics",
+                "kind": "list",
+                "sectionId": "TOP-ITEM-LST",
+                "sectionIdPattern": "TOP-xxx",
+                "elementType": "Topic",
+                "elementIsComplex": true
+              },
+              {
+                "name": "highlights",
+                "kind": "list",
+                "sectionId": "HIL-ITEM-LST",
+                "sectionIdPattern": "TOP-xxx",
+                "elementType": "Highlight",
+                "elementIsComplex": true,
+                "annotations": [
+                  {
+                    "name": "SummaryOf",
+                    "arguments": {
+                      "detail": "TOP-ITEM-LST",
+                      "relation": "LinkRelation.subset"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "Topic": {
+            "name": "Topic",
+            "sectionId": "TOP",
+            "annotations": [
+              {
+                "name": "SectionId",
+                "arguments": {
+                  "id": "TOP"
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "content",
+                "kind": "form",
+                "formFields": [
+                  {
+                    "name": "subject",
+                    "label": "Subject",
+                    "type": "String"
+                  }
+                ]
+              }
+            ]
+          },
+          "Highlight": {
+            "name": "Highlight",
+            "sectionId": "HIL",
+            "annotations": [
+              {
+                "name": "SectionId",
+                "arguments": {
+                  "id": "HIL"
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "content",
+                "kind": "form",
+                "formFields": [
+                  {
+                    "name": "note",
+                    "label": "Note",
+                    "type": "String"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "fileStem": "links",
+      "state": {
+        "forms": {
+          "NOTS/HIL-ITEM-LST-1/content": {
+            "note": "The one that matters."
+          },
+          "NOTS/TOP-ITEM-LST-1/content": {
+            "subject": "The first topic"
+          },
+          "NOTS/TOP-ITEM-LST-2/content": {
+            "subject": "The second topic"
+          }
+        },
+        "lists": {
+          "NOTS/HIL-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "NOTS/HIL-ITEM-LST-1"
+            ],
+            "ids": {
+              "NOTS/HIL-ITEM-LST-1": "TOP-BETA"
+            }
+          },
+          "NOTS/TOP-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "NOTS/TOP-ITEM-LST-1",
+              "NOTS/TOP-ITEM-LST-2"
+            ],
+            "ids": {
+              "NOTS/TOP-ITEM-LST-1": "TOP-ALPHA",
+              "NOTS/TOP-ITEM-LST-2": "TOP-BETA"
+            }
+          }
+        }
+      },
+      "expect": {
+        "markdown": "<!-- docspec: notes/1.0 -->\n# <!--[NOTS]--> <a id=\"NOTS\"></a> Notes\n\n## <!--[TOP-ITEM-LST]--> <a id=\"TOP-ITEM-LST\"></a> Topics\n\n::: {.records}\n| Id | Subject |\n| --- | --- |\n| <a id=\"TOP-ALPHA\"></a>TOP-ALPHA | The first topic |\n| <a id=\"TOP-BETA\"></a>TOP-BETA | The second topic |\n:::\n\n## <!--[HIL-ITEM-LST]--> <a id=\"HIL-ITEM-LST\"></a> Highlights\n\n::: {.records}\n| Id | Note |\n| --- | --- |\n| <a id=\"TOP-BETA\"></a>[TOP-BETA](#TOP-BETA) | The one that matters. |\n:::\n\n",
+        "rejections": [],
+        "parseMatches": true,
+        "reemitMatches": true
+      }
+    },
+    {
       "name": "the real model: the Requirements Specification writes its traceability matrix, coverage and relationships from the requirements, the sections holding no value of their own",
       "intent": [
         "generatedTrace",

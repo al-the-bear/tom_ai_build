@@ -69,6 +69,7 @@ abstract final class ReadingGrammar {
   static final RegExp linkText = RegExp(r'\[([^\]]+)\]\([^)]*\)');
 
   static final RegExp _cellAnchor = RegExp(r'<a id="([^"]*)"></a>\s*');
+  static final RegExp _cellLink = RegExp(r'\[([^\]]+)\]\([^)\s]*\)');
 
   /// Whether [anchor] is the own anchor of a section with [id] (*Section
   /// Anchors*): [id] itself, or the qualified form `<A>/…/<id>` a TomSpecs
@@ -163,6 +164,8 @@ abstract final class ReadingGrammar {
   /// anchor, and one before the whole cell naming its item. Any other anchor
   /// stays and makes the cell name no section.
   static String cellId(String cell) {
+    // A summary row's id written as a link is read as its text (SOM §11.5).
+    cell = cell.replaceAllMapped(_cellLink, (m) => m.group(1)!);
     final out = StringBuffer();
     var pos = 0;
     for (final m in _cellAnchor.allMatches(cell)) {

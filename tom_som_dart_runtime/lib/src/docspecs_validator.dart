@@ -1798,6 +1798,8 @@ class DocSpecsValidator {
   /// anchor, and one before the whole cell naming its item. Any other anchor
   /// stays and makes the cell name no section.
   static String _cellId(String cell) {
+    // A summary row's id written as a link is read as its text (SOM §11.5).
+    cell = cell.replaceAllMapped(_cellLink, (m) => m.group(1)!);
     final out = StringBuffer();
     var pos = 0;
     for (final m in _cellAnchor.allMatches(cell)) {
@@ -1815,6 +1817,7 @@ class DocSpecsValidator {
   }
 
   static final RegExp _cellAnchor = RegExp(r'<a id="([^"]*)"></a>\s*');
+  static final RegExp _cellLink = RegExp(r'\[([^\]]+)\]\([^)\s]*\)');
   static final RegExp _cellPartSeparator = RegExp(r'\s*/\s*');
 
   /// Reads the table whose header is [lines] line [start]: the header cells,

@@ -145,7 +145,8 @@ unpublished_drift:
     section automation in progress — 04_sau9 (2026-11-25): a records `Id` or
     section-table `Section` cell's qualified anchor is its own (DocSpecs
     *Section Anchors*). 04_sau10: a leading `linked` marker and `derived`
-    block are no text of a section and leave a list body alone.
+    block are no text of a section and leave a list body alone. 04_sau13:
+    an Id or Section cell written as a link is read as its text.
   tom_som_dart_runtime: >-
     section automation in progress — 02_sau4 (2026-11-23): the link
     annotations in kRenderedAnnotations, linkChips in fieldChips, the four in
@@ -158,7 +159,8 @@ unpublished_drift:
     reading a qualified anchor as a section's own. 04_sau10: the generated
     tables of the requirement views in `derived` blocks (SOM §11.12),
     `derived` a registered and strippable kind, the schema tier reading
-    neither a marker nor a generated block as text.
+    neither a marker nor a generated block as text. 04_sau13: a records row
+    of a summary without match links its detail element from its Id cell.
   tom_som_dart_v0: >-
     section automation in progress — 02_sau5 (2026-11-23): regenerated for
     model 1.12.3 (LocaleRolloutPlan, 14 more @DetailedIn). 03_sau11:

@@ -538,6 +538,23 @@ class _Navigation {
     String listPath,
     String ownId,
     SpecSummaryOf s,
+  ) => [
+    for (final (id, anchor, other) in summaryTargets(
+      element,
+      listPath,
+      ownId,
+      s,
+    ))
+      _link(id, anchor, other),
+  ];
+
+  /// The detail elements summary element [element] of [listPath] names: each
+  /// id, its anchor and the other root it is in (null: this document).
+  List<(String, String, SpecRoot?)> summaryTargets(
+    String element,
+    String listPath,
+    String ownId,
+    SpecSummaryOf s,
   ) {
     final ids = _summaryIds(element, s, ownId);
     if (ids.isEmpty) return const [];
@@ -548,7 +565,7 @@ class _Navigation {
       final list = cutPattern(r.path);
       return [
         for (final id in ids)
-          _link(id, walk('$list-*', d: doc, ids: [id]).anchor),
+          (id, walk('$list-*', d: doc, ids: [id]).anchor, null),
       ];
     }
     final other = model.roots.where((r) => r.type == s.document).firstOrNull;
@@ -562,7 +579,7 @@ class _Navigation {
     );
     return [
       for (final id in ids)
-        _link(
+        (
           id,
           r == null || r.path.contains('-*')
               ? id
@@ -574,6 +591,22 @@ class _Navigation {
           other,
         ),
     ];
+  }
+
+  /// The `Id` cell of a records row standing for summary element [item] of
+  /// [listPath] whose `@SummaryOf` has no `match` (SOM §11.5, §11.11): its
+  /// anchor, then its id as a link to the detail element it names. Null when
+  /// the list is no such summary.
+  String? summaryIdCell(String item, String listPath, String id) {
+    final s = summaryOfList(listPath);
+    if (s == null || s.match != null) return null;
+    final targets = summaryTargets(item, listPath, id, s);
+    if (targets.isEmpty) return null;
+    final (_, anchor, other) = targets.single;
+    final href = other == null
+        ? '#$anchor'
+        : '${codec._fileOfRoot(other)}#$anchor';
+    return '<a id="${anchorOf(item)}"></a>[$id]($href)';
   }
 
   /// The derived values at the heading [path]: (a link to a source, or null;

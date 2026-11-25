@@ -1067,8 +1067,12 @@ class SpecDocumentMarkdown {
     for (var i = 0; i < items.length; i++) {
       final itemPath = items[i];
       final id = _itemId(node, itemPath, i + 1, pattern);
+      // A summary naming its detail element by its own id links it from
+      // the Id cell (SOM §11.5, §11.11).
+      final listPath = itemPath.substring(0, itemPath.lastIndexOf('-'));
       final cells = [
-        '<a id="${_nav?.anchorOf(itemPath) ?? id}"></a>$id',
+        _nav?.summaryIdCell(itemPath, listPath, id) ??
+            '<a id="${_nav?.anchorOf(itemPath) ?? id}"></a>$id',
         if (withTitle)
           (document.headline(itemPath) ?? '')
               .replaceAll('\n', '<br>')
@@ -2694,9 +2698,14 @@ class _Parser {
     return f.code ? _decodeCodeSpan(text) : text;
   }
 
-  /// A cell's id with the renderer's anchor (`<a id="X"></a>X`) removed.
-  static String _cellId(String cell) =>
-      cell.replaceFirst(RegExp(r'^<a id="[^"]*"></a>\s*'), '');
+  /// A cell's id with the renderer's anchor (`<a id="X"></a>X`) removed and
+  /// a link the cell is read as its text (`[X](<file>#X)`, SOM §11.5).
+  static String _cellId(String cell) {
+    final id = cell.replaceFirst(RegExp(r'^<a id="[^"]*"></a>\s*'), '');
+    return _wholeLink.firstMatch(id)?.group(1) ?? id;
+  }
+
+  static final RegExp _wholeLink = RegExp(r'^\[([^\]]+)\]\([^)\s]*\)$');
 
   /// The fields given so far per form path, for the given-twice rule.
   final Map<String, Set<String>> _given = {};

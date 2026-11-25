@@ -888,7 +888,9 @@ whose link names a place the other document does not hold yet. Cases naming
 the requirement views' tables in the Requirements Specification and the
 Blueprint of the Tom UAM cut and the use-case table of a small Interaction
 Scenarios document, a table edited by hand, a rendition without generated
-parts, and the empty `derived` block.
+parts, and the empty `derived` block. A case naming `inline` carries its own
+model: a records row of a summary list whose `@SummaryOf` has no `match`,
+whose `Id` cell links the detail element it names (SOM §11.5).
 
 [`corpus/prefill_cases.json`](corpus/prefill_cases.json) pins `prefill`:
 a new Detail and a new Screens document from the Blueprint (stored ids kept,

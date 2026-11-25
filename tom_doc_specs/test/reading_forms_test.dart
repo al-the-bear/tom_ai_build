@@ -355,6 +355,20 @@ void main() {
       expect(section(scan(md), 'CRIT-1').isVirtual, isTrue);
     });
 
+    test('a records Id cell written as a link is read as its id', () {
+      final md = doc(
+        '$records'
+        '| <a id="CRIT-1"></a>[CRIT-1](other.md#CRIT-1) | | a tenant | '
+        'it invites | both confirm |\n'
+        '| <a id="CRIT-2"></a>[CRIT-2](#CRIT-2) | | an invitation | '
+        'it expires | the user asks again |\n'
+        ':::\n',
+      );
+      expect(findings(md), isEmpty);
+      expect(section(scan(md), 'CRIT-1').isVirtual, isTrue);
+      expect(section(scan(md), 'CRIT-2').isVirtual, isTrue);
+    });
+
     test('row findings point at their rows', () {
       final md = doc(
         '$records'

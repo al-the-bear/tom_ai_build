@@ -1412,6 +1412,32 @@ void main() {
     }
   });
 
+  // Dart only until the ports (SOM §11.5): a records row of a summary whose
+  // `@SummaryOf` has no `match` writes its Id cell as a link.
+  test('DocSpecs: a records Id cell written as a link is read as its id', () {
+    final validator = DocSpecsValidator(
+      DocSpecsSchema.fromYamlText(_docSpecsSchemaYaml),
+    );
+    List<String> findings(String idCell) => [
+      for (final v in validator.validateMarkdown(
+        '$_docSpecsValidDoc\n## <!--[CRIT-LST]--> Acceptance Criteria\n\n'
+        '::: {.records}\n'
+        '| Id | Title | Given | When | Then |\n'
+        '| --- | --- | --- | --- | --- |\n'
+        '| $idCell | Second admin | a tenant | an invite | both confirm |\n'
+        '| <a id="CRIT-2"></a>CRIT-2 | | an expired invite | it is opened '
+        '| ask again |\n'
+        ':::\n',
+      ))
+        '${v.rule.name} ${v.sectionId}',
+    ];
+    expect(findings('<a id="CRIT-1"></a>CRIT-1'), isEmpty);
+    expect(findings('<a id="CRIT-1"></a>[CRIT-1](other.md#CRIT-1)'), isEmpty);
+    expect(findings('<a id="CRIT-1"></a>[CRIT-1](#CRIT-1)'), isEmpty);
+    // A link naming another id is no own anchor's id.
+    expect(findings('<a id="CRIT-1"></a>[CRIT-9](#CRIT-9)'), isNotEmpty);
+  });
+
   // Read, not generated: strip_cases.json is maintained by hand.
   group('strip_cases.json (stripped renditions, SOM §11.10)', () {
     final table = jsonDecode(read('strip_cases.json')) as Map<String, dynamic>;
