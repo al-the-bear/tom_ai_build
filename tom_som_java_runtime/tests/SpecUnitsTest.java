@@ -203,8 +203,8 @@ public final class SpecUnitsTest {
     d.setUnits("DEMO/SUM", "u_a");
     String md = d.toMarkdown(model);
     contains("md.emit.both", md,
-        "## <!--[TTL] codeSpec=\"DemoTitle\" units=\"u_a,u_b\"--> Document Title\n");
-    contains("md.emit.alone", md, "## <!--[SUM] units=\"u_a\"--> Summary\n");
+        "## <!--[TTL] codeSpec=\"DemoTitle\" units=\"u_a,u_b\"--> <a id=\"TTL\"></a> Document Title\n");
+    contains("md.emit.alone", md, "## <!--[SUM] units=\"u_a\"--> <a id=\"SUM\"></a> Summary\n");
 
     String text =
         "# <!--[DEMO] units=u_root--> Demo Document\n\n"

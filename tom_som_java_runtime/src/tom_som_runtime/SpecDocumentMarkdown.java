@@ -2,6 +2,7 @@ package tom_som_runtime;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -23,9 +24,15 @@ import java.util.regex.Pattern;
  * every populated section is one markdown heading whose machine-readable
  * identity is the DocSpecs headline comment {@code <!--[SECTION-ID]-->} and
  * whose text is the human-readable Title-Case member name. Content values are
- * <b>normal markdown text</b> under their heading (no fences, no anchors);
- * {@code @Form} sections use the DocSpecs plain-text {@code FieldName: value}
- * format; a list emits its {@code -LST} container heading (id = the list's
+ * <b>normal markdown text</b> under their heading (no fences); every heading
+ * carries its section id as an HTML anchor, qualified below a list item and in
+ * a {@code @SameAs} copy (SOM §11.2). The emitter writes the reading-view
+ * layout (SOM §11.4, §11.5): a {@code @Form} section as
+ * {@code | TomSpecField | Value |} tables, a value no table cell holds as a
+ * {@code Field:} paragraph, a list of one-form items as a record table, a list
+ * of single references as a reference line, a section of one-form children as
+ * a section table; the parser reads that layout and the older layout of
+ * {@code Field:} lines alike. A list emits its {@code -LST} container heading (id = the list's
  * {@code @SectionId}, else the member segment) at the owner's child level,
  * wrapping the numbered item headings one level deeper — each item carrying the
  * {@code @SectionIdPattern} resolved with the 1-based position
@@ -211,6 +218,167 @@ public final class SpecDocumentMarkdown {
     }
   }
 
+  // The whitespace JavaScript's `\s` and `trim()` know, which the reference
+  // codecs decide by.
+  private static final String WS =
+      "[\\t\\n\\x0B\\f\\r \\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]";
+  // A section id as a reference holds it: upper-case segments joined by `-`.
+  private static final Pattern ID_SHAPE = Pattern.compile("[A-Z][A-Z0-9]*(-[A-Z0-9]+)*");
+  // A one-line value that Markdown reads as a block: a list item, a block quote
+  // (review comment and question blocks among them), a fence or a fenced div. A
+  // table needs two lines, so it is caught by the line break.
+  private static final Pattern BLOCK_START = Pattern.compile(
+      "^" + WS + "*([-*+]" + WS + "|[0-9]+[.)]" + WS + "|>|```|~~~|:::)");
+  // A line that is a block of its own, or would make the line above one, beyond
+  // BLOCK_START: a table row, an ATX heading, a setext underline or a thematic
+  // break, an HTML block.
+  private static final Pattern WRAPPED_LINE_BLOCK = Pattern.compile(
+      "^(?:\\||#{1,6}(?:" + WS + "|\\z)|=+\\z|(?:[-*_]" + WS + "*){3,}\\z|<)");
+
+  private static boolean isJsWhitespace(char c) {
+    switch (c) {
+      case '\t':
+      case '\n':
+      case '\u000b':
+      case '\f':
+      case '\r':
+      case ' ':
+      case '\u00a0':
+      case '\u1680':
+      case '\u2028':
+      case '\u2029':
+      case '\u202f':
+      case '\u205f':
+      case '\u3000':
+      case '\ufeff':
+        return true;
+      default:
+        return c >= '\u2000' && c <= '\u200a';
+    }
+  }
+
+  /** {@code s} without the leading and trailing whitespace the reference codecs trim. */
+  private static String trimWs(String s) {
+    int a = 0;
+    int e = s.length();
+    while (a < e && isJsWhitespace(s.charAt(a))) {
+      a++;
+    }
+    while (e > a && isJsWhitespace(s.charAt(e - 1))) {
+      e--;
+    }
+    return s.substring(a, e);
+  }
+
+  /**
+   * The keys of {@code sorted} at or below {@code prefix}: a binary search to
+   * the first key not before it, then the run sharing it as a prefix, so a
+   * large document is not scanned once per list item.
+   */
+  private static List<String> under(List<String> sorted, String prefix) {
+    int lo = 0;
+    int hi = sorted.size();
+    while (lo < hi) {
+      int mid = (lo + hi) >>> 1;
+      if (sorted.get(mid).compareTo(prefix) < 0) {
+        lo = mid + 1;
+      } else {
+        hi = mid;
+      }
+    }
+    List<String> out = new ArrayList<>();
+    for (int i = lo; i < sorted.size() && sorted.get(i).startsWith(prefix); i++) {
+      String k = sorted.get(i);
+      if (k.length() == prefix.length() || k.charAt(prefix.length()) == '/') {
+        out.add(k);
+      }
+    }
+    return out;
+  }
+
+  /**
+   * One root's anchors (SOM §11.2): the anchor of the heading a path names,
+   * qualified below a list item and in a {@code @SameAs} copy.
+   */
+  private final class Navigation {
+    final SomMetaTree tree;
+    private final Map<String, String> anchors = new HashMap<>();
+
+    Navigation(SpecRoot root) {
+      this.tree = treeFor(root.type);
+    }
+
+    /** The heading id of the item at {@code itemPath} of {@code listNode}, as the emitter writes it. */
+    String itemId(SomMetaNode listNode, String itemPath) {
+      int slash = itemPath.lastIndexOf('/');
+      SpecPaths.ListItemSegment split =
+          SpecPaths.splitListItemSegment(itemPath.substring(slash + 1));
+      String listPath = itemPath.substring(0, slash + 1) + split.base;
+      int pos = document.listItems(listPath).indexOf(itemPath) + 1;
+      return SpecSectionId.effectiveListItemSectionId(
+          document.itemSectionId(itemPath),
+          itemPatternOf(listNode),
+          pos == 0 ? split.seq : pos,
+          memberStemOf(listNode));
+    }
+
+    /** The anchor of the heading {@code path} names in this document. */
+    String anchorOf(String path) {
+      String hit = anchors.get(path);
+      if (hit != null) {
+        return hit;
+      }
+      String[] segs = splitAll(path, "/");
+      SomMetaNode node = tree.root;
+      String cur = segs[0];
+      String anchor = node.segment();
+      List<String> scope = null;
+      String section = node.segment();
+      for (int i = 1; i < segs.length; i++) {
+        String seg = segs[i];
+        SomMetaNode child = node.childBySegment(seg);
+        if (child != null) {
+          cur = cur + "/" + seg;
+          node = child;
+          if (isTransparentSection(child) || isTransparentValue(child)) {
+            continue;
+          }
+          String id = headingIdOf(child);
+          boolean container = SomMetaKind.LIST.equals(child.kind);
+          AnchorRole role = container
+              ? AnchorRole.CONTAINER
+              : (isCopyNode(child) ? AnchorRole.COPY : AnchorRole.PLAIN);
+          QualifiedAnchor q = qualifyAnchor(scope, section, id, role);
+          anchor = q.anchor;
+          scope = q.scope;
+          if (!container) {
+            section = id;
+          }
+          continue;
+        }
+        SpecPaths.ListItemSegment split = SpecPaths.splitListItemSegment(seg);
+        SomMetaNode listNode = split == null ? null : node.childBySegment(split.base);
+        if (listNode == null || !SomMetaKind.LIST.equals(listNode.kind)) {
+          break;
+        }
+        String itemPath = cur + "/" + seg;
+        String id = itemId(listNode, itemPath);
+        QualifiedAnchor q = qualifyAnchor(scope, section, id, AnchorRole.ITEM);
+        anchor = q.anchor;
+        scope = q.scope;
+        section = id;
+        cur = itemPath;
+        SomMetaNode element = listNode.elementNode;
+        node = element != null ? element : listNode;
+        if (element == null && i < segs.length - 1) {
+          break;
+        }
+      }
+      anchors.put(path, anchor);
+      return anchor;
+    }
+  }
+
   private static final Pattern TRAILING_WS = Pattern.compile("\\s+$");
   private static final Pattern LEADING_NL = Pattern.compile("^\\n+");
   private static final Pattern TRAILING_NL = Pattern.compile("\\n+$");
@@ -223,10 +391,67 @@ public final class SpecDocumentMarkdown {
   // hand these in directly; until then the bridge derives them).
   private final Map<String, SomMetaTree> trees = new LinkedHashMap<>();
 
+  /**
+   * The stem of the files a reference to another document root links to
+   * ({@code <fileStem>.<root id in lower case>.tomspecs.md}), or {@code null}.
+   */
+  public final String fileStem;
+  /**
+   * The rendition file of a document root, keyed by its section id or type;
+   * a root it does not name takes the {@link #fileStem} name.
+   */
+  public final Map<String, String> documentFiles;
+  // The document's keys of one kind, sorted once per export for `under`.
+  private final Map<String, List<String>> sortedKeys = new HashMap<>();
+  // The root the current export renders (the target of same-document links).
+  private SpecRoot currentRoot;
+  // The anchors of the root the current export renders (SOM §11.2).
+  private Navigation nav;
+  // The class names each root reaches, for reference links.
+  private final Map<String, Set<String>> reach = new HashMap<>();
+
   /** Binds {@code model} and {@code document} to the codec. */
   public SpecDocumentMarkdown(SpecModel model, SpecDocument document) {
+    this(model, document, null, null);
+  }
+
+  /**
+   * Binds {@code model} and {@code document} to the codec; {@code fileStem}
+   * and {@code documentFiles} (either may be {@code null}) name the files a
+   * reference to another document root links to.
+   */
+  public SpecDocumentMarkdown(SpecModel model, SpecDocument document, String fileStem,
+      Map<String, String> documentFiles) {
     this.model = model;
     this.document = document;
+    this.fileStem = fileStem;
+    this.documentFiles =
+        documentFiles == null ? new LinkedHashMap<>() : new LinkedHashMap<>(documentFiles);
+  }
+
+  private List<String> sorted(String kind, Set<String> keys) {
+    List<String> sorted = sortedKeys.get(kind);
+    if (sorted == null) {
+      sorted = new ArrayList<>(keys);
+      Collections.sort(sorted);
+      sortedKeys.put(kind, sorted);
+    }
+    return sorted;
+  }
+
+  /** The {@code @SectionIdPattern} the items of list {@code node} take their ids from, or {@code null}. */
+  private static String itemPatternOf(SomMetaNode node) {
+    String pattern = node.sectionIdPattern;
+    if ((pattern == null || pattern.isEmpty()) && node.elementNode != null) {
+      pattern = node.elementNode.sectionIdPattern;
+    }
+    return pattern == null || pattern.isEmpty() ? null : pattern;
+  }
+
+  /** The stem of the positional ids of a pattern-less list: its member name, else its segment. */
+  private static String memberStemOf(SomMetaNode node) {
+    String member = node.memberName;
+    return member == null || member.isEmpty() ? node.segment() : member;
   }
 
   private SomMetaTree treeFor(String rootType) {
@@ -501,6 +726,9 @@ public final class SpecDocumentMarkdown {
   private final List<String> headingPaths = new ArrayList<>();
 
   private String exportRootText(SpecRoot root) {
+    currentRoot = root;
+    nav = new Navigation(root);
+    sortedKeys.clear();
     SomMetaTree tree = treeFor(root.type);
     SomMetaNode node = tree.root;
     StringBuilder b = new StringBuilder();
@@ -519,6 +747,7 @@ public final class SpecDocumentMarkdown {
     writeHeading(b, 1, rootSeg, rootTitle, rootSeg, document.codeSpec(rootSeg));
     writeSectionBody(b, node, rootSeg);
     writeChildren(b, node, rootSeg, 2);
+    nav = null;
     return b.toString();
   }
 
@@ -717,7 +946,9 @@ public final class SpecDocumentMarkdown {
         writeHeading(b, depth, headingIdOf(child), headingTitle(path, child), path,
             document.codeSpec(path));
         writeSectionBody(b, child, path);
-        writeChildren(b, child, path, depth + 1);
+        if (!writeSectionTable(b, child, path)) {
+          writeChildren(b, child, path, depth + 1);
+        }
       } else if (SomMetaKind.LIST.equals(child.kind)) {
         writeListItems(b, child, path, depth);
       }
@@ -749,16 +980,11 @@ public final class SpecDocumentMarkdown {
     // scalar list gets meaningful per-item headings (YRC5).
     SomMetaNode element = node.elementNode;
     String stem = itemStemOf(node);
-    String pattern = node.sectionIdPattern;
-    if ((pattern == null || pattern.isEmpty()) && element != null) {
-      pattern = element.sectionIdPattern;
-    }
-    if (pattern != null && pattern.isEmpty()) {
-      pattern = null;
-    }
-    String memberStem = node.memberName;
-    if (memberStem == null || memberStem.isEmpty()) {
-      memberStem = node.segment();
+    String pattern = itemPatternOf(node);
+    String memberStem = memberStemOf(node);
+    if (writeReferenceLine(b, node, items, pattern)
+        || writeRecordTable(b, node, items, pattern)) {
+      return;
     }
     for (int i = 0; i < items.size(); i++) {
       String itemPath = items.get(i);
@@ -784,11 +1010,503 @@ public final class SpecDocumentMarkdown {
         writeBody(b, value == null ? "" : value, itemPath);
       } else {
         writeSectionBody(b, element, itemPath);
-        if (!element.recursive) {
+        if (!element.recursive && !writeSectionTable(b, element, itemPath)) {
           writeChildren(b, element, itemPath, depth + 2);
         }
       }
     }
+  }
+
+  // --- Reading view: reference lines, record tables, section tables ----------
+
+  private boolean hasKeys(String path) {
+    String codeSpec = document.codeSpec(path);
+    String units = document.units(path);
+    return (codeSpec != null && !codeSpec.isEmpty()) || (units != null && !units.isEmpty());
+  }
+
+  private static List<SomFormFieldMeta> fieldsOf(SomMetaNode node) {
+    return node.form != null ? node.form.fields : new ArrayList<>();
+  }
+
+  /** The anchor of the heading or table row standing for {@code path}. */
+  private String anchorFor(String path, String id) {
+    return nav != null ? nav.anchorOf(path) : id;
+  }
+
+  /**
+   * Whether the item at {@code itemPath} holds values only in its form at
+   * {@code formPath}, all of them table cells: no preamble, no other content,
+   * form or list, no {@code codeSpec} / {@code units}, no headline other than
+   * the item's own when {@code allowHeadline}.
+   */
+  private boolean isFormOnlyItem(
+      SomMetaNode form, String itemPath, String formPath, boolean allowHeadline) {
+    SpecDocument doc = document;
+    if (!under(sorted("content", doc.contentPaths()), itemPath).isEmpty()) {
+      return false;
+    }
+    if (!under(sorted("lists", doc.listPaths()), itemPath).isEmpty()) {
+      return false;
+    }
+    if (!under(sorted("units", doc.unitsPaths()), itemPath).isEmpty()) {
+      return false;
+    }
+    for (String k : under(sorted("forms", doc.formPaths()), itemPath)) {
+      if (!k.equals(formPath)) {
+        return false;
+      }
+    }
+    for (String h : under(sorted("headlines", doc.headlinePaths()), itemPath)) {
+      if (!allowHeadline || !h.equals(itemPath)) {
+        return false;
+      }
+    }
+    if (hasKeys(itemPath) || hasKeys(formPath)) {
+      return false;
+    }
+    if (!undeclaredFormFields(form, formPath).isEmpty()) {
+      return false;
+    }
+    boolean any = false;
+    for (SomFormFieldMeta f : fieldsOf(form)) {
+      String value = doc.formField(formPath, f.name);
+      if (value == null) {
+        continue;
+      }
+      if (!isCellValue(f, value)) {
+        return false;
+      }
+      any = true;
+    }
+    return any;
+  }
+
+  /**
+   * A list whose every item holds only one reference id becomes one
+   * {@code refs} div of links in list order. All or nothing; returns whether
+   * it was written.
+   */
+  private boolean writeReferenceLine(
+      StringBuilder b, SomMetaNode node, List<String> items, String pattern) {
+    SomMetaNode element = node.elementNode;
+    if (element == null || element.recursive) {
+      return false;
+    }
+    NodeRel ref = null;
+    for (NodeRel c : effectiveChildren(element)) {
+      List<SomFormFieldMeta> fields = fieldsOf(c.node);
+      if (!SomMetaKind.FORM.equals(c.node.kind)
+          || fields.size() != 1
+          || fields.get(0).refersTo.isEmpty()) {
+        continue;
+      }
+      boolean reference = false;
+      for (SomMetaExtra e : c.node.extra) {
+        if ("Reference".equals(e.annotation)) {
+          reference = true;
+          break;
+        }
+      }
+      if (reference) {
+        ref = c;
+        break;
+      }
+    }
+    if (ref == null) {
+      return false;
+    }
+    SomFormFieldMeta field = ref.node.form.fields.get(0);
+    SpecDocument doc = document;
+    List<String> links = new ArrayList<>();
+    for (int i = 0; i < items.size(); i++) {
+      String itemPath = items.get(i);
+      String refPath = itemPath + "/" + ref.rel;
+      String stored = doc.itemSectionId(itemPath);
+      String positional =
+          SpecSectionId.effectiveListItemSectionId(null, pattern, i + 1, memberStemOf(node));
+      if (stored != null && !stored.equals(positional)) {
+        return false;
+      }
+      if (!under(sorted("content", doc.contentPaths()), itemPath).isEmpty()
+          || !under(sorted("lists", doc.listPaths()), itemPath).isEmpty()
+          || !under(sorted("units", doc.unitsPaths()), itemPath).isEmpty()
+          || !under(sorted("headlines", doc.headlinePaths()), itemPath).isEmpty()
+          || hasKeys(itemPath)
+          || hasKeys(refPath)) {
+        return false;
+      }
+      for (String k : under(sorted("forms", doc.formPaths()), itemPath)) {
+        if (!k.equals(refPath)) {
+          return false;
+        }
+      }
+      Set<String> names = doc.formFieldNames(refPath);
+      if (names.size() != 1 || !names.contains(field.name)) {
+        return false;
+      }
+      String raw = doc.formField(refPath, field.name);
+      String id = trimWs(raw == null ? "" : raw);
+      if (!ID_SHAPE.matcher(id).matches()) {
+        return false;
+      }
+      String link = link(field, id);
+      links.add(link != null ? link : id);
+    }
+    writeln(b, "::: {.refs}");
+    writeln(b, String.join(", ", links));
+    writeln(b, ":::");
+    writeln(b, "");
+    return true;
+  }
+
+  /**
+   * A list whose every item is one form of table cells becomes a
+   * {@code records} div with one table: {@code Id} (with its anchor),
+   * {@code Title} when any item has a stored headline, one column per declared
+   * field any item populates. All or nothing; returns whether it was written.
+   */
+  private boolean writeRecordTable(
+      StringBuilder b, SomMetaNode node, List<String> items, String pattern) {
+    SomMetaNode element = node.elementNode;
+    if (element == null || element.recursive) {
+      return false;
+    }
+    NodeRel formSlot = itemForm(element);
+    if (formSlot == null) {
+      return false;
+    }
+    SomMetaNode form = formSlot.node;
+    String rel = formSlot.rel;
+    for (String itemPath : items) {
+      if (!isFormOnlyItem(form, itemPath, itemPath + "/" + rel, true)) {
+        return false;
+      }
+    }
+    SpecDocument doc = document;
+    List<SomFormFieldMeta> columns = new ArrayList<>();
+    for (SomFormFieldMeta f : fieldsOf(form)) {
+      for (String i : items) {
+        if (doc.formField(i + "/" + rel, f.name) != null) {
+          columns.add(f);
+          break;
+        }
+      }
+    }
+    boolean withTitle = false;
+    for (String i : items) {
+      if (doc.headline(i) != null) {
+        withTitle = true;
+        break;
+      }
+    }
+    List<String> header = new ArrayList<>();
+    header.add("Id");
+    if (withTitle) {
+      header.add("Title");
+    }
+    for (SomFormFieldMeta f : columns) {
+      header.add(formLabel(f.name));
+    }
+    writeln(b, "::: {.records}");
+    writeln(b, "| " + String.join(" | ", header) + " |");
+    writeln(b, "| " + String.join(" | ", Collections.nCopies(header.size(), "---")) + " |");
+    for (int i = 0; i < items.size(); i++) {
+      String itemPath = items.get(i);
+      String id = SpecSectionId.effectiveListItemSectionId(
+          doc.itemSectionId(itemPath), pattern, i + 1, memberStemOf(node));
+      List<String> cells = new ArrayList<>();
+      cells.add("<a id=\"" + anchorFor(itemPath, id) + "\"></a>" + id);
+      if (withTitle) {
+        String title = doc.headline(itemPath);
+        cells.add((title == null ? "" : title).replace("\n", "<br>").replace("|", "\\|"));
+      }
+      for (SomFormFieldMeta f : columns) {
+        String v = doc.formField(itemPath + "/" + rel, f.name);
+        cells.add(v == null ? "" : linkedCellText(f, v));
+      }
+      writeln(b, "| " + String.join(" | ", cells) + " |");
+    }
+    writeln(b, ":::");
+    writeln(b, "");
+    return true;
+  }
+
+  private void addSectionRows(
+      List<String> rows, String sectionCell, SomMetaNode form, String formPath) {
+    boolean first = true;
+    for (SomFormFieldMeta f : fieldsOf(form)) {
+      String value = document.formField(formPath, f.name);
+      if (value == null) {
+        continue;
+      }
+      rows.add("| " + (first ? sectionCell : "") + " | " + formLabel(f.name) + " | "
+          + linkedCellText(f, value) + " |");
+      first = false;
+    }
+  }
+
+  /**
+   * A section whose populated children are all single forms of table cells
+   * with default headlines (or lists of such single-form items) becomes one
+   * {@code | Section | TomSpecField | Value |} table after its own body; the
+   * children's headings are not written. All or nothing; returns whether it
+   * was written.
+   */
+  private boolean writeSectionTable(StringBuilder b, SomMetaNode node, String path) {
+    SpecDocument doc = document;
+    List<String> rows = new ArrayList<>();
+    int children = 0;
+    for (NodeRel entry : effectiveChildren(node)) {
+      SomMetaNode child = entry.node;
+      String childPath = path + "/" + entry.rel;
+      if (!doc.hasValuesUnder(childPath)) {
+        continue;
+      }
+      children++;
+      String childId = headingIdOf(child);
+      if (SomMetaKind.FORM.equals(child.kind)) {
+        if (!isFormOnlyItem(child, childPath, childPath, false)) {
+          return false;
+        }
+        addSectionRows(rows,
+            "<a id=\"" + anchorFor(childPath, childId) + "\"></a>" + childId, child, childPath);
+      } else if (SomMetaKind.LIST.equals(child.kind)) {
+        SomMetaNode element = child.elementNode;
+        if (element == null || element.recursive) {
+          return false;
+        }
+        if (doc.headline(childPath) != null || hasKeys(childPath)) {
+          return false;
+        }
+        NodeRel formSlot = itemForm(element);
+        if (formSlot == null) {
+          return false;
+        }
+        List<String> items = doc.listItems(childPath);
+        String pattern = itemPatternOf(child);
+        for (int i = 0; i < items.size(); i++) {
+          String itemPath = items.get(i);
+          String formPath = itemPath + "/" + formSlot.rel;
+          if (!isFormOnlyItem(formSlot.node, itemPath, formPath, false)) {
+            return false;
+          }
+          String itemId = SpecSectionId.effectiveListItemSectionId(
+              doc.itemSectionId(itemPath), pattern, i + 1, memberStemOf(child));
+          addSectionRows(rows,
+              "<a id=\"" + anchorFor(itemPath, itemId) + "\"></a>" + childId + " / " + itemId,
+              formSlot.node, formPath);
+        }
+      } else {
+        return false;
+      }
+    }
+    if (children == 0 || rows.isEmpty()) {
+      return false;
+    }
+    writeln(b, "| Section | TomSpecField | Value |");
+    writeln(b, "| --- | --- | --- |");
+    for (String row : rows) {
+      writeln(b, row);
+    }
+    writeln(b, "");
+    return true;
+  }
+
+  /**
+   * {@code value} as a table cell, every reference id of a {@code refersTo}
+   * field written as a link to its section.
+   */
+  private String linkedCellText(SomFormFieldMeta f, String value) {
+    if (f.refersTo.isEmpty() || f.code) {
+      return cellText(f, value);
+    }
+    String joined = wrappedParagraphJoined(value);
+    if (joined != null) {
+      value = joined;
+    }
+    List<String> links = new ArrayList<>();
+    for (String part : splitAll(value, ",")) {
+      String id = trimWs(part);
+      if (!ID_SHAPE.matcher(id).matches()) {
+        return cellText(f, value);
+      }
+      String link = link(f, id);
+      if (link == null) {
+        return cellText(f, value);
+      }
+      links.add(link);
+    }
+    return String.join(", ", links);
+  }
+
+  /**
+   * {@code [ID](<file>#ID)} for a reference id of form field {@code f},
+   * {@code [ID](#ID)} when the target lives in the document being rendered;
+   * {@code null} when no target of {@code f} names a section id
+   * ({@code <SECTIONID>.@sectionId}), which has no anchor.
+   */
+  private String link(SomFormFieldMeta f, String id) {
+    List<String> classIds = new ArrayList<>();
+    for (String t : f.refersTo) {
+      if (t.endsWith(".@sectionId")) {
+        classIds.add(t.substring(0, t.length() - 11));
+      }
+    }
+    if (classIds.isEmpty()) {
+      return null;
+    }
+    for (String classId : classIds) {
+      String className = classBySectionId(classId);
+      if (className != null && currentRoot != null
+          && reachedBy(currentRoot).contains(className)) {
+        return "[" + id + "](#" + id + ")";
+      }
+    }
+    String file = fileFor(classBySectionId(classIds.get(0)));
+    return file == null ? "[" + id + "](#" + id + ")" : "[" + id + "](" + file + "#" + id + ")";
+  }
+
+  private String classBySectionId(String sectionId) {
+    for (SpecClass c : model.classes.values()) {
+      if (sectionId.equals(c.sectionId)) {
+        return c.name;
+      }
+    }
+    return null;
+  }
+
+  /** The class names the meta tree of {@code root} reaches. */
+  private Set<String> reachedBy(SpecRoot root) {
+    Set<String> names = reach.get(root.type);
+    if (names == null) {
+      names = new HashSet<>();
+      collectReach(treeFor(root.type).root, names);
+      reach.put(root.type, names);
+    }
+    return names;
+  }
+
+  private static void collectReach(SomMetaNode n, Set<String> found) {
+    found.add(n.className);
+    if (n.recursive) {
+      return;
+    }
+    for (SomMetaNode c : n.children) {
+      collectReach(c, found);
+    }
+    if (n.elementNode != null) {
+      collectReach(n.elementNode, found);
+    }
+  }
+
+  /**
+   * The rendition file of the root a reference to {@code className} points
+   * into: the root other than the current one that reaches the class, the most
+   * specific (fewest classes) first, so a detailed document wins over a
+   * projection such as the Solution Blueprint. The CodeSpecs projection is no
+   * document anyone renders, so it is never a target.
+   */
+  private String fileFor(String className) {
+    if (className == null) {
+      return null;
+    }
+    String currentType = currentRoot != null ? currentRoot.type : null;
+    SpecRoot best = null;
+    for (SpecRoot r : model.roots) {
+      if (r.type.equals(currentType)) {
+        continue;
+      }
+      SpecClass cls = model.classNamed(r.type);
+      if (cls != null && cls.hasAnnotation("CodeSpecsProjection")) {
+        continue;
+      }
+      if (!reachedBy(r).contains(className)) {
+        continue;
+      }
+      if (best == null || reachedBy(r).size() < reachedBy(best).size()) {
+        best = r;
+      }
+    }
+    return best == null ? null : fileOfRoot(best);
+  }
+
+  /**
+   * The rendition file of {@code root}: {@code <fileStem>.<root id>.tomspecs.md},
+   * or the name {@link #documentFiles} gives it.
+   */
+  private String fileOfRoot(SpecRoot root) {
+    String id = root.sectionId != null ? root.sectionId : root.type;
+    String mapped = documentFiles.get(id);
+    if (mapped == null) {
+      mapped = documentFiles.get(root.type);
+    }
+    if (mapped != null) {
+      return mapped;
+    }
+    String name = id.toLowerCase(Locale.ROOT) + ".tomspecs.md";
+    return fileStem == null || fileStem.isEmpty() ? name : fileStem + "." + name;
+  }
+
+  /**
+   * Whether {@code value} of form field {@code f} is written as a table row:
+   * not when the model flags the field {@code multiParagraph}, nor when the
+   * value holds a line break other than the soft breaks of one wrapped
+   * paragraph ({@link #wrappedParagraphJoined}; a {@code code} value keeps
+   * every line break), is a block of Markdown, holds a backslash directly
+   * before {@code |}, or holds {@code <!--}. There is no length limit.
+   */
+  static boolean isCellValue(SomFormFieldMeta f, String value) {
+    if (f.multiParagraph) {
+      return false;
+    }
+    if (value.contains("\\|") || value.contains("<!--")) {
+      return false;
+    }
+    if (value.indexOf('\n') >= 0 && (f.code || wrappedParagraphJoined(value) == null)) {
+      return false;
+    }
+    return !BLOCK_START.matcher(value).find();
+  }
+
+  /**
+   * {@code value} on one line when it is one paragraph wrapped over several
+   * lines — no blank line, and no line that Markdown reads as a block or a
+   * block's start (a list item, a quote, a fence, a fenced div, a table row, a
+   * heading, a setext underline or a thematic break), that ends in a hard
+   * break (a trailing backslash or spaces) or that starts with a space: its
+   * soft line breaks, which Markdown reads as spaces, become spaces (SOM
+   * §11.4 rule 13). {@code null} for any other value, a one-line value among
+   * them.
+   */
+  public static String wrappedParagraphJoined(String value) {
+    if (value.indexOf('\n') < 0) {
+      return null;
+    }
+    String[] lines = splitLines(value);
+    for (String l : lines) {
+      if (l.isEmpty()
+          || !l.equals(trimWs(l))
+          || l.endsWith("\\")
+          || BLOCK_START.matcher(l).find()
+          || WRAPPED_LINE_BLOCK.matcher(l).find()) {
+        return null;
+      }
+    }
+    return String.join(" ", lines);
+  }
+
+  /**
+   * The table cell for {@code value}: a {@code code: true} value as its inline
+   * code span, every {@code |} written {@code \|}.
+   */
+  static String cellText(SomFormFieldMeta f, String value) {
+    String joined = wrappedParagraphJoined(value);
+    if (joined != null) {
+      value = joined;
+    }
+    String text = f.code && isInlineCode(value) ? encodeCodeSpan(value) : value;
+    return text.replace("|", "\\|");
   }
 
   /**
@@ -864,45 +1582,48 @@ public final class SpecDocumentMarkdown {
   }
 
   /**
-   * Writes a {@code @Form} section body: the preamble content (when set)
-   * followed by one {@code FieldName: value} group per populated field
-   * (SOM §11.4), consecutive groups separated by one blank line. Throws
-   * {@link IllegalStateException} when the form holds a field the model does
-   * not declare.
+   * Writes a {@code @Form} section body (SOM §11.4): the preamble, then the
+   * declared fields in model order — each run of consecutive cell values one
+   * {@code | TomSpecField | Value |} table, each paragraph value a
+   * {@code Field:} group at its place (table – text – table). Groups are one
+   * blank line apart. A value line that would read as a table header is
+   * escaped by {@link #prepareValue}. Throws {@link IllegalStateException}
+   * when the form holds a field the model does not declare.
    */
   private void writeForm(StringBuilder b, SomMetaNode node, String path) {
     checkFormDeclared(node, path);
-    List<SomFormFieldMeta> fields =
-        node.form != null ? node.form.fields : new ArrayList<>();
-    StringBuilder fieldBuf = new StringBuilder();
-    for (SomFormFieldMeta f : fields) {
+    List<List<String>> groups = new ArrayList<>();
+    List<String> table = null;
+    for (SomFormFieldMeta f : fieldsOf(node)) {
       String value = document.formField(path, f.name);
       if (value == null) {
         continue;
       }
-      // SOM §11.4 rule 2: one blank line between consecutive field groups, so
-      // a markdown viewer renders each field as its own paragraph (and a list
-      // ending a value cannot swallow the next label as a lazy continuation).
-      // Parse trims each value's trailing blank lines, so it is lossless.
-      if (fieldBuf.length() > 0) {
-        writeln(fieldBuf, "");
+      String label = formLabel(f.name);
+      if (isCellValue(f, value)) {
+        if (table == null) {
+          table = new ArrayList<>();
+          table.add("| TomSpecField | Value |");
+          table.add("| --- | --- |");
+          groups.add(table);
+        }
+        table.add("| " + label + " | " + linkedCellText(f, value) + " |");
+        continue;
       }
+      table = null;
       // SOM §11.4 rule 8: a single-line code value is written as an inline
       // code span, so markdown leaves it literal (`](` is not a link).
       String[] lines = f.code && isInlineCode(value)
           ? new String[] {encodeCodeSpan(value)}
           : splitLines(prepareValue(value, path));
-      writeln(fieldBuf, formLabel(f.name) + ": " + lines[0]);
+      List<String> group = new ArrayList<>();
+      group.add(label + ": " + lines[0]);
       for (int i = 1; i < lines.length; i++) {
-        String line = lines[i];
-        // SOM §11.4 generalised: any continuation line that could be mistaken
-        // for a field-label line gains one leading space; parse strips it.
-        if (LABEL_SHAPED.matcher(line).find()) {
-          writeln(fieldBuf, " " + line);
-        } else {
-          writeln(fieldBuf, line);
-        }
+        // Any continuation line that could be mistaken for a field-label line
+        // gains one leading space; parse strips it.
+        group.add(LABEL_SHAPED.matcher(lines[i]).find() ? " " + lines[i] : lines[i]);
       }
+      groups.add(group);
     }
 
     String preamble = document.content(path);
@@ -913,23 +1634,26 @@ public final class SpecDocumentMarkdown {
         // line gets: the parser reaches a field label before it knows which
         // text is preamble, so a `Word:` line at column 0 would mis-split.
         for (String line : splitLines(prepared)) {
-          if (LABEL_SHAPED.matcher(line).find()) {
-            writeln(b, " " + line);
-          } else {
-            writeln(b, line);
-          }
+          writeln(b, LABEL_SHAPED.matcher(line).find() ? " " + line : line);
         }
-        if (fieldBuf.length() > 0) {
+        if (!groups.isEmpty()) {
           writeln(b, "");
         }
       }
     }
-    b.append(fieldBuf);
+    for (int i = 0; i < groups.size(); i++) {
+      if (i > 0) {
+        writeln(b, "");
+      }
+      for (String line : groups.get(i)) {
+        writeln(b, line);
+      }
+    }
     writeln(b, "");
   }
 
   /**
-   * Writes {@code ## <!--[ID]--> Title} at {@code depth}. SOM §11.2 is
+   * Writes {@code ## <!--[ID]--> <a id="ID"></a> Title} at {@code depth}. SOM §11.2 is
    * normative — heading level = 1 + section depth, <b>uncapped</b>: deep
    * models (the Solution Blueprint nests past markdown's native 6 levels) keep
    * their structure; the parse grammar accepts {@code #{7,}} accordingly.
@@ -953,8 +1677,11 @@ public final class SpecDocumentMarkdown {
       cs += " units=\"" + units + "\"";
     }
     // A heading is one line: a stored headline's line breaks travel as `<br>`.
-    writeln(b, "#".repeat(depth) + " <!--[" + id + "]" + cs + "--> "
-        + title.replace("\n", "<br>"));
+    // The section id follows as an HTML anchor after the id comment and its
+    // keys, so `#<ID>` links jump in every viewer; below a list item or in a
+    // `@SameAs` copy the anchor is qualified (SOM §11.2).
+    writeln(b, "#".repeat(depth) + " <!--[" + id + "]" + cs + "--> <a id=\""
+        + anchorFor(path, id) + "\"></a> " + title.replace("\n", "<br>"));
     writeln(b, "");
   }
 

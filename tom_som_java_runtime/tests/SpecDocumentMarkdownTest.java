@@ -19,9 +19,11 @@ import tom_som_runtime.SpecModel;
  *
  * <p>The generated {@code *.md} is a genuine DocSpecs document: line 1 is the
  * {@code <!-- docspec: <schema-id>/<version> -->} declaration, every populated
- * section is a heading of the form {@code ## <!--[SECTION-ID]--> Title},
- * content sections are normal markdown text (no fences), {@code @Form}
- * sections use the plain-text {@code FieldName: value} format, and a list emits
+ * section is a heading of the form
+ * {@code ## <!--[SECTION-ID]--> <a id="SECTION-ID"></a> Title}, content
+ * sections are normal markdown text (no fences), {@code @Form} sections are
+ * written as {@code | TomSpecField | Value |} tables (a value no cell holds as
+ * a {@code Field:} paragraph), and a list emits
  * its {@code -LST} container heading at the owner's child level, wrapping the
  * numbered item headings one level deeper (SOM §11.2).
  *
@@ -198,12 +200,12 @@ public final class SpecDocumentMarkdownTest {
     check("export.docspec.prefix", first.startsWith("<!-- docspec: demo-document/"), first);
     check("export.docspec.suffix", first.endsWith("-->"), first);
 
-    check("export.heading.root", md.contains("# <!--[D00]--> Demo Document"));
-    check("export.heading.overview", md.contains("## <!--[D00-OVR]--> Overview"));
-    check("export.heading.status", md.contains("## <!--[D00-ST]--> Status"));
-    check("export.heading.header", md.contains("## <!--[D00-HDR]--> Header"));
-    check("export.heading.meta", md.contains("## <!--[D00-MET]--> Meta"));
-    check("export.heading.note", md.contains("### <!--[D00-MET-NOTE]--> Note"));
+    check("export.heading.root", md.contains("# <!--[D00]--> <a id=\"D00\"></a> Demo Document"));
+    check("export.heading.overview", md.contains("## <!--[D00-OVR]--> <a id=\"D00-OVR\"></a> Overview"));
+    check("export.heading.status", md.contains("## <!--[D00-ST]--> <a id=\"D00-ST\"></a> Status"));
+    check("export.heading.header", md.contains("## <!--[D00-HDR]--> <a id=\"D00-HDR\"></a> Header"));
+    check("export.heading.meta", md.contains("## <!--[D00-MET]--> <a id=\"D00-MET\"></a> Meta"));
+    check("export.heading.note", md.contains("### <!--[D00-MET-NOTE]--> <a id=\"D00-MET-NOTE\"></a> Note"));
 
     check("export.content.plain", md.contains("An overview paragraph.\nWith two lines."));
     boolean noFence = true;
@@ -216,15 +218,19 @@ public final class SpecDocumentMarkdownTest {
     check("export.content.noFieldAnchor", !md.contains("<!-- field:"));
     check("export.content.noPathHeading", !md.contains("D00/D00-OVR"));
 
-    check("export.form.sparse.author", md.contains("Author: Ada Lovelace"));
+    check("export.form.sparse.author", md.contains("| Author | Ada Lovelace |"));
     check("export.form.sparse.noReviewer", !md.contains("Reviewer"));
 
     // The list container heads (SOM §11.2): `D00-ITM` at the owner's child
     // level, its numbered items one level below it, item fields one deeper.
-    check("export.item.container", md.contains("## <!--[D00-ITM]--> Items"));
-    check("export.item.1", md.contains("### <!--[items-1]--> Demo Item 1"));
-    check("export.item.2", md.contains("### <!--[items-2]--> Demo Item 2"));
-    check("export.item.label", md.contains("#### <!--[D01-LBL]--> Label"));
+    check("export.item.container", md.contains("## <!--[D00-ITM]--> <a id=\"D00-ITM\"></a> Items"));
+    check("export.item.1", md.contains("### <!--[items-1]--> <a id=\"items-1\"></a> Demo Item 1"));
+    check("export.item.2", md.contains("### <!--[items-2]--> <a id=\"items-2\"></a> Demo Item 2"));
+    // Below a list item the anchor is qualified (SOM §11.2).
+    check("export.item.label",
+        md.contains("#### <!--[D01-LBL]--> <a id=\"items-1/D01-LBL\"></a> Label"));
+    check("export.item2.label",
+        md.contains("#### <!--[D01-LBL]--> <a id=\"items-2/D01-LBL\"></a> Label"));
 
     check("export.noSchemaDescription", !md.contains("A demo document."));
   }
@@ -237,9 +243,9 @@ public final class SpecDocumentMarkdownTest {
     // YRD3: the stored id IS the md heading id; only
     // anonymous items fall back to the positional derivation.
     check("export.storedId.container",
-        md.contains("## <!--[D00-ITM]--> Items"), md);
+        md.contains("## <!--[D00-ITM]--> <a id=\"D00-ITM\"></a> Items"), md);
     check("export.storedId.heading",
-        md.contains("### <!--[D01-CUSTOM]--> Demo Item 1"), md);
+        md.contains("### <!--[D01-CUSTOM]--> <a id=\"D01-CUSTOM\"></a> Demo Item 1"), md);
     check("export.storedId.noPositional", !md.contains("items-1"), md);
   }
 
@@ -426,8 +432,10 @@ public final class SpecDocumentMarkdownTest {
 
   private static void testRoundTripLabelShapedContinuation() {
     SpecDocument doc = new SpecDocument();
+    // A hard break keeps it a paragraph (a wrapped paragraph would be one
+    // table cell, SOM §11.4).
     doc.setFormField("D00/D00-HDR", "author",
-        "Ada Lovelace\nNote: also a mathematician\nplain line");
+        "Ada Lovelace  \nNote: also a mathematician\nplain line");
     String md1 = mdExport(doc);
     // The label-shaped continuation is space-escaped on emit.
     check("formCont.escaped", md1.contains("\n Note: also a mathematician\n"), md1);
@@ -437,7 +445,7 @@ public final class SpecDocumentMarkdownTest {
     SpecMarkdownResult report = (SpecMarkdownResult) pair[1];
     check("formCont.clean", report.isClean(), rejStr(report));
     check("formCont.value",
-        "Ada Lovelace\nNote: also a mathematician\nplain line"
+        "Ada Lovelace  \nNote: also a mathematician\nplain line"
             .equals(reloaded.formField("D00/D00-HDR", "author")),
         or(reloaded.formField("D00/D00-HDR", "author")));
     check("formCont.byteStable", mdExport(reloaded).equals(md1));
@@ -466,7 +474,8 @@ public final class SpecDocumentMarkdownTest {
     doc.setFormField("D00/D00-HDR", "author", "Ada Lovelace");
     String md = mdExport(doc);
     check("formPre.emitOrder",
-        md.contains("why this header exists\n\nAuthor: Ada Lovelace\n"), md);
+        md.contains("why this header exists\n\n| TomSpecField | Value |\n| --- | --- |\n"
+            + "| Author | Ada Lovelace |\n"), md);
   }
 
   private static void testFormPreambleOnly() {
@@ -655,9 +664,9 @@ public final class SpecDocumentMarkdownTest {
     String md = mdExport(doc);
     check("codeSpec.md.attribute",
         md.contains("## <!--[D00-OVR] codeSpec=\"CsOrder,CsOrder.total,"
-            + "CsOrderRepository\"--> Overview"), md);
+            + "CsOrderRepository\"--> <a id=\"D00-OVR\"></a> Overview"), md);
     // Untouched sections stay byte-stable (no empty codeSpec attribute).
-    check("codeSpec.md.untouched", md.contains("## <!--[D00-ST]--> Status"));
+    check("codeSpec.md.untouched", md.contains("## <!--[D00-ST]--> <a id=\"D00-ST\"></a> Status"));
   }
 
   private static void testCodeSpecParsedBackOut() {

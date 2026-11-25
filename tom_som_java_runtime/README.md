@@ -82,7 +82,7 @@ install / JDK-only `build_jar.sh` routes and how to pin.
 | `SpecQuery`, `SpecQueryEngine`, `SpecQueryCursor`, `SpecQueryMatch` | The lexical/structural query surface plus the flat tier-1 node projection. |
 | `SpecNodeCreator`, `SpecCreationError`, `SpecCreationCode` | The constrained node-creation gate (`checkAddNode`, `add`) — a document may only grow in ways the model permits. |
 | `SpecDocumentYaml` | Byte-stable `*.tomspecs.yaml` codec (`SOM §12`). |
-| `SpecDocumentMarkdown` | Meta-data-driven Markdown import/export codec (`SOM §11`): the emitter writes `Field:` lines; the parser reads them and the reading view's form, record and section tables, reference lines and heading anchors (SOM §11.4, §11.5). |
+| `SpecDocumentMarkdown` | Meta-data-driven Markdown import/export codec (`SOM §11`): the emitter writes the reading view's form tables, record tables, reference lines and section tables with an anchor in every heading, a value no table cell holds as a `Field:` paragraph (SOM §11.2, §11.4, §11.5); the parser reads them and the older `Field:` layout. |
 | `SomNode`, `SomScalar`, `SomList`, `SomFacade` | Editing-facade base types for the generated `tom_som_java_v0`. |
 | `SomEditability`, `SomVersionError` | `SOM §4.2` version-check outcome enum (non-throwing `SomFacade.somEditabilityFor`) and its throwing error. |
 | `SpecAnnotations`, `KindLink`, `NoArtifactLink` | The annotation lookups shared by `SpecClass` and `SpecField`, including the three routing verdicts of `codespecs_mapping.md` §8.3 (`@CodeSpecKind` / `@FollowUpKind` / `@NoArtifact`). |

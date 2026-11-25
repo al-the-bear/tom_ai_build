@@ -213,7 +213,7 @@ public final class ConformanceRunner {
         check(name, false, "threw " + e);
         continue;
       }
-      check(name, got.equals(c.get("expect")), jsonMismatch(got, c.get("expect")));
+      check(name, got.equals(expectFor(c)), jsonMismatch(got, expectFor(c)));
     }
   }
 
@@ -812,11 +812,21 @@ public final class ConformanceRunner {
 
   // --- markdown conformance (SOM §11) -------------------------------------
 
-  // The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
-  // Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
-  // The emitter port tspubnondart74 (runtime_parity.md § Reading view) brings this runtime to tables.
-  static final String EMITTED_LAYOUT = "fields";
-  static final String EXPORT_GOLDEN = "expected.tomspecs.md";
+  // The layout this runtime emits: `tables` (SOM §11.4, §11.5). Its export
+  // golden is expected.tables.md; expected.tomspecs.md, the `Field:`-line
+  // layout, is parsed only.
+  static final String EMITTED_LAYOUT = "tables";
+  static final String EXPORT_GOLDEN = "expected." + EMITTED_LAYOUT + ".md";
+
+  /**
+   * The expectation of case {@code c} for this runtime's layout: {@code expectTables} when the
+   * case has one (its renditions' lines differ by layout), else {@code expect}.
+   */
+  private static Object expectFor(Map<String, Object> c) {
+    return "tables".equals(EMITTED_LAYOUT) && c.containsKey("expectTables")
+        ? c.get("expectTables")
+        : c.get("expect");
+  }
 
   private static void testMarkdownExport(SpecModel model) throws IOException {
     SpecDocument doc = documentFromState(readJsonObject("state.json"));
@@ -865,7 +875,7 @@ public final class ConformanceRunner {
    */
   private static void testMarkdownMemoryLanding(SpecModel model) throws IOException {
     Map<String, Object> canonical = readJsonObject("state.json");
-    String[][] goldens = {{"tables", "expected.tables.md"}, {"fields", EXPORT_GOLDEN}};
+    String[][] goldens = {{"tables", "expected.tables.md"}, {"fields", "expected.tomspecs.md"}};
     for (String[] golden : goldens) {
       String label = golden[0];
       SpecMarkdownImport imported = SpecDocument.fromMarkdown(read(golden[1]), model);
@@ -1189,7 +1199,7 @@ public final class ConformanceRunner {
     for (Object caseObj : (List<Object>) table.get("cases")) {
       Map<String, Object> c = (Map<String, Object>) caseObj;
       Map<String, Object> got = runAnswerCase(model, c);
-      Map<String, Object> expect = (Map<String, Object>) c.get("expect");
+      Map<String, Object> expect = (Map<String, Object>) expectFor(c);
       String name = "answers[" + c.get("name") + "]";
       check(
           name + ".extracts",
