@@ -213,6 +213,15 @@ from .spec_meta import (
 )
 from .spec_meta_bridge import build_som_meta_tree
 from .spec_meta_diff import som_meta_node_diff
+from .spec_notation import (
+    NotationElement,
+    NotationFinding,
+    NotationFindingCode,
+    NotationScan,
+    notation_severity,
+    registered_notation_kinds,
+    scan_notation,
+)
 from .spec_model import (
     DEFAULT_MAX_SNAPSHOT_AGE,
     AnnotatedSpecNode,
@@ -451,6 +460,14 @@ __all__ = [
     "assemble_spec_documents",
     "build_som_meta_tree",
     "som_meta_node_diff",
+    # the reading notation (DocSpecs specification, Reading Notation)
+    "NotationElement",
+    "NotationFinding",
+    "NotationFindingCode",
+    "NotationScan",
+    "notation_severity",
+    "registered_notation_kinds",
+    "scan_notation",
     "check_add_node",
     "check_som_model_version",
     "doc_specs_id_transform",

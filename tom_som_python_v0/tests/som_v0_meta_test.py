@@ -89,6 +89,58 @@ def test_generated_trees_agree_with_bridge(model: SpecModel) -> None:
         _check(f"trees.agree.{root_type}", diff is None, diff or "")
 
 
+def _count_multi_paragraph(node, seen: set) -> int:
+    """The form fields flagged ``multi_paragraph`` under *node*."""
+    if node is None or id(node) in seen:
+        return 0
+    seen.add(id(node))
+    n = 0
+    if node.form is not None:
+        n += sum(1 for f in node.form.fields if f.multi_paragraph)
+    for c in node.children:
+        n += _count_multi_paragraph(c, seen)
+    n += _count_multi_paragraph(node.element_node, seen)
+    return n
+
+
+def test_multi_paragraph_reaches_both_trees(model: SpecModel) -> None:
+    """The form-field ``multi_paragraph`` flag (``Field.multiParagraph``)
+    reaches both trees. The diff above compares it, but two trees that both
+    lost it would agree: the flag must also be set where the model sets it, on
+    the generated and on the bridge tree (ACPRDE's ``decisionCriteria``), and
+    the generated trees must carry it at all."""
+    seen = False
+    generated = 0
+    bridged = 0
+    for root_type, tree in _GENERATED_TREES.items():
+        bridge = build_som_meta_tree(model, root_type=root_type)
+        generated += _count_multi_paragraph(tree.root, set())
+        bridged += _count_multi_paragraph(bridge.root, set())
+        gen_form = tree.by_id("ACPRDE")
+        bri_form = bridge.by_id("ACPRDE")
+        if gen_form is not None and gen_form.form is not None:
+            g = gen_form.form.field_named("decisionCriteria")
+            b = (
+                bri_form.form.field_named("decisionCriteria")
+                if bri_form is not None and bri_form.form is not None
+                else None
+            )
+            _check(
+                f"multiParagraph.generated.ACPRDE.{root_type}",
+                g is not None and g.multi_paragraph,
+                "generated tree lacks multi_paragraph on ACPRDE.decisionCriteria",
+            )
+            _check(
+                f"multiParagraph.bridge.ACPRDE.{root_type}",
+                b is not None and b.multi_paragraph,
+                "bridge tree lacks multi_paragraph on ACPRDE.decisionCriteria",
+            )
+            seen = True
+    _check("multiParagraph.ACPRDE.seen", seen, "no tree holds ACPRDE")
+    _check("multiParagraph.generated", generated > 0, str(generated))
+    _check("multiParagraph.bridge", bridged == generated, f"{bridged} != {generated}")
+
+
 def test_registry_entries_are_self_consistent() -> None:
     for key, e in m.SOM_META_ROOTS.items():
         _check(f"registry.key.{key}", e.type == key)
@@ -181,6 +233,7 @@ def test_id_tree_surface() -> None:
 def main() -> int:
     model = _model()
     test_generated_trees_agree_with_bridge(model)
+    test_multi_paragraph_reaches_both_trees(model)
     test_registry_entries_are_self_consistent()
     test_dot_notation_surface()
     test_id_tree_surface()

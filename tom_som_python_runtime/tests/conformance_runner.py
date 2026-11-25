@@ -72,6 +72,8 @@ from tom_som_runtime import (  # noqa: E402
     DocSpecsSchema,
     DocSpecsValidator,
     DocSpecsViolationRule,
+    NotationFindingCode,
+    scan_notation,
     SomEditability,
     SomList,
     SomPatternError,
@@ -987,6 +989,12 @@ def test_editability() -> None:
         )
 
 
+#: The ``readingView`` cases of ``docspecs_cases.json`` the reading notation's
+#: scanner port (``spec_notation.py``) makes run: the rest wait for the reading
+#: view's validator port.
+_READING_NOTATION_DOCSPECS_CASES = {"readingView: rejected block"}
+
+
 def test_docspecs() -> None:
     """The SOM §14 DocSpecs tier: one shared schema, one case per rule.
 
@@ -1001,8 +1009,12 @@ def test_docspecs() -> None:
     covered: set[str] = set()
     for case in _read_json("docspecs_cases.json"):
         # The reading view's table forms (``readingView``) are read by the Dart
-        # and TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
-        if case.get("readingView"):
+        # and TypeScript runtimes only until their ports (runtime_parity.md § Reading view);
+        # the reading notation's case (a rejected block, RN-11) runs since its scanner port.
+        if (
+            case.get("readingView")
+            and case["name"] not in _READING_NOTATION_DOCSPECS_CASES
+        ):
             continue
         name = case["name"]
         got = [
@@ -1012,10 +1024,55 @@ def test_docspecs() -> None:
         want = [(v["rule"], v["sectionId"], v["line"]) for v in case["violations"]]
         _check(f"docspecs[{name}]", got == want, f"{got} != {want}")
         covered.update(v["rule"] for v in case["violations"])
+    # The reading notation's rules are exercised by notation_cases.json's
+    # validator cases (test_notation), not by the nine-runtime table.
+    for case in _read_json("notation_cases.json")["validatorCases"]:
+        covered.update(v["rule"] for v in case["violations"])
     uncovered = sorted(
         r.value for r in DocSpecsViolationRule if r.value not in covered
     )
     _check("docspecs.ruleCoverage", not uncovered, f"uncovered: {uncovered}")
+
+
+def test_notation() -> None:
+    """The reading notation (``notation_cases.json``): each text value scanned
+    with :func:`scan_notation` — its elements (UTF-16 ``start``/``end``,
+    ``line``/``endLine``, ``source``/``content``, nesting) and findings — and
+    the validator cases, the nine notation rules of the embedded DocSpecs
+    validator (DocSpecs specification, Reading Notation RN-1 … RN-13)."""
+    table = _read_json("notation_cases.json")
+    codes: set[str] = set()
+    for case in table["cases"]:
+        name = case["name"]
+        scan = scan_notation(case["text"], tom_specs=case.get("tomSpecs") is True)
+        elements = [e.to_json(case["text"]) for e in scan.elements]
+        findings = [f.to_json() for f in scan.findings]
+        _check(
+            f"notation.scan[{name}].elements",
+            elements == case["elements"],
+            f"{elements} != {case['elements']}",
+        )
+        _check(
+            f"notation.scan[{name}].findings",
+            findings == case["findings"],
+            f"{findings} != {case['findings']}",
+        )
+        codes.update(f["code"] for f in case["findings"])
+    uncovered = [c.value for c in NotationFindingCode if c.value not in codes]
+    _check("notation.codeCoverage", not uncovered, f"uncovered: {uncovered}")
+    schema = DocSpecsSchema.from_yaml_text(_read("docspecs_schema.yaml"))
+    for case in table["validatorCases"]:
+        got = [
+            {"rule": v.rule.value, "sectionId": v.section_id, "line": v.line}
+            for v in DocSpecsValidator(
+                schema, tom_specs=case.get("tomSpecs") is True
+            ).validate_markdown(case["markdown"])
+        ]
+        _check(
+            f"notation.validate[{case['name']}]",
+            got == case["violations"],
+            f"{got} != {case['violations']}",
+        )
 
 
 def test_docspecs_path(model) -> None:
@@ -2326,6 +2383,7 @@ def main() -> int:
     test_section_id()
     test_serialization_order()
     test_docspecs()
+    test_notation()
     test_docspecs_path(model)
     test_docspecs_replace()
     test_assembly()

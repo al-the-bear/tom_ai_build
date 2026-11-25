@@ -41,5 +41,5 @@ def validate_spec_document(
             section_id=v.section_id,
             path=v.path if v.path is not None else rendition.path_at_line(v.line),
         )
-        for v in DocSpecsValidator(schema).validate_markdown(rendition.markdown)
+        for v in DocSpecsValidator(schema, tom_specs=True).validate_markdown(rendition.markdown)
     ]

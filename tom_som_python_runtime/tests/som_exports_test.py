@@ -80,6 +80,13 @@ def test_exported() -> None:
         "som_model_version_string",
         "SpecDocumentYaml",
         "code_specs_yaml_string",
+        "scan_notation",
+        "NotationScan",
+        "NotationElement",
+        "NotationFinding",
+        "NotationFindingCode",
+        "notation_severity",
+        "registered_notation_kinds",
     ):
         _check(f"exported.{name}", hasattr(tom_som_runtime, name))
         _check(f"all.{name}", name in tom_som_runtime.__all__)

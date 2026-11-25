@@ -35,6 +35,7 @@ from .spec_document_markdown import (
     SpecMarkdownResult,
 )
 from .spec_model import SpecModel
+from .spec_notation import scan_notation
 
 
 class DocSpecsViolationRule(Enum):
@@ -54,6 +55,18 @@ class DocSpecsViolationRule(Enum):
     MALFORMED_HEADING = "malformedHeading"
     SECTION_OUT_OF_ORDER = "sectionOutOfOrder"
     DUPLICATE_ID_PATH = "duplicateIdPath"
+    # The reading notation's findings (DocSpecs specification, RN-10),
+    # reported by scan_notation per value: a section's own body, and in a
+    # TomSpecs rendition each form field's value apart.
+    UNCLOSED_DIV = "unclosedDiv"
+    STRAY_CLOSING_FENCE = "strayClosingFence"
+    UNCLOSED_SPAN = "unclosedSpan"
+    DIV_WITHOUT_KIND = "divWithoutKind"
+    UNKNOWN_KIND = "unknownKind"
+    MARK_ACROSS_NOTATION = "markAcrossNotation"
+    ANNOTATION_INSIDE_DIV = "annotationInsideDiv"
+    DIV_INSIDE_ANNOTATION = "divInsideAnnotation"
+    REJECTED_BLOCK = "rejectedBlock"
 
 
 class DocSpecsViolation:
@@ -618,8 +631,12 @@ class DocSpecsValidator:
 
     _FIELD_LABEL = re.compile(r"^([A-Za-z][A-Za-z0-9_]*): ?(.*)$")
 
-    def __init__(self, schema: DocSpecsSchema) -> None:
+    def __init__(self, schema: DocSpecsSchema, tom_specs: bool = False) -> None:
         self.schema = schema
+        #: The documents are TomSpecs renditions: the reading notation is then
+        #: scanned value by value (a form field's value apart from the next),
+        #: and a div without a class and an unregistered kind are reported too.
+        self.tom_specs = tom_specs is True
 
     def validate_markdown(self, markdown: str) -> list[DocSpecsViolation]:
         """Convenience: parse + validate in one call."""
@@ -660,8 +677,60 @@ class DocSpecsValidator:
                 )
             )
         self._validate_document_sections(root, v)
+        self._validate_notation(doc, v)
         self._validate_id_paths(doc.sections, v)
         return v
+
+    def _validate_notation(
+        self, doc: DocSpecsDocument, v: list[DocSpecsViolation]
+    ) -> None:
+        """The reading notation of every section's own body: one value per
+        section, and in a TomSpecs rendition one per form field of a
+        form-formatted section (its preamble included)."""
+        for section in doc.all_sections:
+            for first, lines in self._notation_values(section):
+                scan = scan_notation("\n".join(lines), tom_specs=self.tom_specs)
+                for f in scan.findings:
+                    v.append(
+                        DocSpecsViolation(
+                            rule=DocSpecsViolationRule(f.code.value),
+                            section_id=section.id,
+                            line=section.body_start_line + first + f.line - 1,
+                            message=f.message,
+                        )
+                    )
+
+    def _notation_values(
+        self, section: DocSpecsSection
+    ) -> list[tuple[int, list[str]]]:
+        """The values of *section*'s own body as (index of the first line,
+        lines)."""
+        body = section.body_lines
+        type_ = (
+            self.schema.resolve_section_type(section.id)
+            if self.tom_specs and section.id is not None
+            else None
+        )
+        form = (
+            self.schema.form_types.get(type_.format)
+            if type_ is not None and type_.format is not None
+            else None
+        )
+        if form is None:
+            return [(0, body)]
+        labels = {f.name.lower() for f in form.fields}
+        values: list[tuple[int, list[str]]] = []
+        fence = MarkdownFenceTracker()
+        first = 0
+        for i, line in enumerate(body):
+            if not fence.in_fence and i > first:
+                m = DocSpecsValidator._FIELD_LABEL.match(line)
+                if m is not None and m.group(1).lower() in labels:
+                    values.append((first, body[first:i]))
+                    first = i
+            fence.feed(line)
+        values.append((first, body[first:]))
+        return values
 
     def _validate_id_paths(
         self, sections: list[DocSpecsSection], v: list[DocSpecsViolation]

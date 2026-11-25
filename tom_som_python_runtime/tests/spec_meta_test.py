@@ -44,6 +44,7 @@ from tom_som_runtime import (  # noqa: E402
     SomMetaKind,
     SomMetaNode,
     SomMetaTree,
+    som_meta_node_diff,
 )
 
 _passed = 0
@@ -573,7 +574,55 @@ def test_item_path() -> None:
     )
 
 
+def test_form_field_flags() -> None:
+    """The form-field flags: ``multi_paragraph`` (and ``code``) default to
+    ``False``, are carried as given, and the meta diff reports two trees that
+    differ only in one of them (SOM §7.1, §11.4)."""
+
+    def form(multi_paragraph: bool, code: bool) -> SomMetaNode:
+        return SomMetaNode(
+            class_name="Owner",
+            member_name="details",
+            kind=SomMetaKind.FORM,
+            type_name="Details",
+            section_id="DET",
+            form=SomFormMeta(
+                fields=[
+                    SomFormFieldMeta(
+                        name="notes",
+                        type_name="String",
+                        order=0,
+                        multi_paragraph=multi_paragraph,
+                        code=code,
+                    )
+                ]
+            ),
+        )
+
+    plain = SomFormFieldMeta(name="x", type_name="String", order=0)
+    _check("flags.multiParagraph.default", plain.multi_paragraph is False)
+    _check("flags.code.default", plain.code is False)
+    _check(
+        "flags.multiParagraph.carried",
+        form(True, False).form.fields[0].multi_paragraph is True,
+    )
+    _check("flags.same", som_meta_node_diff(form(True, False), form(True, False)) is None)
+    mp = som_meta_node_diff(form(True, False), form(False, False))
+    _check(
+        "flags.multiParagraph.diff",
+        mp is not None and "form field notes differs" in mp,
+        str(mp),
+    )
+    code = som_meta_node_diff(form(False, True), form(False, False))
+    _check(
+        "flags.code.diff",
+        code is not None and "form field notes differs" in code,
+        str(code),
+    )
+
+
 def main() -> int:
+    test_form_field_flags()
     test_wiring()
     test_metadata_slots()
     test_by_id()

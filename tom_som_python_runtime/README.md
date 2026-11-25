@@ -86,10 +86,11 @@ editable routes and how to pin.
 | `spec_answers` | A review round's answers (SOM §11.9.7): `extract_answers` and `render_answers` (`answers.md`). |
 | `spec_meta` | The metadata tree types (`SomMetaTree`, `SomMetaNode`, …) the YAML codec and the facade navigate by. |
 | `spec_meta_bridge` | `build_som_meta_tree` — the metadata tree of a model, for one root or all. |
-| `spec_meta_diff` | `som_meta_node_diff` — the first difference between two metadata trees, or `None`. |
+| `spec_meta_diff` | `som_meta_node_diff` — the first difference between two metadata trees, or `None` (form fields compared with their `code` and `multi_paragraph` flags). |
+| `spec_notation` | The reading notation's scanner (DocSpecs Reading Notation): `scan_notation` returns a value's divs, spans and citations (`NotationElement`, UTF-16 ranges) and the notation's findings (`NotationFinding`, `NotationFindingCode`, `notation_severity`), which the DocSpecs validator reports as rules. |
 | `spec_section_id` | List-item section ids (AA1): `generate_list_item_section_id`, `encode_two_letter_date`, `effective_list_item_section_id`. |
 | `spec_serialization_order` | `SpecSerializationOrder` — the model's member order, which every codec writes in. |
-| `docspecs_validator` | DocSpecs Markdown documents: the schema-free parse (`DocSpecsDocument`) and the schema check (`DocSpecsValidator`). |
+| `docspecs_validator` | DocSpecs Markdown documents: the schema-free parse (`DocSpecsDocument`) and the schema check (`DocSpecsValidator`), with the nine reading-notation rules (`tom_specs=True`: scanned per form-field value, unknown kinds and classless divs reported). |
 | `spec_schema_validation` | `validate_spec_document` — the DocSpecs schema tier over a document's Markdown rendition. |
 | `som_facade` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList`) for the generated `tom_som_python_v0`. |
 

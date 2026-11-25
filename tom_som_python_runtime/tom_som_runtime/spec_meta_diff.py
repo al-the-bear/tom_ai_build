@@ -128,6 +128,8 @@ def _form_diff(
             or fa.order != fb.order
             or list(fa.enum_values) != list(fb.enum_values)
             or list(fa.refers_to) != list(fb.refers_to)
+            or bool(fa.code) != bool(fb.code)
+            or bool(fa.multi_paragraph) != bool(fb.multi_paragraph)
         ):
             return f"{at}: form field {fa.name} differs"
     return None

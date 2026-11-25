@@ -81,6 +81,7 @@ class SomFormFieldMeta:
         enum_values: Optional[list[str]] = None,
         refers_to: Optional[list[str]] = None,
         code: bool = False,
+        multi_paragraph: bool = False,
     ) -> None:
         #: The exact model field name (``approvedBy``).
         self.name = name
@@ -109,6 +110,10 @@ class SomFormFieldMeta:
         #: markdown codec writes it as an inline code span and unwraps it on
         #: import (SOM §11.4 rule 8).
         self.code = code
+        #: Whether the field's values hold paragraphs or blocks
+        #: (``Field.multiParagraph``): the markdown renderer writes them as a
+        #: ``Field:`` paragraph, never as a row of the form table (SOM §11.4).
+        self.multi_paragraph = multi_paragraph
 
 
 class SomFormMeta:
