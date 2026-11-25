@@ -494,6 +494,132 @@ def test_validate_never_fail_fast() -> None:
 # --- bind_docspecs_markdown ----------------------------------------------------
 
 
+# --- The reading view: form tables, list bodies, styled-div headings --------
+
+_FORM_TABLE = (
+    "| TomSpecField | Value |\n| --- | --- |\n| Author | Alice |\n"
+    "| Reviewer | Bob |"
+)
+
+
+def _rule_ids(violations) -> list[str]:
+    """Each violation as ``rule|sectionId|line``, in emission order."""
+    return [f"{x.rule.value}|{x.section_id}|{x.line}" for x in violations]
+
+
+def test_reading_view_form_table() -> None:
+    md = _VALID_DOC.replace("Author: Alice\nReviewer: Bob", _FORM_TABLE, 1)
+    v = _validate(md)
+    _check("readingView.formTable.valid", v == [], _detail(v))
+
+    v = _validate(md.replace("| Reviewer | Bob |", "| Reviewer | bob |", 1))
+    _check(
+        "readingView.formTable.patternAtRow",
+        _rule_ids(v) == ["fieldPatternMismatch|D00-HDR|15"],
+        _detail(v),
+    )
+
+    v = _validate(md.replace("| Author | Alice |\n", "", 1))
+    _check(
+        "readingView.formTable.missingRequired",
+        _rule_ids(v) == ["missingRequiredField|D00-HDR|10"],
+        _detail(v),
+    )
+
+    v = _validate(
+        md.replace("| Reviewer | Bob |", "| Editor | Bob |\n| Author | Carol |", 1)
+    )
+    _check(
+        "readingView.formTable.unknownFieldAndTwice",
+        _rule_ids(v) == ["unknownField|D00-HDR|15", "malformedBlock|D00-HDR|16"],
+        _detail(v),
+    )
+
+    v = _validate(md.replace("| --- | --- |\n", "", 1))
+    _check(
+        "readingView.formTable.noDelimiterRow",
+        _rule_ids(v)
+        == ["malformedBlock|D00-HDR|12", "missingRequiredField|D00-HDR|10"],
+        _detail(v),
+    )
+
+
+def test_reading_view_refs_list_body() -> None:
+    items = (
+        "### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n"
+        "### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n"
+    )
+    # A list container has one subsection type; the items of a refs line are
+    # virtual sections with positional ids, at the div's line.
+    lists = DocSpecsValidator(
+        DocSpecsSchema.from_yaml_text(
+            _SCHEMA_YAML.replace(
+                "      gsum:\n        max-count: 1\nform-types:", "form-types:", 1
+            )
+        )
+    )
+    md = _VALID_DOC.replace(items, "::: {.refs}\nG-1, G-2\n:::\n", 1)
+    v = lists.validate_markdown(md)
+    _check(
+        "readingView.refs.virtualItems",
+        _rule_ids(v)
+        == ["idPatternMismatch|GOALS-1|17", "idPatternMismatch|GOALS-2|17"],
+        _detail(v),
+    )
+
+    v = _validate(md)
+    _check(
+        "readingView.refs.notAListContainer",
+        _rule_ids(v)
+        == ["malformedBlock|GOALS|17", "missingRequiredSection|GOALS|15"],
+        _detail(v),
+    )
+
+    v = lists.validate_markdown(
+        _VALID_DOC.replace(items, "::: {.refs}\nG-1, G-2\n", 1)
+    )
+    _check(
+        "readingView.refs.unclosed",
+        _rule_ids(v)
+        == [
+            "malformedBlock|GOALS|17",
+            "missingRequiredSection|GOALS|15",
+            "unclosedDiv|GOALS|17",
+        ],
+        _detail(v),
+    )
+
+
+def test_reading_view_styled_div_headings() -> None:
+    doc = DocSpecsDocument.parse(
+        "# <!--[D00]--> Root\n\n"
+        '<div class="heading7"><!--[A-1]--> <a id="X/A-1"></a>A &amp; B</div>\n\n'
+        "text\n\n"
+        '<div class="heading6"><!--[A-2]--> No heading</div>\n'
+    )
+    root = doc.sections[0]
+    _check(
+        "readingView.styledDiv.children",
+        [c.id for c in root.children] == ["A-1"],
+        str([c.id for c in root.children]),
+    )
+    if not root.children:
+        return
+    a = root.children[0]
+    _check("readingView.styledDiv.level", a.level == 7, str(a.level))
+    _check("readingView.styledDiv.title", a.title == "A & B", a.title)
+    _check(
+        "readingView.styledDiv.heading6IsContent",
+        a.text.endswith('<div class="heading6"><!--[A-2]--> No heading</div>'),
+        a.text,
+    )
+    _check(
+        "readingView.stripOwnAnchor.other",
+        DocSpecsDocument.strip_own_anchor('<a id="B"></a>T', "A")
+        == '<a id="B"></a>T',
+    )
+
+
 def test_bind_docspecs_markdown() -> None:
     corpus = os.path.join(_SIBLINGS, "tom_som_conformance", "corpus")
     with open(os.path.join(corpus, "model.meta.json"), encoding="utf-8") as fh:
@@ -566,6 +692,9 @@ def main() -> int:
     test_validate_format_mismatch()
     test_validate_root_mismatch()
     test_validate_never_fail_fast()
+    test_reading_view_form_table()
+    test_reading_view_refs_list_body()
+    test_reading_view_styled_div_headings()
     test_bind_docspecs_markdown()
     test_dr7_acceptance()
 

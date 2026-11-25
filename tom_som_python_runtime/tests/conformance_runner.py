@@ -995,12 +995,6 @@ def test_editability() -> None:
         )
 
 
-#: The ``readingView`` cases of ``docspecs_cases.json`` the reading notation's
-#: scanner port (``spec_notation.py``) makes run: the rest wait for the reading
-#: view's validator port.
-_READING_NOTATION_DOCSPECS_CASES = {"readingView: rejected block"}
-
-
 def test_docspecs() -> None:
     """The SOM §14 DocSpecs tier: one shared schema, one case per rule.
 
@@ -1014,14 +1008,6 @@ def test_docspecs() -> None:
     validator = DocSpecsValidator(schema)
     covered: set[str] = set()
     for case in _read_json("docspecs_cases.json"):
-        # The reading view's table forms (``readingView``) are read by the Dart
-        # and TypeScript runtimes only until their ports (runtime_parity.md § Reading view);
-        # the reading notation's case (a rejected block, RN-11) runs since its scanner port.
-        if (
-            case.get("readingView")
-            and case["name"] not in _READING_NOTATION_DOCSPECS_CASES
-        ):
-            continue
         name = case["name"]
         got = [
             (v.rule.value, v.section_id, v.line)
