@@ -515,11 +515,22 @@ static void test_yaml_review(Checker& c, const som::SpecModel& model,
   }
 }
 
-// The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
-// Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
-// The emitter port tspubnondart76 (runtime_parity.md § Reading view) brings this runtime to tables.
-[[maybe_unused]] static const char* const kEmittedLayout = "fields";
-static const char* const kExportGolden = "expected.tomspecs.md";
+// The layout this runtime emits: `tables` (SOM §11.4, §11.5). Its export
+// golden is `expected.tables.md`; `expected.tomspecs.md`, the `Field:`-line
+// layout, is parsed only.
+static const char* const kEmittedLayout = "tables";
+static const char* const kExportGolden = "expected.tables.md";
+
+/* The expectation of case `kase` for this runtime's layout: `expectTables`
+ * when the case has one (its renditions' lines differ by layout), else
+ * `expect`. */
+static som::JsonRef expect_for(const som::JsonRef& kase) {
+  som::JsonRef tables = som::jsonGet(kase, "expectTables");
+  if (std::string(kEmittedLayout) == "tables" && tables != nullptr) {
+    return tables;
+  }
+  return som::jsonGet(kase, "expect");
+}
 
 static void test_markdown_export(Checker& c, const som::SpecModel& model) {
   som::JsonPtr sj = read_json("state.json");
@@ -566,7 +577,7 @@ static void test_markdown_memory_landing(Checker& c, const som::SpecModel& model
   som::DocumentJson canonical = som::documentJsonFromJson(sj);
   std::string want = som::documentJsonToCanonicalJson(canonical);
   const std::pair<const char*, const char*> goldens[] = {
-      {"tables", "expected.tables.md"}, {"fields", kExportGolden}};
+      {"tables", "expected.tables.md"}, {"fields", "expected.tomspecs.md"}};
   for (const auto& golden : goldens) {
     const std::string label = golden.first;
     som::SpecMarkdownImport imported =
@@ -2515,7 +2526,7 @@ static void test_codespecs_gate(Checker& c) {
     som::JsonRef cc = som::jsonArrayAt(cases, i);
     std::string tag = "codespecsGate[" + som::jsonStrOr(cc, "name") + "]";
     std::string got = run_gate_case(table, cc, meta);
-    std::string want = json_text(som::jsonGet(cc, "expect"));
+    std::string want = json_text(expect_for(cc));
     c.check(tag, got == want, byte_diff(tag, got, want));
   }
 }
@@ -3790,7 +3801,7 @@ static void test_answers(Checker& c, const som::SpecModel& model) {
         ok = false;
       }
     }
-    som::JsonRef expect = som::jsonGet(kase, "expect");
+    som::JsonRef expect = expect_for(kase);
     std::string gotJson = "[";
     for (std::size_t k = 0; k < extracts.size(); k++) {
       if (k > 0) gotJson += ',';

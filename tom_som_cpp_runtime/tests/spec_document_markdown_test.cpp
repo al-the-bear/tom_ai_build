@@ -242,14 +242,14 @@ void testMarkdownExportFormat() {
           hasPrefix(first, "<!-- docspec: demo-document/"), first);
   mdCheck("export.docspec.suffix", hasSuffix(first, "-->"), first);
 
-  mdCheck("export.heading.root", contains(md, "# <!--[D00]--> Demo Document"));
+  mdCheck("export.heading.root", contains(md, "# <!--[D00]--> <a id=\"D00\"></a> Demo Document"));
   mdCheck("export.heading.overview",
-          contains(md, "## <!--[D00-OVR]--> Overview"));
-  mdCheck("export.heading.status", contains(md, "## <!--[D00-ST]--> Status"));
-  mdCheck("export.heading.header", contains(md, "## <!--[D00-HDR]--> Header"));
-  mdCheck("export.heading.meta", contains(md, "## <!--[D00-MET]--> Meta"));
+          contains(md, "## <!--[D00-OVR]--> <a id=\"D00-OVR\"></a> Overview"));
+  mdCheck("export.heading.status", contains(md, "## <!--[D00-ST]--> <a id=\"D00-ST\"></a> Status"));
+  mdCheck("export.heading.header", contains(md, "## <!--[D00-HDR]--> <a id=\"D00-HDR\"></a> Header"));
+  mdCheck("export.heading.meta", contains(md, "## <!--[D00-MET]--> <a id=\"D00-MET\"></a> Meta"));
   mdCheck("export.heading.note",
-          contains(md, "### <!--[D00-MET-NOTE]--> Note"));
+          contains(md, "### <!--[D00-MET-NOTE]--> <a id=\"D00-MET-NOTE\"></a> Note"));
 
   mdCheck("export.content.plain",
           contains(md, "An overview paragraph.\nWith two lines."));
@@ -273,13 +273,20 @@ void testMarkdownExportFormat() {
   mdCheck("export.content.noFieldAnchor", !contains(md, "<!-- field:"));
   mdCheck("export.content.noPathHeading", !contains(md, "D00/D00-OVR"));
 
-  mdCheck("export.form.sparse.author", contains(md, "Author: Ada Lovelace"));
+  mdCheck("export.form.sparse.author", contains(md, "| Author | Ada Lovelace |"));
   mdCheck("export.form.sparse.noReviewer", !contains(md, "Reviewer"));
 
-  mdCheck("export.item.container", contains(md, "## <!--[D00-ITM]--> Items"));
-  mdCheck("export.item.1", contains(md, "### <!--[items-1]--> Demo Item 1"));
-  mdCheck("export.item.2", contains(md, "### <!--[items-2]--> Demo Item 2"));
-  mdCheck("export.item.label", contains(md, "#### <!--[D01-LBL]--> Label"));
+  mdCheck("export.item.container",
+          contains(md, "## <!--[D00-ITM]--> <a id=\"D00-ITM\"></a> Items"));
+  mdCheck("export.item.1",
+          contains(md, "### <!--[items-1]--> <a id=\"items-1\"></a> Demo Item 1"));
+  mdCheck("export.item.2",
+          contains(md, "### <!--[items-2]--> <a id=\"items-2\"></a> Demo Item 2"));
+  // Below a list item the anchor is qualified (SOM §11.2).
+  mdCheck("export.item.label",
+          contains(md, "#### <!--[D01-LBL]--> <a id=\"items-1/D01-LBL\"></a> Label"));
+  mdCheck("export.item2.label",
+          contains(md, "#### <!--[D01-LBL]--> <a id=\"items-2/D01-LBL\"></a> Label"));
 
   mdCheck("export.noSchemaDescription", !contains(md, "A demo document."));
 }
@@ -295,9 +302,10 @@ void testMarkdownExportStoredItemId() {
   // YRD3: the STORED id is the item's md heading id; the positional id is only
   // the fallback for an item without one.
   mdCheck("export.storedId.container",
-          contains(md, "## <!--[D00-ITM]--> Items"), md);
+          contains(md, "## <!--[D00-ITM]--> <a id=\"D00-ITM\"></a> Items"), md);
   mdCheck("export.storedId.heading",
-          contains(md, "### <!--[D01-CUSTOM]--> Demo Item 1"), md);
+          contains(md, "### <!--[D01-CUSTOM]--> <a id=\"D01-CUSTOM\"></a> Demo Item 1"),
+          md);
   mdCheck("export.storedId.noPositional", !contains(md, "items-1"), md);
 }
 
@@ -521,8 +529,10 @@ void testMarkdownRoundTripStoredItemId() {
 void testMarkdownRoundTripLabelShapedContinuation() {
   auto m = demoModel();
   som::SpecDocument doc;
+  // A hard break keeps it a paragraph (a wrapped paragraph would be one table
+  // cell, SOM §11.4).
   doc.setFormField("D00/D00-HDR", "author",
-                   "Ada Lovelace\nNote: also a mathematician\nplain line");
+                   "Ada Lovelace  \nNote: also a mathematician\nplain line");
   std::string md1 = mdExport(*m, doc);
 
   mdCheck("formCont.escaped",
@@ -533,7 +543,7 @@ void testMarkdownRoundTripLabelShapedContinuation() {
   mdCheck("formCont.clean", report.isClean(), mdRejStr(report));
   mdCheck("formCont.value",
           formFieldOr(reloaded, "D00/D00-HDR", "author") ==
-              "Ada Lovelace\nNote: also a mathematician\nplain line",
+              "Ada Lovelace  \nNote: also a mathematician\nplain line",
           formFieldOr(reloaded, "D00/D00-HDR", "author"));
   std::string md2 = mdExport(*m, reloaded);
   mdCheck("formCont.byteStable", md2 == md1);
@@ -566,7 +576,10 @@ void testMarkdownFormPreambleEmits() {
   doc.setFormField("D00/D00-HDR", "author", "Ada Lovelace");
   std::string md = mdExport(*m, doc);
   mdCheck("formPre.emitOrder",
-          contains(md, "why this header exists\n\nAuthor: Ada Lovelace\n"), md);
+          contains(md,
+                   "why this header exists\n\n| TomSpecField | Value |\n"
+                   "| --- | --- |\n| Author | Ada Lovelace |\n"),
+          md);
 }
 
 void testMarkdownFormPreambleOnly() {
@@ -783,10 +796,10 @@ void testMarkdownCodeSpecRidesInHeadlineComment() {
   mdCheck("codeSpec.md.attribute",
           contains(md,
                    "## <!--[D00-OVR] codeSpec=\"CsOrder,CsOrder.total,"
-                   "CsOrderRepository\"--> Overview"),
+                   "CsOrderRepository\"--> <a id=\"D00-OVR\"></a> Overview"),
           md);
   // Untouched sections stay byte-stable (no empty codeSpec attribute).
-  mdCheck("codeSpec.md.untouched", contains(md, "## <!--[D00-ST]--> Status"));
+  mdCheck("codeSpec.md.untouched", contains(md, "## <!--[D00-ST]--> <a id=\"D00-ST\"></a> Status"));
 }
 
 /* The codeSpec parses back out of the heading comment into the staged map. */

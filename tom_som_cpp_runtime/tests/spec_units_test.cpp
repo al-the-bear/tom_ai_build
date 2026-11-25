@@ -222,9 +222,9 @@ void testMarkdown() {
     check("md.emitAfterCodeSpec",
           contains(md,
                    "## <!--[TTL] codeSpec=\"DemoTitle\" units=\"u_a,u_b\"--> "
-                   "Document Title\n"),
+                   "<a id=\"TTL\"></a> Document Title\n"),
           md);
-    check("md.emitAlone", contains(md, "## <!--[SUM] units=\"u_a\"--> Summary\n"),
+    check("md.emitAlone", contains(md, "## <!--[SUM] units=\"u_a\"--> <a id=\"SUM\"></a> Summary\n"),
           md);
   }
   {

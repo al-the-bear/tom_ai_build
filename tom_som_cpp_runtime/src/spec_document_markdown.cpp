@@ -755,6 +755,17 @@ class MdCodec {
    * in emission order (markdownExportRootWithMap). Borrowed. */
   std::vector<std::string>* headingPaths = nullptr;
 
+  /* The root the current export renders (the target of same-document links)
+   * and its metadata tree; null outside an export. */
+  const SpecRoot* currentRoot = nullptr;
+  SomMetaTree* currentTree = nullptr;
+  /* The anchors of the current export's headings, by path (SOM §11.2). */
+  std::map<std::string, std::string> anchors;
+  /* The document's keys of one kind, byte-sorted, once per export. */
+  std::map<std::string, std::vector<std::string>> sortedKeys;
+  /* The class names each root reaches, for reference links. */
+  std::map<std::string, std::set<std::string>> reach;
+
  private:
   const SpecModel& model_;
   const SpecDocument* document_;
@@ -888,6 +899,431 @@ std::vector<NodeRel> effectiveChildren(MdCodec& c, const SomMetaNode& node) {
   return out;
 }
 
+/* The qualified anchor of a heading `id` (SOM §11.2) and the scope its
+ * descendants' anchors are qualified with: below a list item, or in a
+ * `@SameAs` copy, an anchor is the ids from the scope's start joined by `/`;
+ * elsewhere it is the id itself. `section` is the id of the nearest heading
+ * above that is no list container. */
+enum class AnchorKind { kPlain, kContainer, kItem, kCopy };
+
+std::pair<std::string, std::optional<std::vector<std::string>>> qualifyAnchor(
+    const std::optional<std::vector<std::string>>& scope,
+    const std::optional<std::string>& section, const std::string& id,
+    AnchorKind kind) {
+  auto join = [](const std::vector<std::string>& parts) {
+    std::string out;
+    for (std::size_t i = 0; i < parts.size(); i++) {
+      if (i > 0) out += "/";
+      out += parts[i];
+    }
+    return out;
+  };
+  auto withId = [&id](std::vector<std::string> parts) {
+    parts.push_back(id);
+    return parts;
+  };
+  const std::string joined = scope.has_value() ? join(withId(*scope)) : id;
+  switch (kind) {
+    case AnchorKind::kContainer:
+      return {joined, scope};
+    case AnchorKind::kItem:
+      return {joined, withId(scope.value_or(std::vector<std::string>{}))};
+    case AnchorKind::kCopy: {
+      std::vector<std::string> sc =
+          scope.has_value()
+              ? *scope
+              : (section.has_value() ? std::vector<std::string>{*section}
+                                     : std::vector<std::string>{});
+      sc.push_back(id);
+      return {join(sc), sc};
+    }
+    case AnchorKind::kPlain:
+      break;
+  }
+  if (!scope.has_value()) return {joined, std::nullopt};
+  return {joined, withId(*scope)};
+}
+
+/* Whether `n` is a `@SameAs` copy (SOM §11.2): its anchor and its
+ * descendants' are qualified with the section above it. */
+bool isCopyNodeOf(const SpecModel& model, const SomMetaNode& n) {
+  if (n.memberName.empty() || n.parent == nullptr) {
+    return false;
+  }
+  const SpecClass* cls = model.classNamed(n.parent->className);
+  const SpecField* f = cls != nullptr ? cls->fieldNamed(n.memberName) : nullptr;
+  if (f == nullptr) {
+    return false;
+  }
+  for (const auto& a : f->annotations) {
+    if (a.name == "SameAs") {
+      return true;
+    }
+  }
+  return false;
+}
+
+/* ---- reading view: anchors, cells, links (SOM §11.2, §11.4, §11.5) ------- */
+
+/* The heading id of the item at `itemPath` of `listNode`, as the emitter
+ * writes it. */
+std::string navItemId(MdCodec& c, const SomMetaNode& listNode,
+                      const std::string& itemPath) {
+  const SpecDocument& d = *c.document();
+  std::size_t slash = itemPath.rfind('/');
+  std::string seg =
+      slash == std::string::npos ? itemPath : itemPath.substr(slash + 1);
+  std::string base;
+  long long seq = 0;
+  specSplitListItemSegment(seg, &base, &seq);
+  std::string listPath =
+      (slash == std::string::npos ? std::string() : itemPath.substr(0, slash + 1)) +
+      base;
+  long long pos = 0;
+  if (const std::vector<std::string>* items = d.listItemsPtr(listPath)) {
+    for (std::size_t i = 0; i < items->size(); i++) {
+      if ((*items)[i] == itemPath) {
+        pos = (long long)i + 1;
+        break;
+      }
+    }
+  }
+  std::string pattern = listNode.sectionIdPattern;
+  if (pattern.empty() && listNode.elementNode != nullptr) {
+    pattern = listNode.elementNode->sectionIdPattern;
+  }
+  return effectiveListItemSectionId(
+      d.itemSectionIdOpt(itemPath), pattern, pos == 0 ? seq : pos,
+      !listNode.memberName.empty() ? listNode.memberName : listNode.segment());
+}
+
+/* The anchor of the heading `path` names in the current export (SOM §11.2):
+ * qualified below a list item and in a `@SameAs` copy, else the id itself. */
+std::string anchorOf(MdCodec& c, const std::string& path) {
+  auto hit = c.anchors.find(path);
+  if (hit != c.anchors.end()) return hit->second;
+  std::vector<std::string> segs;
+  {
+    std::size_t from = 0;
+    for (;;) {
+      std::size_t sl = path.find('/', from);
+      segs.push_back(path.substr(
+          from, sl == std::string::npos ? std::string::npos : sl - from));
+      if (sl == std::string::npos) break;
+      from = sl + 1;
+    }
+  }
+  const SomMetaNode* node = c.currentTree->root();
+  std::string cur = segs[0];
+  std::string anchor = node->segment();
+  std::optional<std::vector<std::string>> scope;
+  std::optional<std::string> section = node->segment();
+  for (std::size_t i = 1; i < segs.size(); i++) {
+    const std::string& seg = segs[i];
+    const SomMetaNode* child = node->childBySegment(seg);
+    if (child != nullptr) {
+      cur += "/" + seg;
+      node = child;
+      if (isTransparentSection(c, *child) || isTransparentValue(*child)) {
+        continue;
+      }
+      const std::string id = headingIdOf(c, *child);
+      const bool container = kindEq(child->kind, kSomMetaKindList);
+      auto q = qualifyAnchor(
+          scope, section, id,
+          container ? AnchorKind::kContainer
+                    : (isCopyNodeOf(c.model(), *child) ? AnchorKind::kCopy
+                                                       : AnchorKind::kPlain));
+      anchor = q.first;
+      scope = q.second;
+      if (!container) section = id;
+      continue;
+    }
+    std::string base;
+    long long seq = 0;
+    const SomMetaNode* listNode =
+        specSplitListItemSegment(seg, &base, &seq) ? node->childBySegment(base)
+                                                   : nullptr;
+    if (listNode == nullptr || !kindEq(listNode->kind, kSomMetaKindList)) break;
+    const std::string itemPath = cur + "/" + seg;
+    const std::string id = navItemId(c, *listNode, itemPath);
+    auto q = qualifyAnchor(scope, section, id, AnchorKind::kItem);
+    anchor = q.first;
+    scope = q.second;
+    section = id;
+    cur = itemPath;
+    const SomMetaNode* element = listNode->elementNode.get();
+    node = element != nullptr ? element : listNode;
+    if (element == nullptr && i + 1 < segs.size()) break;
+  }
+  c.anchors[path] = anchor;
+  return anchor;
+}
+
+/* The keys of `sorted` at or below `prefix` (equal, or continuing after a
+ * `/`): a binary search to the first key not before it, then the run sharing
+ * it as a prefix. */
+std::vector<std::string> keysUnder(const std::vector<std::string>& sorted,
+                                   const std::string& prefix) {
+  std::vector<std::string> out;
+  auto it = std::lower_bound(sorted.begin(), sorted.end(), prefix);
+  for (; it != sorted.end() && it->compare(0, prefix.size(), prefix) == 0;
+       ++it) {
+    if (it->size() == prefix.size() || (*it)[prefix.size()] == '/') {
+      out.push_back(*it);
+    }
+  }
+  return out;
+}
+
+/* The document's keys of one kind, sorted, cached for the current export. */
+const std::vector<std::string>& sortedKeys(MdCodec& c, const std::string& kind) {
+  auto it = c.sortedKeys.find(kind);
+  if (it != c.sortedKeys.end()) return it->second;
+  const SpecDocument& d = *c.document();
+  std::vector<std::string> keys;
+  if (kind == "content") keys = d.contentPaths();
+  else if (kind == "lists") keys = d.listPaths();
+  else if (kind == "units") keys = d.unitsPaths();
+  else if (kind == "forms") keys = d.formPaths();
+  else if (kind == "headlines") keys = d.headlinePaths();
+  std::sort(keys.begin(), keys.end());
+  return c.sortedKeys[kind] = std::move(keys);
+}
+
+bool hasKeysAt(const SpecDocument& d, const std::string& path) {
+  return !d.codeSpec(path).empty() || !d.units(path).empty();
+}
+
+/* `^[A-Z][A-Z0-9]*(-[A-Z0-9]+)*$`: a section id as a reference holds it. */
+bool isIdShape(const std::string& s) {
+  auto up = [](char ch) { return ch >= 'A' && ch <= 'Z'; };
+  auto upDigit = [&up](char ch) { return up(ch) || (ch >= '0' && ch <= '9'); };
+  if (s.empty() || !up(s[0])) return false;
+  std::size_t i = 1;
+  while (i < s.size() && upDigit(s[i])) i++;
+  while (i < s.size()) {
+    if (s[i] != '-' || i + 1 >= s.size() || !upDigit(s[i + 1])) return false;
+    i++;
+    while (i < s.size() && upDigit(s[i])) i++;
+  }
+  return true;
+}
+
+/* `^\s*([-*+]\s|\d+[.)]\s|>|```|~~~|:::)`: a one-line value Markdown reads as
+ * a block (a list item, a block quote, a fence or a fenced div). */
+bool isBlockStart(const std::string& v) {
+  std::size_t i = 0;
+  while (i < v.size() && isWs(v[i])) i++;
+  if (i >= v.size()) return false;
+  char ch = v[i];
+  if ((ch == '-' || ch == '*' || ch == '+') && i + 1 < v.size() &&
+      isWs(v[i + 1])) {
+    return true;
+  }
+  if (isDigit(ch)) {
+    std::size_t k = i;
+    while (k < v.size() && isDigit(v[k])) k++;
+    if (k < v.size() && (v[k] == '.' || v[k] == ')') && k + 1 < v.size() &&
+        isWs(v[k + 1])) {
+      return true;
+    }
+  }
+  return ch == '>' || v.compare(i, 3, "```") == 0 ||
+         v.compare(i, 3, "~~~") == 0 || v.compare(i, 3, ":::") == 0;
+}
+
+/* `^(?:\||#{1,6}(?:\s|$)|=+$|(?:[-*_]\s*){3,}$|<)`: a line that is a block of
+ * its own or would make the line above one (a table row, an ATX heading, a
+ * setext underline or thematic break, an HTML block). */
+bool isWrappedLineBlock(const std::string& l) {
+  if (l.empty()) return false;
+  if (l[0] == '|' || l[0] == '<') return true;
+  std::size_t h = 0;
+  while (h < l.size() && l[h] == '#') h++;
+  if (h >= 1 && h <= 6 && (h == l.size() || isWs(l[h]))) return true;
+  if (l.find_first_not_of('=') == std::string::npos) return true;
+  int marks = 0;
+  bool ok = l[0] == '-' || l[0] == '*' || l[0] == '_';
+  for (char ch : l) {
+    if (ch == '-' || ch == '*' || ch == '_') {
+      marks++;
+    } else if (!isWs(ch)) {
+      ok = false;
+      break;
+    }
+  }
+  return ok && marks >= 3;
+}
+
+/* `value` on one line when it is one paragraph wrapped over several lines —
+ * no blank line, and no line that Markdown reads as a block or a block's
+ * start, that ends in a hard break or that starts with a space: its soft line
+ * breaks become spaces (SOM §11.4 rule 13). Unset for any other value, a
+ * one-line value among them. */
+std::optional<std::string> wrappedParagraphJoined(const std::string& value) {
+  if (value.find('\n') == std::string::npos) return std::nullopt;
+  std::vector<std::string> lines = splitLines(value);
+  std::string out;
+  for (std::size_t i = 0; i < lines.size(); i++) {
+    const std::string& l = lines[i];
+    if (l.empty() || l != trimSpace(l) || l.back() == '\\' || isBlockStart(l) ||
+        isWrappedLineBlock(l)) {
+      return std::nullopt;
+    }
+    if (i > 0) out += ' ';
+    out += l;
+  }
+  return out;
+}
+
+/* Whether `value` of form field `f` is written as a table row: not when the
+ * model flags the field `multiParagraph`, nor when the value holds a line
+ * break other than the soft breaks of one wrapped paragraph (a `code` value
+ * keeps every line break), is a block of Markdown, holds a backslash directly
+ * before `|`, or holds `<!--`. There is no length limit. */
+bool isCellValue(const SomFormFieldMeta& f, const std::string& value) {
+  if (f.multiParagraph) return false;
+  if (value.find("\\|") != std::string::npos ||
+      value.find("<!--") != std::string::npos) {
+    return false;
+  }
+  if (value.find('\n') != std::string::npos &&
+      (f.code || !wrappedParagraphJoined(value).has_value())) {
+    return false;
+  }
+  return !isBlockStart(value);
+}
+
+bool isInlineCode(const std::string& value);
+std::string encodeCodeSpan(const std::string& value);
+
+/* The table cell for `value`: a `code: true` value as its inline code span,
+ * every `|` written `\|`. */
+std::string cellText(const SomFormFieldMeta& f, std::string value) {
+  if (auto joined = wrappedParagraphJoined(value)) value = *joined;
+  std::string text = f.code && isInlineCode(value) ? encodeCodeSpan(value) : value;
+  return replaceAllStr(text, "|", "\\|");
+}
+
+/* The class names the meta tree of `root` reaches. */
+const std::set<std::string>& reachedBy(MdCodec& c, const SpecRoot& root) {
+  auto it = c.reach.find(root.type);
+  if (it != c.reach.end()) return it->second;
+  std::set<std::string> found;
+  std::function<void(const SomMetaNode&)> walk = [&](const SomMetaNode& n) {
+    found.insert(n.className);
+    if (n.recursive) return;
+    for (const auto& ch : n.children) walk(*ch);
+    if (n.elementNode != nullptr) walk(*n.elementNode);
+  };
+  std::string err;
+  if (SomMetaTree* tree = c.treeFor(root.type, &err)) walk(*tree->root());
+  return c.reach[root.type] = std::move(found);
+}
+
+std::string classBySectionId(MdCodec& c, const std::string& sectionId) {
+  for (const SpecClass* cls : c.model().classesInOrder()) {
+    if (cls->sectionId == sectionId) return cls->name;
+  }
+  return "";
+}
+
+/* The rendition file of `root`: `<root id in lower case>.tomspecs.md`. */
+std::string fileOfRoot(const SpecRoot& root) {
+  std::string id = !root.sectionId.empty() ? root.sectionId : root.type;
+  return lowerDup(id) + ".tomspecs.md";
+}
+
+/* The rendition file of the root a reference to `className` points into: the
+ * root other than the current one that reaches the class, the most specific
+ * (fewest classes) first; the CodeSpecs projection is never a target. */
+std::string fileFor(MdCodec& c, const std::string& className) {
+  if (className.empty()) return "";
+  const std::string currentType =
+      c.currentRoot != nullptr ? c.currentRoot->type : std::string();
+  std::vector<const SpecRoot*> candidates;
+  for (const SpecRoot& r : c.model().roots) {
+    if (r.type != currentType && !c.model().isGenerationInput(r) &&
+        reachedBy(c, r).count(className) != 0) {
+      candidates.push_back(&r);
+    }
+  }
+  if (candidates.empty()) return "";
+  std::stable_sort(candidates.begin(), candidates.end(),
+                   [&c](const SpecRoot* a, const SpecRoot* b) {
+                     return reachedBy(c, *a).size() < reachedBy(c, *b).size();
+                   });
+  return fileOfRoot(*candidates.front());
+}
+
+/* `[ID](<file>#ID)` for a reference id of form field `f`, `[ID](#ID)` when the
+ * target lives in the document being rendered; unset when no target of `f`
+ * names a section id (`<SECTIONID>.@sectionId`), which has no anchor. */
+std::optional<std::string> linkFor(MdCodec& c, const SomFormFieldMeta& f,
+                                   const std::string& id) {
+  static const std::string kSuffix = ".@sectionId";
+  std::vector<std::string> classIds;
+  for (const auto& t : f.refersTo) {
+    if (t.size() >= kSuffix.size() &&
+        t.compare(t.size() - kSuffix.size(), kSuffix.size(), kSuffix) == 0) {
+      classIds.push_back(t.substr(0, t.size() - kSuffix.size()));
+    }
+  }
+  if (classIds.empty()) return std::nullopt;
+  for (const auto& classId : classIds) {
+    const std::string className = classBySectionId(c, classId);
+    if (!className.empty() && c.currentRoot != nullptr &&
+        reachedBy(c, *c.currentRoot).count(className) != 0) {
+      return "[" + id + "](#" + id + ")";
+    }
+  }
+  const std::string file = fileFor(c, classBySectionId(c, classIds.front()));
+  return file.empty() ? "[" + id + "](#" + id + ")"
+                      : "[" + id + "](" + file + "#" + id + ")";
+}
+
+/* `value` as a table cell, every reference id of a `refersTo` field written
+ * as a link to its section (reading view, DI-14). */
+std::string linkedCellText(MdCodec& c, const SomFormFieldMeta& f,
+                           std::string value) {
+  if (f.refersTo.empty() || f.code) return cellText(f, value);
+  if (auto joined = wrappedParagraphJoined(value)) value = *joined;
+  std::vector<std::string> ids;
+  {
+    std::size_t from = 0;
+    for (;;) {
+      std::size_t comma = value.find(',', from);
+      ids.push_back(trimSpace(value.substr(
+          from, comma == std::string::npos ? std::string::npos : comma - from)));
+      if (comma == std::string::npos) break;
+      from = comma + 1;
+    }
+  }
+  std::string out;
+  for (std::size_t i = 0; i < ids.size(); i++) {
+    if (!isIdShape(ids[i])) return cellText(f, value);
+    std::optional<std::string> link = linkFor(c, f, ids[i]);
+    if (!link.has_value()) return cellText(f, value);
+    if (i > 0) out += ", ";
+    out += *link;
+  }
+  return out;
+}
+
+/* The item class's own form (its class-level `@Form`, a transparent body
+ * slot), or false when the class carries none or more than one. */
+bool itemFormOf(MdCodec& c, const SomMetaNode& element, NodeRel* out) {
+  int found = 0;
+  for (const auto& s : bodySlots(c, element)) {
+    if (kindEq(s.node->kind, kSomMetaKindForm)) {
+      found++;
+      *out = s;
+    }
+  }
+  return found == 1;
+}
+
 /* ======================================================================== */
 /* Export                                                                    */
 /* ======================================================================== */
@@ -961,6 +1397,12 @@ void mdWriteHeading(MdCodec& c, std::string& b, int depth,
     b.push_back('"');
   }
   b += "--> ";
+  // Reading view (DI-3): the section id as an HTML anchor after the id comment
+  // and its keys, so `#<ID>` links jump in every viewer; below a list item or
+  // a `@SameAs` copy the anchor is qualified (SOM §11.2).
+  b += "<a id=\"";
+  b += c.currentTree != nullptr ? anchorOf(c, path) : id;
+  b += "\"></a> ";
   // A heading is one line: a stored headline's line breaks travel as `<br>`.
   b += replaceAllStr(title, "\n", "<br>");
   b.push_back('\n');
@@ -1124,48 +1566,50 @@ bool formHasValues(const SpecDocument& doc, const SomMetaNode& node,
   return !undeclaredFormFields(doc, node, path).empty();
 }
 
-/* Writes a `@Form` section body: the preamble content (when set) followed by one
- * `FieldName: value` group per populated field (SOM §11.4), consecutive groups
- * separated by one blank line. Throws
+/* Writes a `@Form` section body (SOM §11.4): the preamble, then the declared
+ * fields in model order — each run of consecutive cell values one
+ * `| TomSpecField | Value |` table, each paragraph value a `Field:` group at
+ * its place (table – text – table). Groups are one blank line apart. A value
+ * line that would read as a table header is escaped by prepareValue. Throws
  * std::invalid_argument when the form holds a field the model does not
  * declare. */
-void writeForm(std::string& b, const SpecDocument& doc, const SomMetaNode& node,
-               const std::string& path) {
+void writeForm(MdCodec& c, std::string& b, const SpecDocument& doc,
+               const SomMetaNode& node, const std::string& path) {
   checkFormDeclared(doc, node, path);
-  std::string fields;
+  std::vector<std::vector<std::string>> groups;
+  long long table = -1;
   if (node.form.has_value()) {
     for (const auto& f : node.form->fields) {
       const std::string* value = doc.formFieldOpt(path, f.name);
       if (value == nullptr) {
         continue;
       }
-      /* SOM §11.4 rule 2: one blank line between consecutive field groups, so
-       * a markdown viewer renders each field as its own paragraph (and a list
-       * ending a value cannot swallow the next label as a lazy continuation).
-       * Parse trims each value's trailing blank lines, so it is lossless. */
-      if (!fields.empty()) {
-        fields.push_back('\n');
+      const std::string label = formLabel(f.name);
+      if (isCellValue(f, *value)) {
+        if (table < 0) {
+          groups.push_back({"| TomSpecField | Value |", "| --- | --- |"});
+          table = (long long)groups.size() - 1;
+        }
+        groups[table].push_back("| " + label + " | " +
+                                linkedCellText(c, f, *value) + " |");
+        continue;
       }
+      table = -1;
       /* SOM §11.4 rule 8: a single-line code value is written as an inline
        * code span, so markdown leaves it literal (`](` is not a link). */
       std::vector<std::string> plines =
           f.code && isInlineCode(*value)
               ? std::vector<std::string>{encodeCodeSpan(*value)}
               : splitLines(prepareValue(*value, path));
-      fields += formLabel(f.name);
-      fields += ": ";
-      fields += !plines.empty() ? plines[0] : "";
-      fields.push_back('\n');
+      std::vector<std::string> group;
+      group.push_back(label + ": " + (!plines.empty() ? plines[0] : ""));
       for (std::size_t li = 1; li < plines.size(); li++) {
-        const std::string& line = plines[li];
-        if (matchLabelShaped(line)) {
-          fields.push_back(' ');
-          fields += line;
-        } else {
-          fields += line;
-        }
-        fields.push_back('\n');
+        // Any continuation line that could be mistaken for a field-label line
+        // gains one leading space; parse strips it.
+        group.push_back(matchLabelShaped(plines[li]) ? " " + plines[li]
+                                                     : plines[li]);
       }
+      groups.push_back(std::move(group));
     }
   }
 
@@ -1183,12 +1627,18 @@ void writeForm(std::string& b, const SpecDocument& doc, const SomMetaNode& node,
         b += line;
         b.push_back('\n');
       }
-      if (!fields.empty()) {
+      if (!groups.empty()) {
         b.push_back('\n');
       }
     }
   }
-  b += fields;
+  for (std::size_t i = 0; i < groups.size(); i++) {
+    if (i > 0) b.push_back('\n');
+    for (const auto& line : groups[i]) {
+      b += line;
+      b.push_back('\n');
+    }
+  }
   b.push_back('\n');
 }
 
@@ -1295,9 +1745,247 @@ void writeSectionBody(MdCodec& c, std::string& b, const SomMetaNode& node,
     if (needsMarker) {
       marker(slot.rel);
     }
-    writeForm(b, doc, *sn, slotPath);
+    writeForm(c, b, doc, *sn, slotPath);
     written = true;
   }
+}
+
+/* Whether the item at `itemPath` holds values only in its form at
+ * `formPath`, all of them table cells: no preamble, no other content, form or
+ * list, no `codeSpec` / `units`, no headline other than the item's own when
+ * `allowHeadline`. */
+bool isFormOnlyItem(MdCodec& c, const SomMetaNode& form,
+                    const std::string& itemPath, const std::string& formPath,
+                    bool allowHeadline) {
+  const SpecDocument& doc = *c.document();
+  if (!keysUnder(sortedKeys(c, "content"), itemPath).empty()) return false;
+  if (!keysUnder(sortedKeys(c, "lists"), itemPath).empty()) return false;
+  if (!keysUnder(sortedKeys(c, "units"), itemPath).empty()) return false;
+  for (const auto& k : keysUnder(sortedKeys(c, "forms"), itemPath)) {
+    if (k != formPath) return false;
+  }
+  for (const auto& h : keysUnder(sortedKeys(c, "headlines"), itemPath)) {
+    if (!allowHeadline || h != itemPath) return false;
+  }
+  if (hasKeysAt(doc, itemPath) || hasKeysAt(doc, formPath)) return false;
+  if (!undeclaredFormFields(doc, form, formPath).empty()) return false;
+  bool any = false;
+  if (form.form.has_value()) {
+    for (const auto& f : form.form->fields) {
+      const std::string* value = doc.formFieldOpt(formPath, f.name);
+      if (value == nullptr) continue;
+      if (!isCellValue(f, *value)) return false;
+      any = true;
+    }
+  }
+  return any;
+}
+
+/* A list whose every item holds only one reference id becomes one `refs` div
+ * of links in list order (BP-11). All or nothing; returns whether it was
+ * written. */
+bool writeReferenceLine(MdCodec& c, std::string& b, const SomMetaNode& node,
+                        const std::vector<std::string>& items,
+                        const std::string& pattern) {
+  const SomMetaNode* element = node.elementNode.get();
+  if (element == nullptr || element->recursive) return false;
+  const NodeRel* ref = nullptr;
+  std::vector<NodeRel> eff = effectiveChildren(c, *element);
+  for (const auto& nr : eff) {
+    const SomMetaNode& ch = *nr.node;
+    if (!kindEq(ch.kind, kSomMetaKindForm) || !ch.form.has_value() ||
+        ch.form->fields.size() != 1 || ch.form->fields[0].refersTo.empty()) {
+      continue;
+    }
+    bool isRef = false;
+    for (const auto& e : ch.extra) {
+      if (e.annotation == "Reference") isRef = true;
+    }
+    if (isRef) {
+      ref = &nr;
+      break;
+    }
+  }
+  if (ref == nullptr) return false;
+  const SomFormFieldMeta& field = ref->node->form->fields[0];
+  const SpecDocument& doc = *c.document();
+  const std::string member =
+      !node.memberName.empty() ? node.memberName : node.segment();
+  std::vector<std::string> links;
+  for (std::size_t i = 0; i < items.size(); i++) {
+    const std::string& itemPath = items[i];
+    const std::string refPath = specPathJoin(itemPath, ref->rel);
+    const std::string* stored = doc.itemSectionIdOpt(itemPath);
+    const std::string positional =
+        effectiveListItemSectionId(nullptr, pattern, (long long)i + 1, member);
+    if (stored != nullptr && *stored != positional) return false;
+    if (!keysUnder(sortedKeys(c, "content"), itemPath).empty() ||
+        !keysUnder(sortedKeys(c, "lists"), itemPath).empty() ||
+        !keysUnder(sortedKeys(c, "units"), itemPath).empty() ||
+        !keysUnder(sortedKeys(c, "headlines"), itemPath).empty() ||
+        hasKeysAt(doc, itemPath) || hasKeysAt(doc, refPath)) {
+      return false;
+    }
+    for (const auto& k : keysUnder(sortedKeys(c, "forms"), itemPath)) {
+      if (k != refPath) return false;
+    }
+    std::vector<std::string> names = doc.formFieldNames(refPath);
+    if (names.size() != 1 || names[0] != field.name) return false;
+    const std::string* raw = doc.formFieldOpt(refPath, field.name);
+    const std::string id = trimSpace(raw != nullptr ? *raw : std::string());
+    if (!isIdShape(id)) return false;
+    links.push_back(linkFor(c, field, id).value_or(id));
+  }
+  b += "::: {.refs}\n";
+  for (std::size_t i = 0; i < links.size(); i++) {
+    if (i > 0) b += ", ";
+    b += links[i];
+  }
+  b += "\n:::\n\n";
+  return true;
+}
+
+/* A list whose every item is one form of table cells becomes a `records` div
+ * with one table: `Id` (with its anchor), `Title` when any item has a stored
+ * headline, one column per declared field any item populates (BP-11). All or
+ * nothing; returns whether it was written. */
+bool writeRecordTable(MdCodec& c, std::string& b, const SomMetaNode& node,
+                      const std::vector<std::string>& items,
+                      const std::string& pattern) {
+  const SomMetaNode* element = node.elementNode.get();
+  if (element == nullptr || element->recursive) return false;
+  NodeRel slot{nullptr, ""};
+  if (!itemFormOf(c, *element, &slot)) return false;
+  const SomMetaNode& form = *slot.node;
+  for (const auto& itemPath : items) {
+    if (!isFormOnlyItem(c, form, itemPath, specPathJoin(itemPath, slot.rel),
+                        true)) {
+      return false;
+    }
+  }
+  const SpecDocument& doc = *c.document();
+  std::vector<const SomFormFieldMeta*> columns;
+  if (form.form.has_value()) {
+    for (const auto& f : form.form->fields) {
+      for (const auto& itemPath : items) {
+        if (doc.formFieldOpt(specPathJoin(itemPath, slot.rel), f.name) !=
+            nullptr) {
+          columns.push_back(&f);
+          break;
+        }
+      }
+    }
+  }
+  bool withTitle = false;
+  for (const auto& itemPath : items) {
+    if (doc.headlineOpt(itemPath) != nullptr) withTitle = true;
+  }
+  std::vector<std::string> header{"Id"};
+  if (withTitle) header.push_back("Title");
+  for (const auto* f : columns) header.push_back(formLabel(f->name));
+  auto row = [&b](const std::vector<std::string>& cells) {
+    b += "|";
+    for (const auto& cell : cells) {
+      b += " " + cell + " |";
+    }
+    b += "\n";
+  };
+  b += "::: {.records}\n";
+  row(header);
+  row(std::vector<std::string>(header.size(), "---"));
+  const std::string member =
+      !node.memberName.empty() ? node.memberName : node.segment();
+  for (std::size_t i = 0; i < items.size(); i++) {
+    const std::string& itemPath = items[i];
+    const std::string id = effectiveListItemSectionId(
+        doc.itemSectionIdOpt(itemPath), pattern, (long long)i + 1, member);
+    std::vector<std::string> cells{"<a id=\"" + anchorOf(c, itemPath) +
+                                   "\"></a>" + id};
+    if (withTitle) {
+      cells.push_back(replaceAllStr(
+          replaceAllStr(doc.headline(itemPath), "\n", "<br>"), "|", "\\|"));
+    }
+    for (const auto* f : columns) {
+      const std::string* v =
+          doc.formFieldOpt(specPathJoin(itemPath, slot.rel), f->name);
+      cells.push_back(v == nullptr ? std::string() : linkedCellText(c, *f, *v));
+    }
+    row(cells);
+  }
+  b += ":::\n\n";
+  return true;
+}
+
+/* A section whose populated children are all single forms of table cells
+ * with default headlines (or lists of such single-form items) becomes one
+ * `| Section | TomSpecField | Value |` table after its own body; the
+ * children's headings are not written. All or nothing; returns whether it
+ * was written. */
+bool writeSectionTable(MdCodec& c, std::string& b, const SomMetaNode& node,
+                       const std::string& path) {
+  const SpecDocument& doc = *c.document();
+  std::vector<std::string> rows;
+  int children = 0;
+  auto addRows = [&](const std::string& sectionCell, const SomMetaNode& form,
+                     const std::string& formPath) {
+    bool first = true;
+    if (!form.form.has_value()) return;
+    for (const auto& f : form.form->fields) {
+      const std::string* value = doc.formFieldOpt(formPath, f.name);
+      if (value == nullptr) continue;
+      rows.push_back("| " + (first ? sectionCell : std::string()) + " | " +
+                     formLabel(f.name) + " | " +
+                     linkedCellText(c, f, *value) + " |");
+      first = false;
+    }
+  };
+  for (const auto& nr : effectiveChildren(c, node)) {
+    const SomMetaNode& child = *nr.node;
+    const std::string childPath = specPathJoin(path, nr.rel);
+    if (!doc.hasValuesUnder(childPath)) continue;
+    children++;
+    const std::string childId = headingIdOf(c, child);
+    if (kindEq(child.kind, kSomMetaKindForm)) {
+      if (!isFormOnlyItem(c, child, childPath, childPath, false)) return false;
+      addRows("<a id=\"" + anchorOf(c, childPath) + "\"></a>" + childId, child,
+              childPath);
+    } else if (kindEq(child.kind, kSomMetaKindList)) {
+      const SomMetaNode* element = child.elementNode.get();
+      if (element == nullptr || element->recursive) return false;
+      if (doc.headlineOpt(childPath) != nullptr || hasKeysAt(doc, childPath)) {
+        return false;
+      }
+      NodeRel slot{nullptr, ""};
+      if (!itemFormOf(c, *element, &slot)) return false;
+      std::vector<std::string> items = doc.listItems(childPath);
+      std::string pattern = child.sectionIdPattern;
+      if (pattern.empty()) pattern = element->sectionIdPattern;
+      const std::string member =
+          !child.memberName.empty() ? child.memberName : child.segment();
+      for (std::size_t i = 0; i < items.size(); i++) {
+        const std::string& itemPath = items[i];
+        const std::string formPath = specPathJoin(itemPath, slot.rel);
+        if (!isFormOnlyItem(c, *slot.node, itemPath, formPath, false)) {
+          return false;
+        }
+        const std::string itemId = effectiveListItemSectionId(
+            doc.itemSectionIdOpt(itemPath), pattern, (long long)i + 1, member);
+        addRows("<a id=\"" + anchorOf(c, itemPath) + "\"></a>" + childId +
+                    " / " + itemId,
+                *slot.node, formPath);
+      }
+    } else {
+      return false;
+    }
+  }
+  if (children == 0 || rows.empty()) return false;
+  b += "| Section | TomSpecField | Value |\n| --- | --- | --- |\n";
+  for (const auto& r : rows) {
+    b += r;
+    b.push_back('\n');
+  }
+  b.push_back('\n');
+  return true;
 }
 
 // Emits list `node` as its `-LST` container heading (SOM §11.2/§11.5) at `depth`,
@@ -1333,6 +2021,10 @@ void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
   }
   const std::string memberStem =
       !node.memberName.empty() ? node.memberName : node.segment();
+  if (writeReferenceLine(c, b, node, *items, pattern) ||
+      writeRecordTable(c, b, node, *items, pattern)) {
+    return;
+  }
   for (std::size_t i = 0; i < n; i++) {
     const std::string& itemPath = (*items)[i];
     long long pos = (long long)i + 1;
@@ -1359,7 +2051,8 @@ void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
       writeBody(b, present ? v : std::string(), itemPath);
     } else {
       writeSectionBody(c, b, *element, itemPath);
-      if (!element->recursive) {
+      if (!element->recursive &&
+          !writeSectionTable(c, b, *element, itemPath)) {
         // Item-element children go one level deeper again.
         writeChildren(c, b, *element, itemPath, depth + 2);
       }
@@ -1396,14 +2089,16 @@ void writeChildren(MdCodec& c, std::string& b, const SomMetaNode& node,
       mdWriteHeading(c, b, depth, headingIdOf(c, *child),
                      headingTitle(c, path, *child), path, doc.codeSpec(path),
                      doc.units(path));
-      writeForm(b, doc, *child, path);
+      writeForm(c, b, doc, *child, path);
     } else if (kindEq(kind, kSomMetaKindSection) ||
                kindEq(kind, kSomMetaKindComplex)) {
       mdWriteHeading(c, b, depth, headingIdOf(c, *child),
                      headingTitle(c, path, *child), path, doc.codeSpec(path),
                      doc.units(path));
       writeSectionBody(c, b, *child, path);
-      writeChildren(c, b, *child, path, depth + 1);
+      if (!writeSectionTable(c, b, *child, path)) {
+        writeChildren(c, b, *child, path, depth + 1);
+      }
     } else if (kindEq(kind, kSomMetaKindList)) {
       writeListItems(c, b, *child, path, depth);
     }
@@ -1418,6 +2113,10 @@ std::string exportRootImpl(MdCodec& c, const SpecRoot& root) {
                                             : err);
   }
   const SomMetaNode* node = tree->root();
+  c.currentRoot = &root;
+  c.currentTree = tree;
+  c.anchors.clear();
+  c.sortedKeys.clear();
   std::string b;
   std::string kebab = kebabCase(root.title);
   std::string version =
@@ -1439,6 +2138,8 @@ std::string exportRootImpl(MdCodec& c, const SpecRoot& root) {
                  c.document()->units(rootSeg));
   writeSectionBody(c, b, *node, rootSeg);
   writeChildren(c, b, *node, rootSeg, 2);
+  c.currentRoot = nullptr;
+  c.currentTree = nullptr;
   return b;
 }
 
@@ -1558,51 +2259,6 @@ struct MdFrame {
   std::optional<std::vector<std::string>> anchorScope;
   std::optional<std::string> anchorSection;
 };
-
-/* The qualified anchor of a heading `id` (SOM §11.2) and the scope its
- * descendants' anchors are qualified with: below a list item, or in a
- * `@SameAs` copy, an anchor is the ids from the scope's start joined by `/`;
- * elsewhere it is the id itself. `section` is the id of the nearest heading
- * above that is no list container. */
-enum class AnchorKind { kPlain, kContainer, kItem, kCopy };
-
-std::pair<std::string, std::optional<std::vector<std::string>>> qualifyAnchor(
-    const std::optional<std::vector<std::string>>& scope,
-    const std::optional<std::string>& section, const std::string& id,
-    AnchorKind kind) {
-  auto join = [](const std::vector<std::string>& parts) {
-    std::string out;
-    for (std::size_t i = 0; i < parts.size(); i++) {
-      if (i > 0) out += "/";
-      out += parts[i];
-    }
-    return out;
-  };
-  auto withId = [&id](std::vector<std::string> parts) {
-    parts.push_back(id);
-    return parts;
-  };
-  const std::string joined = scope.has_value() ? join(withId(*scope)) : id;
-  switch (kind) {
-    case AnchorKind::kContainer:
-      return {joined, scope};
-    case AnchorKind::kItem:
-      return {joined, withId(scope.value_or(std::vector<std::string>{}))};
-    case AnchorKind::kCopy: {
-      std::vector<std::string> sc =
-          scope.has_value()
-              ? *scope
-              : (section.has_value() ? std::vector<std::string>{*section}
-                                     : std::vector<std::string>{});
-      sc.push_back(id);
-      return {join(sc), sc};
-    }
-    case AnchorKind::kPlain:
-      break;
-  }
-  if (!scope.has_value()) return {joined, std::nullopt};
-  return {joined, withId(*scope)};
-}
 
 /* The title with the renderer's anchor removed (DI-3): `<a id="X"></a>` at its
  * start, X the section id or its qualified anchor, then `<br>` as line
@@ -2863,20 +3519,7 @@ void MdParser::itemIdentity(const SomMetaNode& listNode, const std::string& id,
 /* Whether `n` is a `@SameAs` copy (SOM §11.2): its anchor and its
  * descendants' are qualified with the section above it. */
 bool MdParser::isCopyNode(const SomMetaNode& n) const {
-  if (n.memberName.empty() || n.parent == nullptr) {
-    return false;
-  }
-  const SpecClass* cls = codec_.model().classNamed(n.parent->className);
-  const SpecField* f = cls != nullptr ? cls->fieldNamed(n.memberName) : nullptr;
-  if (f == nullptr) {
-    return false;
-  }
-  for (const auto& a : f->annotations) {
-    if (a.name == "SameAs") {
-      return true;
-    }
-  }
-  return false;
+  return isCopyNodeOf(codec_.model(), n);
 }
 
 void MdParser::openHeading(int level, const std::string& rest,
