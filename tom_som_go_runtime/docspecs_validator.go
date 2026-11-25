@@ -25,6 +25,7 @@ package somruntime
 import (
 	"errors"
 	"regexp"
+	"sort"
 	"strings"
 	"unicode"
 )
@@ -80,6 +81,19 @@ const (
 	DocSpecsRuleDivInsideAnnotation = "divInsideAnnotation"
 	// DocSpecsRuleRejectedBlock: a `rejected` block waits for its resolution.
 	DocSpecsRuleRejectedBlock = "rejectedBlock"
+
+	// The reading view's list bodies and tables (DocSpecs specification,
+	// Findings in list bodies and tables).
+
+	// DocSpecsRuleMalformedBlock: a form, section or record table without a
+	// matching delimiter row, a row of another cell count, a field given twice
+	// (the first kept), a refs / records div beside other text or item
+	// headings, a records div holding no table or one whose first column is
+	// not Id, an unclosed refs / records fence.
+	DocSpecsRuleMalformedBlock = "malformedBlock"
+	// DocSpecsRuleUnknownField: a form-table row or a record-table column
+	// naming no field of its form.
+	DocSpecsRuleUnknownField = "unknownField"
 )
 
 // DocSpecsAllRules is the complete §14 vocabulary, in declaration order — the
@@ -109,6 +123,8 @@ var DocSpecsAllRules = []string{
 	DocSpecsRuleAnnotationInsideDiv,
 	DocSpecsRuleDivInsideAnnotation,
 	DocSpecsRuleRejectedBlock,
+	DocSpecsRuleMalformedBlock,
+	DocSpecsRuleUnknownField,
 }
 
 // DocSpecsViolation is one validation finding.
@@ -195,15 +211,28 @@ func ParseDocSpecsDocument(text string) *DocSpecsDocument {
 					continue
 				}
 			}
-			if m := mdHeadingLineRE.FindStringSubmatch(line); m != nil {
-				level := len(m[1])
-				rest := m[2]
+			m := mdHeadingLineRE.FindStringSubmatch(line)
+			divLevel, divText, isDiv := 0, "", false
+			if m == nil {
+				divLevel, divText, isDiv = docspecsStyledDivHeading(line)
+			}
+			if m != nil || isDiv {
+				var level int
+				var rest string
+				if m != nil {
+					level = len(m[1])
+					rest = m[2]
+				} else {
+					level = divLevel
+					rest = strings.TrimSpace(divText)
+				}
 				var section *DocSpecsSection
 				if c := mdHeadlineCommentRE.FindStringSubmatch(rest); c != nil {
 					// c[2] is the optional key=value region (codespecs_mapping.md §9.2
-					// codeSpec); the title is c[3]. For a bare heading comment with no title,
+					// codeSpec); the title is c[3] without the section's own anchor
+					// (Section Anchors). For a bare heading comment with no title,
 					// fall back to the whole heading text.
-					title := strings.TrimSpace(c[3])
+					title := StripOwnAnchor(strings.TrimSpace(c[3]), c[1])
 					if title == "" {
 						title = rest
 					}
@@ -748,7 +777,7 @@ func (val *DocSpecsValidator) Validate(doc *DocSpecsDocument) []*DocSpecsViolati
 			SectionID: extra.ID,
 		})
 	}
-	v = val.validateDocumentSections(root, v)
+	v = val.validateDocumentSections(docspecsNodeOf(root), v)
 	v = val.validateNotation(doc, v)
 	v = validateIDPaths(doc.Sections, v)
 	return v
@@ -844,27 +873,36 @@ func validateIDPaths(
 	return v
 }
 
+// resolveChild resolves a walked section's type: a virtual list item's is the
+// schema's; a section id resolving to none is DocSpecsRuleUnknownSection.
 func (val *DocSpecsValidator) resolveChild(
-	section *DocSpecsSection, v []*DocSpecsViolation,
+	section *docspecsNode, v []*DocSpecsViolation,
 ) (*DocSpecsSectionType, []*DocSpecsViolation) {
-	if section.ID == "" {
+	if section.typ != nil {
+		return section.typ, v // a virtual list item: the schema's type.
+	}
+	if section.id == "" {
 		return nil, v // already reported as MALFORMED_HEADING by the parse.
 	}
-	t := val.Schema.ResolveSectionType(section.ID)
+	t := val.Schema.ResolveSectionType(section.id)
 	if t == nil {
 		v = append(v, &DocSpecsViolation{
 			Rule: DocSpecsRuleUnknownSection,
-			Line: section.Line,
-			Message: "section id \"" + section.ID + "\" resolves to no " +
+			Line: section.line,
+			Message: "section id \"" + section.id + "\" resolves to no " +
 				"section-type of the schema",
-			SectionID: section.ID,
+			SectionID: section.id,
 		})
 	}
 	return t, v
 }
 
+// validateDocumentSections: root children must occupy `document: sections:`
+// slots, in their order (a `position: any` slot's type stands anywhere);
+// required slots must be present. A section table in the root's body rebuilds
+// root children as virtual sections first.
 func (val *DocSpecsValidator) validateDocumentSections(
-	root *DocSpecsSection, v []*DocSpecsViolation,
+	root *docspecsNode, v []*DocSpecsViolation,
 ) []*DocSpecsViolation {
 	// Occurrences per section-type name.
 	counts := map[string]int{}
@@ -872,6 +910,8 @@ func (val *DocSpecsValidator) validateDocumentSections(
 	for _, slot := range val.Schema.DocumentSections {
 		slotTypes[slot.SectionType] = true
 	}
+	v = val.expandSectionTables(root,
+		func(t *DocSpecsSectionType) bool { return slotTypes[t.Name] }, v)
 	// The slots in the order of `document: sections:`; "" marks a
 	// `position: any` slot, which the order check leaves out.
 	anywhere := map[string]bool{}
@@ -886,7 +926,7 @@ func (val *DocSpecsValidator) validateDocumentSections(
 		}
 	}
 	lastIndex := -1
-	for _, child := range root.Children {
+	for _, child := range root.children {
 		var t *DocSpecsSectionType
 		t, v = val.resolveChild(child, v)
 		if t == nil {
@@ -895,10 +935,10 @@ func (val *DocSpecsValidator) validateDocumentSections(
 		if !slotTypes[t.Name] {
 			v = append(v, &DocSpecsViolation{
 				Rule: DocSpecsRuleUnknownSection,
-				Line: child.Line,
+				Line: child.line,
 				Message: "section-type \"" + t.Name + "\" is not a top-level " +
 					"document section",
-				SectionID: child.ID,
+				SectionID: child.id,
 			})
 			continue
 		}
@@ -913,7 +953,7 @@ func (val *DocSpecsValidator) validateDocumentSections(
 		if !slot.Optional && counts[slot.SectionType] == 0 {
 			v = append(v, &DocSpecsViolation{
 				Rule: DocSpecsRuleMissingRequiredSection,
-				Line: root.Line,
+				Line: root.line,
 				Message: "required document section \"" + slotKey + "\" (type \"" +
 					slot.SectionType + "\") is missing",
 				SectionID: slotKey,
@@ -928,7 +968,7 @@ func (val *DocSpecsValidator) validateDocumentSections(
 // type anywhere; a slot before the last one taken is
 // DocSpecsRuleSectionOutOfOrder. Answers the last slot taken afterwards.
 func docspecsCheckOrder(
-	child *DocSpecsSection, typeName string, order []string, lastIndex int,
+	child *docspecsNode, typeName string, order []string, lastIndex int,
 	v []*DocSpecsViolation,
 ) (int, []*DocSpecsViolation) {
 	index := -1
@@ -956,10 +996,10 @@ func docspecsCheckOrder(
 	if index < lastIndex {
 		v = append(v, &DocSpecsViolation{
 			Rule: DocSpecsRuleSectionOutOfOrder,
-			Line: child.Line,
-			Message: "section \"" + child.ID + "\" (type \"" + typeName +
+			Line: child.line,
+			Message: "section \"" + child.id + "\" (type \"" + typeName +
 				"\") stands out of the order of the document sections",
-			SectionID: child.ID,
+			SectionID: child.id,
 		})
 		return lastIndex, v
 	}
@@ -967,26 +1007,33 @@ func docspecsCheckOrder(
 }
 
 func (val *DocSpecsValidator) validateSection(
-	section *DocSpecsSection, t *DocSpecsSectionType, v []*DocSpecsViolation,
+	section *docspecsNode, t *DocSpecsSectionType, v []*DocSpecsViolation,
 ) []*DocSpecsViolation {
-	if pc := t.PatternCheck; pc != nil && section.ID != "" && !pc.Matches(section.ID) {
+	if pc := t.PatternCheck; pc != nil && section.id != "" && !pc.Matches(section.id) {
 		message := pc.ErrorMessage
 		if message == "" {
-			message = "section id \"" + section.ID + "\" does not match pattern \"" +
+			message = "section id \"" + section.id + "\" does not match pattern \"" +
 				pc.Pattern + "\""
 		}
 		v = append(v, &DocSpecsViolation{
 			Rule:      DocSpecsRuleIDPatternMismatch,
-			Line:      section.Line,
+			Line:      section.line,
 			Message:   message,
-			SectionID: section.ID,
+			SectionID: section.id,
 		})
 	}
+	// List bodies and section tables become virtual sections before anything
+	// is counted or checked (DocSpecs specification, List Bodies).
+	v = val.expandSectionTables(section, func(st *DocSpecsSectionType) bool {
+		_, ok := t.SubsectionTypes[st.Name]
+		return ok
+	}, v)
+	v = val.expandListBody(section, t, v)
 	v = val.validateText(section, t, v)
 	v = val.validateFormat(section, t, v)
 	// Occurrences per subsection type name.
 	counts := map[string]int{}
-	for _, child := range section.Children {
+	for _, child := range section.children {
 		var childType *DocSpecsSectionType
 		childType, v = val.resolveChild(child, v)
 		if childType == nil {
@@ -995,10 +1042,10 @@ func (val *DocSpecsValidator) validateSection(
 		if _, ok := t.SubsectionTypes[childType.Name]; !ok {
 			v = append(v, &DocSpecsViolation{
 				Rule: DocSpecsRuleUnknownSection,
-				Line: child.Line,
+				Line: child.line,
 				Message: "section-type \"" + childType.Name + "\" is not an " +
 					"allowed subsection of \"" + t.Name + "\"",
-				SectionID: child.ID,
+				SectionID: child.id,
 			})
 			continue
 		}
@@ -1015,28 +1062,28 @@ func (val *DocSpecsValidator) validateSection(
 			if count == 0 {
 				v = append(v, &DocSpecsViolation{
 					Rule: DocSpecsRuleMissingRequiredSection,
-					Line: section.Line,
+					Line: section.line,
 					Message: "required subsection \"" + subKey + "\" of \"" +
 						t.Name + "\" is missing",
-					SectionID: section.ID,
+					SectionID: section.id,
 				})
 			} else {
 				v = append(v, &DocSpecsViolation{
 					Rule: DocSpecsRuleTooFewItems,
-					Line: section.Line,
+					Line: section.line,
 					Message: "subsection \"" + subKey + "\" occurs " + itoa(count) +
 						" time(s), minimum is " + itoa(rule.MinCount),
-					SectionID: section.ID,
+					SectionID: section.id,
 				})
 			}
 		}
 		if rule.MaxCount != nil && count > *rule.MaxCount {
 			v = append(v, &DocSpecsViolation{
 				Rule: DocSpecsRuleTooManyItems,
-				Line: section.Line,
+				Line: section.line,
 				Message: "subsection \"" + subKey + "\" occurs " + itoa(count) +
 					" time(s), maximum is " + itoa(*rule.MaxCount),
-				SectionID: section.ID,
+				SectionID: section.id,
 			})
 		}
 	}
@@ -1044,22 +1091,28 @@ func (val *DocSpecsValidator) validateSection(
 }
 
 func (val *DocSpecsValidator) validateText(
-	section *DocSpecsSection, t *DocSpecsSectionType, v []*DocSpecsViolation,
+	section *docspecsNode, t *DocSpecsSectionType, v []*DocSpecsViolation,
 ) []*DocSpecsViolation {
 	if t.Format != "" {
 		if _, ok := val.Schema.FormTypes[t.Format]; ok {
 			return v // form sections carry fields, not body text.
 		}
 	}
-	text := section.Text()
+	// A list body or section table already read is blanked in the body, so a
+	// container written with one counts as empty (`max-text-length: 0`); the
+	// rendition's marker and generated block are no text either.
+	text := docspecsWithoutGeneratedText(section.text())
 	if t.TextRequired && len(text) == 0 {
 		v = append(v, &DocSpecsViolation{
 			Rule:      DocSpecsRuleTextRequired,
-			Line:      section.Line,
+			Line:      section.line,
 			Message:   "section requires body text but has none",
-			SectionID: section.ID,
+			SectionID: section.id,
 		})
 		return v
+	}
+	if len(text) == 0 {
+		return v // an empty body passes the text-length bounds.
 	}
 	length := len([]rune(text))
 	minLen := t.MinTextLength
@@ -1075,19 +1128,21 @@ func (val *DocSpecsValidator) validateText(
 		}
 		v = append(v, &DocSpecsViolation{
 			Rule: DocSpecsRuleTextLengthOut,
-			Line: section.Line,
+			Line: section.line,
 			Message: "body text length " + itoa(length) + " is outside [" +
 				minStr + ", " + maxStr + "]",
-			SectionID: section.ID,
+			SectionID: section.id,
 		})
 	}
 	return v
 }
 
 func (val *DocSpecsValidator) validateFormat(
-	section *DocSpecsSection, t *DocSpecsSectionType, v []*DocSpecsViolation,
+	section *docspecsNode, t *DocSpecsSectionType, v []*DocSpecsViolation,
 ) []*DocSpecsViolation {
 	format := t.Format
+	// Values a section table or list body gave a section the schema declares
+	// no form for are virtual body lines, counted in its text (docspecsNode.text).
 	if format == "" {
 		return v
 	}
@@ -1096,7 +1151,7 @@ func (val *DocSpecsValidator) validateFormat(
 	}
 	fence := &MarkdownFenceTracker{}
 	sawFence := false
-	for _, raw := range section.BodyLines {
+	for _, raw := range section.body {
 		fence.Feed(raw)
 		if fence.InFence() {
 			sawFence = true
@@ -1105,65 +1160,151 @@ func (val *DocSpecsValidator) validateFormat(
 	if !sawFence {
 		v = append(v, &DocSpecsViolation{
 			Rule: DocSpecsRuleFormatMismatch,
-			Line: section.Line,
+			Line: section.line,
 			Message: "section format \"" + format + "\" demands a fenced code " +
 				"block, but the body contains none",
-			SectionID: section.ID,
+			SectionID: section.id,
 		})
 	}
 	return v
 }
 
+// docspecsOccurrence is one occurrence of a form field: its label, value and
+// line, and whether a `Field:` label gave it.
+type docspecsOccurrence struct {
+	label     string
+	value     string
+	line      int
+	fromLabel bool
+}
+
+// validateForm parses the section body in the DocSpecs plain-text form format
+// (`FieldName: value`, case-insensitive labels, continuation lines) and its
+// form tables (`TomSpecField | Value`), takes the values a section table or
+// list body gave the section, and checks required fields + field
+// pattern-checks. A field given twice keeps its first occurrence and reports
+// the second (DocSpecsRuleMalformedBlock): a `Field:` label counts as given
+// even with an empty value, a row only with a value. A row naming no field is
+// DocSpecsRuleUnknownField.
 func (val *DocSpecsValidator) validateForm(
-	section *DocSpecsSection, form *DocSpecsFormType, v []*DocSpecsViolation,
+	section *docspecsNode, form *DocSpecsFormType, v []*DocSpecsViolation,
 ) []*DocSpecsViolation {
 	// Lowered name → field.
 	byLower := map[string]*DocSpecsFormField{}
 	for _, f := range form.Fields {
 		byLower[strings.ToLower(f.Name)] = f
 	}
-	// Field name → collected value lines.
-	values := map[string][]string{}
-	// Field name → 1-based label line.
-	fieldLines := map[string]int{}
+	var occurrences []docspecsOccurrence
 	fence := &MarkdownFenceTracker{}
+	body := section.body
+	lineOf := func(k int) int { return section.bodyStartLine() + k }
 	current := ""
 	haveCurrent := false
-	for i, raw := range section.BodyLines {
+	currentLine := 0
+	var currentLines []string
+	flush := func() {
+		if !haveCurrent {
+			return
+		}
+		occurrences = append(occurrences, docspecsOccurrence{
+			current, strings.TrimSpace(strings.Join(currentLines, "\n")), currentLine, true,
+		})
+		haveCurrent = false
+		currentLines = nil
+	}
+	for i := 0; i < len(body); i++ {
+		raw := body[i]
 		if !fence.InFence() {
+			if h := mdLayoutTableHeaderRE.FindStringSubmatch(raw); h != nil && h[1] == "" {
+				// A form table ends the open field; its rows are fields.
+				flush()
+				var table docspecsTable
+				table, v = docspecsReadTable(body, i, lineOf, section.id, v)
+				for _, row := range table.rows {
+					occurrences = append(occurrences, docspecsOccurrence{
+						row.cells[0], docspecsCellValue(row.cells[1]), lineOf(row.index), false,
+					})
+				}
+				i = table.end - 1
+				continue
+			}
 			if m := mdFieldLabelRE.FindStringSubmatch(raw); m != nil {
 				if field, ok := byLower[strings.ToLower(m[1])]; ok {
+					flush()
 					current = field.Name
 					haveCurrent = true
-					values[current] = []string{m[2]}
-					fieldLines[current] = section.BodyStartLine() + i
+					currentLine = lineOf(i)
+					currentLines = []string{m[2]}
 					fence.Feed(raw)
 					continue
 				}
 			}
 		}
 		if haveCurrent {
-			values[current] = append(values[current], raw)
+			currentLines = append(currentLines, raw)
 		}
 		fence.Feed(raw)
 	}
-	for _, field := range form.Fields {
-		value := ""
-		if collected, ok := values[field.Name]; ok {
-			value = strings.TrimSpace(strings.Join(collected, "\n"))
+	flush()
+	for _, value := range section.values {
+		occurrences = append(occurrences, docspecsOccurrence{
+			value.label, value.value, value.line, false,
+		})
+	}
+	// Source order decides which occurrence is the first; values from a
+	// parent's section table stand above the section's own body.
+	sort.SliceStable(occurrences, func(a, b int) bool {
+		return occurrences[a].line < occurrences[b].line
+	})
+
+	// Field name → value.
+	values := map[string]string{}
+	// Field name → 1-based line of the occurrence kept.
+	fieldLines := map[string]int{}
+	given := map[string]bool{}
+	for _, o := range occurrences {
+		field, ok := byLower[strings.ToLower(o.label)]
+		if !ok {
+			v = append(v, &DocSpecsViolation{
+				Rule:      DocSpecsRuleUnknownField,
+				Line:      o.line,
+				Message:   "row \"" + o.label + "\" names no field of \"" + form.Name + "\"",
+				SectionID: section.id,
+			})
+			continue
 		}
+		if !o.fromLabel && o.value == "" {
+			continue
+		}
+		if given[field.Name] {
+			v = append(v, &DocSpecsViolation{
+				Rule:      DocSpecsRuleMalformedBlock,
+				Line:      o.line,
+				Message:   "field \"" + field.Name + "\" given twice",
+				SectionID: section.id,
+			})
+			continue
+		}
+		given[field.Name] = true
+		fieldLines[field.Name] = o.line
+		if o.value != "" {
+			values[field.Name] = o.value
+		}
+	}
+	for _, field := range form.Fields {
+		value := values[field.Name]
 		if field.Required && value == "" {
 			v = append(v, &DocSpecsViolation{
 				Rule: DocSpecsRuleMissingRequiredField,
-				Line: section.Line,
+				Line: section.line,
 				Message: "required form field \"" + field.Name + "\" of \"" +
 					form.Name + "\" is missing",
-				SectionID: section.ID,
+				SectionID: section.id,
 			})
 			continue
 		}
 		if pc := field.PatternCheck; pc != nil && value != "" && !pc.Matches(value) {
-			line := section.Line
+			line := section.line
 			if l, ok := fieldLines[field.Name]; ok {
 				line = l
 			}
@@ -1176,7 +1317,7 @@ func (val *DocSpecsValidator) validateForm(
 				Rule:      DocSpecsRuleFieldPatternMismatch,
 				Line:      line,
 				Message:   message,
-				SectionID: section.ID,
+				SectionID: section.id,
 			})
 		}
 	}

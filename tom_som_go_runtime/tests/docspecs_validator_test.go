@@ -560,3 +560,122 @@ func TestDocspecsDr7Acceptance(t *testing.T) {
 	}
 	mdCheck(t, "dr7.violationsEmpty", len(violations) == 0, detail)
 }
+
+// ---------------------------------------------------------------------------
+// The reading view (DocSpecs specification, List Bodies; Findings in list
+// bodies and tables): form tables, refs / records list bodies, styled-div
+// headings and the section's own anchor.
+// ---------------------------------------------------------------------------
+
+// dvTableHeader is dvValidDoc's header section written as a form table.
+const dvTableHeader = "| TomSpecField | Value |\n| --- | --- |\n"
+
+func dvWithHeader(header string) string {
+	return strings.Replace(dvValidDoc, "Author: Alice\nReviewer: Bob\n", header, 1)
+}
+
+func TestDocspecsFormTableValid(t *testing.T) {
+	v := dvValidate(t, dvWithHeader(dvTableHeader+"| author | Alice |\n| reviewer | Bob |\n"))
+	mdCheck(t, "formTable.valid", len(v) == 0, dvDetail(v))
+}
+
+func TestDocspecsFormTableMissingField(t *testing.T) {
+	v := dvValidate(t, dvWithHeader(dvTableHeader+"| reviewer | Bob |\n"))
+	mdCheck(t, "formTable.missing.count", len(v) == 1, dvDetail(v))
+	if len(v) > 0 {
+		mdCheck(t, "formTable.missing.rule",
+			v[0].Rule == som.DocSpecsRuleMissingRequiredField, v[0].String())
+	}
+}
+
+func TestDocspecsFormTablePatternAtRow(t *testing.T) {
+	v := dvValidate(t, dvWithHeader(dvTableHeader+"| author | Alice |\n| reviewer | bob |\n"))
+	mdCheck(t, "formTable.pattern.count", len(v) == 1, dvDetail(v))
+	if len(v) > 0 {
+		mdCheck(t, "formTable.pattern.rule",
+			v[0].Rule == som.DocSpecsRuleFieldPatternMismatch, v[0].String())
+		mdCheck(t, "formTable.pattern.line", v[0].Line == 15, fmt.Sprintf("%d", v[0].Line))
+	}
+}
+
+func TestDocspecsFormTableUnknownFieldAndTwice(t *testing.T) {
+	v := dvValidate(t, dvWithHeader(dvTableHeader+
+		"| author | Alice |\n| author | Carol |\n| editor | Dan |\n"))
+	rules := make([]string, 0, len(v))
+	for _, x := range v {
+		rules = append(rules, x.Rule)
+	}
+	mdCheck(t, "formTable.rules",
+		strings.Join(rules, ",") == som.DocSpecsRuleMalformedBlock+","+som.DocSpecsRuleUnknownField,
+		dvDetail(v))
+}
+
+func TestDocspecsFormTableWithoutDelimiter(t *testing.T) {
+	v := dvValidate(t, dvWithHeader("| TomSpecField | Value |\n| author | Alice |\n"))
+	mdCheck(t, "formTable.delimiter.first",
+		len(v) > 0 && v[0].Rule == som.DocSpecsRuleMalformedBlock &&
+			v[0].Message == "table without its delimiter row", dvDetail(v))
+}
+
+func TestDocspecsRefsListBodyCounts(t *testing.T) {
+	// A one-subsection-type list container: its refs line gives its items.
+	schema := dvSchemaFrom(t, strings.Replace(dvSchemaYaml,
+		"      gsum:\n        max-count: 1\n", "", 1))
+	md := strings.Replace(dvValidDoc,
+		"### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+		"::: refs\nA, B\n:::\n", 1)
+	v := som.NewDocSpecsValidator(schema).ValidateMarkdown(md)
+	// The positional item ids GOALS-1, GOALS-2 miss goal-item's id pattern:
+	// the items are there, and checked.
+	rules := make([]string, 0, len(v))
+	for _, x := range v {
+		rules = append(rules, x.Rule+"@"+x.SectionID)
+	}
+	mdCheck(t, "refs.items", strings.Join(rules, ",") ==
+		"idPatternMismatch@GOALS-1,idPatternMismatch@GOALS-2", dvDetail(v))
+
+	// In a container of two subsection types the div is malformed.
+	v = dvValidate(t, md)
+	mdCheck(t, "refs.notAList", len(v) > 0 && v[0].Rule == som.DocSpecsRuleMalformedBlock &&
+		strings.Contains(v[0].Message, "not a list container"), dvDetail(v))
+}
+
+func TestDocspecsRefsBesideText(t *testing.T) {
+	md := strings.Replace(dvValidDoc,
+		"### <!--[GOAL-ITEM-1]--> Goal 1",
+		"::: refs\nA\n:::\n\n### <!--[GOAL-ITEM-1]--> Goal 1", 1)
+	v := dvValidate(t, md)
+	mdCheck(t, "refs.beside",
+		len(v) == 1 && v[0].Rule == som.DocSpecsRuleMalformedBlock &&
+			strings.Contains(v[0].Message, "item headings"), dvDetail(v))
+}
+
+func TestDocspecsStyledDivHeading(t *testing.T) {
+	doc := som.ParseDocSpecsDocument("# <!--[A]--> A\n\n" +
+		"<div class=\"heading7\"><!--[B]--> B &amp; C</div>\n\n" +
+		"<div class=\"heading6\"><!--[X]--> X</div>\n")
+	root := doc.Sections[0]
+	mdCheck(t, "styledDiv.child", len(root.Children) == 1 && root.Children[0].ID == "B" &&
+		root.Children[0].Level == 7 && root.Children[0].Title == "B & C")
+	mdCheck(t, "styledDiv.heading6IsContent",
+		len(root.Children) == 1 && strings.Contains(root.Children[0].Text(), "heading6"))
+}
+
+func TestDocspecsStripOwnAnchor(t *testing.T) {
+	mdCheck(t, "anchor.own", som.StripOwnAnchor(`<a id="X"></a> Title`, "X") == "Title")
+	mdCheck(t, "anchor.qualified", som.StripOwnAnchor(`<a id="L/X"></a>Title`, "X") == "Title")
+	mdCheck(t, "anchor.emptySegment",
+		som.StripOwnAnchor(`<a id="/X"></a>Title`, "X") == `<a id="/X"></a>Title`)
+	mdCheck(t, "anchor.other",
+		som.StripOwnAnchor(`<a id="Y"></a>Title`, "X") == `<a id="Y"></a>Title`)
+	doc := som.ParseDocSpecsDocument("# <!--[A]--> <a id=\"A\"></a>Alpha\n")
+	mdCheck(t, "anchor.parse", doc.Sections[0].Title == "Alpha", doc.Sections[0].Title)
+}
+
+func TestDocspecsAllRulesHasReadingViewRules(t *testing.T) {
+	joined := "," + strings.Join(som.DocSpecsAllRules, ",") + ","
+	mdCheck(t, "allRules.count", len(som.DocSpecsAllRules) == 24,
+		fmt.Sprintf("%d", len(som.DocSpecsAllRules)))
+	mdCheck(t, "allRules.malformedBlock", strings.Contains(joined, ",malformedBlock,"))
+	mdCheck(t, "allRules.unknownField", strings.Contains(joined, ",unknownField,"))
+}

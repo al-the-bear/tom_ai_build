@@ -952,12 +952,8 @@ func testDocSpecs(c *checker, t *testing.T) {
 	readJSON(t, "docspecs_cases.json", &cases)
 	covered := map[string]bool{}
 	for _, cc := range cases {
-		// The reading view's table forms (`readingView`) are read by the Dart and
-		// TypeScript runtimes only until their ports (runtime_parity.md § Reading view);
-		// the reading notation's case (a rejected block, RN-11) runs since its scanner port.
-		if cc.ReadingView && !readingNotationDocSpecsCases[cc.Name] {
-			continue
-		}
+		// The reading view's cases (`readingView`: table forms, list bodies,
+		// styled-div headings) run here as in Dart and TypeScript (tspubnondart65).
 		var got [][3]string
 		for _, v := range validator.ValidateMarkdown(cc.Markdown) {
 			got = append(got, [3]string{v.Rule, v.SectionID, itoa(v.Line)})
@@ -988,13 +984,6 @@ func testDocSpecs(c *checker, t *testing.T) {
 		}
 	}
 	c.check("docspecs.ruleCoverage", len(uncovered) == 0, "uncovered: "+join(uncovered))
-}
-
-// readingNotationDocSpecsCases are the `readingView` cases of
-// docspecs_cases.json the reading notation's scanner port (spec_notation.go)
-// makes run: the rest wait for the reading view's validator port.
-var readingNotationDocSpecsCases = map[string]bool{
-	"readingView: rejected block": true,
 }
 
 // notationTable mirrors corpus/notation_cases.json: text values with the
