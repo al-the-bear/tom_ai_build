@@ -62,6 +62,7 @@ anything that computes the path rather than knowing it.
 | `scan_notation` | The reading notation of one text value: its divs, spans and citations and the notation's findings, which the DocSpecs validator reports as rules |
 | `strip_notation_text` | The strip of one value (SOM §11.10): the secondary prose of named kinds dropped, unmarked or moved to an appendix, with the pieces that restore the value |
 | `SpecDocumentStrip.strip` | The strip of a document (SOM §11.10): every value stripped into a copy; given a model, the emptying rule, the list items left empty removed, and the readable rendition — the readable header after the docspec line (`SpecReadableHeader`, SOM §11.1), styled-div headings below level six with `heading_divs`, the appendix *Notes* after `<!-- readable-appendix -->` — checked to read back and to add no finding |
+| `merge_stripped_value`, `SpecStripMerge.merge` | The merge back (SOM §11.10): an edited value, or a whole edited `.readable.md`, merged onto the original with every stripped piece put back; conflicts and refused structural edits reported, a stale original merged three ways from the original at the export (`SpecStripMerge.git_show_file`) |
 | the editing-facade bases | What the generated `tom_som_python_v0` types extend |
 
 The full catalogue is the [README](../README.md); this guide is about using

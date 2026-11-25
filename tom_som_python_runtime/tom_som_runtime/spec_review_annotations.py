@@ -2230,6 +2230,13 @@ def _mark_keeping_change_comments(current: str, text: str) -> "SpecMarkedChange"
     return SpecMarkedChange(out, exact=result.exact)
 
 
+def annotation_issues_text(value: str) -> list[str]:
+    """The malformed review annotations of *value* (SOM §11.9.3), one message
+    each; empty when every block and mark is well formed. What a merge back
+    (SOM §11.10) checks a merged value against."""
+    return list(_parse(value).malformed)
+
+
 def count_annotations_text(value: str) -> int:
     """How many comment and question blocks and inline marks *value* holds:
     what :func:`strip_annotations_text` removes, as a strip's report counts it

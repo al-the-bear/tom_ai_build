@@ -2,6 +2,33 @@
 
 ## Unreleased
 
+- **The merge back** (SOM §11.10), as Dart, TypeScript, C, JavaScript, C++
+  and Java have it: `merge_stripped_value(original, stripped, edited, pieces)`
+  merges the edited text of one value onto its original, each piece the
+  strip removed put back where the edit left its neighbours, after an edited
+  run (`SpecStripMergePlaced`, for an author to check) or refused as a
+  conflict (`SpecStripMergeConflict`: `crossesBoundary`, `sentenceRemoved`,
+  `stripTextEdited`, `unplaceable`, `notation`, `annotations`,
+  `changedBothSides`, `notStrippedBack`, `newFinding`), into a
+  `SpecStripValueMerge`. `SpecStripMerge.merge(original, edited, *, model,
+  schema=None, root_type=None, options=None, current_revision=None,
+  base=None, load_base=None, file_stem=None, document_files=None)` merges a
+  whole edited `.readable.md`: the readable header names the switches, a
+  stale original (`current_revision`) merges three ways from the original at
+  the export (`base`, or `load_base`; `SpecStripMerge.git_show_file` reads it
+  from git with `subprocess`, refusing a commit that starts with `-`),
+  structural edits are refused (`SpecStripMergeRefusal`), a wrapped
+  one-paragraph value read back on one line is no edit (SOM §11.4 rule 13),
+  and the merged document must change only the merged values, strip back to
+  the edited text and add no finding (`SpecStripMergeResult` with `merged`,
+  `ok`, `report` and `exit_code`; `SpecStripMergedValue`;
+  `spec_strip_merge_label`). Offsets count UTF-16 code units, as the strip's.
+  `annotation_issues_text` lists a value's malformed review annotations. The
+  conformance runner reads `strip_merge_cases.json` (`valueCases`,
+  `documentCases`; 1731 -> 1776 checks); `spec_document_merge_test.py` is new
+  (112 checks: the merge over the strip corpus, text beyond ASCII and the base
+  read from a scratch git repository).
+
 - **The strip of a document** (SOM §11.10): `SpecDocumentStrip.strip(document,
   options, *, model=None, schema=None, root_type=None, file_stem=None,
   document_files=None, source=None)` strips every value — content, form-field

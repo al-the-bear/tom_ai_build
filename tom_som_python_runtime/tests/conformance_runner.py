@@ -33,6 +33,8 @@ golden byte-for-byte and matches every behavioural case:
     (``list_move_cases.json``);
   * the strip of one value, the readable header and the strip of a document
     (``strip_cases.json``, SOM §11.10).
+  * the merge back of an edited value and of an edited readable rendition
+    (``strip_merge_cases.json``, SOM §11.10).
 
 Run with: ``python3 tests/conformance_runner.py``. Exit code 0 == all green.
 """
@@ -54,6 +56,8 @@ sys.path.insert(0, _PKG_ROOT)
 
 from tom_som_runtime import (  # noqa: E402
     SpecDocumentStrip,
+    SpecStripMerge,
+    merge_stripped_value,
     SpecReadableHeader,
     SpecReadableSource,
     SpecStripOptions,
@@ -1229,6 +1233,107 @@ def test_strip(model: SpecModel) -> None:
             "readable": r.readable,
             "findings": [f.kind for f in r.findings],
         }
+        _check(tag, got == case["expect"], _json_mismatch(got, case["expect"]))
+
+
+def _apply_case_edits(text: str, edits) -> str:
+    """*text* with each ``[find, replace]`` applied to its one occurrence."""
+    out = text
+    for find, replace in edits or []:
+        if find == "":
+            if out != "":
+                raise ValueError("an empty find needs an empty text")
+            out = replace
+            continue
+        at = out.find(find)
+        if at < 0 or out.find(find, at + 1) >= 0:
+            raise ValueError(f'the edit "{find}" does not occur exactly once')
+        out = out[:at] + replace + out[at + len(find):]
+    return out
+
+
+def _state_document(state: dict) -> SpecDocument:
+    d = SpecDocument()
+    d.load_json(state)
+    return d
+
+
+def test_strip_merge(model: SpecModel) -> None:
+    """``strip_merge_cases.json`` (SOM §11.10): ``valueCases`` — a value
+    stripped, its stripped text edited, and :func:`merge_stripped_value` of
+    the edit onto the original; ``documentCases`` — a document stripped into
+    its readable rendition, the rendition edited, and
+    :meth:`SpecStripMerge.merge` of it onto the document (or onto
+    ``current``, the original moved since, three ways from ``base`` or the
+    header's commit in ``commits``): the exit code, staleness, the merged
+    document and the report, or the usage error."""
+    table = _read_json("strip_merge_cases.json")
+    schema = DocSpecsSchema.from_yaml_text(_read("docspecs_schema.yaml"))
+    values = table["valueCases"]
+    _check("stripMerge.valueCases", len(values) > 0, "no value cases")
+    for case in values:
+        tag = f"stripMerge.value[{case['name']}]"
+        try:
+            original = case["original"]
+            s = strip_notation_text(original, _strip_case_options(case))
+            e = _apply_case_edits(s.text, case.get("edits"))
+            got = merge_stripped_value(original, s.text, e, s.pieces).to_json()
+        except Exception as ex:  # noqa: BLE001
+            _check(tag, False, f"raised {ex!r}")
+            continue
+        _check(tag, got == case["expect"], _json_mismatch(got, case["expect"]))
+    documents = table["documentCases"]
+    _check("stripMerge.documentCases", len(documents) > 0, "no document cases")
+    for case in documents:
+        tag = f"stripMerge.document[{case['name']}]"
+        try:
+            state = _state_document(case["state"])
+            src = case.get("source")
+            readable = SpecDocumentStrip.strip(
+                state,
+                _strip_case_options(case),
+                model=model,
+                schema=schema,
+                source=None if src is None else SpecReadableSource(
+                    src["file"],
+                    src.get("revision"),
+                    src.get("commit"),
+                    src.get("dirty") is True,
+                ),
+            ).readable
+            edited = _apply_case_edits(readable, case.get("edits"))
+            commits = case.get("commits") or {}
+
+            def load_base(source, commits=commits):
+                if source.commit is not None and commits.get(source.commit) is not None:
+                    return _state_document(commits[source.commit])
+                return None
+
+            try:
+                r = SpecStripMerge.merge(
+                    state if case.get("current") is None
+                    else _state_document(case["current"]),
+                    edited,
+                    model=model,
+                    schema=schema,
+                    options=None if case.get("options") is None
+                    else _strip_case_options(case["options"]),
+                    current_revision=case.get("currentRevision"),
+                    base=None if case.get("base") is None
+                    else _state_document(case["base"]),
+                    load_base=load_base,
+                )
+                got = {
+                    "exitCode": r.exit_code,
+                    "stale": r.stale,
+                    "document": None if r.document is None else r.document.to_json(),
+                    "report": r.report,
+                }
+            except SpecStripUsageError as ex:
+                got = {"error": str(ex)}
+        except Exception as ex:  # noqa: BLE001
+            _check(tag, False, f"raised {ex!r}")
+            continue
         _check(tag, got == case["expect"], _json_mismatch(got, case["expect"]))
 
 
@@ -2542,6 +2647,7 @@ def main() -> int:
     test_docspecs()
     test_notation()
     test_strip(model)
+    test_strip_merge(model)
     test_docspecs_path(model)
     test_docspecs_replace()
     test_assembly()

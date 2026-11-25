@@ -91,6 +91,7 @@ editable routes and how to pin.
 | `spec_document_strip` | Stripped renditions (SOM §11.10): `strip_notation_text` drops, unmarks or moves to an appendix the secondary prose of named kinds of one value (`SpecStripOptions`, `SpecStripOptions.from_names`, `SpecStripUsageError`) and answers the stripped text with its counts, appendix entries and pieces (`SpecStripTextResult`, `SpecAppendixEntry`, `SpecStripPiece`, UTF-16 offsets); `SpecDocumentStrip.strip` strips a whole document with the emptying rule and writes its readable rendition, the readable header (`SpecReadableHeader`, `SpecReadableSource`) and the appendix *Notes* included (`SpecStripResult`, `SpecStripValueRef`, `SpecStrippedValue`, `SpecStripKept`, `SpecStripFinding`). |
 | `spec_section_id` | List-item section ids (AA1): `generate_list_item_section_id`, `encode_two_letter_date`, `effective_list_item_section_id`. |
 | `spec_serialization_order` | `SpecSerializationOrder` — the model's member order, which every codec writes in. |
+| `spec_document_merge` | The merge back (SOM §11.10): `merge_stripped_value` merges one edited value onto its original (`SpecStripValueMerge`, `SpecStripMergePlaced`, `SpecStripMergeConflict`), `SpecStripMerge.merge` an edited `.readable.md` onto its document — pieces put back or placed, conflicts and refused edits reported (`SpecStripMergeRefusal`), a stale original merged three ways from the original at the export (`SpecStripMerge.git_show_file` reads it from git; `SpecStripMergeResult` with `merged`, `report`, `exit_code`; `SpecStripMergedValue`, `spec_strip_merge_label`). |
 | `docspecs_validator` | DocSpecs Markdown documents: the schema-free parse (`DocSpecsDocument`) and the schema check (`DocSpecsValidator`), with the nine reading-notation rules (`tom_specs=True`: scanned per form-field value, unknown kinds and classless divs reported); it reads the reading view's form tables, list bodies (`refs`, `records`), section tables and styled-div headings; a stripped rendition's readable header and appendix are skipped. |
 | `spec_schema_validation` | `validate_spec_document` — the DocSpecs schema tier over a document's Markdown rendition. |
 | `som_facade` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList`) for the generated `tom_som_python_v0`. |
@@ -229,6 +230,6 @@ document round-trips, and the reflection / validation / operations behaviour.
 
 ## Status
 
-Version **1.10.0**, tracking the TomSpecs model version. Covered by 10 test files;
-the conformance runner reports **OK: 874 checks passed** and `./run_tests.sh` is
+Version **1.13.0**, tracking the TomSpecs model version. Covered by 17 test files;
+the conformance runner reports **OK: 1776 checks passed** and `./run_tests.sh` is
 green.

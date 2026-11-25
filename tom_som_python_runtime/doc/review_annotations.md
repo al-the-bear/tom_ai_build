@@ -86,6 +86,7 @@ All are exported from `tom_som_runtime`.
 | `SpecReviewAnnotationCounts` | `questions`, `open_questions`, `answered_questions`, `comments`, `marks`; `to_json()` |
 | `SpecReviewAnnotationError` | An operation named something that is not there |
 | `strip_annotations_text` | One value without its annotations |
+| `annotation_issues_text` | The malformed annotations of one value, one message each; empty when all are well formed |
 | `count_annotations_text` | How many comment and question blocks and inline marks one value holds: what `strip_annotations_text` removes |
 | `format_comment_block` / `format_question_block` | The lines of a block, as the insert operations write them |
 
