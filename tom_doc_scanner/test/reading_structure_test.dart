@@ -105,6 +105,21 @@ void main() {
       expect(h.text, 'Second administrator');
     });
 
+    test('the qualified anchor of a heading below a list item is its own', () {
+      final h = MarkdownParser.parseHeadlines(
+        '#### <!--[REQDEP]--> <a id="FRE-REQU-X/REQDEP"></a> Dependencies',
+      ).single.$1;
+      expect(h.text, 'Dependencies');
+      for (final other in ['A//REQDEP', 'A/XREQDEP', '/REQDEP']) {
+        expect(
+          MarkdownParser.parseHeadlines(
+            '#### <!--[REQDEP]--> <a id="$other"></a> Dependencies',
+          ).single.$1.text,
+          '<a id="$other"></a> Dependencies',
+        );
+      }
+    });
+
     test('an anchor naming another id is ordinary text', () {
       final h = MarkdownParser.parseHeadlines(
         '## <!--[A-1]--> <a id="B-2"></a> Title',

@@ -35,6 +35,11 @@
 ///   Blueprint, its derived places derived, a pair skipped because its anchor
 ///   holds a value, the `pairs` filter, the refusals; every case run twice.
 ///
+/// * `link_rendition_cases.json` — the rendition's navigation (SOM §11.2,
+///   §11.11): one fixture document rendered, the parse of that text (or of it
+///   with its markers deleted or edited by hand) and the rendition of what it
+///   staged.
+///
 /// Each case carries a hand-written `intent`: what it exists to show. A run
 /// checks that the intent holds in the expectation, so a case that silently
 /// stops showing it fails even though Dart reproduces its own output.
@@ -281,6 +286,46 @@
 ///   its requirements are written. Correct.
 /// * **refused** — no Blueprint (`noBlueprint`), the Blueprint's own root
 ///   (`unknownRoot`). Correct.
+///
+/// ## Manual review of `link_rendition_cases.json` (DP-part-conformance-1)
+///
+/// Reviewed 2026-11-25 against the intents and part-navigation of the
+/// working document:
+///
+/// * **the Blueprint** — `REQS` reads `Also in [DET REQS](links.det…#REQS),
+///   held there except REQ.owner` (the Phase 3 document holds the values, the
+///   owner the exception), each requirement the same for its id, REQ-EXPORT
+///   `Summarised in [KEY-1](#KEY-1)` (the records row's anchor), and
+///   `Derived from` the requirement itself (score, a product of its own
+///   form), its list (rank) and the revisions (lastVersion, a lookup):
+///   `score, rank, lastVersion`; `REQS-SUM` derived from `REQ-ITEM-LST`
+///   (total, settled, counts); `REQC` from its link rows (conflictsWith),
+///   `REQAB` from `REQD` (a copy, no field), the link rows `Extracted from
+///   [REQD]`, the prerequisites from the link rows. `ACC` and `CRIT` are
+///   held there, `CRIT` `Copied to [CRIT](#CSUM/CRIT)`, the copy `Copy of
+///   [CRIT](#CRIT), edit it there`, its rows anchored `CSUM/CRIT/CRIT-SPEED`.
+///   Below a requirement every anchor is qualified (`REQ-EXPORT/REQD`, the
+///   link rows `REQ-EXPORT/LNK-1`). Correct.
+/// * **the Phase 3 document** — the same pairs `held here except REQ.owner`,
+///   no lookup link (Detail holds no revisions); **Screens** — `ACC held
+///   here`, no exception; its criteria are detailOnly there and unmarked.
+///   Correct.
+/// * **a summary element under a heading** (a title of two paragraphs fits
+///   no cell) — the key row is an element of the shared key list and a
+///   summary: `Also in …; Summary of [REQ-EXPORT](#REQ-EXPORT)`. Correct.
+/// * **three levels down** — `LNK-REF` with a headline of its own gets the
+///   heading anchor `REQ-EXPORT/LNK-1/LNK-REF`. Correct.
+/// * **without markers** — every marker gone, every anchor kept, the parse
+///   unchanged. **Deleted** and **edited by hand** — the parse stages the
+///   same document and the next rendition is the original text. Correct.
+/// * **the empty marker** — in the projection (no pair), a key row naming
+///   nothing has no entry, and its preamble begins with a `linked` span:
+///   `[]{.linked}` before it, the span kept. **An unmarkable section** — the
+///   criteria summary's own text beginning with a `linked` span is its
+///   value. Correct.
+/// * **dangling** — REQ-PRESETS, only in Detail, links
+///   `links.blu.tomspecs.md#REQ-PRESETS`, which the Blueprint does not hold.
+///   Correct.
 library;
 
 import 'dart:convert';
@@ -301,6 +346,7 @@ void main() {
   final deriveCases = buildDeriveCases(meta);
   final backfillCases = buildBackfillCases(meta);
   final prefillCases = buildPrefillCases(meta);
+  final renditionCases = buildRenditionCases(meta);
 
   String encode(Object? json) =>
       '${const JsonEncoder.withIndent('  ').convert(json)}\n';
@@ -326,6 +372,9 @@ void main() {
     File(
       '${corpusDir.path}/prefill_cases.json',
     ).writeAsStringSync(encode(prefillCases));
+    File(
+      '${corpusDir.path}/link_rendition_cases.json',
+    ).writeAsStringSync(encode(renditionCases));
   });
 
   Object? onDisk(String name) =>
@@ -477,6 +526,67 @@ void main() {
         SpecValidationCode.linkValuePending,
       ];
       expect(provoked, containsAll(linkCodes.map((c) => c.name)));
+    });
+  });
+
+  group('rendition', () {
+    test('RNC1: link_rendition_cases.json is the table the builder writes', () {
+      expect(
+        onDisk('link_rendition_cases.json'),
+        jsonDecode(jsonEncode(renditionCases)),
+      );
+    });
+
+    test('RNC2: the table on disk is reproduced from its own inputs', () {
+      final model = SpecModel.fromJson(
+        onDisk('links.meta.json') as Map<String, dynamic>,
+      );
+      final table = onDisk('link_rendition_cases.json') as Map<String, dynamic>;
+      for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+        expect(
+          jsonDecode(jsonEncode(renditionCase(model, c))),
+          c['expect'],
+          reason: c['name'] as String,
+        );
+      }
+    });
+
+    test('RNC4: a stripped rendition dropping or unmarking linked writes no '
+        'marker; the anchors stay', () {
+      final model = SpecModel.fromJson(meta);
+      final blu = _baseSet()['blueprint']!;
+      String readable(SpecStripOptions o) => SpecDocumentStrip.strip(
+        blu,
+        o,
+        model: model,
+        fileStem: _renditionStem,
+      ).readable!;
+      final kept = readable(SpecStripOptions.fromNames(drop: ['comments']));
+      expect(kept, contains('{.linked}'));
+      for (final o in [
+        SpecStripOptions.fromNames(drop: ['linked']),
+        SpecStripOptions.fromNames(unmark: ['linked']),
+        SpecStripOptions.fromNames(drop: ['all']),
+      ]) {
+        final md = readable(o);
+        expect(md, isNot(contains('{.linked}')));
+        expect(md, contains('<a id="REQ-EXPORT/REQD"></a>'));
+        expect(md, startsWith('<!-- docspec:'));
+      }
+    });
+
+    test('RNC3: every case shows its intent', () {
+      for (final c
+          in (jsonDecode(jsonEncode(renditionCases))['cases'] as List)
+              .cast<Map<String, dynamic>>()) {
+        for (final token in (c['intent'] as List).cast<String>()) {
+          expect(
+            _renditionIntentHolds(token, c),
+            isTrue,
+            reason: '${c['name']}: intent "$token"',
+          );
+        }
+      }
     });
   });
 
@@ -3310,3 +3420,285 @@ Map<String, dynamic> _complex(
   'type': type,
   if (annotations.isNotEmpty) 'annotations': annotations,
 };
+
+// ---------------------------------------------------------------------------
+// The table `link_rendition_cases.json`
+// ---------------------------------------------------------------------------
+
+/// The rendition file stem the cases use (`links.<root>.tomspecs.md`).
+const _renditionStem = 'links';
+
+/// [doc] rendered as its root's rendition.
+String _rendition(SpecModel model, SpecDocument doc, {bool markers = true}) {
+  final root = model.roots.firstWhere(
+    (r) => doc.hasValuesUnder(r.sectionId ?? r.type),
+  );
+  return SpecDocumentMarkdown(
+    model,
+    doc,
+    fileStem: _renditionStem,
+    linkedMarkers: markers,
+  ).exportRoot(root);
+}
+
+/// [markdown] with its `linked` marker paragraphs removed.
+String _withoutMarkers(String markdown) {
+  final lines = markdown.split('\n');
+  final out = <String>[];
+  for (var i = 0; i < lines.length; i++) {
+    if (RegExp(r'^\[.*\]\{\.linked\}$').hasMatch(lines[i])) {
+      if (i + 1 < lines.length && lines[i + 1].isEmpty) i++;
+      continue;
+    }
+    out.add(lines[i]);
+  }
+  return out.join('\n');
+}
+
+/// One rendition case: the document rendered, the text handed to the parser
+/// (the rendition, its markers removed, or edited by hand), what the parser
+/// stages from it and the rendition of that.
+Map<String, Object?> renditionCase(SpecModel model, Map<String, dynamic> c) {
+  final doc = SpecDocument()..loadJson(c['state'] as Map);
+  final markers = c['linkedMarkers'] as bool? ?? true;
+  final markdown = _rendition(model, doc, markers: markers);
+  var given = markdown;
+  if (c['dropMarkers'] == true) given = _withoutMarkers(given);
+  for (final e in (c['edits'] as List? ?? const []).cast<List>()) {
+    final from = e[0] as String, to = e[1] as String;
+    if (!given.contains(from)) {
+      throw StateError('${c['name']}: the rendition has no "$from"');
+    }
+    given = given.replaceFirst(from, to);
+  }
+  final parsed = SpecDocument.fromMarkdown(given, model);
+  return {
+    'markdown': markdown,
+    if (given != markdown) 'given': given,
+    'rejections': [for (final r in parsed.rejections) r.reason.name],
+    'parseMatches':
+        jsonEncode(parsed.document.toJson()) == jsonEncode(doc.toJson()),
+    'reemitMatches':
+        _rendition(model, parsed.document, markers: markers) == markdown,
+  };
+}
+
+/// The table `link_rendition_cases.json`, its expectations computed live.
+Map<String, Object?> buildRenditionCases(Map<String, dynamic> meta) {
+  final model = SpecModel.fromJson(meta);
+  // Each document is read back once first, so it holds what a parse of its
+  // rendition holds (positional ids stored, SOM §11.6) and a case can ask
+  // for exactly its values.
+  SpecDocument canonical(SpecDocument d) =>
+      SpecDocument.fromMarkdown(_rendition(model, d), model).document;
+
+  Map<String, Object?> kase(
+    String name,
+    List<String> intent,
+    String document,
+    void Function(Map<String, SpecDocument> docs)? edit, {
+    bool dropMarkers = false,
+    bool linkedMarkers = true,
+    List<List<String>> edits = const [],
+  }) {
+    final docs = _baseSet();
+    edit?.call(docs);
+    final c = <String, dynamic>{
+      'name': name,
+      'intent': intent,
+      'fileStem': _renditionStem,
+      'state': canonical(docs[document]!).toJson(),
+      if (dropMarkers) 'dropMarkers': true,
+      if (!linkedMarkers) 'linkedMarkers': false,
+      if (edits.isNotEmpty) 'edits': edits,
+    };
+    return {...c, 'expect': renditionCase(model, jsonDecode(jsonEncode(c)))};
+  }
+
+  return {
+    'model': 'links.meta.json',
+    'cases': [
+      kase(
+        'the Blueprint: a sync held there with an exception, a detail element '
+            'summarised, derived values with two fields, extracted rows, a copy '
+            'and its holder',
+        [
+          'alsoInHeldThere',
+          'heldException',
+          'summarisedIn',
+          'derivedTwoFields',
+          'extractedFrom',
+          'copyOf',
+          'copiedTo',
+          'copyAnchors',
+          'roundTrip',
+          'clean',
+        ],
+        'blueprint',
+        null,
+      ),
+      kase(
+        'the Phase 3 document: the same sync held here with the exception',
+        ['alsoInHeldHere', 'heldException', 'roundTrip', 'clean'],
+        'detail',
+        null,
+      ),
+      kase(
+        'a sync held here without an exception',
+        ['alsoInHeldHere', 'roundTrip', 'clean'],
+        'screens',
+        null,
+      ),
+      kase(
+        'a summary element with a heading of its own links its detail element',
+        ['summaryOf', 'roundTrip', 'clean'],
+        'blueprint',
+        // A title of two paragraphs fits no records cell: the item is
+        // written under a heading of its own.
+        (d) => d['blueprint']!.setFormField(
+          '$_req/keyRequirements/KEY-ITEM-LST-1/content',
+          'title',
+          'Export presets.\n\nThe key one.',
+        ),
+      ),
+      kase(
+        'a heading three levels below the outermost item takes the qualified '
+            'anchor',
+        ['qualifiedThree', 'roundTrip', 'clean'],
+        'blueprint',
+        (d) => d['blueprint']!.setHeadline(
+          '$_ra/LNK-ITEM-LST-1/LNK-REF',
+          'The requirement named',
+        ),
+      ),
+      kase(
+        'a rendition whose markers were deleted parses to the same document; '
+            'the next rendition writes them again',
+        ['markerRestored', 'clean'],
+        'blueprint',
+        null,
+        dropMarkers: true,
+      ),
+      kase(
+        'a rendition written without markers (`-drop:linked`) keeps its '
+            'anchors and parses to the same document',
+        ['noMarkers', 'roundTrip', 'clean'],
+        'blueprint',
+        null,
+        linkedMarkers: false,
+      ),
+      kase(
+        'a marker edited by hand is discarded on parse and rewritten',
+        ['handEditDiscarded', 'clean'],
+        'blueprint',
+        null,
+        edits: [
+          [
+            '[Also in [DET REQS](links.det.tomspecs.md#REQS), held there '
+                'except REQ.owner]{.linked}',
+            '[Also in [DET REQS](links.det.tomspecs.md#REQS), held here; '
+                'Copy of [X](#X)]{.linked}',
+          ],
+        ],
+      ),
+      kase(
+        'a markable place without an entry whose value begins with a linked '
+            'span gets the empty marker: a key requirement naming nothing, in '
+            'a document that syncs with none (the projection)',
+        ['emptyMarker', 'roundTrip', 'clean'],
+        'projection',
+        (d) {
+          final prj = SpecDocument();
+          _copyTree(d['blueprint']!, _req, prj, 'PRJ/requirements');
+          const key = 'PRJ/requirements/keyRequirements/KEY-ITEM-LST-1';
+          prj
+            ..setHeadline(key, 'A key requirement not chosen yet')
+            ..setFormField('$key/content', 'requirementRef', '')
+            ..setContent(
+              '$key/content',
+              '[To be chosen in the next review]{.linked}',
+            );
+          d['projection'] = prj;
+        },
+      ),
+      kase(
+        'a linked span in a value of an unmarkable section is the value\'s',
+        ['spanKept', 'roundTrip', 'clean'],
+        'blueprint',
+        (d) => d['blueprint']!.setContent(
+          'BLU/criteriaSummary/content',
+          '[Read with the acceptance]{.linked}\n\nThe criteria at a glance.',
+        ),
+      ),
+      kase(
+        'an element only in the Phase 3 document links its Blueprint place, '
+            'which does not exist yet',
+        ['dangling', 'roundTrip', 'clean'],
+        'detail',
+        (d) {
+          final item = d['detail']!.addListItem(_det, sectionId: 'REQ-PRESETS');
+          d['detail']!
+            ..setHeadline(item, 'Presets')
+            ..setFormField('$item/content', 'status', 'draft');
+        },
+      ),
+    ],
+  };
+}
+
+/// Whether the rendition-case intent [token] holds in case [c].
+bool _renditionIntentHolds(String token, Map<String, dynamic> c) {
+  final e = c['expect'] as Map<String, dynamic>;
+  final md = e['markdown'] as String;
+  final parsed = e['parseMatches'] == true;
+  final reemit = e['reemitMatches'] == true;
+  final edited = e['given'] != null;
+  return switch (token) {
+    'alsoInHeldThere' => md.contains(
+      RegExp(r'\[Also in \[[^\]]+\]\([^)]+\), held there'),
+    ),
+    'alsoInHeldHere' => md.contains(
+      RegExp(r'\[Also in \[[^\]]+\]\([^)]+\), held here'),
+    ),
+    'heldException' => md.contains(' except REQ.owner'),
+    'summaryOf' => md.contains(
+      'held there except REQ.owner; Summary of [REQ-EXPORT](#REQ-EXPORT)]'
+      '{.linked}',
+    ),
+    'summarisedIn' => md.contains('Summarised in [KEY-1](#KEY-1)'),
+    'derivedTwoFields' => md.contains(
+      RegExp(r'Derived from (\[[^\]]+\]\([^)]+\)(, )?)+: \w+, \w+'),
+    ),
+    'extractedFrom' => md.contains(
+      '[Extracted from [REQD](#REQ-EXPORT/REQD)]{.linked}',
+    ),
+    'copyOf' => md.contains('[Copy of [CRIT](#CRIT), edit it there]{.linked}'),
+    'copiedTo' => md.contains('Copied to [CRIT](#CSUM/CRIT)'),
+    'copyAnchors' => md.contains('<a id="CSUM/CRIT/CRIT-SPEED"></a>'),
+    'qualifiedThree' => RegExp(
+      r'^#+ <!--\[LNK-REF\]--> <a id="REQ-EXPORT/LNK-1/LNK-REF"></a> ',
+      multiLine: true,
+    ).hasMatch(md),
+    'markerRestored' =>
+      edited &&
+          !(e['given'] as String).contains('{.linked}') &&
+          parsed &&
+          reemit,
+    'handEditDiscarded' =>
+      edited &&
+          (e['given'] as String).contains('Copy of [X]') &&
+          parsed &&
+          reemit,
+    'emptyMarker' => md.contains('[]{.linked}\n\n[To be chosen') && parsed,
+    'spanKept' => jsonEncode(c['state']).contains('{.linked}') && parsed,
+    'dangling' => md.contains(
+      '[Also in [BLU REQ-PRESETS](links.blu.tomspecs.md#REQ-PRESETS), held '
+      'here',
+    ),
+    'noMarkers' =>
+      !md.contains('{.linked}') && md.contains('<a id="REQ-EXPORT/REQD"></a>'),
+    'roundTrip' => !edited && parsed && reemit,
+    'clean' => (e['rejections'] as List).isEmpty,
+    _ => throw StateError('unknown intent token "$token"'),
+  };
+}

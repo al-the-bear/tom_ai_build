@@ -1272,7 +1272,7 @@ readable header, naming the switches it was made with and its source:
 ```
 
 The parts are `drop=`, `unmark=` and `appendix=` (kind names in the order
-`provenance`, `trace`, `editorial`, `aside`, `comments`),
+`provenance`, `trace`, `editorial`, `aside`, `linked`, `comments`),
 `appendix-references`, `headings=divs`, `of=<file>[@<revision>]` and
 `commit=<sha>[+dirty]`, each left out when it does not apply
 (`SpecReadableHeader`: `format` and `parse` are inverse). The parser skips the
@@ -1292,7 +1292,27 @@ validator alike: what follows is the rendition's appendix (§11.10).
 - In the `tables` layout (§11.4) every heading carries an HTML anchor for its
   section id after the comment and its keys: `## <!--[INSC]--> <a id="INSC"></a>
   Introduction And Scope`, so `#<ID>` links jump in every viewer. Parse removes
-  an anchor equal to the heading's id; any other anchor is part of the title.
+  an anchor equal to the heading's id or to its qualified form (below); any
+  other anchor is part of the title.
+- **The qualified anchor.** Nested section ids repeat in a document (every
+  requirement has its `REQDEP`), and an anchor jumps to its first occurrence
+  only, so below a list item the anchor names the way down: a heading not below
+  any list item, and an item of a list not below another item, keep their own
+  id (`FR`, `FRE-REQU-LST`, `FRE-REQU-TENANT-REACH`); every heading below such
+  an item takes the ids from that outermost item down to itself, `/`-joined,
+  list containers left out of the descendants' anchors since an item's id
+  already names its list: `FRE-REQU-TENANT-REACH/REQDEP`,
+  `FRE-REQU-TENANT-REACH/REQDEP/RQDEP-ITEM-1/RQDEP-RELA-REF`. A container's own
+  anchor is qualified like any heading's
+  (`FRE-REQU-TENANT-REACH/REQDEP/RQDEP-ITEM-LST`). A `@SameAs` copy
+  (`tom_specs_model_rules.md` §9.7) stands where its holder's ids stand too: the
+  holder keeps its id, the copy and every heading below it are qualified from
+  the copy's nearest enclosing section (`CSUM/CRIT`, `CSUM/CRIT/CRIT-SPEED`).
+  The anchor depends on the model and the ids only, never on whether an id
+  happens to repeat, so it does not move when another element is added. The
+  `Id` cell of a records table and the `Section` cell of a section table
+  (§11.5) carry the same anchor as the heading they stand for. `/` is valid in
+  an HTML `id` and in a URL fragment.
 - The heading id is the member's field-level `@SectionId` when present, else
   the target class's `@SectionId`; a member with neither is *transparent*
   (§11.6).
@@ -1495,7 +1515,8 @@ every `|` written `\|`, and a `code` field's single-line value as its code span
 value is a comma-separated run of section ids is written as links joined by
 `, `: `[ID](#ID)` when the document being rendered reaches the target class,
 else `[ID](<file>#ID)`, `<file>` being the rendition of the other root that
-reaches it, the most specific (fewest classes) first: the render option
+reaches it, the most specific (fewest classes) first and the CodeSpecs
+projection never (no one renders it): the render option
 `documentFiles` names it by the root's section id, else it is
 `<fileStem>.<root id in lower case>.tomspecs.md` (without a `fileStem`, the
 name alone). Any other value of the field is written as text.
@@ -2938,14 +2959,18 @@ TypeScript first (the other runtimes follow through the conformance corpus);
 
 **The switches** (`SpecStripOptions.fromNames`) name kinds: `provenance`,
 `trace`, `editorial`, `aside` (the reading notation's secondary kinds,
-DocSpecs RN-5; a citation shape counts as a span of its kind) and `comments`
-(the review annotations of §11.9). `drop` removes an element with its content,
-`unmark` removes its markers and keeps its content (a citation's arrow and its
-space go: `(-> C2.1)` reads `(C2.1)`), `appendix` moves it into the appendix.
-`all` stands for every kind the list can hold that no other list names
-explicitly (`comments` only in `drop`). A name in two lists, an unknown name,
-`comments` in `unmark` or `appendix`, and appendix references without an
-appendix are usage errors (`SpecStripUsageError`). `refs`, `records`,
+DocSpecs RN-5; a citation shape counts as a span of its kind), `linked` (the
+navigation marker, §11.11) and `comments` (the review annotations of §11.9).
+`drop` removes an element with its content, `unmark` removes its markers and
+keeps its content (a citation's arrow and its space go: `(-> C2.1)` reads
+`(C2.1)`), `appendix` moves it into the appendix. `linked` is removed by
+`drop` and `unmark` alike — its text without the span would read back as
+content — and the rendition then writes no marker; the anchors stay. `all`
+stands for every kind the list can hold that no other list names explicitly
+(`comments` only in `drop`, `linked` in `drop` and `unmark`). A name in two
+lists, an unknown name, `comments` in `unmark` or `appendix`, `linked` in
+`appendix`, and appendix references without an appendix are usage errors
+(`SpecStripUsageError`). `refs`, `records`,
 `rejected` and unknown kinds are never secondary: no name touches them (RN-11).
 
 **The order of operations**, per value:
@@ -3062,6 +3087,77 @@ with the O / B / E excerpts and the piece, then the refusals as
 The conformance cases are `strip_merge_cases.json`: values (original, switches,
 edits, the merge or its conflicts) and documents over the corpus model (the
 rendition, the edits, the merged document and the report).
+
+### 11.11 The `linked` marker
+
+The link annotations (`tom_specs_model_rules.md` §9.7) mark the places that
+hold a fact another place holds too. The rendition says so at each of them, in
+a **marker**: one paragraph of its own directly after the heading line and its
+blank line, before the section's body — its content or preamble, a slot marker
+(§11.6), a form table, a section table, a records table and any review
+annotation block — a span of the registered notation kind `linked` (DocSpecs
+RN-5). It is written from the model and this document's own values; nothing of
+it is stored.
+
+<!-- markdownlint-disable MD013 -->
+```markdown
+#### <!--[FRE-REQU-TENANT-REACH]--> <a id="FRE-REQU-TENANT-REACH"></a> FR-06 — Tenant identification and reach
+
+[Also in [SBP FRE-REQU-TENANT-REACH](tom_uam.sbp.tomspecs.md#FRE-REQU-TENANT-REACH), held here]{.linked}
+
+##### <!--[FREC]--> <a id="FRE-REQU-TENANT-REACH/FREC"></a> Constraints
+
+[Derived from [RQDEP-ITEM-LST](#FRE-REQU-TENANT-REACH/REQDEP/RQDEP-ITEM-LST): constrainedBy, conflictsWith]{.linked}
+```
+
+**The markable places and their entries**, in this order:
+
+| Entry | Written at | Links to |
+| --- | --- | --- |
+| `Also in <link>, held here` / `held there` | the section of a `@SyncedWith` pair (the anchor pairs of the document set), and every element of a shared list of it: a list beneath the anchor, not below an item of it, not beneath a `detailOnly` place or a `@SameAs` copy; a list beneath a nested pair's anchor is that pair's | the same place in the other document |
+| `Summary of <link>, …` | an element of a list carrying `@SummaryOf` | its detail elements: the ids its `match` field holds, else its own id |
+| `Summarised in <link>, …` | an element of a detail list a `@SummaryOf` of this document names | the summary elements naming it |
+| `Derived from <link>, …: <field>, …` | a form holding a derived field (`derivedFrom`, `countOf`, `productOf`, `rankOf`), the heading of a member carrying `@DerivedFrom`, and the nearest heading above both when they have none (a transparent form or member, §11.6, or a child of a section table, named `<CHILD>.<field>`) | each source: the place a derivation reads, the list a count counts, the form of a product's operand (the heading itself for an operand of the same form), the list whose elements a rank ranks |
+| `Extracted from <link>, …` | a list carrying `@ExtractsLinks` in `generate` mode | the text places it reads |
+| `Copy of <link>, edit it there` | a `@SameAs` copy | its holder |
+| `Copied to <link>, …` | the holder of a copy | its copies |
+<!-- markdownlint-enable MD013 -->
+
+- **Grammar:** `[<entry>; <entry>…]{.linked}`, the entries separated by a
+  semicolon and a space in the order of the table, one per kind (one
+  `Also in` per pair the place is a side of). An entry is its verb, then its
+  links separated by a comma and a space, then
+  `: <field>, …` for `Derived from` (the derived fields by name, in declaration
+  order) or the holder note for `Also in`. ASCII and English, as the rest of
+  the rendition.
+- **A link** is `[<id>](#<anchor>)` within the document, the target's section
+  id as text and its anchor (§11.2) as fragment; to another document
+  `[<ROOT> <id>](<file>#<anchor>)`, the text prefixed by that root's section
+  id and the file named as a cross-document reference names it (§11.4). A
+  link to another document is written whether or not that document holds the
+  place: an element in one document only links a place that does not exist
+  yet, as the document set reports the element (`sharedElementMissing`).
+- **The holder note:** the Phase 3 document holds the shared values, so its
+  side reads `held here` and the Blueprint's `held there`; the `heldHere`
+  places of the `@SyncedWith` follow as exceptions,
+  `held there except REQ.owner`.
+- **Parse** removes the first paragraph of a markable heading's body when it
+  is exactly one `linked` span, whatever it says, and stores nothing; a
+  marker edited or deleted by hand is rewritten by the next rendition. A
+  `linked` span anywhere else — later in a value, or in a section that is no
+  markable place — is text of the value, like any notation.
+- **The empty marker** `[]{.linked}`: a markable place with no entry this
+  time (a summary element naming nothing) whose own body begins with a
+  `linked` span gets it, so the parser removes the empty one and keeps the
+  value's. No finding is raised for an empty span.
+- **Stripped renditions** (§11.10): `drop` or `unmark` of `linked`, and
+  `all`, write no marker; the anchors stay.
+- The YAML codec (§12) knows neither the marker nor the anchors.
+
+The conformance cases are `link_rendition_cases.json` (over `links.meta.json`):
+each case a document, the rendition the runtime writes of it, what the parser
+stages from it (or from it with its markers deleted or edited by hand) and the
+rendition of that.
 
 ## 12. The hierarchical `*.tomspecs.yaml` format
 

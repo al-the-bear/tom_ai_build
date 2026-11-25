@@ -290,10 +290,11 @@ void main() {
         _body(md, 'ATTR-1'),
         '| Section | TomSpecField | Value |\n'
         '| --- | --- | --- |\n'
-        '| <a id="ATTR-IDEN"></a>ATTR-IDEN | ColumnName | name |\n'
+        '| <a id="ATTR-1/ATTR-IDEN"></a>ATTR-IDEN | ColumnName | name |\n'
         '|  | Description | Display name. |\n'
-        '| <a id="ATTR-DATA"></a>ATTR-DATA | DataType | string |\n'
-        '| <a id="ATTR-CONS-1"></a>ATTR-CONS-LST / ATTR-CONS-1 | Mandatory | '
+        '| <a id="ATTR-1/ATTR-DATA"></a>ATTR-DATA | DataType | string |\n'
+        '| <a id="ATTR-1/ATTR-CONS-1"></a>ATTR-CONS-LST / ATTR-CONS-1 | '
+        'Mandatory | '
         'Yes |\n'
         '|  | Unique | Per parent |',
       );
@@ -309,8 +310,8 @@ void main() {
         ..setContent('$a/ATTR-NOTE', 'A free note.');
       final md = _render(doc, 'Req');
       expect(md, isNot(contains('| Section | TomSpecField | Value |')));
-      expect(md, contains('<!--[ATTR-IDEN]--> <a id="ATTR-IDEN"></a>'));
-      expect(md, contains('<!--[ATTR-NOTE]--> <a id="ATTR-NOTE"></a>'));
+      expect(md, contains('<!--[ATTR-IDEN]--> <a id="ATTR-1/ATTR-IDEN"></a>'));
+      expect(md, contains('<!--[ATTR-NOTE]--> <a id="ATTR-1/ATTR-NOTE"></a>'));
     });
 
     test('ST3: a stored headline on a child keeps the headings', () {

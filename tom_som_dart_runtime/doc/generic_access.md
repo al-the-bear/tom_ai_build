@@ -232,6 +232,22 @@ pair a document has not written yet is reported by `syncReport` in
 the element and every value naming it — and is refused (`SpecRenameError`)
 when an element of any document already carries `to`.
 
+## The links in the rendition
+
+`SpecDocumentMarkdown(model, document, fileStem: 'tom_uam').exportRoot(root)`
+writes the navigation between linked places into the rendition (SOM §11.2,
+§11.11), from the model and that document alone:
+
+- below a list item a heading's anchor is qualified,
+  `<a id="FRE-REQU-X/REQDEP"></a>`, so a link reaches the right one of the
+  repeated ids;
+- a heading holding a linked place is followed by its marker,
+  `[Also in [RSP FRE-REQU-X](tom_uam.rsp.tomspecs.md#FRE-REQU-X), held there]{.linked}`.
+
+`parse` removes both and stores nothing, so a marker edited by hand is
+rewritten by the next export. `linkedMarkers: false` writes no marker, as a
+stripped rendition dropping `linked` does; the anchors stay.
+
 ## When to prefer the generic path
 
 | Prefer the **typed facade** when | Prefer the **generic store** when |

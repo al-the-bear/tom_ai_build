@@ -135,6 +135,13 @@ unpublished_drift:
     DerivedFrom.lookup takes key and by both or neither (neither: the last
     row). 03_sau7: DerivedFrom.rows takes key and by too. 03_sau8:
     SummaryOf's detail may be a / path.
+  tom_doc_scanner: >-
+    section automation in progress — 04_sau9 (2026-11-25): a heading's
+    qualified anchor `<A>/…/<id>` is its own (DocSpecs *Section Anchors*).
+  tom_doc_specs: >-
+    section automation in progress — 04_sau9 (2026-11-25): a records `Id` or
+    section-table `Section` cell's qualified anchor is its own (DocSpecs
+    *Section Anchors*).
   tom_som_dart_runtime: >-
     section automation in progress — 02_sau4 (2026-11-23): the link
     annotations in kRenderedAnnotations, linkChips in fieldChips, the four in
@@ -142,6 +149,9 @@ unpublished_drift:
     the marker's T1 reads a decision cited with the option taken, `(DQ-115
     (b))` (DocSpecs RN-3). 03_sau11: somMetaNodeDiff compares any two maps
     by their entries (an empty const {} against a decoded map was identity).
+    04_sau9: the rendition's qualified anchors and `linked` marker (SOM §11.2,
+    §11.11), `linked` a registered and strippable kind, the DocSpecs validator
+    reading a qualified anchor as a section's own.
   tom_som_dart_v0: >-
     section automation in progress — 02_sau5 (2026-11-23): regenerated for
     model 1.12.3 (LocaleRolloutPlan, 14 more @DetailedIn). 03_sau11:

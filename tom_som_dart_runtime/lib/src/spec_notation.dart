@@ -32,6 +32,7 @@ const Set<String> registeredNotationKinds = {
   'trace',
   'editorial',
   'aside',
+  'linked',
   'refs',
   'records',
   'rejected',

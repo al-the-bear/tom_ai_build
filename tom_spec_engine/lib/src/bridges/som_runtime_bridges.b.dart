@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 35 files
-// Generated: 2026-11-24T22:05:07.244841 by tom_d4rt_generator 1.67.0
+// Generated: 2026-11-25T07:07:34.365993 by tom_d4rt_generator 1.67.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -39,7 +39,7 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_15;
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_16;
-import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
+import 'package:tom_som_dart_runtime/src/spec_links_validator.dart'
     as $tom_som_dart_runtime_17;
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_18;
@@ -1438,7 +1438,11 @@ class SomRuntimeBridge {
         source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
         target: 'package:tom_som_dart_runtime/src/spec_links_validator.dart',
         show: null,
-        hide: null,
+        hide: {
+          'specExpandPattern',
+          'specResolveLinkPlace',
+          'specResolvePlaceAt',
+        },
       ),
       (
         source: 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart',
@@ -14683,6 +14687,11 @@ BridgedClass _createSpecDocumentMarkdownBridge() {
           named,
           'readableHeader',
         );
+        final linkedMarkers = D4.getNamedArgWithDefault<bool>(
+          named,
+          'linkedMarkers',
+          true,
+        );
         return $tom_som_dart_runtime_10.SpecDocumentMarkdown(
           model,
           document,
@@ -14690,10 +14699,17 @@ BridgedClass _createSpecDocumentMarkdownBridge() {
           documentFiles: documentFiles,
           headingDivs: headingDivs,
           readableHeader: readableHeader,
+          linkedMarkers: linkedMarkers,
         );
       },
     },
     getters: {
+      'linkedMarkers': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_10.SpecDocumentMarkdown>(
+            target,
+            'SpecDocumentMarkdown',
+          )
+          .linkedMarkers,
       'headingDivs': (visitor, target) => D4
           .validateTarget<$tom_som_dart_runtime_10.SpecDocumentMarkdown>(
             target,
@@ -14891,7 +14907,7 @@ BridgedClass _createSpecDocumentMarkdownBridge() {
       },
     },
     constructorSignatures: {
-      '': 'SpecDocumentMarkdown(SpecModel model, SpecDocument document, {String? fileStem, Map<String, String> documentFiles = const {}, bool headingDivs = false, String? readableHeader})',
+      '': 'SpecDocumentMarkdown(SpecModel model, SpecDocument document, {String? fileStem, Map<String, String> documentFiles = const {}, bool headingDivs = false, String? readableHeader, bool linkedMarkers = true})',
     },
     methodSignatures: {
       'exportRoot': 'String exportRoot(SpecRoot root)',
@@ -14900,6 +14916,7 @@ BridgedClass _createSpecDocumentMarkdownBridge() {
       'parse': 'SpecMarkdownResult parse(String text)',
     },
     getterSignatures: {
+      'linkedMarkers': 'bool get linkedMarkers',
       'headingDivs': 'bool get headingDivs',
       'readableHeader': 'String? get readableHeader',
       'fileStem': 'String? get fileStem',
@@ -16719,6 +16736,12 @@ BridgedClass _createSpecStripOptionsBridge() {
             'SpecStripOptions',
           )
           .headingDivs,
+      'writesNoLinkedMarkers': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SpecStripOptions>(
+            target,
+            'SpecStripOptions',
+          )
+          .writesNoLinkedMarkers,
       'keeping': (visitor, target) => D4
           .validateTarget<$tom_som_dart_runtime_12.SpecStripOptions>(
             target,
@@ -16749,6 +16772,7 @@ BridgedClass _createSpecStripOptionsBridge() {
       'appendix': 'Set<String> get appendix',
       'appendixReferences': 'bool get appendixReferences',
       'headingDivs': 'bool get headingDivs',
+      'writesNoLinkedMarkers': 'bool get writesNoLinkedMarkers',
       'keeping': 'SpecStripOptions get keeping',
     },
     staticMethodSignatures: {

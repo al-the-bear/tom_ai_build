@@ -326,6 +326,19 @@ void main() {
       expect(section(d, 'CRIT-LST').text, isEmpty);
     });
 
+    test('a records row below a list item carries the qualified anchor', () {
+      final md = doc(
+        '$records'
+        '| <a id="FRE-X/CRIT-1"></a>CRIT-1 | | a tenant | it invites | '
+        'both confirm |\n'
+        '| <a id="FRE-X/CRIT-2"></a>CRIT-2 | | an invitation | it expires | '
+        'the user asks again |\n'
+        ':::\n',
+      );
+      expect(findings(md), isEmpty);
+      expect(section(scan(md), 'CRIT-1').isVirtual, isTrue);
+    });
+
     test('row findings point at their rows', () {
       final md = doc(
         '$records'

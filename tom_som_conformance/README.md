@@ -788,11 +788,12 @@ A check that does not run is reported as such, and the gate does not pass.
 
 ##### …and so does the document set (`tom_specs_model_rules.md` §9.7)
 
-Six tables pin the links and the operations over a document set:
-`link_reader_cases.json`, `link_validation_cases.json`,
-`document_set_cases.json`, `derive_cases.json`, `backfill_cases.json` and
-`prefill_cases.json`, each described below. All but the real-model cases run
-over the fixture model `corpus/links.meta.json`.
+Seven tables pin the links, the operations over a document set and the
+navigation the rendition writes for them: `link_reader_cases.json`,
+`link_validation_cases.json`, `document_set_cases.json`, `derive_cases.json`,
+`backfill_cases.json`, `prefill_cases.json` and `link_rendition_cases.json`,
+each described below. All but the real-model cases run over the fixture model
+`corpus/links.meta.json`.
 
 The link vocabulary has a model of its own,
 [`corpus/links.meta.json`](corpus/links.meta.json): the shared
@@ -866,6 +867,24 @@ refusal of a set holding a mark or a comment block, a dry run, and `pairs` /
 `expect.second`, the second proving idempotence), then records the set's
 report after it and the documents as the set holds them.
 
+[`corpus/link_rendition_cases.json`](corpus/link_rendition_cases.json) pins
+the navigation of the SOM Markdown rendition (SOM §11.2, §11.11): the
+qualified anchors and the `linked` marker. Each case is one document of the
+fixture set, read back once first so that it holds what a parse holds; the
+runtime renders it (`fileStem: links`), hands the rendition — its markers
+deleted, or edited by hand, where the case says so — to the parser, and
+renders what the parser staged. `expect` is the rendition, the text given
+when it differs, the rejections, whether the parse staged exactly the
+document (`parseMatches`) and whether its rendition is the same text
+(`reemitMatches`). The cases are a sync held there with a `heldHere`
+exception, the same pair held here, a sync held here without one, a summary
+element linking its detail element and the detail element linking back, two
+derived fields, extracted link rows, a `@SameAs` copy and its holder, a
+heading three levels below its outermost item, a rendition without markers,
+markers deleted and edited by hand, the empty marker, a `linked` span kept in
+the value of an unmarkable section, and an element in one document only,
+whose link names a place the other document does not hold yet.
+
 [`corpus/prefill_cases.json`](corpus/prefill_cases.json) pins `prefill`:
 a new Detail and a new Screens document from the Blueprint (stored ids kept,
 derived places derived, front matter left empty), a pair skipped because its
@@ -897,7 +916,11 @@ The files are written by the Dart runtime's
 carries a hand-written `intent` the test checks, and the expectations were read
 by hand when the table landed. The other eight runners do not read these
 tables yet: each takes them on with its port todo of the section automation
-idea. The same holds for the `typedCases` of
+idea. Two shared files moved with the rendition ahead of them, and a runner
+fails on them until that port: `expected.tables.md` (with the
+`markdown_apply_cases.json` built from it) writes the qualified anchor below
+a list item, which all eight read, and the usage cases of `strip_cases.json`
+name the kind `linked`, which TypeScript reads. The same holds for the `typedCases` of
 [`corpus/inline_mark_cases.json`](corpus/inline_mark_cases.json) and
 [`corpus/change_mark_cases.json`](corpus/change_mark_cases.json): typed values
 and headlines under review (SOM §11.9.3) — written as marks, read as their old
@@ -905,10 +928,11 @@ value by the typed reads and the instance tier until decided, a headline
 listed under `@headline`. They sit under a key of their own so the eight
 runners, which read `cases`, are not held to them before their port.
 
-Each of the six tables is proven load-bearing with
+Each of the seven tables is proven load-bearing with
 [`tool/parity_gate.sh`](tool/parity_gate.sh) over `dart_runtime`, the one
-runner that reads them (2026-11-24, every run `GATE PASSED`: the suite went
-red on the mutated expectation and the corpus was restored):
+runner that reads them (2026-11-24, the rendition table 2026-11-25; every run
+`GATE PASSED`: the suite went red on the mutated expectation and the corpus
+was restored):
 
 <!-- markdownlint-disable MD013 -->
 | Table | `--from` (matched once) | `--to` |
@@ -919,10 +943,12 @@ red on the mutated expectation and the corpus was restored):
 | `derive_cases.json` | `"code": "countMismatch"` | `"code": "derivedValueMismatch"` |
 | `backfill_cases.json` | `"kind": "elementAdded",(?=\s*"path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2")` (the real-model case) | `"kind": "value",` |
 | `prefill_cases.json` | `(?<="filledPairs": \[\n {12})"REQS"(?=,\s*"CRIT"\s*\])` | `"ACC"` |
+| `link_rendition_cases.json` | `\[\]\{\.linked\}` (the empty marker) | `[Summary of [X](#X)]{.linked}` |
 <!-- markdownlint-enable MD013 -->
 
 `--to` is replaced literally (no `$1`), so a mutation that has to keep
-surrounding whitespace names it with lookarounds, as the last two do.
+surrounding whitespace names it with lookarounds, as the backfill and prefill
+runs do.
 
 ##### Proving a table is load-bearing: `tool/parity_gate.sh`
 

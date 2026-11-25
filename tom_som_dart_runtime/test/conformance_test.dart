@@ -7794,9 +7794,9 @@ List<(String, String)> _keptRejectionMarkdowns(String golden) {
     (
       'a section-table row one edit from a list with its continuation',
       sub(
-        '| <a id="DLR-1"></a>DLR-LST / DLR-1 | Area | CE-NV |\n'
+        '| <a id="DLV-1/DLR-1"></a>DLR-LST / DLR-1 | Area | CE-NV |\n'
             '|  | Mapping | dart-tom |\n\n### <!--[DLV-2]',
-        '| <a id="DLR-1"></a>DLR-LS / DLR-1 | Area | CE-NV |\n'
+        '| <a id="DLV-1/DLR-1"></a>DLR-LS / DLR-1 | Area | CE-NV |\n'
             '|  | Mapping | dart-tom |\n\n### <!--[DLV-2]',
       ),
     ),

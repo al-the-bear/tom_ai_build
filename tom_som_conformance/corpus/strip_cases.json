@@ -1055,6 +1055,106 @@
           "unclosedDiv"
         ]
       }
+    },
+    {
+      "name": "a linked span is dropped by name",
+      "text": "[Also in [DET REQS](links.det.tomspecs.md#REQS), held there]{.linked}\n\nThe requirements (<- workshop).",
+      "drop": [
+        "linked"
+      ],
+      "expect": {
+        "text": "The requirements (<- workshop).",
+        "dropped": {
+          "linked": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 0,
+            "origin": 0,
+            "removed": "[Also in [DET REQS](links.det.tomspecs.md#REQS), held there]{.linked}\n\n",
+            "inserted": "",
+            "labels": [
+              "linked:drop",
+              "whitespace"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "a linked span is dropped by -unmark: as well",
+      "text": "[Also in [DET REQS](links.det.tomspecs.md#REQS), held there]{.linked}\n\nThe requirements (<- workshop).",
+      "unmark": [
+        "linked"
+      ],
+      "expect": {
+        "text": "The requirements (<- workshop).",
+        "dropped": {
+          "linked": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 0,
+            "origin": 0,
+            "removed": "[Also in [DET REQS](links.det.tomspecs.md#REQS), held there]{.linked}\n\n",
+            "inserted": "",
+            "labels": [
+              "linked:drop",
+              "whitespace"
+            ]
+          }
+        ],
+        "refused": []
+      }
+    },
+    {
+      "name": "a linked span is dropped by all",
+      "text": "[Also in [DET REQS](links.det.tomspecs.md#REQS), held there]{.linked}\n\nThe requirements (<- workshop).",
+      "drop": [
+        "all"
+      ],
+      "expect": {
+        "text": "The requirements.",
+        "dropped": {
+          "linked": 1,
+          "provenance": 1
+        },
+        "unmarked": {},
+        "appended": {},
+        "marksDropped": 0,
+        "appendix": [],
+        "pieces": [
+          {
+            "anchor": 0,
+            "origin": 0,
+            "removed": "[Also in [DET REQS](links.det.tomspecs.md#REQS), held there]{.linked}\n\n",
+            "inserted": "",
+            "labels": [
+              "linked:drop",
+              "whitespace"
+            ]
+          },
+          {
+            "anchor": 16,
+            "origin": 87,
+            "removed": " (<- workshop)",
+            "inserted": "",
+            "labels": [
+              "provenance:drop"
+            ]
+          }
+        ],
+        "refused": []
+      }
     }
   ],
   "usageCases": [
@@ -1071,6 +1171,7 @@
           "provenance",
           "trace",
           "aside",
+          "linked",
           "comments"
         ],
         "unmark": [
@@ -1108,7 +1209,7 @@
         "asides"
       ],
       "expect": {
-        "error": "unknown kind name \"asides\" in drop; known names: provenance, trace, editorial, aside, comments, all"
+        "error": "unknown kind name \"asides\" in drop; known names: provenance, trace, editorial, aside, linked, comments, all"
       }
     },
     {
@@ -1167,6 +1268,34 @@
           "aside"
         ],
         "appendixReferences": true,
+        "headingDivs": false
+      }
+    },
+    {
+      "name": "linked cannot be moved",
+      "appendix": [
+        "linked"
+      ],
+      "expect": {
+        "error": "linked cannot be moved to the appendix: the markers are written from the model; drop them or leave them"
+      }
+    },
+    {
+      "name": "all in unmark takes linked",
+      "unmark": [
+        "all"
+      ],
+      "expect": {
+        "drop": [],
+        "unmark": [
+          "provenance",
+          "trace",
+          "editorial",
+          "aside",
+          "linked"
+        ],
+        "appendix": [],
+        "appendixReferences": false,
         "headingDivs": false
       }
     }

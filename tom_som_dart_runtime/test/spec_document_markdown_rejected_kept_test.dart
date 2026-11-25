@@ -61,9 +61,9 @@ void main() {
       '| second card |\n',
     ),
     'section-table row': sub(
-      '| <a id="DLR-1"></a>DLR-LST / DLR-1 | Area | CE-NV |\n'
+      '| <a id="DLV-1/DLR-1"></a>DLR-LST / DLR-1 | Area | CE-NV |\n'
           '|  | Mapping | dart-tom |\n\n### <!--[DLV-2]',
-      '| <a id="DLR-1"></a>DLR-LS / DLR-1 | Area | CE-NV |\n'
+      '| <a id="DLV-1/DLR-1"></a>DLR-LS / DLR-1 | Area | CE-NV |\n'
           '|  | Mapping | dart-tom |\n\n### <!--[DLV-2]',
     ),
     'orphan text': 'Stray text.\n\n$golden',

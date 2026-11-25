@@ -281,6 +281,17 @@ exceptions:
       `tspubnondart98`..`104`, one per runtime (`runtime_parity.md` § Reading
       view). `strip_merge_cases.json` is the corpus they will run.
 
+  - token: linkedMarkers
+    planes: [python, javascript, typescript, java, go, rust, c, cpp]
+    reason: >-
+      KNOWN GAP. The rendition's navigation — the qualified anchors of SOM
+      §11.2 and the `linked` marker of SOM §11.11, with the renderer option
+      that turns the marker off for a stripped rendition — is in the Dart
+      runtime only, built first by decision (idea section_automation,
+      DP-part-conformance-4); its ports are the todos
+      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      runtime. `link_rendition_cases.json` is the corpus they will run.
+
   - token: syncedWith
     planes: [python, javascript, typescript, java, go, rust, c, cpp]
     reason: >-

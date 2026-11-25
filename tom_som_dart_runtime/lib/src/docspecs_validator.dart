@@ -401,12 +401,24 @@ class DocSpecsDocument {
 
   static final RegExp _anchor = RegExp(r'^<a id="([^"]*)"></a>\s*');
 
-  /// [text] with a leading anchor `<a id="ID"></a>` removed when its id is
-  /// [id] (Section Anchors): the section's own anchor stores nothing. Any
-  /// other anchor is ordinary text and stays.
+  /// [text] with a leading anchor `<a id="ID"></a>` removed when it is the
+  /// section's own (Section Anchors): its id is [id], or the qualified form
+  /// `<A>/…/<id>` a heading below a list item carries. Any other anchor is
+  /// ordinary text and stays.
   static String stripOwnAnchor(String text, String id) {
     final m = _anchor.firstMatch(text);
-    return m != null && m.group(1) == id ? text.substring(m.end) : text;
+    return m != null && _isOwnAnchor(m.group(1)!, id)
+        ? text.substring(m.end)
+        : text;
+  }
+
+  /// Whether [anchor] is the own anchor of a section with [id]: [id] itself,
+  /// or a qualified form `<A>/…/<id>` whose segments are all non-empty
+  /// (Section Anchors).
+  static bool _isOwnAnchor(String anchor, String id) {
+    if (anchor == id) return true;
+    if (!anchor.endsWith('/$id')) return false;
+    return !anchor.split('/').any((s) => s.isEmpty);
   }
 
   /// Every section with an id, depth-first in source order.
@@ -1748,7 +1760,8 @@ class DocSpecsValidator {
       final id = m.group(1)!;
       final rest = cell.substring(m.end).split(_cellPartSeparator);
       final own =
-          rest.first.trim() == id || (m.start == 0 && rest.last.trim() == id);
+          DocSpecsDocument._isOwnAnchor(id, rest.first.trim()) ||
+          (m.start == 0 && DocSpecsDocument._isOwnAnchor(id, rest.last.trim()));
       if (!own) out.write(m.group(0));
       pos = m.end;
     }

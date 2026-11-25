@@ -1,0 +1,2530 @@
+{
+  "model": "links.meta.json",
+  "cases": [
+    {
+      "name": "the Blueprint: a sync held there with an exception, a detail element summarised, derived values with two fields, extracted rows, a copy and its holder",
+      "intent": [
+        "alsoInHeldThere",
+        "heldException",
+        "summarisedIn",
+        "derivedTwoFields",
+        "extractedFrom",
+        "copyOf",
+        "copiedTo",
+        "copyAnchors",
+        "roundTrip",
+        "clean"
+      ],
+      "fileStem": "links",
+      "state": {
+        "content": {
+          "BLU/criteriaSummary/content": "The criteria at a glance.",
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
+        },
+        "forms": {
+          "BLU/FOC": {
+            "focusScreens": "SCRN-LOGIN"
+          },
+          "BLU/REV-ITEM-LST-1/content": {
+            "requirementRef": "REQ-EXPORT",
+            "version": "1.1"
+          },
+          "BLU/REV-ITEM-LST-2/content": {
+            "requirementRef": "REQ-IMPORT",
+            "version": "1.0"
+          },
+          "BLU/REV-ITEM-LST-3/content": {
+            "requirementRef": "REQ-PURGE",
+            "version": "0.9"
+          },
+          "BLU/RVENT-REVS-LST-1/content": {
+            "author": "ana",
+            "date": "2026-11-01",
+            "summary": "First version.",
+            "version": "1.0"
+          },
+          "BLU/acceptance/content": {
+            "owner": "quality team"
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST-1/content": {
+            "kind": "functional",
+            "relatedRequirements": "REQ-EXPORT",
+            "text": "Exports finish in 5 s."
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST-2/content": {
+            "kind": "quality",
+            "text": "Every purge is logged."
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1/content": {
+            "kind": "functional",
+            "relatedRequirements": "REQ-EXPORT",
+            "text": "Exports finish in 5 s."
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2/content": {
+            "kind": "quality",
+            "text": "Every purge is logged."
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/content": {
+            "linkType": "namedInText"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/content": {
+            "linkType": "conflict"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQC": {
+            "conflictsWith": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQD": {
+            "description": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQT": {
+            "relatedCriteria": "CRIT-SPEED",
+            "relatedScreens": "SCRN-LOGIN"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/content": {
+            "lastVersion": "1.1",
+            "owner": "ana",
+            "status": "approved",
+            "weight": "2"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/content": {
+            "linkType": "constrainedBy"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/REQC": {
+            "constraints": "Bounded by REQ-PURGE."
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/REQD": {
+            "description": "Imports files."
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/content": {
+            "lastVersion": "1.0",
+            "status": "done"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-EXPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/content": {
+            "linkType": "conflict"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/content": {
+            "linkType": "prerequisite"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1/content": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/REQC": {
+            "conflictsWith": "REQ-EXPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/REQD": {
+            "description": "Purges old data."
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/content": {
+            "lastVersion": "0.9",
+            "status": "draft"
+          },
+          "BLU/requirements/REQS-SUM": {
+            "allRequirements": "REQ-EXPORT, REQ-IMPORT, REQ-PURGE",
+            "settled": "2",
+            "total": "3"
+          },
+          "BLU/requirements/keyRequirements/KEY-ITEM-LST-1/content": {
+            "requirementRef": "REQ-EXPORT",
+            "title": "Export presets"
+          },
+          "BLU/screenOverview/OVR-ITEM-LST-1/content": {
+            "screenRef": "SCRN-LOGIN"
+          }
+        },
+        "lists": {
+          "BLU/REV-ITEM-LST": {
+            "seq": 3,
+            "items": [
+              "BLU/REV-ITEM-LST-1",
+              "BLU/REV-ITEM-LST-2",
+              "BLU/REV-ITEM-LST-3"
+            ],
+            "ids": {
+              "BLU/REV-ITEM-LST-1": "REV-1",
+              "BLU/REV-ITEM-LST-2": "REV-2",
+              "BLU/REV-ITEM-LST-3": "REV-3"
+            }
+          },
+          "BLU/RVENT-REVS-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/RVENT-REVS-LST-1"
+            ],
+            "ids": {
+              "BLU/RVENT-REVS-LST-1": "RVENT-REVS-1"
+            }
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-1",
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-1": "CRIT-SPEED",
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-2": "CRIT-AUDIT"
+            }
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1",
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1": "CRIT-SPEED",
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2": "CRIT-AUDIT"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST": {
+            "seq": 3,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-2",
+              "BLU/requirements/REQ-ITEM-LST-3"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-1": "REQ-EXPORT",
+              "BLU/requirements/REQ-ITEM-LST-2": "REQ-IMPORT",
+              "BLU/requirements/REQ-ITEM-LST-3": "REQ-PURGE"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1": "LNK-1",
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1": "LNK-1"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1": "LNK-1",
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1": "PRE-1"
+            }
+          },
+          "BLU/requirements/keyRequirements/KEY-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/keyRequirements/KEY-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/keyRequirements/KEY-ITEM-LST-1": "KEY-1"
+            }
+          },
+          "BLU/screenOverview/OVR-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/screenOverview/OVR-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/screenOverview/OVR-ITEM-LST-1": "OVR-1"
+            }
+          }
+        },
+        "headlines": {
+          "BLU/requirements/REQ-ITEM-LST-1": "Export presets",
+          "BLU/requirements/REQ-ITEM-LST-2": "Import",
+          "BLU/requirements/REQ-ITEM-LST-3": "Purge"
+        }
+      },
+      "expect": {
+        "markdown": "<!-- docspec: blueprint/1.0 -->\n# <!--[BLU]--> <a id=\"BLU\"></a> Blueprint\n\n## <!--[REQS]--> <a id=\"REQS\"></a> Requirements\n\n[Also in [DET REQS](links.det.tomspecs.md#REQS), held there except REQ.owner]{.linked}\n\n### <!--[REQS-SUM]--> <a id=\"REQS-SUM\"></a> Summary\n\n[Derived from [REQ-ITEM-LST](#REQ-ITEM-LST): total, settled]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Total | 3 |\n| Settled | 2 |\n| AllRequirements | [REQ-EXPORT](#REQ-EXPORT), [REQ-IMPORT](#REQ-IMPORT), [REQ-PURGE](#REQ-PURGE) |\n\n### <!--[REQ-ITEM-LST]--> <a id=\"REQ-ITEM-LST\"></a> Items\n\n#### <!--[REQ-EXPORT]--> <a id=\"REQ-EXPORT\"></a> Export presets\n\n[Also in [DET REQ-EXPORT](links.det.tomspecs.md#REQ-EXPORT), held there except REQ.owner; Summarised in [KEY-1](#KEY-1); Derived from [REQ-EXPORT](#REQ-EXPORT), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | approved |\n| Owner | ana |\n| Weight | 2 |\n| LastVersion | 1.1 |\n\n##### <!--[REQD]--> <a id=\"REQ-EXPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Exports use the formats of REQ-IMPORT and never run with REQ-PURGE. |\n\n##### <!--[REQC]--> <a id=\"REQ-EXPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-EXPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-PURGE](#REQ-PURGE) |\n\n##### <!--[REQT]--> <a id=\"REQ-EXPORT/REQT\"></a> Trace\n\n| TomSpecField | Value |\n| --- | --- |\n| RelatedScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n| RelatedCriteria | [CRIT-SPEED](#CRIT-SPEED) |\n\n##### <!--[REQAB]--> <a id=\"REQ-EXPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\nExports use the formats of REQ-IMPORT and never run with REQ-PURGE.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-EXPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-EXPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | namedInText |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-EXPORT/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-IMPORT]--> <a id=\"REQ-IMPORT\"></a> Import\n\n[Also in [DET REQ-IMPORT](links.det.tomspecs.md#REQ-IMPORT), held there except REQ.owner; Derived from [REQ-IMPORT](#REQ-IMPORT), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | done |\n| LastVersion | 1.0 |\n\n##### <!--[REQD]--> <a id=\"REQ-IMPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Imports files. |\n\n##### <!--[REQC]--> <a id=\"REQ-IMPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-IMPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Constraints | Bounded by REQ-PURGE. |\n\n##### <!--[REQAB]--> <a id=\"REQ-IMPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\nImports files.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-IMPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-IMPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | constrainedBy |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-IMPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-PURGE]--> <a id=\"REQ-PURGE\"></a> Purge\n\n[Also in [DET REQ-PURGE](links.det.tomspecs.md#REQ-PURGE), held there except REQ.owner; Derived from [REQ-PURGE](#REQ-PURGE), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | draft |\n| LastVersion | 0.9 |\n\n##### <!--[REQD]--> <a id=\"REQ-PURGE/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Purges old data. |\n\n##### <!--[REQC]--> <a id=\"REQ-PURGE/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-EXPORT](#REQ-EXPORT) |\n\n##### <!--[REQAB]--> <a id=\"REQ-PURGE/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-PURGE/REQD)]{.linked}\n\nPurges old data.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-PURGE/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-PURGE/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-PURGE/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-EXPORT](#REQ-EXPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-PURGE/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | prerequisite |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n##### <!--[PRE-ITEM-LST]--> <a id=\"REQ-PURGE/PRE-ITEM-LST\"></a> Prerequisites\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST)]{.linked}\n\n::: {.records}\n| Id | Ref |\n| --- | --- |\n| <a id=\"REQ-PURGE/PRE-1\"></a>PRE-1 | [REQ-IMPORT](#REQ-IMPORT) |\n:::\n\n### <!--[KEYS]--> <a id=\"KEYS\"></a> Key Requirements\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"KEY-1\"></a>KEY-ITEM-LST / KEY-1 | RequirementRef | [REQ-EXPORT](#REQ-EXPORT) |\n|  | Title | Export presets |\n\n## <!--[ACC]--> <a id=\"ACC\"></a> Acceptance\n\n[Also in [SCR ACC](links.scr.tomspecs.md#ACC), held there]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | quality team |\n\n### <!--[CRIT]--> <a id=\"CRIT\"></a> Criteria\n\n[Also in [DET CRIT](links.det.tomspecs.md#CRIT), held there; Copied to [CRIT](#CSUM/CRIT)]{.linked}\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n## <!--[CSUM]--> <a id=\"CSUM\"></a> Criteria Summary\n\nThe criteria at a glance.\n\n### <!--[CRIT]--> <a id=\"CSUM/CRIT\"></a> Criteria\n\n[Copy of [CRIT](#CRIT), edit it there]{.linked}\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CSUM/CRIT/CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CSUM/CRIT/CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n## <!--[SOV]--> <a id=\"SOV\"></a> Screen Overview\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"OVR-1\"></a>OVR-ITEM-LST / OVR-1 | ScreenRef | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n\n## <!--[FOC]--> <a id=\"FOC\"></a> Focus\n\n| TomSpecField | Value |\n| --- | --- |\n| FocusScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n\n## <!--[REV-ITEM-LST]--> <a id=\"REV-ITEM-LST\"></a> Revisions\n\n::: {.records}\n| Id | RequirementRef | Version |\n| --- | --- | --- |\n| <a id=\"REV-1\"></a>REV-1 | [REQ-EXPORT](#REQ-EXPORT) | 1.1 |\n| <a id=\"REV-2\"></a>REV-2 | [REQ-IMPORT](#REQ-IMPORT) | 1.0 |\n| <a id=\"REV-3\"></a>REV-3 | [REQ-PURGE](#REQ-PURGE) | 0.9 |\n:::\n\n## <!--[RVENT-REVS-LST]--> <a id=\"RVENT-REVS-LST\"></a> Revision History\n\n::: {.records}\n| Id | Version | Date | Author | Summary |\n| --- | --- | --- | --- | --- |\n| <a id=\"RVENT-REVS-1\"></a>RVENT-REVS-1 | 1.0 | 2026-11-01 | ana | First version. |\n:::\n\n",
+        "rejections": [],
+        "parseMatches": true,
+        "reemitMatches": true
+      }
+    },
+    {
+      "name": "the Phase 3 document: the same sync held here with the exception",
+      "intent": [
+        "alsoInHeldHere",
+        "heldException",
+        "roundTrip",
+        "clean"
+      ],
+      "fileStem": "links",
+      "state": {
+        "content": {
+          "DET/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "DET/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "DET/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
+        },
+        "forms": {
+          "DET/criteria/CRIT-ITEM-LST-1/content": {
+            "kind": "functional",
+            "relatedRequirements": "REQ-EXPORT",
+            "text": "Exports finish in 5 s."
+          },
+          "DET/criteria/CRIT-ITEM-LST-2/content": {
+            "kind": "quality",
+            "text": "Every purge is logged."
+          },
+          "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/content": {
+            "linkType": "namedInText"
+          },
+          "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/content": {
+            "linkType": "conflict"
+          },
+          "DET/requirements/REQ-ITEM-LST-1/REQC": {
+            "conflictsWith": "REQ-PURGE"
+          },
+          "DET/requirements/REQ-ITEM-LST-1/REQD": {
+            "description": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          },
+          "DET/requirements/REQ-ITEM-LST-1/REQT": {
+            "relatedCriteria": "CRIT-SPEED",
+            "relatedScreens": "SCRN-LOGIN"
+          },
+          "DET/requirements/REQ-ITEM-LST-1/REQX": {
+            "rationale": "Presets save the export settings once."
+          },
+          "DET/requirements/REQ-ITEM-LST-1/content": {
+            "lastVersion": "1.1",
+            "owner": "ana",
+            "status": "approved",
+            "weight": "2"
+          },
+          "DET/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "DET/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/content": {
+            "linkType": "constrainedBy"
+          },
+          "DET/requirements/REQ-ITEM-LST-2/REQC": {
+            "constraints": "Bounded by REQ-PURGE."
+          },
+          "DET/requirements/REQ-ITEM-LST-2/REQD": {
+            "description": "Imports files."
+          },
+          "DET/requirements/REQ-ITEM-LST-2/content": {
+            "lastVersion": "1.0",
+            "status": "done"
+          },
+          "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-EXPORT"
+          },
+          "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/content": {
+            "linkType": "conflict"
+          },
+          "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/content": {
+            "linkType": "prerequisite"
+          },
+          "DET/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1/content": {
+            "ref": "REQ-IMPORT"
+          },
+          "DET/requirements/REQ-ITEM-LST-3/REQC": {
+            "conflictsWith": "REQ-EXPORT"
+          },
+          "DET/requirements/REQ-ITEM-LST-3/REQD": {
+            "description": "Purges old data."
+          },
+          "DET/requirements/REQ-ITEM-LST-3/content": {
+            "lastVersion": "0.9",
+            "status": "draft"
+          },
+          "DET/requirements/REQS-SUM": {
+            "allRequirements": "REQ-EXPORT, REQ-IMPORT, REQ-PURGE",
+            "settled": "2",
+            "total": "3"
+          },
+          "DET/requirements/keyRequirements/KEY-ITEM-LST-1/content": {
+            "requirementRef": "REQ-EXPORT",
+            "title": "Export presets"
+          }
+        },
+        "lists": {
+          "DET/criteria/CRIT-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "DET/criteria/CRIT-ITEM-LST-1",
+              "DET/criteria/CRIT-ITEM-LST-2"
+            ],
+            "ids": {
+              "DET/criteria/CRIT-ITEM-LST-1": "CRIT-SPEED",
+              "DET/criteria/CRIT-ITEM-LST-2": "CRIT-AUDIT"
+            }
+          },
+          "DET/requirements/REQ-ITEM-LST": {
+            "seq": 3,
+            "items": [
+              "DET/requirements/REQ-ITEM-LST-1",
+              "DET/requirements/REQ-ITEM-LST-2",
+              "DET/requirements/REQ-ITEM-LST-3"
+            ],
+            "ids": {
+              "DET/requirements/REQ-ITEM-LST-1": "REQ-EXPORT",
+              "DET/requirements/REQ-ITEM-LST-2": "REQ-IMPORT",
+              "DET/requirements/REQ-ITEM-LST-3": "REQ-PURGE"
+            }
+          },
+          "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1",
+              "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1": "LNK-1",
+              "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "DET/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "DET/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1"
+            ],
+            "ids": {
+              "DET/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1": "LNK-1"
+            }
+          },
+          "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1",
+              "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1": "LNK-1",
+              "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "DET/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "DET/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1"
+            ],
+            "ids": {
+              "DET/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1": "PRE-1"
+            }
+          },
+          "DET/requirements/keyRequirements/KEY-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "DET/requirements/keyRequirements/KEY-ITEM-LST-1"
+            ],
+            "ids": {
+              "DET/requirements/keyRequirements/KEY-ITEM-LST-1": "KEY-1"
+            }
+          }
+        },
+        "headlines": {
+          "DET/requirements/REQ-ITEM-LST-1": "Export presets",
+          "DET/requirements/REQ-ITEM-LST-2": "Import",
+          "DET/requirements/REQ-ITEM-LST-3": "Purge"
+        }
+      },
+      "expect": {
+        "markdown": "<!-- docspec: detail/1.0 -->\n# <!--[DET]--> <a id=\"DET\"></a> Detail\n\n## <!--[REQS]--> <a id=\"REQS\"></a> Requirements\n\n[Also in [BLU REQS](links.blu.tomspecs.md#REQS), held here except REQ.owner]{.linked}\n\n### <!--[REQS-SUM]--> <a id=\"REQS-SUM\"></a> Summary\n\n[Derived from [REQ-ITEM-LST](#REQ-ITEM-LST): total, settled]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Total | 3 |\n| Settled | 2 |\n| AllRequirements | [REQ-EXPORT](#REQ-EXPORT), [REQ-IMPORT](#REQ-IMPORT), [REQ-PURGE](#REQ-PURGE) |\n\n### <!--[REQ-ITEM-LST]--> <a id=\"REQ-ITEM-LST\"></a> Items\n\n#### <!--[REQ-EXPORT]--> <a id=\"REQ-EXPORT\"></a> Export presets\n\n[Also in [BLU REQ-EXPORT](links.blu.tomspecs.md#REQ-EXPORT), held here except REQ.owner; Summarised in [KEY-1](#KEY-1); Derived from [REQ-EXPORT](#REQ-EXPORT), [REQ-ITEM-LST](#REQ-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | approved |\n| Owner | ana |\n| Weight | 2 |\n| LastVersion | 1.1 |\n\n##### <!--[REQD]--> <a id=\"REQ-EXPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Exports use the formats of REQ-IMPORT and never run with REQ-PURGE. |\n\n##### <!--[REQC]--> <a id=\"REQ-EXPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-EXPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-PURGE](#REQ-PURGE) |\n\n##### <!--[REQT]--> <a id=\"REQ-EXPORT/REQT\"></a> Trace\n\n| TomSpecField | Value |\n| --- | --- |\n| RelatedScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n| RelatedCriteria | [CRIT-SPEED](#CRIT-SPEED) |\n\n##### <!--[REQX]--> <a id=\"REQ-EXPORT/REQX\"></a> Rationale\n\n| TomSpecField | Value |\n| --- | --- |\n| Rationale | Presets save the export settings once. |\n\n##### <!--[REQAB]--> <a id=\"REQ-EXPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\nExports use the formats of REQ-IMPORT and never run with REQ-PURGE.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-EXPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-EXPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | namedInText |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-EXPORT/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-IMPORT]--> <a id=\"REQ-IMPORT\"></a> Import\n\n[Also in [BLU REQ-IMPORT](links.blu.tomspecs.md#REQ-IMPORT), held here except REQ.owner; Derived from [REQ-IMPORT](#REQ-IMPORT), [REQ-ITEM-LST](#REQ-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | done |\n| LastVersion | 1.0 |\n\n##### <!--[REQD]--> <a id=\"REQ-IMPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Imports files. |\n\n##### <!--[REQC]--> <a id=\"REQ-IMPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-IMPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Constraints | Bounded by REQ-PURGE. |\n\n##### <!--[REQAB]--> <a id=\"REQ-IMPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\nImports files.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-IMPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-IMPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | constrainedBy |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-IMPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-PURGE]--> <a id=\"REQ-PURGE\"></a> Purge\n\n[Also in [BLU REQ-PURGE](links.blu.tomspecs.md#REQ-PURGE), held here except REQ.owner; Derived from [REQ-PURGE](#REQ-PURGE), [REQ-ITEM-LST](#REQ-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | draft |\n| LastVersion | 0.9 |\n\n##### <!--[REQD]--> <a id=\"REQ-PURGE/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Purges old data. |\n\n##### <!--[REQC]--> <a id=\"REQ-PURGE/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-EXPORT](#REQ-EXPORT) |\n\n##### <!--[REQAB]--> <a id=\"REQ-PURGE/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-PURGE/REQD)]{.linked}\n\nPurges old data.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-PURGE/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-PURGE/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-PURGE/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-EXPORT](#REQ-EXPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-PURGE/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | prerequisite |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n##### <!--[PRE-ITEM-LST]--> <a id=\"REQ-PURGE/PRE-ITEM-LST\"></a> Prerequisites\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST)]{.linked}\n\n::: {.records}\n| Id | Ref |\n| --- | --- |\n| <a id=\"REQ-PURGE/PRE-1\"></a>PRE-1 | [REQ-IMPORT](#REQ-IMPORT) |\n:::\n\n### <!--[KEYS]--> <a id=\"KEYS\"></a> Key Requirements\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"KEY-1\"></a>KEY-ITEM-LST / KEY-1 | RequirementRef | [REQ-EXPORT](#REQ-EXPORT) |\n|  | Title | Export presets |\n\n## <!--[CRIT]--> <a id=\"CRIT\"></a> Criteria\n\n[Also in [BLU CRIT](links.blu.tomspecs.md#CRIT), held here]{.linked}\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n",
+        "rejections": [],
+        "parseMatches": true,
+        "reemitMatches": true
+      }
+    },
+    {
+      "name": "a sync held here without an exception",
+      "intent": [
+        "alsoInHeldHere",
+        "roundTrip",
+        "clean"
+      ],
+      "fileStem": "links",
+      "state": {
+        "forms": {
+          "SCR/SCRN-ITEM-LST-1/content": {
+            "purpose": "Sign in.",
+            "relatedRequirements": "REQ-EXPORT"
+          },
+          "SCR/acceptance/content": {
+            "owner": "quality team"
+          },
+          "SCR/acceptance/criteria/CRIT-ITEM-LST-1/content": {
+            "text": "Every screen is reachable by key."
+          }
+        },
+        "lists": {
+          "SCR/SCRN-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "SCR/SCRN-ITEM-LST-1"
+            ],
+            "ids": {
+              "SCR/SCRN-ITEM-LST-1": "SCRN-LOGIN"
+            }
+          },
+          "SCR/acceptance/criteria/CRIT-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "SCR/acceptance/criteria/CRIT-ITEM-LST-1"
+            ],
+            "ids": {
+              "SCR/acceptance/criteria/CRIT-ITEM-LST-1": "CRIT-UX"
+            }
+          }
+        },
+        "headlines": {
+          "SCR/SCRN-ITEM-LST-1": "Login"
+        }
+      },
+      "expect": {
+        "markdown": "<!-- docspec: screens/1.0 -->\n# <!--[SCR]--> <a id=\"SCR\"></a> Screens\n\n## <!--[SCRN-ITEM-LST]--> <a id=\"SCRN-ITEM-LST\"></a> Screens\n\n::: {.records}\n| Id | Title | Purpose | RelatedRequirements |\n| --- | --- | --- | --- |\n| <a id=\"SCRN-LOGIN\"></a>SCRN-LOGIN | Login | Sign in. | [REQ-EXPORT](links.det.tomspecs.md#REQ-EXPORT) |\n:::\n\n## <!--[ACC]--> <a id=\"ACC\"></a> Acceptance\n\n[Also in [BLU ACC](links.blu.tomspecs.md#ACC), held here]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | quality team |\n\n### <!--[CRIT]--> <a id=\"CRIT\"></a> Criteria\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CRIT-UX\"></a>CRIT-ITEM-LST / CRIT-UX | Text | Every screen is reachable by key. |\n\n",
+        "rejections": [],
+        "parseMatches": true,
+        "reemitMatches": true
+      }
+    },
+    {
+      "name": "a summary element with a heading of its own links its detail element",
+      "intent": [
+        "summaryOf",
+        "roundTrip",
+        "clean"
+      ],
+      "fileStem": "links",
+      "state": {
+        "content": {
+          "BLU/criteriaSummary/content": "The criteria at a glance.",
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
+        },
+        "forms": {
+          "BLU/FOC": {
+            "focusScreens": "SCRN-LOGIN"
+          },
+          "BLU/REV-ITEM-LST-1/content": {
+            "requirementRef": "REQ-EXPORT",
+            "version": "1.1"
+          },
+          "BLU/REV-ITEM-LST-2/content": {
+            "requirementRef": "REQ-IMPORT",
+            "version": "1.0"
+          },
+          "BLU/REV-ITEM-LST-3/content": {
+            "requirementRef": "REQ-PURGE",
+            "version": "0.9"
+          },
+          "BLU/RVENT-REVS-LST-1/content": {
+            "author": "ana",
+            "date": "2026-11-01",
+            "summary": "First version.",
+            "version": "1.0"
+          },
+          "BLU/acceptance/content": {
+            "owner": "quality team"
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST-1/content": {
+            "kind": "functional",
+            "relatedRequirements": "REQ-EXPORT",
+            "text": "Exports finish in 5 s."
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST-2/content": {
+            "kind": "quality",
+            "text": "Every purge is logged."
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1/content": {
+            "kind": "functional",
+            "relatedRequirements": "REQ-EXPORT",
+            "text": "Exports finish in 5 s."
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2/content": {
+            "kind": "quality",
+            "text": "Every purge is logged."
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/content": {
+            "linkType": "namedInText"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/content": {
+            "linkType": "conflict"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQC": {
+            "conflictsWith": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQD": {
+            "description": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQT": {
+            "relatedCriteria": "CRIT-SPEED",
+            "relatedScreens": "SCRN-LOGIN"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/content": {
+            "lastVersion": "1.1",
+            "owner": "ana",
+            "status": "approved",
+            "weight": "2"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/content": {
+            "linkType": "constrainedBy"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/REQC": {
+            "constraints": "Bounded by REQ-PURGE."
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/REQD": {
+            "description": "Imports files."
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/content": {
+            "lastVersion": "1.0",
+            "status": "done"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-EXPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/content": {
+            "linkType": "conflict"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/content": {
+            "linkType": "prerequisite"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1/content": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/REQC": {
+            "conflictsWith": "REQ-EXPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/REQD": {
+            "description": "Purges old data."
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/content": {
+            "lastVersion": "0.9",
+            "status": "draft"
+          },
+          "BLU/requirements/REQS-SUM": {
+            "allRequirements": "REQ-EXPORT, REQ-IMPORT, REQ-PURGE",
+            "settled": "2",
+            "total": "3"
+          },
+          "BLU/requirements/keyRequirements/KEY-ITEM-LST-1/content": {
+            "requirementRef": "REQ-EXPORT",
+            "title": "Export presets.\n\nThe key one."
+          },
+          "BLU/screenOverview/OVR-ITEM-LST-1/content": {
+            "screenRef": "SCRN-LOGIN"
+          }
+        },
+        "lists": {
+          "BLU/REV-ITEM-LST": {
+            "seq": 3,
+            "items": [
+              "BLU/REV-ITEM-LST-1",
+              "BLU/REV-ITEM-LST-2",
+              "BLU/REV-ITEM-LST-3"
+            ],
+            "ids": {
+              "BLU/REV-ITEM-LST-1": "REV-1",
+              "BLU/REV-ITEM-LST-2": "REV-2",
+              "BLU/REV-ITEM-LST-3": "REV-3"
+            }
+          },
+          "BLU/RVENT-REVS-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/RVENT-REVS-LST-1"
+            ],
+            "ids": {
+              "BLU/RVENT-REVS-LST-1": "RVENT-REVS-1"
+            }
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-1",
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-1": "CRIT-SPEED",
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-2": "CRIT-AUDIT"
+            }
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1",
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1": "CRIT-SPEED",
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2": "CRIT-AUDIT"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST": {
+            "seq": 3,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-2",
+              "BLU/requirements/REQ-ITEM-LST-3"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-1": "REQ-EXPORT",
+              "BLU/requirements/REQ-ITEM-LST-2": "REQ-IMPORT",
+              "BLU/requirements/REQ-ITEM-LST-3": "REQ-PURGE"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1": "LNK-1",
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1": "LNK-1"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1": "LNK-1",
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1": "PRE-1"
+            }
+          },
+          "BLU/requirements/keyRequirements/KEY-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/keyRequirements/KEY-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/keyRequirements/KEY-ITEM-LST-1": "KEY-1"
+            }
+          },
+          "BLU/screenOverview/OVR-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/screenOverview/OVR-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/screenOverview/OVR-ITEM-LST-1": "OVR-1"
+            }
+          }
+        },
+        "headlines": {
+          "BLU/requirements/REQ-ITEM-LST-1": "Export presets",
+          "BLU/requirements/REQ-ITEM-LST-2": "Import",
+          "BLU/requirements/REQ-ITEM-LST-3": "Purge"
+        }
+      },
+      "expect": {
+        "markdown": "<!-- docspec: blueprint/1.0 -->\n# <!--[BLU]--> <a id=\"BLU\"></a> Blueprint\n\n## <!--[REQS]--> <a id=\"REQS\"></a> Requirements\n\n[Also in [DET REQS](links.det.tomspecs.md#REQS), held there except REQ.owner]{.linked}\n\n### <!--[REQS-SUM]--> <a id=\"REQS-SUM\"></a> Summary\n\n[Derived from [REQ-ITEM-LST](#REQ-ITEM-LST): total, settled]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Total | 3 |\n| Settled | 2 |\n| AllRequirements | [REQ-EXPORT](#REQ-EXPORT), [REQ-IMPORT](#REQ-IMPORT), [REQ-PURGE](#REQ-PURGE) |\n\n### <!--[REQ-ITEM-LST]--> <a id=\"REQ-ITEM-LST\"></a> Items\n\n#### <!--[REQ-EXPORT]--> <a id=\"REQ-EXPORT\"></a> Export presets\n\n[Also in [DET REQ-EXPORT](links.det.tomspecs.md#REQ-EXPORT), held there except REQ.owner; Summarised in [KEY-1](#KEY-1); Derived from [REQ-EXPORT](#REQ-EXPORT), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | approved |\n| Owner | ana |\n| Weight | 2 |\n| LastVersion | 1.1 |\n\n##### <!--[REQD]--> <a id=\"REQ-EXPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Exports use the formats of REQ-IMPORT and never run with REQ-PURGE. |\n\n##### <!--[REQC]--> <a id=\"REQ-EXPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-EXPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-PURGE](#REQ-PURGE) |\n\n##### <!--[REQT]--> <a id=\"REQ-EXPORT/REQT\"></a> Trace\n\n| TomSpecField | Value |\n| --- | --- |\n| RelatedScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n| RelatedCriteria | [CRIT-SPEED](#CRIT-SPEED) |\n\n##### <!--[REQAB]--> <a id=\"REQ-EXPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\nExports use the formats of REQ-IMPORT and never run with REQ-PURGE.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-EXPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-EXPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | namedInText |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-EXPORT/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-IMPORT]--> <a id=\"REQ-IMPORT\"></a> Import\n\n[Also in [DET REQ-IMPORT](links.det.tomspecs.md#REQ-IMPORT), held there except REQ.owner; Derived from [REQ-IMPORT](#REQ-IMPORT), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | done |\n| LastVersion | 1.0 |\n\n##### <!--[REQD]--> <a id=\"REQ-IMPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Imports files. |\n\n##### <!--[REQC]--> <a id=\"REQ-IMPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-IMPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Constraints | Bounded by REQ-PURGE. |\n\n##### <!--[REQAB]--> <a id=\"REQ-IMPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\nImports files.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-IMPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-IMPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | constrainedBy |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-IMPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-PURGE]--> <a id=\"REQ-PURGE\"></a> Purge\n\n[Also in [DET REQ-PURGE](links.det.tomspecs.md#REQ-PURGE), held there except REQ.owner; Derived from [REQ-PURGE](#REQ-PURGE), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | draft |\n| LastVersion | 0.9 |\n\n##### <!--[REQD]--> <a id=\"REQ-PURGE/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Purges old data. |\n\n##### <!--[REQC]--> <a id=\"REQ-PURGE/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-EXPORT](#REQ-EXPORT) |\n\n##### <!--[REQAB]--> <a id=\"REQ-PURGE/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-PURGE/REQD)]{.linked}\n\nPurges old data.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-PURGE/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-PURGE/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-PURGE/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-EXPORT](#REQ-EXPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-PURGE/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | prerequisite |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n##### <!--[PRE-ITEM-LST]--> <a id=\"REQ-PURGE/PRE-ITEM-LST\"></a> Prerequisites\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST)]{.linked}\n\n::: {.records}\n| Id | Ref |\n| --- | --- |\n| <a id=\"REQ-PURGE/PRE-1\"></a>PRE-1 | [REQ-IMPORT](#REQ-IMPORT) |\n:::\n\n### <!--[KEYS]--> <a id=\"KEYS\"></a> Key Requirements\n\n#### <!--[KEY-ITEM-LST]--> <a id=\"KEY-ITEM-LST\"></a> Items\n\n##### <!--[KEY-1]--> <a id=\"KEY-1\"></a> Key Requirement 1\n\n[Also in [DET KEY-1](links.det.tomspecs.md#KEY-1), held there except REQ.owner; Summary of [REQ-EXPORT](#REQ-EXPORT)]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| RequirementRef | [REQ-EXPORT](#REQ-EXPORT) |\n\nTitle: Export presets.\n\nThe key one.\n\n## <!--[ACC]--> <a id=\"ACC\"></a> Acceptance\n\n[Also in [SCR ACC](links.scr.tomspecs.md#ACC), held there]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | quality team |\n\n### <!--[CRIT]--> <a id=\"CRIT\"></a> Criteria\n\n[Also in [DET CRIT](links.det.tomspecs.md#CRIT), held there; Copied to [CRIT](#CSUM/CRIT)]{.linked}\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n## <!--[CSUM]--> <a id=\"CSUM\"></a> Criteria Summary\n\nThe criteria at a glance.\n\n### <!--[CRIT]--> <a id=\"CSUM/CRIT\"></a> Criteria\n\n[Copy of [CRIT](#CRIT), edit it there]{.linked}\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CSUM/CRIT/CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CSUM/CRIT/CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n## <!--[SOV]--> <a id=\"SOV\"></a> Screen Overview\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"OVR-1\"></a>OVR-ITEM-LST / OVR-1 | ScreenRef | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n\n## <!--[FOC]--> <a id=\"FOC\"></a> Focus\n\n| TomSpecField | Value |\n| --- | --- |\n| FocusScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n\n## <!--[REV-ITEM-LST]--> <a id=\"REV-ITEM-LST\"></a> Revisions\n\n::: {.records}\n| Id | RequirementRef | Version |\n| --- | --- | --- |\n| <a id=\"REV-1\"></a>REV-1 | [REQ-EXPORT](#REQ-EXPORT) | 1.1 |\n| <a id=\"REV-2\"></a>REV-2 | [REQ-IMPORT](#REQ-IMPORT) | 1.0 |\n| <a id=\"REV-3\"></a>REV-3 | [REQ-PURGE](#REQ-PURGE) | 0.9 |\n:::\n\n## <!--[RVENT-REVS-LST]--> <a id=\"RVENT-REVS-LST\"></a> Revision History\n\n::: {.records}\n| Id | Version | Date | Author | Summary |\n| --- | --- | --- | --- | --- |\n| <a id=\"RVENT-REVS-1\"></a>RVENT-REVS-1 | 1.0 | 2026-11-01 | ana | First version. |\n:::\n\n",
+        "rejections": [],
+        "parseMatches": true,
+        "reemitMatches": true
+      }
+    },
+    {
+      "name": "a heading three levels below the outermost item takes the qualified anchor",
+      "intent": [
+        "qualifiedThree",
+        "roundTrip",
+        "clean"
+      ],
+      "fileStem": "links",
+      "state": {
+        "content": {
+          "BLU/criteriaSummary/content": "The criteria at a glance.",
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
+        },
+        "forms": {
+          "BLU/FOC": {
+            "focusScreens": "SCRN-LOGIN"
+          },
+          "BLU/REV-ITEM-LST-1/content": {
+            "requirementRef": "REQ-EXPORT",
+            "version": "1.1"
+          },
+          "BLU/REV-ITEM-LST-2/content": {
+            "requirementRef": "REQ-IMPORT",
+            "version": "1.0"
+          },
+          "BLU/REV-ITEM-LST-3/content": {
+            "requirementRef": "REQ-PURGE",
+            "version": "0.9"
+          },
+          "BLU/RVENT-REVS-LST-1/content": {
+            "author": "ana",
+            "date": "2026-11-01",
+            "summary": "First version.",
+            "version": "1.0"
+          },
+          "BLU/acceptance/content": {
+            "owner": "quality team"
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST-1/content": {
+            "kind": "functional",
+            "relatedRequirements": "REQ-EXPORT",
+            "text": "Exports finish in 5 s."
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST-2/content": {
+            "kind": "quality",
+            "text": "Every purge is logged."
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1/content": {
+            "kind": "functional",
+            "relatedRequirements": "REQ-EXPORT",
+            "text": "Exports finish in 5 s."
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2/content": {
+            "kind": "quality",
+            "text": "Every purge is logged."
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/content": {
+            "linkType": "namedInText"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/content": {
+            "linkType": "conflict"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQC": {
+            "conflictsWith": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQD": {
+            "description": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQT": {
+            "relatedCriteria": "CRIT-SPEED",
+            "relatedScreens": "SCRN-LOGIN"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/content": {
+            "lastVersion": "1.1",
+            "owner": "ana",
+            "status": "approved",
+            "weight": "2"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/content": {
+            "linkType": "constrainedBy"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/REQC": {
+            "constraints": "Bounded by REQ-PURGE."
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/REQD": {
+            "description": "Imports files."
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/content": {
+            "lastVersion": "1.0",
+            "status": "done"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-EXPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/content": {
+            "linkType": "conflict"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/content": {
+            "linkType": "prerequisite"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1/content": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/REQC": {
+            "conflictsWith": "REQ-EXPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/REQD": {
+            "description": "Purges old data."
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/content": {
+            "lastVersion": "0.9",
+            "status": "draft"
+          },
+          "BLU/requirements/REQS-SUM": {
+            "allRequirements": "REQ-EXPORT, REQ-IMPORT, REQ-PURGE",
+            "settled": "2",
+            "total": "3"
+          },
+          "BLU/requirements/keyRequirements/KEY-ITEM-LST-1/content": {
+            "requirementRef": "REQ-EXPORT",
+            "title": "Export presets"
+          },
+          "BLU/screenOverview/OVR-ITEM-LST-1/content": {
+            "screenRef": "SCRN-LOGIN"
+          }
+        },
+        "lists": {
+          "BLU/REV-ITEM-LST": {
+            "seq": 3,
+            "items": [
+              "BLU/REV-ITEM-LST-1",
+              "BLU/REV-ITEM-LST-2",
+              "BLU/REV-ITEM-LST-3"
+            ],
+            "ids": {
+              "BLU/REV-ITEM-LST-1": "REV-1",
+              "BLU/REV-ITEM-LST-2": "REV-2",
+              "BLU/REV-ITEM-LST-3": "REV-3"
+            }
+          },
+          "BLU/RVENT-REVS-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/RVENT-REVS-LST-1"
+            ],
+            "ids": {
+              "BLU/RVENT-REVS-LST-1": "RVENT-REVS-1"
+            }
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-1",
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-1": "CRIT-SPEED",
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-2": "CRIT-AUDIT"
+            }
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1",
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1": "CRIT-SPEED",
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2": "CRIT-AUDIT"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST": {
+            "seq": 3,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-2",
+              "BLU/requirements/REQ-ITEM-LST-3"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-1": "REQ-EXPORT",
+              "BLU/requirements/REQ-ITEM-LST-2": "REQ-IMPORT",
+              "BLU/requirements/REQ-ITEM-LST-3": "REQ-PURGE"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1": "LNK-1",
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1": "LNK-1"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1": "LNK-1",
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1": "PRE-1"
+            }
+          },
+          "BLU/requirements/keyRequirements/KEY-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/keyRequirements/KEY-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/keyRequirements/KEY-ITEM-LST-1": "KEY-1"
+            }
+          },
+          "BLU/screenOverview/OVR-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/screenOverview/OVR-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/screenOverview/OVR-ITEM-LST-1": "OVR-1"
+            }
+          }
+        },
+        "headlines": {
+          "BLU/requirements/REQ-ITEM-LST-1": "Export presets",
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/LNK-REF": "The requirement named",
+          "BLU/requirements/REQ-ITEM-LST-2": "Import",
+          "BLU/requirements/REQ-ITEM-LST-3": "Purge"
+        }
+      },
+      "expect": {
+        "markdown": "<!-- docspec: blueprint/1.0 -->\n# <!--[BLU]--> <a id=\"BLU\"></a> Blueprint\n\n## <!--[REQS]--> <a id=\"REQS\"></a> Requirements\n\n[Also in [DET REQS](links.det.tomspecs.md#REQS), held there except REQ.owner]{.linked}\n\n### <!--[REQS-SUM]--> <a id=\"REQS-SUM\"></a> Summary\n\n[Derived from [REQ-ITEM-LST](#REQ-ITEM-LST): total, settled]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Total | 3 |\n| Settled | 2 |\n| AllRequirements | [REQ-EXPORT](#REQ-EXPORT), [REQ-IMPORT](#REQ-IMPORT), [REQ-PURGE](#REQ-PURGE) |\n\n### <!--[REQ-ITEM-LST]--> <a id=\"REQ-ITEM-LST\"></a> Items\n\n#### <!--[REQ-EXPORT]--> <a id=\"REQ-EXPORT\"></a> Export presets\n\n[Also in [DET REQ-EXPORT](links.det.tomspecs.md#REQ-EXPORT), held there except REQ.owner; Summarised in [KEY-1](#KEY-1); Derived from [REQ-EXPORT](#REQ-EXPORT), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | approved |\n| Owner | ana |\n| Weight | 2 |\n| LastVersion | 1.1 |\n\n##### <!--[REQD]--> <a id=\"REQ-EXPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Exports use the formats of REQ-IMPORT and never run with REQ-PURGE. |\n\n##### <!--[REQC]--> <a id=\"REQ-EXPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-EXPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-PURGE](#REQ-PURGE) |\n\n##### <!--[REQT]--> <a id=\"REQ-EXPORT/REQT\"></a> Trace\n\n| TomSpecField | Value |\n| --- | --- |\n| RelatedScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n| RelatedCriteria | [CRIT-SPEED](#CRIT-SPEED) |\n\n##### <!--[REQAB]--> <a id=\"REQ-EXPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\nExports use the formats of REQ-IMPORT and never run with REQ-PURGE.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-EXPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-EXPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | namedInText |\n\n####### <!--[LNK-REF]--> <a id=\"REQ-EXPORT/LNK-1/LNK-REF\"></a> The requirement named\n\n| TomSpecField | Value |\n| --- | --- |\n| Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-EXPORT/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-IMPORT]--> <a id=\"REQ-IMPORT\"></a> Import\n\n[Also in [DET REQ-IMPORT](links.det.tomspecs.md#REQ-IMPORT), held there except REQ.owner; Derived from [REQ-IMPORT](#REQ-IMPORT), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | done |\n| LastVersion | 1.0 |\n\n##### <!--[REQD]--> <a id=\"REQ-IMPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Imports files. |\n\n##### <!--[REQC]--> <a id=\"REQ-IMPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-IMPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Constraints | Bounded by REQ-PURGE. |\n\n##### <!--[REQAB]--> <a id=\"REQ-IMPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\nImports files.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-IMPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-IMPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | constrainedBy |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-IMPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-PURGE]--> <a id=\"REQ-PURGE\"></a> Purge\n\n[Also in [DET REQ-PURGE](links.det.tomspecs.md#REQ-PURGE), held there except REQ.owner; Derived from [REQ-PURGE](#REQ-PURGE), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | draft |\n| LastVersion | 0.9 |\n\n##### <!--[REQD]--> <a id=\"REQ-PURGE/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Purges old data. |\n\n##### <!--[REQC]--> <a id=\"REQ-PURGE/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-EXPORT](#REQ-EXPORT) |\n\n##### <!--[REQAB]--> <a id=\"REQ-PURGE/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-PURGE/REQD)]{.linked}\n\nPurges old data.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-PURGE/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-PURGE/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-PURGE/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-EXPORT](#REQ-EXPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-PURGE/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | prerequisite |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n##### <!--[PRE-ITEM-LST]--> <a id=\"REQ-PURGE/PRE-ITEM-LST\"></a> Prerequisites\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST)]{.linked}\n\n::: {.records}\n| Id | Ref |\n| --- | --- |\n| <a id=\"REQ-PURGE/PRE-1\"></a>PRE-1 | [REQ-IMPORT](#REQ-IMPORT) |\n:::\n\n### <!--[KEYS]--> <a id=\"KEYS\"></a> Key Requirements\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"KEY-1\"></a>KEY-ITEM-LST / KEY-1 | RequirementRef | [REQ-EXPORT](#REQ-EXPORT) |\n|  | Title | Export presets |\n\n## <!--[ACC]--> <a id=\"ACC\"></a> Acceptance\n\n[Also in [SCR ACC](links.scr.tomspecs.md#ACC), held there]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | quality team |\n\n### <!--[CRIT]--> <a id=\"CRIT\"></a> Criteria\n\n[Also in [DET CRIT](links.det.tomspecs.md#CRIT), held there; Copied to [CRIT](#CSUM/CRIT)]{.linked}\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n## <!--[CSUM]--> <a id=\"CSUM\"></a> Criteria Summary\n\nThe criteria at a glance.\n\n### <!--[CRIT]--> <a id=\"CSUM/CRIT\"></a> Criteria\n\n[Copy of [CRIT](#CRIT), edit it there]{.linked}\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CSUM/CRIT/CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CSUM/CRIT/CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n## <!--[SOV]--> <a id=\"SOV\"></a> Screen Overview\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"OVR-1\"></a>OVR-ITEM-LST / OVR-1 | ScreenRef | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n\n## <!--[FOC]--> <a id=\"FOC\"></a> Focus\n\n| TomSpecField | Value |\n| --- | --- |\n| FocusScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n\n## <!--[REV-ITEM-LST]--> <a id=\"REV-ITEM-LST\"></a> Revisions\n\n::: {.records}\n| Id | RequirementRef | Version |\n| --- | --- | --- |\n| <a id=\"REV-1\"></a>REV-1 | [REQ-EXPORT](#REQ-EXPORT) | 1.1 |\n| <a id=\"REV-2\"></a>REV-2 | [REQ-IMPORT](#REQ-IMPORT) | 1.0 |\n| <a id=\"REV-3\"></a>REV-3 | [REQ-PURGE](#REQ-PURGE) | 0.9 |\n:::\n\n## <!--[RVENT-REVS-LST]--> <a id=\"RVENT-REVS-LST\"></a> Revision History\n\n::: {.records}\n| Id | Version | Date | Author | Summary |\n| --- | --- | --- | --- | --- |\n| <a id=\"RVENT-REVS-1\"></a>RVENT-REVS-1 | 1.0 | 2026-11-01 | ana | First version. |\n:::\n\n",
+        "rejections": [],
+        "parseMatches": true,
+        "reemitMatches": true
+      }
+    },
+    {
+      "name": "a rendition whose markers were deleted parses to the same document; the next rendition writes them again",
+      "intent": [
+        "markerRestored",
+        "clean"
+      ],
+      "fileStem": "links",
+      "state": {
+        "content": {
+          "BLU/criteriaSummary/content": "The criteria at a glance.",
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
+        },
+        "forms": {
+          "BLU/FOC": {
+            "focusScreens": "SCRN-LOGIN"
+          },
+          "BLU/REV-ITEM-LST-1/content": {
+            "requirementRef": "REQ-EXPORT",
+            "version": "1.1"
+          },
+          "BLU/REV-ITEM-LST-2/content": {
+            "requirementRef": "REQ-IMPORT",
+            "version": "1.0"
+          },
+          "BLU/REV-ITEM-LST-3/content": {
+            "requirementRef": "REQ-PURGE",
+            "version": "0.9"
+          },
+          "BLU/RVENT-REVS-LST-1/content": {
+            "author": "ana",
+            "date": "2026-11-01",
+            "summary": "First version.",
+            "version": "1.0"
+          },
+          "BLU/acceptance/content": {
+            "owner": "quality team"
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST-1/content": {
+            "kind": "functional",
+            "relatedRequirements": "REQ-EXPORT",
+            "text": "Exports finish in 5 s."
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST-2/content": {
+            "kind": "quality",
+            "text": "Every purge is logged."
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1/content": {
+            "kind": "functional",
+            "relatedRequirements": "REQ-EXPORT",
+            "text": "Exports finish in 5 s."
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2/content": {
+            "kind": "quality",
+            "text": "Every purge is logged."
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/content": {
+            "linkType": "namedInText"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/content": {
+            "linkType": "conflict"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQC": {
+            "conflictsWith": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQD": {
+            "description": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQT": {
+            "relatedCriteria": "CRIT-SPEED",
+            "relatedScreens": "SCRN-LOGIN"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/content": {
+            "lastVersion": "1.1",
+            "owner": "ana",
+            "status": "approved",
+            "weight": "2"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/content": {
+            "linkType": "constrainedBy"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/REQC": {
+            "constraints": "Bounded by REQ-PURGE."
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/REQD": {
+            "description": "Imports files."
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/content": {
+            "lastVersion": "1.0",
+            "status": "done"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-EXPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/content": {
+            "linkType": "conflict"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/content": {
+            "linkType": "prerequisite"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1/content": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/REQC": {
+            "conflictsWith": "REQ-EXPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/REQD": {
+            "description": "Purges old data."
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/content": {
+            "lastVersion": "0.9",
+            "status": "draft"
+          },
+          "BLU/requirements/REQS-SUM": {
+            "allRequirements": "REQ-EXPORT, REQ-IMPORT, REQ-PURGE",
+            "settled": "2",
+            "total": "3"
+          },
+          "BLU/requirements/keyRequirements/KEY-ITEM-LST-1/content": {
+            "requirementRef": "REQ-EXPORT",
+            "title": "Export presets"
+          },
+          "BLU/screenOverview/OVR-ITEM-LST-1/content": {
+            "screenRef": "SCRN-LOGIN"
+          }
+        },
+        "lists": {
+          "BLU/REV-ITEM-LST": {
+            "seq": 3,
+            "items": [
+              "BLU/REV-ITEM-LST-1",
+              "BLU/REV-ITEM-LST-2",
+              "BLU/REV-ITEM-LST-3"
+            ],
+            "ids": {
+              "BLU/REV-ITEM-LST-1": "REV-1",
+              "BLU/REV-ITEM-LST-2": "REV-2",
+              "BLU/REV-ITEM-LST-3": "REV-3"
+            }
+          },
+          "BLU/RVENT-REVS-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/RVENT-REVS-LST-1"
+            ],
+            "ids": {
+              "BLU/RVENT-REVS-LST-1": "RVENT-REVS-1"
+            }
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-1",
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-1": "CRIT-SPEED",
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-2": "CRIT-AUDIT"
+            }
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1",
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1": "CRIT-SPEED",
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2": "CRIT-AUDIT"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST": {
+            "seq": 3,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-2",
+              "BLU/requirements/REQ-ITEM-LST-3"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-1": "REQ-EXPORT",
+              "BLU/requirements/REQ-ITEM-LST-2": "REQ-IMPORT",
+              "BLU/requirements/REQ-ITEM-LST-3": "REQ-PURGE"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1": "LNK-1",
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1": "LNK-1"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1": "LNK-1",
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1": "PRE-1"
+            }
+          },
+          "BLU/requirements/keyRequirements/KEY-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/keyRequirements/KEY-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/keyRequirements/KEY-ITEM-LST-1": "KEY-1"
+            }
+          },
+          "BLU/screenOverview/OVR-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/screenOverview/OVR-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/screenOverview/OVR-ITEM-LST-1": "OVR-1"
+            }
+          }
+        },
+        "headlines": {
+          "BLU/requirements/REQ-ITEM-LST-1": "Export presets",
+          "BLU/requirements/REQ-ITEM-LST-2": "Import",
+          "BLU/requirements/REQ-ITEM-LST-3": "Purge"
+        }
+      },
+      "dropMarkers": true,
+      "expect": {
+        "markdown": "<!-- docspec: blueprint/1.0 -->\n# <!--[BLU]--> <a id=\"BLU\"></a> Blueprint\n\n## <!--[REQS]--> <a id=\"REQS\"></a> Requirements\n\n[Also in [DET REQS](links.det.tomspecs.md#REQS), held there except REQ.owner]{.linked}\n\n### <!--[REQS-SUM]--> <a id=\"REQS-SUM\"></a> Summary\n\n[Derived from [REQ-ITEM-LST](#REQ-ITEM-LST): total, settled]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Total | 3 |\n| Settled | 2 |\n| AllRequirements | [REQ-EXPORT](#REQ-EXPORT), [REQ-IMPORT](#REQ-IMPORT), [REQ-PURGE](#REQ-PURGE) |\n\n### <!--[REQ-ITEM-LST]--> <a id=\"REQ-ITEM-LST\"></a> Items\n\n#### <!--[REQ-EXPORT]--> <a id=\"REQ-EXPORT\"></a> Export presets\n\n[Also in [DET REQ-EXPORT](links.det.tomspecs.md#REQ-EXPORT), held there except REQ.owner; Summarised in [KEY-1](#KEY-1); Derived from [REQ-EXPORT](#REQ-EXPORT), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | approved |\n| Owner | ana |\n| Weight | 2 |\n| LastVersion | 1.1 |\n\n##### <!--[REQD]--> <a id=\"REQ-EXPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Exports use the formats of REQ-IMPORT and never run with REQ-PURGE. |\n\n##### <!--[REQC]--> <a id=\"REQ-EXPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-EXPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-PURGE](#REQ-PURGE) |\n\n##### <!--[REQT]--> <a id=\"REQ-EXPORT/REQT\"></a> Trace\n\n| TomSpecField | Value |\n| --- | --- |\n| RelatedScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n| RelatedCriteria | [CRIT-SPEED](#CRIT-SPEED) |\n\n##### <!--[REQAB]--> <a id=\"REQ-EXPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\nExports use the formats of REQ-IMPORT and never run with REQ-PURGE.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-EXPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-EXPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | namedInText |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-EXPORT/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-IMPORT]--> <a id=\"REQ-IMPORT\"></a> Import\n\n[Also in [DET REQ-IMPORT](links.det.tomspecs.md#REQ-IMPORT), held there except REQ.owner; Derived from [REQ-IMPORT](#REQ-IMPORT), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | done |\n| LastVersion | 1.0 |\n\n##### <!--[REQD]--> <a id=\"REQ-IMPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Imports files. |\n\n##### <!--[REQC]--> <a id=\"REQ-IMPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-IMPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Constraints | Bounded by REQ-PURGE. |\n\n##### <!--[REQAB]--> <a id=\"REQ-IMPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\nImports files.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-IMPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-IMPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | constrainedBy |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-IMPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-PURGE]--> <a id=\"REQ-PURGE\"></a> Purge\n\n[Also in [DET REQ-PURGE](links.det.tomspecs.md#REQ-PURGE), held there except REQ.owner; Derived from [REQ-PURGE](#REQ-PURGE), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | draft |\n| LastVersion | 0.9 |\n\n##### <!--[REQD]--> <a id=\"REQ-PURGE/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Purges old data. |\n\n##### <!--[REQC]--> <a id=\"REQ-PURGE/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-EXPORT](#REQ-EXPORT) |\n\n##### <!--[REQAB]--> <a id=\"REQ-PURGE/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-PURGE/REQD)]{.linked}\n\nPurges old data.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-PURGE/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-PURGE/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-PURGE/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-EXPORT](#REQ-EXPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-PURGE/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | prerequisite |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n##### <!--[PRE-ITEM-LST]--> <a id=\"REQ-PURGE/PRE-ITEM-LST\"></a> Prerequisites\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST)]{.linked}\n\n::: {.records}\n| Id | Ref |\n| --- | --- |\n| <a id=\"REQ-PURGE/PRE-1\"></a>PRE-1 | [REQ-IMPORT](#REQ-IMPORT) |\n:::\n\n### <!--[KEYS]--> <a id=\"KEYS\"></a> Key Requirements\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"KEY-1\"></a>KEY-ITEM-LST / KEY-1 | RequirementRef | [REQ-EXPORT](#REQ-EXPORT) |\n|  | Title | Export presets |\n\n## <!--[ACC]--> <a id=\"ACC\"></a> Acceptance\n\n[Also in [SCR ACC](links.scr.tomspecs.md#ACC), held there]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | quality team |\n\n### <!--[CRIT]--> <a id=\"CRIT\"></a> Criteria\n\n[Also in [DET CRIT](links.det.tomspecs.md#CRIT), held there; Copied to [CRIT](#CSUM/CRIT)]{.linked}\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n## <!--[CSUM]--> <a id=\"CSUM\"></a> Criteria Summary\n\nThe criteria at a glance.\n\n### <!--[CRIT]--> <a id=\"CSUM/CRIT\"></a> Criteria\n\n[Copy of [CRIT](#CRIT), edit it there]{.linked}\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CSUM/CRIT/CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CSUM/CRIT/CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n## <!--[SOV]--> <a id=\"SOV\"></a> Screen Overview\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"OVR-1\"></a>OVR-ITEM-LST / OVR-1 | ScreenRef | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n\n## <!--[FOC]--> <a id=\"FOC\"></a> Focus\n\n| TomSpecField | Value |\n| --- | --- |\n| FocusScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n\n## <!--[REV-ITEM-LST]--> <a id=\"REV-ITEM-LST\"></a> Revisions\n\n::: {.records}\n| Id | RequirementRef | Version |\n| --- | --- | --- |\n| <a id=\"REV-1\"></a>REV-1 | [REQ-EXPORT](#REQ-EXPORT) | 1.1 |\n| <a id=\"REV-2\"></a>REV-2 | [REQ-IMPORT](#REQ-IMPORT) | 1.0 |\n| <a id=\"REV-3\"></a>REV-3 | [REQ-PURGE](#REQ-PURGE) | 0.9 |\n:::\n\n## <!--[RVENT-REVS-LST]--> <a id=\"RVENT-REVS-LST\"></a> Revision History\n\n::: {.records}\n| Id | Version | Date | Author | Summary |\n| --- | --- | --- | --- | --- |\n| <a id=\"RVENT-REVS-1\"></a>RVENT-REVS-1 | 1.0 | 2026-11-01 | ana | First version. |\n:::\n\n",
+        "given": "<!-- docspec: blueprint/1.0 -->\n# <!--[BLU]--> <a id=\"BLU\"></a> Blueprint\n\n## <!--[REQS]--> <a id=\"REQS\"></a> Requirements\n\n### <!--[REQS-SUM]--> <a id=\"REQS-SUM\"></a> Summary\n\n| TomSpecField | Value |\n| --- | --- |\n| Total | 3 |\n| Settled | 2 |\n| AllRequirements | [REQ-EXPORT](#REQ-EXPORT), [REQ-IMPORT](#REQ-IMPORT), [REQ-PURGE](#REQ-PURGE) |\n\n### <!--[REQ-ITEM-LST]--> <a id=\"REQ-ITEM-LST\"></a> Items\n\n#### <!--[REQ-EXPORT]--> <a id=\"REQ-EXPORT\"></a> Export presets\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | approved |\n| Owner | ana |\n| Weight | 2 |\n| LastVersion | 1.1 |\n\n##### <!--[REQD]--> <a id=\"REQ-EXPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Exports use the formats of REQ-IMPORT and never run with REQ-PURGE. |\n\n##### <!--[REQC]--> <a id=\"REQ-EXPORT/REQC\"></a> Constraints\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-PURGE](#REQ-PURGE) |\n\n##### <!--[REQT]--> <a id=\"REQ-EXPORT/REQT\"></a> Trace\n\n| TomSpecField | Value |\n| --- | --- |\n| RelatedScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n| RelatedCriteria | [CRIT-SPEED](#CRIT-SPEED) |\n\n##### <!--[REQAB]--> <a id=\"REQ-EXPORT/REQAB\"></a> Abstract\n\nExports use the formats of REQ-IMPORT and never run with REQ-PURGE.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-EXPORT/LNK-ITEM-LST\"></a> Links\n\n###### <!--[LNK-1]--> <a id=\"REQ-EXPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | namedInText |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-EXPORT/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-IMPORT]--> <a id=\"REQ-IMPORT\"></a> Import\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | done |\n| LastVersion | 1.0 |\n\n##### <!--[REQD]--> <a id=\"REQ-IMPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Imports files. |\n\n##### <!--[REQC]--> <a id=\"REQ-IMPORT/REQC\"></a> Constraints\n\n| TomSpecField | Value |\n| --- | --- |\n| Constraints | Bounded by REQ-PURGE. |\n\n##### <!--[REQAB]--> <a id=\"REQ-IMPORT/REQAB\"></a> Abstract\n\nImports files.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-IMPORT/LNK-ITEM-LST\"></a> Links\n\n###### <!--[LNK-1]--> <a id=\"REQ-IMPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | constrainedBy |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-IMPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-PURGE]--> <a id=\"REQ-PURGE\"></a> Purge\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | draft |\n| LastVersion | 0.9 |\n\n##### <!--[REQD]--> <a id=\"REQ-PURGE/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Purges old data. |\n\n##### <!--[REQC]--> <a id=\"REQ-PURGE/REQC\"></a> Constraints\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-EXPORT](#REQ-EXPORT) |\n\n##### <!--[REQAB]--> <a id=\"REQ-PURGE/REQAB\"></a> Abstract\n\nPurges old data.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-PURGE/LNK-ITEM-LST\"></a> Links\n\n###### <!--[LNK-1]--> <a id=\"REQ-PURGE/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-EXPORT](#REQ-EXPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-PURGE/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | prerequisite |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n##### <!--[PRE-ITEM-LST]--> <a id=\"REQ-PURGE/PRE-ITEM-LST\"></a> Prerequisites\n\n::: {.records}\n| Id | Ref |\n| --- | --- |\n| <a id=\"REQ-PURGE/PRE-1\"></a>PRE-1 | [REQ-IMPORT](#REQ-IMPORT) |\n:::\n\n### <!--[KEYS]--> <a id=\"KEYS\"></a> Key Requirements\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"KEY-1\"></a>KEY-ITEM-LST / KEY-1 | RequirementRef | [REQ-EXPORT](#REQ-EXPORT) |\n|  | Title | Export presets |\n\n## <!--[ACC]--> <a id=\"ACC\"></a> Acceptance\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | quality team |\n\n### <!--[CRIT]--> <a id=\"CRIT\"></a> Criteria\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n## <!--[CSUM]--> <a id=\"CSUM\"></a> Criteria Summary\n\nThe criteria at a glance.\n\n### <!--[CRIT]--> <a id=\"CSUM/CRIT\"></a> Criteria\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CSUM/CRIT/CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CSUM/CRIT/CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n## <!--[SOV]--> <a id=\"SOV\"></a> Screen Overview\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"OVR-1\"></a>OVR-ITEM-LST / OVR-1 | ScreenRef | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n\n## <!--[FOC]--> <a id=\"FOC\"></a> Focus\n\n| TomSpecField | Value |\n| --- | --- |\n| FocusScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n\n## <!--[REV-ITEM-LST]--> <a id=\"REV-ITEM-LST\"></a> Revisions\n\n::: {.records}\n| Id | RequirementRef | Version |\n| --- | --- | --- |\n| <a id=\"REV-1\"></a>REV-1 | [REQ-EXPORT](#REQ-EXPORT) | 1.1 |\n| <a id=\"REV-2\"></a>REV-2 | [REQ-IMPORT](#REQ-IMPORT) | 1.0 |\n| <a id=\"REV-3\"></a>REV-3 | [REQ-PURGE](#REQ-PURGE) | 0.9 |\n:::\n\n## <!--[RVENT-REVS-LST]--> <a id=\"RVENT-REVS-LST\"></a> Revision History\n\n::: {.records}\n| Id | Version | Date | Author | Summary |\n| --- | --- | --- | --- | --- |\n| <a id=\"RVENT-REVS-1\"></a>RVENT-REVS-1 | 1.0 | 2026-11-01 | ana | First version. |\n:::\n\n",
+        "rejections": [],
+        "parseMatches": true,
+        "reemitMatches": true
+      }
+    },
+    {
+      "name": "a rendition written without markers (`-drop:linked`) keeps its anchors and parses to the same document",
+      "intent": [
+        "noMarkers",
+        "roundTrip",
+        "clean"
+      ],
+      "fileStem": "links",
+      "state": {
+        "content": {
+          "BLU/criteriaSummary/content": "The criteria at a glance.",
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
+        },
+        "forms": {
+          "BLU/FOC": {
+            "focusScreens": "SCRN-LOGIN"
+          },
+          "BLU/REV-ITEM-LST-1/content": {
+            "requirementRef": "REQ-EXPORT",
+            "version": "1.1"
+          },
+          "BLU/REV-ITEM-LST-2/content": {
+            "requirementRef": "REQ-IMPORT",
+            "version": "1.0"
+          },
+          "BLU/REV-ITEM-LST-3/content": {
+            "requirementRef": "REQ-PURGE",
+            "version": "0.9"
+          },
+          "BLU/RVENT-REVS-LST-1/content": {
+            "author": "ana",
+            "date": "2026-11-01",
+            "summary": "First version.",
+            "version": "1.0"
+          },
+          "BLU/acceptance/content": {
+            "owner": "quality team"
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST-1/content": {
+            "kind": "functional",
+            "relatedRequirements": "REQ-EXPORT",
+            "text": "Exports finish in 5 s."
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST-2/content": {
+            "kind": "quality",
+            "text": "Every purge is logged."
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1/content": {
+            "kind": "functional",
+            "relatedRequirements": "REQ-EXPORT",
+            "text": "Exports finish in 5 s."
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2/content": {
+            "kind": "quality",
+            "text": "Every purge is logged."
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/content": {
+            "linkType": "namedInText"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/content": {
+            "linkType": "conflict"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQC": {
+            "conflictsWith": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQD": {
+            "description": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQT": {
+            "relatedCriteria": "CRIT-SPEED",
+            "relatedScreens": "SCRN-LOGIN"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/content": {
+            "lastVersion": "1.1",
+            "owner": "ana",
+            "status": "approved",
+            "weight": "2"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/content": {
+            "linkType": "constrainedBy"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/REQC": {
+            "constraints": "Bounded by REQ-PURGE."
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/REQD": {
+            "description": "Imports files."
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/content": {
+            "lastVersion": "1.0",
+            "status": "done"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-EXPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/content": {
+            "linkType": "conflict"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/content": {
+            "linkType": "prerequisite"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1/content": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/REQC": {
+            "conflictsWith": "REQ-EXPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/REQD": {
+            "description": "Purges old data."
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/content": {
+            "lastVersion": "0.9",
+            "status": "draft"
+          },
+          "BLU/requirements/REQS-SUM": {
+            "allRequirements": "REQ-EXPORT, REQ-IMPORT, REQ-PURGE",
+            "settled": "2",
+            "total": "3"
+          },
+          "BLU/requirements/keyRequirements/KEY-ITEM-LST-1/content": {
+            "requirementRef": "REQ-EXPORT",
+            "title": "Export presets"
+          },
+          "BLU/screenOverview/OVR-ITEM-LST-1/content": {
+            "screenRef": "SCRN-LOGIN"
+          }
+        },
+        "lists": {
+          "BLU/REV-ITEM-LST": {
+            "seq": 3,
+            "items": [
+              "BLU/REV-ITEM-LST-1",
+              "BLU/REV-ITEM-LST-2",
+              "BLU/REV-ITEM-LST-3"
+            ],
+            "ids": {
+              "BLU/REV-ITEM-LST-1": "REV-1",
+              "BLU/REV-ITEM-LST-2": "REV-2",
+              "BLU/REV-ITEM-LST-3": "REV-3"
+            }
+          },
+          "BLU/RVENT-REVS-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/RVENT-REVS-LST-1"
+            ],
+            "ids": {
+              "BLU/RVENT-REVS-LST-1": "RVENT-REVS-1"
+            }
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-1",
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-1": "CRIT-SPEED",
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-2": "CRIT-AUDIT"
+            }
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1",
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1": "CRIT-SPEED",
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2": "CRIT-AUDIT"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST": {
+            "seq": 3,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-2",
+              "BLU/requirements/REQ-ITEM-LST-3"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-1": "REQ-EXPORT",
+              "BLU/requirements/REQ-ITEM-LST-2": "REQ-IMPORT",
+              "BLU/requirements/REQ-ITEM-LST-3": "REQ-PURGE"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1": "LNK-1",
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1": "LNK-1"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1": "LNK-1",
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1": "PRE-1"
+            }
+          },
+          "BLU/requirements/keyRequirements/KEY-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/keyRequirements/KEY-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/keyRequirements/KEY-ITEM-LST-1": "KEY-1"
+            }
+          },
+          "BLU/screenOverview/OVR-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/screenOverview/OVR-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/screenOverview/OVR-ITEM-LST-1": "OVR-1"
+            }
+          }
+        },
+        "headlines": {
+          "BLU/requirements/REQ-ITEM-LST-1": "Export presets",
+          "BLU/requirements/REQ-ITEM-LST-2": "Import",
+          "BLU/requirements/REQ-ITEM-LST-3": "Purge"
+        }
+      },
+      "linkedMarkers": false,
+      "expect": {
+        "markdown": "<!-- docspec: blueprint/1.0 -->\n# <!--[BLU]--> <a id=\"BLU\"></a> Blueprint\n\n## <!--[REQS]--> <a id=\"REQS\"></a> Requirements\n\n### <!--[REQS-SUM]--> <a id=\"REQS-SUM\"></a> Summary\n\n| TomSpecField | Value |\n| --- | --- |\n| Total | 3 |\n| Settled | 2 |\n| AllRequirements | [REQ-EXPORT](#REQ-EXPORT), [REQ-IMPORT](#REQ-IMPORT), [REQ-PURGE](#REQ-PURGE) |\n\n### <!--[REQ-ITEM-LST]--> <a id=\"REQ-ITEM-LST\"></a> Items\n\n#### <!--[REQ-EXPORT]--> <a id=\"REQ-EXPORT\"></a> Export presets\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | approved |\n| Owner | ana |\n| Weight | 2 |\n| LastVersion | 1.1 |\n\n##### <!--[REQD]--> <a id=\"REQ-EXPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Exports use the formats of REQ-IMPORT and never run with REQ-PURGE. |\n\n##### <!--[REQC]--> <a id=\"REQ-EXPORT/REQC\"></a> Constraints\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-PURGE](#REQ-PURGE) |\n\n##### <!--[REQT]--> <a id=\"REQ-EXPORT/REQT\"></a> Trace\n\n| TomSpecField | Value |\n| --- | --- |\n| RelatedScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n| RelatedCriteria | [CRIT-SPEED](#CRIT-SPEED) |\n\n##### <!--[REQAB]--> <a id=\"REQ-EXPORT/REQAB\"></a> Abstract\n\nExports use the formats of REQ-IMPORT and never run with REQ-PURGE.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-EXPORT/LNK-ITEM-LST\"></a> Links\n\n###### <!--[LNK-1]--> <a id=\"REQ-EXPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | namedInText |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-EXPORT/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-IMPORT]--> <a id=\"REQ-IMPORT\"></a> Import\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | done |\n| LastVersion | 1.0 |\n\n##### <!--[REQD]--> <a id=\"REQ-IMPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Imports files. |\n\n##### <!--[REQC]--> <a id=\"REQ-IMPORT/REQC\"></a> Constraints\n\n| TomSpecField | Value |\n| --- | --- |\n| Constraints | Bounded by REQ-PURGE. |\n\n##### <!--[REQAB]--> <a id=\"REQ-IMPORT/REQAB\"></a> Abstract\n\nImports files.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-IMPORT/LNK-ITEM-LST\"></a> Links\n\n###### <!--[LNK-1]--> <a id=\"REQ-IMPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | constrainedBy |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-IMPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-PURGE]--> <a id=\"REQ-PURGE\"></a> Purge\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | draft |\n| LastVersion | 0.9 |\n\n##### <!--[REQD]--> <a id=\"REQ-PURGE/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Purges old data. |\n\n##### <!--[REQC]--> <a id=\"REQ-PURGE/REQC\"></a> Constraints\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-EXPORT](#REQ-EXPORT) |\n\n##### <!--[REQAB]--> <a id=\"REQ-PURGE/REQAB\"></a> Abstract\n\nPurges old data.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-PURGE/LNK-ITEM-LST\"></a> Links\n\n###### <!--[LNK-1]--> <a id=\"REQ-PURGE/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-EXPORT](#REQ-EXPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-PURGE/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | prerequisite |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n##### <!--[PRE-ITEM-LST]--> <a id=\"REQ-PURGE/PRE-ITEM-LST\"></a> Prerequisites\n\n::: {.records}\n| Id | Ref |\n| --- | --- |\n| <a id=\"REQ-PURGE/PRE-1\"></a>PRE-1 | [REQ-IMPORT](#REQ-IMPORT) |\n:::\n\n### <!--[KEYS]--> <a id=\"KEYS\"></a> Key Requirements\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"KEY-1\"></a>KEY-ITEM-LST / KEY-1 | RequirementRef | [REQ-EXPORT](#REQ-EXPORT) |\n|  | Title | Export presets |\n\n## <!--[ACC]--> <a id=\"ACC\"></a> Acceptance\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | quality team |\n\n### <!--[CRIT]--> <a id=\"CRIT\"></a> Criteria\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n## <!--[CSUM]--> <a id=\"CSUM\"></a> Criteria Summary\n\nThe criteria at a glance.\n\n### <!--[CRIT]--> <a id=\"CSUM/CRIT\"></a> Criteria\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CSUM/CRIT/CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CSUM/CRIT/CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n## <!--[SOV]--> <a id=\"SOV\"></a> Screen Overview\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"OVR-1\"></a>OVR-ITEM-LST / OVR-1 | ScreenRef | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n\n## <!--[FOC]--> <a id=\"FOC\"></a> Focus\n\n| TomSpecField | Value |\n| --- | --- |\n| FocusScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n\n## <!--[REV-ITEM-LST]--> <a id=\"REV-ITEM-LST\"></a> Revisions\n\n::: {.records}\n| Id | RequirementRef | Version |\n| --- | --- | --- |\n| <a id=\"REV-1\"></a>REV-1 | [REQ-EXPORT](#REQ-EXPORT) | 1.1 |\n| <a id=\"REV-2\"></a>REV-2 | [REQ-IMPORT](#REQ-IMPORT) | 1.0 |\n| <a id=\"REV-3\"></a>REV-3 | [REQ-PURGE](#REQ-PURGE) | 0.9 |\n:::\n\n## <!--[RVENT-REVS-LST]--> <a id=\"RVENT-REVS-LST\"></a> Revision History\n\n::: {.records}\n| Id | Version | Date | Author | Summary |\n| --- | --- | --- | --- | --- |\n| <a id=\"RVENT-REVS-1\"></a>RVENT-REVS-1 | 1.0 | 2026-11-01 | ana | First version. |\n:::\n\n",
+        "rejections": [],
+        "parseMatches": true,
+        "reemitMatches": true
+      }
+    },
+    {
+      "name": "a marker edited by hand is discarded on parse and rewritten",
+      "intent": [
+        "handEditDiscarded",
+        "clean"
+      ],
+      "fileStem": "links",
+      "state": {
+        "content": {
+          "BLU/criteriaSummary/content": "The criteria at a glance.",
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
+        },
+        "forms": {
+          "BLU/FOC": {
+            "focusScreens": "SCRN-LOGIN"
+          },
+          "BLU/REV-ITEM-LST-1/content": {
+            "requirementRef": "REQ-EXPORT",
+            "version": "1.1"
+          },
+          "BLU/REV-ITEM-LST-2/content": {
+            "requirementRef": "REQ-IMPORT",
+            "version": "1.0"
+          },
+          "BLU/REV-ITEM-LST-3/content": {
+            "requirementRef": "REQ-PURGE",
+            "version": "0.9"
+          },
+          "BLU/RVENT-REVS-LST-1/content": {
+            "author": "ana",
+            "date": "2026-11-01",
+            "summary": "First version.",
+            "version": "1.0"
+          },
+          "BLU/acceptance/content": {
+            "owner": "quality team"
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST-1/content": {
+            "kind": "functional",
+            "relatedRequirements": "REQ-EXPORT",
+            "text": "Exports finish in 5 s."
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST-2/content": {
+            "kind": "quality",
+            "text": "Every purge is logged."
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1/content": {
+            "kind": "functional",
+            "relatedRequirements": "REQ-EXPORT",
+            "text": "Exports finish in 5 s."
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2/content": {
+            "kind": "quality",
+            "text": "Every purge is logged."
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/content": {
+            "linkType": "namedInText"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/content": {
+            "linkType": "conflict"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQC": {
+            "conflictsWith": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQD": {
+            "description": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQT": {
+            "relatedCriteria": "CRIT-SPEED",
+            "relatedScreens": "SCRN-LOGIN"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/content": {
+            "lastVersion": "1.1",
+            "owner": "ana",
+            "status": "approved",
+            "weight": "2"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/content": {
+            "linkType": "constrainedBy"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/REQC": {
+            "constraints": "Bounded by REQ-PURGE."
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/REQD": {
+            "description": "Imports files."
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/content": {
+            "lastVersion": "1.0",
+            "status": "done"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-EXPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/content": {
+            "linkType": "conflict"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/content": {
+            "linkType": "prerequisite"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1/content": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/REQC": {
+            "conflictsWith": "REQ-EXPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/REQD": {
+            "description": "Purges old data."
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/content": {
+            "lastVersion": "0.9",
+            "status": "draft"
+          },
+          "BLU/requirements/REQS-SUM": {
+            "allRequirements": "REQ-EXPORT, REQ-IMPORT, REQ-PURGE",
+            "settled": "2",
+            "total": "3"
+          },
+          "BLU/requirements/keyRequirements/KEY-ITEM-LST-1/content": {
+            "requirementRef": "REQ-EXPORT",
+            "title": "Export presets"
+          },
+          "BLU/screenOverview/OVR-ITEM-LST-1/content": {
+            "screenRef": "SCRN-LOGIN"
+          }
+        },
+        "lists": {
+          "BLU/REV-ITEM-LST": {
+            "seq": 3,
+            "items": [
+              "BLU/REV-ITEM-LST-1",
+              "BLU/REV-ITEM-LST-2",
+              "BLU/REV-ITEM-LST-3"
+            ],
+            "ids": {
+              "BLU/REV-ITEM-LST-1": "REV-1",
+              "BLU/REV-ITEM-LST-2": "REV-2",
+              "BLU/REV-ITEM-LST-3": "REV-3"
+            }
+          },
+          "BLU/RVENT-REVS-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/RVENT-REVS-LST-1"
+            ],
+            "ids": {
+              "BLU/RVENT-REVS-LST-1": "RVENT-REVS-1"
+            }
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-1",
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-1": "CRIT-SPEED",
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-2": "CRIT-AUDIT"
+            }
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1",
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1": "CRIT-SPEED",
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2": "CRIT-AUDIT"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST": {
+            "seq": 3,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-2",
+              "BLU/requirements/REQ-ITEM-LST-3"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-1": "REQ-EXPORT",
+              "BLU/requirements/REQ-ITEM-LST-2": "REQ-IMPORT",
+              "BLU/requirements/REQ-ITEM-LST-3": "REQ-PURGE"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1": "LNK-1",
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1": "LNK-1"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1": "LNK-1",
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1": "PRE-1"
+            }
+          },
+          "BLU/requirements/keyRequirements/KEY-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/keyRequirements/KEY-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/keyRequirements/KEY-ITEM-LST-1": "KEY-1"
+            }
+          },
+          "BLU/screenOverview/OVR-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/screenOverview/OVR-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/screenOverview/OVR-ITEM-LST-1": "OVR-1"
+            }
+          }
+        },
+        "headlines": {
+          "BLU/requirements/REQ-ITEM-LST-1": "Export presets",
+          "BLU/requirements/REQ-ITEM-LST-2": "Import",
+          "BLU/requirements/REQ-ITEM-LST-3": "Purge"
+        }
+      },
+      "edits": [
+        [
+          "[Also in [DET REQS](links.det.tomspecs.md#REQS), held there except REQ.owner]{.linked}",
+          "[Also in [DET REQS](links.det.tomspecs.md#REQS), held here; Copy of [X](#X)]{.linked}"
+        ]
+      ],
+      "expect": {
+        "markdown": "<!-- docspec: blueprint/1.0 -->\n# <!--[BLU]--> <a id=\"BLU\"></a> Blueprint\n\n## <!--[REQS]--> <a id=\"REQS\"></a> Requirements\n\n[Also in [DET REQS](links.det.tomspecs.md#REQS), held there except REQ.owner]{.linked}\n\n### <!--[REQS-SUM]--> <a id=\"REQS-SUM\"></a> Summary\n\n[Derived from [REQ-ITEM-LST](#REQ-ITEM-LST): total, settled]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Total | 3 |\n| Settled | 2 |\n| AllRequirements | [REQ-EXPORT](#REQ-EXPORT), [REQ-IMPORT](#REQ-IMPORT), [REQ-PURGE](#REQ-PURGE) |\n\n### <!--[REQ-ITEM-LST]--> <a id=\"REQ-ITEM-LST\"></a> Items\n\n#### <!--[REQ-EXPORT]--> <a id=\"REQ-EXPORT\"></a> Export presets\n\n[Also in [DET REQ-EXPORT](links.det.tomspecs.md#REQ-EXPORT), held there except REQ.owner; Summarised in [KEY-1](#KEY-1); Derived from [REQ-EXPORT](#REQ-EXPORT), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | approved |\n| Owner | ana |\n| Weight | 2 |\n| LastVersion | 1.1 |\n\n##### <!--[REQD]--> <a id=\"REQ-EXPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Exports use the formats of REQ-IMPORT and never run with REQ-PURGE. |\n\n##### <!--[REQC]--> <a id=\"REQ-EXPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-EXPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-PURGE](#REQ-PURGE) |\n\n##### <!--[REQT]--> <a id=\"REQ-EXPORT/REQT\"></a> Trace\n\n| TomSpecField | Value |\n| --- | --- |\n| RelatedScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n| RelatedCriteria | [CRIT-SPEED](#CRIT-SPEED) |\n\n##### <!--[REQAB]--> <a id=\"REQ-EXPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\nExports use the formats of REQ-IMPORT and never run with REQ-PURGE.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-EXPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-EXPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | namedInText |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-EXPORT/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-IMPORT]--> <a id=\"REQ-IMPORT\"></a> Import\n\n[Also in [DET REQ-IMPORT](links.det.tomspecs.md#REQ-IMPORT), held there except REQ.owner; Derived from [REQ-IMPORT](#REQ-IMPORT), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | done |\n| LastVersion | 1.0 |\n\n##### <!--[REQD]--> <a id=\"REQ-IMPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Imports files. |\n\n##### <!--[REQC]--> <a id=\"REQ-IMPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-IMPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Constraints | Bounded by REQ-PURGE. |\n\n##### <!--[REQAB]--> <a id=\"REQ-IMPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\nImports files.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-IMPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-IMPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | constrainedBy |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-IMPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-PURGE]--> <a id=\"REQ-PURGE\"></a> Purge\n\n[Also in [DET REQ-PURGE](links.det.tomspecs.md#REQ-PURGE), held there except REQ.owner; Derived from [REQ-PURGE](#REQ-PURGE), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | draft |\n| LastVersion | 0.9 |\n\n##### <!--[REQD]--> <a id=\"REQ-PURGE/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Purges old data. |\n\n##### <!--[REQC]--> <a id=\"REQ-PURGE/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-EXPORT](#REQ-EXPORT) |\n\n##### <!--[REQAB]--> <a id=\"REQ-PURGE/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-PURGE/REQD)]{.linked}\n\nPurges old data.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-PURGE/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-PURGE/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-PURGE/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-EXPORT](#REQ-EXPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-PURGE/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | prerequisite |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n##### <!--[PRE-ITEM-LST]--> <a id=\"REQ-PURGE/PRE-ITEM-LST\"></a> Prerequisites\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST)]{.linked}\n\n::: {.records}\n| Id | Ref |\n| --- | --- |\n| <a id=\"REQ-PURGE/PRE-1\"></a>PRE-1 | [REQ-IMPORT](#REQ-IMPORT) |\n:::\n\n### <!--[KEYS]--> <a id=\"KEYS\"></a> Key Requirements\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"KEY-1\"></a>KEY-ITEM-LST / KEY-1 | RequirementRef | [REQ-EXPORT](#REQ-EXPORT) |\n|  | Title | Export presets |\n\n## <!--[ACC]--> <a id=\"ACC\"></a> Acceptance\n\n[Also in [SCR ACC](links.scr.tomspecs.md#ACC), held there]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | quality team |\n\n### <!--[CRIT]--> <a id=\"CRIT\"></a> Criteria\n\n[Also in [DET CRIT](links.det.tomspecs.md#CRIT), held there; Copied to [CRIT](#CSUM/CRIT)]{.linked}\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n## <!--[CSUM]--> <a id=\"CSUM\"></a> Criteria Summary\n\nThe criteria at a glance.\n\n### <!--[CRIT]--> <a id=\"CSUM/CRIT\"></a> Criteria\n\n[Copy of [CRIT](#CRIT), edit it there]{.linked}\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CSUM/CRIT/CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CSUM/CRIT/CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n## <!--[SOV]--> <a id=\"SOV\"></a> Screen Overview\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"OVR-1\"></a>OVR-ITEM-LST / OVR-1 | ScreenRef | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n\n## <!--[FOC]--> <a id=\"FOC\"></a> Focus\n\n| TomSpecField | Value |\n| --- | --- |\n| FocusScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n\n## <!--[REV-ITEM-LST]--> <a id=\"REV-ITEM-LST\"></a> Revisions\n\n::: {.records}\n| Id | RequirementRef | Version |\n| --- | --- | --- |\n| <a id=\"REV-1\"></a>REV-1 | [REQ-EXPORT](#REQ-EXPORT) | 1.1 |\n| <a id=\"REV-2\"></a>REV-2 | [REQ-IMPORT](#REQ-IMPORT) | 1.0 |\n| <a id=\"REV-3\"></a>REV-3 | [REQ-PURGE](#REQ-PURGE) | 0.9 |\n:::\n\n## <!--[RVENT-REVS-LST]--> <a id=\"RVENT-REVS-LST\"></a> Revision History\n\n::: {.records}\n| Id | Version | Date | Author | Summary |\n| --- | --- | --- | --- | --- |\n| <a id=\"RVENT-REVS-1\"></a>RVENT-REVS-1 | 1.0 | 2026-11-01 | ana | First version. |\n:::\n\n",
+        "given": "<!-- docspec: blueprint/1.0 -->\n# <!--[BLU]--> <a id=\"BLU\"></a> Blueprint\n\n## <!--[REQS]--> <a id=\"REQS\"></a> Requirements\n\n[Also in [DET REQS](links.det.tomspecs.md#REQS), held here; Copy of [X](#X)]{.linked}\n\n### <!--[REQS-SUM]--> <a id=\"REQS-SUM\"></a> Summary\n\n[Derived from [REQ-ITEM-LST](#REQ-ITEM-LST): total, settled]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Total | 3 |\n| Settled | 2 |\n| AllRequirements | [REQ-EXPORT](#REQ-EXPORT), [REQ-IMPORT](#REQ-IMPORT), [REQ-PURGE](#REQ-PURGE) |\n\n### <!--[REQ-ITEM-LST]--> <a id=\"REQ-ITEM-LST\"></a> Items\n\n#### <!--[REQ-EXPORT]--> <a id=\"REQ-EXPORT\"></a> Export presets\n\n[Also in [DET REQ-EXPORT](links.det.tomspecs.md#REQ-EXPORT), held there except REQ.owner; Summarised in [KEY-1](#KEY-1); Derived from [REQ-EXPORT](#REQ-EXPORT), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | approved |\n| Owner | ana |\n| Weight | 2 |\n| LastVersion | 1.1 |\n\n##### <!--[REQD]--> <a id=\"REQ-EXPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Exports use the formats of REQ-IMPORT and never run with REQ-PURGE. |\n\n##### <!--[REQC]--> <a id=\"REQ-EXPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-EXPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-PURGE](#REQ-PURGE) |\n\n##### <!--[REQT]--> <a id=\"REQ-EXPORT/REQT\"></a> Trace\n\n| TomSpecField | Value |\n| --- | --- |\n| RelatedScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n| RelatedCriteria | [CRIT-SPEED](#CRIT-SPEED) |\n\n##### <!--[REQAB]--> <a id=\"REQ-EXPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\nExports use the formats of REQ-IMPORT and never run with REQ-PURGE.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-EXPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-EXPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | namedInText |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-EXPORT/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-IMPORT]--> <a id=\"REQ-IMPORT\"></a> Import\n\n[Also in [DET REQ-IMPORT](links.det.tomspecs.md#REQ-IMPORT), held there except REQ.owner; Derived from [REQ-IMPORT](#REQ-IMPORT), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | done |\n| LastVersion | 1.0 |\n\n##### <!--[REQD]--> <a id=\"REQ-IMPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Imports files. |\n\n##### <!--[REQC]--> <a id=\"REQ-IMPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-IMPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Constraints | Bounded by REQ-PURGE. |\n\n##### <!--[REQAB]--> <a id=\"REQ-IMPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\nImports files.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-IMPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-IMPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | constrainedBy |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-IMPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-PURGE]--> <a id=\"REQ-PURGE\"></a> Purge\n\n[Also in [DET REQ-PURGE](links.det.tomspecs.md#REQ-PURGE), held there except REQ.owner; Derived from [REQ-PURGE](#REQ-PURGE), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | draft |\n| LastVersion | 0.9 |\n\n##### <!--[REQD]--> <a id=\"REQ-PURGE/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Purges old data. |\n\n##### <!--[REQC]--> <a id=\"REQ-PURGE/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-EXPORT](#REQ-EXPORT) |\n\n##### <!--[REQAB]--> <a id=\"REQ-PURGE/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-PURGE/REQD)]{.linked}\n\nPurges old data.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-PURGE/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-PURGE/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-PURGE/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-EXPORT](#REQ-EXPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-PURGE/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | prerequisite |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n##### <!--[PRE-ITEM-LST]--> <a id=\"REQ-PURGE/PRE-ITEM-LST\"></a> Prerequisites\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST)]{.linked}\n\n::: {.records}\n| Id | Ref |\n| --- | --- |\n| <a id=\"REQ-PURGE/PRE-1\"></a>PRE-1 | [REQ-IMPORT](#REQ-IMPORT) |\n:::\n\n### <!--[KEYS]--> <a id=\"KEYS\"></a> Key Requirements\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"KEY-1\"></a>KEY-ITEM-LST / KEY-1 | RequirementRef | [REQ-EXPORT](#REQ-EXPORT) |\n|  | Title | Export presets |\n\n## <!--[ACC]--> <a id=\"ACC\"></a> Acceptance\n\n[Also in [SCR ACC](links.scr.tomspecs.md#ACC), held there]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | quality team |\n\n### <!--[CRIT]--> <a id=\"CRIT\"></a> Criteria\n\n[Also in [DET CRIT](links.det.tomspecs.md#CRIT), held there; Copied to [CRIT](#CSUM/CRIT)]{.linked}\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n## <!--[CSUM]--> <a id=\"CSUM\"></a> Criteria Summary\n\nThe criteria at a glance.\n\n### <!--[CRIT]--> <a id=\"CSUM/CRIT\"></a> Criteria\n\n[Copy of [CRIT](#CRIT), edit it there]{.linked}\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CSUM/CRIT/CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CSUM/CRIT/CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n## <!--[SOV]--> <a id=\"SOV\"></a> Screen Overview\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"OVR-1\"></a>OVR-ITEM-LST / OVR-1 | ScreenRef | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n\n## <!--[FOC]--> <a id=\"FOC\"></a> Focus\n\n| TomSpecField | Value |\n| --- | --- |\n| FocusScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n\n## <!--[REV-ITEM-LST]--> <a id=\"REV-ITEM-LST\"></a> Revisions\n\n::: {.records}\n| Id | RequirementRef | Version |\n| --- | --- | --- |\n| <a id=\"REV-1\"></a>REV-1 | [REQ-EXPORT](#REQ-EXPORT) | 1.1 |\n| <a id=\"REV-2\"></a>REV-2 | [REQ-IMPORT](#REQ-IMPORT) | 1.0 |\n| <a id=\"REV-3\"></a>REV-3 | [REQ-PURGE](#REQ-PURGE) | 0.9 |\n:::\n\n## <!--[RVENT-REVS-LST]--> <a id=\"RVENT-REVS-LST\"></a> Revision History\n\n::: {.records}\n| Id | Version | Date | Author | Summary |\n| --- | --- | --- | --- | --- |\n| <a id=\"RVENT-REVS-1\"></a>RVENT-REVS-1 | 1.0 | 2026-11-01 | ana | First version. |\n:::\n\n",
+        "rejections": [],
+        "parseMatches": true,
+        "reemitMatches": true
+      }
+    },
+    {
+      "name": "a markable place without an entry whose value begins with a linked span gets the empty marker: a key requirement naming nothing, in a document that syncs with none (the projection)",
+      "intent": [
+        "emptyMarker",
+        "roundTrip",
+        "clean"
+      ],
+      "fileStem": "links",
+      "state": {
+        "content": {
+          "PRJ/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "PRJ/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "PRJ/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data.",
+          "PRJ/requirements/keyRequirements/KEY-ITEM-LST-1/content": "[To be chosen in the next review]{.linked}"
+        },
+        "forms": {
+          "PRJ/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "PRJ/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/content": {
+            "linkType": "namedInText"
+          },
+          "PRJ/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "PRJ/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/content": {
+            "linkType": "conflict"
+          },
+          "PRJ/requirements/REQ-ITEM-LST-1/REQC": {
+            "conflictsWith": "REQ-PURGE"
+          },
+          "PRJ/requirements/REQ-ITEM-LST-1/REQD": {
+            "description": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          },
+          "PRJ/requirements/REQ-ITEM-LST-1/REQT": {
+            "relatedCriteria": "CRIT-SPEED",
+            "relatedScreens": "SCRN-LOGIN"
+          },
+          "PRJ/requirements/REQ-ITEM-LST-1/content": {
+            "lastVersion": "1.1",
+            "owner": "ana",
+            "status": "approved",
+            "weight": "2"
+          },
+          "PRJ/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "PRJ/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/content": {
+            "linkType": "constrainedBy"
+          },
+          "PRJ/requirements/REQ-ITEM-LST-2/REQC": {
+            "constraints": "Bounded by REQ-PURGE."
+          },
+          "PRJ/requirements/REQ-ITEM-LST-2/REQD": {
+            "description": "Imports files."
+          },
+          "PRJ/requirements/REQ-ITEM-LST-2/content": {
+            "lastVersion": "1.0",
+            "status": "done"
+          },
+          "PRJ/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-EXPORT"
+          },
+          "PRJ/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/content": {
+            "linkType": "conflict"
+          },
+          "PRJ/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "PRJ/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/content": {
+            "linkType": "prerequisite"
+          },
+          "PRJ/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1/content": {
+            "ref": "REQ-IMPORT"
+          },
+          "PRJ/requirements/REQ-ITEM-LST-3/REQC": {
+            "conflictsWith": "REQ-EXPORT"
+          },
+          "PRJ/requirements/REQ-ITEM-LST-3/REQD": {
+            "description": "Purges old data."
+          },
+          "PRJ/requirements/REQ-ITEM-LST-3/content": {
+            "lastVersion": "0.9",
+            "status": "draft"
+          },
+          "PRJ/requirements/REQS-SUM": {
+            "allRequirements": "REQ-EXPORT, REQ-IMPORT, REQ-PURGE",
+            "settled": "2",
+            "total": "3"
+          },
+          "PRJ/requirements/keyRequirements/KEY-ITEM-LST-1/content": {
+            "title": "Export presets"
+          }
+        },
+        "lists": {
+          "PRJ/requirements/REQ-ITEM-LST": {
+            "seq": 3,
+            "items": [
+              "PRJ/requirements/REQ-ITEM-LST-1",
+              "PRJ/requirements/REQ-ITEM-LST-2",
+              "PRJ/requirements/REQ-ITEM-LST-3"
+            ],
+            "ids": {
+              "PRJ/requirements/REQ-ITEM-LST-1": "REQ-EXPORT",
+              "PRJ/requirements/REQ-ITEM-LST-2": "REQ-IMPORT",
+              "PRJ/requirements/REQ-ITEM-LST-3": "REQ-PURGE"
+            }
+          },
+          "PRJ/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "PRJ/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1",
+              "PRJ/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "PRJ/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1": "LNK-1",
+              "PRJ/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "PRJ/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "PRJ/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1"
+            ],
+            "ids": {
+              "PRJ/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1": "LNK-1"
+            }
+          },
+          "PRJ/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "PRJ/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1",
+              "PRJ/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "PRJ/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1": "LNK-1",
+              "PRJ/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "PRJ/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "PRJ/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1"
+            ],
+            "ids": {
+              "PRJ/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1": "PRE-1"
+            }
+          },
+          "PRJ/requirements/keyRequirements/KEY-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "PRJ/requirements/keyRequirements/KEY-ITEM-LST-1"
+            ],
+            "ids": {
+              "PRJ/requirements/keyRequirements/KEY-ITEM-LST-1": "KEY-1"
+            }
+          }
+        },
+        "headlines": {
+          "PRJ/requirements/REQ-ITEM-LST-1": "Export presets",
+          "PRJ/requirements/REQ-ITEM-LST-2": "Import",
+          "PRJ/requirements/REQ-ITEM-LST-3": "Purge",
+          "PRJ/requirements/keyRequirements/KEY-ITEM-LST-1": "A key requirement not chosen yet"
+        }
+      },
+      "expect": {
+        "markdown": "<!-- docspec: projection/1.0 -->\n# <!--[PRJ]--> <a id=\"PRJ\"></a> Projection\n\n## <!--[REQS]--> <a id=\"REQS\"></a> Requirements\n\n### <!--[REQS-SUM]--> <a id=\"REQS-SUM\"></a> Summary\n\n[Derived from [REQ-ITEM-LST](#REQ-ITEM-LST): total, settled]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Total | 3 |\n| Settled | 2 |\n| AllRequirements | [REQ-EXPORT](#REQ-EXPORT), [REQ-IMPORT](#REQ-IMPORT), [REQ-PURGE](#REQ-PURGE) |\n\n### <!--[REQ-ITEM-LST]--> <a id=\"REQ-ITEM-LST\"></a> Items\n\n#### <!--[REQ-EXPORT]--> <a id=\"REQ-EXPORT\"></a> Export presets\n\n[Derived from [REQ-EXPORT](#REQ-EXPORT), [REQ-ITEM-LST](#REQ-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | approved |\n| Owner | ana |\n| Weight | 2 |\n| LastVersion | 1.1 |\n\n##### <!--[REQD]--> <a id=\"REQ-EXPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Exports use the formats of REQ-IMPORT and never run with REQ-PURGE. |\n\n##### <!--[REQC]--> <a id=\"REQ-EXPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-EXPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-PURGE](#REQ-PURGE) |\n\n##### <!--[REQT]--> <a id=\"REQ-EXPORT/REQT\"></a> Trace\n\n| TomSpecField | Value |\n| --- | --- |\n| RelatedScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n| RelatedCriteria | [CRIT-SPEED](links.scr.tomspecs.md#CRIT-SPEED) |\n\n##### <!--[REQAB]--> <a id=\"REQ-EXPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\nExports use the formats of REQ-IMPORT and never run with REQ-PURGE.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-EXPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-EXPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | namedInText |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-EXPORT/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-IMPORT]--> <a id=\"REQ-IMPORT\"></a> Import\n\n[Derived from [REQ-IMPORT](#REQ-IMPORT), [REQ-ITEM-LST](#REQ-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | done |\n| LastVersion | 1.0 |\n\n##### <!--[REQD]--> <a id=\"REQ-IMPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Imports files. |\n\n##### <!--[REQC]--> <a id=\"REQ-IMPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-IMPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Constraints | Bounded by REQ-PURGE. |\n\n##### <!--[REQAB]--> <a id=\"REQ-IMPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\nImports files.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-IMPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-IMPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | constrainedBy |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-IMPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-PURGE]--> <a id=\"REQ-PURGE\"></a> Purge\n\n[Derived from [REQ-PURGE](#REQ-PURGE), [REQ-ITEM-LST](#REQ-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | draft |\n| LastVersion | 0.9 |\n\n##### <!--[REQD]--> <a id=\"REQ-PURGE/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Purges old data. |\n\n##### <!--[REQC]--> <a id=\"REQ-PURGE/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-EXPORT](#REQ-EXPORT) |\n\n##### <!--[REQAB]--> <a id=\"REQ-PURGE/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-PURGE/REQD)]{.linked}\n\nPurges old data.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-PURGE/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-PURGE/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-PURGE/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-EXPORT](#REQ-EXPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-PURGE/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | prerequisite |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n##### <!--[PRE-ITEM-LST]--> <a id=\"REQ-PURGE/PRE-ITEM-LST\"></a> Prerequisites\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST)]{.linked}\n\n::: {.records}\n| Id | Ref |\n| --- | --- |\n| <a id=\"REQ-PURGE/PRE-1\"></a>PRE-1 | [REQ-IMPORT](#REQ-IMPORT) |\n:::\n\n### <!--[KEYS]--> <a id=\"KEYS\"></a> Key Requirements\n\n#### <!--[KEY-ITEM-LST]--> <a id=\"KEY-ITEM-LST\"></a> Items\n\n##### <!--[KEY-1]--> <a id=\"KEY-1\"></a> A key requirement not chosen yet\n\n[]{.linked}\n\n[To be chosen in the next review]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Title | Export presets |\n\n",
+        "rejections": [],
+        "parseMatches": true,
+        "reemitMatches": true
+      }
+    },
+    {
+      "name": "a linked span in a value of an unmarkable section is the value's",
+      "intent": [
+        "spanKept",
+        "roundTrip",
+        "clean"
+      ],
+      "fileStem": "links",
+      "state": {
+        "content": {
+          "BLU/criteriaSummary/content": "[Read with the acceptance]{.linked}\n\nThe criteria at a glance.",
+          "BLU/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "BLU/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "BLU/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
+        },
+        "forms": {
+          "BLU/FOC": {
+            "focusScreens": "SCRN-LOGIN"
+          },
+          "BLU/REV-ITEM-LST-1/content": {
+            "requirementRef": "REQ-EXPORT",
+            "version": "1.1"
+          },
+          "BLU/REV-ITEM-LST-2/content": {
+            "requirementRef": "REQ-IMPORT",
+            "version": "1.0"
+          },
+          "BLU/REV-ITEM-LST-3/content": {
+            "requirementRef": "REQ-PURGE",
+            "version": "0.9"
+          },
+          "BLU/RVENT-REVS-LST-1/content": {
+            "author": "ana",
+            "date": "2026-11-01",
+            "summary": "First version.",
+            "version": "1.0"
+          },
+          "BLU/acceptance/content": {
+            "owner": "quality team"
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST-1/content": {
+            "kind": "functional",
+            "relatedRequirements": "REQ-EXPORT",
+            "text": "Exports finish in 5 s."
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST-2/content": {
+            "kind": "quality",
+            "text": "Every purge is logged."
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1/content": {
+            "kind": "functional",
+            "relatedRequirements": "REQ-EXPORT",
+            "text": "Exports finish in 5 s."
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2/content": {
+            "kind": "quality",
+            "text": "Every purge is logged."
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/content": {
+            "linkType": "namedInText"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/content": {
+            "linkType": "conflict"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQC": {
+            "conflictsWith": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQD": {
+            "description": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/REQT": {
+            "relatedCriteria": "CRIT-SPEED",
+            "relatedScreens": "SCRN-LOGIN"
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/content": {
+            "lastVersion": "1.1",
+            "owner": "ana",
+            "status": "approved",
+            "weight": "2"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/content": {
+            "linkType": "constrainedBy"
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/REQC": {
+            "constraints": "Bounded by REQ-PURGE."
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/REQD": {
+            "description": "Imports files."
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/content": {
+            "lastVersion": "1.0",
+            "status": "done"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-EXPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/content": {
+            "linkType": "conflict"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/content": {
+            "linkType": "prerequisite"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1/content": {
+            "ref": "REQ-IMPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/REQC": {
+            "conflictsWith": "REQ-EXPORT"
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/REQD": {
+            "description": "Purges old data."
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/content": {
+            "lastVersion": "0.9",
+            "status": "draft"
+          },
+          "BLU/requirements/REQS-SUM": {
+            "allRequirements": "REQ-EXPORT, REQ-IMPORT, REQ-PURGE",
+            "settled": "2",
+            "total": "3"
+          },
+          "BLU/requirements/keyRequirements/KEY-ITEM-LST-1/content": {
+            "requirementRef": "REQ-EXPORT",
+            "title": "Export presets"
+          },
+          "BLU/screenOverview/OVR-ITEM-LST-1/content": {
+            "screenRef": "SCRN-LOGIN"
+          }
+        },
+        "lists": {
+          "BLU/REV-ITEM-LST": {
+            "seq": 3,
+            "items": [
+              "BLU/REV-ITEM-LST-1",
+              "BLU/REV-ITEM-LST-2",
+              "BLU/REV-ITEM-LST-3"
+            ],
+            "ids": {
+              "BLU/REV-ITEM-LST-1": "REV-1",
+              "BLU/REV-ITEM-LST-2": "REV-2",
+              "BLU/REV-ITEM-LST-3": "REV-3"
+            }
+          },
+          "BLU/RVENT-REVS-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/RVENT-REVS-LST-1"
+            ],
+            "ids": {
+              "BLU/RVENT-REVS-LST-1": "RVENT-REVS-1"
+            }
+          },
+          "BLU/acceptance/criteria/CRIT-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-1",
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-1": "CRIT-SPEED",
+              "BLU/acceptance/criteria/CRIT-ITEM-LST-2": "CRIT-AUDIT"
+            }
+          },
+          "BLU/criteriaSummary/criteria/CRIT-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1",
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-1": "CRIT-SPEED",
+              "BLU/criteriaSummary/criteria/CRIT-ITEM-LST-2": "CRIT-AUDIT"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST": {
+            "seq": 3,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-2",
+              "BLU/requirements/REQ-ITEM-LST-3"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-1": "REQ-EXPORT",
+              "BLU/requirements/REQ-ITEM-LST-2": "REQ-IMPORT",
+              "BLU/requirements/REQ-ITEM-LST-3": "REQ-PURGE"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1": "LNK-1",
+              "BLU/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1": "LNK-1"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1",
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1": "LNK-1",
+              "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1": "PRE-1"
+            }
+          },
+          "BLU/requirements/keyRequirements/KEY-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/requirements/keyRequirements/KEY-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/requirements/keyRequirements/KEY-ITEM-LST-1": "KEY-1"
+            }
+          },
+          "BLU/screenOverview/OVR-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "BLU/screenOverview/OVR-ITEM-LST-1"
+            ],
+            "ids": {
+              "BLU/screenOverview/OVR-ITEM-LST-1": "OVR-1"
+            }
+          }
+        },
+        "headlines": {
+          "BLU/requirements/REQ-ITEM-LST-1": "Export presets",
+          "BLU/requirements/REQ-ITEM-LST-2": "Import",
+          "BLU/requirements/REQ-ITEM-LST-3": "Purge"
+        }
+      },
+      "expect": {
+        "markdown": "<!-- docspec: blueprint/1.0 -->\n# <!--[BLU]--> <a id=\"BLU\"></a> Blueprint\n\n## <!--[REQS]--> <a id=\"REQS\"></a> Requirements\n\n[Also in [DET REQS](links.det.tomspecs.md#REQS), held there except REQ.owner]{.linked}\n\n### <!--[REQS-SUM]--> <a id=\"REQS-SUM\"></a> Summary\n\n[Derived from [REQ-ITEM-LST](#REQ-ITEM-LST): total, settled]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Total | 3 |\n| Settled | 2 |\n| AllRequirements | [REQ-EXPORT](#REQ-EXPORT), [REQ-IMPORT](#REQ-IMPORT), [REQ-PURGE](#REQ-PURGE) |\n\n### <!--[REQ-ITEM-LST]--> <a id=\"REQ-ITEM-LST\"></a> Items\n\n#### <!--[REQ-EXPORT]--> <a id=\"REQ-EXPORT\"></a> Export presets\n\n[Also in [DET REQ-EXPORT](links.det.tomspecs.md#REQ-EXPORT), held there except REQ.owner; Summarised in [KEY-1](#KEY-1); Derived from [REQ-EXPORT](#REQ-EXPORT), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | approved |\n| Owner | ana |\n| Weight | 2 |\n| LastVersion | 1.1 |\n\n##### <!--[REQD]--> <a id=\"REQ-EXPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Exports use the formats of REQ-IMPORT and never run with REQ-PURGE. |\n\n##### <!--[REQC]--> <a id=\"REQ-EXPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-EXPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-PURGE](#REQ-PURGE) |\n\n##### <!--[REQT]--> <a id=\"REQ-EXPORT/REQT\"></a> Trace\n\n| TomSpecField | Value |\n| --- | --- |\n| RelatedScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n| RelatedCriteria | [CRIT-SPEED](#CRIT-SPEED) |\n\n##### <!--[REQAB]--> <a id=\"REQ-EXPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\nExports use the formats of REQ-IMPORT and never run with REQ-PURGE.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-EXPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-EXPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | namedInText |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-EXPORT/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-IMPORT]--> <a id=\"REQ-IMPORT\"></a> Import\n\n[Also in [DET REQ-IMPORT](links.det.tomspecs.md#REQ-IMPORT), held there except REQ.owner; Derived from [REQ-IMPORT](#REQ-IMPORT), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | done |\n| LastVersion | 1.0 |\n\n##### <!--[REQD]--> <a id=\"REQ-IMPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Imports files. |\n\n##### <!--[REQC]--> <a id=\"REQ-IMPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-IMPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Constraints | Bounded by REQ-PURGE. |\n\n##### <!--[REQAB]--> <a id=\"REQ-IMPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\nImports files.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-IMPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-IMPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | constrainedBy |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-IMPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-PURGE]--> <a id=\"REQ-PURGE\"></a> Purge\n\n[Also in [DET REQ-PURGE](links.det.tomspecs.md#REQ-PURGE), held there except REQ.owner; Derived from [REQ-PURGE](#REQ-PURGE), [REQ-ITEM-LST](#REQ-ITEM-LST), [REV-ITEM-LST](#REV-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | draft |\n| LastVersion | 0.9 |\n\n##### <!--[REQD]--> <a id=\"REQ-PURGE/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Purges old data. |\n\n##### <!--[REQC]--> <a id=\"REQ-PURGE/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-EXPORT](#REQ-EXPORT) |\n\n##### <!--[REQAB]--> <a id=\"REQ-PURGE/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-PURGE/REQD)]{.linked}\n\nPurges old data.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-PURGE/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-PURGE/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-PURGE/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-EXPORT](#REQ-EXPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-PURGE/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | prerequisite |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n##### <!--[PRE-ITEM-LST]--> <a id=\"REQ-PURGE/PRE-ITEM-LST\"></a> Prerequisites\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST)]{.linked}\n\n::: {.records}\n| Id | Ref |\n| --- | --- |\n| <a id=\"REQ-PURGE/PRE-1\"></a>PRE-1 | [REQ-IMPORT](#REQ-IMPORT) |\n:::\n\n### <!--[KEYS]--> <a id=\"KEYS\"></a> Key Requirements\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"KEY-1\"></a>KEY-ITEM-LST / KEY-1 | RequirementRef | [REQ-EXPORT](#REQ-EXPORT) |\n|  | Title | Export presets |\n\n## <!--[ACC]--> <a id=\"ACC\"></a> Acceptance\n\n[Also in [SCR ACC](links.scr.tomspecs.md#ACC), held there]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Owner | quality team |\n\n### <!--[CRIT]--> <a id=\"CRIT\"></a> Criteria\n\n[Also in [DET CRIT](links.det.tomspecs.md#CRIT), held there; Copied to [CRIT](#CSUM/CRIT)]{.linked}\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n## <!--[CSUM]--> <a id=\"CSUM\"></a> Criteria Summary\n\n[Read with the acceptance]{.linked}\n\nThe criteria at a glance.\n\n### <!--[CRIT]--> <a id=\"CSUM/CRIT\"></a> Criteria\n\n[Copy of [CRIT](#CRIT), edit it there]{.linked}\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CSUM/CRIT/CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CSUM/CRIT/CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n## <!--[SOV]--> <a id=\"SOV\"></a> Screen Overview\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"OVR-1\"></a>OVR-ITEM-LST / OVR-1 | ScreenRef | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n\n## <!--[FOC]--> <a id=\"FOC\"></a> Focus\n\n| TomSpecField | Value |\n| --- | --- |\n| FocusScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n\n## <!--[REV-ITEM-LST]--> <a id=\"REV-ITEM-LST\"></a> Revisions\n\n::: {.records}\n| Id | RequirementRef | Version |\n| --- | --- | --- |\n| <a id=\"REV-1\"></a>REV-1 | [REQ-EXPORT](#REQ-EXPORT) | 1.1 |\n| <a id=\"REV-2\"></a>REV-2 | [REQ-IMPORT](#REQ-IMPORT) | 1.0 |\n| <a id=\"REV-3\"></a>REV-3 | [REQ-PURGE](#REQ-PURGE) | 0.9 |\n:::\n\n## <!--[RVENT-REVS-LST]--> <a id=\"RVENT-REVS-LST\"></a> Revision History\n\n::: {.records}\n| Id | Version | Date | Author | Summary |\n| --- | --- | --- | --- | --- |\n| <a id=\"RVENT-REVS-1\"></a>RVENT-REVS-1 | 1.0 | 2026-11-01 | ana | First version. |\n:::\n\n",
+        "rejections": [],
+        "parseMatches": true,
+        "reemitMatches": true
+      }
+    },
+    {
+      "name": "an element only in the Phase 3 document links its Blueprint place, which does not exist yet",
+      "intent": [
+        "dangling",
+        "roundTrip",
+        "clean"
+      ],
+      "fileStem": "links",
+      "state": {
+        "content": {
+          "DET/requirements/REQ-ITEM-LST-1/REQAB": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE.",
+          "DET/requirements/REQ-ITEM-LST-2/REQAB": "Imports files.",
+          "DET/requirements/REQ-ITEM-LST-3/REQAB": "Purges old data."
+        },
+        "forms": {
+          "DET/criteria/CRIT-ITEM-LST-1/content": {
+            "kind": "functional",
+            "relatedRequirements": "REQ-EXPORT",
+            "text": "Exports finish in 5 s."
+          },
+          "DET/criteria/CRIT-ITEM-LST-2/content": {
+            "kind": "quality",
+            "text": "Every purge is logged."
+          },
+          "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1/content": {
+            "linkType": "namedInText"
+          },
+          "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2/content": {
+            "linkType": "conflict"
+          },
+          "DET/requirements/REQ-ITEM-LST-1/REQC": {
+            "conflictsWith": "REQ-PURGE"
+          },
+          "DET/requirements/REQ-ITEM-LST-1/REQD": {
+            "description": "Exports use the formats of REQ-IMPORT and never run with REQ-PURGE."
+          },
+          "DET/requirements/REQ-ITEM-LST-1/REQT": {
+            "relatedCriteria": "CRIT-SPEED",
+            "relatedScreens": "SCRN-LOGIN"
+          },
+          "DET/requirements/REQ-ITEM-LST-1/REQX": {
+            "rationale": "Presets save the export settings once."
+          },
+          "DET/requirements/REQ-ITEM-LST-1/content": {
+            "lastVersion": "1.1",
+            "owner": "ana",
+            "status": "approved",
+            "weight": "2"
+          },
+          "DET/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-PURGE"
+          },
+          "DET/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1/content": {
+            "linkType": "constrainedBy"
+          },
+          "DET/requirements/REQ-ITEM-LST-2/REQC": {
+            "constraints": "Bounded by REQ-PURGE."
+          },
+          "DET/requirements/REQ-ITEM-LST-2/REQD": {
+            "description": "Imports files."
+          },
+          "DET/requirements/REQ-ITEM-LST-2/content": {
+            "lastVersion": "1.0",
+            "status": "done"
+          },
+          "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/LNK-REF": {
+            "ref": "REQ-EXPORT"
+          },
+          "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1/content": {
+            "linkType": "conflict"
+          },
+          "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/LNK-REF": {
+            "ref": "REQ-IMPORT"
+          },
+          "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2/content": {
+            "linkType": "prerequisite"
+          },
+          "DET/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1/content": {
+            "ref": "REQ-IMPORT"
+          },
+          "DET/requirements/REQ-ITEM-LST-3/REQC": {
+            "conflictsWith": "REQ-EXPORT"
+          },
+          "DET/requirements/REQ-ITEM-LST-3/REQD": {
+            "description": "Purges old data."
+          },
+          "DET/requirements/REQ-ITEM-LST-3/content": {
+            "lastVersion": "0.9",
+            "status": "draft"
+          },
+          "DET/requirements/REQ-ITEM-LST-4/content": {
+            "status": "draft"
+          },
+          "DET/requirements/REQS-SUM": {
+            "allRequirements": "REQ-EXPORT, REQ-IMPORT, REQ-PURGE",
+            "settled": "2",
+            "total": "3"
+          },
+          "DET/requirements/keyRequirements/KEY-ITEM-LST-1/content": {
+            "requirementRef": "REQ-EXPORT",
+            "title": "Export presets"
+          }
+        },
+        "lists": {
+          "DET/criteria/CRIT-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "DET/criteria/CRIT-ITEM-LST-1",
+              "DET/criteria/CRIT-ITEM-LST-2"
+            ],
+            "ids": {
+              "DET/criteria/CRIT-ITEM-LST-1": "CRIT-SPEED",
+              "DET/criteria/CRIT-ITEM-LST-2": "CRIT-AUDIT"
+            }
+          },
+          "DET/requirements/REQ-ITEM-LST": {
+            "seq": 4,
+            "items": [
+              "DET/requirements/REQ-ITEM-LST-1",
+              "DET/requirements/REQ-ITEM-LST-2",
+              "DET/requirements/REQ-ITEM-LST-3",
+              "DET/requirements/REQ-ITEM-LST-4"
+            ],
+            "ids": {
+              "DET/requirements/REQ-ITEM-LST-1": "REQ-EXPORT",
+              "DET/requirements/REQ-ITEM-LST-2": "REQ-IMPORT",
+              "DET/requirements/REQ-ITEM-LST-3": "REQ-PURGE",
+              "DET/requirements/REQ-ITEM-LST-4": "REQ-PRESETS"
+            }
+          },
+          "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1",
+              "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-1": "LNK-1",
+              "DET/requirements/REQ-ITEM-LST-1/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "DET/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "DET/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1"
+            ],
+            "ids": {
+              "DET/requirements/REQ-ITEM-LST-2/LNK-ITEM-LST-1": "LNK-1"
+            }
+          },
+          "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST": {
+            "seq": 2,
+            "items": [
+              "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1",
+              "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2"
+            ],
+            "ids": {
+              "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-1": "LNK-1",
+              "DET/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST-2": "LNK-2"
+            }
+          },
+          "DET/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "DET/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1"
+            ],
+            "ids": {
+              "DET/requirements/REQ-ITEM-LST-3/PRE-ITEM-LST-1": "PRE-1"
+            }
+          },
+          "DET/requirements/keyRequirements/KEY-ITEM-LST": {
+            "seq": 1,
+            "items": [
+              "DET/requirements/keyRequirements/KEY-ITEM-LST-1"
+            ],
+            "ids": {
+              "DET/requirements/keyRequirements/KEY-ITEM-LST-1": "KEY-1"
+            }
+          }
+        },
+        "headlines": {
+          "DET/requirements/REQ-ITEM-LST-1": "Export presets",
+          "DET/requirements/REQ-ITEM-LST-2": "Import",
+          "DET/requirements/REQ-ITEM-LST-3": "Purge",
+          "DET/requirements/REQ-ITEM-LST-4": "Presets"
+        }
+      },
+      "expect": {
+        "markdown": "<!-- docspec: detail/1.0 -->\n# <!--[DET]--> <a id=\"DET\"></a> Detail\n\n## <!--[REQS]--> <a id=\"REQS\"></a> Requirements\n\n[Also in [BLU REQS](links.blu.tomspecs.md#REQS), held here except REQ.owner]{.linked}\n\n### <!--[REQS-SUM]--> <a id=\"REQS-SUM\"></a> Summary\n\n[Derived from [REQ-ITEM-LST](#REQ-ITEM-LST): total, settled]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Total | 3 |\n| Settled | 2 |\n| AllRequirements | [REQ-EXPORT](#REQ-EXPORT), [REQ-IMPORT](#REQ-IMPORT), [REQ-PURGE](#REQ-PURGE) |\n\n### <!--[REQ-ITEM-LST]--> <a id=\"REQ-ITEM-LST\"></a> Items\n\n#### <!--[REQ-EXPORT]--> <a id=\"REQ-EXPORT\"></a> Export presets\n\n[Also in [BLU REQ-EXPORT](links.blu.tomspecs.md#REQ-EXPORT), held here except REQ.owner; Summarised in [KEY-1](#KEY-1); Derived from [REQ-EXPORT](#REQ-EXPORT), [REQ-ITEM-LST](#REQ-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | approved |\n| Owner | ana |\n| Weight | 2 |\n| LastVersion | 1.1 |\n\n##### <!--[REQD]--> <a id=\"REQ-EXPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Exports use the formats of REQ-IMPORT and never run with REQ-PURGE. |\n\n##### <!--[REQC]--> <a id=\"REQ-EXPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-EXPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-PURGE](#REQ-PURGE) |\n\n##### <!--[REQT]--> <a id=\"REQ-EXPORT/REQT\"></a> Trace\n\n| TomSpecField | Value |\n| --- | --- |\n| RelatedScreens | [SCRN-LOGIN](links.scr.tomspecs.md#SCRN-LOGIN) |\n| RelatedCriteria | [CRIT-SPEED](#CRIT-SPEED) |\n\n##### <!--[REQX]--> <a id=\"REQ-EXPORT/REQX\"></a> Rationale\n\n| TomSpecField | Value |\n| --- | --- |\n| Rationale | Presets save the export settings once. |\n\n##### <!--[REQAB]--> <a id=\"REQ-EXPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\nExports use the formats of REQ-IMPORT and never run with REQ-PURGE.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-EXPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-EXPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-EXPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | namedInText |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-EXPORT/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-EXPORT/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-IMPORT]--> <a id=\"REQ-IMPORT\"></a> Import\n\n[Also in [BLU REQ-IMPORT](links.blu.tomspecs.md#REQ-IMPORT), held here except REQ.owner; Derived from [REQ-IMPORT](#REQ-IMPORT), [REQ-ITEM-LST](#REQ-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | done |\n| LastVersion | 1.0 |\n\n##### <!--[REQD]--> <a id=\"REQ-IMPORT/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Imports files. |\n\n##### <!--[REQC]--> <a id=\"REQ-IMPORT/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-IMPORT/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Constraints | Bounded by REQ-PURGE. |\n\n##### <!--[REQAB]--> <a id=\"REQ-IMPORT/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\nImports files.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-IMPORT/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-IMPORT/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-IMPORT/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | constrainedBy |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-IMPORT/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-PURGE](#REQ-PURGE) |\n\n#### <!--[REQ-PURGE]--> <a id=\"REQ-PURGE\"></a> Purge\n\n[Also in [BLU REQ-PURGE](links.blu.tomspecs.md#REQ-PURGE), held here except REQ.owner; Derived from [REQ-PURGE](#REQ-PURGE), [REQ-ITEM-LST](#REQ-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | draft |\n| LastVersion | 0.9 |\n\n##### <!--[REQD]--> <a id=\"REQ-PURGE/REQD\"></a> Details\n\n| TomSpecField | Value |\n| --- | --- |\n| Description | Purges old data. |\n\n##### <!--[REQC]--> <a id=\"REQ-PURGE/REQC\"></a> Constraints\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST): conflictsWith]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| ConflictsWith | [REQ-EXPORT](#REQ-EXPORT) |\n\n##### <!--[REQAB]--> <a id=\"REQ-PURGE/REQAB\"></a> Abstract\n\n[Derived from [REQD](#REQ-PURGE/REQD)]{.linked}\n\nPurges old data.\n\n##### <!--[LNK-ITEM-LST]--> <a id=\"REQ-PURGE/LNK-ITEM-LST\"></a> Links\n\n[Extracted from [REQD](#REQ-PURGE/REQD)]{.linked}\n\n###### <!--[LNK-1]--> <a id=\"REQ-PURGE/LNK-1\"></a> Link 1\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | conflict |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-1/LNK-REF\"></a>LNK-REF | Ref | [REQ-EXPORT](#REQ-EXPORT) |\n\n###### <!--[LNK-2]--> <a id=\"REQ-PURGE/LNK-2\"></a> Link 2\n\n| TomSpecField | Value |\n| --- | --- |\n| LinkType | prerequisite |\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"REQ-PURGE/LNK-2/LNK-REF\"></a>LNK-REF | Ref | [REQ-IMPORT](#REQ-IMPORT) |\n\n##### <!--[PRE-ITEM-LST]--> <a id=\"REQ-PURGE/PRE-ITEM-LST\"></a> Prerequisites\n\n[Derived from [LNK-ITEM-LST](#REQ-PURGE/LNK-ITEM-LST)]{.linked}\n\n::: {.records}\n| Id | Ref |\n| --- | --- |\n| <a id=\"REQ-PURGE/PRE-1\"></a>PRE-1 | [REQ-IMPORT](#REQ-IMPORT) |\n:::\n\n#### <!--[REQ-PRESETS]--> <a id=\"REQ-PRESETS\"></a> Presets\n\n[Also in [BLU REQ-PRESETS](links.blu.tomspecs.md#REQ-PRESETS), held here except REQ.owner; Derived from [REQ-PRESETS](#REQ-PRESETS), [REQ-ITEM-LST](#REQ-ITEM-LST): score, rank, lastVersion]{.linked}\n\n| TomSpecField | Value |\n| --- | --- |\n| Status | draft |\n\n### <!--[KEYS]--> <a id=\"KEYS\"></a> Key Requirements\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"KEY-1\"></a>KEY-ITEM-LST / KEY-1 | RequirementRef | [REQ-EXPORT](#REQ-EXPORT) |\n|  | Title | Export presets |\n\n## <!--[CRIT]--> <a id=\"CRIT\"></a> Criteria\n\n[Also in [BLU CRIT](links.blu.tomspecs.md#CRIT), held here]{.linked}\n\n| Section | TomSpecField | Value |\n| --- | --- | --- |\n| <a id=\"CRIT-SPEED\"></a>CRIT-ITEM-LST / CRIT-SPEED | Kind | functional |\n|  | Text | Exports finish in 5 s. |\n|  | RelatedRequirements | [REQ-EXPORT](#REQ-EXPORT) |\n| <a id=\"CRIT-AUDIT\"></a>CRIT-ITEM-LST / CRIT-AUDIT | Kind | quality |\n|  | Text | Every purge is logged. |\n\n",
+        "rejections": [],
+        "parseMatches": true,
+        "reemitMatches": true
+      }
+    }
+  ]
+}

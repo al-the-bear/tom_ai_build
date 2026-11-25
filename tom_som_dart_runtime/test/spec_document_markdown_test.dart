@@ -220,9 +220,14 @@ void main() {
           md,
           contains('### <!--[items-2]--> <a id="items-2"></a> Demo Item 2'),
         );
+        // Below a list item the anchor is qualified (SOM §11.2).
         expect(
           md,
-          contains('#### <!--[D01-LBL]--> <a id="D01-LBL"></a> Label'),
+          contains('#### <!--[D01-LBL]--> <a id="items-1/D01-LBL"></a> Label'),
+        );
+        expect(
+          md,
+          contains('#### <!--[D01-LBL]--> <a id="items-2/D01-LBL"></a> Label'),
         );
       },
     );

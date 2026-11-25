@@ -47,7 +47,7 @@ Contact: bob@example.com
 
 First
 
-#### <!--[STS]--> <a id="STS"></a> Status
+#### <!--[STS]--> <a id="items-1/STS"></a> Status
 
 open
 
@@ -56,7 +56,7 @@ open
 Second line A
 with ```triple``` ticks
 
-#### <!--[STS]--> <a id="STS"></a> Status
+#### <!--[STS]--> <a id="items-2/STS"></a> Status
 
 done
 
@@ -160,7 +160,7 @@ Tail text.
 
 | Section | TomSpecField | Value |
 | --- | --- | --- |
-| <a id="DLR-1"></a>DLR-LST / DLR-1 | Area | CE-NV |
+| <a id="DLV-1/DLR-1"></a>DLR-LST / DLR-1 | Area | CE-NV |
 |  | Mapping | dart-tom |
 
 ### <!--[DLV-2]--> <a id="DLV-2"></a> Deliverable 2
@@ -173,9 +173,9 @@ Tail text.
 
 | Section | TomSpecField | Value |
 | --- | --- | --- |
-| <a id="DLR-1"></a>DLR-LST / DLR-1 | Area | CE-DB |
+| <a id="DLV-2/DLR-1"></a>DLR-LST / DLR-1 | Area | CE-DB |
 |  | Mapping | dart-tom |
-| <a id="DLR-2"></a>DLR-LST / DLR-2 | Area | CE-NV |
+| <a id="DLV-2/DLR-2"></a>DLR-LST / DLR-2 | Area | CE-NV |
 |  | Mapping | dart-tom |
-| <a id="DLE-1"></a>DLE-LST / DLE-1 | Emitter | openapi |
+| <a id="DLV-2/DLE-1"></a>DLE-LST / DLE-1 | Emitter | openapi |
 

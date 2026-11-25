@@ -107,7 +107,8 @@ export 'src/spec_model.dart';
 export 'src/spec_notation.dart';
 export 'src/spec_node_creation.dart';
 export 'src/spec_paths.dart';
-export 'src/spec_links_validator.dart';
+export 'src/spec_links_validator.dart'
+    hide specExpandPattern, specResolveLinkPlace, specResolvePlaceAt;
 export 'src/spec_place.dart';
 export 'src/spec_query.dart';
 export 'src/spec_section_id.dart';

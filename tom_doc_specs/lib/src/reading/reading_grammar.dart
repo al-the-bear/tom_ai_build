@@ -69,6 +69,16 @@ abstract final class ReadingGrammar {
   static final RegExp linkText = RegExp(r'\[([^\]]+)\]\([^)]*\)');
 
   static final RegExp _cellAnchor = RegExp(r'<a id="([^"]*)"></a>\s*');
+
+  /// Whether [anchor] is the own anchor of a section with [id] (*Section
+  /// Anchors*): [id] itself, or the qualified form `<A>/…/<id>` a TomSpecs
+  /// rendition writes below a list item, every segment non-empty.
+  static bool _isOwnAnchor(String anchor, String id) {
+    if (anchor == id) return true;
+    if (!anchor.endsWith('/$id')) return false;
+    return !anchor.split('/').any((s) => s.isEmpty);
+  }
+
   static final RegExp _cellPartSeparator = RegExp(r'\s*/\s*');
 
   /// The cells of a table row: split on every `|` not preceded by a
@@ -122,7 +132,8 @@ abstract final class ReadingGrammar {
       final id = m.group(1)!;
       final rest = cell.substring(m.end).split(_cellPartSeparator);
       final own =
-          rest.first.trim() == id || (m.start == 0 && rest.last.trim() == id);
+          _isOwnAnchor(id, rest.first.trim()) ||
+          (m.start == 0 && _isOwnAnchor(id, rest.last.trim()));
       if (!own) out.write(m.group(0));
       pos = m.end;
     }

@@ -69,6 +69,15 @@ class MarkdownParser {
   /// Anchors*).
   static final _anchorPattern = RegExp(r'<a id="([^"]*)"></a>\s*');
 
+  /// Whether [anchor] is the own anchor of a section with [id] (*Section
+  /// Anchors*): [id] itself, or the qualified form `<A>/…/<id>` a TomSpecs
+  /// rendition writes below a list item, every segment non-empty.
+  static bool _isOwnAnchor(String anchor, String id) {
+    if (anchor == id) return true;
+    if (!anchor.endsWith('/$id')) return false;
+    return !anchor.split('/').any((s) => s.isEmpty);
+  }
+
   /// Pattern to extract HTML comment with optional content: <!--...-->
   static final _htmlCommentPattern = RegExp(r'<!--\s*(.*?)\s*-->');
 
@@ -220,11 +229,12 @@ class MarkdownParser {
 
         // The section's own anchor is removed and stores nothing; any other
         // anchor is ordinary text.
-        if (explicitId != null) {
+        final ownId = explicitId;
+        if (ownId != null) {
           headlineText = headlineText
               .replaceAllMapped(
                 _anchorPattern,
-                (m) => m.group(1) == explicitId ? '' : m.group(0)!,
+                (m) => _isOwnAnchor(m.group(1)!, ownId) ? '' : m.group(0)!,
               )
               .trim();
         }

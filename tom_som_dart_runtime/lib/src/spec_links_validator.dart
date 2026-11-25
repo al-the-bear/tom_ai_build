@@ -35,6 +35,83 @@ List<SpecValidationError> validateLinks(SpecModel model, SpecDocument doc) {
   return out;
 }
 
+/// Every concrete path of [pattern] in [doc]: each `<list>-*` segment
+/// expanded over the document's items.
+List<String> specExpandPattern(SpecDocument doc, String pattern) {
+  var paths = <String>[''];
+  for (final seg in pattern.split('/')) {
+    final next = <String>[];
+    for (final p in paths) {
+      final base = p.isEmpty ? seg : '$p/$seg';
+      if (seg.endsWith('-*')) {
+        next.addAll(doc.listItems(base.substring(0, base.length - 2)));
+      } else {
+        next.add(base);
+      }
+    }
+    paths = next;
+  }
+  return paths;
+}
+
+/// [place] resolved under [anchor], or null when it does not resolve.
+SpecPlaceResolution? specResolvePlaceAt(
+  SpecReflection refl,
+  String place,
+  String anchor,
+) {
+  try {
+    return SpecPlace.parse(place).resolve(refl, anchor);
+  } on SpecPlaceException {
+    return null;
+  }
+}
+
+/// [place] resolved for a link annotated at [anchor], as the link checks
+/// and the rendition's `linked` marker (SOM §11.11) read it: a `./` place
+/// beneath the nearest list element of [anchor]; any other place inside
+/// [anchor]'s subtree when it is there, else anywhere beneath the document
+/// root [root] — a bare id wherever it is reached once, a `/` path from the
+/// section its first segment names, through the first item [doc] holds of a
+/// list there (no [doc]: such a path does not resolve).
+SpecPlaceResolution? specResolveLinkPlace(
+  SpecReflection refl,
+  SpecDocument? doc,
+  String place,
+  String root,
+  String anchor,
+) {
+  if (place.startsWith('./')) return specResolvePlaceAt(refl, place, anchor);
+  // The grammar's own scope first: the subtree of the annotated section.
+  final local = anchor == root ? null : specResolvePlaceAt(refl, place, anchor);
+  if (local != null) return local;
+  final slash = place.indexOf('/');
+  if (slash < 0) return specResolvePlaceAt(refl, place, root);
+  final head = specResolvePlaceAt(refl, place.substring(0, slash), root);
+  if (head == null) return null;
+  final scope = head.kind == SpecPlaceKind.list ? '${head.path}-*' : head.path;
+  // A pattern anchor resolves through its first concrete instance; the rest
+  // of the place is relative, so the pattern is rebuilt below.
+  final concrete = doc == null
+      ? (scope.contains('-*') ? const <String>[] : [scope])
+      : specExpandPattern(doc, scope);
+  if (concrete.isEmpty) return null;
+  final rest = specResolvePlaceAt(
+    refl,
+    place.substring(slash + 1),
+    concrete.first,
+  );
+  if (rest == null) return null;
+  return SpecPlaceResolution(
+    place: rest.place,
+    kind: rest.kind,
+    path: scope + rest.path.substring(concrete.first.length),
+    className: rest.className,
+    sectionIds: rest.sectionIds,
+    formField: rest.formField,
+  );
+}
+
 /// A class instance of the document: the path it is reached at and its class.
 class _Instance {
   _Instance(this.path, this.cls, this.root);
@@ -218,64 +295,15 @@ class _LinkValidator {
 
   /// Every concrete path of a resolved pattern (`<list>-*` expanded over the
   /// document's items).
-  List<String> _expand(String pattern) {
-    var paths = <String>[''];
-    for (final seg in pattern.split('/')) {
-      final next = <String>[];
-      for (final p in paths) {
-        final base = p.isEmpty ? seg : '$p/$seg';
-        if (seg.endsWith('-*')) {
-          next.addAll(doc.listItems(base.substring(0, base.length - 2)));
-        } else {
-          next.add(base);
-        }
-      }
-      paths = next;
-    }
-    return paths;
-  }
+  List<String> _expand(String pattern) => specExpandPattern(doc, pattern);
 
   /// [place] resolved under [anchor], or null when it does not resolve.
-  SpecPlaceResolution? _at(String place, String anchor) {
-    try {
-      return SpecPlace.parse(place).resolve(refl, anchor);
-    } on SpecPlaceException {
-      return null;
-    }
-  }
+  SpecPlaceResolution? _at(String place, String anchor) =>
+      specResolvePlaceAt(refl, place, anchor);
 
-  /// [place] resolved for a link annotated at [anchor]: a `./` place beneath
-  /// the nearest list element of [anchor]; any other place inside [anchor]'s
-  /// subtree when it is there, else anywhere beneath the document root
-  /// [root] — a bare id wherever it is reached once, a `/` path from the
-  /// section its first segment names.
-  SpecPlaceResolution? _global(String place, String root, String anchor) {
-    if (place.startsWith('./')) return _at(place, anchor);
-    // The grammar's own scope first: the subtree of the annotated section.
-    final local = anchor == root ? null : _at(place, anchor);
-    if (local != null) return local;
-    final slash = place.indexOf('/');
-    if (slash < 0) return _at(place, root);
-    final head = _at(place.substring(0, slash), root);
-    if (head == null) return null;
-    final scope = head.kind == SpecPlaceKind.list
-        ? '${head.path}-*'
-        : head.path;
-    // A pattern anchor resolves through its first concrete instance; the
-    // rest of the place is relative, so the pattern is rebuilt below.
-    final concrete = _expand(scope);
-    if (concrete.isEmpty) return null;
-    final rest = _at(place.substring(slash + 1), concrete.first);
-    if (rest == null) return null;
-    return SpecPlaceResolution(
-      place: rest.place,
-      kind: rest.kind,
-      path: scope + rest.path.substring(concrete.first.length),
-      className: rest.className,
-      sectionIds: rest.sectionIds,
-      formField: rest.formField,
-    );
-  }
+  /// [place] resolved for a link annotated at [anchor] ([specResolveLinkPlace]).
+  SpecPlaceResolution? _global(String place, String root, String anchor) =>
+      specResolveLinkPlace(refl, doc, place, root, anchor);
 
   /// The values a row's own forms (`<row>/<member>`) hold in [field].
   List<String> _ownValues(String row, String field) {
