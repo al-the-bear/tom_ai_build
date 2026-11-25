@@ -158,7 +158,7 @@ exceptions:
       stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
       readable header, the styled-div headings; 04a_rdv5) is in the Dart and
       TypeScript runtimes only; their ports are the todos
-      `tspubnondart84`..`97`, one per runtime (`runtime_parity.md` § Reading
+      `tspubnondart91`..`97`, one per runtime (`runtime_parity.md` § Reading
       view). `strip_cases.json` is the corpus they will run.
 
   - token: fromNames
@@ -168,7 +168,7 @@ exceptions:
       stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
       readable header, the styled-div headings; 04a_rdv5) is in the Dart and
       TypeScript runtimes only; their ports are the todos
-      `tspubnondart84`..`97`, one per runtime (`runtime_parity.md` § Reading
+      `tspubnondart91`..`97`, one per runtime (`runtime_parity.md` § Reading
       view). `strip_cases.json` is the corpus they will run.
 
   - token: headingDivs
@@ -178,7 +178,7 @@ exceptions:
       stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
       readable header, the styled-div headings; 04a_rdv5) is in the Dart and
       TypeScript runtimes only; their ports are the todos
-      `tspubnondart84`..`97`, one per runtime (`runtime_parity.md` § Reading
+      `tspubnondart91`..`97`, one per runtime (`runtime_parity.md` § Reading
       view). `strip_cases.json` is the corpus they will run.
 
   - token: marksDropped
@@ -188,7 +188,7 @@ exceptions:
       stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
       readable header, the styled-div headings; 04a_rdv5) is in the Dart and
       TypeScript runtimes only; their ports are the todos
-      `tspubnondart84`..`97`, one per runtime (`runtime_parity.md` § Reading
+      `tspubnondart91`..`97`, one per runtime (`runtime_parity.md` § Reading
       view). `strip_cases.json` is the corpus they will run.
 
   - token: readableHeader
@@ -198,7 +198,7 @@ exceptions:
       stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
       readable header, the styled-div headings; 04a_rdv5) is in the Dart and
       TypeScript runtimes only; their ports are the todos
-      `tspubnondart84`..`97`, one per runtime (`runtime_parity.md` § Reading
+      `tspubnondart91`..`97`, one per runtime (`runtime_parity.md` § Reading
       view). `strip_cases.json` is the corpus they will run.
 
   - token: removedItems
@@ -208,7 +208,7 @@ exceptions:
       stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
       readable header, the styled-div headings; 04a_rdv5) is in the Dart and
       TypeScript runtimes only; their ports are the todos
-      `tspubnondart84`..`97`, one per runtime (`runtime_parity.md` § Reading
+      `tspubnondart91`..`97`, one per runtime (`runtime_parity.md` § Reading
       view). `strip_cases.json` is the corpus they will run.
 
   - token: stripNotationText
@@ -218,7 +218,7 @@ exceptions:
       stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
       readable header, the styled-div headings; 04a_rdv5) is in the Dart and
       TypeScript runtimes only; their ports are the todos
-      `tspubnondart84`..`97`, one per runtime (`runtime_parity.md` § Reading
+      `tspubnondart91`..`97`, one per runtime (`runtime_parity.md` § Reading
       view). `strip_cases.json` is the corpus they will run.
 
   - token: crossesBoundary
