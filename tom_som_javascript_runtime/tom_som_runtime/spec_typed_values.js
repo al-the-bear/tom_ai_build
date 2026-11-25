@@ -32,12 +32,36 @@
  *     parsing accepts exactly those, anything else reads as `null`;
  *   * enums — stored as the constant **name** (e.g. `high`); the generic layer
  *     validates against the field's `enumValues` domain, the generated facade
- *     converts name ⇄ native constant.
+ *     converts name ⇄ native constant;
+ *   * a typed value holding inline marks (SOM §11.9.3, a change under review:
+ *     `{~~ 30 ~> 15 ~~}`) reads as its **old** value, every mark rejected,
+ *     until the marks are decided ({@link somTypedReading}).
  *
  * The parsers match on an explicit grammar rather than deferring to `Number()`
  * / `parseInt()`, whose coercions (`''` → `0`, `'0x10'` → `16`, a trailing
  * `'12abc'` → `12`) would silently admit text the reference runtimes reject.
  */
+
+const { applyInlineMarksText } = require('./spec_review_annotations');
+
+/**
+ * The reading of a typed value under review: `raw` with every inline mark
+ * rejected (its old value), trimmed; `raw` itself when it holds no mark.
+ *
+ * A typed value marked as a change (SOM §11.9.3) is the old value until the
+ * change is accepted: the parsers below, the validator and every typed read
+ * see that value, never the markup.
+ *
+ * @param {?string} raw
+ * @returns {?string}
+ */
+function somTypedReading(raw) {
+  if (raw === null || raw === undefined || !raw.includes('{')) {
+    return raw;
+  }
+  const old = applyInlineMarksText(raw, { accept: false });
+  return old === raw ? raw : old.trim();
+}
 
 /** The `int` grammar: an optionally-signed run of decimal digits. */
 const _INT_PATTERN = /^[+-]?[0-9]+$/;
@@ -60,6 +84,7 @@ const _READS_AS_FLOAT = /[.eEnN]/;
  * @returns {?number}
  */
 function somParseInt(raw) {
+  raw = somTypedReading(raw);
   if (raw === null || raw === undefined || raw === '') {
     return null;
   }
@@ -86,6 +111,7 @@ function somFormatInt(value) {
  * @returns {?number}
  */
 function somParseDouble(raw) {
+  raw = somTypedReading(raw);
   if (raw === null || raw === undefined || raw === '') {
     return null;
   }
@@ -133,6 +159,7 @@ function somFormatDouble(value) {
  * @returns {?number}
  */
 function somParseNum(raw) {
+  raw = somTypedReading(raw);
   const asInt = somParseInt(raw);
   return asInt !== null ? asInt : somParseDouble(raw);
 }
@@ -161,6 +188,7 @@ function somFormatNum(value) {
  * @returns {?boolean}
  */
 function somParseBool(raw) {
+  raw = somTypedReading(raw);
   if (raw === 'true') {
     return true;
   }
@@ -196,7 +224,8 @@ function somFormatBool(value) {
  * @returns {?string}
  */
 function somParseEnumName(raw, values) {
-  return raw !== null && raw !== undefined && values.includes(raw) ? raw : null;
+  const name = somTypedReading(raw);
+  return name !== null && name !== undefined && values.includes(name) ? name : null;
 }
 
 /**
@@ -252,6 +281,7 @@ function somScalarBase(typeName) {
  * @returns {boolean}
  */
 function somTypedTextReadable(typeName, raw) {
+  raw = somTypedReading(raw);
   if (raw === null || raw === undefined || raw === '') {
     return true;
   }
@@ -269,9 +299,27 @@ function somTypedTextReadable(typeName, raw) {
   }
 }
 
+/**
+ * Whether a form field holds a typed value: an enum, or `int`, `double`,
+ * `num` or `bool` — the values that read as their old value while marked.
+ *
+ * @param {?string} typeName
+ * @param {string[]} enumValues
+ * @returns {boolean}
+ */
+function somIsTypedField(typeName, enumValues) {
+  if (enumValues.length > 0) {
+    return true;
+  }
+  const base = somScalarBase(typeName);
+  return base === 'int' || base === 'double' || base === 'num' || base === 'bool';
+}
+
 module.exports = {
   somScalarBase,
   somTypedTextReadable,
+  somTypedReading,
+  somIsTypedField,
   somParseInt,
   somFormatInt,
   somParseDouble,

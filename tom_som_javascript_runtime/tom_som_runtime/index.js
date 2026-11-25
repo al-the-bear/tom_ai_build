@@ -24,6 +24,13 @@ const {
   SpecAnnotation,
   KindLink,
   NoArtifactLink,
+  SpecListRelation,
+  SpecSync,
+  SpecSummaryOf,
+  SpecDerivation,
+  SpecInverseOf,
+  SpecExtractsLinks,
+  SpecSameAs,
   FormFieldSpec,
   SpecField,
   SpecClass,
@@ -49,6 +56,18 @@ const {
   SpecResolution,
   SpecReflection,
 } = require('./spec_reflection');
+const {
+  SpecPlaceKind,
+  SpecPlaceProblem,
+  SpecPlaceException,
+  SpecPlace,
+  SpecPlaceResolution,
+  SpecPlaceFilter,
+  SpecSameAsBinding,
+  specSameAsBindings,
+  SpecSectionPosition,
+  specSectionPositions,
+} = require('./spec_place');
 const { SpecEditor } = require('./spec_editor');
 const {
   SpecMatchSpan,
@@ -140,6 +159,8 @@ const {
   somParseNum,
   somScalarBase,
   somTypedTextReadable,
+  somTypedReading,
+  somIsTypedField,
 } = require('./spec_typed_values');
 const {
   K_SECTION_ID_SLOT,
@@ -154,7 +175,9 @@ const {
   SpecValidationCode,
   SpecValidationError,
   validateDocument,
+  specDerivedNumbers,
 } = require('./spec_validator');
+const { validateLinks } = require('./spec_links_validator');
 const {
   SpecReviewAnnotationKind,
   SpecMarkKind,
@@ -173,6 +196,7 @@ const {
   formatCommentBlock,
   formatQuestionBlock,
   applyInlineMarksText,
+  K_SPEC_HEADLINE_FIELD,
   decideAllMarksText,
   stripAnnotationsText,
   SpecMarkedChange,
@@ -286,6 +310,13 @@ module.exports = {
   SpecAnnotation,
   KindLink,
   NoArtifactLink,
+  SpecListRelation,
+  SpecSync,
+  SpecSummaryOf,
+  SpecDerivation,
+  SpecInverseOf,
+  SpecExtractsLinks,
+  SpecSameAs,
   FormFieldSpec,
   SpecField,
   SpecClass,
@@ -299,6 +330,17 @@ module.exports = {
   SpecNodeKind,
   SpecResolution,
   SpecReflection,
+  // places and filters of the link vocabulary (tom_specs_model_rules.md §9.7)
+  SpecPlaceKind,
+  SpecPlaceProblem,
+  SpecPlaceException,
+  SpecPlace,
+  SpecPlaceResolution,
+  SpecPlaceFilter,
+  SpecSameAsBinding,
+  specSameAsBindings,
+  SpecSectionPosition,
+  specSectionPositions,
   // generic modification API (YRD7)
   SpecEditor,
   // portable text-pattern subset (SOM §9)
@@ -375,6 +417,8 @@ module.exports = {
   // typed-value store boundary
   somScalarBase,
   somTypedTextReadable,
+  somTypedReading,
+  somIsTypedField,
   somParseInt,
   somFormatInt,
   somParseDouble,
@@ -405,6 +449,9 @@ module.exports = {
   SpecValidationCode,
   SpecValidationError,
   validateDocument,
+  specDerivedNumbers,
+  // the link checks of one document (tom_specs_model_rules.md §9.7)
+  validateLinks,
   // review annotations (SOM §11.9)
   SpecReviewAnnotationKind,
   SpecMarkKind,
@@ -423,6 +470,7 @@ module.exports = {
   formatCommentBlock,
   formatQuestionBlock,
   applyInlineMarksText,
+  K_SPEC_HEADLINE_FIELD,
   decideAllMarksText,
   stripAnnotationsText,
   SpecMarkedChange,

@@ -122,6 +122,17 @@ const {
   somParseInt,
   somParseNum,
   somTypedTextReadable,
+  somParseBool,
+  somParseEnumName,
+  somScalarBase,
+  somTypedReading,
+  SpecPlace,
+  SpecPlaceException,
+  SpecPlaceFilter,
+  SpecPlaceProblem,
+  SpecValidationCode,
+  specSameAsBindings,
+  validateLinks,
 } = require(path.join(_PKG_ROOT, 'tom_som_runtime', 'index.js'));
 const { YamlFloat, formatYamlFloat } = require(path.join(_PKG_ROOT, 'tom_som_runtime', 'index.js'));
 
@@ -715,8 +726,45 @@ function _runAnnotationOp(model, tree, doc, api, op, json = { team: false }) {
           JSON.stringify(fromMd.document.toJson()) === current,
       };
     }
+    // The instance tier's findings as `{path, code}`: a marked typed value
+    // is read as its old value (SOM §11.9.3).
+    case 'validate':
+      return validateDocument(model, doc).map((e) => ({ path: e.path, code: e.code }));
+    // The typed reading of one value, as the typed accessors read it.
+    case 'typedRead':
+      return _typedRead(model, doc, op);
     default:
       throw new Error(`unknown annotation op ${op.op}`);
+  }
+}
+
+// The typed reading of the value at `path` / `field`: an enum by its name,
+// `int`, `double`, `num` and `bool` as numbers and booleans, null when the
+// text reads as nothing — with any inline mark rejected (its old value).
+function _typedRead(model, doc, op) {
+  const p = op.path;
+  const field = op.field ?? null;
+  const res = new SpecReflection(model).resolve(p);
+  const spec =
+    field === null || res === null || res.field === null
+      ? null
+      : (res.field.formFields.find((f) => f.name === field) ?? null);
+  const raw = field === null ? doc.content(p) : doc.formField(p, field);
+  const type = somScalarBase(spec !== null ? spec.type : (res?.field?.type ?? null));
+  const values =
+    spec !== null ? spec.enumValues : (res?.field?.enumValues ?? []);
+  if (values.length > 0) return somParseEnumName(raw, values);
+  switch (type) {
+    case 'int':
+      return somParseInt(raw);
+    case 'double':
+      return somParseDouble(raw);
+    case 'num':
+      return somParseNum(raw);
+    case 'bool':
+      return somParseBool(raw);
+    default:
+      return somTypedReading(raw) ?? null;
   }
 }
 
@@ -829,6 +877,16 @@ function testInlineMarks(model, tree) {
         `removed ${JSON.stringify(rem)} vs ${JSON.stringify(c.removed)}`,
     );
   }
+  // Typed values and headlines under review (SOM §11.9.3).
+  for (const c of table.typedCases) {
+    const name = `typedInlineMark[${c.name}]`;
+    try {
+      const got = _runAnnotationCase(model, tree, c);
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
   for (const c of table.cases) {
     const name = `inlineMark[${c.name}]`;
     try {
@@ -863,6 +921,16 @@ function testChangeMarks(model, tree) {
           `accept ${JSON.stringify(acc)} vs ${JSON.stringify(c.accept)}; ` +
           `reject ${JSON.stringify(rej)} vs ${JSON.stringify(c.reject)}`,
       );
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
+  // Typed values and headlines written as marks (SOM §11.9.3).
+  for (const c of table.typedCases) {
+    const name = `typedChangeMark[${c.name}]`;
+    try {
+      const got = _runAnnotationCase(model, tree, c);
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
     } catch (e) {
       _check(name, false, `threw ${String(e)}`);
     }
@@ -2559,6 +2627,376 @@ function testTypedValues() {
   }
 }
 
+// ---------------------------------------------------------------------------
+// The section-link readers (`link_reader_cases.json` over `links.meta.json`)
+// ---------------------------------------------------------------------------
+
+// What the readers return for `model`, in canonical JSON: every class sync,
+// every member link, every form-field qualifier, and the `@SameAs` bindings per
+// root. Classes by name, fields and form fields in declaration order (the Dart
+// test's `linkReadBack`).
+function _linkReadBack(model) {
+  const names = [...model.classes.keys()].sort();
+  const refl = new SpecReflection(model);
+  const classes = [];
+  const fields = [];
+  const formFields = [];
+  for (const n of names) {
+    const cls = model.classes.get(n);
+    const sync = cls.syncedWith;
+    if (sync !== null) {
+      classes.push({ class: n, syncedWith: sync.toJson() });
+    }
+  }
+  for (const n of names) {
+    for (const f of model.classes.get(n).fields) {
+      const sync = f.syncedWith;
+      const summary = f.summaryOf;
+      const derived = f.derivedFrom;
+      const extracts = f.extractsLinks;
+      const sameAs = f.sameAs;
+      if (
+        sync === null &&
+        summary === null &&
+        derived === null &&
+        extracts.length === 0 &&
+        sameAs === null
+      ) {
+        continue;
+      }
+      const row = { class: n, field: f.name };
+      if (sync !== null) row.syncedWith = sync.toJson();
+      if (summary !== null) row.summaryOf = summary.toJson();
+      if (derived !== null) row.derivedFrom = derived.toJson();
+      if (extracts.length > 0) row.extractsLinks = extracts.map((e) => e.toJson());
+      if (sameAs !== null) row.sameAs = sameAs.toJson();
+      fields.push(row);
+    }
+  }
+  for (const n of names) {
+    for (const f of model.classes.get(n).fields) {
+      for (const ff of f.formFields) {
+        if (ff.derivedFrom === null && ff.inverseOf === null && ff.summaryOf === null) {
+          continue;
+        }
+        const row = { class: n, field: f.name, formField: ff.name };
+        if (ff.derivedFrom !== null) row.derivedFrom = ff.derivedFrom.toJson();
+        if (ff.inverseOf !== null) row.inverseOf = ff.inverseOf.toJson();
+        if (ff.summaryOf !== null) row.summaryOf = ff.summaryOf.toJson();
+        formFields.push(row);
+      }
+    }
+  }
+  const sameAsBindings = [];
+  for (const r of model.roots) {
+    for (const b of specSameAsBindings(refl, r.type)) {
+      sameAsBindings.push(b.toJson());
+    }
+  }
+  return { classes, fields, formFields, sameAsBindings, classCount: model.classes.size };
+}
+
+// One place case: the text parsed, then resolved under `anchor` when given.
+function _placeCase(refl, c) {
+  const place = SpecPlace.tryParse(c.text);
+  if (place === null) {
+    return { problem: SpecPlaceProblem.MALFORMED };
+  }
+  if (c.anchor == null) {
+    return { parsed: place.toJson() };
+  }
+  try {
+    return { parsed: place.toJson(), resolved: place.resolve(refl, c.anchor).toJson() };
+  } catch (e) {
+    if (e instanceof SpecPlaceException) {
+      return { parsed: place.toJson(), problem: e.problem };
+    }
+    throw e;
+  }
+}
+
+// One filter case: the text parsed, resolved under `anchor` when given, and
+// matched against `stored` when given.
+function _filterCase(refl, c) {
+  const filter = SpecPlaceFilter.tryParse(c.text);
+  if (filter === null) {
+    return { problem: SpecPlaceProblem.MALFORMED };
+  }
+  const out = { parsed: filter.toJson() };
+  if (Array.isArray(c.stored)) {
+    out.matches = filter.matches(c.stored.map((v) => String(v)));
+  }
+  if (c.anchor != null) {
+    try {
+      out.resolved = filter.resolve(refl, c.anchor).toJson();
+    } catch (e) {
+      if (e instanceof SpecPlaceException) {
+        out.problem = e.problem;
+      } else {
+        throw e;
+      }
+    }
+  }
+  return out;
+}
+
+// Whether the reader-case intent `token` holds in the expectation `e` (the
+// Dart test's `_readerIntentHolds`); an unknown token is `null`.
+function _readerIntentHolds(token, e) {
+  const rows = (key) => e[key];
+  const fieldHas = (key) => rows('fields').some((r) => key in r);
+  const formHas = (key) => rows('formFields').some((r) => key in r);
+  switch (token) {
+    case 'syncedWith':
+      return rows('classes').length > 0;
+    case 'syncRelationWhere':
+      return rows('classes').some((r) =>
+        (r.syncedWith.relations).some((x) => 'where' in x),
+      );
+    case 'summaryOf':
+      return fieldHas('summaryOf');
+    case 'summaryOfDocument':
+      return rows('fields').some((r) => r.summaryOf != null && 'document' in r.summaryOf);
+    case 'derivedFrom':
+      return fieldHas('derivedFrom');
+    case 'extractsLinksRepeated':
+      return rows('fields').some((r) => (r.extractsLinks || []).length > 1);
+    case 'sameAs':
+      return fieldHas('sameAs');
+    case 'formDerivedFrom':
+      return formHas('derivedFrom');
+    case 'formInverseOf':
+      return formHas('inverseOf');
+    case 'formSymmetric':
+      return rows('formFields').some(
+        (r) => r.inverseOf != null && (r.inverseOf.fields || []).includes('@self'),
+      );
+    case 'formSummaryOf':
+      return formHas('summaryOf');
+    case 'sameAsHolder':
+      return rows('sameAsBindings').some((r) => 'holder' in r);
+    case 'loadsUnchanged':
+      return (
+        e.classCount > 0 &&
+        rows('classes').length === 0 &&
+        rows('fields').length === 0 &&
+        rows('formFields').length === 0 &&
+        rows('sameAsBindings').length === 0
+      );
+    default:
+      return null;
+  }
+}
+
+// Every string a text case's expectation shows: kinds, problems, and
+// `matches` / `noMatch` (the Dart test's `_tokens`).
+function _linkTokens(e) {
+  const out = new Set();
+  const walk = (v, key) => {
+    if (Array.isArray(v)) {
+      for (const x of v) walk(x, null);
+    } else if (v !== null && typeof v === 'object') {
+      for (const [k, x] of Object.entries(v)) walk(x, k);
+    } else if (key === 'matches' && typeof v === 'boolean') {
+      out.add(v ? 'matches' : 'noMatch');
+    } else if (typeof v === 'string' && (key === 'kind' || key === 'problem')) {
+      out.add(v);
+    }
+  };
+  walk(e, null);
+  return out;
+}
+
+// `link_reader_cases.json`: the typed readers of the link annotations, the
+// `@SameAs` holders, an older meta loading unchanged, the place grammar and
+// the filter (Dart `section_link_conformance_test.dart`, LRC3 / LRC4), then the
+// reader spot checks (LR1–LR4) and `countOf` reading the filter (CO1–CO2).
+function testLinkReaders() {
+  const meta = _readJson('links.meta.json');
+  const table = _readJson('link_reader_cases.json');
+  for (const c of table.cases) {
+    const name = `links.reader[${c.name}]`;
+    try {
+      const m = c.model === 'links.meta.json' ? meta : c.meta;
+      const got = _linkReadBack(SpecModel.fromJson(m));
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+    for (const token of c.intent) {
+      const holds = _readerIntentHolds(token, c.expect);
+      _check(
+        `links.reader.intent[${c.name}: ${token}]`,
+        holds === true,
+        holds === null ? 'unknown intent token' : 'does not hold',
+      );
+    }
+  }
+  const model = SpecModel.fromJson(meta);
+  const refl = new SpecReflection(model);
+  const runText = (kind, cases, run) => {
+    for (const c of cases) {
+      const name = `links.${kind}[${c.name}]`;
+      try {
+        const got = run(c);
+        _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+      } catch (e) {
+        _check(name, false, `threw ${String(e)}`);
+      }
+      const shown = _linkTokens(c.expect);
+      for (const token of c.intent) {
+        _check(`links.${kind}.intent[${c.name}: ${token}]`, shown.has(token));
+      }
+    }
+  };
+  runText('place', table.textCases.places, (c) => _placeCase(refl, c));
+  runText('filter', table.textCases.filters, (c) => _filterCase(refl, c));
+
+  // LR1: the class sync is read with its relations.
+  const reqs = model.classes.get('Requirements').syncedWith;
+  _check(
+    'links.LR1.sync',
+    reqs !== null &&
+      reqs.document === 'Detail' &&
+      _deepEqual(reqs.detailOnly, ['REQX']) &&
+      _deepEqual(reqs.heldHere, ['REQ.owner']) &&
+      reqs.relations.length === 1 &&
+      reqs.relations[0].relation === 'subset',
+  );
+  const crit = model.classes.get('Criteria').syncedWith;
+  _check(
+    'links.LR1.where',
+    crit !== null &&
+      crit.relations.length === 1 &&
+      crit.relations[0].where === 'CRITE.kind=functional|quality',
+  );
+  _check('links.LR1.none', model.classes.get('Blueprint').syncedWith === null);
+
+  // LR2: member links and the repeated @ExtractsLinks.
+  const req = model.classes.get('Requirement');
+  const links = req.fieldNamed('links').extractsLinks;
+  _check('links.LR2.modes', _deepEqual(links.map((x) => x.mode), ['generate', 'warn']));
+  _check('links.LR2.set', _deepEqual(links[0].set, { 'LNK.linkType': 'namedInText' }));
+  _check('links.LR2.copy', req.fieldNamed('abstract').derivedFrom?.kind === 'copy');
+  _check(
+    'links.LR2.map',
+    _deepEqual(req.fieldNamed('prerequisites').derivedFrom?.map, {
+      'PRE.ref': 'LNK-REF.ref',
+    }),
+  );
+  _check('links.LR2.noSummary', req.fieldNamed('links').summaryOf === null);
+
+  // LR3: the form-field qualifiers.
+  const ff = (cls, field, name) =>
+    model.classes.get(cls).fieldNamed(field).formFields.find((f) => f.name === name);
+  _check(
+    'links.LR3.where',
+    ff('Requirement', 'constraints', 'conflictsWith').derivedFrom?.where ===
+      'LNK.linkType=conflict',
+  );
+  _check('links.LR3.symmetric', ff('Link', 'ref', 'ref').inverseOf?.symmetric === true);
+  _check(
+    'links.LR3.notSymmetric',
+    ff('Requirement', 'trace', 'relatedScreens').inverseOf?.symmetric === false,
+  );
+  _check(
+    'links.LR3.summaryDocument',
+    ff('Blueprint', 'focus', 'focusScreens').summaryOf?.document === 'Screens',
+  );
+
+  // LR4: the real model — S1 has one holder in each document.
+  const realRefl = new SpecReflection(_loadSomModel());
+  for (const root of ['D00SolutionBlueprint', 'D10QualityAcceptancePlan']) {
+    const bindings = specSameAsBindings(realRefl, root);
+    _check(
+      `links.LR4[${root}]`,
+      bindings.length === 1 &&
+        bindings[0].className === 'AcceptanceCriteriaList' &&
+        bindings[0].problem === null &&
+        bindings[0].copyPath.endsWith('/detailedCriteria'),
+      JSON.stringify(bindings.map((b) => b.toJson())),
+    );
+  }
+
+  // CO1–CO2: countOf reads the filter, `|` included.
+  const base = 'BLU/requirements';
+  const doc = (settled, total = '3') => {
+    const d = new SpecDocument();
+    for (const status of ['approved', 'done', 'draft']) {
+      const item = d.addListItem(`${base}/REQ-ITEM-LST`);
+      d.setFormField(`${item}/content`, 'status', status);
+    }
+    d.setFormField(`${base}/REQS-SUM`, 'total', total);
+    d.setFormField(`${base}/REQS-SUM`, 'settled', settled);
+    return d;
+  };
+  const counts = (d) =>
+    validateDocument(model, d)
+      .filter((e) => e.code === SpecValidationCode.COUNT_MISMATCH)
+      .map((e) => e.path);
+  const co = (name, got, want) =>
+    _check(name, _deepEqual(got, want), _jsonMismatch(got, want));
+  co('links.CO1', counts(doc('2')), []);
+  co('links.CO2.settled', counts(doc('3')), [`${base}/REQS-SUM`]);
+  co('links.CO2.total', counts(doc('2', '2')), [`${base}/REQS-SUM`]);
+}
+
+// `link_validation_cases.json`: each case's state loaded, then `validateLinks`
+// (`errors`) and the instance tier (`instanceErrors`), every finding as
+// `{path, code}` (Dart `section_link_conformance_test.dart`, LVC2); every case
+// shows its intent (LVC3); every link code has a provoking case (LVC4).
+function testLinkValidation() {
+  const table = _readJson('link_validation_cases.json');
+  const model = SpecModel.fromJson(_readJson(table.model || 'links.meta.json'));
+  const pairs = (errors) =>
+    errors.map((e) => ({ path: e.path, code: e.code }));
+  const provoked = new Set();
+  for (const c of table.cases) {
+    const name = `links.validate[${c.name}]`;
+    for (const e of c.errors) {
+      provoked.add(e.code);
+    }
+    try {
+      const doc = new SpecDocument();
+      doc.loadJson(c.state);
+      const errors = pairs(validateLinks(model, doc));
+      _check(`${name}.errors`, _deepEqual(errors, c.errors), _jsonMismatch(errors, c.errors));
+      const instance = pairs(validateDocument(model, doc));
+      _check(
+        `${name}.instanceErrors`,
+        _deepEqual(instance, c.instanceErrors),
+        _jsonMismatch(instance, c.instanceErrors),
+      );
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+    const codes = new Set(
+      [...c.errors, ...c.instanceErrors].map((e) => e.code),
+    );
+    for (const token of c.intent) {
+      _check(
+        `links.validate.intent[${c.name}: ${token}]`,
+        token === 'clean' ? codes.size === 0 : codes.has(token),
+      );
+    }
+  }
+  for (const code of [
+    SpecValidationCode.DERIVED_VALUE_MISMATCH,
+    SpecValidationCode.DERIVED_LOOKUP_MISS,
+    SpecValidationCode.DUPLICATE_LINK_ROW,
+    SpecValidationCode.INVERSE_MISSING,
+    SpecValidationCode.EXTRACTED_LINK_MISSING,
+    SpecValidationCode.EXTRACTED_LINK_STALE,
+    SpecValidationCode.SUMMARY_NOT_IN_DETAIL,
+    SpecValidationCode.DETAIL_NOT_IN_SUMMARY,
+    SpecValidationCode.SUMMARY_DUPLICATE,
+    SpecValidationCode.SAME_AS_MISMATCH,
+    SpecValidationCode.LINK_VALUE_PENDING,
+  ]) {
+    _check(`links.validate.provoked[${code}]`, provoked.has(code));
+  }
+}
+
 function main() {
   if (!fs.existsSync(_CORPUS) || !fs.statSync(_CORPUS).isDirectory()) {
     process.stderr.write(`corpus not found at ${_CORPUS}\n`);
@@ -2610,6 +3048,8 @@ function main() {
   testDocSpecsPath(model);
   testDocSpecsReplace();
   testTypedValues();
+  testLinkReaders();
+  testLinkValidation();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

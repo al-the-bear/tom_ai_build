@@ -113,31 +113,9 @@ const PENDING_PARITY = new Set([
   'SpecStripMergeRefusal',
   'SpecStripMergeResult',
   'SpecStripMerge',
-  // section automation (tom_specs_model_rules.md §9.7): the link readers,
-  // SpecPlace / SpecPlaceFilter, the typed reading of a value under review,
-  // validateLinks, the document set, deriveFields, backfill and prefill —
-  // ported by tom_specs 05a_sau2_akrk-javascript-runtime
-  'SpecListRelation',
-  'SpecSync',
-  'SpecSummaryOf',
-  'SpecDerivation',
-  'SpecInverseOf',
-  'SpecExtractsLinks',
-  'SpecSameAs',
-  'SpecPlaceKind',
-  'SpecPlaceProblem',
-  'SpecPlaceException',
-  'SpecPlace',
-  'SpecPlaceResolution',
-  'SpecPlaceFilter',
-  'SpecSameAsBinding',
-  'specSameAsBindings',
-  'SpecSectionPosition',
-  'specSectionPositions',
-  'somTypedReading',
-  'somIsTypedField',
-  'specDerivedNumbers',
-  'validateLinks',
+  // section automation (tom_specs_model_rules.md §9.7): the document set,
+  // deriveFields, backfill and prefill — ported by tom_specs
+  // 05a_sau2_akrk-javascript-runtime
   'deriveFields',
   'SpecDeriveChange',
   'SpecDeriveResult',
@@ -166,7 +144,6 @@ const PENDING_PARITY = new Set([
   'SpecBackfillChange',
   'SpecBackfillLeft',
   'SpecBackfillResult',
-  'K_SPEC_HEADLINE_FIELD',
 ]);
 
 test('no pending-parity name is here already (the exception ends with its port)', () => {
