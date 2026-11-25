@@ -154,6 +154,20 @@ class SpecDocument {
    * @param {string|null} [rootType]
    * @returns {string}
    */
+  /**
+   * The root {@link toMarkdown} exports: `rootType`'s, else the single
+   * populated root (throws when zero or more than one root is populated).
+   *
+   * @param {object} model
+   * @param {string|null} [rootType]
+   * @returns {object}
+   */
+  rootToExport(model, rootType = null) {
+    return rootType !== undefined && rootType !== null
+      ? model.rootByType(rootType)
+      : this._singlePopulatedRoot(model);
+  }
+
   toMarkdown(model, rootType = null) {
     const { SpecDocumentMarkdown } = require('./spec_document_markdown');
     const root =

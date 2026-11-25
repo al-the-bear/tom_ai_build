@@ -70,29 +70,11 @@ test('every name TS index.ts exports exists here (workspace checkout only)', (t)
 
 /**
  * TS names this runtime does not have yet, each with the todo that ports it.
- * The strip of stripped renditions (`spec_document_strip.ts`, SOM §11.10)
- * with its merge back (`spec_document_merge.ts`) is Dart and TypeScript only
- * until their ports: `tspubnondart92` (the strip) and `tspubnondart99` (the
- * merge), listed in `runtime_parity.md` § Reading view.
+ * The merge back of stripped renditions (`spec_document_merge.ts`, SOM
+ * §11.10) is Dart and TypeScript only until its port, `tspubnondart99`,
+ * listed in `runtime_parity.md` § Reading view.
  */
 const PENDING_PARITY = new Set([
-  'countAnnotationsText',
-  'specStripKindNames',
-  'specStripNotationKinds',
-  'SpecStripUsageError',
-  'SpecStripOptions',
-  'SpecReadableSource',
-  'SpecReadableHeader',
-  'SpecStripPiece',
-  'SpecAppendixEntry',
-  'SpecStripTextResult',
-  'stripNotationText',
-  'SpecStripValueRef',
-  'SpecStrippedValue',
-  'SpecStripKept',
-  'SpecStripFinding',
-  'SpecStripResult',
-  'SpecDocumentStrip',
   // the merge back (spec_document_merge.ts, SOM §11.10)
   'annotationIssuesText',
   'SpecStripMergePlaced',

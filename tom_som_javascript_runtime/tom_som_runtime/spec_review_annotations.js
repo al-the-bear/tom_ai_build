@@ -2329,6 +2329,18 @@ function _markKeepingChangeComments(current, text) {
 }
 
 /**
+ * How many review annotations `value` holds: its comment, question and
+ * conflict blocks plus its inline marks (SOM §11.9).
+ *
+ * @param {string} value
+ * @returns {number}
+ */
+function countAnnotationsText(value) {
+  const p = _parse(value);
+  return p.blocks.length + p.marks.length;
+}
+
+/**
  * `value` without any comment block, question block or inline mark (every mark
  * accepted). Plain quotes and code stay.
  *
@@ -4051,6 +4063,7 @@ module.exports = {
   K_SPEC_HEADLINE_FIELD,
   decideAllMarksText,
   stripAnnotationsText,
+  countAnnotationsText,
   SpecMarkedChange,
   markChangeText,
   SpecMarkVote,

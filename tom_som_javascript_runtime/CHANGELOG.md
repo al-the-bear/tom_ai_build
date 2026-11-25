@@ -2,6 +2,34 @@
 
 ## Unreleased
 
+- **Stripped renditions** (SOM §11.10), as Dart, TypeScript and C have
+  them: `stripNotationText` strips one value with `SpecStripOptions`
+  (`fromNames` with `drop` / `unmark` / `appendix` per kind — the names
+  `specStripKindNames`, the notation kinds `specStripNotationKinds` —,
+  `appendixReferences`, `headingDivs`; `SpecStripUsageError` for a name it
+  cannot take) into a `SpecStripTextResult` (the text, the pieces it removed
+  as `SpecStripPiece`, the counts per kind, `marksDropped`, the appendix
+  entries `SpecAppendixEntry`, the notation findings).
+  `SpecDocumentStrip.strip` strips every value of a document, stored
+  headlines included, into a copy: given a model it keeps what the emptying
+  rule needs (`SpecStripKept`), removes list items left empty
+  (`removedItems`), numbers the appendix through the rendition and writes the
+  `.readable.md` with its readable header (`SpecReadableHeader`,
+  `SpecReadableSource`) and appendix, checked by parsing it back
+  (`SpecStripResult`, `SpecStripValueRef`, `SpecStrippedValue`,
+  `SpecStripFinding`). `countAnnotationsText` counts a value's review
+  annotations. `SpecDocument.rootToExport` names the root an export takes.
+- **The Markdown codec reads and writes the readable rendition's parts**:
+  the emitter takes `{ headingDivs, readableHeader }` — a section deeper than
+  level 6 as a styled-div heading (`<div class="heading7" …>`, SOM §11.2),
+  the readable header after the `docspec` line (SOM §11.1) —, and a value line
+  that would read as a styled-div heading is escaped (SOM §11.3). The parser
+  reads styled-div headings, skips the readable header (the result's
+  `readableHeader`) and stops at the appendix marker; the DocSpecs validator
+  skips both too. The conformance runner reads `strip_cases.json` (`cases`,
+  `usageCases`, `headerCases`, `documentCases`) and runs the last three
+  `readingView` cases of `markdown_import_cases.json`.
+
 - **Rejected blocks kept for review** (SOM §11.7, DocSpecs RN-11): the parse
   result carries `keptContent`, and an apply that accepts rejections
   (`applyMarkdownResult(result, true)`, which `SpecDocument.fromMarkdown`

@@ -156,74 +156,81 @@ exceptions:
       runtime (`runtime_parity.md` § Reading view).
 
   - token: appendixReferences
-    planes: [python, javascript, java, go, rust, cpp]
+    planes: [python, java, go, rust, cpp]
     reason: >-
       KNOWN GAP. The strip of stripped renditions (SOM §11.10:
       stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
       readable header, the styled-div headings; 04a_rdv5) is in the Dart,
-      TypeScript and C runtimes only; the other ports are the todos
-      `tspubnondart91`..`95` and `97`, one per runtime (`runtime_parity.md` §
-      Reading view). `strip_cases.json` is the corpus they will run.
+      TypeScript, C and JavaScript runtimes only; the other ports are the
+      todos `tspubnondart91`, `93`..`95` and `97`, one per runtime
+      (`runtime_parity.md` § Reading view). `strip_cases.json` is the corpus
+      they will run.
 
   - token: fromNames
-    planes: [python, javascript, java, go, rust, cpp]
+    planes: [python, java, go, rust, cpp]
     reason: >-
       KNOWN GAP. The strip of stripped renditions (SOM §11.10:
       stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
       readable header, the styled-div headings; 04a_rdv5) is in the Dart,
-      TypeScript and C runtimes only; the other ports are the todos
-      `tspubnondart91`..`95` and `97`, one per runtime (`runtime_parity.md` §
-      Reading view). `strip_cases.json` is the corpus they will run.
+      TypeScript, C and JavaScript runtimes only; the other ports are the
+      todos `tspubnondart91`, `93`..`95` and `97`, one per runtime
+      (`runtime_parity.md` § Reading view). `strip_cases.json` is the corpus
+      they will run.
 
   - token: headingDivs
-    planes: [python, javascript, java, go, rust, cpp]
+    planes: [python, java, go, rust, cpp]
     reason: >-
       KNOWN GAP. The strip of stripped renditions (SOM §11.10:
       stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
       readable header, the styled-div headings; 04a_rdv5) is in the Dart,
-      TypeScript and C runtimes only; the other ports are the todos
-      `tspubnondart91`..`95` and `97`, one per runtime (`runtime_parity.md` §
-      Reading view). `strip_cases.json` is the corpus they will run.
+      TypeScript, C and JavaScript runtimes only; the other ports are the
+      todos `tspubnondart91`, `93`..`95` and `97`, one per runtime
+      (`runtime_parity.md` § Reading view). `strip_cases.json` is the corpus
+      they will run.
 
   - token: marksDropped
-    planes: [python, javascript, java, go, rust, cpp]
+    planes: [python, java, go, rust, cpp]
     reason: >-
       KNOWN GAP. The strip of stripped renditions (SOM §11.10:
       stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
       readable header, the styled-div headings; 04a_rdv5) is in the Dart,
-      TypeScript and C runtimes only; the other ports are the todos
-      `tspubnondart91`..`95` and `97`, one per runtime (`runtime_parity.md` §
-      Reading view). `strip_cases.json` is the corpus they will run.
+      TypeScript, C and JavaScript runtimes only; the other ports are the
+      todos `tspubnondart91`, `93`..`95` and `97`, one per runtime
+      (`runtime_parity.md` § Reading view). `strip_cases.json` is the corpus
+      they will run.
 
   - token: readableHeader
-    planes: [python, javascript, java, go, rust, cpp]
+    planes: [python, java, go, rust, cpp]
     reason: >-
       KNOWN GAP. The strip of stripped renditions (SOM §11.10:
       stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
       readable header, the styled-div headings; 04a_rdv5) is in the Dart,
-      TypeScript and C runtimes only; the other ports are the todos
-      `tspubnondart91`..`95` and `97`, one per runtime (`runtime_parity.md` §
-      Reading view). `strip_cases.json` is the corpus they will run.
+      TypeScript, C and JavaScript runtimes only; the other ports are the
+      todos `tspubnondart91`, `93`..`95` and `97`, one per runtime
+      (`runtime_parity.md` § Reading view). `strip_cases.json` is the corpus
+      they will run.
 
   - token: removedItems
-    planes: [python, javascript, java, go, rust, cpp]
+    planes: [python, java, go, rust, cpp]
     reason: >-
       KNOWN GAP. The strip of stripped renditions (SOM §11.10:
       stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
       readable header, the styled-div headings; 04a_rdv5) is in the Dart,
-      TypeScript and C runtimes only; the other ports are the todos
-      `tspubnondart91`..`95` and `97`, one per runtime (`runtime_parity.md` §
-      Reading view). `strip_cases.json` is the corpus they will run.
+      TypeScript, C and JavaScript runtimes only; the other ports are the
+      todos `tspubnondart91`, `93`..`95` and `97`, one per runtime
+      (`runtime_parity.md` § Reading view). `strip_cases.json` is the corpus
+      they will run.
 
   - token: stripNotationText
-    planes: [python, javascript, java, go, rust, cpp]
+    planes: [python, java, go, rust, cpp]
     reason: >-
       KNOWN GAP. The strip of stripped renditions (SOM §11.10:
       stripNotationText, SpecDocumentStrip, SpecStripOptions.fromNames, the
       readable header, the styled-div headings; 04a_rdv5) is in the Dart,
-      TypeScript and C runtimes only; the other ports are the todos
-      `tspubnondart91`..`95` and `97`, one per runtime (`runtime_parity.md` §
-      Reading view). `strip_cases.json` is the corpus they will run.
+      TypeScript, C and JavaScript runtimes only; the other ports are the
+      todos `tspubnondart91`, `93`..`95` and `97`, one per runtime
+      (`runtime_parity.md` § Reading view). `strip_cases.json` is the corpus
+      they will run.
 
   - token: crossesBoundary
     planes: [python, javascript, java, go, rust, cpp]
