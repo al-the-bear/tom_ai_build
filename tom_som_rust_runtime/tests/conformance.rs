@@ -97,6 +97,7 @@ use tom_som_rust_runtime::{
     spec_default_units, spec_generation_units, spec_impact_document_files, spec_impact_level,
     spec_impact_walk, spec_impact_walk_markdown, SpecImpactFolder, SPEC_STANDARD_EMITTERS,
     validate_spec_document, DocSpecsDocument, DocSpecsSchema, DocSpecsValidator, DOCSPECS_ALL_RULES,
+    DOCSPECS_RULE_REJECTED_BLOCK,
     scan_notation, NotationFindingCode,
 };
 
@@ -791,12 +792,16 @@ fn yaml_to_json(v: &YamlValue) -> Json {
 
 fn test_markdown_apply(c: &mut Checker, model: &SpecModel) {
     let table = read_json("markdown_apply_cases.json");
-    for kase in table.get("cases").and_then(|v| v.as_array()).unwrap_or(&[]) {
-        // The reading view's table forms (`readingView`) are read by the Dart and
-        // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
-        if kase.get("readingView").and_then(|v| v.as_bool()) == Some(true) {
-            continue;
+    // The table's DocSpecs schema: the reading view's cases check the
+    // `rejectedBlock` findings of the landed document against it.
+    let schema = match DocSpecsSchema::from_yaml_text(&table.str_or("schema")) {
+        Ok(schema) => Some(schema),
+        Err(e) => {
+            c.check("mdApply.schema", false, &e);
+            None
         }
+    };
+    for kase in table.get("cases").and_then(|v| v.as_array()).unwrap_or(&[]) {
         let name = kase.str_or("name");
         let markdown = kase.str_or("markdown");
         let (refused, rejection_count, document) = if kase.str_or("op") == "fromMarkdown" {
@@ -812,6 +817,32 @@ fn test_markdown_apply(c: &mut Checker, model: &SpecModel) {
         };
         let expect = kase.get("expect").unwrap_or(&Json::Null);
         let tag = format!("mdApply[{}]", name);
+        // The validator reports every kept block of an apply case as
+        // `rejectedBlock` (DocSpecs RN-11), with the document path it stands
+        // in.
+        if let (Some(want), Some(schema)) = (expect.get("rejectedBlocks"), schema.as_ref()) {
+            let landed = doc_from_state(&document);
+            let got = match validate_spec_document(model, &landed, schema, Some("Demo")) {
+                Ok(found) => Json::Array(
+                    found
+                        .into_iter()
+                        .filter(|v| v.rule == DOCSPECS_RULE_REJECTED_BLOCK)
+                        .map(|v| {
+                            Json::Object(vec![
+                                ("line".to_string(), Json::Int(v.line as i64)),
+                                ("path".to_string(), Json::Str(v.path)),
+                            ])
+                        })
+                        .collect(),
+                ),
+                Err(e) => Json::Str(e),
+            };
+            c.check(
+                &format!("{}.rejectedBlocks", tag),
+                json_eq(&got, want),
+                &format!("got {:?} want {:?}", got, want),
+            );
+        }
         let want_refused = expect.get("refused").and_then(|v| v.as_bool());
         c.check(
             &format!("{}.refused", tag),

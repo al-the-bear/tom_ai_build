@@ -400,10 +400,11 @@ impl SpecDocument {
     /// in one call: parse, then [`apply_markdown_result`](Self::apply_markdown_result)
     /// with rejections allowed.
     ///
-    /// Blocks the parser rejects are not loaded, and are returned with the
-    /// document ([`SpecMarkdownImport::rejections`]), so a caller can show them
-    /// or refuse to save: re-exporting a document whose source had rejections
-    /// drops those blocks for good.
+    /// Blocks the parser rejects are kept for review: each stands as a
+    /// `rejected` div in the text of the section it stood in, else its parent
+    /// (SOM §11.7, DocSpecs RN-11). They are returned with the document too
+    /// ([`SpecMarkdownImport::rejections`]), so a caller can show them or
+    /// refuse to save.
     pub fn from_markdown(text: &str, model: &SpecModel) -> SpecMarkdownImport {
         let mut document = SpecDocument::new();
         let result = SpecDocumentMarkdown::new(model, &document).parse(text);
@@ -421,9 +422,12 @@ impl SpecDocument {
     ///
     /// A result with rejections is refused with `Err` — naming the rejection
     /// count and the first rejection's line and message — and the document is
-    /// left unchanged, unless `allow_rejections` is true: the blocks it
-    /// rejected would otherwise vanish from a document the caller believes it
-    /// imported whole.
+    /// left unchanged, unless `allow_rejections` is true. With it, each
+    /// rejected block is kept rather than dropped: the result's
+    /// [`SpecMarkdownResult::kept_content`] is written over the parsed content,
+    /// so the block stands as a `rejected` div in the text of the section it
+    /// stood in (else its parent), at its place (SOM §11.7, DocSpecs RN-11),
+    /// and nothing written is lost.
     ///
     /// Store-agnostic on both halves: the purge goes through
     /// [`remove_values_under`](Self::remove_values_under), which clears every
@@ -452,6 +456,20 @@ impl SpecDocument {
 
         let mut merged = self.to_json();
         merged.content.extend(result.content.clone());
+        if allow_rejections {
+            // Each rejected block is kept rather than dropped: the kept
+            // content is written over the parsed content, so the block stands
+            // as a `rejected` div in the text of the section it stood in (else
+            // its parent), at its place (SOM §11.7, DocSpecs RN-11). An empty
+            // value removes the path's text.
+            for (path, kept) in &result.kept_content {
+                if kept.is_empty() {
+                    merged.content.remove(path);
+                } else {
+                    merged.content.insert(path.clone(), kept.clone());
+                }
+            }
+        }
         merged.forms.extend(result.forms.clone());
         merged.lists.extend(result.lists.clone());
         merged.headlines.extend(result.headlines.clone());

@@ -48,7 +48,9 @@
 //! report; [`SpecDocument::apply_markdown_result`] applies them. Anything that cannot be mapped — an
 //! unknown section id, a child heading under a value leaf, orphaned text — is
 //! collected into [`SpecMarkdownResult::rejections`] rather than dropped
-//! (SOM §11.7).
+//! (SOM §11.7); an import accepting rejections keeps each rejected block as a
+//! `rejected` div in the text of the section it stood in, else its parent
+//! ([`SpecMarkdownResult::kept_content`], DocSpecs RN-11).
 //!
 //! Rust conventions: where the other ports throw, `export_root` returns
 //! `Err(String)` (the unterminated-fence case); the empty string stands in for
@@ -159,6 +161,14 @@ pub struct SpecMarkdownResult {
     /// generation-unit ids parsed from the `units="…"` key in the heading
     /// comment. Staged whenever present (absent means the default).
     pub units: BTreeMap<String, String>,
+    /// The rejected blocks kept for review (SOM §11.7, DocSpecs RN-11): for
+    /// every path whose text a rejected block stood in, the value with each
+    /// such block written as a `rejected` div at its place. An apply that
+    /// accepts rejections ([`SpecDocument::apply_markdown_result`] with
+    /// `allow_rejections`) writes these over [`content`](Self::content), so
+    /// nothing written is lost; an empty value removes the path's text. Empty
+    /// for a clean parse.
+    pub kept_content: BTreeMap<String, String>,
 }
 
 impl SpecMarkdownResult {
@@ -189,9 +199,10 @@ impl SpecMarkdownResult {
 /// The outcome of [`SpecDocument::from_markdown`]: the document holding every
 /// value the parse accepted, together with the parse report.
 ///
-/// Blocks the parser rejected are not in [`document`](Self::document); they
-/// are kept here so a caller can show them or refuse to save — re-exporting a
-/// document whose source had rejections drops those blocks for good.
+/// Each block the parser rejected is kept in [`document`](Self::document) as a
+/// `rejected` div in the text of the section it stood in, else its parent (SOM
+/// §11.7, DocSpecs RN-11); the report is kept here too, so a caller can show
+/// the blocks or refuse to save.
 #[derive(Debug, Clone)]
 pub struct SpecMarkdownImport {
     /// The document holding every value the parse accepted.
@@ -201,8 +212,8 @@ pub struct SpecMarkdownImport {
 }
 
 impl SpecMarkdownImport {
-    /// The blocks the parse rejected, in source order; they are not in
-    /// [`document`](Self::document).
+    /// The blocks the parse rejected, in source order; each is kept in
+    /// [`document`](Self::document) as a `rejected` div for review (SOM §11.7).
     pub fn rejections(&self) -> &[SpecMarkdownRejection] {
         &self.result.rejections
     }
@@ -2299,6 +2310,7 @@ it cannot be represented in the DocSpecs markdown format",
             units: p.units,
             rejections: p.rejections,
             root_prefixes: p.root_prefixes,
+            kept_content: p.kept_content,
         }
     }
 }
@@ -2511,6 +2523,13 @@ struct MdFrame {
     /// The id of the nearest heading at or above this one that is no list
     /// container.
     anchor_section: Option<String>,
+    /// Rejected blocks to keep in this frame's text (RN-11): the body index
+    /// they stand before, the block, and the end of the body lines it
+    /// replaces (the index itself when it replaces none).
+    kept: Vec<MdKeptMark>,
+    /// For an ignored frame: the blocks of its ignored children, kept after
+    /// its own block wherever that lands.
+    deferred: Vec<MdKeptBlock>,
 }
 
 impl MdFrame {
@@ -2524,6 +2543,8 @@ impl MdFrame {
             body: Vec::new(),
             anchor_scope: None,
             anchor_section: None,
+            kept: Vec::new(),
+            deferred: Vec::new(),
         }
     }
 
@@ -2532,6 +2553,334 @@ impl MdFrame {
             ignored: true,
             ..MdFrame::new(level, None, String::new(), line)
         }
+    }
+}
+
+// --- Rejected blocks kept for review (SOM §11.7, DocSpecs RN-11) ------------
+
+/// A rejected block an import that accepts rejections keeps for review (SOM
+/// §11.7, DocSpecs RN-11): the source lines it held and what its `rejected`
+/// div records for a resolution.
+#[derive(Clone)]
+struct MdKeptBlock {
+    rejection: SpecMarkdownRejection,
+    /// The source lines of the block, as written.
+    lines: Vec<String>,
+    /// The field given twice, or the declared field a near-miss label names.
+    field: Option<String>,
+    /// The child section a near-miss section-table cell names.
+    section: Option<String>,
+    /// For a field given twice: the path of the form holding the kept value.
+    kept: Option<String>,
+}
+
+impl MdKeptBlock {
+    fn new(rejection: SpecMarkdownRejection, lines: Vec<String>) -> MdKeptBlock {
+        MdKeptBlock {
+            rejection,
+            lines,
+            field: None,
+            section: None,
+            kept: None,
+        }
+    }
+
+    /// The block as a `rejected` div: `reason`, `line`, then `field` /
+    /// `section` / `kept` where they apply, then `label` (the report's
+    /// message, its double quotes written as single ones). A fence the block
+    /// does not close, or closes without opening, would pair with the div's
+    /// own fences, so it is written escaped (`\:::`, RN-9); the div's fences
+    /// are longer than any fence inside it, for the eye (RN-7).
+    fn div(&self) -> Vec<String> {
+        let blank = |l: &str| md_trim_js_ws(l).is_empty();
+        let mut inner: Vec<String> = self.lines.clone();
+        let first = inner.iter().position(|l| !blank(l)).unwrap_or(inner.len());
+        inner.drain(..first);
+        while inner.last().is_some_and(|l| blank(l)) {
+            inner.pop();
+        }
+        let mut fence = MarkdownFenceTracker::new();
+        let mut open: Vec<usize> = Vec::new();
+        let mut unpaired: BTreeSet<usize> = BTreeSet::new();
+        for (k, line) in inner.iter().enumerate() {
+            if !fence.in_fence() {
+                if md_kept_fence_line(line, false) {
+                    if open.pop().is_none() {
+                        unpaired.insert(k);
+                    }
+                } else if md_kept_fence_line(line, true) {
+                    open.push(k);
+                }
+            }
+            fence.feed(line);
+        }
+        unpaired.extend(open);
+        let mut longest = 0;
+        for (k, line) in inner.iter_mut().enumerate() {
+            let sp = line.bytes().take(3).take_while(|&c| c == b' ').count();
+            if unpaired.contains(&k) {
+                if line.as_bytes().get(sp) == Some(&b':') {
+                    line.insert(sp, '\\');
+                }
+                continue;
+            }
+            let run = line.bytes().skip(sp).take_while(|&c| c == b':').count();
+            if run >= 3 && run > longest {
+                longest = run;
+            }
+        }
+        let colons = ":".repeat(if longest >= 3 { longest + 1 } else { 3 });
+        let quoted = |v: &str| v.replace('"', "'");
+        let r = &self.rejection;
+        let mut attributes = format!("reason=\"{}\" line=\"{}\"", r.reason, r.line);
+        if let Some(field) = &self.field {
+            attributes.push_str(&format!(" field=\"{}\"", quoted(field)));
+        }
+        if let Some(section) = &self.section {
+            attributes.push_str(&format!(" section=\"{}\"", quoted(section)));
+        }
+        if let Some(kept) = &self.kept {
+            attributes.push_str(&format!(" kept=\"{}\"", quoted(kept)));
+        }
+        attributes.push_str(&format!(" label=\"{}\"", quoted(&r.message)));
+        let mut out = Vec::with_capacity(inner.len() + 2);
+        out.push(format!("{} {{.rejected {}}}", colons, attributes));
+        out.extend(inner);
+        out.push(colons);
+        out
+    }
+}
+
+/// A kept block's place in a frame's body: before `at`, replacing the body
+/// lines up to `end` (`at` itself: none).
+struct MdKeptMark {
+    at: usize,
+    block: MdKeptBlock,
+    end: usize,
+}
+
+/// `^ {0,3}:{3,}[ \t]*` then, `opening`, braces `{...}` or a word and
+/// `[ \t]*$` (an opening div fence), else nothing (a closing fence).
+fn md_kept_fence_line(line: &str, opening: bool) -> bool {
+    let b = line.as_bytes();
+    let mut i = b.iter().take_while(|&&c| c == b' ').count();
+    if i > 3 {
+        return false;
+    }
+    let colons = i;
+    while i < b.len() && b[i] == b':' {
+        i += 1;
+    }
+    if i - colons < 3 {
+        return false;
+    }
+    while i < b.len() && (b[i] == b' ' || b[i] == b'\t') {
+        i += 1;
+    }
+    if !opening {
+        return i == b.len();
+    }
+    if i >= b.len() {
+        return false;
+    }
+    if b[i] == b'{' {
+        let mut end = b.len();
+        while end > i + 1 && (b[end - 1] == b' ' || b[end - 1] == b'\t') {
+            end -= 1;
+        }
+        return end > i + 1 && b[end - 1] == b'}';
+    }
+    if !b[i].is_ascii_alphabetic() {
+        return false;
+    }
+    i += 1;
+    while i < b.len() && (b[i].is_ascii_alphanumeric() || b[i] == b'_' || b[i] == b'-') {
+        i += 1;
+    }
+    while i < b.len() && (b[i] == b' ' || b[i] == b'\t') {
+        i += 1;
+    }
+    i == b.len()
+}
+
+/// `part` with the divs of `ins` (position, div lines) written in at their
+/// positions, a blank line between a div and the text around it; the lines at
+/// `replaced` positions are left out (a div took their place).
+fn md_merge_kept(
+    part: &[String],
+    ins: &[(usize, Vec<String>)],
+    replaced: &BTreeSet<usize>,
+) -> Vec<String> {
+    let mut out: Vec<String> = Vec::new();
+    let mut blank_due = false;
+    for k in 0..=part.len() {
+        for (at, div) in ins {
+            if *at != k {
+                continue;
+            }
+            if out.last().is_some_and(|l| !md_trim_js_ws(l).is_empty()) {
+                out.push(String::new());
+            }
+            out.extend(div.iter().cloned());
+            blank_due = true;
+        }
+        if k == part.len() || replaced.contains(&k) {
+            continue;
+        }
+        let line = &part[k];
+        if blank_due && !md_trim_js_ws(line).is_empty() {
+            out.push(String::new());
+        }
+        blank_due = false;
+        out.push(line.clone());
+    }
+    out
+}
+
+/// Whether `a` becomes `b` by at most one insertion, deletion or
+/// substitution.
+fn md_one_edit(a: &[char], b: &[char]) -> bool {
+    if a.len().abs_diff(b.len()) > 1 {
+        return false;
+    }
+    let (mut i, mut j, mut edits) = (0, 0, 0);
+    while i < a.len() && j < b.len() {
+        if a[i] == b[j] {
+            i += 1;
+            j += 1;
+            continue;
+        }
+        edits += 1;
+        if edits > 1 {
+            return false;
+        }
+        if a.len() > b.len() {
+            i += 1;
+        } else if b.len() > a.len() {
+            j += 1;
+        } else {
+            i += 1;
+            j += 1;
+        }
+    }
+    edits + (a.len() - i) + (b.len() - j) <= 1
+}
+
+/// The declared name one edit (or only case and separators) away from
+/// `label`, when exactly one is: what a *Rename to* choice offers (RN-11).
+fn md_near_miss<S: AsRef<str>>(label: &str, names: &[S]) -> Option<String> {
+    let norm = |v: &str| -> String {
+        v.to_lowercase()
+            .chars()
+            .filter(|&c| !md_is_js_space(c) && c != '_' && c != '-')
+            .collect()
+    };
+    let lower = |v: &str| -> Vec<char> { v.to_lowercase().chars().collect() };
+    let mut hits: Vec<&str> = Vec::new();
+    for n in names {
+        let n = n.as_ref();
+        if n != label
+            && (norm(n) == norm(label) || md_one_edit(&lower(n), &lower(label)))
+            && !hits.contains(&n)
+        {
+            hits.push(n);
+        }
+    }
+    if hits.len() == 1 {
+        Some(hits[0].to_string())
+    } else {
+        None
+    }
+}
+
+/// Whether a frame of `node` passes its rejected blocks to its parent: a list
+/// container, which holds no text, and a scalar or enum value, whose text is a
+/// typed value (RN-11).
+fn md_kept_in_parent(node: Option<&Rc<SomMetaNode>>) -> bool {
+    node.is_some_and(|n| {
+        n.kind == SOM_META_KIND_LIST
+            || n.kind == SOM_META_KIND_SCALAR
+            || n.kind == SOM_META_KIND_ENUM_VALUE
+    })
+}
+
+/// Where the rejected blocks of one frame's body go (RN-11): each text part of
+/// the frame (an index into the caller's parts) and the divs written into it,
+/// by position.
+struct MdKeeper {
+    /// The frame's marks by place (stable: blocks at one place keep their
+    /// order).
+    marks: Vec<(usize, MdKeptBlock)>,
+    next: usize,
+    inserts: BTreeMap<usize, Vec<(usize, Vec<String>)>>,
+}
+
+impl MdKeeper {
+    fn new(frame: &MdFrame) -> MdKeeper {
+        let mut marks: Vec<(usize, MdKeptBlock)> =
+            frame.kept.iter().map(|m| (m.at, m.block.clone())).collect();
+        marks.sort_by_key(|m| m.0);
+        MdKeeper {
+            marks,
+            next: 0,
+            inserts: BTreeMap::new(),
+        }
+    }
+
+    /// Writes `b` into part `into`, whose length is `len`, at its end.
+    fn keep(&mut self, into: usize, len: usize, b: &MdKeptBlock) {
+        self.inserts.entry(into).or_default().push((len, b.div()));
+    }
+
+    /// Writes the frame's blocks standing before body index `up_to` into part
+    /// `into`, whose length is `len`.
+    fn drain(&mut self, up_to: usize, into: usize, len: usize) {
+        while self.next < self.marks.len() && self.marks[self.next].0 <= up_to {
+            let div = self.marks[self.next].1.div();
+            self.inserts.entry(into).or_default().push((len, div));
+            self.next += 1;
+        }
+    }
+
+    /// The value of the parts `ids` with the kept divs written in, joined as
+    /// the parts are; `None` when no part holds one.
+    fn kept_value(&self, parts: &[Vec<String>], ids: &[usize]) -> Option<String> {
+        if !ids.iter().any(|id| self.inserts.contains_key(id)) {
+            return None;
+        }
+        let none = BTreeSet::new();
+        let values: Vec<String> = ids
+            .iter()
+            .map(|id| match self.inserts.get(id) {
+                Some(ins) => md_restore_value(&md_merge_kept(&parts[*id], ins, &none)),
+                None => md_restore_value(&parts[*id]),
+            })
+            .filter(|v| !v.is_empty())
+            .collect();
+        Some(values.join("\n\n"))
+    }
+}
+
+/// An open field given twice, whose paragraph is kept whole (RN-11): its held
+/// block and the body index of its label line.
+struct MdDiscarded {
+    block: MdKeptBlock,
+    start: usize,
+}
+
+/// Keeps the paragraph of a field given twice — body lines `start..at` — in
+/// part `into` (of length `len`).
+fn md_keep_discarded(
+    keeper: &mut MdKeeper,
+    discarded: &mut Option<MdDiscarded>,
+    body: &[String],
+    at: usize,
+    into: usize,
+    len: usize,
+) {
+    if let Some(mut d) = discarded.take() {
+        d.block.lines = body[d.start..at].to_vec();
+        keeper.keep(into, len, &d.block);
     }
 }
 
@@ -2580,6 +2929,15 @@ struct MdParser<'c, 'a> {
     fence: MarkdownFenceTracker,
     /// The fields given so far per form path, for the given-twice rule.
     given: HashMap<String, HashSet<String>>,
+    /// The rejected blocks kept for review (RN-11): path → its value with each
+    /// block written as a `rejected` div ("" removes the path's text).
+    kept_content: BTreeMap<String, String>,
+    /// The source lines, for the text of a rejected block.
+    source: Vec<String>,
+    /// Blocks reported by [`reject`](Self::reject) and not yet placed.
+    pending: Vec<MdKeptBlock>,
+    /// Text before the root heading, kept at the start of the root's text.
+    orphans: Vec<MdKeptBlock>,
 }
 
 impl<'c, 'a> MdParser<'c, 'a> {
@@ -2598,11 +2956,17 @@ impl<'c, 'a> MdParser<'c, 'a> {
             stack: Vec::new(),
             fence: MarkdownFenceTracker::new(),
             given: HashMap::new(),
+            kept_content: BTreeMap::new(),
+            source: Vec::new(),
+            pending: Vec::new(),
+            orphans: Vec::new(),
         }
     }
 
     fn run<'t>(&mut self, lines: impl Iterator<Item = &'t str>) {
-        for (i, raw) in lines.enumerate() {
+        let lines: Vec<&str> = lines.collect();
+        self.source = lines.iter().map(|l| l.to_string()).collect();
+        for (i, raw) in lines.into_iter().enumerate() {
             let line_no = i + 1;
             let trimmed = md_trim_trailing_ws(raw);
 
@@ -2619,12 +2983,14 @@ impl<'c, 'a> MdParser<'c, 'a> {
             if let Some(top) = self.stack.last_mut() {
                 top.body.push(raw.to_string());
             } else if !trimmed.is_empty() {
-                self.rejections.push(SpecMarkdownRejection {
+                let r = SpecMarkdownRejection {
                     line: line_no,
                     reason: SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT.to_string(),
                     message: "text before the document root heading".to_string(),
                     anchor: String::new(),
-                });
+                };
+                self.rejections.push(r.clone());
+                self.orphans.push(MdKeptBlock::new(r, vec![raw.to_string()]));
             }
             self.fence.feed(raw);
         }
@@ -2816,6 +3182,11 @@ position (under \"{}\")",
                 let mut frame =
                     MdFrame::new(level, Some(tree.root.clone()), seg.to_string(), line_no);
                 frame.anchor_section = Some(seg.to_string());
+                // Text before the root heading is kept at the start of its
+                // text.
+                for block in self.orphans.drain(..) {
+                    frame.kept.push(MdKeptMark { at: 0, block, end: 0 });
+                }
                 self.stack.push(frame);
                 return;
             }
@@ -2922,6 +3293,7 @@ position (under \"{}\")",
 
     fn finalize(&mut self, mut frame: MdFrame) {
         if frame.ignored {
+            self.keep_ignored(frame);
             return;
         }
         let node = frame.node.clone();
@@ -2943,6 +3315,36 @@ position (under \"{}\")",
         };
         if slots.is_empty() {
             let value = md_restore_value(&frame.body);
+            if !frame.kept.is_empty() {
+                let replaced: BTreeSet<usize> =
+                    frame.kept.iter().flat_map(|m| m.at..m.end).collect();
+                if md_kept_in_parent(frame.node.as_ref()) && !self.stack.is_empty() {
+                    // A list container (no text of its own, SOM §11.5) or a
+                    // typed value has no place for a block: its parent takes
+                    // them, after its own text (RN-11); the lines they replace
+                    // leave this frame's text.
+                    let own = md_restore_value(&md_merge_kept(&frame.body, &[], &replaced));
+                    if own != value {
+                        self.kept_content.insert(frame.path.clone(), own);
+                    }
+                    let parent = self.stack.last_mut().unwrap();
+                    let at = parent.body.len();
+                    for mark in frame.kept.drain(..) {
+                        parent.kept.push(MdKeptMark {
+                            at,
+                            block: mark.block,
+                            end: at,
+                        });
+                    }
+                } else {
+                    let ins: Vec<(usize, Vec<String>)> =
+                        frame.kept.iter().map(|m| (m.at, m.block.div())).collect();
+                    let kept = md_restore_value(&md_merge_kept(&frame.body, &ins, &replaced));
+                    if !kept.is_empty() {
+                        self.kept_content.insert(frame.path.clone(), kept);
+                    }
+                }
+            }
             if !value.is_empty() {
                 self.content.insert(frame.path.clone(), value);
             } else if frame.node.as_ref().is_some_and(|n| md_is_value_leaf(&n.kind)) {
@@ -2958,13 +3360,115 @@ position (under \"{}\")",
         self.finalize_body_slots(&frame, slots);
     }
 
-    fn reject(&mut self, line: usize, reason: &str, message: String, anchor: &str) {
-        self.rejections.push(SpecMarkdownRejection {
+    /// Reports a rejection and holds its block for an import that keeps
+    /// rejected blocks (RN-11): `lines` are the source lines it held (`None`:
+    /// its own line), `field` / `section` / `kept` what its div records for a
+    /// resolution. Returns the index of the held block in the hold.
+    #[allow(clippy::too_many_arguments)]
+    fn reject_block(
+        &mut self,
+        line: usize,
+        reason: &str,
+        message: String,
+        anchor: &str,
+        lines: Option<Vec<String>>,
+        field: Option<String>,
+        section: Option<String>,
+        kept: Option<String>,
+    ) -> usize {
+        let r = SpecMarkdownRejection {
             line,
             reason: reason.to_string(),
             message,
             anchor: anchor.to_string(),
-        });
+        };
+        self.rejections.push(r.clone());
+        let held = match lines {
+            Some(lines) => lines,
+            None if line >= 1 && line <= self.source.len() => vec![self.source[line - 1].clone()],
+            None => Vec::new(),
+        };
+        let mut b = MdKeptBlock::new(r, held);
+        b.field = field;
+        b.section = section;
+        b.kept = kept;
+        self.pending.push(b);
+        self.pending.len() - 1
+    }
+
+    /// The held blocks in source order, the hold emptied.
+    fn take_pending(&mut self) -> Vec<MdKeptBlock> {
+        let mut out = std::mem::take(&mut self.pending);
+        out.sort_by_key(|b| b.rejection.line); // stable
+        out
+    }
+
+    /// Places the held blocks before `frame`'s body index `at`, taking the
+    /// place of the body lines up to `replace_end` (`at` itself: none).
+    fn mark_pending(&mut self, frame: &mut MdFrame, at: usize, replace_end: usize) {
+        for block in self.take_pending() {
+            frame.kept.push(MdKeptMark {
+                at,
+                block,
+                end: replace_end,
+            });
+        }
+    }
+
+    /// An ignored frame's heading and body, with its ignored children's
+    /// blocks after it, go to the text of the nearest section above it that
+    /// was read, after that section's own text (RN-11); with none above (an
+    /// unknown root) nothing holds them and only the report remains.
+    fn keep_ignored(&mut self, frame: MdFrame) {
+        let mut blocks: Vec<MdKeptBlock> = Vec::new();
+        if let Some(own) = self.rejections.iter().rev().find(|r| r.line == frame.line) {
+            let mut lines = Vec::with_capacity(frame.body.len() + 1);
+            lines.push(self.source.get(frame.line - 1).cloned().unwrap_or_default());
+            lines.extend(frame.body);
+            blocks.push(MdKeptBlock::new(own.clone(), lines));
+        }
+        blocks.extend(frame.deferred);
+        let Some(parent) = self.stack.last_mut() else {
+            return;
+        };
+        if blocks.is_empty() {
+            return;
+        }
+        if parent.ignored {
+            parent.deferred.extend(blocks);
+            return;
+        }
+        let at = parent.body.len();
+        for block in blocks {
+            parent.kept.push(MdKeptMark { at, block, end: at });
+        }
+    }
+
+    /// The child a section-table `Section` cell naming none is a near miss of
+    /// (RN-11): a child form section's id, or `<LIST> / <ITEM>` with a near
+    /// list id.
+    fn near_section(&self, node: &SomMetaNode, section: &str) -> Option<String> {
+        let parts: Vec<&str> = section.split('/').map(str::trim).collect();
+        if parts.len() != 1 && parts.len() != 2 {
+            return None;
+        }
+        let kind = if parts.len() == 1 {
+            SOM_META_KIND_FORM
+        } else {
+            SOM_META_KIND_LIST
+        };
+        let ids: Vec<String> = self
+            .codec
+            .effective_children(node)
+            .iter()
+            .filter(|c| c.node.kind == kind)
+            .map(|c| self.codec.heading_id_of(&c.node))
+            .filter(|id| !id.is_empty())
+            .collect();
+        if parts.len() == 1 {
+            return md_near_miss(section, &ids);
+        }
+        md_near_miss(parts[0], &ids).map(|list| format!("{} / {}", list, parts[1]))
     }
 
     /// Binds a heading's body region against the owner's transparent body
@@ -3026,13 +3530,25 @@ position (under \"{}\")",
         let mut current_lines: Vec<String> = Vec::new();
         // Unlabelled text per target path, in the order the targets were
         // opened; a target opened twice gets its parts joined by a blank line.
-        let mut text_parts: Vec<(String, Vec<Vec<String>>)> =
-            vec![(path_of(&default_rel), vec![Vec::new()])];
-        let mut target_idx: usize = 0;
+        // The parts live in `parts`; a target holds their indexes, `cur` the
+        // part text goes to now.
+        let mut parts: Vec<Vec<String>> = vec![Vec::new()];
+        let mut text_parts: Vec<(String, Vec<usize>)> = vec![(path_of(&default_rel), vec![0])];
+        let mut cur: usize = 0;
+        // Rejected blocks go to the unlabelled text at their place (RN-11); a
+        // field given twice is kept whole, its label line and continuation.
+        let mut keeper = MdKeeper::new(frame);
+        let mut discarded: Option<MdDiscarded> = None;
+        let all_field_names: Vec<String> = form_slots
+            .iter()
+            .filter_map(|s| s.node.form.as_ref())
+            .flat_map(|f| f.fields.iter().map(|x| x.name.clone()))
+            .collect();
 
         let mut i = 0;
         while i < frame.body.len() {
             let line = &frame.body[i];
+            keeper.drain(i, cur, parts[cur].len());
             if !fence.in_fence() {
                 if let Some(rel) = md_slot_marker(line) {
                     let slot = if rel == "." {
@@ -3050,6 +3566,14 @@ position (under \"{}\")",
                                 &current_lines,
                             );
                         }
+                        md_keep_discarded(
+                            &mut keeper,
+                            &mut discarded,
+                            &frame.body,
+                            i,
+                            cur,
+                            parts[cur].len(),
+                        );
                         have_field = false;
                         discard = false;
                         current_lines = Vec::new();
@@ -3065,16 +3589,12 @@ position (under \"{}\")",
                             }
                         }
                         let target = path_of(rel);
-                        target_idx = match text_parts.iter().position(|(p, _)| *p == target) {
-                            Some(k) => {
-                                text_parts[k].1.push(Vec::new());
-                                k
-                            }
-                            None => {
-                                text_parts.push((target, vec![Vec::new()]));
-                                text_parts.len() - 1
-                            }
-                        };
+                        parts.push(Vec::new());
+                        cur = parts.len() - 1;
+                        match text_parts.iter_mut().find(|(p, _)| *p == target) {
+                            Some(entry) => entry.1.push(cur),
+                            None => text_parts.push((target, vec![cur])),
+                        }
                         i += 1;
                         continue;
                     }
@@ -3092,6 +3612,14 @@ position (under \"{}\")",
                             &current_lines,
                         );
                     }
+                    md_keep_discarded(
+                        &mut keeper,
+                        &mut discarded,
+                        &frame.body,
+                        i,
+                        cur,
+                        parts[cur].len(),
+                    );
                     have_field = false;
                     discard = false;
                     current_lines = Vec::new();
@@ -3103,18 +3631,28 @@ position (under \"{}\")",
                     for (row, cells) in &table.rows {
                         let row_line = md_body_line(frame_line, *row);
                         match find_field(current_form_idx, &cells[0]) {
-                            None => self.reject(
-                                row_line,
-                                SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD,
-                                format!("row \"{}\" names no field of this form", cells[0]),
-                                &frame.path,
-                            ),
+                            None => {
+                                self.reject_block(
+                                    row_line,
+                                    SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD,
+                                    format!("row \"{}\" names no field of this form", cells[0]),
+                                    &frame.path,
+                                    Some(vec![frame.body[*row].clone()]),
+                                    md_near_miss(&cells[0], &all_field_names),
+                                    None,
+                                    None,
+                                );
+                            }
                             Some((idx, field)) => {
                                 current_form_idx = idx;
                                 let form_path = format!("{}/{}", frame.path, form_slots[idx].rel);
                                 self.stage_row(&form_path, &[field], &cells[0], &cells[1], row_line);
                             }
                         }
+                    }
+                    // What the table rejected is kept where the table stood.
+                    for b in self.take_pending() {
+                        keeper.keep(cur, parts[cur].len(), &b);
                     }
                     i = table.end;
                     continue;
@@ -3130,6 +3668,14 @@ position (under \"{}\")",
                                 &current_lines,
                             );
                         }
+                        md_keep_discarded(
+                            &mut keeper,
+                            &mut discarded,
+                            &frame.body,
+                            i,
+                            cur,
+                            parts[cur].len(),
+                        );
                         current_lines = Vec::new();
                         current_form_idx = idx;
                         have_field = true;
@@ -3141,6 +3687,12 @@ position (under \"{}\")",
                             &current_field,
                             md_body_line(frame.line, i),
                         );
+                        if discard {
+                            discarded = self
+                                .pending
+                                .pop()
+                                .map(|block| MdDiscarded { block, start: i });
+                        }
                         current_lines.push(first.to_string());
                         fence.feed(line);
                         i += 1;
@@ -3158,11 +3710,7 @@ position (under \"{}\")",
             if have_field {
                 current_lines.push(text.to_string());
             } else {
-                text_parts[target_idx]
-                    .1
-                    .last_mut()
-                    .unwrap()
-                    .push(text.to_string());
+                parts[cur].push(text.to_string());
             }
             fence.feed(line);
             i += 1;
@@ -3176,13 +3724,21 @@ position (under \"{}\")",
                 &current_lines,
             );
         }
-        for (target, parts) in text_parts {
-            let value = parts
+        let end = frame.body.len();
+        md_keep_discarded(&mut keeper, &mut discarded, &frame.body, end, cur, parts[cur].len());
+        keeper.drain(end, cur, parts[cur].len());
+        for (target, ids) in text_parts {
+            let value = ids
                 .iter()
-                .map(|part| md_restore_value(part))
+                .map(|id| md_restore_value(&parts[*id]))
                 .filter(|v| !v.is_empty())
                 .collect::<Vec<_>>()
                 .join("\n\n");
+            if let Some(kept) = keeper.kept_value(&parts, &ids) {
+                if !kept.is_empty() {
+                    self.kept_content.insert(target.clone(), kept);
+                }
+            }
             if !value.is_empty() {
                 self.content.insert(target, value);
             }
@@ -3203,13 +3759,27 @@ position (under \"{}\")",
         // The preamble's parts: the text before the first field, and text a
         // table interrupts; joined by one blank line.
         let mut preamble_parts: Vec<Vec<String>> = vec![Vec::new()];
+        // Rejected blocks go to the preamble at their place (RN-11); a field
+        // given twice is kept whole, its label line and continuation.
+        let mut keeper = MdKeeper::new(frame);
+        let mut discarded: Option<MdDiscarded> = None;
 
         let mut i = 0;
         while i < frame.body.len() {
             let line = &frame.body[i];
+            let last = preamble_parts.len() - 1;
+            keeper.drain(i, last, preamble_parts[last].len());
             if !fence.in_fence() {
                 if md_layout_table_header(line) == Some(false) {
                     self.flush_form_field(path, current_field.take(), discard, &current_lines);
+                    md_keep_discarded(
+                        &mut keeper,
+                        &mut discarded,
+                        &frame.body,
+                        i,
+                        last,
+                        preamble_parts[last].len(),
+                    );
                     current_lines.clear();
                     discard = false;
                     preamble_parts.push(Vec::new());
@@ -3225,6 +3795,10 @@ position (under \"{}\")",
                             md_body_line(frame_line, *row),
                         );
                     }
+                    let last = preamble_parts.len() - 1;
+                    for b in self.take_pending() {
+                        keeper.keep(last, preamble_parts[last].len(), &b);
+                    }
                     i = table.end;
                     continue;
                 }
@@ -3232,8 +3806,22 @@ position (under \"{}\")",
                     let lower = label.to_lowercase();
                     if let Some(field) = declared.iter().find(|f| f.name.to_lowercase() == lower) {
                         self.flush_form_field(path, current_field.take(), discard, &current_lines);
+                        md_keep_discarded(
+                            &mut keeper,
+                            &mut discarded,
+                            &frame.body,
+                            i,
+                            last,
+                            preamble_parts[last].len(),
+                        );
                         current_lines.clear();
                         discard = self.given_twice(path, &field.name, md_body_line(frame.line, i));
+                        if discard {
+                            discarded = self
+                                .pending
+                                .pop()
+                                .map(|block| MdDiscarded { block, start: i });
+                        }
                         current_field = Some(field.clone());
                         current_lines.push(first.to_string());
                         fence.feed(line);
@@ -3257,6 +3845,16 @@ position (under \"{}\")",
             i += 1;
         }
         self.flush_form_field(path, current_field, discard, &current_lines);
+        let (end, last) = (frame.body.len(), preamble_parts.len() - 1);
+        md_keep_discarded(
+            &mut keeper,
+            &mut discarded,
+            &frame.body,
+            end,
+            last,
+            preamble_parts[last].len(),
+        );
+        keeper.drain(end, last, preamble_parts[last].len());
         let preamble = preamble_parts
             .iter()
             .map(|part| md_restore_value(part))
@@ -3265,6 +3863,12 @@ position (under \"{}\")",
             .join("\n\n");
         if !preamble.is_empty() {
             self.content.insert(path.to_string(), preamble);
+        }
+        let ids: Vec<usize> = (0..preamble_parts.len()).collect();
+        if let Some(kept) = keeper.kept_value(&preamble_parts, &ids) {
+            if !kept.is_empty() {
+                self.kept_content.insert(path.to_string(), kept);
+            }
         }
     }
 
@@ -3322,11 +3926,15 @@ position (under \"{}\")",
                 } else {
                     "table whose delimiter row does not match its header"
                 };
-                self.reject(
+                self.reject_block(
                     line_of(start),
                     SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
                     message.to_string(),
                     anchor,
+                    Some(lines[start..end].to_vec()),
+                    None,
+                    None,
+                    None,
                 );
                 return table;
             }
@@ -3334,7 +3942,7 @@ position (under \"{}\")",
         for (k, line) in lines.iter().enumerate().take(end).skip(start + 2) {
             let cells = md_row_cells(line);
             if cells.len() != header.len() {
-                self.reject(
+                self.reject_block(
                     line_of(k),
                     SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
                     format!(
@@ -3343,6 +3951,10 @@ position (under \"{}\")",
                         header.len()
                     ),
                     anchor,
+                    Some(vec![line.clone()]),
+                    None,
+                    None,
+                    None,
                 );
                 continue;
             }
@@ -3362,11 +3974,17 @@ position (under \"{}\")",
         {
             return false;
         }
-        self.reject(
+        // The repeat's held block names the field and the form holding the
+        // kept value (RN-11).
+        self.reject_block(
             line,
             SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
             format!("field \"{}\" given twice", field),
             form_path,
+            None,
+            Some(field.to_string()),
+            None,
+            Some(form_path.to_string()),
         );
         true
     }
@@ -3382,11 +4000,16 @@ position (under \"{}\")",
     ) {
         let lower = label.to_lowercase();
         let Some(field) = fields.iter().find(|f| f.name.to_lowercase() == lower) else {
-            self.reject(
+            let names: Vec<&str> = fields.iter().map(|f| f.name.as_str()).collect();
+            self.reject_block(
                 line,
                 SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD,
                 format!("row \"{}\" names no field of this form", label),
                 form_path,
+                None,
+                md_near_miss(label, &names),
+                None,
+                None,
             );
             return;
         };
@@ -3414,31 +4037,46 @@ position (under \"{}\")",
             let table = self.read_table(&frame.body, i, &|k| md_body_line(frame_line, k), &frame.path);
             let mut target: Option<(String, Vec<SomFormFieldMeta>)> = None;
             let mut skip = false;
+            // The rejected section's block (its index in the hold): its row
+            // and the rows continuing it.
+            let mut skipped: Option<usize> = None;
             for (row, cells) in &table.rows {
                 let line_no = md_body_line(frame_line, *row);
                 let section = md_cell_id(&cells[0]);
                 if section.is_empty() && skip {
+                    if let Some(k) = skipped {
+                        self.pending[k].lines.push(frame.body[*row].clone());
+                    }
                     continue;
                 }
                 if !section.is_empty() {
                     target = self.section_table_target(&frame.path, frame_line, node, &section);
                     skip = target.is_none();
                     if skip {
-                        self.reject(
+                        let near = self.near_section(node, &section);
+                        skipped = Some(self.reject_block(
                             line_no,
                             SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION,
                             format!("section-table row names no child section of \"{}\"", frame.path),
                             &section,
-                        );
+                            Some(vec![frame.body[*row].clone()]),
+                            None,
+                            near,
+                            None,
+                        ));
                         continue;
                     }
                 }
                 let Some((form_path, fields)) = &target else {
-                    self.reject(
+                    self.reject_block(
                         line_no,
                         SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION,
                         "section-table row names no section".to_string(),
                         &frame.path,
+                        Some(vec![frame.body[*row].clone()]),
+                        None,
+                        None,
+                        None,
                     );
                     continue;
                 };
@@ -3448,6 +4086,8 @@ position (under \"{}\")",
             for line in &mut frame.body[i..table.end] {
                 line.clear();
             }
+            // What the table rejected is kept where the table stood.
+            self.mark_pending(frame, i, i);
             i = table.end;
         }
     }
@@ -3532,15 +4172,23 @@ position (under \"{}\")",
             };
             let Some(close) = (i + 1..frame.body.len()).find(|&k| md_div_close_line(&frame.body[k]))
             else {
-                // The fence's lines read as text.
-                self.reject(
+                // The fence's lines read as text; kept, they are the rejected
+                // div (the container's parent holds it, see `finalize`).
+                self.reject_block(
                     md_body_line(frame.line, i),
                     SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
                     format!("unclosed {} fence", kind),
                     &frame.path,
+                    Some(frame.body[i..].to_vec()),
+                    None,
+                    None,
+                    None,
                 );
+                let end = frame.body.len();
+                self.mark_pending(frame, i, end);
                 return;
             };
+            let div_lines = frame.body[i..=close].to_vec();
             let beside_text = frame
                 .body
                 .iter()
@@ -3548,7 +4196,7 @@ position (under \"{}\")",
                 .any(|(k, l)| (k < i || k > close) && !l.trim().is_empty());
             let has_items = self.lists.get(&frame.path).is_some_and(|s| !s.items.is_empty());
             if beside_text || has_items {
-                self.reject(
+                self.reject_block(
                     md_body_line(frame.line, i),
                     SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
                     format!(
@@ -3557,18 +4205,24 @@ position (under \"{}\")",
                         if has_items { "item headings" } else { "other text" }
                     ),
                     &frame.path,
+                    Some(div_lines),
+                    None,
+                    None,
+                    None,
                 );
             } else {
                 let inner = frame.body[i + 1..close].to_vec();
                 if kind == "refs" {
-                    self.stage_reference_line(frame, list_node, &inner, i);
+                    self.stage_reference_line(frame, list_node, &inner, i, &div_lines);
                 } else {
-                    self.stage_record_table(frame, list_node, &inner, i);
+                    self.stage_record_table(frame, list_node, &inner, i, &div_lines);
                 }
             }
             for line in &mut frame.body[i..=close] {
                 line.clear();
             }
+            // What the div rejected is kept after it.
+            self.mark_pending(frame, close + 1, close + 1);
             return;
         }
     }
@@ -3601,17 +4255,19 @@ position (under \"{}\")",
         list_node: &Rc<SomMetaNode>,
         inner: &[String],
         at: usize,
+        div_lines: &[String],
     ) {
         let reference = list_node
             .element_node
             .as_ref()
             .and_then(|e| self.reference_field(e));
         let Some((rel, field)) = reference else {
-            self.reject(
-                md_body_line(frame.line, at),
+            self.reject_div(
+                frame,
+                at,
                 SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
-                "a refs div in a list whose items are not references".to_string(),
-                &frame.path,
+                "a refs div in a list whose items are not references",
+                div_lines,
             );
             return;
         };
@@ -3622,11 +4278,12 @@ position (under \"{}\")",
             .map(|t| md_find_link_text(t).unwrap_or(t).to_string())
             .collect();
         if ids.is_empty() {
-            self.reject(
-                md_body_line(frame.line, at),
+            self.reject_div(
+                frame,
+                at,
                 SPEC_MARKDOWN_REJECT_MISSING_VALUE,
-                "an empty refs div".to_string(),
-                &frame.path,
+                "an empty refs div",
+                div_lines,
             );
             return;
         }
@@ -3670,45 +4327,25 @@ position (under \"{}\")",
         list_node: &Rc<SomMetaNode>,
         inner: &[String],
         at: usize,
+        div_lines: &[String],
     ) {
         let frame_line = frame.line;
         let line_of = |k: usize| md_body_line(frame_line, at + 1 + k);
-        let div_line = md_body_line(frame_line, at);
         let Some(start) = inner.iter().position(|l| !l.trim().is_empty()) else {
-            self.reject(
-                div_line,
-                SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
-                "a records div holding no table".to_string(),
-                &frame.path,
-            );
+            self.reject_div(frame, at, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK, "a records div holding no table", div_lines);
             return;
         };
         if !md_table_line(&inner[start]) {
-            self.reject(
-                div_line,
-                SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
-                "a records div holding no table".to_string(),
-                &frame.path,
-            );
+            self.reject_div(frame, at, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK, "a records div holding no table", div_lines);
             return;
         }
         let header = md_row_cells(&inner[start]);
         if header[0] != "Id" {
-            self.reject(
-                div_line,
-                SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
-                "a records table whose first column is not Id".to_string(),
-                &frame.path,
-            );
+            self.reject_div(frame, at, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK, "a records table whose first column is not Id", div_lines);
             return;
         }
         let Some(form) = list_node.element_node.as_ref().and_then(|e| self.item_form(e)) else {
-            self.reject(
-                div_line,
-                SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
-                "a records div in a list whose items have no single form".to_string(),
-                &frame.path,
-            );
+            self.reject_div(frame, at, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK, "a records div in a list whose items have no single form", div_lines);
             return;
         };
         let fields: Vec<SomFormFieldMeta> =
@@ -3719,12 +4356,17 @@ position (under \"{}\")",
         for name in &header[first_column..] {
             let lower = name.to_lowercase();
             let Some(field) = fields.iter().find(|f| f.name.to_lowercase() == lower) else {
-                // The table is skipped whole.
-                self.reject(
+                // The table is skipped whole, so the whole div is kept.
+                let names: Vec<&str> = fields.iter().map(|f| f.name.as_str()).collect();
+                self.reject_block(
                     line_of(start),
                     SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD,
                     format!("records column \"{}\" names no field of the items", name),
                     &frame.path,
+                    Some(div_lines.to_vec()),
+                    md_near_miss(name, &names),
+                    None,
+                    None,
                 );
                 return;
             };
@@ -3769,6 +4411,21 @@ position (under \"{}\")",
     /// descendants' are qualified with the section above it.
     fn is_copy_node(&self, n: &SomMetaNode) -> bool {
         self.codec.is_copy_node(n)
+    }
+
+    /// Rejects a `refs` / `records` div whole: reported at its opening line
+    /// (body index `at`), held as its lines `div_lines` (RN-11).
+    fn reject_div(&mut self, frame: &MdFrame, at: usize, reason: &str, message: &str, div_lines: &[String]) {
+        self.reject_block(
+            md_body_line(frame.line, at),
+            reason,
+            message.to_string(),
+            &frame.path,
+            Some(div_lines.to_vec()),
+            None,
+            None,
+            None,
+        );
     }
 }
 
