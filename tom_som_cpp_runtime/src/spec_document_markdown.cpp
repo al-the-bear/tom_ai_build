@@ -3193,4 +3193,29 @@ SpecMarkdownRendition documentToMarkdownWithMap(const SpecDocument& document,
   return markdownExportRootWithMap(model, document, *root);
 }
 
+/* ---- reading-view layout lines (public) ---------------------------------- */
+
+bool markdownLayoutTableHeader(const std::string& line, bool* isSection) {
+  return matchLayoutTableHeader(line, isSection);
+}
+bool markdownTableLine(const std::string& line) { return matchTableLine(line); }
+bool markdownDelimiterCell(const std::string& cell) {
+  return matchDelimiterCell(cell);
+}
+std::vector<std::string> markdownTableRowCells(const std::string& line) {
+  return rowCells(line);
+}
+bool markdownLinkCell(const std::string& text, std::vector<std::string>* texts) {
+  return matchLinkCell(text, texts);
+}
+bool markdownFirstLinkText(const std::string& s, std::string* text) {
+  return findLinkText(s, text);
+}
+bool markdownListDivOpen(const std::string& line, std::string* kind) {
+  return matchListDivOpen(line, kind);
+}
+bool markdownDivCloseLine(const std::string& line) {
+  return matchDivCloseLine(line);
+}
+
 }  // namespace som

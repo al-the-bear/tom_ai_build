@@ -5,6 +5,10 @@
 
 #include <cstddef>
 #include <optional>
+#include <tuple>
+#include <regex>
+#include <map>
+#include <functional>
 #include <set>
 #include <stdexcept>
 #include <string>
@@ -687,6 +691,73 @@ std::string docspecsIdTransform(const std::string& id) {
 
 /* ---- document parse ------------------------------------------------------ */
 
+namespace {
+
+/* A styled-div heading (the DocSpecs specification's *Styled-div headings*):
+ * a whole line `<div class="heading<N>" ...>...</div>` at column 0 with N >= 7
+ * reads as a heading of level N whose text is the div's inner text with
+ * `&amp;`, `&lt;`, `&gt;` decoded and trimmed. A `heading<N>` div with N <= 6
+ * is content. */
+bool matchStyledDivHeading(const std::string& line, int* level,
+                           std::string* rest) {
+  static const std::string open = "<div class=\"heading";
+  static const std::string close = "</div>";
+  if (line.compare(0, open.size(), open) != 0) return false;
+  std::size_t p = open.size();
+  std::size_t digits = p;
+  while (p < line.size() && line[p] >= '0' && line[p] <= '9') p++;
+  if (p == digits || p >= line.size() || line[p] != '"') return false;
+  std::size_t gt = line.find('>', p + 1);
+  if (gt == std::string::npos || line.size() < close.size() ||
+      line.compare(line.size() - close.size(), close.size(), close) != 0 ||
+      gt + 1 > line.size() - close.size()) {
+    return false;
+  }
+  long long n = std::stoll(line.substr(digits, p - digits).substr(0, 9));
+  if (n < 7) return false;
+  std::string text = line.substr(gt + 1, line.size() - close.size() - gt - 1);
+  auto replaceAll = [](std::string s, const std::string& from,
+                       const std::string& to) {
+    std::string out;
+    std::size_t pos = 0;
+    for (std::size_t at = s.find(from); at != std::string::npos;
+         at = s.find(from, pos)) {
+      out += s.substr(pos, at - pos) + to;
+      pos = at + from.size();
+    }
+    return out + s.substr(pos);
+  };
+  text = replaceAll(text, "&lt;", "<");
+  text = replaceAll(text, "&gt;", ">");
+  text = replaceAll(text, "&amp;", "&");
+  *level = static_cast<int>(n);
+  *rest = trimSpace(text);
+  return true;
+}
+
+/* `text` with a leading `<a id="X"></a>` removed when X is the section's own
+ * anchor: `id`, or `<A>/.../<id>` with no empty segment (Section Anchors). */
+std::string stripOwnAnchorText(const std::string& text, const std::string& id) {
+  if (text.compare(0, 7, "<a id=\"") != 0) return text;
+  std::size_t q = text.find('"', 7);
+  if (q == std::string::npos || text.compare(q + 1, 5, "></a>") != 0) {
+    return text;
+  }
+  const std::string anchor = text.substr(7, q - 7);
+  bool own = anchor == id;
+  const std::string tail = "/" + id;
+  if (!own && anchor.size() > tail.size() &&
+      anchor.compare(anchor.size() - tail.size(), tail.size(), tail) == 0) {
+    own = anchor.front() != '/' && anchor.find("//") == std::string::npos;
+  }
+  if (!own) return text;
+  std::size_t e = q + 6;
+  while (e < text.size() && isAsciiWs(text[e])) e++;
+  return text.substr(e);
+}
+
+}  // namespace
+
 DocSpecsDocument docspecsParseDocument(const std::string& text) {
   DocSpecsDocument doc;
   doc.declaredSchema = "";
@@ -718,7 +789,8 @@ DocSpecsDocument docspecsParseDocument(const std::string& text) {
       if (!handled) {
         int level = 0;
         std::string rest;
-        if (matchHeadingLine(line, &level, &rest)) {
+        if (matchHeadingLine(line, &level, &rest) ||
+            matchStyledDivHeading(line, &level, &rest)) {
           auto section = std::make_unique<DocSpecsSection>();
           std::string cid;
           std::string ctitle;
@@ -727,7 +799,8 @@ DocSpecsDocument docspecsParseDocument(const std::string& text) {
             // between `]…-->` is the optional codeSpec key=value, not part of
             // the title).
             section->id = cid;
-            section->title = ctitle;
+            // The title without the section's own anchor (Section Anchors).
+            section->title = stripOwnAnchorText(ctitle, cid);
             section->level = level;
             section->line = lineNo;
           } else {
@@ -889,8 +962,16 @@ std::string DocSpecsDocument::replaceSectionBody(const std::string& text,
 /* ---- schema -------------------------------------------------------------- */
 
 bool DocSpecsPatternCheck::matches(const std::string& value) const {
-  Rx rx = rxCompile(pattern);
-  return rxSearch(rx, value);
+  // `new RegExp(pattern).test(value)`, as Dart and TypeScript test it: an
+  // ECMAScript expression searched anywhere in the value (groups, `|`,
+  // `{n,m}` included). A pattern std::regex refuses falls back to the
+  // subset matcher.
+  try {
+    return std::regex_search(value, std::regex(pattern, std::regex::ECMAScript));
+  } catch (const std::regex_error&) {
+    Rx rx = rxCompile(pattern);
+    return rxSearch(rx, value);
+  }
 }
 
 const DocSpecsSubsectionRule* DocSpecsSectionType::subsection(
@@ -1009,17 +1090,319 @@ std::optional<DocSpecsSchema> docspecsSchemaFromYamlText(const std::string& text
 
 namespace {
 
-/* resolveChild: resolves a child section's type; on no-match pushes an
- * unknownSection violation. Returns the type (may be nullptr). */
-const DocSpecsSectionType* resolveChild(const DocSpecsSchema& schema,
-                                        const DocSpecsSection& section,
-                                        std::vector<DocSpecsViolation>& v) {
+/* A section as the validator walks it: a parsed DocSpecsSection, or a
+ * virtual one rebuilt from a list body or a section table (the DocSpecs
+ * specification's *List Bodies*). The body is a copy, so blanking a table or
+ * div never touches the parsed document. */
+struct VNode {
+  std::string id;
+  int line = 0;  // the heading's line, or the row's / div's of a virtual one
+  std::vector<std::string> body;  // own lines; a list body or table read is blank
+  const DocSpecsSectionType* type = nullptr;  // a virtual list item's type
+  std::vector<std::unique_ptr<VNode>> children;
+  // Form values given by a table row or a list body: label, value, line.
+  std::vector<std::tuple<std::string, std::string, int>> values;
+
+  int bodyStartLine() const { return line + 1; }
+
+  /* The walk's view of a parsed section and its subtree. */
+  static std::unique_ptr<VNode> of(const DocSpecsSection& s) {
+    auto n = std::make_unique<VNode>();
+    n->id = s.id;
+    n->line = s.line;
+    n->body = s.bodyLines;
+    for (const auto& c : s.children) n->children.push_back(of(*c));
+    return n;
+  }
+
+  /* A virtual section at `line`, with no body. */
+  static std::unique_ptr<VNode> virtualAt(const std::string& id, int line,
+                                          const DocSpecsSectionType* type) {
+    auto n = std::make_unique<VNode>();
+    n->id = id;
+    n->line = line;
+    n->type = type;
+    return n;
+  }
+
+  /* The trimmed body text after the virtual body lines of `values` — the
+   * text the same section has in the fields layout. */
+  std::string text() const {
+    std::vector<std::string> lines;
+    for (const auto& v : values) {
+      const std::string& label = std::get<0>(v);
+      lines.push_back(label.empty() ? std::get<1>(v)
+                                    : label + ": " + std::get<1>(v));
+    }
+    lines.insert(lines.end(), body.begin(), body.end());
+    std::size_t a = 0, b = lines.size();
+    while (a < b && trimSpace(lines[a]).empty()) a++;
+    while (b > a && trimSpace(lines[b - 1]).empty()) b--;
+    std::string out;
+    for (std::size_t i = a; i < b; i++) {
+      if (i > a) out += '\n';
+      out += lines[i];
+    }
+    return out;
+  }
+};
+
+/* Whether `anchor` is the own anchor of a section with `id`: `id` itself, or a
+ * qualified form `<A>/.../<id>` whose segments are all non-empty (Section
+ * Anchors). */
+bool isOwnAnchor(const std::string& anchor, const std::string& id) {
+  if (anchor == id) return true;
+  const std::string tail = "/" + id;
+  if (anchor.size() < tail.size() ||
+      anchor.compare(anchor.size() - tail.size(), tail.size(), tail) != 0) {
+    return false;
+  }
+  std::size_t from = 0;
+  for (;;) {
+    std::size_t slash = anchor.find('/', from);
+    std::size_t to = slash == std::string::npos ? anchor.size() : slash;
+    if (to == from) return false;
+    if (slash == std::string::npos) return true;
+    from = slash + 1;
+  }
+}
+
+/* `<a id="X"></a>` at `at` followed by whitespace: X and the end. */
+bool matchAnchorAt(const std::string& s, std::size_t at, std::string* id,
+                   std::size_t* end) {
+  if (s.compare(at, 7, "<a id=\"") != 0) return false;
+  std::size_t q = s.find('"', at + 7);
+  if (q == std::string::npos || s.compare(q + 1, 5, "></a>") != 0) return false;
+  std::size_t e = q + 6;
+  while (e < s.size() && isAsciiWs(s[e])) e++;
+  *id = s.substr(at + 7, q - at - 7);
+  *end = e;
+  return true;
+}
+
+/* `s.split(/\s*\/\s*\/)`: the parts of a `<LIST> / <ITEM>` cell. */
+std::vector<std::string> cellParts(const std::string& s) {
+  std::vector<std::string> parts;
+  std::size_t from = 0;
+  for (;;) {
+    std::size_t slash = s.find('/', from);
+    std::string part =
+        s.substr(from, slash == std::string::npos ? std::string::npos
+                                                  : slash - from);
+    if (slash != std::string::npos) {
+      // `\s*` before the slash and after it belong to the separator.
+      while (!part.empty() && isAsciiWs(part.back())) part.pop_back();
+    }
+    if (from > 0) {
+      std::size_t k = 0;
+      while (k < part.size() && isAsciiWs(part[k])) k++;
+      part = part.substr(k);
+    }
+    parts.push_back(part);
+    if (slash == std::string::npos) break;
+    from = slash + 1;
+  }
+  return parts;
+}
+
+/* A value cell's value: `\|` unescaped, a cell of links read as their texts. */
+std::string cellValue(const std::string& cell) {
+  std::string text;
+  for (std::size_t i = 0; i < cell.size(); i++) {
+    if (cell[i] == '\\' && i + 1 < cell.size() && cell[i + 1] == '|') {
+      text += '|';
+      i++;
+    } else {
+      text += cell[i];
+    }
+  }
+  std::vector<std::string> texts;
+  if (markdownLinkCell(text, &texts)) {
+    std::string out;
+    for (std::size_t i = 0; i < texts.size(); i++) {
+      if (i > 0) out += ", ";
+      out += texts[i];
+    }
+    return out;
+  }
+  return text;
+}
+
+/* An `Id` or `Section` cell with its own anchors removed (Section Anchors):
+ * in a `<LIST> / <ITEM>` cell each part's anchor, and one before the whole
+ * cell naming its item; any other anchor stays. A link is read as its text
+ * (SOM §11.5). */
+std::string cellId(const std::string& raw) {
+  // `\[([^\]]+)\]\([^)\s]*\)` replaced by its text, everywhere.
+  std::string cell;
+  for (std::size_t i = 0; i < raw.size();) {
+    if (raw[i] == '[') {
+      std::size_t close = raw.find(']', i + 1);
+      if (close != std::string::npos && close > i + 1 &&
+          close + 1 < raw.size() && raw[close + 1] == '(') {
+        std::size_t k = close + 2;
+        while (k < raw.size() && raw[k] != ')' && !isAsciiWs(raw[k])) k++;
+        if (k < raw.size() && raw[k] == ')') {
+          cell += raw.substr(i + 1, close - i - 1);
+          i = k + 1;
+          continue;
+        }
+      }
+    }
+    cell += raw[i];
+    i++;
+  }
+  std::string out;
+  std::size_t pos = 0;
+  for (std::size_t at = cell.find("<a id=\""); at != std::string::npos;
+       at = cell.find("<a id=\"", at + 1)) {
+    if (at < pos) continue;
+    std::string id;
+    std::size_t end = 0;
+    if (!matchAnchorAt(cell, at, &id, &end)) continue;
+    out += cell.substr(pos, at - pos);
+    std::vector<std::string> rest = cellParts(cell.substr(end));
+    bool own = isOwnAnchor(id, trimSpace(rest.front())) ||
+               (at == 0 && isOwnAnchor(id, trimSpace(rest.back())));
+    if (!own) out += cell.substr(at, end - at);
+    pos = end;
+  }
+  return out + cell.substr(pos);
+}
+
+/* Skips the generated lead of a section's lines: a paragraph that is one
+ * `linked` span (SOM §11.11), then a `derived` block (SOM §11.12), with the
+ * blank lines around them (DocSpecs RN-5, *Not text*). Answers the index of
+ * the first line after it. */
+std::size_t generatedLead(const std::vector<std::string>& lines) {
+  auto skipBlank = [&lines](std::size_t i) {
+    while (i < lines.size() && trimSpace(lines[i]).empty()) i++;
+    return i;
+  };
+  std::size_t i = skipBlank(0);
+  std::size_t end = i;
+  while (end < lines.size() && !trimSpace(lines[end]).empty()) end++;
+  std::string para;
+  for (std::size_t k = i; k < end; k++) {
+    if (k > i) para += ' ';
+    para += lines[k];
+  }
+  para = trimSpace(para);
+  // `^\[.*\]\{\.linked\}$`
+  static const std::string kLinked = "]{.linked}";
+  if (end > i && para.size() > kLinked.size() && para[0] == '[' &&
+      para.compare(para.size() - kLinked.size(), kLinked.size(), kLinked) == 0) {
+    i = skipBlank(end);
+  }
+  if (i < lines.size()) {
+    // `^ {0,3}(:{3,})[ \t]*\{\.derived(?=[\s}])`
+    const std::string& l = lines[i];
+    std::size_t p = 0;
+    while (p < 3 && p < l.size() && l[p] == ' ') p++;
+    std::size_t colons = p;
+    while (p < l.size() && l[p] == ':') p++;
+    std::size_t run = p - colons;
+    while (p < l.size() && (l[p] == ' ' || l[p] == '\t')) p++;
+    if (run >= 3 && l.compare(p, 9, "{.derived") == 0 && p + 9 < l.size() &&
+        (isAsciiWs(l[p + 9]) || l[p + 9] == '}')) {
+      std::size_t k = i + 1;
+      for (; k < lines.size(); k++) {
+        // `^ {0,3}:{run,}[ \t]*$`
+        const std::string& c = lines[k];
+        std::size_t q = 0;
+        while (q < 3 && q < c.size() && c[q] == ' ') q++;
+        std::size_t cs = q;
+        while (q < c.size() && c[q] == ':') q++;
+        if (q - cs < run) continue;
+        while (q < c.size() && (c[q] == ' ' || c[q] == '\t')) q++;
+        if (q == c.size()) break;
+      }
+      if (k < lines.size()) i = skipBlank(k + 1);
+    }
+  }
+  return i;
+}
+
+/* `text` without its generated lead: what the text rules read. */
+std::string withoutGeneratedText(const std::string& text) {
+  std::vector<std::string> lines;
+  std::size_t from = 0;
+  for (;;) {
+    std::size_t nl = text.find('\n', from);
+    lines.push_back(text.substr(from, nl == std::string::npos
+                                          ? std::string::npos
+                                          : nl - from));
+    if (nl == std::string::npos) break;
+    from = nl + 1;
+  }
+  std::string out;
+  for (std::size_t i = generatedLead(lines); i < lines.size(); i++) {
+    if (!out.empty() || i > generatedLead(lines)) out += '\n';
+    out += lines[i];
+  }
+  return trimSpace(out);
+}
+
+/* One table read off body lines. */
+struct VTable {
+  std::vector<std::string> header;
+  std::vector<std::pair<std::size_t, std::vector<std::string>>> rows;
+  std::size_t end = 0;
+};
+
+/* The walk over a document: virtual sections, tables, list bodies. */
+class Walk {
+ public:
+  Walk(const DocSpecsSchema& schema, std::vector<DocSpecsViolation>& v)
+      : schema_(schema), v_(v) {}
+
+  void documentSections(VNode& root);
+
+ private:
+  const DocSpecsSchema& schema_;
+  std::vector<DocSpecsViolation>& v_;
+
+  const DocSpecsSectionType* resolveChild(const VNode& section);
+  void validateSection(VNode& section, const DocSpecsSectionType& t);
+  void validateText(const VNode& section, const DocSpecsSectionType& t);
+  void validateFormat(const VNode& section, const DocSpecsSectionType& t);
+  void validateForm(const VNode& section, const DocSpecsFormType& form);
+  int checkOrder(const VNode& child, const std::string& typeName,
+                 const std::vector<std::optional<std::string>>& order,
+                 int lastIndex);
+  VTable readTable(const std::vector<std::string>& lines, std::size_t start,
+                   const std::function<int(std::size_t)>& lineOf,
+                   const std::string& sectionId);
+  void expandSectionTables(
+      VNode& node, const std::function<bool(const DocSpecsSectionType&)>& ok);
+  VNode* sectionTableTarget(
+      VNode& node, const std::string& cell,
+      const std::function<bool(const DocSpecsSectionType&)>& allowed, int line);
+  void expandListBody(VNode& node, const DocSpecsSectionType& type);
+  bool itemForm(const DocSpecsSectionType& itemType, bool oneField,
+                const DocSpecsFormType** form,
+                const DocSpecsSectionType** childType) const;
+  VNode* addItem(VNode& list, const DocSpecsSectionType& itemType,
+                 const DocSpecsSectionType* childType, const std::string& id,
+                 int line);
+  void refsItems(VNode& node, const DocSpecsSectionType& itemType,
+                 const std::vector<std::string>& inner, int at);
+  void recordItems(VNode& node, const DocSpecsSectionType& itemType,
+                   const std::vector<std::string>& inner, int at);
+};
+
+/* Resolves a child's type; a virtual list item carries the schema's. On no
+ * match pushes unknownSection. */
+const DocSpecsSectionType* Walk::resolveChild(const VNode& section) {
+  if (section.type != nullptr) {
+    return section.type;
+  }
   if (section.id.empty()) {
     return nullptr;  // already reported malformedHeading by the parse
   }
-  const DocSpecsSectionType* t = schema.resolveSectionType(section.id);
+  const DocSpecsSectionType* t = schema_.resolveSectionType(section.id);
   if (t == nullptr) {
-    dvPush(v, kDocSpecsRuleUnknownSection, section.line,
+    dvPush(v_, kDocSpecsRuleUnknownSection, section.line,
            "section id \"" + section.id +
                "\" resolves to no section-type of the schema",
            section.id, "");
@@ -1027,20 +1410,20 @@ const DocSpecsSectionType* resolveChild(const DocSpecsSchema& schema,
   return t;
 }
 
-void validateText(const DocSpecsSchema& schema, const DocSpecsSection& section,
-                  const DocSpecsSectionType& t,
-                  std::vector<DocSpecsViolation>& v) {
-  if (!t.format.empty()) {
-    if (schema.formType(t.format) != nullptr) {
-      return;  // form sections carry fields, not body text
-    }
+void Walk::validateText(const VNode& section, const DocSpecsSectionType& t) {
+  if (!t.format.empty() && schema_.formType(t.format) != nullptr) {
+    return;  // form sections carry fields, not body text
   }
-  std::string text = section.text();
+  // A list body or section table already read is blanked in the body, so a
+  // container written with one counts as empty (`max-text-length: 0`); the
+  // rendition's marker and generated block are no text either.
+  std::string text = withoutGeneratedText(section.text());
   if (t.textRequired && text.empty()) {
-    dvPush(v, kDocSpecsRuleTextRequired, section.line,
+    dvPush(v_, kDocSpecsRuleTextRequired, section.line,
            "section requires body text but has none", section.id, "");
     return;
   }
+  if (text.empty()) return;
   std::size_t length = runeCount(text);
   bool hasMin = t.hasMinTextLength;
   bool hasMax = t.hasMaxTextLength;
@@ -1048,60 +1431,125 @@ void validateText(const DocSpecsSchema& schema, const DocSpecsSection& section,
       (hasMax && length > static_cast<std::size_t>(t.maxTextLength))) {
     std::string minStr = hasMin ? itoa(t.minTextLength) : "0";
     std::string maxStr = hasMax ? itoa(t.maxTextLength) : "\xe2\x88\x9e";
-    dvPush(v, kDocSpecsRuleTextLengthOut, section.line,
+    dvPush(v_, kDocSpecsRuleTextLengthOut, section.line,
            "body text length " + itoa(static_cast<long long>(length)) +
                " is outside [" + minStr + ", " + maxStr + "]",
            section.id, "");
   }
 }
 
-void validateForm(const DocSpecsSection& section, const DocSpecsFormType& form,
-                  std::vector<DocSpecsViolation>& v) {
-  std::size_t nf = form.fields.size();
-  std::vector<std::string> values(nf);
-  std::vector<bool> haveValue(nf, false);
-  std::vector<int> fieldLine(nf, 0);
-
+/* Parses the body in the plain-text form format (`FieldName: value`,
+ * case-insensitive labels, continuation lines) and its form tables, takes the
+ * values a section table or list body gave the section, and checks required
+ * fields and pattern checks. A field given twice keeps its first occurrence
+ * and reports the second (malformedBlock): a `Field:` label counts as given
+ * even with an empty value, a row only with a value. A row naming no field is
+ * unknownField. */
+void Walk::validateForm(const VNode& section, const DocSpecsFormType& form) {
+  struct Occ {
+    std::string label;
+    std::string value;
+    int line;
+    bool fromLabel;
+  };
+  auto fieldOf = [&form](const std::string& label) -> const DocSpecsFormField* {
+    const std::string lower = lowerAscii(label);
+    for (const auto& f : form.fields) {
+      if (lowerAscii(f.name) == lower) return &f;
+    }
+    return nullptr;
+  };
+  std::vector<Occ> occurrences;
   SpecMarkdownFenceTracker fence;
-  int current = -1;  // index into fields
-  const std::vector<std::string>& body = section.bodyLines;
+  const std::vector<std::string>& body = section.body;
+  const DocSpecsFormField* current = nullptr;
+  int currentLine = 0;
+  std::string currentText;
+  auto flush = [&]() {
+    if (current == nullptr) return;
+    occurrences.push_back({current->name, trimSpace(currentText), currentLine,
+                           true});
+    current = nullptr;
+    currentText.clear();
+  };
   for (std::size_t i = 0; i < body.size(); i++) {
     const std::string& raw = body[i];
     if (!fence.inFence()) {
+      bool isSection = false;
+      if (markdownLayoutTableHeader(raw, &isSection) && !isSection) {
+        // A form table ends the open field; its rows are fields.
+        flush();
+        VTable table = readTable(
+            body, i,
+            [&section](std::size_t k) {
+              return section.bodyStartLine() + static_cast<int>(k);
+            },
+            section.id);
+        for (const auto& row : table.rows) {
+          occurrences.push_back({row.second[0], cellValue(row.second[1]),
+                                 section.bodyStartLine() +
+                                     static_cast<int>(row.first),
+                                 false});
+        }
+        i = table.end - 1;
+        continue;
+      }
       std::string label;
       std::string value;
       if (matchFieldLabel(raw, &label, &value)) {
-        std::string labelLower = lowerAscii(label);
-        int idx = -1;
-        for (std::size_t fi = 0; fi < nf; fi++) {
-          if (lowerAscii(form.fields[fi].name) == labelLower) {
-            idx = static_cast<int>(fi);
-            break;
-          }
-        }
-        if (idx >= 0) {
-          current = idx;
-          values[idx] = value;  // reset to just group 2
-          haveValue[idx] = true;
-          fieldLine[idx] =
-              section.bodyStartLine() + static_cast<int>(i);
+        const DocSpecsFormField* f = fieldOf(label);
+        if (f != nullptr) {
+          flush();
+          current = f;
+          currentLine = section.bodyStartLine() + static_cast<int>(i);
+          currentText = value;
           fence.feed(raw);
           continue;
         }
       }
     }
-    if (current >= 0) {
-      values[current] += '\n';
-      values[current] += raw;
+    if (current != nullptr) {
+      currentText += '\n';
+      currentText += raw;
     }
     fence.feed(raw);
   }
+  flush();
+  for (const auto& v : section.values) {
+    occurrences.push_back({std::get<0>(v), std::get<1>(v), std::get<2>(v),
+                           false});
+  }
+  // Source order decides which occurrence is the first; values from a
+  // parent's section table stand above the section's own body.
+  std::stable_sort(occurrences.begin(), occurrences.end(),
+                   [](const Occ& a, const Occ& b) { return a.line < b.line; });
 
-  for (std::size_t fi = 0; fi < nf; fi++) {
-    const DocSpecsFormField& field = form.fields[fi];
-    std::string value = haveValue[fi] ? trimSpace(values[fi]) : std::string();
+  std::map<std::string, std::string> values;
+  std::map<std::string, int> fieldLines;
+  std::set<std::string> given;
+  for (const Occ& o : occurrences) {
+    const DocSpecsFormField* field = fieldOf(o.label);
+    if (field == nullptr) {
+      dvPush(v_, kDocSpecsRuleUnknownField, o.line,
+             "row \"" + o.label + "\" names no field of \"" + form.name + "\"",
+             section.id, "");
+      continue;
+    }
+    if (!o.fromLabel && o.value.empty()) continue;
+    if (given.count(field->name) != 0) {
+      dvPush(v_, kDocSpecsRuleMalformedBlock, o.line,
+             "field \"" + field->name + "\" given twice", section.id, "");
+      continue;
+    }
+    given.insert(field->name);
+    fieldLines[field->name] = o.line;
+    if (!o.value.empty()) values[field->name] = o.value;
+  }
+  for (const auto& field : form.fields) {
+    auto it = values.find(field.name);
+    const std::string value = it != values.end() ? it->second : std::string();
     if (field.required && value.empty()) {
-      dvPush(v, kDocSpecsRuleMissingRequiredField, section.line,
+      dvPush(v_, kDocSpecsRuleMissingRequiredField, section.line,
              "required form field \"" + field.name + "\" of \"" + form.name +
                  "\" is missing",
              section.id, "");
@@ -1109,43 +1557,41 @@ void validateForm(const DocSpecsSection& section, const DocSpecsFormType& form,
     }
     if (field.patternCheck.has_value() && !value.empty() &&
         !field.patternCheck->matches(value)) {
-      int line = haveValue[fi] ? fieldLine[fi] : section.line;
-      std::string message;
-      if (!field.patternCheck->errorMessage.empty()) {
-        message = field.patternCheck->errorMessage;
-      } else {
-        message = "form field \"" + field.name +
-                  "\" does not match pattern \"" + field.patternCheck->pattern +
-                  "\"";
-      }
-      dvPush(v, kDocSpecsRuleFieldPatternMismatch, line, message, section.id,
+      auto ln = fieldLines.find(field.name);
+      int line = ln != fieldLines.end() ? ln->second : section.line;
+      std::string message =
+          !field.patternCheck->errorMessage.empty()
+              ? field.patternCheck->errorMessage
+              : "form field \"" + field.name + "\" does not match pattern \"" +
+                    field.patternCheck->pattern + "\"";
+      dvPush(v_, kDocSpecsRuleFieldPatternMismatch, line, message, section.id,
              "");
     }
   }
 }
 
-void validateFormat(const DocSpecsSchema& schema, const DocSpecsSection& section,
-                    const DocSpecsSectionType& t,
-                    std::vector<DocSpecsViolation>& v) {
+void Walk::validateFormat(const VNode& section, const DocSpecsSectionType& t) {
+  // Values a section table or list body gave a section the schema declares no
+  // form for are virtual body lines, counted in its text (VNode::text).
   const std::string& format = t.format;
   if (format.empty()) {
     return;
   }
-  const DocSpecsFormType* form = schema.formType(format);
+  const DocSpecsFormType* form = schema_.formType(format);
   if (form != nullptr) {
-    validateForm(section, *form, v);
+    validateForm(section, *form);
     return;
   }
   SpecMarkdownFenceTracker fence;
   bool sawFence = false;
-  for (const std::string& l : section.bodyLines) {
+  for (const std::string& l : section.body) {
     fence.feed(l);
     if (fence.inFence()) {
       sawFence = true;
     }
   }
   if (!sawFence) {
-    dvPush(v, kDocSpecsRuleFormatMismatch, section.line,
+    dvPush(v_, kDocSpecsRuleFormatMismatch, section.line,
            "section format \"" + format +
                "\" demands a fenced code block, but the body contains none",
            section.id, "");
@@ -1177,9 +1623,7 @@ struct CountMap {
   }
 };
 
-void validateSection(const DocSpecsSchema& schema, const DocSpecsSection& section,
-                     const DocSpecsSectionType& t,
-                     std::vector<DocSpecsViolation>& v) {
+void Walk::validateSection(VNode& section, const DocSpecsSectionType& t) {
   if (t.patternCheck.has_value() && !section.id.empty() &&
       !t.patternCheck->matches(section.id)) {
     std::string message;
@@ -1189,28 +1633,34 @@ void validateSection(const DocSpecsSchema& schema, const DocSpecsSection& sectio
       message = "section id \"" + section.id +
                 "\" does not match pattern \"" + t.patternCheck->pattern + "\"";
     }
-    dvPush(v, kDocSpecsRuleIdPatternMismatch, section.line, message, section.id,
-           "");
+    dvPush(v_, kDocSpecsRuleIdPatternMismatch, section.line, message,
+           section.id, "");
   }
-  validateText(schema, section, t, v);
-  validateFormat(schema, section, t, v);
+  // List bodies and section tables become virtual sections before anything is
+  // counted or checked (DocSpecs specification, List Bodies).
+  expandSectionTables(section, [&t](const DocSpecsSectionType& c) {
+    return t.subsection(c.name) != nullptr;
+  });
+  expandListBody(section, t);
+  validateText(section, t);
+  validateFormat(section, t);
 
   CountMap counts;
   for (const auto& childPtr : section.children) {
-    const DocSpecsSection& child = *childPtr;
-    const DocSpecsSectionType* childType = resolveChild(schema, child, v);
+    VNode& child = *childPtr;
+    const DocSpecsSectionType* childType = resolveChild(child);
     if (childType == nullptr) {
       continue;
     }
     if (t.subsection(childType->name) == nullptr) {
-      dvPush(v, kDocSpecsRuleUnknownSection, child.line,
+      dvPush(v_, kDocSpecsRuleUnknownSection, child.line,
              "section-type \"" + childType->name +
                  "\" is not an allowed subsection of \"" + t.name + "\"",
              child.id, "");
       continue;
     }
     counts.inc(childType->name);
-    validateSection(schema, child, *childType, v);
+    validateSection(child, *childType);
   }
   // The offending section is the CONTAINER, not the absent child: a cardinality
   // breach has no child occurrence to point at, and `subKey` is a schema type
@@ -1220,19 +1670,19 @@ void validateSection(const DocSpecsSchema& schema, const DocSpecsSection& sectio
     int count = counts.get(subKey);
     if (count < rule.minCount) {
       if (count == 0) {
-        dvPush(v, kDocSpecsRuleMissingRequiredSection, section.line,
+        dvPush(v_, kDocSpecsRuleMissingRequiredSection, section.line,
                "required subsection \"" + subKey + "\" of \"" + t.name +
                    "\" is missing",
                section.id, "");
       } else {
-        dvPush(v, kDocSpecsRuleTooFewItems, section.line,
+        dvPush(v_, kDocSpecsRuleTooFewItems, section.line,
                "subsection \"" + subKey + "\" occurs " + itoa(count) +
                    " time(s), minimum is " + itoa(rule.minCount),
                section.id, "");
       }
     }
     if (rule.hasMax && count > rule.maxCount) {
-      dvPush(v, kDocSpecsRuleTooManyItems, section.line,
+      dvPush(v_, kDocSpecsRuleTooManyItems, section.line,
              "subsection \"" + subKey + "\" occurs " + itoa(count) +
                  " time(s), maximum is " + itoa(rule.maxCount),
              section.id, "");
@@ -1245,9 +1695,9 @@ void validateSection(const DocSpecsSchema& schema, const DocSpecsSection& sectio
  * before the last one taken is sectionOutOfOrder. Answers the last slot taken
  * afterwards. `order` holds the slot types in slot order, std::nullopt for a
  * `position: any` slot. */
-int checkOrder(const DocSpecsSection& child, const std::string& typeName,
-               const std::vector<std::optional<std::string>>& order,
-               int lastIndex, std::vector<DocSpecsViolation>& v) {
+int Walk::checkOrder(const VNode& child, const std::string& typeName,
+                     const std::vector<std::optional<std::string>>& order,
+                     int lastIndex) {
   int n = static_cast<int>(order.size());
   int index = -1;
   for (int i = lastIndex > 0 ? lastIndex : 0; i < n; i++) {
@@ -1268,13 +1718,412 @@ int checkOrder(const DocSpecsSection& child, const std::string& typeName,
     return lastIndex;
   }
   if (index < lastIndex) {
-    dvPush(v, kDocSpecsRuleSectionOutOfOrder, child.line,
+    dvPush(v_, kDocSpecsRuleSectionOutOfOrder, child.line,
            "section \"" + child.id + "\" (type \"" + typeName +
                "\") stands out of the order of the document sections",
            child.id, "");
     return lastIndex;
   }
   return index;
+}
+
+/* ---- tables and list bodies (DocSpecs specification, List Bodies) -------- */
+
+/* Reads the table whose header is `lines[start]`. A missing or mismatched
+ * delimiter row is a malformedBlock at the header and the table yields no
+ * rows; a row of another cell count is a malformedBlock at that row and is
+ * left out. */
+VTable Walk::readTable(const std::vector<std::string>& lines, std::size_t start,
+                       const std::function<int(std::size_t)>& lineOf,
+                       const std::string& sectionId) {
+  VTable t;
+  t.end = start + 1;
+  while (t.end < lines.size() && markdownTableLine(lines[t.end])) t.end++;
+  t.header = markdownTableRowCells(lines[start]);
+  bool delimiterOk = false;
+  std::vector<std::string> delimiter;
+  if (start + 1 < t.end) {
+    delimiter = markdownTableRowCells(lines[start + 1]);
+    delimiterOk = true;
+    for (const auto& c : delimiter) {
+      if (!markdownDelimiterCell(c)) {
+        delimiterOk = false;
+        break;
+      }
+    }
+  }
+  if (!delimiterOk || delimiter.size() != t.header.size()) {
+    dvPush(v_, kDocSpecsRuleMalformedBlock, lineOf(start),
+           delimiterOk ? "table whose delimiter row does not match its header"
+                       : "table without its delimiter row",
+           sectionId, "");
+    return t;
+  }
+  for (std::size_t i = start + 2; i < t.end; i++) {
+    std::vector<std::string> cells = markdownTableRowCells(lines[i]);
+    if (cells.size() != t.header.size()) {
+      dvPush(v_, kDocSpecsRuleMalformedBlock, lineOf(i),
+             "table row with " + itoa(static_cast<long long>(cells.size())) +
+                 " cells, the header has " +
+                 itoa(static_cast<long long>(t.header.size())),
+             sectionId, "");
+      continue;
+    }
+    t.rows.emplace_back(i, std::move(cells));
+  }
+  return t;
+}
+
+/* Reads every section table of `node`'s body: each row's `Section` cell names
+ * a child — by its id, a list item as `<LIST> / <ITEM>`, an empty cell the
+ * row above's — and its `TomSpecField` / `Value` cells become that child's
+ * form values. A child without a heading becomes a virtual section; one whose
+ * id resolves to no type allowed under `node` is unknownSection at the row,
+ * and its rows are skipped. The table's lines are blanked. */
+void Walk::expandSectionTables(
+    VNode& node, const std::function<bool(const DocSpecsSectionType&)>& ok) {
+  std::vector<std::string>& body = node.body;
+  SpecMarkdownFenceTracker fence;
+  auto lineOf = [&node](std::size_t k) {
+    return node.bodyStartLine() + static_cast<int>(k);
+  };
+  for (std::size_t i = 0; i < body.size(); i++) {
+    const std::string line = body[i];
+    bool isSection = false;
+    if (fence.inFence() || !markdownLayoutTableHeader(line, &isSection) ||
+        !isSection) {
+      fence.feed(line);
+      continue;
+    }
+    VTable table = readTable(body, i, lineOf, node.id);
+    VNode* target = nullptr;
+    bool skip = false;
+    for (const auto& row : table.rows) {
+      const std::vector<std::string>& cells = row.second;
+      const int at = lineOf(row.first);
+      const std::string cell = cellId(cells[0]);
+      if (!cell.empty()) {
+        target = sectionTableTarget(node, cell, ok, at);
+        skip = target == nullptr;
+        if (target == nullptr) {
+          dvPush(v_, kDocSpecsRuleUnknownSection, at,
+                 "section-table row names no child section of \"" + node.id +
+                     "\"",
+                 cell, "");
+          continue;
+        }
+      } else if (skip) {
+        continue;  // the rejected child's further rows
+      } else if (target == nullptr) {
+        dvPush(v_, kDocSpecsRuleUnknownSection, at,
+               "section-table row names no section", node.id, "");
+        continue;
+      }
+      target->values.emplace_back(cells[1], cellValue(cells[2]), at);
+    }
+    for (std::size_t k = i; k < table.end; k++) body[k].clear();
+    i = table.end - 1;
+  }
+}
+
+/* The child a section-table `Section` cell names under `node`: a child by its
+ * id, or `<LIST> / <ITEM>` — an item of a child list. A child or item without
+ * a heading is created as a virtual section when its id resolves to a type
+ * allowed where it stands; nullptr otherwise. */
+VNode* Walk::sectionTableTarget(
+    VNode& node, const std::string& cell,
+    const std::function<bool(const DocSpecsSectionType&)>& allowed, int line) {
+  std::vector<std::string> parts = cellParts(cell);
+  if (parts.size() > 2) return nullptr;
+  auto child = [this, line](
+                   VNode& parent, const std::string& id,
+                   const std::function<bool(const DocSpecsSectionType&)>& ok)
+      -> VNode* {
+    for (auto& c : parent.children) {
+      if (c->id == id) return c.get();
+    }
+    const DocSpecsSectionType* t = schema_.resolveSectionType(id);
+    if (t == nullptr || !ok(*t)) return nullptr;
+    parent.children.push_back(VNode::virtualAt(id, line, nullptr));
+    return parent.children.back().get();
+  };
+  VNode* first = child(node, parts[0], allowed);
+  if (parts.size() == 1 || first == nullptr) return first;
+  const DocSpecsSectionType* listType =
+      first->type != nullptr ? first->type
+                             : schema_.resolveSectionType(parts[0]);
+  if (listType == nullptr) return nullptr;
+  return child(*first, parts[1], [listType](const DocSpecsSectionType& t) {
+    return listType->subsection(t.name) != nullptr;
+  });
+}
+
+/* A list container's body: one `refs` div (a reference line) or one `records`
+ * div (a record table) stands for its items when the container has no item
+ * heading; the items become virtual sections of the container's one
+ * subsection type, and the div's lines are blanked. */
+void Walk::expandListBody(VNode& node, const DocSpecsSectionType& type) {
+  std::vector<std::string>& body = node.body;
+  SpecMarkdownFenceTracker fence;
+  for (std::size_t i = 0; i < body.size(); i++) {
+    const std::string line = body[i];
+    std::string kind;
+    if (fence.inFence() || !markdownListDivOpen(line, &kind)) {
+      fence.feed(line);
+      continue;
+    }
+    const int at = node.bodyStartLine() + static_cast<int>(i);
+    auto reject = [this, at, &node](const std::string& message) {
+      dvPush(v_, kDocSpecsRuleMalformedBlock, at, message, node.id, "");
+    };
+    std::size_t close = std::string::npos;
+    for (std::size_t k = i + 1; k < body.size(); k++) {
+      if (markdownDivCloseLine(body[k])) {
+        close = k;
+        break;
+      }
+    }
+    if (close == std::string::npos) {
+      reject("unclosed " + kind + " fence");  // its lines stay text
+      return;
+    }
+    const std::size_t lead = generatedLead(body);
+    bool besideText = false;
+    for (std::size_t k = 0; k < body.size(); k++) {
+      if (k >= lead && (k < i || k > close) && !trimSpace(body[k]).empty()) {
+        besideText = true;
+      }
+    }
+    const bool hasItems = !node.children.empty();
+    std::vector<std::string> inner(body.begin() + i + 1, body.begin() + close);
+    for (std::size_t k = i; k <= close; k++) body[k].clear();
+    if (besideText || hasItems) {
+      reject("a " + kind + " div beside " +
+             (hasItems ? "item headings" : "other text") +
+             " in a list container");
+      return;
+    }
+    const DocSpecsSectionType* itemType =
+        type.subsectionTypes.size() == 1
+            ? schema_.sectionTypeByName(type.subsectionTypes[0].name)
+            : nullptr;
+    if (itemType == nullptr) {
+      reject("a " + kind + " div in a section that is not a list container");
+      return;
+    }
+    if (kind == "refs") {
+      refsItems(node, *itemType, inner, at);
+    } else {
+      recordItems(node, *itemType, inner, at);
+    }
+    return;
+  }
+}
+
+/* The form a `refs` item of `itemType` holds its reference in: the type's own
+ * form, else the form of its one subsection type that has one (the item's
+ * virtual child then carries the value). With `oneField`, only forms of
+ * exactly one field count. */
+bool Walk::itemForm(const DocSpecsSectionType& itemType, bool oneField,
+                    const DocSpecsFormType** form,
+                    const DocSpecsSectionType** childType) const {
+  auto formOf = [this](const DocSpecsSectionType* t) -> const DocSpecsFormType* {
+    return t != nullptr && !t->format.empty() ? schema_.formType(t->format)
+                                              : nullptr;
+  };
+  auto fits = [oneField](const DocSpecsFormType* f) {
+    return f != nullptr && (!oneField || f->fields.size() == 1);
+  };
+  const DocSpecsFormType* own = formOf(&itemType);
+  if (fits(own)) {
+    *form = own;
+    *childType = nullptr;
+    return true;
+  }
+  int found = 0;
+  for (const auto& rule : itemType.subsectionTypes) {
+    const DocSpecsSectionType* sub = schema_.sectionTypeByName(rule.name);
+    const DocSpecsFormType* f = formOf(sub);
+    if (fits(f)) {
+      found++;
+      *form = f;
+      *childType = sub;
+    }
+  }
+  return found == 1;
+}
+
+/* A virtual item of `itemType` with id `id` at `line`, added to `list`;
+ * returns the section its form values go to — the item itself, or its virtual
+ * child of `childType` (id: the child type's name upper-cased). */
+VNode* Walk::addItem(VNode& list, const DocSpecsSectionType& itemType,
+                     const DocSpecsSectionType* childType,
+                     const std::string& id, int line) {
+  list.children.push_back(VNode::virtualAt(id, line, &itemType));
+  VNode* item = list.children.back().get();
+  if (childType == nullptr) return item;
+  item->children.push_back(
+      VNode::virtualAt(upperAscii(childType->name), line, childType));
+  return item->children.back().get();
+}
+
+/* A `refs` div: its text split on commas and whitespace into ids, a link
+ * counting as its link text; item <n> gets the positional id (the container's
+ * id with `-LST` replaced by `-<n>`, else `<id>-<n>`) and the virtual body
+ * line `<Label>: <id>`. */
+void Walk::refsItems(VNode& node, const DocSpecsSectionType& itemType,
+                     const std::vector<std::string>& inner, int at) {
+  // Without a one-field form in the schema the reference is the item's
+  // virtual body line; nothing in the schema checks it further.
+  const DocSpecsFormType* form = nullptr;
+  const DocSpecsSectionType* childType = nullptr;
+  const bool target = itemForm(itemType, true, &form, &childType);
+  std::vector<std::string> ids;
+  std::string joined;
+  for (std::size_t k = 0; k < inner.size(); k++) {
+    if (k > 0) joined += ' ';
+    joined += inner[k];
+  }
+  std::string b;
+  auto take = [&]() {
+    if (b.empty()) return;
+    std::string text;
+    ids.push_back(markdownFirstLinkText(b, &text) ? text : b);
+    b.clear();
+  };
+  for (char ch : joined) {
+    if (ch == ',' || isAsciiWs(ch)) {
+      take();
+    } else {
+      b += ch;
+    }
+  }
+  take();
+  const std::string& container = node.id;
+  const std::string stem =
+      container.size() >= 4 &&
+              container.compare(container.size() - 4, 4, "-LST") == 0
+          ? container.substr(0, container.size() - 4)
+          : container;
+  for (std::size_t n = 1; n <= ids.size(); n++) {
+    VNode* holder = addItem(node, itemType, target ? childType : nullptr,
+                            stem + "-" + itoa(static_cast<long long>(n)), at);
+    holder->values.emplace_back(target ? form->fields[0].name : std::string(),
+                                ids[n - 1], at);
+  }
+}
+
+/* A `records` div: one table, `Id` first, `Title` optionally second, then
+ * field names of the item's form; each row one virtual item in row order. A
+ * record's cells are the item's own body lines: the item type's own form
+ * decides the columns, never a child's. */
+void Walk::recordItems(VNode& node, const DocSpecsSectionType& itemType,
+                       const std::vector<std::string>& inner, int at) {
+  auto lineOf = [at](std::size_t k) { return at + 1 + static_cast<int>(k); };
+  auto reject = [this, at, &node](const std::string& message) {
+    dvPush(v_, kDocSpecsRuleMalformedBlock, at, message, node.id, "");
+  };
+  std::size_t start = 0;
+  while (start < inner.size() && trimSpace(inner[start]).empty()) start++;
+  if (start >= inner.size() || !markdownTableLine(inner[start])) {
+    reject("a records div holding no table");
+    return;
+  }
+  const std::vector<std::string> header = markdownTableRowCells(inner[start]);
+  if (header[0] != "Id") {
+    reject("a records table whose first column is not Id");
+    return;
+  }
+  // An item type the schema gives no form of its own takes its columns as
+  // virtual body lines, unchecked.
+  const DocSpecsFormType* own =
+      !itemType.format.empty() ? schema_.formType(itemType.format) : nullptr;
+  const bool withTitle = header.size() > 1 && header[1] == "Title";
+  std::vector<std::string> columns;
+  for (std::size_t h = withTitle ? 2 : 1; h < header.size(); h++) {
+    const std::string& label = header[h];
+    std::string name;
+    if (own == nullptr) {
+      name = label;
+    } else {
+      const std::string lower = lowerAscii(label);
+      for (const auto& f : own->fields) {
+        if (lowerAscii(f.name) == lower) {
+          name = f.name;
+          break;
+        }
+      }
+      if (name.empty()) {
+        dvPush(v_, kDocSpecsRuleUnknownField, lineOf(start),
+               "records column \"" + label + "\" names no field of the items",
+               node.id, "");
+        return;
+      }
+    }
+    columns.push_back(name);
+  }
+  VTable table = readTable(inner, start, lineOf, node.id);
+  for (const auto& row : table.rows) {
+    const std::vector<std::string>& cells = row.second;
+    VNode* holder =
+        addItem(node, itemType, nullptr, cellId(cells[0]), lineOf(row.first));
+    for (std::size_t c = 0; c < columns.size(); c++) {
+      std::string value = cellValue(cells[(withTitle ? 2 : 1) + c]);
+      if (value.empty()) continue;
+      holder->values.emplace_back(columns[c], value, lineOf(row.first));
+    }
+  }
+}
+
+/* Root children must occupy `document: sections:` slots, in their order (a
+ * `position: any` slot's type stands anywhere); required slots must be
+ * present. A section table in the root's body rebuilds root children as
+ * virtual sections first. */
+void Walk::documentSections(VNode& root) {
+  std::set<std::string> slotTypes;
+  std::set<std::string> anywhere;
+  std::vector<std::optional<std::string>> order;
+  for (const auto& slot : schema_.documentSections) {
+    slotTypes.insert(slot.sectionType);
+    if (slot.anyPosition()) {
+      anywhere.insert(slot.sectionType);
+      order.push_back(std::nullopt);
+    } else {
+      order.push_back(slot.sectionType);
+    }
+  }
+  expandSectionTables(root, [&slotTypes](const DocSpecsSectionType& t) {
+    return slotTypes.count(t.name) != 0;
+  });
+  int lastIndex = -1;
+  CountMap counts;
+  for (const auto& childPtr : root.children) {
+    VNode& child = *childPtr;
+    const DocSpecsSectionType* t = resolveChild(child);
+    if (t == nullptr) {
+      continue;
+    }
+    if (slotTypes.count(t->name) == 0) {
+      dvPush(v_, kDocSpecsRuleUnknownSection, child.line,
+             "section-type \"" + t->name +
+                 "\" is not a top-level document section",
+             child.id, "");
+      continue;
+    }
+    if (anywhere.count(t->name) == 0) {
+      lastIndex = checkOrder(child, t->name, order, lastIndex);
+    }
+    counts.inc(t->name);
+    validateSection(child, *t);
+  }
+  for (const auto& slot : schema_.documentSections) {
+    if (!slot.optional && counts.get(slot.sectionType) == 0) {
+      dvPush(v_, kDocSpecsRuleMissingRequiredSection, root.line,
+             "required document section \"" + slot.key + "\" (type \"" +
+                 slot.sectionType + "\") is missing",
+             slot.key, "");
+    }
+  }
 }
 
 /* Every section's id path (the ids from the root down to it) is unique: a
@@ -1386,60 +2235,6 @@ void validateNotation(const DocSpecsSchema& schema, bool tomSpecs,
   }
 }
 
-/* Root children must occupy `document: sections:` slots, in their order (a
- * `position: any` slot's type stands anywhere); required slots must be
- * present. */
-void validateDocumentSections(const DocSpecsSchema& schema,
-                              const DocSpecsSection& root,
-                              std::vector<DocSpecsViolation>& v) {
-  std::set<std::string> anywhere;
-  std::vector<std::optional<std::string>> order;
-  for (const auto& slot : schema.documentSections) {
-    if (slot.anyPosition()) {
-      anywhere.insert(slot.sectionType);
-      order.push_back(std::nullopt);
-    } else {
-      order.push_back(slot.sectionType);
-    }
-  }
-  int lastIndex = -1;
-  CountMap counts;
-  for (const auto& childPtr : root.children) {
-    const DocSpecsSection& child = *childPtr;
-    const DocSpecsSectionType* t = resolveChild(schema, child, v);
-    if (t == nullptr) {
-      continue;
-    }
-    bool isSlot = false;
-    for (const auto& ds : schema.documentSections) {
-      if (ds.sectionType == t->name) {
-        isSlot = true;
-        break;
-      }
-    }
-    if (!isSlot) {
-      dvPush(v, kDocSpecsRuleUnknownSection, child.line,
-             "section-type \"" + t->name +
-                 "\" is not a top-level document section",
-             child.id, "");
-      continue;
-    }
-    if (anywhere.count(t->name) == 0) {
-      lastIndex = checkOrder(child, t->name, order, lastIndex, v);
-    }
-    counts.inc(t->name);
-    validateSection(schema, child, *t, v);
-  }
-  for (const auto& slot : schema.documentSections) {
-    if (!slot.optional && counts.get(slot.sectionType) == 0) {
-      dvPush(v, kDocSpecsRuleMissingRequiredSection, root.line,
-             "required document section \"" + slot.key + "\" (type \"" +
-                 slot.sectionType + "\") is missing",
-             slot.key, "");
-    }
-  }
-}
-
 }  // namespace
 
 void DocSpecsValidator::validateMarkdown(
@@ -1472,7 +2267,8 @@ void DocSpecsValidator::validate(const DocSpecsDocument& doc,
     dvPush(out, kDocSpecsRuleUnknownSection, extra.line,
            "unexpected additional top-level section", extra.id, "");
   }
-  validateDocumentSections(*schema_, root, out);
+  std::unique_ptr<VNode> walkRoot = VNode::of(root);
+  Walk(*schema_, out).documentSections(*walkRoot);
   validateNotation(*schema_, tomSpecs_, doc, out);
   validateIdPaths(doc.sections, out);
 }

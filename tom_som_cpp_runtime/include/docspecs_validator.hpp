@@ -71,6 +71,15 @@ inline constexpr const char* kDocSpecsRuleAnnotationInsideDiv =
 inline constexpr const char* kDocSpecsRuleDivInsideAnnotation =
     "divInsideAnnotation";
 inline constexpr const char* kDocSpecsRuleRejectedBlock = "rejectedBlock";
+/* The reading view's list bodies and tables (DocSpecs specification,
+ * Findings in list bodies and tables): a form, section or record table without
+ * a matching delimiter row, a row of another cell count, a field given twice
+ * (the first kept), a refs / records div beside other text or item headings, a
+ * records div holding no table or one whose first column is not Id, an
+ * unclosed refs / records fence. */
+inline constexpr const char* kDocSpecsRuleMalformedBlock = "malformedBlock";
+/* A form-table row or a record-table column naming no field of its form. */
+inline constexpr const char* kDocSpecsRuleUnknownField = "unknownField";
 
 /* The complete §14 vocabulary, in declaration order — the enumerable form of
  * what Dart gets for free from its enum. The conformance runner diffs it
@@ -99,6 +108,8 @@ inline constexpr const char* kDocSpecsAllRules[] = {
     kDocSpecsRuleAnnotationInsideDiv,
     kDocSpecsRuleDivInsideAnnotation,
     kDocSpecsRuleRejectedBlock,
+    kDocSpecsRuleMalformedBlock,
+    kDocSpecsRuleUnknownField,
 };
 
 /* ---- violation ----------------------------------------------------------- */

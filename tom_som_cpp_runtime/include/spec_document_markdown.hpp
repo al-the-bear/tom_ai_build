@@ -224,6 +224,28 @@ SpecMarkdownRendition documentToMarkdownWithMap(const SpecDocument& document,
  * mutates a document — `SpecDocument::applyMarkdownResult` applies the result as a full overwrite. */
 SpecMarkdownResult markdownParse(const SpecModel& model, const std::string& text);
 
+/* ---- reading-view layout lines (SOM §11.4, §11.5) ------------------------ */
+/* The line grammar the parser and the DocSpecs validator share. */
+
+/* `| TomSpecField | Value |` or `| Section | TomSpecField | Value |` at column
+ * 0, any case; `*isSection` set for a section table. */
+bool markdownLayoutTableHeader(const std::string& line, bool* isSection);
+/* `^ {0,3}\|`: a line that starts a table row. */
+bool markdownTableLine(const std::string& line);
+/* `^:?-+:?$`: a cell of a delimiter row. */
+bool markdownDelimiterCell(const std::string& cell);
+/* The cells of a table row: split on every `|` not preceded by a backslash,
+ * the outer pipes dropped, each cell trimmed; `\|` stays in the cell. */
+std::vector<std::string> markdownTableRowCells(const std::string& line);
+/* A cell of links only (`[a](x), [b](y)`); their texts in `*texts`. */
+bool markdownLinkCell(const std::string& text, std::vector<std::string>* texts);
+/* The text of the first link `[t](x)` in `s`. */
+bool markdownFirstLinkText(const std::string& s, std::string* text);
+/* The opening fence of a `refs` / `records` div; its kind in `*kind`. */
+bool markdownListDivOpen(const std::string& line, std::string* kind);
+/* `^:{3,}\s*$`: a closing fence. */
+bool markdownDivCloseLine(const std::string& line);
+
 }  // namespace som
 
 #endif  // SPEC_DOCUMENT_MARKDOWN_HPP

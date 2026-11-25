@@ -2,6 +2,26 @@
 
 ## Unreleased
 
+- **The DocSpecs validator reads the reading view** (DocSpecs specification,
+  List Bodies): form tables give a section's fields (a field missing from table
+  and paragraphs is `missingRequiredField`, a pattern mismatch points at its
+  row), `refs` lines and `records` tables become a list's virtual items
+  (counted towards `min-count`, the container passes `max-text-length 0`; a
+  record table reads the item type's own form only), section tables give
+  children's fields at their rows (`unknownSection` for a row naming no
+  child), styled-div headings `<div class="heading7">` count at their level and
+  a `heading6` div is content; a heading's own anchor is stripped from its
+  title. Two new rules: `kDocSpecsRuleMalformedBlock` and
+  `kDocSpecsRuleUnknownField`. The conformance runner runs the 25 `readingView`
+  cases of `docspecs_cases.json`.
+- **Pattern checks are ECMAScript regular expressions** (`std::regex`), as
+  Dart and TypeScript test them: groups, alternation and `{n,m}` work (the
+  corpus schema's `^(Yes|No)$`). A pattern `std::regex` refuses falls back to
+  the former subset matcher.
+- The Markdown codec's layout-line helpers are public
+  (`markdownLayoutTableHeader`, `markdownTableRowCells`, …), shared by the
+  parser and the validator.
+
 - **The Markdown parser reads the reading view's table layout** (SOM §11.4,
   §11.5): form tables `| TomSpecField | Value |` (a code span holding `\|`,
   reference links read as their link texts, prose before and after a table as

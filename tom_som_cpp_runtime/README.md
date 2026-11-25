@@ -106,7 +106,7 @@ pkg-config / vendored-tarball / in-tree-monorepo routes and how to pin.
 | `spec_meta_diff.cpp` | `somMetaNodeDiff` — the first difference between two metadata trees, or `""`. |
 | `spec_section_id.cpp` | List-item section ids (AA1): `specGenerateListItemSectionId`, `specEncodeTwoLetterDate`, `specSectionIdPatternPrefix`. |
 | `spec_serialization_order.cpp` | `SpecSerializationOrder` — the model's member order (`orderKey`, `orderPaths`), which every codec writes in. |
-| `docspecs_validator.cpp` | DocSpecs Markdown documents: the schema-free parse (`DocSpecsDocument`) and the schema check (`DocSpecsValidator`; its `tomSpecs` flag for a TomSpecs rendition), the reading notation's nine rules included. |
+| `docspecs_validator.cpp` | DocSpecs Markdown documents: the schema-free parse (`DocSpecsDocument`) and the schema check (`DocSpecsValidator`; its `tomSpecs` flag for a TomSpecs rendition), the reading notation's nine rules included; it reads the reading view's form tables, list bodies (`refs`, `records`), section tables and styled-div headings. |
 | `spec_notation.cpp` | The reading notation's scanner (DocSpecs Reading Notation RN-1 to RN-13): `scanNotation` returns a value's fenced divs, bracketed spans and citation shapes, nested, with UTF-16 offsets, and its findings (`NotationScan`, `NotationElement`, `NotationFinding`). |
 | `spec_schema_validation.cpp` | `validateSpecDocument` — the DocSpecs schema tier over a document's Markdown rendition. |
 

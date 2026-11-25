@@ -1289,9 +1289,8 @@ static void test_docspecs(Checker& c) {
   std::size_t n = som::jsonArrayLen(cases);
   for (std::size_t i = 0; i < n; i++) {
     som::JsonRef cc = som::jsonArrayAt(cases, i);
-    // The reading view's table forms (`readingView`) are read by the Dart and
-    // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
-    if (som::jsonBoolOr(cc, "readingView")) continue;
+    // The reading view's cases (`readingView`: table forms, list bodies,
+    // styled-div headings) run here as in Dart and TypeScript (tspubnondart69).
     std::string name = som::jsonStrOr(cc, "name");
 
     std::vector<som::DocSpecsViolation> violations;
