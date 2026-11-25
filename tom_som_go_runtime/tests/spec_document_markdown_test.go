@@ -351,6 +351,63 @@ func TestMarkdownRoundTripLabelShapedContinuation(t *testing.T) {
 	mdCheck(t, "formCont.byteStable", mdExport(t, reloaded) == md1)
 }
 
+// --- the reading view's table layout (SOM §11.4, §11.5) -----------------------
+
+func TestMarkdownTableHeaderShapedLineEscaped(t *testing.T) {
+	// A value line shaped like a layout table header gains one space on emit
+	// and loses it on parse: a value is never read as a table.
+	value := "Before\n| TomSpecField | Value |\nafter"
+	doc := som.NewSpecDocument()
+	doc.SetContent("D00/D00-OVR", value)
+	md1 := mdExport(t, doc)
+	mdCheck(t, "tableHdr.escaped", strings.Contains(md1, "\n | TomSpecField | Value |\n"), md1)
+	reloaded, report := mdReload(t, md1)
+	mdCheck(t, "tableHdr.clean", report.IsClean(), mdRejStr(report))
+	got, _ := reloaded.Content("D00/D00-OVR")
+	mdCheck(t, "tableHdr.value", got == value, fmt.Sprintf("%q", got))
+	mdCheck(t, "tableHdr.byteStable", mdExport(t, reloaded) == md1)
+}
+
+func TestMarkdownFormTableParses(t *testing.T) {
+	md := "<!-- docspec: d00/1 -->\n" +
+		"# <!--[D00]--> Demo Document\n\n" +
+		"## <!--[D00-HDR]--> Header\n\n" +
+		"| TomSpecField | Value |\n" +
+		"| --- | --- |\n" +
+		"| Author | Ada Lovelace |\n" +
+		"| Reviewer | Charles \\| Babbage |\n"
+	reloaded, report := mdReload(t, md)
+	mdCheck(t, "formTable.clean", report.IsClean(), mdRejStr(report))
+	mdCheck(t, "formTable.author",
+		reloaded.FormFieldOr("D00/D00-HDR", "author") == "Ada Lovelace")
+	mdCheck(t, "formTable.reviewer",
+		reloaded.FormFieldOr("D00/D00-HDR", "reviewer") == "Charles | Babbage",
+		fmt.Sprintf("%q", reloaded.FormFieldOr("D00/D00-HDR", "reviewer")))
+}
+
+func TestMarkdownFormTableRejections(t *testing.T) {
+	md := "<!-- docspec: d00/1 -->\n" +
+		"# <!--[D00]--> Demo Document\n\n" +
+		"## <!--[D00-HDR]--> Header\n\n" +
+		"| TomSpecField | Value |\n" +
+		"| --- | --- |\n" +
+		"| Editor | Nobody |\n" +
+		"| Author | Ada |\n" +
+		"| Author | Again |\n"
+	report := mdParse(t, md)
+	var reasons []string
+	for _, r := range report.Rejections {
+		reasons = append(reasons, r.Reason)
+	}
+	mdCheck(t, "formTableRej.reasons",
+		strings.Join(reasons, ",") ==
+			som.SpecMarkdownRejectUnknownField+","+som.SpecMarkdownRejectMalformedBlock,
+		strings.Join(reasons, ","))
+	mdCheck(t, "formTableRej.firstKept",
+		mdShallowEqual(report.Forms["D00/D00-HDR"], map[string]string{"author": "Ada"}),
+		fmt.Sprintf("%v", report.Forms))
+}
+
 // --- a form section's preamble (SOM §11.4 rule 7) -----------------------------
 
 func TestMarkdownFormPreambleParses(t *testing.T) {

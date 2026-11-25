@@ -85,7 +85,7 @@ tag / path-`replace` routes and how to pin.
 | `spec_codespecs_gate.go` | The Phase-4 Stage-A gate (`CodeSpecsGate`) — checks A1–A5 of `codespecs_prompt.md` §4 run as one over model, document, area catalogue (its `gate` tables) and DocSpecs schema; a check that cannot run is reported not run and fails the gate. |
 | `spec_codespecs_records.go` | Reads a Phase-4 run back: `CodeSpecsExtractFromYaml` (the byte-stable inverse of `ToYaml`), the Stage-B gate record `gate.verdicts.yaml` (`CodeSpecsGateRecord` — read, checked, written), and `CodeSpecsExtractSet`, a tree of extracts scoped by its gate record. |
 | `spec_document_yaml.go` | Byte-stable `*.tomspecs.yaml` codec (`SOM §12`). |
-| `spec_document_markdown.go` | Meta-data-driven Markdown import/export codec (`SOM §11`). |
+| `spec_document_markdown.go` | Meta-data-driven Markdown import/export codec (`SOM §11`): the emitter writes `Field:` lines; the parser reads them and the reading view's form, record and section tables, reference lines and heading anchors (SOM §11.4, §11.5). |
 | `som_facade.go` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList[T]`) for the generated `tom_som_go_v0`. |
 | `spec_review_annotations.go` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks (`SpecReviewAnnotations`: insert, answer, decide, comment on a change, assign comment ids, strip, validate), conflict blocks, change times and attribution. |
 | `spec_review_merge.go` | Team review (SOM §11.9.8): `MergeReviews` / `MergeMarkdownReviews` merge the returned copies of a round into one document with votes, individual answers and conflict blocks. |

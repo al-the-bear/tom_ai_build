@@ -38,6 +38,13 @@ package somruntime
 // under a value leaf, orphaned text — is collected into
 // SpecMarkdownResult.Rejections rather than dropped (SOM §11.7).
 //
+// Reading view (SOM §11.4, §11.5): the parser also reads form tables
+// `| TomSpecField | Value |`, record tables in a `::: {.records}` div,
+// reference lines in a `::: {.refs}` div, section tables
+// `| Section | TomSpecField | Value |` and heading anchors `<a id="ID">`; the
+// emitter keeps writing `Field:` lines and escapes a value line shaped like a
+// layout table header with one space.
+//
 // Go conventions: where the other ports throw, ExportRoot returns an
 // error (the unterminated-fence case); the empty string stands in for a null
 // Anchor.
@@ -67,6 +74,15 @@ const (
 	// SpecMarkdownRejectMalformedHeading — a heading line without a parseable
 	// `<!--[id]-->` headline comment.
 	SpecMarkdownRejectMalformedHeading = "malformedHeading"
+	// SpecMarkdownRejectUnknownField — a form-table row, a section-table row
+	// or a records column names no field the form declares (SOM §11.4, §11.5).
+	SpecMarkdownRejectUnknownField = "unknownField"
+	// SpecMarkdownRejectMalformedBlock — a block that breaks the layout
+	// grammar: a table without its delimiter row or with a row of another cell
+	// count, a field given twice, a `refs` / `records` div beside other text or
+	// item headings or not holding what it should, an unclosed `refs` /
+	// `records` fence. The message says which.
+	SpecMarkdownRejectMalformedBlock = "malformedBlock"
 )
 
 // SpecMarkdownRejection is one rejected block in a Markdown import (SOM §11.7).
@@ -255,7 +271,66 @@ var (
 	mdSlotMarkerRE      = regexp.MustCompile(`^<!-- slot: (\S+) -->$`)
 	mdLeadingBlankLnRE  = regexp.MustCompile(`^([ \t]*\n)+`)
 	mdTrailingBlankLnRE = regexp.MustCompile(`(\n[ \t]*)+$`)
+
+	// Reading view (SOM §11.4, §11.5): a value line shaped like a layout table
+	// header is escaped with one space on emit, and loses it on parse.
+	mdTableHeaderShapedRE = regexp.MustCompile(
+		`(?i)^ *\|\s*(?:Section\s*\|\s*)?TomSpecField\s*\|\s*Value\s*\|?\s*$`)
+	mdEscapedTableHeaderRE = regexp.MustCompile(
+		`(?i)^ +\|\s*(?:Section\s*\|\s*)?TomSpecField\s*\|\s*Value\s*\|?\s*$`)
+	// A line that reads as the header of a form table or a section table (SOM
+	// §11.4, §11.5): `| TomSpecField | Value |` or
+	// `| Section | TomSpecField | Value |` at column 0, any case; group 1 is
+	// `Section` for a section table. The header alone makes a table layout.
+	mdLayoutTableHeaderRE = regexp.MustCompile(
+		`(?i)^\|\s*(?:(Section)\s*\|\s*)?TomSpecField\s*\|\s*Value\s*\|?\s*$`)
+	// A line that starts a table row: `|` after up to three spaces.
+	mdTableLineRE     = regexp.MustCompile(`^ {0,3}\|`)
+	mdDelimiterCellRE = regexp.MustCompile(`^:?-+:?$`)
+	mdLinkCellRE      = regexp.MustCompile(`^\[[^\]]+\]\([^)]*\)(, \[[^\]]+\]\([^)]*\))*$`)
+	mdLinkTextRE      = regexp.MustCompile(`\[([^\]]+)\]\([^)]*\)`)
+	mdListDivOpenRE   = regexp.MustCompile(`^:{3,}\s*(?:\{\.(refs|records)\}|(refs|records))\s*$`)
+	mdDivCloseRE      = regexp.MustCompile(`^:{3,}\s*$`)
+	mdCellAnchorRE    = regexp.MustCompile(`^<a id="[^"]*"></a>\s*`)
+	mdCellLinkRE      = regexp.MustCompile(`^\[([^\]]+)\]\([^)\s]*\)$`)
+	mdSectionSplitRE  = regexp.MustCompile(`\s*/\s*`)
+	mdRefsSplitRE     = regexp.MustCompile(`[,\s]+`)
 )
+
+// mdQualifyAnchor returns the qualified anchor of a heading id (SOM §11.2) and
+// the scope its descendants' anchors are qualified with: below a list item, or
+// in a `@SameAs` copy, an anchor is the ids from the scope's start joined by
+// `/`; elsewhere it is the id itself. section is the id of the nearest heading
+// above that is no list container. A nil scope is "no scope".
+func mdQualifyAnchor(scope []string, section, id string, container, item, copyNode bool) (string, []string) {
+	joined := func(sc []string) string {
+		if sc == nil {
+			return id
+		}
+		return strings.Join(append(append([]string{}, sc...), id), "/")
+	}
+	switch {
+	case container:
+		return joined(scope), scope
+	case item:
+		return joined(scope), append(append([]string{}, scope...), id)
+	case copyNode:
+		var sc []string
+		if scope != nil {
+			sc = append([]string{}, scope...)
+		} else if section != "" {
+			sc = []string{section}
+		} else {
+			sc = []string{}
+		}
+		sc = append(sc, id)
+		return strings.Join(sc, "/"), sc
+	}
+	if scope == nil {
+		return joined(scope), nil
+	}
+	return joined(scope), append(append([]string{}, scope...), id)
+}
 
 // mdNodeRel is a body slot / effective child: the node plus its relative path.
 type mdNodeRel struct {
@@ -745,6 +820,36 @@ func (c *SpecDocumentMarkdown) writeSectionBody(b *mdBuffer, node *SomMetaNode, 
 	return nil
 }
 
+// isCopyNode reports whether n is a `@SameAs` copy (SOM §11.2): its anchor and
+// its descendants' are qualified with the section above it.
+func (c *SpecDocumentMarkdown) isCopyNode(n *SomMetaNode) bool {
+	if n.MemberName == "" || n.parent == nil {
+		return false
+	}
+	cls := c.Model.ClassNamed(n.parent.ClassName)
+	if cls == nil {
+		return false
+	}
+	f := cls.FieldNamed(n.MemberName)
+	return f != nil && f.HasAnnotation("SameAs")
+}
+
+// itemForm returns the item class's own form (its class-level `@Form`, a
+// transparent body slot), or ok false when the class carries none or more
+// than one.
+func (c *SpecDocumentMarkdown) itemForm(element *SomMetaNode) (mdNodeRel, bool) {
+	var forms []mdNodeRel
+	for _, s := range c.bodySlots(element) {
+		if s.node.Kind == SomMetaKindForm {
+			forms = append(forms, s)
+		}
+	}
+	if len(forms) != 1 {
+		return mdNodeRel{}, false
+	}
+	return forms[0], true
+}
+
 // mdDefaultBodyRel returns the body slot unmarked body text binds to on import
 // (SOM §11.6): the first non-form slot; with none, the form on the `content`
 // member, else the first form; with no slot at all the owner itself (`.`).
@@ -1125,6 +1230,8 @@ func (c *SpecDocumentMarkdown) prepareValue(value, path string) (string, error) 
 			out = append(out, line) // SOM §11.3: fences shield their lines.
 		} else if mdEscapableRE.MatchString(line) {
 			out = append(out, "\\"+line)
+		} else if mdTableHeaderShapedRE.MatchString(line) {
+			out = append(out, " "+line) // A value line is never a layout table.
 		} else {
 			out = append(out, line)
 		}
@@ -1226,6 +1333,11 @@ type mdFrame struct {
 	line    int
 	ignored bool
 	body    []string
+	// anchorScope is the scope this heading's descendants' anchors are
+	// qualified with (nil: none), anchorSection the id of the nearest heading
+	// at or above it that is no list container (SOM §11.2, mdQualifyAnchor).
+	anchorScope   []string
+	anchorSection string
 }
 
 // mdListState is per-list bookkeeping while parsing: ordered item paths,
@@ -1257,6 +1369,9 @@ type mdParser struct {
 	rootPrefixes map[string]bool
 	stack        []*mdFrame
 	fence        *MarkdownFenceTracker
+	// given holds the fields given so far per form path, for the given-twice
+	// rule (SOM §11.4).
+	given map[string]map[string]bool
 	// Rolling pointer into a body region's transparent form slots — labels
 	// bind to the nearest form at or after the last hit (wrapping), so
 	// repeated field names across an owner's transparent forms follow emit
@@ -1275,6 +1390,7 @@ func newMdParser(codec *SpecDocumentMarkdown) *mdParser {
 		units:        map[string]string{},
 		rootPrefixes: map[string]bool{},
 		fence:        &MarkdownFenceTracker{},
+		given:        map[string]map[string]bool{},
 	}
 }
 
@@ -1339,10 +1455,18 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 	id := m[1]
 	codeSpec := SpecDocumentMarkdownCodeSpecOf(m[2])
 	unitIDs := SpecDocumentMarkdownUnitsOf(m[2])
-	title := strings.ReplaceAll(strings.TrimSpace(m[3]), "<br>", "\n")
+	// Reading view: an anchor equal to the section id after the id comment, or
+	// to its qualified form (SOM §11.2), is the renderer's, not part of the
+	// title.
+	rawTitle := strings.TrimSpace(m[3])
+	titleWith := func(anchor string) string {
+		re := regexp.MustCompile(`^<a id="(?:` + regexp.QuoteMeta(id) + `|` +
+			regexp.QuoteMeta(anchor) + `)"></a>\s*`)
+		return strings.ReplaceAll(re.ReplaceAllString(rawTitle, ""), "<br>", "\n")
+	}
 
 	if len(p.stack) == 0 {
-		p.openRoot(level, id, title, codeSpec, unitIDs, lineNo)
+		p.openRoot(level, id, titleWith(id), codeSpec, unitIDs, lineNo)
 		return
 	}
 
@@ -1372,7 +1496,11 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 	// 1. Under a `-LST` container frame (SOM §11.2), every child heading is one
 	//    of that list's items — resolved positionally, not by the schema tree.
 	if pNode.Kind == SomMetaKindList {
-		p.openItemHeading(level, parent, pNode, id, title, codeSpec, unitIDs, lineNo)
+		anchor, scope := mdQualifyAnchor(parent.anchorScope, parent.anchorSection, id, false, true, false)
+		p.openItemHeading(level, parent, pNode, id, titleWith(anchor), codeSpec, unitIDs, lineNo)
+		last := p.stack[len(p.stack)-1]
+		last.anchorScope = scope
+		last.anchorSection = id
 		return
 	}
 
@@ -1384,6 +1512,10 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 	//    the transparent segments.
 	for _, entry := range p.codec.effectiveChildren(pNode) {
 		if p.codec.headingIdOf(entry.node) == id {
+			container := entry.node.Kind == SomMetaKindList
+			anchor, scope := mdQualifyAnchor(parent.anchorScope, parent.anchorSection, id,
+				container, false, !container && p.codec.isCopyNode(entry.node))
+			title := titleWith(anchor)
 			// SOM §11.7: stage the heading text as a stored headline ONLY when
 			// it differs from the derived default (byte-stability).
 			path := parent.path + "/" + entry.rel
@@ -1399,11 +1531,17 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 			if unitIDs != "" {
 				p.units[path] = unitIDs
 			}
+			section := id
+			if container {
+				section = parent.anchorSection
+			}
 			p.stack = append(p.stack, &mdFrame{
-				level: level,
-				node:  entry.node,
-				path:  path,
-				line:  lineNo,
+				level:         level,
+				node:          entry.node,
+				path:          path,
+				line:          lineNo,
+				anchorScope:   scope,
+				anchorSection: section,
 			})
 			return
 		}
@@ -1420,15 +1558,22 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 }
 
 // openItemHeading opens a list-item frame under a `-LST` container frame (SOM
-// §11.2). The heading id is matched positionally against the container's list:
-// the `<member>-<n>` fallback id (positional, nothing stored), the
-// `@SectionIdPattern` resolved with a number (`GOAL-ITEM-3`, parses back as
-// item `<n>` carrying that id), a pattern-shaped stored id, or — for any
-// other id — an anonymous next item carrying the stored id.
+// §11.2), the heading id read by itemIdentity.
 func (p *mdParser) openItemHeading(
 	level int, container *mdFrame, listNode *SomMetaNode, id, title, codeSpec, unitIDs string, lineNo int,
 ) {
-	listPath := container.path
+	n, hasN, storedID := p.itemIdentity(listNode, id)
+	p.openItem(level, container.path, listNode, n, storedID, hasN, title, codeSpec, unitIDs, lineNo, true)
+}
+
+// itemIdentity reads an item id of listNode, as a heading's, a records row's
+// or a section-table row's: the item number it names (hasN false: the next
+// free one) and the id it stores ("" with hasN: none). The `<member>-<n>`
+// fallback id is positional and stores nothing; the `@SectionIdPattern`
+// resolved with a number names item `<n>` and is stored, the section id being
+// the item's identity and the path only its position (SOM §11.6); any other id
+// is the next item, carrying it (YRD3).
+func (p *mdParser) itemIdentity(listNode *SomMetaNode, id string) (n int, hasN bool, storedID string) {
 	member := listNode.MemberName
 	if member == "" {
 		member = listNode.Segment()
@@ -1436,8 +1581,7 @@ func (p *mdParser) openItemHeading(
 	anonRE, err := regexp.Compile("^" + regexp.QuoteMeta(member) + "-([0-9]+)$")
 	if err == nil {
 		if anon := anonRE.FindStringSubmatch(id); anon != nil {
-			p.openItem(level, listPath, listNode, atoi(anon[1]), "", true, title, codeSpec, unitIDs, lineNo)
-			return
+			return atoi(anon[1]), true, ""
 		}
 	}
 	element := listNode.ElementNode
@@ -1446,29 +1590,18 @@ func (p *mdParser) openItemHeading(
 		pattern = element.SectionIDPattern
 	}
 	if pattern != "" {
-		// The pattern with `xxx` as a number parses back as item <n> AND is
-		// stored: the section id is the item's identity and the path only its
-		// position, so an id that happens to equal the positional default must
-		// survive a later move or insert (SOM §11.6).
 		parts := strings.Split(pattern, "xxx")
 		if len(parts) == 2 {
 			numberedRE, err := regexp.Compile("^" + regexp.QuoteMeta(parts[0]) +
 				"([0-9]+)" + regexp.QuoteMeta(parts[1]) + "$")
 			if err == nil {
 				if numbered := numberedRE.FindStringSubmatch(id); numbered != nil {
-					p.openItem(level, listPath, listNode, atoi(numbered[1]), id, true, title, codeSpec, unitIDs, lineNo)
-					return
+					return atoi(numbered[1]), true, id
 				}
 			}
 		}
-		if mdPatternMatches(pattern, id) {
-			p.openItem(level, listPath, listNode, 0, id, false, title, codeSpec, unitIDs, lineNo)
-			return
-		}
 	}
-	// Any other id under the container is an anonymous next item carrying the
-	// stored id — stored ids round-trip through Markdown too (YRD3).
-	p.openItem(level, listPath, listNode, 0, id, false, title, codeSpec, unitIDs, lineNo)
+	return 0, false, id
 }
 
 func (p *mdParser) openRoot(level int, id, title, codeSpec, unitIDs string, lineNo int) {
@@ -1503,10 +1636,11 @@ func (p *mdParser) openRoot(level int, id, title, codeSpec, unitIDs string, line
 			}
 			p.rootPrefixes[seg] = true
 			p.stack = append(p.stack, &mdFrame{
-				level: level,
-				node:  tree.Root,
-				path:  seg,
-				line:  lineNo,
+				level:         level,
+				node:          tree.Root,
+				path:          seg,
+				line:          lineNo,
+				anchorSection: seg,
 			})
 			return
 		}
@@ -1529,13 +1663,13 @@ func (p *mdParser) openRoot(level int, id, title, codeSpec, unitIDs string, line
 	p.stack = append(p.stack, &mdFrame{level: level, line: lineNo, ignored: true})
 }
 
-// openItem opens a list-item frame. n (with hasN=true) is the anonymous
-// heading number (also the path number); a stored-id item gets the next free
-// number instead.
+// openItem registers a list item and, with push, opens its frame; it returns
+// the item path. n (with hasN=true) is the anonymous heading number (also the
+// path number); a stored-id item gets the next free number instead.
 func (p *mdParser) openItem(
 	level int, listPath string, listNode *SomMetaNode,
-	n int, storedID string, hasN bool, title, codeSpec, unitIDs string, lineNo int,
-) {
+	n int, storedID string, hasN bool, title, codeSpec, unitIDs string, lineNo int, push bool,
+) string {
 	state, ok := p.lists[listPath]
 	if !ok {
 		state = &mdListState{ids: map[string]string{}}
@@ -1570,27 +1704,15 @@ func (p *mdParser) openItem(
 	if unitIDs != "" {
 		p.units[itemPath] = unitIDs
 	}
-	p.stack = append(p.stack, &mdFrame{
-		level: level,
-		node:  listNode.ElementNode,
-		path:  itemPath,
-		line:  lineNo,
-	})
-}
-
-// mdPatternMatches: `GOAL-ITEM-xxx` → `^GOAL-ITEM-.+$` — the
-// `@SectionIdPattern` wildcard.
-func mdPatternMatches(pattern, id string) bool {
-	parts := strings.Split(pattern, "xxx")
-	quoted := make([]string, len(parts))
-	for i, part := range parts {
-		quoted[i] = regexp.QuoteMeta(part)
+	if push {
+		p.stack = append(p.stack, &mdFrame{
+			level: level,
+			node:  listNode.ElementNode,
+			path:  itemPath,
+			line:  lineNo,
+		})
 	}
-	re, err := regexp.Compile("^" + strings.Join(quoted, ".+") + "$")
-	if err != nil {
-		return false
-	}
-	return re.MatchString(id)
+	return itemPath
 }
 
 func mdIsValueLeaf(kind string) bool {
@@ -1609,6 +1731,11 @@ func (p *mdParser) finalize(frame *mdFrame) {
 	if node != nil && node.Kind == SomMetaKindForm {
 		p.finalizeForm(frame, node, frame.path)
 		return
+	}
+	if node != nil && node.Kind == SomMetaKindList {
+		p.finalizeListBody(frame, node)
+	} else if node != nil && (node.Kind == SomMetaKindSection || node.Kind == SomMetaKindComplex) {
+		p.extractSectionTables(frame, node)
 	}
 	var slots []mdNodeRel
 	if node != nil {
@@ -1631,17 +1758,521 @@ func (p *mdParser) finalize(frame *mdFrame) {
 	p.finalizeBodySlots(frame, slots)
 }
 
+// --- Layout tables (SOM §11.4, §11.5) -----------------------------------------
+
+// mdBodyLine is the 1-based source line of frame's body line i.
+func mdBodyLine(frame *mdFrame, i int) int {
+	return frame.line + 1 + i
+}
+
+// mdRowCells returns the cells of a table row: split on every `|` not preceded
+// by a backslash, the outer pipes dropped, each cell trimmed; `\|` stays in the
+// cell.
+func mdRowCells(line string) []string {
+	t := strings.TrimSpace(line)
+	t = strings.TrimPrefix(t, "|")
+	if strings.HasSuffix(t, "|") && !strings.HasSuffix(t, `\|`) {
+		t = t[:len(t)-1]
+	}
+	var cells []string
+	var b strings.Builder
+	for i := 0; i < len(t); i++ {
+		ch := t[i]
+		if ch == '\\' && i+1 < len(t) && t[i+1] == '|' {
+			b.WriteString(`\|`)
+			i++
+		} else if ch == '|' {
+			cells = append(cells, strings.TrimSpace(b.String()))
+			b.Reset()
+		} else {
+			b.WriteByte(ch)
+		}
+	}
+	return append(cells, strings.TrimSpace(b.String()))
+}
+
+// mdTableRow is one body row of a layout table: its line index in the lines
+// read and its cells.
+type mdTableRow struct {
+	index int
+	cells []string
+}
+
+// readTable reads the table whose header is lines[start]: the header cells,
+// the body rows, and the index after the table; a broken delimiter row or a
+// row of another cell count is a malformedBlock.
+func (p *mdParser) readTable(
+	lines []string, start int, lineOf func(int) int, anchor string,
+) (header []string, rows []mdTableRow, end int) {
+	end = start + 1
+	for end < len(lines) && mdTableLineRE.MatchString(lines[end]) {
+		end++
+	}
+	header = mdRowCells(lines[start])
+	isDelimiter := false
+	var delimiter []string
+	if start+1 < end {
+		delimiter = mdRowCells(lines[start+1])
+		isDelimiter = true
+		for _, cell := range delimiter {
+			if !mdDelimiterCellRE.MatchString(cell) {
+				isDelimiter = false
+			}
+		}
+	}
+	if !isDelimiter || len(delimiter) != len(header) {
+		message := "table whose delimiter row does not match its header"
+		if !isDelimiter {
+			message = "table without its delimiter row"
+		}
+		p.reject(lineOf(start), SpecMarkdownRejectMalformedBlock, message, anchor)
+		return header, nil, end
+	}
+	for i := start + 2; i < end; i++ {
+		cells := mdRowCells(lines[i])
+		if len(cells) != len(header) {
+			p.reject(lineOf(i), SpecMarkdownRejectMalformedBlock,
+				"table row with "+itoa(len(cells))+" cells, the header has "+itoa(len(header)),
+				anchor)
+			continue
+		}
+		rows = append(rows, mdTableRow{index: i, cells: cells})
+	}
+	return header, rows, end
+}
+
+func (p *mdParser) reject(line int, reason, message, anchor string) {
+	p.rejections = append(p.rejections, &SpecMarkdownRejection{
+		Line:    line,
+		Reason:  reason,
+		Message: message,
+		Anchor:  anchor,
+	})
+}
+
+// mdCellValue is a cell's value for field f: `\|` unescaped, a reference
+// field's links read as their link texts, a `code` field's code span decoded.
+func mdCellValue(cell string, f *SomFormFieldMeta) string {
+	text := strings.ReplaceAll(cell, `\|`, "|")
+	if len(f.RefersTo) > 0 && !f.Code && mdLinkCellRE.MatchString(text) {
+		var texts []string
+		for _, m := range mdLinkTextRE.FindAllStringSubmatch(text, -1) {
+			texts = append(texts, m[1])
+		}
+		return strings.Join(texts, ", ")
+	}
+	if f.Code {
+		return mdDecodeCodeSpan(text)
+	}
+	return text
+}
+
+// mdCellID is a cell's id with the renderer's anchor (`<a id="X"></a>X`)
+// removed, and a link the cell is read as its text (`[X](<file>#X)`, SOM
+// §11.5).
+func mdCellID(cell string) string {
+	id := mdCellAnchorRE.ReplaceAllString(cell, "")
+	if m := mdCellLinkRE.FindStringSubmatch(id); m != nil {
+		return m[1]
+	}
+	return id
+}
+
+// givenTwice reports whether field of the form at formPath was given before,
+// and reports the repeat (malformedBlock, the first occurrence kept) when it
+// was.
+func (p *mdParser) givenTwice(formPath, field string, line int) bool {
+	given := p.given[formPath]
+	if given == nil {
+		given = map[string]bool{}
+		p.given[formPath] = given
+	}
+	if !given[field] {
+		given[field] = true
+		return false
+	}
+	p.reject(line, SpecMarkdownRejectMalformedBlock, "field \""+field+"\" given twice", formPath)
+	return true
+}
+
+func (p *mdParser) setField(formPath, field, value string) {
+	if p.forms[formPath] == nil {
+		p.forms[formPath] = map[string]string{}
+	}
+	p.forms[formPath][field] = value
+}
+
+// stageRow stages one row of a form table (or a section table).
+func (p *mdParser) stageRow(formPath string, fields []*SomFormFieldMeta, label, cell string, line int) {
+	lower := strings.ToLower(label)
+	var f *SomFormFieldMeta
+	for _, x := range fields {
+		if strings.ToLower(x.Name) == lower {
+			f = x
+			break
+		}
+	}
+	if f == nil {
+		p.reject(line, SpecMarkdownRejectUnknownField,
+			"row \""+label+"\" names no field of this form", formPath)
+		return
+	}
+	value := mdCellValue(cell, f)
+	if value == "" {
+		return
+	}
+	if p.givenTwice(formPath, f.Name, line) {
+		return
+	}
+	p.setField(formPath, f.Name, value)
+}
+
+func mdFormFields(n *SomMetaNode) []*SomFormFieldMeta {
+	if n.Form == nil {
+		return nil
+	}
+	return n.Form.Fields
+}
+
+// extractSectionTables reads and removes every section table of frame's body
+// (SOM §11.5).
+func (p *mdParser) extractSectionTables(frame *mdFrame, node *SomMetaNode) {
+	body := frame.body
+	lineOf := func(k int) int { return mdBodyLine(frame, k) }
+	fence := &MarkdownFenceTracker{}
+	for i := 0; i < len(body); i++ {
+		line := body[i]
+		var h []string
+		if !fence.InFence() {
+			h = mdLayoutTableHeaderRE.FindStringSubmatch(line)
+		}
+		if h == nil || h[1] == "" {
+			fence.Feed(line)
+			continue
+		}
+		_, rows, end := p.readTable(body, i, lineOf, frame.path)
+		formPath := ""
+		var fields []*SomFormFieldMeta
+		haveTarget := false
+		skip := false
+		for _, row := range rows {
+			k, cells := row.index, row.cells
+			section := mdCellID(cells[0])
+			if section == "" && skip {
+				continue
+			}
+			if section != "" {
+				fp, fs, ok := p.sectionTableTarget(frame, node, section)
+				skip = !ok
+				if !ok {
+					p.reject(lineOf(k), SpecMarkdownRejectUnknownSection,
+						"section-table row names no child section of \""+frame.path+"\"", section)
+					continue
+				}
+				formPath, fields, haveTarget = fp, fs, true
+			} else if !haveTarget {
+				p.reject(lineOf(k), SpecMarkdownRejectUnknownSection,
+					"section-table row names no section", frame.path)
+				continue
+			}
+			if skip {
+				continue
+			}
+			p.stageRow(formPath, fields, cells[1], cells[2], lineOf(k))
+		}
+		for k := i; k < end; k++ {
+			body[k] = ""
+		}
+		i = end - 1
+	}
+}
+
+// sectionTableTarget returns the form a section-table `Section` cell names
+// under node: its path and fields.
+func (p *mdParser) sectionTableTarget(
+	frame *mdFrame, node *SomMetaNode, section string,
+) (string, []*SomFormFieldMeta, bool) {
+	parts := mdSectionSplitRE.Split(section, -1)
+	for _, entry := range p.codec.effectiveChildren(node) {
+		child := entry.node
+		childID := p.codec.headingIdOf(child)
+		if len(parts) == 1 && child.Kind == SomMetaKindForm && childID == section {
+			return frame.path + "/" + entry.rel, mdFormFields(child), true
+		}
+		if len(parts) == 2 && child.Kind == SomMetaKindList && childID == parts[0] {
+			element := child.ElementNode
+			if element == nil {
+				return "", nil, false
+			}
+			form, ok := p.codec.itemForm(element)
+			if !ok {
+				return "", nil, false
+			}
+			n, hasN, storedID := p.itemIdentity(child, parts[1])
+			listPath := frame.path + "/" + entry.rel
+			itemPath := ""
+			if state := p.lists[listPath]; state != nil {
+				for _, item := range state.items {
+					key, stored := state.ids[item]
+					if !stored {
+						key = item[len(listPath)+1:]
+					}
+					if key == parts[1] {
+						itemPath = item
+						break
+					}
+				}
+			}
+			if itemPath == "" {
+				itemPath = p.openItem(0, listPath, child, n, storedID, hasN, "", "", "", frame.line, false)
+			}
+			return itemPath + "/" + form.rel, mdFormFields(form.node), true
+		}
+	}
+	return "", nil, false
+}
+
+// --- List bodies: `refs` and `records` (SOM §11.5) ----------------------------
+
+// finalizeListBody reads a list container's body: one `refs` or `records` div
+// stands for its items.
+func (p *mdParser) finalizeListBody(frame *mdFrame, listNode *SomMetaNode) {
+	body := frame.body
+	fence := &MarkdownFenceTracker{}
+	for i := 0; i < len(body); i++ {
+		line := body[i]
+		var open []string
+		if !fence.InFence() {
+			open = mdListDivOpenRE.FindStringSubmatch(line)
+		}
+		if open == nil {
+			fence.Feed(line)
+			continue
+		}
+		kind := open[1]
+		if kind == "" {
+			kind = open[2]
+		}
+		closeAt := -1
+		for k := i + 1; k < len(body); k++ {
+			if mdDivCloseRE.MatchString(body[k]) {
+				closeAt = k
+				break
+			}
+		}
+		reject := func(message string) {
+			p.reject(mdBodyLine(frame, i), SpecMarkdownRejectMalformedBlock, message, frame.path)
+		}
+		if closeAt < 0 {
+			// The fence's lines read as text.
+			reject("unclosed " + kind + " fence")
+			return
+		}
+		besideText := false
+		for k := 0; k < len(body); k++ {
+			if (k < i || k > closeAt) && strings.TrimSpace(body[k]) != "" {
+				besideText = true
+			}
+		}
+		state := p.lists[frame.path]
+		hasItems := state != nil && len(state.items) > 0
+		if besideText || hasItems {
+			beside := "other text"
+			if hasItems {
+				beside = "item headings"
+			}
+			reject("a " + kind + " div beside " + beside + " in a list container")
+			for k := i; k <= closeAt; k++ {
+				body[k] = ""
+			}
+			return
+		}
+		inner := append([]string{}, body[i+1:closeAt]...)
+		if kind == "refs" {
+			p.stageReferenceLine(frame, listNode, inner, i)
+		} else {
+			p.stageRecordTable(frame, listNode, inner, i)
+		}
+		for k := i; k <= closeAt; k++ {
+			body[k] = ""
+		}
+		return
+	}
+}
+
+// referenceField returns the reference field of element's items, with the
+// rel of its form.
+func (p *mdParser) referenceField(element *SomMetaNode) (string, *SomFormFieldMeta, bool) {
+	isRef := func(n *SomMetaNode) bool {
+		if n.Kind != SomMetaKindForm || n.Form == nil || len(n.Form.Fields) != 1 ||
+			len(n.Form.Fields[0].RefersTo) == 0 {
+			return false
+		}
+		for _, e := range n.Extra {
+			if e.Annotation == "Reference" {
+				return true
+			}
+		}
+		return false
+	}
+	for _, s := range p.codec.bodySlots(element) {
+		if isRef(s.node) {
+			return s.rel, s.node.Form.Fields[0], true
+		}
+	}
+	for _, s := range p.codec.effectiveChildren(element) {
+		if isRef(s.node) {
+			return s.rel, s.node.Form.Fields[0], true
+		}
+	}
+	return "", nil, false
+}
+
+// stageReferenceLine stages a `refs` div: ids split on commas and whitespace,
+// links read as their texts.
+func (p *mdParser) stageReferenceLine(frame *mdFrame, listNode *SomMetaNode, inner []string, at int) {
+	element := listNode.ElementNode
+	var (
+		refRel   string
+		refField *SomFormFieldMeta
+		ok       bool
+	)
+	if element != nil {
+		refRel, refField, ok = p.referenceField(element)
+	}
+	if !ok {
+		p.reject(mdBodyLine(frame, at), SpecMarkdownRejectMalformedBlock,
+			"a refs div in a list whose items are not references", frame.path)
+		return
+	}
+	var ids []string
+	for _, t := range mdRefsSplitRE.Split(strings.Join(inner, " "), -1) {
+		if t == "" {
+			continue
+		}
+		if m := mdLinkTextRE.FindStringSubmatch(t); m != nil {
+			t = m[1]
+		}
+		ids = append(ids, t)
+	}
+	if len(ids) == 0 {
+		p.reject(mdBodyLine(frame, at), SpecMarkdownRejectMissingValue,
+			"an empty refs div", frame.path)
+		return
+	}
+	pattern := listNode.SectionIDPattern
+	if pattern == "" && element != nil {
+		pattern = element.SectionIDPattern
+	}
+	member := listNode.MemberName
+	if member == "" {
+		member = listNode.Segment()
+	}
+	for n := 1; n <= len(ids); n++ {
+		positional := EffectiveListItemSectionID("", false, pattern, n, member)
+		number, hasN, storedID := p.itemIdentity(listNode, positional)
+		itemPath := p.openItem(0, frame.path, listNode, number, storedID, hasN, "", "", "", frame.line, false)
+		formPath := itemPath + "/" + refRel
+		if refRel == "." {
+			formPath = itemPath
+		}
+		p.setField(formPath, refField.Name, ids[n-1])
+	}
+}
+
+// stageRecordTable stages a `records` div: one table, `Id` first, `Title`
+// optionally second.
+func (p *mdParser) stageRecordTable(frame *mdFrame, listNode *SomMetaNode, inner []string, at int) {
+	lineOf := func(k int) int { return mdBodyLine(frame, at+1+k) }
+	reject := func(message string) {
+		p.reject(mdBodyLine(frame, at), SpecMarkdownRejectMalformedBlock, message, frame.path)
+	}
+	start := -1
+	for k, l := range inner {
+		if strings.TrimSpace(l) != "" {
+			start = k
+			break
+		}
+	}
+	if start < 0 || !mdTableLineRE.MatchString(inner[start]) {
+		reject("a records div holding no table")
+		return
+	}
+	header := mdRowCells(inner[start])
+	if header[0] != "Id" {
+		reject("a records table whose first column is not Id")
+		return
+	}
+	element := listNode.ElementNode
+	var form mdNodeRel
+	ok := false
+	if element != nil {
+		form, ok = p.codec.itemForm(element)
+	}
+	if !ok {
+		reject("a records div in a list whose items have no single form")
+		return
+	}
+	fields := mdFormFields(form.node)
+	withTitle := len(header) > 1 && header[1] == "Title"
+	first := 1
+	if withTitle {
+		first = 2
+	}
+	var columns []*SomFormFieldMeta
+	for _, label := range header[first:] {
+		lower := strings.ToLower(label)
+		var f *SomFormFieldMeta
+		for _, x := range fields {
+			if strings.ToLower(x.Name) == lower {
+				f = x
+				break
+			}
+		}
+		if f == nil {
+			// The table is skipped whole.
+			p.reject(lineOf(start), SpecMarkdownRejectUnknownField,
+				"records column \""+label+"\" names no field of the items", frame.path)
+			return
+		}
+		columns = append(columns, f)
+	}
+	_, rows, _ := p.readTable(inner, start, lineOf, frame.path)
+	stem := mdItemStemOf(listNode)
+	for _, row := range rows {
+		k, cells := row.index, row.cells
+		id := mdCellID(cells[0])
+		n, hasN, storedID := p.itemIdentity(listNode, id)
+		itemPath := p.openItem(0, frame.path, listNode, n, storedID, hasN, "", "", "", lineOf(k), false)
+		if withTitle {
+			title := strings.ReplaceAll(strings.ReplaceAll(cells[1], `\|`, "|"), "<br>", "\n")
+			number := itemPath[len(frame.path)+1:]
+			if title != "" && title != stem+" "+number {
+				p.headlines[itemPath] = title
+			}
+		}
+		formPath := itemPath + "/" + form.rel
+		for c, column := range columns {
+			value := mdCellValue(cells[first+c], column)
+			if value == "" {
+				continue
+			}
+			p.setField(formPath, column.Name, value)
+		}
+	}
+}
+
 // finalizeBodySlots binds a heading's body region against the owner's
-// transparent body slots (SOM §11.6): `FieldName:` lines matching a
-// transparent form's fields route to that form (nearest form in slot order,
-// wrapping); a slot marker (`<!-- slot: <rel> -->`) sends the text after it to
-// the named slot — a content slot, a form's preamble, or the owner itself
-// (`.`) — and ends any open field. Unmarked text binds to the first content
-// slot; with no content slot it is a form's preamble (SOM §11.4 rule 7) — the
-// class-level `@Form` on the `content` member, else the first form — which is
-// where the YAML codec keeps it; only an owner with no slot at all takes it on
-// its own path. In a region with forms every label-shaped text line carries
-// the one escape space the emitter adds; it is stripped.
+// transparent body slots (SOM §11.6): `FieldName:` lines and form-table rows
+// matching a transparent form's fields route to that form (nearest form in
+// slot order, wrapping); a slot marker (`<!-- slot: <rel> -->`) sends the text
+// after it to the named slot — a content slot, a form's preamble, or the owner
+// itself (`.`) — and ends any open field. Unmarked text binds to the first
+// content slot; with no content slot it is a form's preamble (SOM §11.4 rule
+// 7) — the class-level `@Form` on the `content` member, else the first form —
+// which is where the YAML codec keeps it; only an owner with no slot at all
+// takes it on its own path. In a region with forms every label-shaped text
+// line carries the one escape space the emitter adds; it is stripped.
 func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 	var formSlots []mdNodeRel
 	for _, s := range slots {
@@ -1656,6 +2287,7 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 		}
 		return frame.path + "/" + rel
 	}
+	lineOf := func(k int) int { return mdBodyLine(frame, k) }
 
 	findField := func(label string) (int, *SomFormFieldMeta, bool) {
 		lower := strings.ToLower(label)
@@ -1679,6 +2311,7 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 	currentFormPath := ""
 	currentCode := false
 	haveField := false
+	discard := false
 	var currentLines []string
 	// Unlabelled text per target path, in the order the targets were opened;
 	// a target opened twice gets its parts joined by a blank line.
@@ -1695,31 +2328,30 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 	contentLines := openText(pathOf(defaultRel))
 
 	flush := func() {
-		if haveField {
+		if haveField && !discard {
 			value := mdRestoreValue(currentLines)
 			if currentCode {
 				value = mdDecodeCodeSpan(value)
 			}
 			if value != "" {
-				if p.forms[currentFormPath] == nil {
-					p.forms[currentFormPath] = map[string]string{}
-				}
-				p.forms[currentFormPath][currentField] = value
+				p.setField(currentFormPath, currentField, value)
 			}
 		}
 		currentLines = nil
+		discard = false
 	}
 
 	p.currentFormIdx = 0
-	for _, line := range frame.body {
+	for i := 0; i < len(frame.body); i++ {
+		line := frame.body[i]
 		if !fence.InFence() {
 			if mm := mdSlotMarkerRE.FindStringSubmatch(line); mm != nil {
 				rel := mm[1]
 				slotIdx := -1
 				if rel != "." {
-					for i, s := range slots {
+					for k, s := range slots {
 						if s.rel == rel {
-							slotIdx = i
+							slotIdx = k
 							break
 						}
 					}
@@ -1730,9 +2362,9 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 					currentField = ""
 					currentFormPath = ""
 					if slotIdx >= 0 && slots[slotIdx].node.Kind == SomMetaKindForm {
-						for i, fs := range formSlots {
+						for k, fs := range formSlots {
 							if fs.rel == rel {
-								p.currentFormIdx = i
+								p.currentFormIdx = k
 								break
 							}
 						}
@@ -1740,6 +2372,28 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 					contentLines = openText(pathOf(rel))
 					continue
 				}
+			}
+			if h := mdLayoutTableHeaderRE.FindStringSubmatch(line); h != nil && h[1] == "" && len(formSlots) > 0 {
+				// A form table ends the open field (SOM §11.4); its rows bind like
+				// `Field:` labels, each to the nearest form declaring it.
+				flush()
+				haveField = false
+				currentField = ""
+				currentFormPath = ""
+				_, rows, end := p.readTable(frame.body, i, lineOf, frame.path)
+				for _, row := range rows {
+					idx, f, ok := findField(row.cells[0])
+					if !ok {
+						p.reject(lineOf(row.index), SpecMarkdownRejectUnknownField,
+							"row \""+row.cells[0]+"\" names no field of this form", frame.path)
+						continue
+					}
+					p.currentFormIdx = idx
+					p.stageRow(frame.path+"/"+formSlots[idx].rel, []*SomFormFieldMeta{f},
+						row.cells[0], row.cells[1], lineOf(row.index))
+				}
+				i = end - 1
+				continue
 			}
 			if m := mdFieldLabelRE.FindStringSubmatch(line); m != nil {
 				if idx, f, ok := findField(m[1]); ok {
@@ -1749,6 +2403,7 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 					currentField = f.Name
 					currentCode = f.Code
 					currentFormPath = frame.path + "/" + formSlots[idx].rel
+					discard = p.givenTwice(currentFormPath, currentField, lineOf(i))
 					currentLines = []string{m[2]}
 					fence.Feed(line)
 					continue
@@ -1782,54 +2437,58 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 	}
 }
 
-// finalizeForm parses an id-bearing `@Form` section's body: the preamble text
-// before the first field label binds to the form's own content (SOM §11.4
-// rule 7); everything from the first label on binds to the named fields.
+// finalizeForm parses an id-bearing `@Form` section's body: `FieldName:`
+// paragraphs and form-table rows bind to the named fields wherever they stand
+// (SOM §11.4); the text that belongs to no field — before the first field, or
+// after a table — is the form's preamble, its own content (rule 7).
 func (p *mdParser) finalizeForm(frame *mdFrame, node *SomMetaNode, path string) {
-	var fields []*SomFormFieldMeta
-	if node.Form != nil {
-		fields = node.Form.Fields
+	declared := mdFormFields(node)
+	fieldsByLower := map[string]*SomFormFieldMeta{}
+	for _, f := range declared {
+		fieldsByLower[strings.ToLower(f.Name)] = f
 	}
-	fieldsByLower := map[string]string{}
-	for _, f := range fields {
-		fieldsByLower[strings.ToLower(f.Name)] = f.Name
-	}
-	codeFields := map[string]bool{}
-	for _, f := range fields {
-		if f.Code {
-			codeFields[f.Name] = true
-		}
-	}
+	lineOf := func(k int) int { return mdBodyLine(frame, k) }
 	fence := &MarkdownFenceTracker{}
-	currentField := ""
-	haveField := false
+	var currentField *SomFormFieldMeta
+	discard := false
 	var currentLines []string
+	// The preamble's parts: the text before the first field, and text a table
+	// interrupts; joined by one blank line.
+	preambleParts := [][]string{nil}
 
-	flush := func(lineNo int) {
-		value := mdRestoreValue(currentLines)
-		if haveField && codeFields[currentField] {
-			value = mdDecodeCodeSpan(value)
-		}
-		if haveField {
-			if value != "" {
-				if p.forms[path] == nil {
-					p.forms[path] = map[string]string{}
-				}
-				p.forms[path][currentField] = value
+	flush := func() {
+		if f := currentField; f != nil && !discard {
+			value := mdRestoreValue(currentLines)
+			if f.Code {
+				value = mdDecodeCodeSpan(value)
 			}
-		} else if value != "" {
-			p.content[path] = value
+			if value != "" {
+				p.setField(path, f.Name, value)
+			}
 		}
 		currentLines = nil
+		discard = false
 	}
 
-	for i, line := range frame.body {
+	for i := 0; i < len(frame.body); i++ {
+		line := frame.body[i]
 		if !fence.InFence() {
+			if h := mdLayoutTableHeaderRE.FindStringSubmatch(line); h != nil && h[1] == "" {
+				flush()
+				currentField = nil
+				preambleParts = append(preambleParts, nil)
+				_, rows, end := p.readTable(frame.body, i, lineOf, path)
+				for _, row := range rows {
+					p.stageRow(path, declared, row.cells[0], row.cells[1], lineOf(row.index))
+				}
+				i = end - 1
+				continue
+			}
 			if m := mdFieldLabelRE.FindStringSubmatch(line); m != nil {
-				if fieldName, ok := fieldsByLower[strings.ToLower(m[1])]; ok {
-					flush(frame.line + i)
-					haveField = true
-					currentField = fieldName
+				if f, ok := fieldsByLower[strings.ToLower(m[1])]; ok {
+					flush()
+					currentField = f
+					discard = p.givenTwice(path, f.Name, lineOf(i))
 					currentLines = []string{m[2]}
 					fence.Feed(line)
 					continue
@@ -1837,25 +2496,42 @@ func (p *mdParser) finalizeForm(frame *mdFrame, node *SomMetaNode, path string) 
 			}
 		}
 		// Continuation: strip the one escape space of a label-shaped line.
+		text := line
 		if !fence.InFence() && mdContinuationLabelRE.MatchString(line) {
-			currentLines = append(currentLines, line[1:])
+			text = line[1:]
+		}
+		if currentField == nil {
+			last := len(preambleParts) - 1
+			preambleParts[last] = append(preambleParts[last], text)
 		} else {
-			currentLines = append(currentLines, line)
+			currentLines = append(currentLines, text)
 		}
 		fence.Feed(line)
 	}
-	flush(frame.line + len(frame.body))
+	flush()
+	var values []string
+	for _, part := range preambleParts {
+		if v := mdRestoreValue(part); v != "" {
+			values = append(values, v)
+		}
+	}
+	if value := strings.Join(values, "\n\n"); value != "" {
+		p.content[path] = value
+	}
 }
 
 // mdRestoreValue is the parse-side value restoration (SOM §11.3): trim
-// leading/trailing blank lines and unescape `\#`-escaped heading lines
-// outside fences.
+// leading/trailing blank lines, unescape `\#`-escaped heading lines and strip
+// the one escape space of a line shaped like a layout table header (SOM
+// §11.4), outside fences.
 func mdRestoreValue(body []string) string {
 	fence := &MarkdownFenceTracker{}
 	out := make([]string, 0, len(body))
 	for _, line := range body {
 		if !fence.InFence() && mdEscapedHeadingRE.MatchString(line) {
 			out = append(out, line[1:])
+		} else if !fence.InFence() && mdEscapedTableHeaderRE.MatchString(line) {
+			out = append(out, line[1:]) // The emitter's one escape space.
 		} else {
 			out = append(out, line)
 		}

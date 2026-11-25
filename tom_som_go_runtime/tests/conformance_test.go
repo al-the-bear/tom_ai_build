@@ -654,22 +654,27 @@ func testMarkdownRoundTrip(c *checker, t *testing.T, model *som.SpecModel) {
 	c.check("md.parse.reexport", actual == golden, byteDiff("md.parse.reexport", actual, golden))
 }
 
-// Markdown/YAML convergence: parsing `expected.tomspecs.md` and applying it must
-// reproduce `state.json` (the YAML-route memory) exactly, proving both formats
-// converge on one in-memory document (SOM §8).
+// Markdown/YAML convergence: parsing either golden (`expected.tables.md`, the
+// reading view's tables, and `expected.tomspecs.md`, the `Field:` lines) and
+// applying it must reproduce `state.json` (the YAML-route memory) exactly,
+// proving both formats converge on one in-memory document (SOM §8).
 func testMarkdownMemoryLanding(c *checker, t *testing.T, model *som.SpecModel) {
-	golden := readCorpus(t, exportGolden)
 	var canonical som.DocumentJson
 	readJSON(t, "state.json", &canonical)
-	imported, err := som.SpecDocumentFromMarkdown(golden, model)
-	if err != nil {
-		c.check("md.land.clean", false, err.Error())
-		return
-	}
-	c.check("md.land.clean", len(imported.Rejections()) == 0, rejDetail(imported.Result))
-	got := canonJSON(t, imported.Document.ToJSON())
 	want := canonJSON(t, &canonical)
-	c.check("md.land.memory", got == want, "got "+got+" want "+want)
+	for _, golden := range []struct{ label, file string }{
+		{"tables", "expected.tables.md"},
+		{"fields", exportGolden},
+	} {
+		imported, err := som.SpecDocumentFromMarkdown(readCorpus(t, golden.file), model)
+		if err != nil {
+			c.check("md.land."+golden.label+".clean", false, err.Error())
+			continue
+		}
+		c.check("md.land."+golden.label+".clean", len(imported.Rejections()) == 0, rejDetail(imported.Result))
+		got := canonJSON(t, imported.Document.ToJSON())
+		c.check("md.land."+golden.label+".memory", got == want, "got "+got+" want "+want)
+	}
 }
 
 // markdownApplyCaseTable mirrors corpus/markdown_apply_cases.json — the SOM
@@ -748,8 +753,11 @@ type markdownImportCaseTable struct {
 	Cases []struct {
 		Name        string `json:"name"`
 		ReadingView bool   `json:"readingView"`
-		Markdown    string `json:"markdown"`
-		Rejections  []struct {
+		// ReadableHeader is present on the readable-header cases (nil when
+		// absent).
+		ReadableHeader json.RawMessage `json:"readableHeader"`
+		Markdown       string          `json:"markdown"`
+		Rejections     []struct {
 			Line    int     `json:"line"`
 			Reason  string  `json:"reason"`
 			Anchor  *string `json:"anchor"`
@@ -772,9 +780,11 @@ func testMarkdownImportRejections(c *checker, t *testing.T, model *som.SpecModel
 	var table markdownImportCaseTable
 	readJSON(t, "markdown_import_cases.json", &table)
 	for _, kase := range table.Cases {
-		// The reading view's table forms (`readingView`) are read by the Dart and
-		// TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
-		if kase.ReadingView {
+		// The reading view's table layout is read; the readable header and the
+		// styled-div headings belong to the strip of a document
+		// (runtime_parity.md § Reading view).
+		if kase.ReadingView &&
+			(kase.ReadableHeader != nil || strings.HasPrefix(kase.Name, "styled-div headings")) {
 			continue
 		}
 		name := kase.Name
