@@ -53,6 +53,14 @@
 #define SPEC_MARKDOWN_REJECT_MISSING_VALUE "missingValue"
 /* A heading line without a parseable `<!--[id]-->` headline comment. */
 #define SPEC_MARKDOWN_REJECT_MALFORMED_HEADING "malformedHeading"
+/* A form-table row, a section-table row or a records column names no field
+ * the form declares (SOM §11.4, §11.5). */
+#define SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD "unknownField"
+/* A block that breaks the layout grammar: a table without its delimiter row or
+ * with a row of another cell count, a field given twice, a `refs` / `records`
+ * div beside other text or item headings or not holding what it should, an
+ * unclosed `refs` / `records` fence. The message says which. */
+#define SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK "malformedBlock"
 
 /* One rejected block in a Markdown import (SOM §11.7). Reported, never
  * silently dropped: each carries the source line, the offending anchor

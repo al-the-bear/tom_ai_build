@@ -2,6 +2,26 @@
 
 ## Unreleased
 
+- **The Markdown parser reads the reading view's table layout** (SOM §11.4,
+  §11.5), the C port of the Dart and TypeScript parsers: form tables
+  `| TomSpecField | Value |` (between `Field:` paragraphs, a code span holding
+  `\|`, a reference field's links read as their texts, the prose around a
+  table as the preamble, a slot marker before a form table), records tables in
+  a `::: {.records}` div (an `Id` column, a `Title` column or none, `<br>`
+  titles), reference lines in a `::: {.refs}` div, section tables
+  `| Section | TomSpecField | Value |` rebuilding child forms and list items,
+  and heading anchors equal to the section id or to its qualified form (SOM
+  §11.2) removed from the title. Two new rejection reasons,
+  `SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD` (`unknownField`) and
+  `SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK` (`malformedBlock`): a table without
+  its delimiter row or with a row of another cell count, a field given twice
+  (in either layout; the first value is kept), a malformed `refs` / `records`
+  div. The `Field:` layout reads as before. The emitter escapes a value line
+  shaped like a layout table header with one space, and the parser removes it.
+  The conformance runner runs the reading view's import cases (all but the
+  readable header's and the styled-div headings') and lands
+  `expected.tables.md` into the document `expected.tomspecs.md` lands.
+
 - **The reading notation's scanner** (DocSpecs specification, Reading
   Notation RN-1 to RN-13), the C port of Dart's `spec_notation.dart`:
   `spec_notation.h` / `.c` with `spec_scan_notation`, `SpecNotationScan`,

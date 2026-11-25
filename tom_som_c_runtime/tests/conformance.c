@@ -614,9 +614,30 @@ static void test_markdown_memory_landing(Checker *c, const SpecModel *model) {
   snprintf(detail, sizeof(detail), "got %s want %s", got, want);
   check(c, "md.land.memory", strcmp(got, want) == 0, detail);
   free(got);
-  free(want);
   document_json_free(&dj);
   spec_markdown_import_free(&imported);
+
+  /* The tables golden (SOM §11.4, §11.5) lands the same document as the
+   * `fields` golden: the parser reads both layouts. */
+  char *tables_md = read_corpus("expected.tables.md");
+  SpecMarkdownImport tables;
+  spec_document_from_markdown(tables_md, model, &tables);
+  char *trs = rej_str(&tables.result);
+  check(c, "md.land.tables.clean", spec_markdown_result_is_clean(&tables.result),
+        trs);
+  free(trs);
+  DocumentJson tj;
+  spec_document_to_json(tables.document, &tj);
+  char *tgot = document_json_to_canonical_json(&tj);
+  char *tdiff = byte_diff("md.land.tables.memory", tgot, want);
+  check(c, "md.land.tables.memory", strcmp(tgot, want) == 0, tdiff);
+  free(tdiff);
+  free(tgot);
+  document_json_free(&tj);
+  spec_markdown_import_free(&tables);
+  free(tables_md);
+
+  free(want);
   document_json_free(&canonical);
   som_json_free(sj);
   free(expected_md);
@@ -951,10 +972,15 @@ static void test_markdown_import_rejections(Checker *c, const SpecModel *model) 
   size_t n = som_json_array_len(cases);
   for (size_t i = 0; i < n; i++) {
     const SomJson *kase = som_json_array_at(cases, i);
-    /* The reading view's table forms (`readingView`) are read by the Dart and
-     * TypeScript runtimes only until their ports (runtime_parity.md § Reading view). */
-    if (som_json_bool_or(kase, "readingView")) continue;
     const char *name = som_json_str_or(kase, "name");
+    /* The reading view's table layout is read (tspubnondart61); the readable
+     * header and the styled-div headings are the strip-document port's
+     * (tspubnondart96, runtime_parity.md § Reading view). */
+    if (som_json_bool_or(kase, "readingView") &&
+        (som_json_get(kase, "readableHeader") != NULL ||
+         strncmp(name, "styled-div headings", 19) == 0)) {
+      continue;
+    }
     const SomJson *want_rejections = som_json_get(kase, "rejections");
     size_t want_n = som_json_array_len(want_rejections);
     char label[256];

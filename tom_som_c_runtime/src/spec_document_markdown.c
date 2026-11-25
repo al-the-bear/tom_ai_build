@@ -884,6 +884,12 @@ static void md_write_heading(MdCodec *c, SomBuf *b, int depth, const char *id,
  * outside fences.
  * Returns 1 writing owned `*out`; on an unterminated fence returns 0 writing
  * `*err`. */
+/* `^ *\|\s*(?:Section\s*\|\s*)?TomSpecField\s*\|\s*Value\s*\|?\s*$` (any case):
+ * a value line shaped like a layout table header (SOM §11.4), which the
+ * emitter escapes with one space and the parser unescapes. Defined with the
+ * parser's layout matchers below. */
+static int match_layout_header_shaped(const char *line);
+
 static int prepare_value(const char *value, const char *path, char **out,
                          char **err) {
   char *trimmed = strip_outer_newlines(value);
@@ -903,6 +909,10 @@ static int prepare_value(const char *value, const char *path, char **out,
       som_buf_puts(&b, line);
     } else if (match_escapable(line)) {
       som_buf_putc(&b, '\\');
+      som_buf_puts(&b, line);
+    } else if (match_layout_header_shaped(line)) {
+      /* DI-2 (SOM §11.4): a value line is never a layout table. */
+      som_buf_putc(&b, ' ');
       som_buf_puts(&b, line);
     } else {
       som_buf_puts(&b, line);
@@ -1700,6 +1710,11 @@ typedef struct {
   size_t line;
   int ignored;
   LineVec body;
+  /* The qualified-anchor scope (SOM §11.2): the ids joined by '/' a heading
+   * below this one prefixes its anchor with, NULL for none; and the section
+   * id a copy's anchor is qualified by. Both owned, NULL when unset. */
+  char *anchor_scope;
+  char *anchor_section;
 } MdFrame;
 
 typedef struct {
@@ -1726,6 +1741,9 @@ typedef struct {
    * `parser_open_heading` for the duration of that call; NULL otherwise. It is
    * staged wherever that heading's codeSpec is staged. */
   const char *heading_units;
+  /* The fields given so far per form ("<form path>\x1f<field>"), for the
+   * given-twice rule (SOM §11.4). */
+  SomMap given;
 } MdParser;
 
 static void parser_push_rejection(MdParser *p, size_t line, const char *reason,
@@ -1788,6 +1806,8 @@ static MdListState *parser_list_state(MdParser *p, const char *list_path) {
 
 /* ---- restore value (parse-side) ----------------------------------------- */
 
+static int match_layout_header_escaped(const char *line);
+
 static char *restore_value(char *const *body, size_t body_len) {
   SpecMarkdownFenceTracker fence;
   spec_markdown_fence_init(&fence);
@@ -1800,6 +1820,9 @@ static char *restore_value(char *const *body, size_t body_len) {
     }
     if (!spec_markdown_fence_in_fence(&fence) && match_escaped_heading(line)) {
       som_buf_puts(&b, line + 1);
+    } else if (!spec_markdown_fence_in_fence(&fence) &&
+               match_layout_header_escaped(line)) {
+      som_buf_puts(&b, line + 1); /* DI-2: the emitter's one escape space. */
     } else {
       som_buf_puts(&b, line);
     }
@@ -1894,53 +1917,992 @@ static void staged_set_form(MdParser *p, const char *form_path,
   som_map_set(fields, field, value);
 }
 
+/* ---- reading view: layout tables (SOM §11.4, §11.5) --------------------- */
+
+static int anon_member_match(const char *member, const char *id,
+                             long long *num);
+static int numbered_pattern_match(const char *pattern, const char *id,
+                                  long long *num);
+static char *parser_open_item(MdParser *p, int level, const char *list_path,
+                              const SomMetaNode *list_node, long long n,
+                              const char *stored_id, int has_n,
+                              const char *title, const char *code_spec,
+                              size_t line, int push);
+
+/* `^\|\s*(?:(Section)\s*\|\s*)?TomSpecField\s*\|\s*Value\s*\|?\s*$` (any
+ * case) after the leading spaces `mode` allows: 0 none (the layout table
+ * header, column 0), 1 any number (a value line shaped like one), 2 at least
+ * one (a value line the emitter escaped). Writes whether the header names a
+ * `Section` column. */
+static int ci_word_at(const char *s, size_t *i, const char *word) {
+  size_t k = 0;
+  while (word[k] != '\0') {
+    if (to_lower_c(s[*i + k]) != to_lower_c(word[k])) return 0;
+    k++;
+  }
+  *i += k;
+  return 1;
+}
+
+static void skip_ws(const char *s, size_t *i) {
+  while (s[*i] != '\0' && is_ws(s[*i])) (*i)++;
+}
+
+static int header_rest(const char *s, size_t i, int with_section) {
+  skip_ws(s, &i);
+  if (with_section) {
+    if (!ci_word_at(s, &i, "Section")) return 0;
+    skip_ws(s, &i);
+    if (s[i] != '|') return 0;
+    i++;
+    skip_ws(s, &i);
+  }
+  if (!ci_word_at(s, &i, "TomSpecField")) return 0;
+  skip_ws(s, &i);
+  if (s[i] != '|') return 0;
+  i++;
+  skip_ws(s, &i);
+  if (!ci_word_at(s, &i, "Value")) return 0;
+  skip_ws(s, &i);
+  if (s[i] == '|') i++;
+  skip_ws(s, &i);
+  return s[i] == '\0';
+}
+
+static int match_layout_header(const char *line, int mode, int *is_section) {
+  size_t i = 0;
+  while (line[i] == ' ') i++;
+  if (mode == 0 && i != 0) return 0;
+  if (mode == 2 && i == 0) return 0;
+  if (line[i] != '|') return 0;
+  i++;
+  if (header_rest(line, i, 1)) {
+    if (is_section) *is_section = 1;
+    return 1;
+  }
+  if (header_rest(line, i, 0)) {
+    if (is_section) *is_section = 0;
+    return 1;
+  }
+  return 0;
+}
+
+/* `^ {0,3}\|`: a line that continues a table. */
+static int match_table_line(const char *line) {
+  size_t i = 0;
+  while (i < 3 && line[i] == ' ') i++;
+  return line[i] == '|';
+}
+
+/* `^:?-+:?$`. */
+static int is_delimiter_cell(const char *c) {
+  size_t n = strlen(c), i = 0;
+  if (n > 0 && c[0] == ':') i++;
+  size_t e = n;
+  if (e > i && c[e - 1] == ':') e--;
+  if (e <= i) return 0;
+  for (size_t k = i; k < e; k++) {
+    if (c[k] != '-') return 0;
+  }
+  return 1;
+}
+
+/* The cells of a table row: split on every `|` not preceded by a backslash,
+ * the outer pipes dropped, each cell trimmed; `\|` stays in the cell. */
+static void row_cells(const char *line, SomStrList *out) {
+  som_strlist_init(out);
+  char *t = trim_space(line);
+  size_t n = strlen(t);
+  size_t a = 0;
+  if (n > 0 && t[0] == '|') a = 1;
+  if (n > a && t[n - 1] == '|' && !(n >= 2 && t[n - 2] == '\\')) n--;
+  SomBuf b;
+  som_buf_init(&b);
+  for (size_t i = a; i < n; i++) {
+    char c = t[i];
+    if (c == '\\' && i + 1 < n && t[i + 1] == '|') {
+      som_buf_puts(&b, "\\|");
+      i++;
+    } else if (c == '|') {
+      char *cell = som_buf_take(&b);
+      som_strlist_push(out, trim_space(cell));
+      free(cell);
+    } else {
+      som_buf_putc(&b, c);
+    }
+  }
+  char *cell = som_buf_take(&b);
+  som_strlist_push(out, trim_space(cell));
+  free(cell);
+  free(t);
+}
+
+/* One body row of a table: its line index and its cells. */
+typedef struct {
+  size_t index;
+  SomStrList cells;
+} MdRow;
+
+typedef struct {
+  SomStrList header;
+  MdRow *rows;
+  size_t rows_len;
+  size_t end; /* the index after the table */
+} MdTable;
+
+static void md_table_free(MdTable *t) {
+  som_strlist_free(&t->header);
+  for (size_t i = 0; i < t->rows_len; i++) som_strlist_free(&t->rows[i].cells);
+  free(t->rows);
+  t->rows = NULL;
+  t->rows_len = 0;
+}
+
+/* Reads the table whose header is `lines[start]`: the header cells, the body
+ * rows with their line indexes, and the index after the table; a broken
+ * delimiter row or a row of another cell count is a `malformedBlock`. Line
+ * `k` of `lines` is source line `line_base + k`. */
+static void read_table(MdParser *p, char *const *lines, size_t len,
+                       size_t start, size_t line_base, const char *anchor,
+                       MdTable *out) {
+  size_t end = start + 1;
+  while (end < len && match_table_line(lines[end])) end++;
+  out->end = end;
+  out->rows = NULL;
+  out->rows_len = 0;
+  row_cells(lines[start], &out->header);
+  int is_delimiter = 0;
+  size_t delimiter_len = 0;
+  if (start + 1 < end) {
+    SomStrList d;
+    row_cells(lines[start + 1], &d);
+    is_delimiter = 1;
+    for (size_t i = 0; i < d.len; i++) {
+      if (!is_delimiter_cell(d.items[i])) is_delimiter = 0;
+    }
+    delimiter_len = d.len;
+    som_strlist_free(&d);
+  }
+  if (!is_delimiter || delimiter_len != out->header.len) {
+    parser_push_rejection(p, line_base + start,
+                          SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
+                          !is_delimiter
+                              ? "table without its delimiter row"
+                              : "table whose delimiter row does not match its "
+                                "header",
+                          anchor);
+    return;
+  }
+  if (end > start + 2) out->rows = calloc(end - start - 2, sizeof(MdRow));
+  for (size_t i = start + 2; i < end; i++) {
+    SomStrList cells;
+    row_cells(lines[i], &cells);
+    if (cells.len != out->header.len) {
+      SomBuf msg;
+      som_buf_init(&msg);
+      som_buf_puts(&msg, "table row with ");
+      som_buf_puti(&msg, (long long)cells.len);
+      som_buf_puts(&msg, " cells, the header has ");
+      som_buf_puti(&msg, (long long)out->header.len);
+      char *m = som_buf_take(&msg);
+      parser_push_rejection(p, line_base + i,
+                            SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK, m, anchor);
+      free(m);
+      som_strlist_free(&cells);
+      continue;
+    }
+    out->rows[out->rows_len].index = i;
+    out->rows[out->rows_len].cells = cells;
+    out->rows_len++;
+  }
+}
+
+/* `s` with every `from` replaced by `to`. Owned result. */
+static char *replace_all(const char *s, const char *from, const char *to) {
+  SomBuf b;
+  som_buf_init(&b);
+  size_t fl = strlen(from);
+  const char *q = s;
+  const char *hit;
+  while ((hit = strstr(q, from)) != NULL) {
+    som_buf_putn(&b, q, (size_t)(hit - q));
+    som_buf_puts(&b, to);
+    q = hit + fl;
+  }
+  som_buf_puts(&b, q);
+  return som_buf_take(&b);
+}
+
+/* `\[[^\]]+\]\([^)]*\)` at s[*i]: writes the link text's range and advances
+ * past the link. */
+static int link_at(const char *s, size_t *i, size_t *ta, size_t *tb) {
+  size_t k = *i;
+  if (s[k] != '[') return 0;
+  k++;
+  size_t a = k;
+  while (s[k] != '\0' && s[k] != ']') k++;
+  if (s[k] != ']' || k == a) return 0;
+  size_t b = k;
+  k++;
+  if (s[k] != '(') return 0;
+  k++;
+  while (s[k] != '\0' && s[k] != ')') k++;
+  if (s[k] != ')') return 0;
+  *ta = a;
+  *tb = b;
+  *i = k + 1;
+  return 1;
+}
+
+/* `^\[[^\]]+\]\([^)]*\)(, \[[^\]]+\]\([^)]*\))*$`: on a match writes the link
+ * texts joined by ", " to `*texts`. */
+static int link_cell(const char *s, char **texts) {
+  SomBuf b;
+  som_buf_init(&b);
+  size_t i = 0, ta, tb;
+  for (;;) {
+    if (!link_at(s, &i, &ta, &tb)) {
+      som_buf_free(&b);
+      return 0;
+    }
+    if (b.len > 0) som_buf_puts(&b, ", ");
+    som_buf_putn(&b, s + ta, tb - ta);
+    if (s[i] == '\0') break;
+    if (s[i] != ',' || s[i + 1] != ' ') {
+      som_buf_free(&b);
+      return 0;
+    }
+    i += 2;
+  }
+  *texts = som_buf_take(&b);
+  return 1;
+}
+
+/* A cell's value for field `f`: `\|` unescaped, a reference field's links
+ * read as their link texts, a `code` field's code span decoded. Owned. */
+static char *cell_value(const char *cell, const SomFormFieldMeta *f) {
+  char *text = replace_all(cell, "\\|", "|");
+  char *texts = NULL;
+  if (f->refers_to_len > 0 && !f->code && link_cell(text, &texts)) {
+    free(text);
+    return texts;
+  }
+  return f->code ? decode_code_span(text) : text;
+}
+
+/* A cell's id with the renderer's anchor (`<a id="X"></a>X`) removed and a
+ * link the cell is read as its text (`[X](<file>#X)`, SOM §11.5). Owned. */
+static char *cell_id(const char *cell) {
+  const char *r = cell;
+  if (strncmp(cell, "<a id=\"", 7) == 0) {
+    const char *q = strchr(cell + 7, '"');
+    if (q != NULL && strncmp(q, "\"></a>", 6) == 0) {
+      r = q + 6;
+      while (*r != '\0' && is_ws(*r)) r++;
+    }
+  }
+  /* `^\[([^\]]+)\]\([^)\s]*\)$` */
+  if (r[0] == '[') {
+    const char *close = strchr(r + 1, ']');
+    if (close != NULL && close > r + 1 && close[1] == '(') {
+      const char *e = close + 2;
+      while (*e != '\0' && *e != ')' && !is_ws(*e)) e++;
+      if (*e == ')' && e[1] == '\0') return som_strdup_n(r + 1, (size_t)(close - r - 1));
+    }
+  }
+  return som_strdup(r);
+}
+
+/* Whether `field` of the form at `form_path` was given before; reports the
+ * repeat (`malformedBlock`, the first occurrence kept) when it was. */
+static int given_twice(MdParser *p, const char *form_path, const char *field,
+                       size_t line) {
+  SomBuf key;
+  som_buf_init(&key);
+  som_buf_puts(&key, form_path);
+  som_buf_putc(&key, '\x1f');
+  som_buf_puts(&key, field);
+  char *k = som_buf_take(&key);
+  int seen = som_map_get(&p->given, k) != NULL;
+  if (!seen) {
+    som_map_set(&p->given, k, "1");
+    free(k);
+    return 0;
+  }
+  free(k);
+  char *msg = vcat3("field \"", field, "\" given twice");
+  parser_push_rejection(p, line, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK, msg,
+                        form_path);
+  free(msg);
+  return 1;
+}
+
+/* Stages one row of a form table (or a section table): `label` names one of
+ * `fields` (any case). */
+static void stage_row(MdParser *p, const char *form_path,
+                      const SomFormFieldMeta *const *fields, size_t fields_len,
+                      const char *label, const char *cell, size_t line) {
+  const SomFormFieldMeta *f = NULL;
+  char *lower = lower_dup(label);
+  for (size_t i = 0; i < fields_len && f == NULL; i++) {
+    char *fl = lower_dup(fields[i]->name);
+    if (strcmp(fl, lower) == 0) f = fields[i];
+    free(fl);
+  }
+  free(lower);
+  if (f == NULL) {
+    char *msg = vcat3("row \"", label, "\" names no field of this form");
+    parser_push_rejection(p, line, SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD, msg,
+                          form_path);
+    free(msg);
+    return;
+  }
+  char *value = cell_value(cell, f);
+  if (value[0] != '\0' && !given_twice(p, form_path, f->name, line)) {
+    staged_set_form(p, form_path, f->name, value);
+  }
+  free(value);
+}
+
+/* The fields of a form node as a pointer array (owned array, borrowed
+ * fields). */
+static const SomFormFieldMeta **form_fields_of(const SomMetaNode *node,
+                                               size_t *len) {
+  *len = node != NULL && node->form != NULL ? node->form->fields_len : 0;
+  if (*len == 0) return NULL;
+  const SomFormFieldMeta **out = malloc(*len * sizeof(*out));
+  for (size_t i = 0; i < *len; i++) out[i] = &node->form->fields[i];
+  return out;
+}
+
+/* The item class's own form (its class-level `@Form`, a transparent body
+ * slot), or NULL when the class carries none or more than one. Writes the
+ * slot's rel (owned). */
+static const SomMetaNode *item_form(MdCodec *c, const SomMetaNode *element,
+                                    char **rel) {
+  NodeRelVec slots;
+  nrv_init(&slots);
+  body_slots(c, element, &slots);
+  const SomMetaNode *found = NULL;
+  size_t count = 0;
+  for (size_t i = 0; i < slots.len; i++) {
+    if (strcmp(slots.items[i].node->kind, SOM_META_KIND_FORM) == 0) {
+      count++;
+      if (count == 1) {
+        found = slots.items[i].node;
+        *rel = som_strdup(slots.items[i].rel);
+      }
+    }
+  }
+  nrv_free(&slots);
+  if (count != 1) {
+    if (count > 1) free(*rel);
+    *rel = NULL;
+    return NULL;
+  }
+  return found;
+}
+
+/* How an item `id` of `list_node` is read, as a heading's, a records row's or
+ * a section-table row's: the item number it names (`*has_n`; else the next
+ * free one) and the id it stores (`*stored`, borrowed from `id`, or ""). The
+ * `<member>-<n>` fallback id is positional and stores nothing; the
+ * `@SectionIdPattern` resolved with a number names item `<n>` and is stored
+ * (SOM §11.6); any other id is the next item, carrying it (YRD3). */
+static void item_identity(const SomMetaNode *list_node, const char *id,
+                          long long *n, int *has_n, const char **stored) {
+  const char *member = list_node->member_name[0] != '\0'
+                           ? list_node->member_name
+                           : som_meta_node_segment(list_node);
+  *n = 0;
+  if (anon_member_match(member, id, n)) {
+    *has_n = 1;
+    *stored = "";
+    return;
+  }
+  const SomMetaNode *element = list_node->element_node;
+  const char *pattern = list_node->section_id_pattern;
+  if (pattern[0] == '\0' && element != NULL) {
+    pattern = element->section_id_pattern;
+  }
+  if (pattern[0] != '\0' && numbered_pattern_match(pattern, id, n)) {
+    *has_n = 1;
+    *stored = id;
+    return;
+  }
+  *n = 0;
+  *has_n = 0;
+  *stored = id;
+}
+
+static MdListState *parser_find_list_state(MdParser *p, const char *list_path) {
+  for (size_t i = 0; i < p->lists_len; i++) {
+    if (strcmp(p->lists[i].list_path, list_path) == 0) return &p->lists[i];
+  }
+  return NULL;
+}
+
+/* Sets body line `k` of `frame` to "". */
+static void blank_body_line(MdFrame *frame, size_t k) {
+  free(frame->body.items[k]);
+  frame->body.items[k] = som_strdup("");
+}
+
+/* The form a section-table `Section` cell names under `node`: writes the form
+ * path (owned) and its fields (owned array); 0 when it names none. */
+static int section_table_target(MdParser *p, MdFrame *frame,
+                                const SomMetaNode *node, const char *section,
+                                char **form_path,
+                                const SomFormFieldMeta ***fields,
+                                size_t *fields_len) {
+  /* `section.split(/\s*\/\s*\/)` */
+  SomStrList parts;
+  som_strlist_init(&parts);
+  {
+    const char *q = section;
+    for (;;) {
+      const char *slash = strchr(q, '/');
+      size_t len = slash != NULL ? (size_t)(slash - q) : strlen(q);
+      char *raw = som_strdup_n(q, len);
+      size_t a = 0, b = strlen(raw);
+      if (parts.len > 0) {
+        while (a < b && is_ws(raw[a])) a++;
+      }
+      if (slash != NULL) {
+        while (b > a && is_ws(raw[b - 1])) b--;
+      }
+      som_strlist_push(&parts, som_strdup_n(raw + a, b - a));
+      free(raw);
+      if (slash == NULL) break;
+      q = slash + 1;
+    }
+  }
+  int found = 0;
+  NodeRelVec eff;
+  effective_children(p->codec, node, &eff);
+  for (size_t i = 0; i < eff.len && !found; i++) {
+    const SomMetaNode *child = eff.items[i].node;
+    char *child_id = heading_id_of(p->codec, child);
+    if (parts.len == 1 && strcmp(child->kind, SOM_META_KIND_FORM) == 0 &&
+        strcmp(child_id, section) == 0) {
+      *form_path = spec_path_join(frame->path, eff.items[i].rel);
+      *fields = form_fields_of(child, fields_len);
+      found = 1;
+    } else if (parts.len == 2 && strcmp(child->kind, SOM_META_KIND_LIST) == 0 &&
+               strcmp(child_id, parts.items[0]) == 0) {
+      const SomMetaNode *element = child->element_node;
+      char *form_rel = NULL;
+      const SomMetaNode *form =
+          element != NULL ? item_form(p->codec, element, &form_rel) : NULL;
+      if (form == NULL) {
+        free(child_id);
+        break; /* `return null` */
+      }
+      long long n = 0;
+      int has_n = 0;
+      const char *stored = "";
+      item_identity(child, parts.items[1], &n, &has_n, &stored);
+      char *list_path = spec_path_join(frame->path, eff.items[i].rel);
+      char *item_path = NULL;
+      MdListState *state = parser_find_list_state(p, list_path);
+      if (state != NULL) {
+        size_t lp = strlen(list_path);
+        for (size_t k = 0; k < state->items.len && item_path == NULL; k++) {
+          const char *ip = state->items.items[k];
+          const char *sid = som_map_get(&state->ids, ip);
+          const char *have = sid != NULL ? sid
+                             : strlen(ip) > lp ? ip + lp + 1
+                                               : "";
+          if (strcmp(have, parts.items[1]) == 0) item_path = som_strdup(ip);
+        }
+      }
+      if (item_path == NULL) {
+        item_path = parser_open_item(p, 0, list_path, child, n, stored, has_n,
+                                     "", "", frame->line, 0);
+      }
+      *form_path = vcat3(item_path, "/", form_rel);
+      *fields = form_fields_of(form, fields_len);
+      found = 1;
+      free(item_path);
+      free(list_path);
+      free(form_rel);
+    }
+    free(child_id);
+  }
+  nrv_free(&eff);
+  som_strlist_free(&parts);
+  return found;
+}
+
+/* Reads and removes every section table of `frame`'s body (SOM §11.5). */
+static void extract_section_tables(MdParser *p, MdFrame *frame,
+                                   const SomMetaNode *node) {
+  SpecMarkdownFenceTracker fence;
+  spec_markdown_fence_init(&fence);
+  size_t base = frame->line + 1;
+  for (size_t i = 0; i < frame->body.len; i++) {
+    const char *line = frame->body.items[i];
+    int is_section = 0;
+    if (spec_markdown_fence_in_fence(&fence) ||
+        !match_layout_header(line, 0, &is_section) || !is_section) {
+      spec_markdown_fence_feed(&fence, line);
+      continue;
+    }
+    MdTable table;
+    read_table(p, frame->body.items, frame->body.len, i, base, frame->path,
+               &table);
+    char *form_path = NULL;
+    const SomFormFieldMeta **fields = NULL;
+    size_t fields_len = 0;
+    int skip = 0;
+    for (size_t r = 0; r < table.rows_len; r++) {
+      const MdRow *row = &table.rows[r];
+      char *section = cell_id(row->cells.items[0]);
+      size_t line_no = base + row->index;
+      if (section[0] == '\0' && skip) {
+        free(section);
+        continue;
+      }
+      if (section[0] != '\0') {
+        free(form_path);
+        form_path = NULL;
+        free((void *)fields);
+        fields = NULL;
+        fields_len = 0;
+        int ok = section_table_target(p, frame, node, section, &form_path,
+                                      &fields, &fields_len);
+        skip = !ok;
+        if (!ok) {
+          char *msg = vcat3("section-table row names no child section of \"",
+                            frame->path, "\"");
+          parser_push_rejection(p, line_no,
+                                SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION, msg,
+                                section);
+          free(msg);
+          free(section);
+          continue;
+        }
+      } else if (form_path == NULL) {
+        parser_push_rejection(p, line_no, SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION,
+                              "section-table row names no section",
+                              frame->path);
+        free(section);
+        continue;
+      }
+      free(section);
+      if (skip) continue;
+      stage_row(p, form_path, fields, fields_len, row->cells.items[1],
+                row->cells.items[2], line_no);
+    }
+    free(form_path);
+    free((void *)fields);
+    for (size_t k = i; k < table.end; k++) blank_body_line(frame, k);
+    i = table.end - 1;
+    md_table_free(&table);
+  }
+}
+
+/* ---- reading view: list bodies, `refs` and `records` (SOM §11.5) -------- */
+
+/* `^:{3,}\s*(?:\{\.(refs|records)\}|(refs|records))\s*$`: writes the kind. */
+static int match_list_div_open(const char *line, const char **kind) {
+  size_t i = 0;
+  while (line[i] == ':') i++;
+  if (i < 3) return 0;
+  skip_ws(line, &i);
+  int braced = 0;
+  if (line[i] == '{' && line[i + 1] == '.') {
+    braced = 1;
+    i += 2;
+  }
+  if (strncmp(line + i, "refs", 4) == 0) {
+    *kind = "refs";
+    i += 4;
+  } else if (strncmp(line + i, "records", 7) == 0) {
+    *kind = "records";
+    i += 7;
+  } else {
+    return 0;
+  }
+  if (braced) {
+    if (line[i] != '}') return 0;
+    i++;
+  }
+  skip_ws(line, &i);
+  return line[i] == '\0';
+}
+
+/* `^:{3,}\s*$`. */
+static int match_list_div_close(const char *line) {
+  size_t i = 0;
+  while (line[i] == ':') i++;
+  if (i < 3) return 0;
+  skip_ws(line, &i);
+  return line[i] == '\0';
+}
+
+static int has_extra(const SomMetaNode *n, const char *annotation) {
+  for (size_t i = 0; i < n->extra_len; i++) {
+    if (strcmp(n->extra[i].annotation, annotation) == 0) return 1;
+  }
+  return 0;
+}
+
+static int is_reference_form(const SomMetaNode *n) {
+  return strcmp(n->kind, SOM_META_KIND_FORM) == 0 && n->form != NULL &&
+         n->form->fields_len == 1 && n->form->fields[0].refers_to_len > 0 &&
+         has_extra(n, "Reference");
+}
+
+/* The reference field of `element`'s items, with the rel of its form
+ * (owned); NULL when its items are no references. */
+static const SomFormFieldMeta *reference_field(MdCodec *c,
+                                               const SomMetaNode *element,
+                                               char **rel) {
+  const SomFormFieldMeta *found = NULL;
+  NodeRelVec slots;
+  nrv_init(&slots);
+  body_slots(c, element, &slots);
+  for (size_t i = 0; i < slots.len && found == NULL; i++) {
+    if (is_reference_form(slots.items[i].node)) {
+      found = &slots.items[i].node->form->fields[0];
+      *rel = som_strdup(slots.items[i].rel);
+    }
+  }
+  nrv_free(&slots);
+  if (found != NULL) return found;
+  NodeRelVec eff;
+  effective_children(c, element, &eff);
+  for (size_t i = 0; i < eff.len && found == NULL; i++) {
+    if (is_reference_form(eff.items[i].node)) {
+      found = &eff.items[i].node->form->fields[0];
+      *rel = som_strdup(eff.items[i].rel);
+    }
+  }
+  nrv_free(&eff);
+  return found;
+}
+
+/* A `refs` div: ids split on commas and whitespace, links read as their
+ * texts. `inner` is the div's body; `at` the body index of its opening. */
+static void stage_reference_line(MdParser *p, MdFrame *frame,
+                                 const SomMetaNode *list_node,
+                                 char *const *inner, size_t inner_len,
+                                 size_t at) {
+  size_t line_no = frame->line + 1 + at;
+  const SomMetaNode *element = list_node->element_node;
+  char *ref_rel = NULL;
+  const SomFormFieldMeta *ref =
+      element != NULL ? reference_field(p->codec, element, &ref_rel) : NULL;
+  if (ref == NULL) {
+    parser_push_rejection(p, line_no, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
+                          "a refs div in a list whose items are not "
+                          "references",
+                          frame->path);
+    return;
+  }
+  SomBuf joined;
+  som_buf_init(&joined);
+  for (size_t k = 0; k < inner_len; k++) {
+    if (k > 0) som_buf_putc(&joined, ' ');
+    som_buf_puts(&joined, inner[k]);
+  }
+  char *all = som_buf_take(&joined);
+  SomStrList ids;
+  som_strlist_init(&ids);
+  size_t i = 0;
+  while (all[i] != '\0') {
+    while (all[i] != '\0' && (all[i] == ',' || is_ws(all[i]))) i++;
+    size_t a = i;
+    while (all[i] != '\0' && all[i] != ',' && !is_ws(all[i])) i++;
+    if (i > a) {
+      char *token = som_strdup_n(all + a, i - a);
+      /* `_LINK_TEXT.exec(token)`: the first link anywhere in the token. */
+      char *id = NULL;
+      for (size_t k = 0; token[k] != '\0' && id == NULL; k++) {
+        size_t at_k = k, ta, tb;
+        if (link_at(token, &at_k, &ta, &tb)) id = som_strdup_n(token + ta, tb - ta);
+      }
+      som_strlist_push(&ids, id != NULL ? id : som_strdup(token));
+      free(token);
+    }
+  }
+  free(all);
+  if (ids.len == 0) {
+    parser_push_rejection(p, line_no, SPEC_MARKDOWN_REJECT_MISSING_VALUE,
+                          "an empty refs div", frame->path);
+    som_strlist_free(&ids);
+    free(ref_rel);
+    return;
+  }
+  const char *pattern = list_node->section_id_pattern;
+  if (pattern[0] == '\0' && element != NULL) pattern = element->section_id_pattern;
+  const char *member = list_node->member_name[0] != '\0'
+                           ? list_node->member_name
+                           : som_meta_node_segment(list_node);
+  for (size_t n = 1; n <= ids.len; n++) {
+    char *positional = spec_effective_list_item_section_id(
+        NULL, pattern[0] != '\0' ? pattern : NULL, (long long)n, member);
+    long long num = 0;
+    int has_n = 0;
+    const char *stored = "";
+    item_identity(list_node, positional, &num, &has_n, &stored);
+    char *item_path = parser_open_item(p, 0, frame->path, list_node, num,
+                                       stored, has_n, "", "", frame->line, 0);
+    char *form_path = strcmp(ref_rel, ".") == 0
+                          ? som_strdup(item_path)
+                          : vcat3(item_path, "/", ref_rel);
+    staged_set_form(p, form_path, ref->name, ids.items[n - 1]);
+    free(form_path);
+    free(item_path);
+    free(positional);
+  }
+  som_strlist_free(&ids);
+  free(ref_rel);
+}
+
+/* A `records` div: one table, `Id` first, `Title` optionally second. */
+static void stage_record_table(MdParser *p, MdFrame *frame,
+                               const SomMetaNode *list_node,
+                               char *const *inner, size_t inner_len,
+                               size_t at) {
+  size_t open_line = frame->line + 1 + at;
+  size_t base = open_line + 1; /* inner line k is source line base + k */
+  size_t start = 0;
+  while (start < inner_len) {
+    char *t = trim_space(inner[start]);
+    int empty = t[0] == '\0';
+    free(t);
+    if (!empty) break;
+    start++;
+  }
+  if (start >= inner_len || !match_table_line(inner[start])) {
+    parser_push_rejection(p, open_line, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
+                          "a records div holding no table", frame->path);
+    return;
+  }
+  SomStrList header;
+  row_cells(inner[start], &header);
+  if (strcmp(header.items[0], "Id") != 0) {
+    parser_push_rejection(p, open_line, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
+                          "a records table whose first column is not Id",
+                          frame->path);
+    som_strlist_free(&header);
+    return;
+  }
+  const SomMetaNode *element = list_node->element_node;
+  char *form_rel = NULL;
+  const SomMetaNode *form =
+      element != NULL ? item_form(p->codec, element, &form_rel) : NULL;
+  if (form == NULL) {
+    parser_push_rejection(p, open_line, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
+                          "a records div in a list whose items have no single "
+                          "form",
+                          frame->path);
+    som_strlist_free(&header);
+    return;
+  }
+  int with_title = header.len > 1 && strcmp(header.items[1], "Title") == 0;
+  size_t first_column = with_title ? 2 : 1;
+  size_t columns_len = header.len > first_column ? header.len - first_column : 0;
+  const SomFormFieldMeta **columns =
+      columns_len ? malloc(columns_len * sizeof(*columns)) : NULL;
+  for (size_t c = 0; c < columns_len; c++) {
+    const SomFormFieldMeta *f = form_field_ci(form, header.items[first_column + c]);
+    if (f == NULL) {
+      char *msg = vcat3("records column \"", header.items[first_column + c],
+                        "\" names no field of the items");
+      parser_push_rejection(p, base + start, SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD,
+                            msg, frame->path);
+      free(msg);
+      free((void *)columns);
+      free(form_rel);
+      som_strlist_free(&header);
+      return;
+    }
+    columns[c] = f;
+  }
+  som_strlist_free(&header);
+  MdTable table;
+  read_table(p, inner, inner_len, start, base, frame->path, &table);
+  char *stem = md_item_stem_of(list_node);
+  for (size_t r = 0; r < table.rows_len; r++) {
+    const MdRow *row = &table.rows[r];
+    char *id = cell_id(row->cells.items[0]);
+    long long n = 0;
+    int has_n = 0;
+    const char *stored = "";
+    item_identity(list_node, id, &n, &has_n, &stored);
+    char *item_path = parser_open_item(p, 0, frame->path, list_node, n, stored,
+                                       has_n, "", "", base + row->index, 0);
+    if (with_title) {
+      char *unescaped = replace_all(row->cells.items[1], "\\|", "|");
+      char *title = replace_all(unescaped, "<br>", "\n");
+      free(unescaped);
+      const char *number = item_path + strlen(frame->path) + 1;
+      char *deflt = vcat3(stem, " ", number);
+      if (title[0] != '\0' && strcmp(title, deflt) != 0) {
+        som_map_set(&p->staged.headlines, item_path, title);
+      }
+      free(deflt);
+      free(title);
+    }
+    char *form_path = vcat3(item_path, "/", form_rel);
+    for (size_t c = 0; c < columns_len; c++) {
+      char *value = cell_value(row->cells.items[first_column + c], columns[c]);
+      if (value[0] != '\0') staged_set_form(p, form_path, columns[c]->name, value);
+      free(value);
+    }
+    free(form_path);
+    free(item_path);
+    free(id);
+  }
+  free(stem);
+  md_table_free(&table);
+  free((void *)columns);
+  free(form_rel);
+}
+
+/* A list container's body: one `refs` or `records` div stands for its items. */
+static void finalize_list_body(MdParser *p, MdFrame *frame,
+                               const SomMetaNode *list_node) {
+  SpecMarkdownFenceTracker fence;
+  spec_markdown_fence_init(&fence);
+  for (size_t i = 0; i < frame->body.len; i++) {
+    const char *line = frame->body.items[i];
+    const char *kind = NULL;
+    if (spec_markdown_fence_in_fence(&fence) || !match_list_div_open(line, &kind)) {
+      spec_markdown_fence_feed(&fence, line);
+      continue;
+    }
+    size_t line_no = frame->line + 1 + i;
+    size_t close = frame->body.len;
+    for (size_t k = i + 1; k < frame->body.len; k++) {
+      if (match_list_div_close(frame->body.items[k])) {
+        close = k;
+        break;
+      }
+    }
+    if (close == frame->body.len) {
+      char *msg = vcat3("unclosed ", kind, " fence");
+      parser_push_rejection(p, line_no, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
+                            msg, frame->path);
+      free(msg);
+      return;
+    }
+    int beside_text = 0;
+    for (size_t k = 0; k < frame->body.len; k++) {
+      if (k >= i && k <= close) continue;
+      char *t = trim_space(frame->body.items[k]);
+      if (t[0] != '\0') beside_text = 1;
+      free(t);
+    }
+    MdListState *state = parser_find_list_state(p, frame->path);
+    int has_items = state != NULL && state->items.len > 0;
+    if (beside_text || has_items) {
+      SomBuf msg;
+      som_buf_init(&msg);
+      som_buf_puts(&msg, "a ");
+      som_buf_puts(&msg, kind);
+      som_buf_puts(&msg, " div beside ");
+      som_buf_puts(&msg, has_items ? "item headings" : "other text");
+      som_buf_puts(&msg, " in a list container");
+      char *m = som_buf_take(&msg);
+      parser_push_rejection(p, line_no, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK, m,
+                            frame->path);
+      free(m);
+      for (size_t k = i; k <= close; k++) blank_body_line(frame, k);
+      return;
+    }
+    char *const *inner = frame->body.items + i + 1;
+    size_t inner_len = close - i - 1;
+    if (strcmp(kind, "refs") == 0) {
+      stage_reference_line(p, frame, list_node, inner, inner_len, i);
+    } else {
+      stage_record_table(p, frame, list_node, inner, inner_len, i);
+    }
+    for (size_t k = i; k <= close; k++) blank_body_line(frame, k);
+    return;
+  }
+}
+
+static int match_layout_header_shaped(const char *line) {
+  return match_layout_header(line, 1, NULL);
+}
+
+static int match_layout_header_escaped(const char *line) {
+  return match_layout_header(line, 2, NULL);
+}
+
 /* ---- finalize form ------------------------------------------------------ */
 
-/* finalizeForm: parses an id-bearing `@Form` section's body — the preamble text
- * before the first field label binds to the form's own content (SOM §11.4
- * rule 7); everything from the first label on binds to the named fields. */
+/* finalizeForm: parses an id-bearing `@Form` section's body — `FieldName:`
+ * paragraphs and form-table rows bind to the named fields wherever they stand
+ * (SOM §11.4); the text that belongs to no field — before the first field, or
+ * after a table — is the form's preamble, its own content (rule 7), its parts
+ * joined by one blank line. A field given twice keeps its first value. */
 static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
                           const char *path) {
   SpecMarkdownFenceTracker fence;
   spec_markdown_fence_init(&fence);
-  const char *current_field = NULL;
-  int current_code = 0;
-  int have_field = 0;
+  const SomFormFieldMeta *current_field = NULL;
+  int discard = 0;
   LineVec current;
   lv_init(&current);
+  size_t declared_len = 0;
+  const SomFormFieldMeta **declared = form_fields_of(node, &declared_len);
+  /* The preamble's parts: the text before the first field, and text a table
+   * interrupts. */
+  LineVec *parts = malloc(sizeof(LineVec));
+  size_t parts_len = 1;
+  lv_init(&parts[0]);
+  size_t base = frame->line + 1;
 
-  /* flush closure body */
-#define FORM_FLUSH(lineNo)                                                    \
+#define FORM_FLUSH()                                                          \
   do {                                                                        \
-    (void)(lineNo);                                                           \
-    char *value = restore_value(current.items, current.len);                 \
-    if (have_field) {                                                         \
-      if (current_code) {                                                     \
+    if (current_field != NULL && !discard) {                                  \
+      char *value = restore_value(current.items, current.len);               \
+      if (current_field->code) {                                              \
         value = decode_code_span(value);                                      \
       }                                                                       \
       if (value[0] != '\0') {                                                 \
-        staged_set_form(p, path, current_field, value);                      \
+        staged_set_form(p, path, current_field->name, value);                \
       }                                                                       \
-    } else if (value[0] != '\0') {                                            \
-      staged_set_content(p, path, value);                                    \
+      free(value);                                                            \
     }                                                                         \
-    free(value);                                                             \
     lv_free(&current);                                                        \
     lv_init(&current);                                                        \
+    discard = 0;                                                              \
   } while (0)
 
   for (size_t i = 0; i < frame->body.len; i++) {
     const char *line = frame->body.items[i];
     if (!spec_markdown_fence_in_fence(&fence)) {
+      int is_section = 0;
+      if (match_layout_header(line, 0, &is_section) && !is_section) {
+        FORM_FLUSH();
+        current_field = NULL;
+        parts = realloc(parts, (parts_len + 1) * sizeof(LineVec));
+        lv_init(&parts[parts_len++]);
+        MdTable table;
+        read_table(p, frame->body.items, frame->body.len, i, base, path, &table);
+        for (size_t r = 0; r < table.rows_len; r++) {
+          stage_row(p, path, declared, declared_len,
+                    table.rows[r].cells.items[0], table.rows[r].cells.items[1],
+                    base + table.rows[r].index);
+        }
+        i = table.end - 1;
+        md_table_free(&table);
+        continue;
+      }
       char *label = NULL;
       char *value = NULL;
       if (match_field_label(line, &label, &value)) {
         const SomFormFieldMeta *field = form_field_ci(node, label);
         if (field != NULL) {
-          FORM_FLUSH(frame->line + i);
-          have_field = 1;
-          current_field = field->name;
-          current_code = field->code;
+          FORM_FLUSH();
+          current_field = field;
+          discard = given_twice(p, path, field->name, base + i);
           lv_push(&current, value);
           value = NULL;
           spec_markdown_fence_feed(&fence, line);
@@ -1952,17 +2914,34 @@ static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
       }
     }
     /* continuation: strip one escape space of a label-shaped line */
+    LineVec *target = current_field == NULL ? &parts[parts_len - 1] : &current;
     if (!spec_markdown_fence_in_fence(&fence) &&
         match_continuation_label(line)) {
-      lv_push(&current, som_strdup(line + 1));
+      lv_push(target, som_strdup(line + 1));
     } else {
-      lv_push(&current, som_strdup(line));
+      lv_push(target, som_strdup(line));
     }
     spec_markdown_fence_feed(&fence, line);
   }
-  FORM_FLUSH(frame->line + frame->body.len);
+  FORM_FLUSH();
 #undef FORM_FLUSH
   lv_free(&current);
+  SomBuf b;
+  som_buf_init(&b);
+  for (size_t k = 0; k < parts_len; k++) {
+    char *v = restore_value(parts[k].items, parts[k].len);
+    if (v[0] != '\0') {
+      if (b.len > 0) som_buf_puts(&b, "\n\n");
+      som_buf_puts(&b, v);
+    }
+    free(v);
+    lv_free(&parts[k]);
+  }
+  free(parts);
+  char *preamble = som_buf_take(&b);
+  if (preamble[0] != '\0') staged_set_content(p, path, preamble);
+  free(preamble);
+  free((void *)declared);
 }
 
 /* ---- finalize body slots ------------------------------------------------ */
@@ -2021,6 +3000,32 @@ static void text_parts_free(MdTextParts *v) {
   v->cap = 0;
 }
 
+/* The field `label` (any case) names in the form slots, searched from the
+ * current form on and wrapping; writes the slot's index. NULL when none. */
+static const SomFormFieldMeta *find_slot_field(MdParser *p,
+                                               const NodeRelVec *forms,
+                                               const char *label, int *idx) {
+  const SomFormFieldMeta *found = NULL;
+  char *lower = lower_dup(label);
+  for (size_t k = 0; k < forms->len && found == NULL; k++) {
+    size_t at = ((size_t)p->current_form_idx + k) % forms->len;
+    const SomMetaNode *fn = forms->items[at].node;
+    if (fn->form == NULL) continue;
+    for (size_t fi = 0; fi < fn->form->fields_len; fi++) {
+      char *fl = lower_dup(fn->form->fields[fi].name);
+      int hit = strcmp(fl, lower) == 0;
+      free(fl);
+      if (hit) {
+        found = &fn->form->fields[fi];
+        *idx = (int)at;
+        break;
+      }
+    }
+  }
+  free(lower);
+  return found;
+}
+
 /* Binds a heading's body region against the owner's transparent body slots
  * (SOM §11.6): `FieldName:` lines matching a transparent form's fields route
  * to that form (nearest form in slot order, wrapping); a slot marker
@@ -2049,6 +3054,7 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
   char *current_form_path = NULL;
   int current_code = 0;
   int have_field = 0;
+  int discard = 0;
   LineVec current;
   lv_init(&current);
   MdTextParts parts = {NULL, 0, 0};
@@ -2061,7 +3067,7 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
 
 #define SLOTS_FLUSH()                                                         \
   do {                                                                        \
-    if (have_field) {                                                         \
+    if (have_field && !discard) {                                             \
       char *v = restore_value(current.items, current.len);                   \
       if (current_code) {                                                     \
         v = decode_code_span(v);                                              \
@@ -2073,6 +3079,7 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
     }                                                                         \
     lv_free(&current);                                                        \
     lv_init(&current);                                                        \
+    discard = 0;                                                              \
   } while (0)
 
   for (size_t i = 0; i < frame->body.len; i++) {
@@ -2111,6 +3118,45 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
         }
         free(rel);
       }
+      int is_section = 0;
+      if (forms.len > 0 && match_layout_header(line, 0, &is_section) &&
+          !is_section) {
+        /* A form table ends the open field (SOM §11.4); its rows bind like
+         * `Field:` labels, each to the nearest form declaring it. */
+        SLOTS_FLUSH();
+        have_field = 0;
+        current_field = NULL;
+        free(current_form_path);
+        current_form_path = NULL;
+        size_t base = frame->line + 1;
+        MdTable table;
+        read_table(p, frame->body.items, frame->body.len, i, base, frame->path,
+                   &table);
+        for (size_t r = 0; r < table.rows_len; r++) {
+          const char *row_label = table.rows[r].cells.items[0];
+          int hit_idx = -1;
+          const SomFormFieldMeta *hit =
+              find_slot_field(p, &forms, row_label, &hit_idx);
+          size_t row_line = base + table.rows[r].index;
+          if (hit == NULL) {
+            char *msg =
+                vcat3("row \"", row_label, "\" names no field of this form");
+            parser_push_rejection(p, row_line, SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD,
+                                  msg, frame->path);
+            free(msg);
+            continue;
+          }
+          p->current_form_idx = hit_idx;
+          char *form_path =
+              spec_path_join(frame->path, forms.items[hit_idx].rel);
+          stage_row(p, form_path, &hit, 1, row_label,
+                    table.rows[r].cells.items[1], row_line);
+          free(form_path);
+        }
+        i = table.end - 1;
+        md_table_free(&table);
+        continue;
+      }
       char *label = NULL;
       char *value = NULL;
       if (match_field_label(line, &label, &value)) {
@@ -2148,6 +3194,8 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
           free(current_form_path);
           current_form_path =
               spec_path_join(frame->path, forms.items[found_idx].rel);
+          discard = given_twice(p, current_form_path, current_field,
+                                frame->line + 1 + i);
           lv_push(&current, value);
           value = NULL;
           spec_markdown_fence_feed(&fence, line);
@@ -2223,6 +3271,14 @@ static void finalize_frame(MdParser *p, MdFrame *frame) {
     finalize_form(p, frame, node, frame->path);
     return;
   }
+  /* The reading view (SOM §11.5): a list container's refs / records div, a
+   * section's section tables. */
+  if (node != NULL && strcmp(node->kind, SOM_META_KIND_LIST) == 0) {
+    finalize_list_body(p, frame, node);
+  } else if (node != NULL && (strcmp(node->kind, SOM_META_KIND_SECTION) == 0 ||
+                              strcmp(node->kind, SOM_META_KIND_COMPLEX) == 0)) {
+    extract_section_tables(p, frame, node);
+  }
   NodeRelVec slots;
   nrv_init(&slots);
   if (node != NULL) {
@@ -2250,6 +3306,8 @@ static void finalize_frame(MdParser *p, MdFrame *frame) {
 static void frame_free(MdFrame *f) {
   free(f->path);
   lv_free(&f->body);
+  free(f->anchor_scope);
+  free(f->anchor_section);
 }
 
 static void parser_push_frame(MdParser *p, int level, const SomMetaNode *node,
@@ -2265,6 +3323,8 @@ static void parser_push_frame(MdParser *p, int level, const SomMetaNode *node,
   f->line = line;
   f->ignored = ignored;
   lv_init(&f->body);
+  f->anchor_scope = NULL;
+  f->anchor_section = NULL;
 }
 
 static void parser_finalize_top(MdParser *p) {
@@ -2282,11 +3342,14 @@ static void parser_close_to(MdParser *p, int level) {
 
 /* ---- open item ---------------------------------------------------------- */
 
-static void parser_open_item(MdParser *p, int level, const char *list_path,
-                             const SomMetaNode *list_node, long long n,
-                             const char *stored_id, int has_n,
-                             const char *title, const char *code_spec,
-                             size_t line) {
+/* Opens item `n` (or, without `has_n`, the next free one) of the list at
+ * `list_path`, staging its stored id, title and codeSpec; pushes its frame
+ * when `push` (a heading's item) and returns its path (owned). */
+static char *parser_open_item(MdParser *p, int level, const char *list_path,
+                              const SomMetaNode *list_node, long long n,
+                              const char *stored_id, int has_n,
+                              const char *title, const char *code_spec,
+                              size_t line, int push) {
   MdListState *state = parser_list_state(p, list_path);
   long long number = n;
   if (!has_n) {
@@ -2324,67 +3387,11 @@ static void parser_open_item(MdParser *p, int level, const char *list_path,
     som_map_set(&p->staged.units, item_path, p->heading_units);
   }
   free(num);
-  parser_push_frame(p, level, list_node->element_node, item_path, line, 0);
-}
-
-/* mdPatternMatches: pattern with "xxx" wildcard → `.+`. */
-static int pattern_matches(const char *pattern, const char *id) {
-  /* Split pattern on "xxx"; each literal part must appear in order, with `.+`
-   * (at least one char) between consecutive parts, anchored at both ends. */
-  const char *pp = pattern;
-  const char *ip = id;
-  const char *xxx = strstr(pp, "xxx");
-  if (xxx == NULL) {
-    return strcmp(pattern, id) == 0;
+  if (push) {
+    parser_push_frame(p, level, list_node->element_node, som_strdup(item_path),
+                      line, 0);
   }
-  /* first literal part must be a prefix of id */
-  size_t first_len = (size_t)(xxx - pp);
-  if (strncmp(ip, pp, first_len) != 0) {
-    return 0;
-  }
-  ip += first_len;
-  pp = xxx + 3;
-  /* middle parts */
-  for (;;) {
-    const char *next = strstr(pp, "xxx");
-    if (next == NULL) {
-      break;
-    }
-    size_t plen = (size_t)(next - pp);
-    /* need `.+` before this literal: at least one char, then the literal */
-    /* find the literal in ip starting from ip+1 */
-    if (plen == 0) {
-      /* empty literal between two xxx: need at least one char consumed */
-      if (*ip == '\0') {
-        return 0;
-      }
-      ip += 1;
-      pp = next + 3;
-      continue;
-    }
-    const char *hit = NULL;
-    for (const char *q = ip + 1; *q != '\0'; q++) {
-      if (strncmp(q, pp, plen) == 0) {
-        hit = q;
-        break;
-      }
-    }
-    if (hit == NULL) {
-      return 0;
-    }
-    ip = hit + plen;
-    pp = next + 3;
-  }
-  /* final literal part must be a suffix, preceded by `.+` */
-  size_t last_len = strlen(pp);
-  size_t rem = strlen(ip);
-  if (last_len == 0) {
-    return rem >= 1; /* `.+$` */
-  }
-  if (rem < last_len + 1) {
-    return 0; /* need at least one char for `.+` plus the suffix */
-  }
-  return strcmp(ip + (rem - last_len), pp) == 0;
+  return item_path;
 }
 
 /* Anonymous member id: `^<member>-([0-9]+)$`. Writes `*num` on match. */
@@ -2458,41 +3465,87 @@ static void parser_open_item_heading(MdParser *p, int level,
                                      const SomMetaNode *list_node,
                                      const char *id, const char *title,
                                      const char *code_spec, size_t line) {
-  const char *member = list_node->member_name[0] != '\0'
-                           ? list_node->member_name
-                           : som_meta_node_segment(list_node);
   long long n = 0;
-  if (anon_member_match(member, id, &n)) {
-    parser_open_item(p, level, list_path, list_node, n, "", 1, title, code_spec,
-                     line);
+  int has_n = 0;
+  const char *stored = "";
+  item_identity(list_node, id, &n, &has_n, &stored);
+  free(parser_open_item(p, level, list_path, list_node, n, stored, has_n,
+                        title, code_spec, line, 1));
+}
+
+/* The anchor of heading `id` below a frame with anchor `scope` and section
+ * `section`, and the scope its own frame carries (`_qualifyAnchor`, SOM
+ * §11.2): a list container keeps the scope, a list item adds its id to it, a
+ * `@SameAs` copy starts one from the section, anything else adds its id when
+ * there is a scope. Both owned; `*new_scope` may be NULL. */
+static char *join_scope(const char *scope, const char *id) {
+  if (scope == NULL || scope[0] == '\0') return som_strdup(id);
+  return vcat3(scope, "/", id);
+}
+
+static void qualify_anchor(const char *scope, const char *section,
+                           const char *id, int container, int item, int copy,
+                           char **anchor, char **new_scope) {
+  if (container) {
+    *anchor = join_scope(scope, id);
+    *new_scope = scope != NULL ? som_strdup(scope) : NULL;
     return;
   }
-  const SomMetaNode *element = list_node->element_node;
-  const char *pattern = list_node->section_id_pattern;
-  if (pattern[0] == '\0' && element != NULL) {
-    pattern = element->section_id_pattern;
+  if (item) {
+    *anchor = join_scope(scope, id);
+    *new_scope = join_scope(scope, id);
+    return;
   }
-  if (pattern[0] != '\0') {
-    long long num = 0;
-    if (numbered_pattern_match(pattern, id, &num)) {
-      /* The pattern with `xxx` as a number parses back as item <n> AND is
-         stored: the section id is the item's identity and the path only its
-         position, so an id that happens to equal the positional default must
-         survive a later move or insert (SOM §11.6). */
-      parser_open_item(p, level, list_path, list_node, num, id, 1, title,
-                       code_spec, line);
-      return;
-    }
-    if (pattern_matches(pattern, id)) {
-      parser_open_item(p, level, list_path, list_node, 0, id, 0, title,
-                       code_spec, line);
-      return;
+  if (copy) {
+    const char *from = scope != NULL ? scope : section;
+    *anchor = join_scope(from, id);
+    *new_scope = join_scope(from, id);
+    return;
+  }
+  *anchor = join_scope(scope, id);
+  *new_scope = scope != NULL ? join_scope(scope, id) : NULL;
+}
+
+/* Whether `n` is a `@SameAs` copy: its member carries the annotation. */
+static int is_copy_node(const MdCodec *c, const SomMetaNode *n) {
+  if (n->member_name[0] == '\0' || n->parent == NULL) return 0;
+  const SpecClass *cls = spec_model_class_named(c->model, n->parent->class_name);
+  if (cls == NULL) return 0;
+  const SpecField *f = spec_class_field_named(cls, n->member_name);
+  return f != NULL && spec_annotations_named(&f->annotations, "SameAs") != NULL;
+}
+
+/* A heading's title read from its `rest` with the renderer's anchor removed:
+ * `<a id="ID"></a>` for its section id `id` or for its qualified `anchor`
+ * (DI-3, SOM §11.2), then `<br>` read as a line break. Owned. */
+static char *heading_title_with(const char *rest, const char *id,
+                                const char *anchor) {
+  char *trimmed = trim_space(rest);
+  char *hid = NULL, *region = NULL, *title = NULL;
+  if (!match_headline_comment(trimmed, &hid, &region, &title)) {
+    free(trimmed);
+    return som_strdup("");
+  }
+  free(trimmed);
+  free(hid);
+  free(region);
+  const char *t = title;
+  const char *ids[2] = {id, anchor};
+  for (int k = 0; k < 2; k++) {
+    if (ids[k] == NULL) continue;
+    char *a = vcat3("<a id=\"", ids[k], "\"></a>");
+    size_t al = strlen(a);
+    int hit = strncmp(t, a, al) == 0;
+    free(a);
+    if (hit) {
+      t += al;
+      while (*t != '\0' && is_ws(*t)) t++;
+      break;
     }
   }
-  /* Any other id under the container is an anonymous next item; a genuine
-     stored id is kept (it survives only through the yaml format, SOM §12). */
-  parser_open_item(p, level, list_path, list_node, 0, id, 0, title, code_spec,
-                   line);
+  char *out = replace_all(t, "<br>", "\n");
+  free(title);
+  return out;
 }
 
 static void parser_open_heading(MdParser *p, int level, const char *rest,
@@ -2512,6 +3565,20 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
     return;
   }
   free(trimmed);
+  /* Reading view (DI-3): an anchor equal to the section id after the id
+   * comment is the renderer's, not part of the title. */
+  {
+    char *anchor = vcat3("<a id=\"", id, "\"></a>");
+    size_t al = strlen(anchor);
+    if (strncmp(title, anchor, al) == 0) {
+      const char *rest_title = title + al;
+      while (*rest_title != '\0' && is_ws(*rest_title)) rest_title++;
+      char *t = som_strdup(rest_title);
+      free(title);
+      title = t;
+    }
+    free(anchor);
+  }
   /* A heading is one line: `<br>` in its title is a stored line break. */
   {
     char *t = title;
@@ -2574,8 +3641,17 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
   /* 1. Under a `-LST` container frame (SOM §11.2), every child heading is one of
      that list's items — resolved positionally, not by the schema tree. */
   if (strcmp(p_node->kind, SOM_META_KIND_LIST) == 0) {
-    parser_open_item_heading(p, level, parent_path, p_node, id, title,
+    char *anchor = NULL, *scope = NULL;
+    qualify_anchor(parent->anchor_scope, parent->anchor_section, id, 0, 1, 0,
+                   &anchor, &scope);
+    char *item_title = heading_title_with(rest, id, anchor);
+    parser_open_item_heading(p, level, parent_path, p_node, id, item_title,
                              code_spec, line);
+    MdFrame *last = &p->stack[p->stack_len - 1];
+    last->anchor_scope = scope;
+    last->anchor_section = som_strdup(id);
+    free(item_title);
+    free(anchor);
     free(parent_path);
     free(id);
     free(title);
@@ -2598,15 +3674,28 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
     free(hid);
     if (hit) {
       char *path = spec_path_join(parent_path, eff.items[i].rel);
+      int container = strcmp(en->kind, SOM_META_KIND_LIST) == 0;
+      char *anchor = NULL, *scope = NULL;
+      qualify_anchor(parent->anchor_scope, parent->anchor_section, id,
+                     container, 0, !container && is_copy_node(p->codec, en),
+                     &anchor, &scope);
+      char *child_title = heading_title_with(rest, id, anchor);
+      char *section = container
+                          ? (parent->anchor_section != NULL
+                                 ? som_strdup(parent->anchor_section)
+                                 : NULL)
+                          : som_strdup(id);
       /* SOM §11.7: stage the heading title as a stored headline only when it
          differs from the derived default title of this node. */
-      if (title[0] != '\0') {
+      if (child_title[0] != '\0') {
         char *deflt = md_title_of(en);
-        if (strcmp(title, deflt) != 0) {
-          som_map_set(&p->staged.headlines, path, title);
+        if (strcmp(child_title, deflt) != 0) {
+          som_map_set(&p->staged.headlines, path, child_title);
         }
         free(deflt);
       }
+      free(child_title);
+      free(anchor);
       /* codespecs_mapping.md §9.2: stage the codeSpec mapping whenever present (no default). */
       if (code_spec[0] != '\0') {
         som_map_set(&p->staged.code_specs, path, code_spec);
@@ -2616,6 +3705,8 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
         som_map_set(&p->staged.units, path, p->heading_units);
       }
       parser_push_frame(p, level, en, path, line, 0);
+      p->stack[p->stack_len - 1].anchor_scope = scope;
+      p->stack[p->stack_len - 1].anchor_section = section;
       handled = 1;
       break;
     }
@@ -2684,6 +3775,7 @@ static void parser_open_root(MdParser *p, int level, const char *id,
         som_map_set(&p->staged.units, seg, p->heading_units);
       }
       parser_push_frame(p, level, tree->root, som_strdup(seg), line, 0);
+      p->stack[p->stack_len - 1].anchor_section = som_strdup(seg);
       return;
     }
   }
@@ -2752,6 +3844,7 @@ void spec_markdown_parse(const SpecModel *model, const char *text,
   spec_markdown_fence_init(&p.fence);
   p.current_form_idx = 0;
   p.heading_units = NULL;
+  som_map_init(&p.given);
 
   LineVec lines;
   split_lines(text, &lines);
@@ -2810,6 +3903,7 @@ void spec_markdown_parse(const SpecModel *model, const char *text,
   }
   free(p.lists);
   free(p.stack);
+  som_map_free(&p.given);
   codec_free(&codec);
 }
 
