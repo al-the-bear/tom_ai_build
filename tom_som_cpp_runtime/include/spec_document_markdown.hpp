@@ -91,6 +91,13 @@ struct SpecMarkdownResult {
   DocumentJson staged;  // content/forms/lists staged values
   std::vector<SpecMarkdownRejection> rejections;
   std::set<std::string> rootPrefixes;  // byte-sorted set of root segments seen
+  /* The rejected blocks kept for review (SOM §11.7, DocSpecs RN-11): for every
+   * path whose text a rejected block stood in, the value with each such block
+   * written as a `rejected` div at its place. An apply that accepts
+   * rejections (`applyMarkdownResult(result, true)`) writes these over the
+   * staged content, so nothing written is lost; an empty value removes the
+   * path's text. Empty for a clean parse. */
+  std::map<std::string, std::string> keptContent;
 
   /* Reports whether no block was rejected. */
   bool isClean() const { return rejections.empty(); }

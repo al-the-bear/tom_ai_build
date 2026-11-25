@@ -687,11 +687,16 @@ static void test_markdown_apply(Checker& c, const som::SpecModel& model) {
   som::JsonRef cases = som::jsonGet(table, "cases");
   std::size_t n = som::jsonArrayLen(cases);
   c.check("mdApply.cases", n > 0, "no cases in markdown_apply_cases.json");
+  // The table's DocSpecs schema: the reading view's cases check the
+  // `rejectedBlock` findings of the landed document against it.
+  std::optional<som::DocSpecsSchema> schema;
+  if (const std::string* yaml = som::jsonAsStr(som::jsonGet(table, "schema"))) {
+    std::string err;
+    schema = som::docspecsSchemaFromYamlText(*yaml, &err);
+    c.check("mdApply.schema", schema.has_value(), err);
+  }
   for (std::size_t i = 0; i < n; i++) {
     som::JsonRef kase = som::jsonArrayAt(cases, i);
-    // The reading view's table forms (`readingView`) are read by the Dart and
-    // TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
-    if (som::jsonBoolOr(kase, "readingView")) continue;
     const std::string tag = "mdApply[" + som::jsonStrOr(kase, "name") + "]";
     const std::string markdown = som::jsonStrOr(kase, "markdown");
 
@@ -715,6 +720,29 @@ static void test_markdown_apply(Checker& c, const som::SpecModel& model) {
         refused = true;
       }
       landed = document.toJson();
+      // 04a_rdv4: the validator reports every kept block as `rejectedBlock`
+      // (DocSpecs RN-11), with the document path it stands in.
+      if (som::jsonBoolOr(kase, "readingView")) {
+        std::string got = "[";
+        if (schema.has_value()) {
+          bool first = true;
+          for (const auto& v :
+               som::validateSpecDocument(model, document, *schema, "Demo")) {
+            if (v.rule != som::kDocSpecsRuleRejectedBlock) continue;
+            if (!first) got += ",";
+            first = false;
+            got += "{\"line\":" + std::to_string(v.line) +
+                   ",\"path\":" + som::jsonEncodeStr(v.path) + "}";
+          }
+        }
+        got += "]";
+        som::JsonRef want = som::jsonGet(som::jsonGet(kase, "expect"), "rejectedBlocks");
+        std::string perr;
+        som::JsonPtr gotJson = som::jsonParse(got, &perr);
+        c.check(tag + ".rejectedBlocks",
+                want != nullptr && json_canon(gotJson) == json_canon(want),
+                got + " != " + json_canon(want));
+      }
     }
 
     som::JsonRef expect = som::jsonGet(kase, "expect");
@@ -1350,48 +1378,6 @@ static void test_docspecs(Checker& c) {
           "uncovered: " + join(uncovered));
 }
 
-/* A JSON value as canonical text: object keys sorted, no whitespace — so two
- * values compare equal exactly when they are equal as JSON. */
-static std::string json_canonical(const som::JsonRef& v) {
-  if (v == nullptr) return "null";
-  switch (v->type) {
-    case som::JsonType::Null:
-      return "null";
-    case som::JsonType::Bool:
-      return v->boolean ? "true" : "false";
-    case som::JsonType::Int:
-      return std::to_string(v->integer);
-    case som::JsonType::Float: {
-      char buf[64];
-      std::snprintf(buf, sizeof(buf), "%.17g", v->real);
-      return buf;
-    }
-    case som::JsonType::Str:
-      return som::jsonEncodeStr(v->str);
-    case som::JsonType::Array: {
-      std::string out = "[";
-      for (std::size_t i = 0; i < v->array.size(); i++) {
-        if (i > 0) out += ",";
-        out += json_canonical(v->array[i]);
-      }
-      return out + "]";
-    }
-    case som::JsonType::Object: {
-      std::vector<std::pair<std::string, som::JsonPtr>> members = v->object;
-      std::sort(members.begin(), members.end(),
-                [](const auto& a, const auto& b) { return a.first < b.first; });
-      std::string out = "{";
-      for (std::size_t i = 0; i < members.size(); i++) {
-        if (i > 0) out += ",";
-        out += som::jsonEncodeStr(members[i].first) + ":" +
-               json_canonical(members[i].second);
-      }
-      return out + "}";
-    }
-  }
-  return "null";
-}
-
 /* ---- the reading notation (notation_cases.json, RN-1 to RN-13) ---------- */
 
 /* `cases`: scanNotation's elements (UTF-16 offsets, source / content, nesting)
@@ -1413,8 +1399,8 @@ static void test_notation(Checker& c) {
     for (const auto& part : parts) {
       std::string perr;
       som::JsonPtr gotJson = som::jsonParse(part.second, &perr);
-      std::string got = gotJson != nullptr ? json_canonical(gotJson) : perr;
-      std::string want = json_canonical(som::jsonGet(kase, part.first));
+      std::string got = gotJson != nullptr ? json_canon(gotJson) : perr;
+      std::string want = json_canon(som::jsonGet(kase, part.first));
       c.check("notation scan[" + name + "]." + part.first, got == want,
               got + " != " + want);
     }

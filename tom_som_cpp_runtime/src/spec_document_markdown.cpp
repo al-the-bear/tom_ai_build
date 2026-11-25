@@ -18,6 +18,7 @@
 #include <set>
 #include <stdexcept>
 #include <string>
+#include <tuple>
 #include <utility>
 #include <vector>
 
@@ -2246,6 +2247,106 @@ struct MdListState {
 };
 
 /* mdFrame: one open section. */
+/* `^ {0,3}:{3,}[ \t]*` then the rest: braces `{...}` or a word, then
+ * `[ \t]*$` (an opening div fence), or nothing (a closing fence). */
+bool keptFenceLine(const std::string& line, bool opening) {
+  std::size_t i = 0;
+  while (i < line.size() && line[i] == ' ') i++;
+  if (i > 3) return false;
+  std::size_t colons = i;
+  while (i < line.size() && line[i] == ':') i++;
+  if (i - colons < 3) return false;
+  while (i < line.size() && (line[i] == ' ' || line[i] == '\t')) i++;
+  if (!opening) return i == line.size();
+  if (i >= line.size()) return false;
+  if (line[i] == '{') {
+    std::size_t end = line.size();
+    while (end > i + 1 && (line[end - 1] == ' ' || line[end - 1] == '\t')) end--;
+    return end > i + 1 && line[end - 1] == '}';
+  }
+  if (!isAlpha(line[i])) return false;
+  i++;
+  while (i < line.size() &&
+         (isAlpha(line[i]) || isDigit(line[i]) || line[i] == '_' ||
+          line[i] == '-')) {
+    i++;
+  }
+  while (i < line.size() && (line[i] == ' ' || line[i] == '\t')) i++;
+  return i == line.size();
+}
+
+/* A rejected block an import that accepts rejections keeps for review (SOM
+ * §11.7, DocSpecs RN-11): the source lines it held and what its `rejected`
+ * div records for a resolution. */
+struct KeptBlock {
+  SpecMarkdownRejection rejection;
+  std::vector<std::string> lines;   // the source lines of the block
+  std::optional<std::string> field;    // the field given twice / near-missed
+  std::optional<std::string> section;  // the child a near-miss cell names
+  std::optional<std::string> kept;     // the form holding the kept value
+
+  /* The block as a `rejected` div: `reason`, `line`, then `field` / `section`
+   * / `kept` where they apply, then `label` (the report's message, its double
+   * quotes written as single ones). A fence the block does not close, or
+   * closes without opening, would pair with the div's own fences, so it is
+   * written escaped (`\:::`, RN-9); the div's fences are longer than any
+   * fence inside it (RN-7). */
+  std::vector<std::string> div() const {
+    std::vector<std::string> inner = lines;
+    while (!inner.empty() && trimSpace(inner.front()).empty()) {
+      inner.erase(inner.begin());
+    }
+    while (!inner.empty() && trimSpace(inner.back()).empty()) inner.pop_back();
+    SpecMarkdownFenceTracker fence;
+    std::vector<std::size_t> open;
+    std::set<std::size_t> unpaired;
+    for (std::size_t k = 0; k < inner.size(); k++) {
+      const std::string& line = inner[k];
+      if (!fence.inFence()) {
+        if (keptFenceLine(line, false)) {
+          if (open.empty()) {
+            unpaired.insert(k);
+          } else {
+            open.pop_back();
+          }
+        } else if (keptFenceLine(line, true)) {
+          open.push_back(k);
+        }
+      }
+      fence.feed(line);
+    }
+    for (std::size_t k : open) unpaired.insert(k);
+    std::size_t longest = 0;
+    for (std::size_t k = 0; k < inner.size(); k++) {
+      std::string& line = inner[k];
+      std::size_t sp = 0;
+      while (sp < line.size() && sp < 3 && line[sp] == ' ') sp++;
+      if (unpaired.count(k) != 0) {
+        if (sp < line.size() && line[sp] == ':') line.insert(sp, "\\");
+        continue;
+      }
+      std::size_t run = 0;
+      while (sp + run < line.size() && line[sp + run] == ':') run++;
+      if (run >= 3 && run > longest) longest = run;
+    }
+    const std::string colons(longest >= 3 ? longest + 1 : 3, ':');
+    auto q = [](const std::string& v) { return replaceAllStr(v, "\"", "'"); };
+    std::string attributes = "reason=\"" + rejection.reason + "\" line=\"" +
+                             formatI64((long long)rejection.line) + "\"";
+    if (field.has_value()) attributes += " field=\"" + q(*field) + "\"";
+    if (section.has_value()) attributes += " section=\"" + q(*section) + "\"";
+    if (kept.has_value()) attributes += " kept=\"" + q(*kept) + "\"";
+    attributes += " label=\"" + q(rejection.message) + "\"";
+    std::vector<std::string> out;
+    out.push_back(colons + " {.rejected " + attributes + "}");
+    out.insert(out.end(), inner.begin(), inner.end());
+    out.push_back(colons);
+    return out;
+  }
+};
+
+using KeptRef = std::shared_ptr<KeptBlock>;
+
 struct MdFrame {
   int level = 0;
   const SomMetaNode* node = nullptr;  // nullptr for ignored / unresolvable
@@ -2258,6 +2359,13 @@ struct MdFrame {
   // §11.2, qualifyAnchor).
   std::optional<std::vector<std::string>> anchorScope;
   std::optional<std::string> anchorSection;
+  // Rejected blocks to keep in this frame's text (RN-11): the body index they
+  // stand before, the block, and the end of the body lines it replaces (the
+  // index itself when it replaces none).
+  std::vector<std::tuple<std::size_t, KeptRef, std::size_t>> kept;
+  // For an ignored frame: the blocks of its ignored children, kept after its
+  // own block wherever that lands.
+  std::vector<KeptRef> deferred;
 };
 
 /* The title with the renderer's anchor removed (DI-3): `<a id="X"></a>` at its
@@ -2304,6 +2412,59 @@ class MdParser {
   int currentFormIdx_ = 0;
   // The fields given so far per form path, for the given-twice rule.
   std::map<std::string, std::set<std::string>> given_;
+  // The rejected blocks kept for review (RN-11): path -> its value with each
+  // block written as a `rejected` div ("" removes the path's text).
+  std::map<std::string, std::string> keptContent_;
+  std::vector<std::string> lines_;  // the source lines
+  std::vector<KeptRef> pending_;    // blocks reported and not yet placed
+  std::vector<KeptRef> orphans_;    // text before the root heading
+
+  /* Reports a rejection and holds its block for an import that keeps
+   * rejected blocks (RN-11): `lines` are the source lines it held, its own
+   * line by default. */
+  KeptRef reject(std::size_t line, const std::string& reason,
+                 const std::string& message, const std::string& anchor,
+                 std::optional<std::vector<std::string>> lines = std::nullopt,
+                 std::optional<std::string> field = std::nullopt,
+                 std::optional<std::string> section = std::nullopt,
+                 std::optional<std::string> kept = std::nullopt) {
+    pushRejection(line, reason, message, anchor);
+    auto b = std::make_shared<KeptBlock>();
+    b->rejection = rejections_.back();
+    b->lines = lines.has_value()
+                   ? *lines
+                   : std::vector<std::string>{line >= 1 && line <= lines_.size()
+                                                  ? lines_[line - 1]
+                                                  : std::string()};
+    b->field = std::move(field);
+    b->section = std::move(section);
+    b->kept = std::move(kept);
+    pending_.push_back(b);
+    return b;
+  }
+
+  /* The held blocks in source order, the hold emptied. */
+  std::vector<KeptRef> takePending() {
+    std::vector<KeptRef> out = std::move(pending_);
+    pending_.clear();
+    std::stable_sort(out.begin(), out.end(), [](const KeptRef& a, const KeptRef& b) {
+      return a->rejection.line < b->rejection.line;
+    });
+    return out;
+  }
+
+  /* Places the held blocks before `frame`'s body index `at`; with
+   * `replaceEnd` they take the place of the body lines up to it. */
+  void markPending(MdFrame& frame, std::size_t at,
+                   std::optional<std::size_t> replaceEnd = std::nullopt) {
+    for (auto& b : takePending()) {
+      frame.kept.emplace_back(at, b, replaceEnd.value_or(at));
+    }
+  }
+
+  void keepIgnored(MdFrame& frame);
+  std::optional<std::string> nearSection(const SomMetaNode& node,
+                                         const std::string& section);
 
   const MdListState* findListState(const std::string& listPath) const {
     for (const auto& s : lists_) {
@@ -2335,9 +2496,11 @@ class MdParser {
   void finalizeListBody(MdFrame& frame, const SomMetaNode& listNode);
   void stageReferenceLine(const MdFrame& frame, const SomMetaNode& listNode,
                           const std::vector<std::string>& inner,
-                          std::size_t at);
+                          std::size_t at,
+                          const std::vector<std::string>& divLines);
   void stageRecordTable(const MdFrame& frame, const SomMetaNode& listNode,
-                        const std::vector<std::string>& inner, std::size_t at);
+                        const std::vector<std::string>& inner, std::size_t at,
+                        const std::vector<std::string>& divLines);
   void itemIdentity(const SomMetaNode& listNode, const std::string& id,
                     long long* n, std::string* storedId, bool* hasN) const;
   bool isCopyNode(const SomMetaNode& n) const;
@@ -2423,6 +2586,146 @@ std::string restoreValue(const std::vector<std::string>& body) {
     fence.feed(line);
   }
   return stripBlankLines(b);
+}
+
+/* `part` with the divs of `ins` (position -> div lines) written in at their
+ * positions, a blank line between a div and the text around it; the lines at
+ * `replaced` positions are left out (a div took their place). */
+std::vector<std::string> mergeKept(
+    const std::vector<std::string>& part,
+    const std::vector<std::pair<std::size_t, std::vector<std::string>>>& ins,
+    const std::set<std::size_t>& replaced = {}) {
+  std::vector<std::string> out;
+  bool blankDue = false;
+  for (std::size_t k = 0; k <= part.size(); k++) {
+    for (const auto& in : ins) {
+      if (in.first != k) continue;
+      if (!out.empty() && !trimSpace(out.back()).empty()) out.push_back("");
+      out.insert(out.end(), in.second.begin(), in.second.end());
+      blankDue = true;
+    }
+    if (k == part.size() || replaced.count(k) != 0) continue;
+    const std::string& line = part[k];
+    if (blankDue && !trimSpace(line).empty()) out.push_back("");
+    blankDue = false;
+    out.push_back(line);
+  }
+  return out;
+}
+
+/* Whether `a` becomes `b` by at most one insertion, deletion or
+ * substitution. */
+bool oneEdit(const std::string& a, const std::string& b) {
+  const std::size_t al = a.size(), bl = b.size();
+  if ((al > bl ? al - bl : bl - al) > 1) return false;
+  std::size_t i = 0, j = 0;
+  int edits = 0;
+  while (i < al && j < bl) {
+    if (a[i] == b[j]) {
+      i++;
+      j++;
+      continue;
+    }
+    if (++edits > 1) return false;
+    if (al > bl) {
+      i++;
+    } else if (bl > al) {
+      j++;
+    } else {
+      i++;
+      j++;
+    }
+  }
+  return edits + (int)(al - i) + (int)(bl - j) <= 1;
+}
+
+/* The declared name one edit (or only case and separators) away from `label`,
+ * when exactly one is: what a *Rename to* choice offers (RN-11). */
+std::optional<std::string> nearMiss(const std::string& label,
+                                    const std::vector<std::string>& names) {
+  auto norm = [](const std::string& v) {
+    std::string out;
+    for (char ch : lowerDup(v)) {
+      if (!isWs(ch) && ch != '_' && ch != '-') out.push_back(ch);
+    }
+    return out;
+  };
+  std::set<std::string> hits;
+  for (const auto& n : names) {
+    if (n != label &&
+        (norm(n) == norm(label) || oneEdit(lowerDup(n), lowerDup(label)))) {
+      hits.insert(n);
+    }
+  }
+  if (hits.size() != 1) return std::nullopt;
+  return *hits.begin();
+}
+
+/* Where the rejected blocks of one frame's body go (RN-11): each text part of
+ * the frame (an index into `parts`) and the divs written into it, by
+ * position. */
+class Keeper {
+ public:
+  Keeper(const MdFrame& frame, const std::vector<std::vector<std::string>>& parts)
+      : parts_(parts) {
+    for (const auto& m : frame.kept) {
+      marks_.emplace_back(std::get<0>(m), std::get<1>(m));
+    }
+    std::stable_sort(marks_.begin(), marks_.end(),
+                     [](const auto& a, const auto& b) { return a.first < b.first; });
+  }
+
+  /* Writes `b` into part `into` at its current end. */
+  void keep(std::size_t into, const KeptBlock& b) {
+    inserts_[into].emplace_back(parts_[into].size(), b.div());
+  }
+
+  /* Writes the frame's blocks standing before body index `upTo` into part
+   * `into`. */
+  void drain(std::size_t upTo, std::size_t into) {
+    while (next_ < marks_.size() && marks_[next_].first <= upTo) {
+      keep(into, *marks_[next_].second);
+      next_++;
+    }
+  }
+
+  /* The value of the parts `ids` with the kept divs written in, joined as the
+   * parts are; unset when no part holds one. */
+  std::optional<std::string> keptValue(const std::vector<std::size_t>& ids) const {
+    bool any = false;
+    for (std::size_t id : ids) {
+      if (inserts_.count(id) != 0) any = true;
+    }
+    if (!any) return std::nullopt;
+    std::string out;
+    for (std::size_t id : ids) {
+      auto it = inserts_.find(id);
+      std::string v = restoreValue(it == inserts_.end()
+                                       ? parts_[id]
+                                       : mergeKept(parts_[id], it->second));
+      if (v.empty()) continue;
+      if (!out.empty()) out += "\n\n";
+      out += v;
+    }
+    return out;
+  }
+
+ private:
+  const std::vector<std::vector<std::string>>& parts_;
+  std::vector<std::pair<std::size_t, KeptRef>> marks_;
+  std::size_t next_ = 0;
+  std::map<std::size_t,
+           std::vector<std::pair<std::size_t, std::vector<std::string>>>>
+      inserts_;
+};
+
+/* Whether a frame of `node` passes its rejected blocks to its parent: a list
+ * container, which holds no text, and a scalar or enum value, whose text is a
+ * typed value (RN-11). */
+bool keptInParent(const SomMetaNode* node) {
+  return node != nullptr && (kindEq(node->kind, kSomMetaKindList) ||
+                             kindEq(node->kind, kSomMetaKindScalar) ||
+                             kindEq(node->kind, kSomMetaKindEnumValue));
 }
 
 /* ---- layout tables (SOM §11.4, §11.5) ------------------------------------ */
@@ -2570,6 +2873,12 @@ void MdParser::finalizeForm(MdFrame& frame, const SomMetaNode& node,
   // The preamble's parts: the text before the first field, and text a table
   // interrupts; joined by one blank line.
   std::vector<std::vector<std::string>> preambleParts(1);
+  // Rejected blocks go to the preamble at their place (RN-11).
+  Keeper keeper(frame, preambleParts);
+  KeptRef discarded;
+  std::size_t discardStart = 0;
+  std::size_t at = 0;
+  auto last = [&preambleParts]() { return preambleParts.size() - 1; };
 
   auto flush = [&]() {
     if (currentField != nullptr && !discard) {
@@ -2581,12 +2890,20 @@ void MdParser::finalizeForm(MdFrame& frame, const SomMetaNode& node,
         stagedSetForm(path, currentField->name, value);
       }
     }
+    if (discard && discarded != nullptr) {
+      discarded->lines.assign(frame.body.begin() + discardStart,
+                              frame.body.begin() + at);
+      keeper.keep(last(), *discarded);
+      discarded.reset();
+    }
     current.clear();
     discard = false;
   };
 
   for (std::size_t i = 0; i < frame.body.size(); i++) {
     const std::string& line = frame.body[i];
+    at = i;
+    keeper.drain(i, last());
     if (!fence.inFence()) {
       bool isSection = false;
       if (matchLayoutTableHeader(line, &isSection) && !isSection) {
@@ -2600,6 +2917,7 @@ void MdParser::finalizeForm(MdFrame& frame, const SomMetaNode& node,
           stageRow(path, declared, row.second[0], row.second[1],
                    bodyLine(frame, row.first));
         }
+        for (const auto& b : takePending()) keeper.keep(last(), *b);
         i = table.end - 1;
         continue;
       }
@@ -2610,6 +2928,11 @@ void MdParser::finalizeForm(MdFrame& frame, const SomMetaNode& node,
           flush();
           currentField = field;
           discard = givenTwice(path, field->name, bodyLine(frame, i));
+          if (discard && !pending_.empty()) {
+            discarded = pending_.back();
+            pending_.pop_back();
+            discardStart = i;
+          }
           current.push_back(value);
           fence.feed(line);
           continue;
@@ -2626,7 +2949,15 @@ void MdParser::finalizeForm(MdFrame& frame, const SomMetaNode& node,
     }
     fence.feed(line);
   }
+  at = frame.body.size();
   flush();
+  keeper.drain(at, last());
+  {
+    std::vector<std::size_t> ids;
+    for (std::size_t k = 0; k < preambleParts.size(); k++) ids.push_back(k);
+    std::optional<std::string> kept = keeper.keptValue(ids);
+    if (kept.has_value() && !kept->empty()) keptContent_[path] = *kept;
+  }
   std::string preamble;
   for (const auto& part : preambleParts) {
     std::string v = restoreValue(part);
@@ -2685,21 +3016,29 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
   };
 
   // Unlabelled text per target path, in the order the targets were opened; a
-  // target opened twice gets its parts joined by a blank line.
-  std::vector<std::pair<std::string, std::vector<std::vector<std::string>>>>
-      textParts;
-  auto openTarget = [&textParts](const std::string& target) {
+  // target opened twice gets its parts joined by a blank line. The parts live
+  // in `parts`; a target holds their indexes.
+  std::vector<std::vector<std::string>> parts;
+  std::vector<std::pair<std::string, std::vector<std::size_t>>> textParts;
+  auto openTarget = [&](const std::string& target) {
+    parts.emplace_back();
+    const std::size_t id = parts.size() - 1;
     for (auto& e : textParts) {
       if (e.first == target) {
-        e.second.emplace_back();
-        return std::make_pair(&e - textParts.data(), e.second.size() - 1);
+        e.second.push_back(id);
+        return id;
       }
     }
-    textParts.push_back({target, {std::vector<std::string>()}});
-    return std::make_pair(static_cast<std::ptrdiff_t>(textParts.size() - 1),
-                          static_cast<std::size_t>(0));
+    textParts.push_back({target, {id}});
+    return id;
   };
-  auto cur = openTarget(pathOf(defRel));
+  std::size_t cur = openTarget(pathOf(defRel));
+  // Rejected blocks go to the unlabelled text at their place (RN-11); a field
+  // given twice is kept whole, its label line and continuation.
+  Keeper keeper(frame, parts);
+  KeptRef discarded;
+  std::size_t discardStart = 0;
+  std::size_t at = 0;
 
   SpecMarkdownFenceTracker fence;
   const std::string* currentField = nullptr;
@@ -2719,6 +3058,12 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
       if (!v.empty()) {
         stagedSetForm(currentFormPath, *currentField, v);
       }
+    }
+    if (discard && discarded != nullptr) {
+      discarded->lines.assign(frame.body.begin() + discardStart,
+                              frame.body.begin() + at);
+      keeper.keep(cur, *discarded);
+      discarded.reset();
     }
     current.clear();
     discard = false;
@@ -2745,8 +3090,17 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
     return found;
   };
 
+  std::vector<std::string> allFieldNames;
+  for (const auto& fsl : forms) {
+    if (fsl.node->form.has_value()) {
+      for (const auto& f : fsl.node->form->fields) allFieldNames.push_back(f.name);
+    }
+  }
+
   for (std::size_t i = 0; i < frame.body.size(); i++) {
     const std::string& line = frame.body[i];
+    at = i;
+    keeper.drain(i, cur);
     if (!fence.inFence()) {
       std::string rel;
       if (matchSlotMarker(line, &rel)) {
@@ -2792,17 +3146,18 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
           int idx = -1;
           const SomFormFieldMeta* hit = findField(row.second[0], &idx);
           if (hit == nullptr) {
-            pushRejection(bodyLine(frame, row.first),
-                          kSpecMarkdownRejectUnknownField,
-                          "row \"" + row.second[0] +
-                              "\" names no field of this form",
-                          frame.path);
+            reject(bodyLine(frame, row.first), kSpecMarkdownRejectUnknownField,
+                   "row \"" + row.second[0] + "\" names no field of this form",
+                   frame.path, std::vector<std::string>{frame.body[row.first]},
+                   nearMiss(row.second[0], allFieldNames));
             continue;
           }
           currentFormIdx_ = idx;
           stageRow(specPathJoin(frame.path, forms[idx].rel), {*hit},
                    row.second[0], row.second[1], bodyLine(frame, row.first));
         }
+        // What the table rejected is kept where the table stood.
+        for (const auto& b : takePending()) keeper.keep(cur, *b);
         i = table.end - 1;
         continue;
       }
@@ -2819,6 +3174,11 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
           currentFormPath = specPathJoin(frame.path, forms[foundIdx].rel);
           discard = givenTwice(currentFormPath, *currentField,
                                bodyLine(frame, i));
+          if (discard && !pending_.empty()) {
+            discarded = pending_.back();
+            pending_.pop_back();
+            discardStart = i;
+          }
           current.push_back(value);
           fence.feed(line);
           continue;
@@ -2834,15 +3194,17 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
     if (haveField) {
       current.push_back(text);
     } else {
-      textParts[cur.first].second[cur.second].push_back(text);
+      parts[cur].push_back(text);
     }
     fence.feed(line);
   }
+  at = frame.body.size();
   flush();
+  keeper.drain(at, cur);
   for (const auto& e : textParts) {
     std::string value;
-    for (const auto& part : e.second) {
-      std::string v = restoreValue(part);
+    for (std::size_t id : e.second) {
+      std::string v = restoreValue(parts[id]);
       if (v.empty()) {
         continue;
       }
@@ -2854,6 +3216,8 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
     if (!value.empty()) {
       stagedSetContent(e.first, value);
     }
+    std::optional<std::string> kept = keeper.keptValue(e.second);
+    if (kept.has_value() && !kept->empty()) keptContent_[e.first] = *kept;
   }
 }
 
@@ -2884,21 +3248,21 @@ MdTable MdParser::readTable(
     }
   }
   if (!isDelimiter || delimiter.size() != t.header.size()) {
-    pushRejection(lineOf(start), kSpecMarkdownRejectMalformedBlock,
-                  !isDelimiter
-                      ? "table without its delimiter row"
-                      : "table whose delimiter row does not match its header",
-                  anchor);
+    reject(lineOf(start), kSpecMarkdownRejectMalformedBlock,
+           !isDelimiter ? "table without its delimiter row"
+                        : "table whose delimiter row does not match its header",
+           anchor,
+           std::vector<std::string>(lines.begin() + start, lines.begin() + t.end));
     return t;
   }
   for (std::size_t i = start + 2; i < t.end; i++) {
     std::vector<std::string> cells = rowCells(lines[i]);
     if (cells.size() != t.header.size()) {
-      pushRejection(lineOf(i), kSpecMarkdownRejectMalformedBlock,
-                    "table row with " + formatI64((long long)cells.size()) +
-                        " cells, the header has " +
-                        formatI64((long long)t.header.size()),
-                    anchor);
+      reject(lineOf(i), kSpecMarkdownRejectMalformedBlock,
+             "table row with " + formatI64((long long)cells.size()) +
+                 " cells, the header has " +
+                 formatI64((long long)t.header.size()),
+             anchor, std::vector<std::string>{lines[i]});
       continue;
     }
     t.rows.emplace_back(i, std::move(cells));
@@ -2914,8 +3278,11 @@ bool MdParser::givenTwice(const std::string& formPath, const std::string& field,
   if (given.insert(field).second) {
     return false;
   }
-  pushRejection(line, kSpecMarkdownRejectMalformedBlock,
-                "field \"" + field + "\" given twice", formPath);
+  // The repeat's held block names the field and the form holding the kept
+  // value (RN-11).
+  reject(line, kSpecMarkdownRejectMalformedBlock,
+         "field \"" + field + "\" given twice", formPath, std::nullopt, field,
+         std::nullopt, formPath);
   return true;
 }
 
@@ -2933,9 +3300,11 @@ void MdParser::stageRow(const std::string& formPath,
     }
   }
   if (f == nullptr) {
-    pushRejection(line, kSpecMarkdownRejectUnknownField,
-                  "row \"" + label + "\" names no field of this form",
-                  formPath);
+    std::vector<std::string> names;
+    for (const auto& x : fields) names.push_back(x.name);
+    reject(line, kSpecMarkdownRejectUnknownField,
+           "row \"" + label + "\" names no field of this form", formPath,
+           std::nullopt, nearMiss(label, names));
     return;
   }
   std::string value = cellValue(cell, *f);
@@ -2963,25 +3332,32 @@ void MdParser::extractSectionTables(MdFrame& frame, const SomMetaNode& node) {
     bool haveTarget = false;
     std::vector<SomFormFieldMeta> fields;
     bool skip = false;
+    // The rejected section's block: its row and the rows continuing it.
+    KeptRef skipped;
     for (const auto& row : table.rows) {
       const std::vector<std::string>& cells = row.second;
       const std::size_t lineNo = bodyLine(frame, row.first);
       const std::string section = cellId(cells[0]);
-      if (section.empty() && skip) continue;
+      if (section.empty() && skip) {
+        if (skipped != nullptr) skipped->lines.push_back(body[row.first]);
+        continue;
+      }
       if (!section.empty()) {
         haveTarget =
             sectionTableTarget(frame, node, section, &formPath, &fields);
         skip = !haveTarget;
         if (!haveTarget) {
-          pushRejection(lineNo, kSpecMarkdownRejectUnknownSection,
-                        "section-table row names no child section of \"" +
-                            frame.path + "\"",
-                        section);
+          skipped = reject(lineNo, kSpecMarkdownRejectUnknownSection,
+                           "section-table row names no child section of \"" +
+                               frame.path + "\"",
+                           section, std::vector<std::string>{body[row.first]},
+                           std::nullopt, nearSection(node, section));
           continue;
         }
       } else if (!haveTarget) {
-        pushRejection(lineNo, kSpecMarkdownRejectUnknownSection,
-                      "section-table row names no section", frame.path);
+        reject(lineNo, kSpecMarkdownRejectUnknownSection,
+               "section-table row names no section", frame.path,
+               std::vector<std::string>{body[row.first]});
         continue;
       }
       if (skip) continue;
@@ -2990,6 +3366,8 @@ void MdParser::extractSectionTables(MdFrame& frame, const SomMetaNode& node) {
     for (std::size_t k = i; k < table.end; k++) {
       body[k].clear();
     }
+    // What the table rejected is kept where the table stood.
+    markPending(frame, i);
     i = table.end - 1;
   }
 }
@@ -3101,11 +3479,16 @@ void MdParser::finalizeListBody(MdFrame& frame, const SomMetaNode& listNode) {
       }
     }
     if (close == std::string::npos) {
-      // The fence's lines read as text.
-      pushRejection(bodyLine(frame, i), kSpecMarkdownRejectMalformedBlock,
-                    "unclosed " + kind + " fence", frame.path);
+      // The fence's lines read as text; kept, they are the rejected div (the
+      // container's parent holds it, see finalizeFrame).
+      reject(bodyLine(frame, i), kSpecMarkdownRejectMalformedBlock,
+             "unclosed " + kind + " fence", frame.path,
+             std::vector<std::string>(body.begin() + i, body.end()));
+      markPending(frame, i, body.size());
       return;
     }
+    const std::vector<std::string> divLines(body.begin() + i,
+                                            body.begin() + close + 1);
     bool besideText = false;
     for (std::size_t k = 0; k < body.size(); k++) {
       if ((k < i || k > close) && !trimSpace(body[k]).empty()) {
@@ -3115,21 +3498,24 @@ void MdParser::finalizeListBody(MdFrame& frame, const SomMetaNode& listNode) {
     const MdListState* state = findListState(frame.path);
     const bool hasItems = state != nullptr && !state->items.empty();
     if (besideText || hasItems) {
-      pushRejection(bodyLine(frame, i), kSpecMarkdownRejectMalformedBlock,
-                    "a " + kind + " div beside " +
-                        (hasItems ? "item headings" : "other text") +
-                        " in a list container",
-                    frame.path);
+      reject(bodyLine(frame, i), kSpecMarkdownRejectMalformedBlock,
+             "a " + kind + " div beside " +
+                 (hasItems ? "item headings" : "other text") +
+                 " in a list container",
+             frame.path, divLines);
       for (std::size_t k = i; k <= close; k++) body[k].clear();
+      markPending(frame, close + 1);
       return;
     }
     std::vector<std::string> inner(body.begin() + i + 1, body.begin() + close);
     if (kind == "refs") {
-      stageReferenceLine(frame, listNode, inner, i);
+      stageReferenceLine(frame, listNode, inner, i, divLines);
     } else {
-      stageRecordTable(frame, listNode, inner, i);
+      stageRecordTable(frame, listNode, inner, i, divLines);
     }
     for (std::size_t k = i; k <= close; k++) body[k].clear();
+    // What the div rejected is kept after it.
+    markPending(frame, close + 1);
     return;
   }
 }
@@ -3169,14 +3555,15 @@ bool referenceField(MdCodec& c, const SomMetaNode& element, std::string* rel,
 void MdParser::stageReferenceLine(const MdFrame& frame,
                                   const SomMetaNode& listNode,
                                   const std::vector<std::string>& inner,
-                                  std::size_t at) {
+                                  std::size_t at,
+                                  const std::vector<std::string>& divLines) {
   const SomMetaNode* element = listNode.elementNode.get();
   std::string rel;
   const SomFormFieldMeta* field = nullptr;
   if (element == nullptr || !referenceField(codec_, *element, &rel, &field)) {
-    pushRejection(bodyLine(frame, at), kSpecMarkdownRejectMalformedBlock,
-                  "a refs div in a list whose items are not references",
-                  frame.path);
+    reject(bodyLine(frame, at), kSpecMarkdownRejectMalformedBlock,
+           "a refs div in a list whose items are not references", frame.path,
+           divLines);
     return;
   }
   std::vector<std::string> ids;
@@ -3203,8 +3590,8 @@ void MdParser::stageReferenceLine(const MdFrame& frame,
     take();
   }
   if (ids.empty()) {
-    pushRejection(bodyLine(frame, at), kSpecMarkdownRejectMissingValue,
-                  "an empty refs div", frame.path);
+    reject(bodyLine(frame, at), kSpecMarkdownRejectMissingValue,
+           "an empty refs div", frame.path, divLines);
     return;
   }
   std::string pattern = listNode.sectionIdPattern;
@@ -3233,25 +3620,26 @@ void MdParser::stageReferenceLine(const MdFrame& frame,
 void MdParser::stageRecordTable(const MdFrame& frame,
                                 const SomMetaNode& listNode,
                                 const std::vector<std::string>& inner,
-                                std::size_t at) {
+                                std::size_t at,
+                                const std::vector<std::string>& divLines) {
   auto lineOf = [&frame, at](std::size_t k) {
     return bodyLine(frame, at + 1 + k);
   };
-  auto reject = [&](const std::string& message) {
-    pushRejection(bodyLine(frame, at), kSpecMarkdownRejectMalformedBlock,
-                  message, frame.path);
+  auto rejectDiv = [&](const std::string& message) {
+    reject(bodyLine(frame, at), kSpecMarkdownRejectMalformedBlock, message,
+           frame.path, divLines);
   };
   std::size_t start = 0;
   while (start < inner.size() && trimSpace(inner[start]).empty()) {
     start++;
   }
   if (start >= inner.size() || !matchTableLine(inner[start])) {
-    reject("a records div holding no table");
+    rejectDiv("a records div holding no table");
     return;
   }
   const std::vector<std::string> header = rowCells(inner[start]);
   if (header[0] != "Id") {
-    reject("a records table whose first column is not Id");
+    rejectDiv("a records table whose first column is not Id");
     return;
   }
   const SomMetaNode* element = listNode.elementNode.get();
@@ -3259,7 +3647,7 @@ void MdParser::stageRecordTable(const MdFrame& frame,
   const NodeRel* form =
       element != nullptr ? itemForm(codec_, *element, &slots) : nullptr;
   if (form == nullptr) {
-    reject("a records div in a list whose items have no single form");
+    rejectDiv("a records div in a list whose items have no single form");
     return;
   }
   static const std::vector<SomFormFieldMeta> kNone;
@@ -3277,11 +3665,12 @@ void MdParser::stageRecordTable(const MdFrame& frame,
       }
     }
     if (f == nullptr) {
-      // The table is skipped whole.
-      pushRejection(lineOf(start), kSpecMarkdownRejectUnknownField,
-                    "records column \"" + header[h] +
-                        "\" names no field of the items",
-                    frame.path);
+      // The table is skipped whole, so the whole div is kept.
+      std::vector<std::string> names;
+      for (const auto& x : fields) names.push_back(x.name);
+      reject(lineOf(start), kSpecMarkdownRejectUnknownField,
+             "records column \"" + header[h] + "\" names no field of the items",
+             frame.path, divLines, nearMiss(header[h], names));
       return;
     }
     columns.push_back(f);
@@ -3311,8 +3700,72 @@ void MdParser::stageRecordTable(const MdFrame& frame,
   }
 }
 
+/* An ignored frame's heading and body, with its ignored children's blocks
+ * after it, go to the text of the nearest section above it that was read,
+ * after that section's own text (RN-11); with none above (an unknown root)
+ * nothing holds them and only the report remains. */
+void MdParser::keepIgnored(MdFrame& frame) {
+  std::vector<KeptRef> blocks;
+  for (auto it = rejections_.rbegin(); it != rejections_.rend(); ++it) {
+    if (it->line == frame.line) {
+      auto own = std::make_shared<KeptBlock>();
+      own->rejection = *it;
+      own->lines.push_back(frame.line >= 1 && frame.line <= lines_.size()
+                               ? lines_[frame.line - 1]
+                               : std::string());
+      own->lines.insert(own->lines.end(), frame.body.begin(), frame.body.end());
+      blocks.push_back(own);
+      break;
+    }
+  }
+  blocks.insert(blocks.end(), frame.deferred.begin(), frame.deferred.end());
+  if (stack_.empty() || blocks.empty()) return;
+  MdFrame& parent = stack_.back();
+  if (parent.ignored) {
+    parent.deferred.insert(parent.deferred.end(), blocks.begin(), blocks.end());
+    return;
+  }
+  for (auto& b : blocks) {
+    parent.kept.emplace_back(parent.body.size(), b, parent.body.size());
+  }
+}
+
+/* The child a section-table `Section` cell naming none is a near miss of
+ * (RN-11): a child form section's id, or `<LIST> / <ITEM>` with a near list
+ * id. */
+std::optional<std::string> MdParser::nearSection(const SomMetaNode& node,
+                                                 const std::string& section) {
+  std::vector<std::string> parts;
+  {
+    std::string b;
+    for (char ch : section) {
+      if (ch == '/') {
+        parts.push_back(trimSpace(b));
+        b.clear();
+      } else {
+        b.push_back(ch);
+      }
+    }
+    parts.push_back(trimSpace(b));
+  }
+  std::vector<NodeRel> children = effectiveChildren(codec_, node);
+  auto ids = [&](const char* kind) {
+    std::vector<std::string> out;
+    for (const auto& c : children) {
+      if (kindEq(c.node->kind, kind)) out.push_back(headingIdOf(codec_, *c.node));
+    }
+    return out;
+  };
+  if (parts.size() == 1) return nearMiss(section, ids(kSomMetaKindForm));
+  if (parts.size() != 2) return std::nullopt;
+  std::optional<std::string> list = nearMiss(parts[0], ids(kSomMetaKindList));
+  if (!list.has_value()) return std::nullopt;
+  return *list + " / " + parts[1];
+}
+
 void MdParser::finalizeFrame(MdFrame& frame) {
   if (frame.ignored) {
+    keepIgnored(frame);
     return;
   }
   const SomMetaNode* node = frame.node;
@@ -3332,6 +3785,33 @@ void MdParser::finalizeFrame(MdFrame& frame) {
   }
   if (slots.empty()) {
     std::string value = restoreValue(frame.body);
+    if (!frame.kept.empty()) {
+      std::set<std::size_t> replaced;
+      for (const auto& m : frame.kept) {
+        for (std::size_t k = std::get<0>(m); k < std::get<2>(m); k++) {
+          replaced.insert(k);
+        }
+      }
+      MdFrame* parent = stack_.empty() ? nullptr : &stack_.back();
+      if (keptInParent(node) && parent != nullptr) {
+        // A list container (no text of its own, SOM §11.5) or a typed value
+        // has no place for a block: its parent takes them, after its own text
+        // (RN-11); the lines they replace leave this frame's text.
+        std::string own = restoreValue(mergeKept(frame.body, {}, replaced));
+        if (own != value) keptContent_[frame.path] = own;
+        for (const auto& m : frame.kept) {
+          parent->kept.emplace_back(parent->body.size(), std::get<1>(m),
+                                    parent->body.size());
+        }
+      } else {
+        std::vector<std::pair<std::size_t, std::vector<std::string>>> ins;
+        for (const auto& m : frame.kept) {
+          ins.emplace_back(std::get<0>(m), std::get<1>(m)->div());
+        }
+        std::string kept = restoreValue(mergeKept(frame.body, ins, replaced));
+        if (!kept.empty()) keptContent_[frame.path] = kept;
+      }
+    }
     if (!value.empty()) {
       stagedSetContent(frame.path, value);
     } else if (node != nullptr && isValueLeaf(node->kind)) {
@@ -3344,8 +3824,11 @@ void MdParser::finalizeFrame(MdFrame& frame) {
 }
 
 void MdParser::finalizeTop() {
-  finalizeFrame(stack_.back());
+  // Popped first: a finalized frame's parent is the top of the stack (it takes
+  // the blocks a list container or an ignored section passes up, RN-11).
+  MdFrame frame = std::move(stack_.back());
   stack_.pop_back();
+  finalizeFrame(frame);
 }
 
 void MdParser::closeTo(int level) {
@@ -3675,6 +4158,9 @@ void MdParser::openRoot(int level, const std::string& id,
       f.line = line;
       f.ignored = false;
       f.anchorSection = seg;
+      // Text before the root heading is kept at the start of its text.
+      for (auto& b : orphans_) f.kept.emplace_back(0, b, 0);
+      orphans_.clear();
       stack_.push_back(std::move(f));
       return;
     }
@@ -3708,6 +4194,7 @@ void MdParser::emitLists() {
 void MdParser::run(const std::string& text, SpecMarkdownResult& out) {
   SpecMarkdownFenceTracker fence;
   std::vector<std::string> lines = splitLines(text);
+  lines_ = lines;
 
   for (std::size_t i = 0; i < lines.size(); i++) {
     const std::string& raw = lines[i];
@@ -3731,6 +4218,10 @@ void MdParser::run(const std::string& text, SpecMarkdownResult& out) {
     } else if (!trimmed.empty()) {
       pushRejection(lineNo, kSpecMarkdownRejectOrphanContent,
                     "text before the document root heading", "");
+      auto b = std::make_shared<KeptBlock>();
+      b->rejection = rejections_.back();
+      b->lines.push_back(raw);
+      orphans_.push_back(b);
     }
     fence.feed(raw);
   }
@@ -3744,6 +4235,7 @@ void MdParser::run(const std::string& text, SpecMarkdownResult& out) {
   out.staged = std::move(staged_);
   out.rejections = std::move(rejections_);
   out.rootPrefixes = std::move(rootPrefixes_);
+  out.keptContent = std::move(keptContent_);
 }
 
 }  // namespace

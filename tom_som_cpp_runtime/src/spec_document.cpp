@@ -86,6 +86,19 @@ void SpecDocument::applyMarkdownResult(const SpecMarkdownResult& result,
   DocumentJson merged = toJson();
   const DocumentJson& parsed = result.staged;
   for (const auto& kv : parsed.content) merged.content[kv.first] = kv.second;
+  if (allowRejections) {
+    // Each rejected block is kept rather than dropped: the kept content is
+    // written over the parsed content, so the block stands as a `rejected` div
+    // in the text of the section it stood in (else its parent), at its place
+    // (SOM §11.7, DocSpecs RN-11). An empty value removes the path's text.
+    for (const auto& kv : result.keptContent) {
+      if (kv.second.empty()) {
+        merged.content.erase(kv.first);
+      } else {
+        merged.content[kv.first] = kv.second;
+      }
+    }
+  }
   for (const auto& kv : parsed.forms) merged.forms[kv.first] = kv.second;
   for (const auto& kv : parsed.lists) merged.lists[kv.first] = kv.second;
   for (const auto& kv : parsed.headlines) {
