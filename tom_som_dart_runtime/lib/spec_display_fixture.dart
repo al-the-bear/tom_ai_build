@@ -57,6 +57,11 @@ const String kShowcaseNoArtifactNote =
 /// The document the fixture's `@SyncedWith` row is kept in sync with.
 const String kShowcaseSyncedDocument = 'OtherDoc';
 
+/// The document the fixture's handoff class is kept in sync with: a
+/// class-level `@SyncedWith` beside its `@DetailedIn`, rendered on the class
+/// row rather than on a field row.
+const String kShowcaseClassSyncedDocument = 'HandoffTarget';
+
 /// The detail list the fixture's `@SummaryOf` row summarises.
 const String kShowcaseSummaryDetail = 'SHW-ITM-LST';
 
@@ -357,8 +362,9 @@ Map<String, dynamic> kAnnotationShowcaseJson() => {
         {'name': 'label', 'kind': 'scalar', 'type': 'String'},
       ],
     },
-    // A section whose subject matter is detailed and mapped elsewhere, and
-    // which declares which CodeSpecs parts it becomes.
+    // A section whose subject matter is detailed and mapped elsewhere, kept
+    // in sync with another document as a whole (a class-level `@SyncedWith`),
+    // and which declares which CodeSpecs parts it becomes.
     'HandoffSection': {
       'name': 'HandoffSection',
       'sectionId': 'SHW-HND',
@@ -376,6 +382,15 @@ Map<String, dynamic> kAnnotationShowcaseJson() => {
         {
           'name': 'DetailedIn',
           'arguments': {'target': 'OtherDoc'},
+        },
+        {
+          'name': 'SyncedWith',
+          'arguments': {
+            'document': kShowcaseClassSyncedDocument,
+            'detailOnly': <String>[],
+            'heldHere': <String>[],
+            'relations': <Object?>[],
+          },
         },
         {
           'name': 'CodeSpecKind',
@@ -475,6 +490,9 @@ Set<String> expectedShowcaseChipLabels(SpecModel model) {
     final group = cls.oneOf;
     if (group != null) addAll(oneOfChips(group));
     addAll(kindChips(cls.codeSpecKind, cls.followUpKind, cls.noArtifact));
+    // Links the class states itself (a class-level `@SyncedWith`), shown on
+    // the class row of both trees.
+    addAll(linkChips(cls));
     for (final field in cls.fields) {
       if (field.isUnused) labels.add(unusedChip.label);
       if (field.hasReferences) labels.add(referencesChip.label);

@@ -51,16 +51,15 @@ void main() {
 
   tearDown(() => dir.deleteSync(recursive: true));
 
-  Future<void> pumpTree(WidgetTester tester, {SpecModel? using}) async {
-    final shown = using ?? model;
+  Future<void> pumpTree(WidgetTester tester) async {
     await tester.binding.setSurfaceSize(const Size(1400, 2400));
     addTearDown(() => tester.binding.setSurfaceSize(null));
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
           body: SpecTree(
-            model: shown,
-            root: shown.roots.single,
+            model: model,
+            root: model.roots.single,
             store: store,
             showSerializationOrder: true,
             onHandoffTap: (_, _) {},
@@ -133,28 +132,5 @@ void main() {
 
     await pumpTree(tester);
     expect(find.text(kShowcaseSectionIdPattern), findsOneWidget);
-  });
-
-  testWidgets('RAR5: a class-level @SyncedWith shows on the class row', (
-    tester,
-  ) async {
-    // Reviewer-only: the shared fixture states `@SyncedWith` on a field row,
-    // which both trees render through `fieldChips`; beside a `@DetailedIn` it
-    // stands on the class, and this tree shows it there too.
-    final json = kAnnotationShowcaseJson();
-    final handoff =
-        (json['classes'] as Map<String, dynamic>)['HandoffSection']
-            as Map<String, dynamic>;
-    (handoff['annotations'] as List).add({
-      'name': 'SyncedWith',
-      'arguments': {
-        'document': 'HandoffTarget',
-        'detailOnly': <String>[],
-        'heldHere': <String>[],
-        'relations': <Object?>[],
-      },
-    });
-    await pumpTree(tester, using: SpecModel.fromJson(json));
-    expect(find.text('sync→ HandoffTarget'), findsOneWidget);
   });
 }

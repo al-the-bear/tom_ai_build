@@ -126,5 +126,13 @@ void main() {
     final links = doc.fields.firstWhere((f) => f.name == 'itemLinks');
     // `@ExtractsLinks` is repeatable: two uses, two chips.
     expect(linkChips(links), hasLength(2));
+
+    // A class-level `@SyncedWith` beside a `@DetailedIn` stands on the
+    // class, so the trees show it on the class row.
+    final handoff = model.classNamed('HandoffSection')!;
+    expect(handoff.detailedIn, isNotNull);
+    expect(linkChips(handoff).map((c) => c.label), [
+      'sync→ $kShowcaseClassSyncedDocument',
+    ]);
   });
 }
