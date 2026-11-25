@@ -16,6 +16,8 @@
 #include "spec_document_markdown.h"
 #include "spec_notation.h"
 #include "spec_review_annotations.h"
+#include "spec_schema_validation.h"
+#include "spec_validator.h"
 
 const char *const SPEC_STRIP_KIND_NAMES[SPEC_STRIP_KIND_COUNT] = {
     "provenance", "trace", "editorial", "aside", "linked", "derived", "comments",
@@ -619,6 +621,7 @@ typedef struct {
   SomStrList entry_kinds;
   SomStrList entry_texts;
   SomStrList findings;    /* refusing finding codes */
+  SomStrList finding_texts; /* the same as `<code> (line N): <message>` */
   SomStrList pool;        /* label strings */
 } Plan;
 
@@ -985,6 +988,7 @@ static void plan_init(Plan *p, const char *o, const SpecStripOptions *options) {
   som_strlist_init(&p->entry_kinds);
   som_strlist_init(&p->entry_texts);
   som_strlist_init(&p->findings);
+  som_strlist_init(&p->finding_texts);
   som_strlist_init(&p->pool);
   SpecNotationScan scan;
   spec_scan_notation(o, 1, &scan);
@@ -993,6 +997,14 @@ static void plan_init(Plan *p, const char *o, const SpecStripOptions *options) {
     if (strcmp(spec_notation_severity(c), "error") == 0 &&
         c != SPEC_NOTATION_REJECTED_BLOCK) {
       som_strlist_push_copy(&p->findings, spec_notation_finding_code_name(c));
+      SomBuf ft;
+      som_buf_init(&ft);
+      som_buf_puts(&ft, spec_notation_finding_code_name(c));
+      som_buf_puts(&ft, " (line ");
+      som_buf_puti(&ft, (long long)scan.findings[i].line);
+      som_buf_puts(&ft, "): ");
+      som_buf_puts(&ft, scan.findings[i].message);
+      som_strlist_push(&p->finding_texts, som_buf_take(&ft));
     }
   }
   spec_notation_scan_free(&scan);
@@ -1037,7 +1049,18 @@ static void plan_free(Plan *p) {
   som_strlist_free(&p->entry_kinds);
   som_strlist_free(&p->entry_texts);
   som_strlist_free(&p->findings);
+  som_strlist_free(&p->finding_texts);
   som_strlist_free(&p->pool);
+}
+
+/* Whether the plan changes its value (`_Plan.changes`). */
+static int plan_changes(const Plan *p) {
+  if (p->findings.len > 0) return 0;
+  if (p->has_script1 || p->ins_len > 0) return 1;
+  for (size_t i = 0; i < p->n; i++) {
+    if (p->del[i] != NULL) return 1;
+  }
+  return 0;
 }
 
 static int str_cmp_ptr(const void *a, const void *b) {
@@ -1050,7 +1073,10 @@ static size_t u16_units(unsigned char c) {
   return c >= 0xF0 ? 2 : 1;
 }
 
-static void plan_finish(Plan *p, SpecStripTextResult *out) {
+/* Finishes the plan into `*out`, numbering appendix entry `k` as
+ * `numbers[k]` (NULL: `k + 1`). */
+static void plan_finish(Plan *p, const long long *numbers,
+                        SpecStripTextResult *out) {
   memset(out, 0, sizeof(*out));
   som_strlist_init(&out->refused);
   if (p->findings.len > 0) {
@@ -1067,7 +1093,9 @@ static void plan_finish(Plan *p, SpecStripTextResult *out) {
       if (p->ins[x].text != NULL) {
         text = som_strdup(p->ins[x].text);
       } else {
-        char *num = som_format_i64((long long)p->ins[x].entry + 1);
+        long entry = p->ins[x].entry;
+        char *num = som_format_i64(numbers != NULL ? numbers[entry]
+                                                   : (long long)entry + 1);
         SomBuf b;
         som_buf_init(&b);
         som_buf_puts(&b, "<a id=\"note-");
@@ -1158,7 +1186,7 @@ static void plan_finish(Plan *p, SpecStripTextResult *out) {
   if (out->appendix_len > 0) {
     out->appendix = calloc(out->appendix_len, sizeof(SpecAppendixEntry));
     for (size_t k = 0; k < out->appendix_len; k++) {
-      out->appendix[k].number = (long long)k + 1;
+      out->appendix[k].number = numbers != NULL ? numbers[k] : (long long)k + 1;
       out->appendix[k].kind = som_strdup(p->entry_kinds.items[k]);
       out->appendix[k].text = som_strdup(p->entry_texts.items[k]);
     }
@@ -1171,7 +1199,7 @@ static void strip_text(const char *value, const SpecStripOptions *options,
                        SpecStripTextResult *out) {
   Plan p;
   plan_init(&p, value != NULL ? value : "", options);
-  plan_finish(&p, out);
+  plan_finish(&p, NULL, out);
   plan_free(&p);
 }
 
@@ -1192,6 +1220,8 @@ void spec_strip_text_result_free(SpecStripTextResult *r) {
   for (size_t i = 0; i < r->appendix_len; i++) {
     free(r->appendix[i].kind);
     free(r->appendix[i].text);
+    spec_strip_value_ref_free(r->appendix[i].value);
+    free(r->appendix[i].value);
   }
   free(r->appendix);
   som_strlist_free(&r->refused);
@@ -1263,6 +1293,1339 @@ char *spec_strip_text_result_to_json(const SpecStripTextResult *r) {
   for (size_t i = 0; i < r->refused.len; i++) {
     if (i > 0) som_buf_putc(&b, ',');
     put_str(&b, r->refused.items[i]);
+  }
+  som_buf_puts(&b, "]}");
+  return som_buf_take(&b);
+}
+
+/* ======================================================================== */
+/* The keeping options and the readable header (SOM §11.1)                   */
+/* ======================================================================== */
+
+SpecStripOptions spec_strip_options_keeping(const SpecStripOptions *o) {
+  SpecStripOptions k;
+  memset(&k, 0, sizeof(k));
+  unsigned comments = 1u << K_COMMENTS;
+  k.unmark = o->unmark | o->appendix | (o->drop & ~comments);
+  k.drop = o->drop & comments;
+  k.heading_divs = o->heading_divs;
+  return k;
+}
+
+/* `,`-joined kind names of `set` in canonical order. */
+static void put_kind_names(SomBuf *b, unsigned set) {
+  int first = 1;
+  for (int k = 0; k < SPEC_STRIP_KIND_COUNT; k++) {
+    if (!has_kind(set, k)) continue;
+    if (!first) som_buf_putc(b, ',');
+    first = 0;
+    som_buf_puts(b, SPEC_STRIP_KIND_NAMES[k]);
+  }
+}
+
+char *spec_readable_header_format(const SpecStripOptions *o,
+                                  const SpecReadableSource *s) {
+  SomStrList parts;
+  som_strlist_init(&parts);
+  const char *keys[3] = {"drop=", "unmark=", "appendix="};
+  unsigned sets[3] = {o->drop, o->unmark, o->appendix};
+  for (int i = 0; i < 3; i++) {
+    if (sets[i] == 0) continue;
+    SomBuf b;
+    som_buf_init(&b);
+    som_buf_puts(&b, keys[i]);
+    put_kind_names(&b, sets[i]);
+    som_strlist_push(&parts, som_buf_take(&b));
+  }
+  if (o->appendix_references) som_strlist_push_copy(&parts, "appendix-references");
+  if (o->heading_divs) som_strlist_push_copy(&parts, "headings=divs");
+  if (s != NULL) {
+    SomBuf b;
+    som_buf_init(&b);
+    som_buf_puts(&b, "of=");
+    som_buf_puts(&b, s->file);
+    if (s->revision != NULL) {
+      som_buf_putc(&b, '@');
+      som_buf_puts(&b, s->revision);
+    }
+    som_strlist_push(&parts, som_buf_take(&b));
+    if (s->commit != NULL) {
+      som_buf_init(&b);
+      som_buf_puts(&b, "commit=");
+      som_buf_puts(&b, s->commit);
+      if (s->dirty) som_buf_puts(&b, "+dirty");
+      som_strlist_push(&parts, som_buf_take(&b));
+    }
+  }
+  SomBuf out;
+  som_buf_init(&out);
+  if (parts.len == 0) {
+    som_buf_puts(&out, "<!-- readable: -->");
+  } else {
+    som_buf_puts(&out, "<!-- readable: ");
+    for (size_t i = 0; i < parts.len; i++) {
+      if (i > 0) som_buf_puts(&out, "; ");
+      som_buf_puts(&out, parts.items[i]);
+    }
+    som_buf_puts(&out, " -->");
+  }
+  som_strlist_free(&parts);
+  return som_buf_take(&out);
+}
+
+static int js_ws(char c) {
+  return c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\f' ||
+         c == '\v';
+}
+
+/* `s[0..n)` trimmed of whitespace on both ends. Owned. */
+static char *trim_n(const char *s, size_t n) {
+  size_t a = 0;
+  while (a < n && js_ws(s[a])) a++;
+  while (n > a && js_ws(s[n - 1])) n--;
+  return som_strdup_n(s + a, n - a);
+}
+
+int spec_readable_header_parse(const char *line, SpecReadableHeader *out) {
+  memset(out, 0, sizeof(*out));
+  char *t = trim_n(line, strlen(line));
+  /* `^<!--\s*readable:(.*)-->$` */
+  size_t n = strlen(t);
+  const char *p = t;
+  if (strncmp(p, "<!--", 4) != 0) {
+    free(t);
+    return 0;
+  }
+  p += 4;
+  while (js_ws(*p)) p++;
+  if (strncmp(p, "readable:", 9) != 0 || n < 3 ||
+      strcmp(t + n - 3, "-->") != 0 || (size_t)(p + 9 - t) > n - 3) {
+    free(t);
+    return 0;
+  }
+  const char *body = p + 9;
+  size_t body_len = (size_t)(t + n - 3 - body);
+  SomStrList lists[3];
+  for (int i = 0; i < 3; i++) som_strlist_init(&lists[i]);
+  int refs = 0, divs = 0, dirty = 0, ok = 1;
+  char *file = NULL, *revision = NULL, *commit = NULL;
+  size_t start = 0;
+  while (ok && start <= body_len) {
+    size_t end = start;
+    while (end < body_len && body[end] != ';') end++;
+    char *part = trim_n(body + start, end - start);
+    start = end + 1;
+    if (part[0] == '\0') {
+      free(part);
+      continue;
+    }
+    char *eq = strchr(part, '=');
+    char *key = eq == NULL ? som_strdup(part) : som_strdup_n(part, (size_t)(eq - part));
+    const char *value = eq == NULL ? "" : eq + 1;
+    if (strcmp(key, "drop") == 0) {
+      som_strlist_push_copy(&lists[0], value);
+    } else if (strcmp(key, "unmark") == 0) {
+      som_strlist_push_copy(&lists[1], value);
+    } else if (strcmp(key, "appendix") == 0) {
+      som_strlist_push_copy(&lists[2], value);
+    } else if (strcmp(key, "appendix-references") == 0 && eq == NULL) {
+      refs = 1;
+    } else if (strcmp(key, "headings") == 0 && strcmp(value, "divs") == 0) {
+      divs = 1;
+    } else if (strcmp(key, "of") == 0) {
+      const char *at = strrchr(value, '@');
+      free(file);
+      free(revision);
+      file = at == NULL ? som_strdup(value) : som_strdup_n(value, (size_t)(at - value));
+      revision = at == NULL ? NULL : som_strdup(at + 1);
+    } else if (strcmp(key, "commit") == 0) {
+      size_t vl = strlen(value);
+      free(commit);
+      dirty = vl >= 6 && strcmp(value + vl - 6, "+dirty") == 0;
+      commit = dirty ? som_strdup_n(value, vl - 6) : som_strdup(value);
+    } else {
+      ok = 0;
+    }
+    free(key);
+    free(part);
+  }
+  free(t);
+  if (ok && file == NULL && commit != NULL) ok = 0;
+  if (ok) {
+    char *err = NULL;
+    ok = spec_strip_options_from_names(&lists[0], &lists[1], &lists[2], refs,
+                                       divs, &out->options, &err);
+    free(err);
+  }
+  for (int i = 0; i < 3; i++) som_strlist_free(&lists[i]);
+  if (ok && file != NULL) {
+    out->source = calloc(1, sizeof(SpecReadableSource));
+    out->source->file = file;
+    out->source->revision = revision;
+    out->source->commit = commit;
+    out->source->dirty = dirty;
+    return 1;
+  }
+  free(file);
+  free(revision);
+  free(commit);
+  if (!ok) memset(out, 0, sizeof(*out));
+  return ok;
+}
+
+void spec_readable_header_free(SpecReadableHeader *h) {
+  if (h == NULL) return;
+  if (h->source != NULL) {
+    free(h->source->file);
+    free(h->source->revision);
+    free(h->source->commit);
+    free(h->source);
+  }
+  memset(h, 0, sizeof(*h));
+}
+
+/* ======================================================================== */
+/* Value references                                                          */
+/* ======================================================================== */
+
+const char *spec_strip_value_ref_read(const SpecStripValueRef *ref,
+                                      const SpecDocument *doc) {
+  const char *v = ref->headline ? spec_document_headline(doc, ref->path)
+                  : ref->field != NULL
+                      ? spec_document_form_field(doc, ref->path, ref->field)
+                      : spec_document_content(doc, ref->path);
+  return v != NULL ? v : "";
+}
+
+void spec_strip_value_ref_write(const SpecStripValueRef *ref, SpecDocument *doc,
+                                const char *value) {
+  if (ref->headline) {
+    spec_document_set_headline(doc, ref->path, value);
+  } else if (ref->field != NULL) {
+    spec_document_set_form_field(doc, ref->path, ref->field, value);
+  } else {
+    spec_document_set_content(doc, ref->path, value);
+  }
+}
+
+char *spec_strip_value_ref_label(const SpecStripValueRef *ref) {
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_puts(&b, ref->path);
+  if (ref->headline) {
+    som_buf_puts(&b, " (headline)");
+  } else if (ref->field != NULL) {
+    som_buf_putc(&b, '/');
+    som_buf_puts(&b, ref->field);
+  }
+  return som_buf_take(&b);
+}
+
+static void put_ref(SomBuf *b, const SpecStripValueRef *ref) {
+  som_buf_puts(b, "{\"path\":");
+  put_str(b, ref->path);
+  if (ref->field != NULL) {
+    som_buf_puts(b, ",\"field\":");
+    put_str(b, ref->field);
+  }
+  if (ref->headline) som_buf_puts(b, ",\"headline\":true");
+  som_buf_putc(b, '}');
+}
+
+char *spec_strip_value_ref_to_json(const SpecStripValueRef *ref) {
+  SomBuf b;
+  som_buf_init(&b);
+  put_ref(&b, ref);
+  return som_buf_take(&b);
+}
+
+void spec_strip_value_ref_free(SpecStripValueRef *ref) {
+  if (ref == NULL) return;
+  free(ref->path);
+  free(ref->field);
+  ref->path = NULL;
+  ref->field = NULL;
+}
+
+static SpecStripValueRef ref_copy(const SpecStripValueRef *r) {
+  SpecStripValueRef c;
+  c.path = som_strdup(r->path);
+  c.field = r->field != NULL ? som_strdup(r->field) : NULL;
+  c.headline = r->headline;
+  return c;
+}
+
+static SpecStripValueRef *ref_heap(const SpecStripValueRef *r) {
+  SpecStripValueRef *h = malloc(sizeof(SpecStripValueRef));
+  *h = ref_copy(r);
+  return h;
+}
+
+/* ======================================================================== */
+/* The strip of a document (SOM §11.10)                                      */
+/* ======================================================================== */
+
+/* An ordered map of finding keys to the paths they concern (`Map<string,
+ * string>`): a key set again keeps its place and takes the new path. */
+typedef struct {
+  SomStrList keys;
+  SomStrList paths;
+} KeyPaths;
+
+static void kp_init(KeyPaths *m) {
+  som_strlist_init(&m->keys);
+  som_strlist_init(&m->paths);
+}
+
+static void kp_free(KeyPaths *m) {
+  som_strlist_free(&m->keys);
+  som_strlist_free(&m->paths);
+}
+
+static long kp_find(const KeyPaths *m, const char *key) {
+  for (size_t i = 0; i < m->keys.len; i++) {
+    if (strcmp(m->keys.items[i], key) == 0) return (long)i;
+  }
+  return -1;
+}
+
+static void kp_set(KeyPaths *m, char *key, const char *path) {
+  long at = kp_find(m, key);
+  if (at >= 0) {
+    free(m->paths.items[at]);
+    m->paths.items[at] = som_strdup(path);
+    free(key);
+    return;
+  }
+  som_strlist_push(&m->keys, key);
+  som_strlist_push_copy(&m->paths, path);
+}
+
+static SpecDocument *doc_copy(const SpecDocument *d) {
+  SpecDocument *c = malloc(sizeof(SpecDocument));
+  spec_document_init(c);
+  DocumentJson j;
+  spec_document_to_json(d, &j);
+  spec_document_load_json(c, &j);
+  document_json_free(&j);
+  return c;
+}
+
+static void doc_release(SpecDocument *d) {
+  if (d == NULL) return;
+  spec_document_free(d);
+  free(d);
+}
+
+static int str_cmp_items(const void *a, const void *b) {
+  return strcmp(*(const char *const *)a, *(const char *const *)b);
+}
+
+static void sort_list(SomStrList *l) {
+  if (l->len > 1) qsort(l->items, l->len, sizeof(char *), str_cmp_items);
+}
+
+static int blank(const char *s) {
+  for (; *s != '\0'; s++) {
+    if (!js_ws(*s)) return 0;
+  }
+  return 1;
+}
+
+/* The instance tier's and (given a schema) the schema tier's findings of
+ * `doc`, keyed as `instance <code> <path>: <message>` / `schema <rule>
+ * <section id>: <message>`, each with the path it concerns. */
+static void tier_findings(const SpecModel *model, const DocSpecsSchema *schema,
+                          const char *root_type, const SpecDocument *doc,
+                          KeyPaths *out) {
+  kp_init(out);
+  SpecValidationErrors errs;
+  validate_document(model, doc, &errs);
+  for (size_t i = 0; i < errs.len; i++) {
+    SomBuf b;
+    som_buf_init(&b);
+    som_buf_puts(&b, "instance ");
+    som_buf_puts(&b, errs.items[i].code);
+    som_buf_putc(&b, ' ');
+    som_buf_puts(&b, errs.items[i].path);
+    som_buf_puts(&b, ": ");
+    som_buf_puts(&b, errs.items[i].message);
+    kp_set(out, som_buf_take(&b), errs.items[i].path);
+  }
+  spec_validation_errors_free(&errs);
+  if (schema == NULL) return;
+  DocSpecsViolationList vl;
+  docspecs_violation_list_init(&vl);
+  char *err = NULL;
+  /* No single root to render: the schema tier cannot judge it. */
+  if (validate_spec_document(model, doc, schema, root_type, &vl, &err)) {
+    for (size_t i = 0; i < vl.len; i++) {
+      SomBuf b;
+      som_buf_init(&b);
+      som_buf_puts(&b, "schema ");
+      som_buf_puts(&b, vl.items[i].rule);
+      som_buf_putc(&b, ' ');
+      som_buf_puts(&b, vl.items[i].section_id);
+      som_buf_puts(&b, ": ");
+      som_buf_puts(&b, vl.items[i].message);
+      kp_set(out, som_buf_take(&b), vl.items[i].path);
+    }
+  }
+  free(err);
+  docspecs_violation_list_free(&vl);
+}
+
+static int starts_with_sep(const char *s, const char *prefix, char sep) {
+  size_t n = strlen(prefix);
+  return strncmp(s, prefix, n) == 0 && s[n] == sep;
+}
+
+/* Whether a finding at `finding_path` concerns `path`. */
+static int concerns(const char *finding_path, const char *path) {
+  return finding_path[0] == '\0' || strcmp(path, finding_path) == 0 ||
+         starts_with_sep(path, finding_path, '/') ||
+         starts_with_sep(path, finding_path, '-') ||
+         starts_with_sep(finding_path, path, '/');
+}
+
+/* The state of one strip of a document. */
+typedef struct {
+  const SpecDocument *document;
+  SpecDocument *copy;
+  const SpecStripOptions *options;
+  SpecStripValueRef *refs;
+  size_t refs_len;
+  char **originals;  /* per ref: its original value (owned) */
+  Plan *plans;       /* per ref, valid where `planned` */
+  int *planned;
+  long long **numbers; /* per planned ref: its entries' numbers */
+} Strip;
+
+static void strip_set_numbers(Strip *s, size_t index) {
+  free(s->numbers[index]);
+  size_t n = s->plans[index].entry_kinds.len;
+  s->numbers[index] = n > 0 ? calloc(n, sizeof(long long)) : NULL;
+}
+
+static void strip_apply(Strip *s) {
+  for (size_t i = 0; i < s->refs_len; i++) {
+    if (!s->planned[i]) continue;
+    SpecStripTextResult r;
+    plan_finish(&s->plans[i], s->numbers[i], &r);
+    spec_strip_value_ref_write(&s->refs[i], s->copy, r.text);
+    spec_strip_text_result_free(&r);
+  }
+}
+
+/* The list items that are, or hold, a planned value. Sorted. */
+static void items_above(Strip *s, SomStrList *out) {
+  som_strlist_init(out);
+  SomStrList items;
+  som_strlist_init(&items);
+  SomStrList lists;
+  spec_document_list_paths(s->copy, &lists);
+  for (size_t i = 0; i < lists.len; i++) {
+    const SomStrList *it = spec_document_list_items(s->copy, lists.items[i]);
+    for (size_t k = 0; it != NULL && k < it->len; k++) {
+      if (!som_strlist_contains(&items, it->items[k])) {
+        som_strlist_push_copy(&items, it->items[k]);
+      }
+    }
+  }
+  som_strlist_free(&lists);
+  for (size_t r = 0; r < s->refs_len; r++) {
+    if (!s->planned[r]) continue;
+    const char *p = s->refs[r].path;
+    if (som_strlist_contains(&items, p) && !som_strlist_contains(out, p)) {
+      som_strlist_push_copy(out, p);
+    }
+    for (size_t i = 0; p[i] != '\0'; i++) {
+      if (p[i] != '/') continue;
+      char *pre = som_strdup_n(p, i);
+      if (som_strlist_contains(&items, pre) && !som_strlist_contains(out, pre)) {
+        som_strlist_push(out, pre);
+      } else {
+        free(pre);
+      }
+    }
+  }
+  som_strlist_free(&items);
+  sort_list(out);
+}
+
+static void emptied_items(Strip *s, const SomStrList *candidates,
+                          const SomStrList *keep, SomStrList *out) {
+  som_strlist_init(out);
+  for (size_t i = 0; i < candidates->len; i++) {
+    const char *item = candidates->items[i];
+    if (!som_strlist_contains(keep, item) &&
+        spec_document_has_values_under(s->document, item) &&
+        !spec_document_has_values_under(s->copy, item)) {
+      som_strlist_push_copy(out, item);
+    }
+  }
+}
+
+/* The emptying rule: a value whose strip adds an instance or schema finding
+ * is stripped with the keeping options instead (or keeps its original when
+ * even that empties it), and a list item it would empty stays; then the list
+ * items left with nothing are removed and written into `removed`. */
+static void emptying_rule(Strip *s, const SpecModel *model,
+                          const DocSpecsSchema *schema, const char *root_type,
+                          const KeyPaths *base, SpecStripKept **kept,
+                          size_t *kept_len, SomStrList *removed) {
+  int *kept_refs = calloc(s->refs_len + 1, sizeof(int));
+  SomStrList keep_items;
+  som_strlist_init(&keep_items);
+  SomStrList candidates;
+  items_above(s, &candidates);
+  SpecStripOptions keeping = spec_strip_options_keeping(s->options);
+  size_t kept_cap = 0;
+  for (int round = 0; round < 8; round++) {
+    SomStrList items;
+    emptied_items(s, &candidates, &keep_items, &items);
+    SpecDocument *scratch = s->copy;
+    if (items.len > 0) {
+      scratch = doc_copy(s->copy);
+      for (size_t i = 0; i < items.len; i++) {
+        spec_document_remove_list_item(scratch, items.items[i]);
+      }
+    }
+    KeyPaths now;
+    tier_findings(model, schema, root_type, scratch, &now);
+    if (scratch != s->copy) doc_release(scratch);
+    KeyPaths added;
+    kp_init(&added);
+    for (size_t i = 0; i < now.keys.len; i++) {
+      if (kp_find(base, now.keys.items[i]) < 0) {
+        som_strlist_push_copy(&added.keys, now.keys.items[i]);
+        som_strlist_push_copy(&added.paths, now.paths.items[i]);
+      }
+    }
+    kp_free(&now);
+    if (added.keys.len == 0) {
+      kp_free(&added);
+      som_strlist_free(&items);
+      break;
+    }
+    size_t *emptied = calloc(s->refs_len + 1, sizeof(size_t));
+    size_t emptied_len = 0;
+    for (size_t i = 0; i < s->refs_len; i++) {
+      if (s->planned[i] && !kept_refs[i] &&
+          blank(spec_strip_value_ref_read(&s->refs[i], s->copy))) {
+        emptied[emptied_len++] = i;
+      }
+    }
+    int changed = 0;
+    for (size_t a = 0; a < added.keys.len; a++) {
+      const char *key = added.keys.items[a];
+      const char *finding_path = added.paths.items[a];
+      for (size_t i = 0; i < items.len; i++) {
+        if (concerns(finding_path, items.items[i]) &&
+            !som_strlist_contains(&keep_items, items.items[i])) {
+          som_strlist_push_copy(&keep_items, items.items[i]);
+          changed = 1;
+        }
+      }
+      for (size_t e = 0; e < emptied_len; e++) {
+        size_t index = emptied[e];
+        const SpecStripValueRef *ref = &s->refs[index];
+        if (kept_refs[index] || !concerns(finding_path, ref->path)) continue;
+        kept_refs[index] = 1;
+        if (*kept_len == kept_cap) {
+          kept_cap = kept_cap ? kept_cap * 2 : 4;
+          *kept = realloc(*kept, kept_cap * sizeof(SpecStripKept));
+        }
+        (*kept)[*kept_len].ref = ref_copy(ref);
+        (*kept)[*kept_len].finding = som_strdup(key);
+        (*kept_len)++;
+        Plan k;
+        plan_init(&k, s->originals[index], &keeping);
+        SpecStripTextResult r;
+        plan_finish(&k, NULL, &r);
+        plan_free(&s->plans[index]);
+        if (blank(r.text)) {
+          plan_free(&k);
+          s->planned[index] = 0;
+          spec_strip_value_ref_write(ref, s->copy, s->originals[index]);
+        } else {
+          s->plans[index] = k;
+          strip_set_numbers(s, index);
+          spec_strip_value_ref_write(ref, s->copy, r.text);
+        }
+        spec_strip_text_result_free(&r);
+        changed = 1;
+      }
+    }
+    free(emptied);
+    kp_free(&added);
+    som_strlist_free(&items);
+    if (!changed) break;
+  }
+  SomStrList items;
+  emptied_items(s, &candidates, &keep_items, &items);
+  for (size_t i = 0; i < items.len; i++) {
+    spec_document_remove_list_item(s->copy, items.items[i]);
+    som_strlist_push_copy(removed, items.items[i]);
+  }
+  som_strlist_free(&items);
+  som_strlist_free(&candidates);
+  som_strlist_free(&keep_items);
+  free(kept_refs);
+}
+
+static void push_finding(SpecStripResult *out, size_t *cap, const char *kind,
+                         char *message, const SpecStripValueRef *ref) {
+  if (out->findings_len == *cap) {
+    *cap = *cap ? *cap * 2 : 4;
+    out->findings = realloc(out->findings, *cap * sizeof(SpecStripFinding));
+  }
+  SpecStripFinding *f = &out->findings[out->findings_len++];
+  f->kind = som_strdup(kind);
+  f->message = message;
+  f->ref = ref != NULL ? ref_heap(ref) : NULL;
+}
+
+/* The heading of the rendition a value stands under: titles keyed by path,
+ * in rendition order. */
+typedef struct {
+  SomStrList paths;
+  SomStrList titles;
+  int *lines;
+} Headings;
+
+static void headings_from(const SpecMarkdownRendition *r, Headings *h) {
+  som_strlist_init(&h->paths);
+  som_strlist_init(&h->titles);
+  h->lines = r->headings_len > 0 ? calloc(r->headings_len, sizeof(int)) : NULL;
+  /* Index the rendition's lines once. */
+  size_t cap = 64, n = 0;
+  const char **starts = malloc(cap * sizeof(char *));
+  const char *p = r->markdown;
+  starts[n++] = p;
+  for (; *p != '\0'; p++) {
+    if (*p == '\n') {
+      if (n == cap) {
+        cap *= 2;
+        starts = realloc(starts, cap * sizeof(char *));
+      }
+      starts[n++] = p + 1;
+    }
+  }
+  for (size_t i = 0; i < r->headings_len; i++) {
+    int line = r->headings[i].line;
+    char *text = NULL;
+    if (line >= 1 && (size_t)line <= n) {
+      const char *a = starts[line - 1];
+      const char *e = strchr(a, '\n');
+      text = e != NULL ? som_strdup_n(a, (size_t)(e - a)) : som_strdup(a);
+    } else {
+      text = som_strdup("");
+    }
+    long at = -1;
+    for (size_t k = 0; k < h->paths.len; k++) {
+      if (strcmp(h->paths.items[k], r->headings[i].path) == 0) at = (long)k;
+    }
+    char *title = spec_markdown_heading_title(text);
+    free(text);
+    if (at >= 0) {
+      free(h->titles.items[at]);
+      h->titles.items[at] = title;
+      h->lines[at] = line;
+    } else {
+      h->lines[h->paths.len] = line;
+      som_strlist_push_copy(&h->paths, r->headings[i].path);
+      som_strlist_push(&h->titles, title);
+    }
+  }
+  free(starts);
+}
+
+static void headings_free(Headings *h) {
+  som_strlist_free(&h->paths);
+  som_strlist_free(&h->titles);
+  free(h->lines);
+  h->lines = NULL;
+}
+
+/* The index of the longest heading path that is `path` or above it, or -1. */
+static long headings_section(const Headings *h, const char *path) {
+  long best = -1;
+  size_t best_len = 0;
+  for (size_t k = 0; k < h->paths.len; k++) {
+    const char *p = h->paths.items[k];
+    size_t pl = strlen(p);
+    if ((strcmp(path, p) == 0 || starts_with_sep(path, p, '/')) &&
+        (best < 0 || pl > best_len)) {
+      best = (long)k;
+      best_len = pl;
+    }
+  }
+  return best;
+}
+
+typedef struct {
+  size_t index;
+  size_t entry;
+  int line;
+} EntryAt;
+
+static int entry_cmp(const void *a, const void *b) {
+  const EntryAt *x = a, *y = b;
+  if (x->line != y->line) return x->line < y->line ? -1 : 1;
+  if (x->index != y->index) return x->index < y->index ? -1 : 1;
+  return x->entry < y->entry ? -1 : x->entry > y->entry ? 1 : 0;
+}
+
+static int appendix_cmp(const void *a, const void *b) {
+  const SpecAppendixEntry *x = a, *y = b;
+  return x->number < y->number ? -1 : x->number > y->number ? 1 : 0;
+}
+
+/* The rendition with the appendix *Notes* after its marker. Owned. */
+static char *with_appendix(const char *markdown, const SpecAppendixEntry *entries,
+                           size_t n, const Headings *titles, int references) {
+  SomBuf b;
+  som_buf_init(&b);
+  size_t len = strlen(markdown);
+  while (len > 0 && markdown[len - 1] == '\n') len--;
+  som_buf_putn(&b, markdown, len);
+  som_buf_puts(&b, "\n\n" SPEC_MARKDOWN_APPENDIX_MARKER "\n\n## Notes\n");
+  char *section = NULL;
+  for (size_t i = 0; i < n; i++) {
+    const SpecAppendixEntry *e = &entries[i];
+    const char *path = "", *title = "";
+    if (e->value != NULL) {
+      long k = headings_section(titles, e->value->path);
+      path = k >= 0 ? titles->paths.items[k] : e->value->path;
+      title = k >= 0 ? titles->titles.items[k] : e->value->path;
+    }
+    if (section == NULL || strcmp(path, section) != 0) {
+      som_buf_puts(&b, "\n### ");
+      som_buf_puts(&b, title);
+      som_buf_putc(&b, '\n');
+      free(section);
+      section = som_strdup(path);
+    }
+    SomBuf text;
+    som_buf_init(&text);
+    const char *line = e->text;
+    for (;;) {
+      if (line[0] == '#') som_buf_putc(&text, '\\');
+      const char *nl = strchr(line, '\n');
+      if (nl == NULL) {
+        som_buf_puts(&text, line);
+        break;
+      }
+      som_buf_putn(&text, line, (size_t)(nl - line) + 1);
+      line = nl + 1;
+    }
+    char *t = som_buf_take(&text);
+    char *num = som_format_i64(e->number);
+    if (references) {
+      som_buf_puts(&b, "\n<a id=\"note-");
+      som_buf_puts(&b, num);
+      som_buf_puts(&b, "\"></a>**[");
+      som_buf_puts(&b, num);
+      som_buf_puts(&b, "]** ");
+      som_buf_puts(&b, t);
+      som_buf_puts(&b, " [\xe2\x86\xa9](#note-");
+      som_buf_puts(&b, num);
+      som_buf_puts(&b, "-ref)\n");
+    } else {
+      som_buf_puts(&b, "\n**[");
+      som_buf_puts(&b, num);
+      som_buf_puts(&b, "]** ");
+      som_buf_puts(&b, t);
+      som_buf_putc(&b, '\n');
+    }
+    free(num);
+    free(t);
+  }
+  free(section);
+  return som_buf_take(&b);
+}
+
+
+/* `a` + `b` + `c`. Owned. */
+static char *join3(const char *a, const char *b, const char *c) {
+  SomBuf buf;
+  som_buf_init(&buf);
+  som_buf_puts(&buf, a);
+  som_buf_puts(&buf, b);
+  som_buf_puts(&buf, c);
+  return som_buf_take(&buf);
+}
+
+static int in_root(const char *prefix, const char *p) {
+  return strcmp(p, prefix) == 0 || starts_with_sep(p, prefix, '/');
+}
+
+/* Compares what the rendition reads back as (`got`) with what the stripped
+ * document holds (`want`), both keyed by path, under the root. */
+static void compare_read_back(const char *what, const char *prefix,
+                              const SomMap *want, const SomMap *got,
+                              SpecStripResult *out, size_t *cap) {
+  SomStrList keys;
+  som_strlist_init(&keys);
+  for (size_t i = 0; i < want->len; i++) som_strlist_push_copy(&keys, want->entries[i].key);
+  for (size_t i = 0; i < got->len; i++) {
+    if (!som_strlist_contains(&keys, got->entries[i].key)) {
+      som_strlist_push_copy(&keys, got->entries[i].key);
+    }
+  }
+  sort_list(&keys);
+  for (size_t i = 0; i < keys.len; i++) {
+    const char *k = keys.items[i];
+    if (!in_root(prefix, k)) continue;
+    const char *w = som_map_get(want, k);
+    const char *g = som_map_get(got, k);
+    if (w != NULL && g != NULL && strcmp(w, g) == 0) continue;
+    /* A wrapped paragraph written in a table cell reads back on one line
+     * (SOM §11.4). */
+    if (w != NULL && g != NULL) {
+      char *joined = spec_markdown_wrapped_paragraph_joined(w);
+      int same = joined != NULL && strcmp(joined, g) == 0;
+      free(joined);
+      if (same) continue;
+    }
+    SomBuf b;
+    som_buf_init(&b);
+    som_buf_puts(&b, what);
+    som_buf_puts(&b, " at ");
+    som_buf_puts(&b, k);
+    som_buf_puts(&b, " reads back as ");
+    if (g == NULL) {
+      som_buf_puts(&b, "nothing");
+    } else {
+      som_buf_putc(&b, '"');
+      som_buf_puts(&b, g);
+      som_buf_putc(&b, '"');
+    }
+    som_buf_puts(&b, " instead of ");
+    if (w == NULL) {
+      som_buf_puts(&b, "nothing");
+    } else {
+      som_buf_putc(&b, '"');
+      som_buf_puts(&b, w);
+      som_buf_putc(&b, '"');
+    }
+    push_finding(out, cap, "parse", som_buf_take(&b), NULL);
+  }
+  som_strlist_free(&keys);
+}
+
+static char *violation_key(const DocSpecsViolation *v) {
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_puts(&b, v->rule);
+  som_buf_putc(&b, ' ');
+  som_buf_puts(&b, v->section_id);
+  som_buf_puts(&b, ": ");
+  som_buf_puts(&b, v->message);
+  return som_buf_take(&b);
+}
+
+/* The readable rendition reads back as the stripped document, and neither
+ * it nor the stripped document adds a finding. */
+static void check_output(const SpecModel *model, const DocSpecsSchema *schema,
+                         const SpecRoot *root, const char *root_type,
+                         const KeyPaths *before, const SpecDocument *document,
+                         const SpecDocument *copy, const char *readable,
+                         SpecStripResult *out, size_t *cap) {
+  SpecMarkdownResult parsed;
+  spec_markdown_parse(model, readable, &parsed);
+  for (size_t i = 0; i < parsed.rejections_len; i++) {
+    char *d = spec_markdown_rejection_display(&parsed.rejections[i]);
+    SomBuf b;
+    som_buf_init(&b);
+    som_buf_puts(&b, "the rendition rejects: ");
+    som_buf_puts(&b, d);
+    free(d);
+    push_finding(out, cap, "parse", som_buf_take(&b), NULL);
+  }
+  const char *prefix = root->section_id != NULL && root->section_id[0] != '\0'
+                           ? root->section_id
+                           : root->type;
+  SomMap want, got;
+  som_map_init(&want);
+  som_map_init(&got);
+  SomStrList paths;
+  spec_document_content_paths(copy, &paths);
+  for (size_t i = 0; i < paths.len; i++) {
+    som_map_set(&want, paths.items[i], spec_document_content(copy, paths.items[i]));
+  }
+  som_strlist_free(&paths);
+  compare_read_back("content", prefix, &want, &parsed.staged.content, out, cap);
+  som_map_clear(&want);
+  spec_document_form_paths(copy, &paths);
+  for (size_t i = 0; i < paths.len; i++) {
+    SomStrList fields;
+    spec_document_form_field_names(copy, paths.items[i], &fields);
+    for (size_t f = 0; f < fields.len; f++) {
+      char *key = join3(paths.items[i], "/", fields.items[f]);
+      som_map_set(&want, key,
+                  spec_document_form_field(copy, paths.items[i], fields.items[f]));
+      free(key);
+    }
+    som_strlist_free(&fields);
+  }
+  som_strlist_free(&paths);
+  for (size_t i = 0; i < parsed.staged.forms_len; i++) {
+    const DocFormEntry *fe = &parsed.staged.forms[i];
+    for (size_t f = 0; f < fe->fields.len; f++) {
+      char *key = join3(fe->key, "/", fe->fields.entries[f].key);
+      som_map_set(&got, key, fe->fields.entries[f].val);
+      free(key);
+    }
+  }
+  compare_read_back("the form field", prefix, &want, &got, out, cap);
+  som_map_free(&want);
+  som_map_free(&got);
+  spec_markdown_result_free(&parsed);
+
+  KeyPaths after;
+  tier_findings(model, schema, root_type, copy, &after);
+  for (size_t i = 0; i < after.keys.len; i++) {
+    const char *key = after.keys.items[i];
+    if (kp_find(before, key) >= 0) continue;
+    push_finding(out, cap, strncmp(key, "schema", 6) == 0 ? "schema" : "instance",
+                 som_strdup(key), NULL);
+  }
+  kp_free(&after);
+  if (schema == NULL) return;
+  char *err = NULL;
+  char *original = spec_markdown_export_root(model, document, root, &err);
+  free(err);
+  if (original == NULL) return;
+  DocSpecsValidator val = docspecs_validator_new_with(schema, 1);
+  DocSpecsViolationList had, now;
+  docspecs_violation_list_init(&had);
+  docspecs_violation_list_init(&now);
+  docspecs_validator_validate_markdown(&val, original, &had);
+  docspecs_validator_validate_markdown(&val, readable, &now);
+  SomStrList had_keys;
+  som_strlist_init(&had_keys);
+  for (size_t i = 0; i < had.len; i++) som_strlist_push(&had_keys, violation_key(&had.items[i]));
+  for (size_t i = 0; i < now.len; i++) {
+    char *k = violation_key(&now.items[i]);
+    if (!som_strlist_contains(&had_keys, k)) {
+      SomBuf b;
+      som_buf_init(&b);
+      som_buf_puts(&b, "the rendition: line ");
+      som_buf_puti(&b, (long long)now.items[i].line);
+      som_buf_puts(&b, ": ");
+      som_buf_puts(&b, k);
+      push_finding(out, cap, "schema", som_buf_take(&b), NULL);
+    }
+    free(k);
+  }
+  som_strlist_free(&had_keys);
+  docspecs_violation_list_free(&had);
+  docspecs_violation_list_free(&now);
+  free(original);
+}
+
+/* Every value of `doc`: stored headlines, content, form fields, each group
+ * sorted. */
+static void value_refs(const SpecDocument *doc, SpecStripValueRef **out,
+                       size_t *out_len) {
+  size_t cap = 16, n = 0;
+  SpecStripValueRef *refs = malloc(cap * sizeof(SpecStripValueRef));
+#define PUSH_REF(P, F, H)                                          \
+  do {                                                             \
+    if (n == cap) {                                                \
+      cap *= 2;                                                    \
+      refs = realloc(refs, cap * sizeof(SpecStripValueRef));       \
+    }                                                              \
+    refs[n].path = som_strdup(P);                                  \
+    refs[n].field = (F) != NULL ? som_strdup(F) : NULL;            \
+    refs[n].headline = (H);                                        \
+    n++;                                                           \
+  } while (0)
+  SomStrList paths;
+  spec_document_headline_paths(doc, &paths);
+  sort_list(&paths);
+  for (size_t i = 0; i < paths.len; i++) PUSH_REF(paths.items[i], (const char *)NULL, 1);
+  som_strlist_free(&paths);
+  spec_document_content_paths(doc, &paths);
+  sort_list(&paths);
+  for (size_t i = 0; i < paths.len; i++) PUSH_REF(paths.items[i], (const char *)NULL, 0);
+  som_strlist_free(&paths);
+  spec_document_form_paths(doc, &paths);
+  sort_list(&paths);
+  for (size_t i = 0; i < paths.len; i++) {
+    SomStrList fields;
+    spec_document_form_field_names(doc, paths.items[i], &fields);
+    sort_list(&fields);
+    for (size_t f = 0; f < fields.len; f++) PUSH_REF(paths.items[i], fields.items[f], 0);
+    som_strlist_free(&fields);
+  }
+  som_strlist_free(&paths);
+#undef PUSH_REF
+  *out = refs;
+  *out_len = n;
+}
+
+void spec_document_strip(const SpecDocument *document,
+                         const SpecStripOptions *options,
+                         const SpecDocumentStripOptions *extra,
+                         SpecStripResult *out) {
+  memset(out, 0, sizeof(*out));
+  som_strlist_init(&out->removed_items);
+  const SpecModel *model = extra != NULL ? extra->model : NULL;
+  const DocSpecsSchema *schema = extra != NULL ? extra->schema : NULL;
+  const char *root_type = extra != NULL ? extra->root_type : NULL;
+  const SpecReadableSource *source = extra != NULL ? extra->source : NULL;
+  size_t findings_cap = 0;
+
+  Strip s;
+  memset(&s, 0, sizeof(s));
+  s.document = document;
+  s.options = options;
+  value_refs(document, &s.refs, &s.refs_len);
+  size_t nr = s.refs_len + 1;
+  s.originals = calloc(nr, sizeof(char *));
+  s.plans = calloc(nr, sizeof(Plan));
+  s.planned = calloc(nr, sizeof(int));
+  s.numbers = calloc(nr, sizeof(long long *));
+  for (size_t i = 0; i < s.refs_len; i++) {
+    const char *text = spec_strip_value_ref_read(&s.refs[i], document);
+    if (text[0] == '\0') continue;
+    s.originals[i] = som_strdup(text);
+    plan_init(&s.plans[i], s.originals[i], options);
+    if (s.plans[i].findings.len > 0) {
+      for (size_t f = 0; f < s.plans[i].finding_texts.len; f++) {
+        push_finding(out, &findings_cap, "notation",
+                     som_strdup(s.plans[i].finding_texts.items[f]), &s.refs[i]);
+      }
+      plan_free(&s.plans[i]);
+      continue;
+    }
+    if (plan_changes(&s.plans[i])) {
+      s.planned[i] = 1;
+    } else {
+      plan_free(&s.plans[i]);
+    }
+  }
+
+  s.copy = doc_copy(document);
+  long long next = 1;
+  for (size_t i = 0; i < s.refs_len; i++) {
+    if (!s.planned[i]) continue;
+    strip_set_numbers(&s, i);
+    for (size_t k = 0; k < s.plans[i].entry_kinds.len; k++) s.numbers[i][k] = next++;
+  }
+  strip_apply(&s);
+  KeyPaths base;
+  kp_init(&base);
+  size_t kept_len = 0;
+  if (model != NULL) {
+    kp_free(&base);
+    tier_findings(model, schema, root_type, document, &base);
+    emptying_rule(&s, model, schema, root_type, &base, &out->kept, &kept_len,
+                  &out->removed_items);
+  }
+  out->kept_len = kept_len;
+
+  /* The appendix, numbered through the rendition. */
+  size_t entries_len = 0;
+  for (size_t i = 0; i < s.refs_len; i++) {
+    if (s.planned[i]) entries_len += s.plans[i].entry_kinds.len;
+  }
+  EntryAt *entries = calloc(entries_len + 1, sizeof(EntryAt));
+  size_t e = 0;
+  for (size_t i = 0; i < s.refs_len; i++) {
+    if (!s.planned[i]) continue;
+    for (size_t k = 0; k < s.plans[i].entry_kinds.len; k++) {
+      entries[e].index = i;
+      entries[e].entry = k;
+      e++;
+    }
+  }
+  const SpecRoot *root = NULL;
+  if (model != NULL) {
+    char *err = NULL;
+    root = spec_document_root_to_export(model, s.copy, root_type, &err);
+    if (root == NULL) {
+      push_finding(out, &findings_cap, "parse",
+                   som_strdup(err != NULL ? err : "no root to export"), NULL);
+    }
+    free(err);
+  }
+  Headings titles;
+  memset(&titles, 0, sizeof(titles));
+  som_strlist_init(&titles.paths);
+  som_strlist_init(&titles.titles);
+  if (entries_len > 0 && root != NULL) {
+    SpecMarkdownRendition map;
+    char *err = NULL;
+    if (spec_markdown_export_root_with_map(model, s.copy, root, &map, &err)) {
+      headings_free(&titles);
+      headings_from(&map, &titles);
+      for (size_t k = 0; k < entries_len; k++) {
+        long sec = headings_section(&titles, s.refs[entries[k].index].path);
+        entries[k].line = sec >= 0 ? titles.lines[sec] : 0;
+      }
+      qsort(entries, entries_len, sizeof(EntryAt), entry_cmp);
+      spec_markdown_rendition_free(&map);
+    } else {
+      push_finding(out, &findings_cap, "parse",
+                   som_strdup(err != NULL ? err : "the document does not render"),
+                   NULL);
+    }
+    free(err);
+  }
+  for (size_t k = 0; k < entries_len; k++) {
+    s.numbers[entries[k].index][entries[k].entry] = (long long)k + 1;
+  }
+  free(entries);
+  strip_apply(&s);
+
+  size_t values_cap = 0, appendix_cap = 0;
+  for (size_t i = 0; i < s.refs_len; i++) {
+    if (!s.planned[i]) continue;
+    SpecStripTextResult r;
+    plan_finish(&s.plans[i], s.numbers[i], &r);
+    if (out->values_len == values_cap) {
+      values_cap = values_cap ? values_cap * 2 : 8;
+      out->values = realloc(out->values, values_cap * sizeof(SpecStrippedValue));
+    }
+    SpecStrippedValue *v = &out->values[out->values_len++];
+    v->ref = ref_copy(&s.refs[i]);
+    v->original = som_strdup(s.originals[i]);
+    v->stripped = r.text;
+    v->pieces = r.pieces;
+    v->pieces_len = r.pieces_len;
+    r.text = NULL;
+    r.pieces = NULL;
+    r.pieces_len = 0;
+    for (int k = 0; k < SPEC_STRIP_KIND_COUNT; k++) {
+      out->dropped[k] += r.dropped[k];
+      out->unmarked[k] += r.unmarked[k];
+      out->appended[k] += r.appended[k];
+    }
+    out->marks_dropped += r.marks_dropped;
+    for (size_t k = 0; k < r.appendix_len; k++) {
+      if (out->appendix_len == appendix_cap) {
+        appendix_cap = appendix_cap ? appendix_cap * 2 : 8;
+        out->appendix =
+            realloc(out->appendix, appendix_cap * sizeof(SpecAppendixEntry));
+      }
+      SpecAppendixEntry *a = &out->appendix[out->appendix_len++];
+      a->number = r.appendix[k].number;
+      a->kind = r.appendix[k].kind;
+      a->text = r.appendix[k].text;
+      a->value = ref_heap(&s.refs[i]);
+      r.appendix[k].kind = NULL;
+      r.appendix[k].text = NULL;
+    }
+    spec_strip_text_result_free(&r);
+  }
+  if (out->appendix_len > 1) {
+    qsort(out->appendix, out->appendix_len, sizeof(SpecAppendixEntry),
+          appendix_cmp);
+  }
+
+  out->readable_header = spec_readable_header_format(options, source);
+  if (root != NULL) {
+    SpecMarkdownExportOptions mo;
+    mo.heading_divs = options->heading_divs;
+    mo.readable_header = out->readable_header;
+    SpecMarkdownRendition rendition;
+    char *err = NULL;
+    if (spec_markdown_export_root_with_options(model, s.copy, root, &mo,
+                                               &rendition, &err)) {
+      if (titles.paths.len == 0 && out->appendix_len > 0) {
+        headings_free(&titles);
+        headings_from(&rendition, &titles);
+      }
+      out->readable =
+          out->appendix_len == 0
+              ? som_strdup(rendition.markdown)
+              : with_appendix(rendition.markdown, out->appendix,
+                              out->appendix_len, &titles,
+                              options->appendix_references);
+      spec_markdown_rendition_free(&rendition);
+      check_output(model, schema, root, root_type, &base, document, s.copy,
+                   out->readable, out, &findings_cap);
+    } else {
+      push_finding(out, &findings_cap, "parse",
+                   som_strdup(err != NULL ? err : "the document does not render"),
+                   NULL);
+    }
+    free(err);
+  }
+  headings_free(&titles);
+  kp_free(&base);
+
+  out->document = s.copy;
+  for (size_t i = 0; i < s.refs_len; i++) {
+    if (s.planned[i]) plan_free(&s.plans[i]);
+    free(s.originals[i]);
+    free(s.numbers[i]);
+    spec_strip_value_ref_free(&s.refs[i]);
+  }
+  free(s.refs);
+  free(s.originals);
+  free(s.plans);
+  free(s.planned);
+  free(s.numbers);
+}
+
+void spec_strip_result_free(SpecStripResult *r) {
+  if (r == NULL) return;
+  doc_release(r->document);
+  for (size_t i = 0; i < r->values_len; i++) {
+    SpecStrippedValue *v = &r->values[i];
+    spec_strip_value_ref_free(&v->ref);
+    free(v->original);
+    free(v->stripped);
+    for (size_t k = 0; k < v->pieces_len; k++) {
+      free(v->pieces[k].removed);
+      free(v->pieces[k].inserted);
+      som_strlist_free(&v->pieces[k].labels);
+    }
+    free(v->pieces);
+  }
+  free(r->values);
+  for (size_t i = 0; i < r->kept_len; i++) {
+    spec_strip_value_ref_free(&r->kept[i].ref);
+    free(r->kept[i].finding);
+  }
+  free(r->kept);
+  som_strlist_free(&r->removed_items);
+  for (size_t i = 0; i < r->appendix_len; i++) {
+    free(r->appendix[i].kind);
+    free(r->appendix[i].text);
+    spec_strip_value_ref_free(r->appendix[i].value);
+    free(r->appendix[i].value);
+  }
+  free(r->appendix);
+  free(r->readable_header);
+  free(r->readable);
+  for (size_t i = 0; i < r->findings_len; i++) {
+    free(r->findings[i].kind);
+    free(r->findings[i].message);
+    spec_strip_value_ref_free(r->findings[i].ref);
+    free(r->findings[i].ref);
+  }
+  free(r->findings);
+  memset(r, 0, sizeof(*r));
+}
+
+int spec_strip_result_ok(const SpecStripResult *r) {
+  return r->findings_len == 0;
+}
+
+void spec_strip_result_report(const SpecStripResult *r, SomStrList *out) {
+  som_strlist_init(out);
+  for (int k = 0; k < SPEC_STRIP_KIND_COUNT; k++) {
+    long long d = r->dropped[k], u = r->unmarked[k], a = r->appended[k];
+    if (d + u + a <= 0) continue;
+    SomBuf b;
+    som_buf_init(&b);
+    som_buf_puts(&b, SPEC_STRIP_KIND_NAMES[k]);
+    som_buf_puts(&b, ": ");
+    som_buf_puti(&b, d);
+    som_buf_puts(&b, " dropped, ");
+    som_buf_puti(&b, u);
+    som_buf_puts(&b, " unmarked, ");
+    som_buf_puti(&b, a);
+    som_buf_puts(&b, " moved");
+    som_strlist_push(out, som_buf_take(&b));
+  }
+  if (r->marks_dropped > 0) {
+    SomBuf b;
+    som_buf_init(&b);
+    som_buf_puts(&b, "review marks inside dropped elements: ");
+    som_buf_puti(&b, r->marks_dropped);
+    som_strlist_push(out, som_buf_take(&b));
+  }
+  for (size_t i = 0; i < r->kept_len; i++) {
+    char *label = spec_strip_value_ref_label(&r->kept[i].ref);
+    SomBuf b;
+    som_buf_init(&b);
+    som_buf_puts(&b, "KEPT (would empty a required value): ");
+    som_buf_puts(&b, label);
+    som_buf_puts(&b, " \xe2\x80\x94 ");
+    som_buf_puts(&b, r->kept[i].finding);
+    free(label);
+    som_strlist_push(out, som_buf_take(&b));
+  }
+}
+
+char *spec_strip_finding_string(const SpecStripFinding *f) {
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_puts(&b, f->kind);
+  som_buf_puts(&b, ": ");
+  if (f->ref != NULL) {
+    char *label = spec_strip_value_ref_label(f->ref);
+    som_buf_puts(&b, label);
+    som_buf_puts(&b, ": ");
+    free(label);
+  }
+  som_buf_puts(&b, f->message);
+  return som_buf_take(&b);
+}
+
+char *spec_strip_result_to_json(const SpecStripResult *r) {
+  SomBuf b;
+  som_buf_init(&b);
+  DocumentJson dj;
+  spec_document_to_json(r->document, &dj);
+  char *doc = document_json_to_canonical_json(&dj);
+  document_json_free(&dj);
+  som_buf_puts(&b, "{\"document\":");
+  som_buf_puts(&b, doc);
+  free(doc);
+  som_buf_puts(&b, ",\"kept\":[");
+  for (size_t i = 0; i < r->kept_len; i++) {
+    if (i > 0) som_buf_putc(&b, ',');
+    put_ref(&b, &r->kept[i].ref);
+  }
+  som_buf_puts(&b, "],\"removedItems\":[");
+  for (size_t i = 0; i < r->removed_items.len; i++) {
+    if (i > 0) som_buf_putc(&b, ',');
+    put_str(&b, r->removed_items.items[i]);
+  }
+  som_buf_puts(&b, "],\"appendix\":[");
+  for (size_t i = 0; i < r->appendix_len; i++) {
+    const SpecAppendixEntry *a = &r->appendix[i];
+    if (i > 0) som_buf_putc(&b, ',');
+    som_buf_puts(&b, "{\"number\":");
+    som_buf_puti(&b, a->number);
+    som_buf_puts(&b, ",\"kind\":");
+    put_str(&b, a->kind);
+    som_buf_puts(&b, ",\"text\":");
+    put_str(&b, a->text);
+    if (a->value != NULL) {
+      som_buf_puts(&b, ",\"value\":");
+      put_ref(&b, a->value);
+    }
+    som_buf_putc(&b, '}');
+  }
+  som_buf_puts(&b, "],\"dropped\":");
+  put_counts(&b, r->dropped);
+  som_buf_puts(&b, ",\"unmarked\":");
+  put_counts(&b, r->unmarked);
+  som_buf_puts(&b, ",\"appended\":");
+  put_counts(&b, r->appended);
+  som_buf_puts(&b, ",\"marksDropped\":");
+  som_buf_puti(&b, r->marks_dropped);
+  som_buf_puts(&b, ",\"readableHeader\":");
+  put_str(&b, r->readable_header);
+  som_buf_puts(&b, ",\"readable\":");
+  if (r->readable == NULL) {
+    som_buf_puts(&b, "null");
+  } else {
+    put_str(&b, r->readable);
+  }
+  som_buf_puts(&b, ",\"findings\":[");
+  for (size_t i = 0; i < r->findings_len; i++) {
+    if (i > 0) som_buf_putc(&b, ',');
+    put_str(&b, r->findings[i].kind);
   }
   som_buf_puts(&b, "]}");
   return som_buf_take(&b);

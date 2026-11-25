@@ -6,6 +6,7 @@
  * ASCII or matched as a whole UTF-8 sequence, so the two agree on every
  * decision. */
 #include "spec_review_annotations.h"
+#include "spec_document_strip.h"
 
 #include <ctype.h>
 #include <stdarg.h>
@@ -3796,23 +3797,17 @@ int spec_review_annotations_apply_mark(const SpecReviewAnnotations *r,
   return 1;
 }
 
+/* The strip of SOM §11.10 with `drop: [comments]` (spec_document_strip):
+ * every value is stripped, headlines included. */
 SpecDocument *spec_review_annotations_stripped(const SpecReviewAnnotations *r) {
-  SpecDocument *copy = malloc(sizeof(SpecDocument));
-  spec_document_init(copy);
-  DocumentJson j;
-  spec_document_to_json(r->doc, &j);
-  spec_document_load_json(copy, &j);
-  document_json_free(&j);
-  Values vals;
-  values_of(r->doc, &vals);
-  for (size_t i = 0; i < vals.len; i++) {
-    char *clean = spec_strip_annotations_text(vals.items[i].text);
-    if (strcmp(clean, vals.items[i].text) != 0) {
-      set_value(copy, vals.items[i].path, vals.items[i].field, clean);
-    }
-    free(clean);
-  }
-  values_free(&vals);
+  SpecStripOptions o;
+  memset(&o, 0, sizeof(o));
+  o.drop = 1u << spec_strip_kind_index("comments");
+  SpecStripResult res;
+  spec_document_strip(r->doc, &o, NULL, &res);
+  SpecDocument *copy = res.document;
+  res.document = NULL;
+  spec_strip_result_free(&res);
   return copy;
 }
 

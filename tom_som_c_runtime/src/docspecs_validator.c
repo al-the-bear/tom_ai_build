@@ -810,7 +810,7 @@ static int own_anchor(const char *anchor, const char *id) {
 
 /* `title` without a leading own anchor `<a id="ID"></a>` (and the whitespace
  * after it) of the section `id`. Owned. */
-static char *strip_own_title_anchor(const char *title, const char *id) {
+char *docspecs_strip_own_anchor(const char *title, const char *id) {
   if (strncmp(title, "<a id=\"", 7) == 0) {
     const char *q = strchr(title + 7, '"');
     if (q != NULL && strncmp(q, "\"></a>", 6) == 0) {
@@ -910,6 +910,7 @@ DocSpecsDocument *docspecs_parse_document(const char *text) {
   stack.items = NULL;
   stack.len = 0;
   stack.cap = 0;
+  int readable = 0;
 
   /* strings.Split(text, "\n") */
   size_t idx = 0;
@@ -931,6 +932,18 @@ DocSpecsDocument *docspecs_parse_document(const char *text) {
           goto next;
         }
       }
+      /* A stripped rendition (SOM §11.1): its readable header stands before
+       * the root heading, and its appendix after the marker is not part of
+       * the document. */
+      if (stack.len == 0 && spec_markdown_is_readable_comment(line)) {
+        readable = 1;
+        goto next;
+      }
+      if (readable && strcmp(line, SPEC_MARKDOWN_APPENDIX_MARKER) == 0) {
+        free(line);
+        free(raw);
+        break;
+      }
       int level = 0;
       char *rest = NULL;
       if (match_heading_line(line, &level, &rest) ||
@@ -941,7 +954,7 @@ DocSpecsDocument *docspecs_parse_document(const char *text) {
         if (match_headline_comment(rest, &cid, &ctitle)) {
           /* The title without the section's own anchor (Section Anchors). */
           char *trimmed_title = trim_space(ctitle);
-          char *own = strip_own_title_anchor(trimmed_title, cid);
+          char *own = docspecs_strip_own_anchor(trimmed_title, cid);
           free(trimmed_title);
           const char *title = own;
           if (title[0] == '\0') {

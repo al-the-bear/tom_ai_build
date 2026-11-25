@@ -85,6 +85,9 @@ typedef struct {
   SomStrList root_prefixes; /* byte-sorted set of root segments the import
                              * covers — the scope a full-overwrite apply
                              * purges first */
+  char *readable_header;    /* the readable header line a stripped rendition
+                             * carries before its root heading (SOM §11.1),
+                             * skipped by the parse; owned, NULL when none */
   SomMap kept_content;      /* the rejected blocks kept for review (SOM
                              * §11.7, DocSpecs RN-11): for every path whose text
                              * a rejected block stood in, the value with each
@@ -194,6 +197,22 @@ typedef struct {
  * (1-based) and the document path it renders. Returns 1 writing `*out`; on the
  * export's failure conditions returns 0 with `*out` empty (safe to free) and
  * `*err` written when non-NULL. */
+/* The options of an export beyond the document: the reading view's
+ * styled-div headings below level six and a stripped rendition's readable
+ * header (SOM §11.1, §11.2). */
+typedef struct {
+  int heading_divs;            /* sections deeper than level 6 as
+                                * `<div class="heading<N>" …>` lines */
+  const char *readable_header; /* written after the docspec line; borrowed,
+                                * NULL for none */
+} SpecMarkdownExportOptions;
+
+/* spec_markdown_export_root_with_map with `options` (NULL: none). */
+int spec_markdown_export_root_with_options(
+    const SpecModel *model, const SpecDocument *document, const SpecRoot *root,
+    const SpecMarkdownExportOptions *options, SpecMarkdownRendition *out,
+    char **err);
+
 int spec_markdown_export_root_with_map(const SpecModel *model,
                                        const SpecDocument *document,
                                        const SpecRoot *root,
@@ -238,6 +257,45 @@ int spec_document_to_markdown_with_map(const SpecDocument *document,
  * (initialised by the callee; free with spec_markdown_result_free). The
  * parse never mutates a document — `spec_document_apply_markdown_result` applies the result as a full
  * overwrite (SOM §11.7). */
+/* The root `spec_document_to_markdown` exports: `root_type` when given, else
+ * the document's single populated root; NULL with `*err` otherwise. */
+const SpecRoot *spec_document_root_to_export(const SpecModel *model,
+                                             const SpecDocument *document,
+                                             const char *root_type,
+                                             char **err);
+
+/* ---- the reading view's lines (SOM §11.1, §11.2) ------------------------- */
+
+/* The line a stripped rendition's appendix begins with: after a readable
+ * header, the parsers stop reading at it. */
+#define SPEC_MARKDOWN_APPENDIX_MARKER "<!-- readable-appendix -->"
+
+/* Whether `line` (trailing whitespace trimmed) is a readable header,
+ * `^<!--\s*readable:.*-->$`. */
+int spec_markdown_is_readable_comment(const char *line);
+
+/* `line` read as a styled-div heading (DocSpecs *Styled-div headings*):
+ * `<div class="heading<N>" …>…</div>` with N >= 7. Writes the level and the
+ * owned inner text with `&lt;`, `&gt;` and `&amp;` decoded (either may be
+ * NULL); returns 0 for anything else, a `heading<N>` div below 7 included. */
+int spec_markdown_heading_div(const char *line, int *level, char **inner);
+
+/* Whether `line` would read as a styled-div heading after any run of
+ * backslashes (SOM §11.3): such a value line is written escaped, `\<div …`. */
+int spec_markdown_escapable_div(const char *line);
+
+/* A styled-div heading's indent at `depth`, `(depth − 6) × 0.75` without a
+ * trailing `.0` (`0.75`, `1.5`, `3`). Owned. */
+char *spec_markdown_heading_div_indent(int depth);
+
+/* The title of a heading line (`#` or styled div): the headline comment's
+ * title without the section's own anchor. Owned. */
+char *spec_markdown_heading_title(const char *line);
+
+/* `value` on one line when it is one paragraph wrapped over several lines,
+ * as a table cell reads it back (SOM §11.4); NULL otherwise. Owned. */
+char *spec_markdown_wrapped_paragraph_joined(const char *value);
+
 void spec_markdown_parse(const SpecModel *model, const char *text,
                          SpecMarkdownResult *out);
 

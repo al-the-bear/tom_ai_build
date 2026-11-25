@@ -1039,14 +1039,6 @@ static void test_markdown_import_rejections(Checker *c, const SpecModel *model) 
   for (size_t i = 0; i < n; i++) {
     const SomJson *kase = som_json_array_at(cases, i);
     const char *name = som_json_str_or(kase, "name");
-    /* The reading view's table layout is read (tspubnondart61); the readable
-     * header and the styled-div headings are the strip-document port's
-     * (tspubnondart96, runtime_parity.md § Reading view). */
-    if (som_json_bool_or(kase, "readingView") &&
-        (som_json_get(kase, "readableHeader") != NULL ||
-         strncmp(name, "styled-div headings", 19) == 0)) {
-      continue;
-    }
     const SomJson *want_rejections = som_json_get(kase, "rejections");
     size_t want_n = som_json_array_len(want_rejections);
     char label[256];
@@ -1100,6 +1092,17 @@ static void test_markdown_import_rejections(Checker *c, const SpecModel *model) 
     document_json_free(&wanted);
     document_json_free(&dj);
     spec_document_free(&landed);
+
+    /* A case naming the readable header holds it (null: none was read). */
+    const SomJson *want_header = som_json_get(kase, "readableHeader");
+    if (want_header != NULL) {
+      const char *wh = som_json_as_str(want_header);
+      const char *gh = result.readable_header;
+      int same = (wh == NULL && gh == NULL) ||
+                 (wh != NULL && gh != NULL && strcmp(wh, gh) == 0);
+      snprintf(label, sizeof(label), "md.reject[%s].readableHeader", name);
+      check(c, label, same, gh != NULL ? gh : "null");
+    }
 
     /* A case naming heading-comment values holds them too (read trimmed). */
     const DocumentJson *staged = spec_markdown_result_document(&result);
@@ -5647,7 +5650,36 @@ static char *strip_unstrip(const char *stripped, const SpecStripTextResult *r) {
   return som_buf_take(&b);
 }
 
-static void test_strip(Checker *c) {
+static void buf_json_str(SomBuf *b, const char *s);
+
+/* A `headerCases` entry's parse as the corpus writes it, or "null". Owned. */
+static char *strip_header_json(const char *line) {
+  SpecReadableHeader h;
+  if (!spec_readable_header_parse(line, &h)) return som_strdup("null");
+  char *opts = spec_strip_options_to_json(&h.options);
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_putn(&b, opts, strlen(opts) - 1); /* without the closing brace */
+  free(opts);
+  if (h.source != NULL) {
+    som_buf_puts(&b, ",\"source\":{\"file\":");
+    buf_json_str(&b, h.source->file);
+    som_buf_puts(&b, ",\"revision\":");
+    buf_json_str(&b, h.source->revision);
+    som_buf_puts(&b, ",\"commit\":");
+    buf_json_str(&b, h.source->commit);
+    som_buf_puts(&b, h.source->dirty ? ",\"dirty\":true}" : ",\"dirty\":false}");
+  }
+  char *f = spec_readable_header_format(&h.options, h.source);
+  som_buf_puts(&b, ",\"format\":");
+  buf_json_str(&b, f);
+  som_buf_putc(&b, '}');
+  free(f);
+  spec_readable_header_free(&h);
+  return som_buf_take(&b);
+}
+
+static void test_strip(Checker *c, const SpecModel *model) {
   SomJson *table = read_json("strip_cases.json");
   const SomJson *cases = som_json_get(table, "cases");
   size_t n = som_json_array_len(cases);
@@ -5731,6 +5763,154 @@ static void test_strip(Checker *c) {
     som_json_free(got_json);
     free(got_text);
   }
+
+  /* headerCases: the readable header's parse, and format and parse are
+   * inverse. */
+  const SomJson *headers = som_json_get(table, "headerCases");
+  size_t hn = som_json_array_len(headers);
+  check(c, "strip.headerCases", hn > 0, "no header cases");
+  for (size_t i = 0; i < hn; i++) {
+    const SomJson *kase = som_json_array_at(headers, i);
+    char tag[512];
+    snprintf(tag, sizeof(tag), "strip.header[%s]", som_json_str_or(kase, "name"));
+    char *got_text = strip_header_json(som_json_str_or(kase, "line"));
+    char *perr = NULL;
+    SomJson *got_json = som_json_parse(got_text, &perr);
+    char *got = json_canonical(got_json);
+    char *want = json_canonical(som_json_get(kase, "expect"));
+    char detail[4096];
+    snprintf(detail, sizeof(detail), "got %s want %s", got, want);
+    check(c, tag, strcmp(got, want) == 0, detail);
+    const char *format = som_json_str_or(got_json, "format");
+    if (format[0] != '\0') {
+      char *again = strip_header_json(format);
+      SomJson *again_json = som_json_parse(again, &perr);
+      snprintf(tag, sizeof(tag), "strip.header[%s].inverse",
+               som_json_str_or(kase, "name"));
+      check(c, tag, strcmp(som_json_str_or(again_json, "format"), format) == 0,
+            again);
+      som_json_free(again_json);
+      free(again);
+    }
+    free(got);
+    free(want);
+    free(perr);
+    som_json_free(got_json);
+    free(got_text);
+  }
+
+  /* documentCases: the document strip over the corpus model and the shared
+   * schema, unless the case says `model: false`. */
+  char *yaml = read_corpus("docspecs_schema.yaml");
+  DocSpecsSchema *schema = NULL;
+  char *serr = NULL;
+  if (!docspecs_schema_from_yaml_text(yaml, &schema, &serr)) {
+    fprintf(stderr, "docspecs schema: %s\n", serr ? serr : "(no message)");
+    exit(2);
+  }
+  free(yaml);
+  free(serr);
+  const SomJson *docs = som_json_get(table, "documentCases");
+  size_t dn = som_json_array_len(docs);
+  check(c, "strip.documentCases", dn > 0, "no document cases");
+  for (size_t i = 0; i < dn; i++) {
+    const SomJson *kase = som_json_array_at(docs, i);
+    const char *name = som_json_str_or(kase, "name");
+    char tag[512];
+    snprintf(tag, sizeof(tag), "strip.document[%s]", name);
+    SpecStripOptions o;
+    char *err = NULL;
+    if (!strip_case_options(kase, &o, &err)) {
+      check(c, tag, 0, err != NULL ? err : "options refused");
+      free(err);
+      continue;
+    }
+    DocumentJson state;
+    document_json_from_json(som_json_get(kase, "state"), &state);
+    SpecDocument doc;
+    doc_from_state(&doc, &state);
+    document_json_free(&state);
+    const SomJson *model_flag = som_json_get(kase, "model");
+    int with_model = !(model_flag != NULL && !som_json_bool_or(kase, "model"));
+    SpecReadableSource src;
+    const SomJson *sj = som_json_get(kase, "source");
+    if (sj != NULL) {
+      src.file = (char *)som_json_str_or(sj, "file");
+      src.revision = (char *)som_json_as_str(som_json_get(sj, "revision"));
+      src.commit = (char *)som_json_as_str(som_json_get(sj, "commit"));
+      src.dirty = som_json_bool_or(sj, "dirty");
+    }
+    const SomJson *rt = som_json_get(kase, "rootType");
+    SpecDocumentStripOptions extra;
+    extra.model = with_model ? model : NULL;
+    extra.schema = with_model ? schema : NULL;
+    extra.root_type = rt != NULL ? som_json_as_str(rt) : NULL;
+    extra.source = sj != NULL ? &src : NULL;
+    SpecStripResult r;
+    spec_document_strip(&doc, &o, &extra, &r);
+    char *got_text = spec_strip_result_to_json(&r);
+    char *perr = NULL;
+    SomJson *got_json = som_json_parse(got_text, &perr);
+    const SomJson *want_json = som_json_get(kase, "expect");
+    const char *keys[] = {"kept", "removedItems", "appendix", "dropped",
+                          "unmarked", "appended", "marksDropped",
+                          "readableHeader", "readable", "findings"};
+    for (size_t k = 0; k < sizeof(keys) / sizeof(keys[0]); k++) {
+      char *got = json_canonical(som_json_get(got_json, keys[k]));
+      char *want = json_canonical(som_json_get(want_json, keys[k]));
+      snprintf(tag, sizeof(tag), "strip.document[%s].%s", name, keys[k]);
+      char *d = byte_diff(tag, got, want);
+      check(c, tag, strcmp(got, want) == 0, d);
+      free(d);
+      free(got);
+      free(want);
+    }
+    DocumentJson gd, wd;
+    document_json_from_json(som_json_get(got_json, "document"), &gd);
+    document_json_from_json(som_json_get(want_json, "document"), &wd);
+    char *g = document_json_to_canonical_json(&gd);
+    char *w = document_json_to_canonical_json(&wd);
+    char detail[4096];
+    snprintf(detail, sizeof(detail), "got %s want %s", g, w);
+    snprintf(tag, sizeof(tag), "strip.document[%s].document", name);
+    check(c, tag, strcmp(g, w) == 0, detail);
+    /* The readable rendition reads back with its header (SOM §11.1). */
+    if (r.readable != NULL) {
+      SpecMarkdownResult parsed;
+      spec_markdown_parse(model, r.readable, &parsed);
+      snprintf(tag, sizeof(tag), "strip.document[%s].readsBackHeader", name);
+      check(c, tag,
+            parsed.readable_header != NULL &&
+                strcmp(parsed.readable_header, r.readable_header) == 0,
+            parsed.readable_header != NULL ? parsed.readable_header : "null");
+      spec_markdown_result_free(&parsed);
+    }
+    /* stripped() is the strip with `drop: [comments]` alone. */
+    if (!with_model && o.drop == (1u << spec_strip_kind_index("comments")) &&
+        o.unmark == 0 && o.appendix == 0) {
+      SpecReviewAnnotations ra = spec_review_annotations_make(&doc, NULL);
+      SpecDocument *plain = spec_review_annotations_stripped(&ra);
+      DocumentJson pj;
+      spec_document_to_json(plain, &pj);
+      char *pc = document_json_to_canonical_json(&pj);
+      snprintf(tag, sizeof(tag), "strip.document[%s].stripped()", name);
+      check(c, tag, strcmp(pc, w) == 0, pc);
+      free(pc);
+      document_json_free(&pj);
+      spec_document_free(plain);
+      free(plain);
+    }
+    free(g);
+    free(w);
+    document_json_free(&gd);
+    document_json_free(&wd);
+    free(perr);
+    som_json_free(got_json);
+    free(got_text);
+    spec_strip_result_free(&r);
+    spec_document_free(&doc);
+  }
+  docspecs_schema_free(schema);
   som_json_free(table);
 }
 
@@ -6155,7 +6335,7 @@ int main(int argc, char **argv) {
   test_serialization_order(&c);
   test_docspecs(&c);
   test_notation(&c);
-  test_strip(&c);
+  test_strip(&c, model);
   test_docspecs_replace(&c);
   test_docspecs_path(&c, model);
   test_text_pattern(&c);

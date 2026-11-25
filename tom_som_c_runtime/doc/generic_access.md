@@ -59,6 +59,7 @@ anything that computes the path rather than knowing it.
 | `SpecValidator` / `validateDocument` | The instance tier: a filled document's values checked against the model |
 | the YAML and Markdown codecs | `*.tomspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages; the emitter writes the reading view's tables (SOM §11.4, §11.5) and the parser reads them and the older `Field:` lines; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7) |
 | `spec_strip_notation_text` | The strip of one value (SOM §11.10): secondary prose and review annotations dropped, unmarked or moved to an appendix, with the pieces that restore the original |
+| `spec_document_strip` | The strip of a document (SOM §11.10): every value stripped into a copy; given a model, the emptying rule, the list items left empty removed, and the readable rendition — the readable header after the docspec line (SOM §11.1), styled-div headings below level six with `heading_divs`, the appendix *Notes* after `<!-- readable-appendix -->` — checked to read back. The Markdown parser and the DocSpecs validator skip the header and stop at the appendix |
 | `spec_scan_notation` | The reading notation of one text value: its divs, spans and citations and the notation's findings, which the DocSpecs validator reports as rules |
 | the editing-facade bases | What the generated `tom_som_c_v0` types extend |
 

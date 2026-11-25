@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "docspecs_validator.h"
 #include "spec_meta_bridge.h"
 #include "spec_model.h"
 #include "spec_paths.h"
@@ -360,6 +361,72 @@ static int match_escaped_heading(const char *s) {
   return s[i] == '#';
 }
 
+/* ---- the reading view's lines (SOM §11.1, §11.2) ------------------------- */
+
+static char *replace_all(const char *s, const char *from, const char *to);
+
+int spec_markdown_is_readable_comment(const char *line) {
+  if (strncmp(line, "<!--", 4) != 0) return 0;
+  const char *p = line + 4;
+  while (is_ws(*p)) p++;
+  if (strncmp(p, "readable:", 9) != 0) return 0;
+  size_t n = strlen(line);
+  return n >= 7 && (size_t)(p + 9 - line) <= n - 3 &&
+         strcmp(line + n - 3, "-->") == 0;
+}
+
+int spec_markdown_heading_div(const char *line, int *level, char **inner) {
+  static const char open[] = "<div class=\"heading";
+  if (strncmp(line, open, sizeof(open) - 1) != 0) return 0;
+  const char *p = line + sizeof(open) - 1;
+  if (!(*p >= '0' && *p <= '9')) return 0;
+  long n = 0;
+  while (*p >= '0' && *p <= '9') {
+    if (n < 100000) n = n * 10 + (*p - '0');
+    p++;
+  }
+  if (*p != '"') return 0;
+  p++;
+  while (*p != '\0' && *p != '>') p++; /* `[^>]*` */
+  if (*p != '>') return 0;
+  p++;
+  size_t len = strlen(p);
+  if (len < 6 || strcmp(p + len - 6, "</div>") != 0) return 0;
+  if (n < 7) return 0;
+  if (level != NULL) *level = (int)n;
+  if (inner != NULL) {
+    /* `&lt;`, `&gt;`, then `&amp;` decoded. */
+    char *raw = som_strdup_n(p, len - 6);
+    char *a = replace_all(raw, "&lt;", "<");
+    char *b = replace_all(a, "&gt;", ">");
+    *inner = replace_all(b, "&amp;", "&");
+    free(raw);
+    free(a);
+    free(b);
+  }
+  return 1;
+}
+
+int spec_markdown_escapable_div(const char *line) {
+  size_t k = 0;
+  while (line[k] == '\\') k++;
+  char *rest = strip_trailing_ws(line + k);
+  int out = spec_markdown_heading_div(rest, NULL, NULL);
+  free(rest);
+  return out;
+}
+
+char *spec_markdown_heading_div_indent(int depth) {
+  int quarter = (depth - 6) * 3;
+  int whole = quarter / 4;
+  static const char *const frac[4] = {"", ".25", ".5", ".75"};
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_puti(&b, (long long)whole);
+  som_buf_puts(&b, frac[quarter % 4]);
+  return som_buf_take(&b);
+}
+
 /* mdLabelShapedRE = `^ *[A-Za-z][A-Za-z0-9_]*:`. */
 static int match_label_shaped(const char *s) {
   size_t i = 0;
@@ -619,6 +686,11 @@ typedef struct {
   SomStrList content_paths, form_paths, list_paths, units_paths, headline_paths;
   MdReach *reach;
   size_t reach_len, reach_cap;
+  /* The export's options (spec_markdown_export_root_with_options): sections
+   * deeper than level 6 as styled-div headings, and the readable header
+   * written after the docspec line (borrowed, NULL when none). */
+  int heading_divs;
+  const char *readable_header;
 } MdCodec;
 
 static void codec_init(MdCodec *c, const SpecModel *model,
@@ -629,6 +701,8 @@ static void codec_init(MdCodec *c, const SpecModel *model,
   c->trees_len = 0;
   c->trees_cap = 0;
   c->heading_paths = NULL;
+  c->heading_divs = 0;
+  c->readable_header = NULL;
   c->current_root = NULL;
   c->current_tree = NULL;
   som_strlist_init(&c->content_paths);
@@ -886,10 +960,23 @@ static void md_write_heading(MdCodec *c, SomBuf *b, int depth, const char *id,
   if (c->heading_paths != NULL) {
     som_strlist_push_copy(c->heading_paths, path);
   }
-  for (int i = 0; i < depth; i++) {
-    som_buf_putc(b, '#');
+  int div = c->heading_divs && depth > 6;
+  if (div) {
+    /* A styled-div heading (SOM §11.2, DocSpecs *Styled-div headings*): one
+     * line, the title HTML-escaped, the indent growing with the depth. */
+    char *indent = spec_markdown_heading_div_indent(depth);
+    som_buf_puts(b, "<div class=\"heading");
+    som_buf_puti(b, (long long)depth);
+    som_buf_puts(b, "\" style=\"margin:1em 0 0.5em;padding-left:");
+    som_buf_puts(b, indent);
+    som_buf_puts(b, "em;font-weight:bold\"><!--[");
+    free(indent);
+  } else {
+    for (int i = 0; i < depth; i++) {
+      som_buf_putc(b, '#');
+    }
+    som_buf_puts(b, " <!--[");
   }
-  som_buf_puts(b, " <!--[");
   som_buf_puts(b, id);
   som_buf_putc(b, ']');
   if (code_spec != NULL && code_spec[0] != '\0') {
@@ -917,10 +1004,17 @@ static void md_write_heading(MdCodec *c, SomBuf *b, int depth, const char *id,
   for (const char *q = title; *q != '\0'; q++) {
     if (*q == '\n') {
       som_buf_puts(b, "<br>");
+    } else if (div && *q == '&') {
+      som_buf_puts(b, "&amp;");
+    } else if (div && *q == '<') {
+      som_buf_puts(b, "&lt;");
+    } else if (div && *q == '>') {
+      som_buf_puts(b, "&gt;");
     } else {
       som_buf_putc(b, *q);
     }
   }
+  if (div) som_buf_puts(b, "</div>");
   som_buf_putc(b, '\n');
   som_buf_putc(b, '\n');
 }
@@ -952,7 +1046,7 @@ static int prepare_value(const char *value, const char *path, char **out,
     }
     if (spec_markdown_fence_in_fence(&fence)) {
       som_buf_puts(&b, line);
-    } else if (match_escapable(line)) {
+    } else if (match_escapable(line) || spec_markdown_escapable_div(line)) {
       som_buf_putc(&b, '\\');
       som_buf_puts(&b, line);
     } else if (match_layout_header_shaped(line)) {
@@ -2385,6 +2479,10 @@ static char *export_root_impl(MdCodec *c, const SpecRoot *root, char **err) {
   som_buf_puts(&b, " -->\n");
   free(kebab);
   free(version);
+  if (c->readable_header != NULL) {
+    som_buf_puts(&b, c->readable_header);
+    som_buf_putc(&b, '\n');
+  }
   const char *root_seg = som_meta_node_segment(node);
   /* YRD3: a stored headline at the root path overrides the root title; the
      root class's @Headline default (YRD4) sits between the two. */
@@ -2422,8 +2520,17 @@ char *spec_markdown_export_root(const SpecModel *model,
 static int is_emitted_heading(const char *line, size_t len) {
   size_t i = 0;
   while (i < len && line[i] == '#') i++;
-  if (i == 0) return 0;
-  return len - i >= 6 && memcmp(line + i, " <!--[", 6) == 0;
+  if (i > 0) return len - i >= 6 && memcmp(line + i, " <!--[", 6) == 0;
+  /* `<div class="heading[0-9]+"[^>]*><!--\[` (SOM §11.2). */
+  static const char open[] = "<div class=\"heading";
+  size_t k = sizeof(open) - 1;
+  if (len < k || memcmp(line, open, k) != 0) return 0;
+  size_t d = k;
+  while (d < len && line[d] >= '0' && line[d] <= '9') d++;
+  if (d == k || d >= len || line[d] != '"') return 0;
+  d++;
+  while (d < len && line[d] != '>') d++;
+  return len - d >= 6 && memcmp(line + d, "><!--[", 6) == 0;
 }
 
 int spec_markdown_export_root_with_map(const SpecModel *model,
@@ -2431,6 +2538,14 @@ int spec_markdown_export_root_with_map(const SpecModel *model,
                                        const SpecRoot *root,
                                        SpecMarkdownRendition *out,
                                        char **err) {
+  return spec_markdown_export_root_with_options(model, document, root, NULL,
+                                                out, err);
+}
+
+int spec_markdown_export_root_with_options(
+    const SpecModel *model, const SpecDocument *document, const SpecRoot *root,
+    const SpecMarkdownExportOptions *options, SpecMarkdownRendition *out,
+    char **err) {
   out->markdown = NULL;
   out->headings = NULL;
   out->headings_len = 0;
@@ -2439,6 +2554,10 @@ int spec_markdown_export_root_with_map(const SpecModel *model,
   MdCodec c;
   codec_init(&c, model, document);
   c.heading_paths = &paths;
+  if (options != NULL) {
+    c.heading_divs = options->heading_divs;
+    c.readable_header = options->readable_header;
+  }
   char *markdown = export_root_impl(&c, root, err);
   codec_free(&c);
   if (markdown == NULL) {
@@ -2518,6 +2637,8 @@ void spec_markdown_result_free(SpecMarkdownResult *r) {
   r->rejections_cap = 0;
   som_strlist_free(&r->root_prefixes);
   som_map_free(&r->kept_content);
+  free(r->readable_header);
+  r->readable_header = NULL;
 }
 
 int spec_markdown_result_is_clean(const SpecMarkdownResult *r) {
@@ -2709,7 +2830,9 @@ static char *restore_value(char *const *body, size_t body_len) {
     if (i > 0) {
       som_buf_putc(&b, '\n');
     }
-    if (!spec_markdown_fence_in_fence(&fence) && match_escaped_heading(line)) {
+    if (!spec_markdown_fence_in_fence(&fence) &&
+        (match_escaped_heading(line) ||
+         (line[0] == '\\' && spec_markdown_escapable_div(line)))) {
       som_buf_puts(&b, line + 1);
     } else if (!spec_markdown_fence_in_fence(&fence) &&
                match_layout_header_escaped(line)) {
@@ -5513,6 +5636,7 @@ void spec_markdown_parse(const SpecModel *model, const char *text,
   LineVec lines;
   split_lines(text, &lines);
   p.src = &lines;
+  char *readable_header = NULL;
 
   for (size_t i = 0; i < lines.len; i++) {
     const char *raw = lines.items[i];
@@ -5524,9 +5648,26 @@ void spec_markdown_parse(const SpecModel *model, const char *text,
         free(trimmed);
         continue; /* SOM §11.1 header */
       }
+      if (p.stack_len == 0 && readable_header == NULL &&
+          spec_markdown_is_readable_comment(trimmed)) {
+        readable_header = trimmed; /* SOM §11.1 readable header — skipped. */
+        continue;
+      }
+      if (readable_header != NULL &&
+          strcmp(trimmed, SPEC_MARKDOWN_APPENDIX_MARKER) == 0) {
+        free(trimmed);
+        break; /* A stripped rendition's appendix is not the document. */
+      }
       int level = 0;
       char *rest = NULL;
       if (match_heading_line(trimmed, &level, &rest)) {
+        parser_close_to(&p, level);
+        parser_open_heading(&p, level, rest, line_no);
+        free(rest);
+        free(trimmed);
+        continue;
+      }
+      if (spec_markdown_heading_div(trimmed, &level, &rest)) {
         parser_close_to(&p, level);
         parser_open_heading(&p, level, rest, line_no);
         free(rest);
@@ -5565,6 +5706,7 @@ void spec_markdown_parse(const SpecModel *model, const char *text,
   out->rejections_cap = p.rejections_cap;
   out->root_prefixes = p.root_prefixes;
   out->kept_content = p.kept_content;
+  out->readable_header = readable_header;
   for (size_t i = 0; i < p.all_blocks_len; i++) kept_block_free(p.all_blocks[i]);
   free(p.all_blocks);
   free(p.pending.items);
@@ -5636,6 +5778,42 @@ static const SpecRoot *single_populated_root(const SpecModel *model,
     *err = som_buf_take(&b);
   }
   return NULL;
+}
+
+const SpecRoot *spec_document_root_to_export(const SpecModel *model,
+                                             const SpecDocument *document,
+                                             const char *root_type,
+                                             char **err) {
+  if (root_type != NULL && root_type[0] != '\0') {
+    return spec_model_root_by_type(model, root_type, err);
+  }
+  return single_populated_root(model, document, err);
+}
+
+char *spec_markdown_wrapped_paragraph_joined(const char *value) {
+  return md_wrapped_paragraph_joined(value);
+}
+
+char *spec_markdown_heading_title(const char *line) {
+  char *rest = NULL;
+  int level = 0;
+  if (!spec_markdown_heading_div(line, &level, &rest) &&
+      !match_heading_line(line, &level, &rest)) {
+    rest = som_strdup(line);
+  }
+  char *trimmed = trim_space(rest);
+  free(rest);
+  char *id = NULL, *title = NULL;
+  char *out;
+  if (match_headline_comment(trimmed, &id, NULL, &title)) {
+    out = docspecs_strip_own_anchor(title, id);
+    free(id);
+    free(title);
+  } else {
+    out = docspecs_strip_own_anchor(trimmed, "");
+  }
+  free(trimmed);
+  return out;
 }
 
 char *spec_document_to_markdown(const SpecDocument *document,

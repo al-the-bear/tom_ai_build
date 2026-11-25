@@ -2,6 +2,30 @@
 
 ## Unreleased
 
+- **The strip of a document** (SOM §11.10, stripped renditions):
+  `spec_document_strip` strips every value of a document (content, form
+  fields, stored headlines) into a copy and, given a model, applies the
+  emptying rule (`kept`), removes the list items left empty
+  (`removed_items`), numbers the appendix through the rendition and writes the
+  readable rendition with its *Notes* after `<!-- readable-appendix -->`,
+  checked to read back and to add no instance, schema or notation finding
+  (`SpecStripResult`, `SpecStripValueRef`, `SpecStrippedValue`,
+  `SpecStripKept`, `SpecStripFinding`, the report). The readable header
+  (`SpecReadableHeader`, `SpecReadableSource`,
+  `spec_readable_header_format` / `_parse`) follows the docspec line; the
+  Markdown parser and the DocSpecs validator skip it and stop at the appendix
+  marker, and the parse result carries it as `readable_header`.
+  `spec_markdown_export_root_with_options` writes sections deeper than level
+  six as styled-div headings (`<div class="heading7" …>`, the title
+  HTML-escaped) and a value line shaped like one escaped; the parser reads
+  both back. `spec_review_annotations_stripped` is the strip with `drop:
+  [comments]`, headlines included. The conformance runner reads
+  `strip_cases.json`'s `headerCases` and `documentCases` and the reading-view
+  cases of `markdown_import_cases.json` with the readable header and the
+  styled-div headings; `tests/spec_document_strip_test.c` covers the
+  styled-div export, the header and the appendix over a model nine sections
+  deep.
+
 - **The strip of a value** (SOM §11.10, stripped renditions): `spec_document_strip.h`
   / `.c` with `spec_strip_notation_text` (comments first, then the notation
   from the outside in, then the whitespace the removals leave; a value with
@@ -11,9 +35,7 @@
   appendix entries, per-kind counts and `marks_dropped`,
   `SPEC_STRIP_KIND_NAMES` / `SPEC_STRIP_NOTATION_KINDS`, and
   `spec_count_annotations_text` beside `spec_strip_annotations_text`. The
-  conformance runner reads `strip_cases.json`'s `cases` and `usageCases`. The
-  strip of a whole document (the readable header, heading divs) is still to
-  come.
+  conformance runner reads `strip_cases.json`'s `cases` and `usageCases`.
 
 - **Rejected blocks kept for review** (SOM §11.7, DocSpecs RN-11): the parse
   result carries `kept_content`, and an apply that accepts rejections

@@ -289,6 +289,11 @@ int docspecs_schema_from_yaml_text(const char *text, DocSpecsSchema **out,
 
 void docspecs_schema_free(DocSpecsSchema *s);
 
+/* `title` without the section's own anchor (*Section Anchors*): a leading
+ * `<a id="ID"></a>` whose id is `id` or a qualified `<A>/…/<id>`, with the
+ * whitespace after it. Owned. */
+char *docspecs_strip_own_anchor(const char *title, const char *id);
+
 /* ---- validator ----------------------------------------------------------- */
 
 /* A never-fail-fast validator of a parsed document against a schema. */

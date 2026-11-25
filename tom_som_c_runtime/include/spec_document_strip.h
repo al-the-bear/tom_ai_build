@@ -10,19 +10,25 @@
  * review annotations (SOM §11.9). A citation shape counts as a span of its
  * kind. `refs`, `records` and `rejected` are never secondary.
  *
- * The C port of `spec_document_strip.dart` / `.ts` for one value
- * (`stripNotationText`); `strip_cases.json` holds them to the same results.
- * The text is UTF-8; a piece's `anchor` and `origin` count UTF-16 code units,
- * as the corpus and the other runtimes do. The strip of a whole document
- * (`SpecDocumentStrip`, the readable header, heading divs) is not in this
- * port yet.
+ * The strip of a whole document (`spec_document_strip`) strips every value
+ * of a document into a copy and, given a model, applies the emptying rule,
+ * removes list items left empty, numbers the appendix through the rendition,
+ * renders the readable rendition (`.readable.md`, its readable header first,
+ * SOM §11.1) and checks it.
+ *
+ * The C port of `spec_document_strip.dart` / `.ts`; `strip_cases.json` holds
+ * them to the same results. The text is UTF-8; a piece's `anchor` and
+ * `origin` count UTF-16 code units, as the corpus and the other runtimes do.
  */
 #ifndef SPEC_DOCUMENT_STRIP_H
 #define SPEC_DOCUMENT_STRIP_H
 
 #include <stddef.h>
 
+#include "docspecs_validator.h"
 #include "som_util.h"
+#include "spec_document.h"
+#include "spec_model.h"
 
 /* The kind names a strip takes, in report and header order. */
 #define SPEC_STRIP_KIND_COUNT 7
@@ -61,6 +67,60 @@ int spec_strip_options_from_names(const SomStrList *drop,
  * canonical order, `appendixReferences`, `headingDivs`). Owned JSON. */
 char *spec_strip_options_to_json(const SpecStripOptions *o);
 
+/* The options of the emptying rule: what would go is unmarked instead
+ * (`comments` stays dropped; no appendix). */
+SpecStripOptions spec_strip_options_keeping(const SpecStripOptions *o);
+
+/* The source a readable rendition was made from, for its header. `revision`
+ * and `commit` are NULL when not known. Owned strings when it comes from
+ * spec_readable_header_parse; a caller's own may be borrowed. */
+typedef struct {
+  char *file;
+  char *revision;
+  char *commit;
+  int dirty;
+} SpecReadableSource;
+
+/* The readable header line of a stripped rendition (SOM §11.1): `<!--
+ * readable: drop=…; unmark=…; appendix=…; appendix-references;
+ * headings=divs; of=<file>@<revision>; commit=<sha>[+dirty] -->`. Parts that
+ * do not apply are left out; format and parse are inverse. */
+typedef struct {
+  SpecStripOptions options;
+  SpecReadableSource *source; /* owned, NULL when the header names none */
+} SpecReadableHeader;
+
+/* The header line for `options` and `source` (NULL: none). Owned. */
+char *spec_readable_header_format(const SpecStripOptions *options,
+                                  const SpecReadableSource *source);
+
+/* `line` read as a readable header: 1 writing `*out` (free with
+ * spec_readable_header_free), 0 for a line that is none — an unknown part,
+ * an unknown kind, a usage error, a commit without a file. */
+int spec_readable_header_parse(const char *line, SpecReadableHeader *out);
+
+void spec_readable_header_free(SpecReadableHeader *h);
+
+/* A value of a document: a stored headline, a content value, or a form
+ * field's value. Owned strings. */
+typedef struct {
+  char *path;
+  char *field; /* NULL unless a form field */
+  int headline;
+} SpecStripValueRef;
+
+/* The value `ref` names in `doc` ("" when unset). Borrowed. */
+const char *spec_strip_value_ref_read(const SpecStripValueRef *ref,
+                                      const SpecDocument *doc);
+/* Writes `value` to the value `ref` names ("" clears it). */
+void spec_strip_value_ref_write(const SpecStripValueRef *ref, SpecDocument *doc,
+                                const char *value);
+/* `<path> (headline)`, `<path>/<field>` or `<path>`. Owned. */
+char *spec_strip_value_ref_label(const SpecStripValueRef *ref);
+/* `{path, field?, headline?}`. Owned JSON. */
+char *spec_strip_value_ref_to_json(const SpecStripValueRef *ref);
+void spec_strip_value_ref_free(SpecStripValueRef *ref);
+
 /* One piece a strip removed from a value, anchored in the stripped text. */
 typedef struct {
   size_t anchor;     /* UTF-16 offset in the stripped text it stands at */
@@ -75,6 +135,8 @@ typedef struct {
   long long number;
   char *kind; /* owned */
   char *text; /* owned */
+  SpecStripValueRef *value; /* owned; the value it came from, NULL for the
+                             * strip of one value */
 } SpecAppendixEntry;
 
 /* The result of stripping one value. */
@@ -107,5 +169,89 @@ int spec_strip_text_result_refused(const SpecStripTextResult *r);
 /* The result as the corpus writes it (`text`, `dropped`, `unmarked`,
  * `appended`, `marksDropped`, `appendix`, `pieces`, `refused`). Owned JSON. */
 char *spec_strip_text_result_to_json(const SpecStripTextResult *r);
+
+/* ---- the strip of a document ---------------------------------------------- */
+
+/* One value a strip changed, with what went. */
+typedef struct {
+  SpecStripValueRef ref;
+  char *original; /* owned */
+  char *stripped; /* owned */
+  SpecStripPiece *pieces;
+  size_t pieces_len;
+} SpecStrippedValue;
+
+/* A value the emptying rule kept: stripping it would have added `finding`. */
+typedef struct {
+  SpecStripValueRef ref;
+  char *finding; /* owned */
+} SpecStripKept;
+
+/* A reason a stripped document is not valid. */
+typedef struct {
+  char *kind;    /* owned: `notation`, `instance`, `schema` or `parse` */
+  char *message; /* owned */
+  SpecStripValueRef *ref; /* owned, NULL when it is about no one value */
+} SpecStripFinding;
+
+/* The result of spec_document_strip. */
+typedef struct {
+  SpecDocument *document; /* owned heap copy, stripped */
+  SpecStrippedValue *values;
+  size_t values_len;
+  SpecStripKept *kept;
+  size_t kept_len;
+  SomStrList removed_items; /* the list items left empty and removed */
+  SpecAppendixEntry *appendix; /* numbered through the rendition */
+  size_t appendix_len;
+  long long dropped[SPEC_STRIP_KIND_COUNT];
+  long long unmarked[SPEC_STRIP_KIND_COUNT];
+  long long appended[SPEC_STRIP_KIND_COUNT];
+  long long marks_dropped;
+  char *readable_header; /* owned */
+  char *readable;        /* owned rendition, NULL without a model */
+  SpecStripFinding *findings;
+  size_t findings_len;
+} SpecStripResult;
+
+/* What spec_document_strip takes beyond the switches; every member may be
+ * NULL. */
+typedef struct {
+  const SpecModel *model;          /* the emptying rule, the rendition */
+  const DocSpecsSchema *schema;    /* the schema tier of both checks */
+  const char *root_type;           /* the root rendered; default the single
+                                    * populated one */
+  const SpecReadableSource *source; /* named in the readable header */
+} SpecDocumentStripOptions;
+
+/* Strips every value of `document` — content, form-field values and stored
+ * headlines — into a copy (SOM §11.10). Given a model it also applies the
+ * emptying rule (a value whose strip would add an instance or schema finding
+ * is stripped with the keeping options instead, or left as it was), removes
+ * list items left with nothing, numbers the appendix through the rendition,
+ * renders the readable rendition and checks that it reads back and validates.
+ * `extra` may be NULL. Writes `*out` (free with spec_strip_result_free). */
+void spec_document_strip(const SpecDocument *document,
+                         const SpecStripOptions *options,
+                         const SpecDocumentStripOptions *extra,
+                         SpecStripResult *out);
+
+void spec_strip_result_free(SpecStripResult *r);
+
+/* Whether the stripped document is valid and may be written. */
+int spec_strip_result_ok(const SpecStripResult *r);
+
+/* The report: what was dropped, unmarked, moved and kept per kind, one line
+ * each, into `out` (initialised by the callee). */
+void spec_strip_result_report(const SpecStripResult *r, SomStrList *out);
+
+/* `<kind>: [<ref>: ]<message>`. Owned. */
+char *spec_strip_finding_string(const SpecStripFinding *f);
+
+/* The result as the corpus writes it (`document` as canonical document JSON,
+ * `kept`, `removedItems`, `appendix`, `dropped`, `unmarked`, `appended`,
+ * `marksDropped`, `readableHeader`, `readable`, `findings` by kind). Owned
+ * JSON. */
+char *spec_strip_result_to_json(const SpecStripResult *r);
 
 #endif /* SPEC_DOCUMENT_STRIP_H */

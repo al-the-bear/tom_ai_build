@@ -132,7 +132,7 @@ Every operation is `spec_review_annotations_<name>(&review, …)`.
 | `edit_comment(comment_id, text, at, err)` | New text; the marker, id and author stay as written, the change time is written anew |
 | `resolve(id, err)` | Removes one comment or question (a qualified comment id is accepted) and one adjacent blank line. A question of a combined block takes only its own lines; the block goes with its last question |
 | `apply_mark(path, field, index, accept, err)` | Accepts or rejects inline mark `index` of one value. Accept takes the insertion, the deletion or the new text; reject keeps the old. A highlight or comment mark is removed either way, its text staying |
-| `stripped()` | A copy of the document without any annotation, every mark accepted, for reading. The document is unchanged |
+| `stripped()` | A copy of the document without any annotation, every mark accepted, headlines included, for reading: the strip with `drop: [comments]` (`spec_document_strip`). The document is unchanged |
 
 `field` is `NULL` for a content value. Record each applied comment or answer in
 the project's log **before** `resolve` removes it (`tom_specs_project_flow.md`
