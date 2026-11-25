@@ -85,6 +85,13 @@ typedef struct {
   SomStrList root_prefixes; /* byte-sorted set of root segments the import
                              * covers — the scope a full-overwrite apply
                              * purges first */
+  SomMap kept_content;      /* the rejected blocks kept for review (SOM
+                             * §11.7, DocSpecs RN-11): for every path whose text
+                             * a rejected block stood in, the value with each
+                             * such block written as a `rejected` div at its
+                             * place. An apply accepting rejections writes these
+                             * over the content; an empty value removes the
+                             * path's text. Empty for a clean parse. */
 } SpecMarkdownResult;
 
 void spec_markdown_result_free(SpecMarkdownResult *r);
@@ -243,9 +250,12 @@ void spec_markdown_parse(const SpecModel *model, const char *text,
  * are written. Other roots are left as they are. Keys are written as-is (this
  * port has no path normalizer).
  *
- * A result with rejections is refused unless `allow_rejections` is non-zero:
- * the blocks it rejected would otherwise vanish from a document the caller
- * believes it imported whole. On refusal the document is left unchanged, a
+ * A result with rejections is refused unless `allow_rejections` is non-zero.
+ * With it, each rejected block is kept rather than dropped: the result's
+ * `kept_content` is written over the parsed content, so the block stands as
+ * a `rejected` div in the text of the section it stood in (else its parent),
+ * at its place (SOM §11.7, DocSpecs RN-11), and nothing written is lost. On
+ * refusal the document is left unchanged, a
  * non-zero value is returned and, when `error_out` is non-NULL, an owned
  * message naming the rejection count and the first rejection's line and
  * message is written. Returns 0 on success (including a result covering no
@@ -256,8 +266,10 @@ int spec_document_apply_markdown_result(SpecDocument *doc,
                                         char **error_out);
 
 /* The outcome of `spec_document_from_markdown`: a document holding every
- * value the parse accepted, plus the parse report (rejections included — the
- * rejected blocks are not in `document`). Owns both; free with
+ * value the parse accepted, each rejected block kept in it as a `rejected` div
+ * for review (SOM §11.7, DocSpecs RN-11; the validators report each as
+ * `rejectedBlock` until it is resolved), plus the parse report (rejections
+ * included). Owns both; free with
  * `spec_markdown_import_free`. */
 typedef struct {
   SpecDocument *document; /* owned heap document */
@@ -270,9 +282,11 @@ void spec_markdown_import_free(SpecMarkdownImport *imp);
 /* Builds a document from a DocSpecs Markdown `text` in one call: creates a
  * fresh document, parses `text` against `model`, then applies the result with
  * rejections allowed (`spec_document_apply_markdown_result`). Rejected blocks
- * are not loaded and are reported in `out->result`, so a caller can show them
- * or refuse to save: re-exporting a document whose source had rejections drops
- * those blocks for good. `out` is initialised by the callee. */
+ * are kept in the document as `rejected` divs for review (SOM §11.7, DocSpecs
+ * RN-11) and reported in `out->result`, so a caller can show them;
+ * re-exporting the document writes the divs, which the validators report as
+ * `rejectedBlock` until each is resolved. `out` is initialised by the
+ * callee. */
 void spec_document_from_markdown(const char *text, const SpecModel *model,
                                  SpecMarkdownImport *out);
 

@@ -656,16 +656,30 @@ static void test_markdown_memory_landing(Checker *c, const SpecModel *model) {
  * full-overwrite apply (`apply`) of a parse result onto a base document,
  * run exactly like the Dart reference's `_runMarkdownApplyCase` — refusal,
  * rejection count and the resulting document (canonical JSON) all compared. */
+static void put_json_str(SomBuf *b, const char *s);
+static char *json_canonical(const SomJson *v);
+
 static void test_markdown_apply(Checker *c, const SpecModel *model) {
   SomJson *table = read_json("markdown_apply_cases.json");
   const SomJson *cases = som_json_get(table, "cases");
+  /* The table's DocSpecs schema: the `readingView` cases validate the applied
+   * document and compare its `rejectedBlock` findings (DocSpecs RN-11). */
+  DocSpecsSchema *schema = NULL;
+  {
+    char *serr = NULL;
+    const char *yaml = som_json_str_or(table, "schema");
+    if (yaml[0] != '\0' && !docspecs_schema_from_yaml_text(yaml, &schema, &serr)) {
+      fprintf(stderr, "markdown_apply_cases schema: %s\n", serr ? serr : "?");
+      exit(2);
+    }
+    free(serr);
+  }
   size_t n = som_json_array_len(cases);
   for (size_t i = 0; i < n; i++) {
     const SomJson *kase = som_json_array_at(cases, i);
-    /* The reading view's table forms (`readingView`) are read by the Dart and
-     * TypeScript runtimes only until their ports (runtime_parity.md § Reading view). */
-    if (som_json_bool_or(kase, "readingView")) continue;
     const char *name = som_json_str_or(kase, "name");
+    int reading_view = som_json_bool_or(kase, "readingView");
+    char *blocks_got = NULL;
     const char *op = som_json_str_or(kase, "op");
     const char *markdown = som_json_str_or(kase, "markdown");
     int refused = 0;
@@ -694,6 +708,32 @@ static void test_markdown_apply(Checker *c, const SpecModel *model) {
       free(err);
       rejection_count = parsed.rejections_len;
       spec_document_to_json(&document, &dj);
+      if (reading_view && schema != NULL) {
+        /* The validator reports every kept block as `rejectedBlock`, with the
+         * document path it stands in. */
+        DocSpecsViolationList vl;
+        docspecs_violation_list_init(&vl);
+        char *verr = NULL;
+        validate_spec_document(model, &document, schema, "Demo", &vl, &verr);
+        free(verr);
+        SomBuf bb;
+        som_buf_init(&bb);
+        som_buf_putc(&bb, '[');
+        int first = 1;
+        for (size_t k = 0; k < vl.len; k++) {
+          if (strcmp(vl.items[k].rule, DOCSPECS_RULE_REJECTED_BLOCK) != 0) continue;
+          if (!first) som_buf_putc(&bb, ',');
+          first = 0;
+          som_buf_puts(&bb, "{\"line\":");
+          som_buf_puti(&bb, vl.items[k].line);
+          som_buf_puts(&bb, ",\"path\":");
+          put_json_str(&bb, vl.items[k].path);
+          som_buf_putc(&bb, '}');
+        }
+        som_buf_putc(&bb, ']');
+        blocks_got = som_buf_take(&bb);
+        docspecs_violation_list_free(&vl);
+      }
       spec_markdown_result_free(&parsed);
       spec_document_free(&document);
     }
@@ -725,7 +765,24 @@ static void test_markdown_apply(Checker *c, const SpecModel *model) {
     free(want_json);
     document_json_free(&wanted);
     document_json_free(&dj);
+    const SomJson *want_blocks = som_json_get(expect, "rejectedBlocks");
+    if (want_blocks != NULL) {
+      char *perr = NULL;
+      SomJson *gj = som_json_parse(blocks_got != NULL ? blocks_got : "null", &perr);
+      char *g = json_canonical(gj);
+      char *w = json_canonical(want_blocks);
+      char bd[4096];
+      snprintf(bd, sizeof(bd), "got %s want %s", g, w);
+      snprintf(label, sizeof(label), "mdApply[%s].rejectedBlocks", name);
+      check(c, label, strcmp(g, w) == 0, bd);
+      free(g);
+      free(w);
+      free(perr);
+      som_json_free(gj);
+    }
+    free(blocks_got);
   }
+  docspecs_schema_free(schema);
   som_json_free(table);
 }
 

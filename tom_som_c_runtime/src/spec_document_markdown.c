@@ -2517,6 +2517,7 @@ void spec_markdown_result_free(SpecMarkdownResult *r) {
   r->rejections_len = 0;
   r->rejections_cap = 0;
   som_strlist_free(&r->root_prefixes);
+  som_map_free(&r->kept_content);
 }
 
 int spec_markdown_result_is_clean(const SpecMarkdownResult *r) {
@@ -2556,6 +2557,20 @@ char *spec_markdown_rejection_display(const SpecMarkdownRejection *rej) {
 /* Import (parse)                                                            */
 /* ======================================================================== */
 
+/* A rejected block kept for review, its holders, and its place in a frame. */
+typedef struct MdKeptBlock MdKeptBlock;
+
+typedef struct {
+  MdKeptBlock **items; /* borrowed (the parser owns every block) */
+  size_t len, cap;
+} MdBlockList;
+
+typedef struct {
+  size_t at;          /* the body index the block stands before */
+  MdKeptBlock *block;
+  size_t end;         /* the end of the body lines it replaces (`at`: none) */
+} MdKeptMark;
+
 /* mdListState: per-list bookkeeping while parsing. */
 typedef struct {
   char *list_path;    /* owned */
@@ -2572,6 +2587,11 @@ typedef struct {
   size_t line;
   int ignored;
   LineVec body;
+  /* Rejected blocks to keep in this frame's text (RN-11), and for an ignored
+   * frame the blocks of its ignored children, kept after its own. */
+  MdKeptMark *kept;
+  size_t kept_len, kept_cap;
+  MdBlockList deferred;
   /* The qualified-anchor scope (SOM §11.2): the ids joined by '/' a heading
    * below this one prefixes its anchor with, NULL for none; and the section
    * id a copy's anchor is qualified by. Both owned, NULL when unset. */
@@ -2606,6 +2626,15 @@ typedef struct {
   /* The fields given so far per form ("<form path>\x1f<field>"), for the
    * given-twice rule (SOM §11.4). */
   SomMap given;
+  /* Rejected blocks (RN-11): the source lines, every block made (owned),
+   * the blocks reported and not yet placed, the text before the root
+   * heading, and the result's kept content. */
+  const LineVec *src;
+  MdKeptBlock **all_blocks;
+  size_t all_blocks_len, all_blocks_cap;
+  MdBlockList pending;
+  MdBlockList orphans;
+  SomMap kept_content;
 } MdParser;
 
 static void parser_push_rejection(MdParser *p, size_t line, const char *reason,
@@ -2740,6 +2769,466 @@ static char *decode_code_span(char *value) {
   out[len] = '\0';
   free(value);
   return out;
+}
+
+/* Whether `s` is blank (whitespace only). */
+static int trim_is_blank(const char *s) {
+  for (const char *q = s; *q != '\0'; q++) {
+    if (!is_ws(*q)) return 0;
+  }
+  return 1;
+}
+
+/* ---- rejected blocks kept for review (SOM §11.7, DocSpecs RN-11) --------- */
+
+/* A rejected block an import that accepts rejections keeps: the source lines
+ * it held and what its `rejected` div records for a resolution. The parser
+ * owns every block (`all_blocks`); frames, the hold and keepers borrow them. */
+struct MdKeptBlock {
+  char *reason;  /* owned copy of the rejection's */
+  size_t line;
+  char *message; /* owned */
+  LineVec lines; /* the source lines of the block, as written */
+  char *field;   /* the field given twice, or the field a near miss names */
+  char *section; /* the child section a near-miss section-table cell names */
+  char *kept;    /* for a field given twice: the form holding the kept value */
+};
+
+static MdKeptBlock *kept_block_new(MdParser *p, size_t line, const char *reason,
+                                   const char *message) {
+  MdKeptBlock *b = calloc(1, sizeof(MdKeptBlock));
+  b->reason = som_strdup(reason);
+  b->line = line;
+  b->message = som_strdup(message);
+  lv_init(&b->lines);
+  if (p->all_blocks_len == p->all_blocks_cap) {
+    p->all_blocks_cap = p->all_blocks_cap ? p->all_blocks_cap * 2 : 8;
+    p->all_blocks =
+        realloc(p->all_blocks, p->all_blocks_cap * sizeof(MdKeptBlock *));
+  }
+  p->all_blocks[p->all_blocks_len++] = b;
+  return b;
+}
+
+static void kept_block_free(MdKeptBlock *b) {
+  free(b->reason);
+  free(b->message);
+  lv_free(&b->lines);
+  free(b->field);
+  free(b->section);
+  free(b->kept);
+  free(b);
+}
+
+static void kept_block_set_lines(MdKeptBlock *b, char *const *lines,
+                                 size_t from, size_t to) {
+  lv_free(&b->lines);
+  lv_init(&b->lines);
+  for (size_t k = from; k < to; k++) lv_push(&b->lines, som_strdup(lines[k]));
+}
+
+static void block_list_push(MdBlockList *l, MdKeptBlock *b) {
+  if (l->len == l->cap) {
+    l->cap = l->cap ? l->cap * 2 : 4;
+    l->items = realloc(l->items, l->cap * sizeof(MdKeptBlock *));
+  }
+  l->items[l->len++] = b;
+}
+
+static void frame_keep(MdFrame *f, size_t at, MdKeptBlock *b, size_t end) {
+  if (f->kept_len == f->kept_cap) {
+    f->kept_cap = f->kept_cap ? f->kept_cap * 2 : 4;
+    f->kept = realloc(f->kept, f->kept_cap * sizeof(MdKeptMark));
+  }
+  f->kept[f->kept_len].at = at;
+  f->kept[f->kept_len].block = b;
+  f->kept[f->kept_len].end = end;
+  f->kept_len++;
+}
+
+/* Reports a rejection and holds its block (RN-11): `lines[from, to)` are the
+ * source lines it held (NULL: the rejection's own source line). */
+static MdKeptBlock *parser_reject(MdParser *p, size_t line, const char *reason,
+                                  const char *message, const char *anchor,
+                                  char *const *lines, size_t from, size_t to) {
+  parser_push_rejection(p, line, reason, message, anchor);
+  MdKeptBlock *b = kept_block_new(p, line, reason, message);
+  if (lines != NULL) {
+    kept_block_set_lines(b, lines, from, to);
+  } else if (p->src != NULL && line >= 1 && line <= p->src->len) {
+    lv_push(&b->lines, som_strdup(p->src->items[line - 1]));
+  }
+  block_list_push(&p->pending, b);
+  return b;
+}
+
+/* The held blocks in source order (stable), the hold emptied: written to
+ * `out` (init by the callee; free its array). */
+static void parser_take_pending(MdParser *p, MdBlockList *out) {
+  *out = p->pending;
+  p->pending.items = NULL;
+  p->pending.len = 0;
+  p->pending.cap = 0;
+  /* insertion sort: stable by line */
+  for (size_t i = 1; i < out->len; i++) {
+    MdKeptBlock *b = out->items[i];
+    size_t j = i;
+    while (j > 0 && out->items[j - 1]->line > b->line) {
+      out->items[j] = out->items[j - 1];
+      j--;
+    }
+    out->items[j] = b;
+  }
+}
+
+/* Places the held blocks before `frame`'s body index `at`; with `replace_end`
+ * they take the place of the body lines up to it. */
+static void parser_mark_pending(MdParser *p, MdFrame *frame, size_t at,
+                                size_t replace_end) {
+  MdBlockList taken;
+  parser_take_pending(p, &taken);
+  for (size_t i = 0; i < taken.len; i++) {
+    frame_keep(frame, at, taken.items[i], replace_end);
+  }
+  free(taken.items);
+}
+
+/* Whether `a` becomes `b` by at most one insertion, deletion or substitution. */
+static int one_edit(const char *a, const char *b) {
+  size_t la = strlen(a), lb = strlen(b);
+  if ((la > lb ? la - lb : lb - la) > 1) return 0;
+  size_t i = 0, j = 0;
+  int edits = 0;
+  while (i < la && j < lb) {
+    if (a[i] == b[j]) {
+      i++;
+      j++;
+      continue;
+    }
+    if (++edits > 1) return 0;
+    if (la > lb) {
+      i++;
+    } else if (lb > la) {
+      j++;
+    } else {
+      i++;
+      j++;
+    }
+  }
+  return edits + (int)(la - i) + (int)(lb - j) <= 1;
+}
+
+/* `s` lower-cased without whitespace, `_` and `-`. Owned. */
+static char *near_norm(const char *s) {
+  SomBuf b;
+  som_buf_init(&b);
+  for (const char *q = s; *q != '\0'; q++) {
+    if (is_ws(*q) || *q == '_' || *q == '-') continue;
+    som_buf_putc(&b, to_lower_c(*q));
+  }
+  return som_buf_take(&b);
+}
+
+/* The declared name one edit (or only case and separators) away from
+ * `label`, when exactly one is (what a *Rename to* choice offers, RN-11).
+ * Owned, or NULL. */
+static char *near_miss(const char *label, const char *const *names,
+                       size_t names_len) {
+  char *nl = near_norm(label);
+  char *ll = lower_dup(label);
+  const char *hit = NULL;
+  int count = 0;
+  for (size_t i = 0; i < names_len; i++) {
+    const char *n = names[i];
+    if (strcmp(n, label) == 0) continue;
+    int dup = 0;
+    for (size_t k = 0; k < i; k++) {
+      if (strcmp(names[k], n) == 0) dup = 1;
+    }
+    if (dup) continue;
+    char *nn = near_norm(n);
+    char *nlow = lower_dup(n);
+    int match = strcmp(nn, nl) == 0 || one_edit(nlow, ll);
+    free(nn);
+    free(nlow);
+    if (match) {
+      hit = n;
+      count++;
+    }
+  }
+  free(nl);
+  free(ll);
+  return count == 1 ? som_strdup(hit) : NULL;
+}
+
+/* `^ {0,3}:{3,}`: the length of the colon run, 0 when none. */
+static size_t kd_colons(const char *s) {
+  size_t i = 0;
+  while (i < 3 && s[i] == ' ') i++;
+  size_t n = 0;
+  while (s[i + n] == ':') n++;
+  return n >= 3 ? n : 0;
+}
+
+/* `^ {0,3}:{3,}[ \t]*$`. */
+static int kd_div_close(const char *s) {
+  size_t i = 0;
+  while (i < 3 && s[i] == ' ') i++;
+  size_t n = 0;
+  while (s[i] == ':') {
+    i++;
+    n++;
+  }
+  if (n < 3) return 0;
+  while (s[i] == ' ' || s[i] == '\t') i++;
+  return s[i] == '\0';
+}
+
+/* `^ {0,3}:{3,}[ \t]*(?:\{.*\}|[A-Za-z][A-Za-z0-9_-]*)[ \t]*$`. */
+static int kd_div_open(const char *s) {
+  size_t i = 0;
+  while (i < 3 && s[i] == ' ') i++;
+  size_t n = 0;
+  while (s[i] == ':') {
+    i++;
+    n++;
+  }
+  if (n < 3) return 0;
+  while (s[i] == ' ' || s[i] == '\t') i++;
+  size_t len = strlen(s);
+  size_t e = len;
+  while (e > i && (s[e - 1] == ' ' || s[e - 1] == '\t')) e--;
+  if (s[i] == '{') {
+    if (e < i + 2 || s[e - 1] != '}') return 0;
+    for (size_t k = i + 1; k < e - 1; k++) {
+      if (s[k] == '\r') return 0;
+    }
+    return 1;
+  }
+  if (!is_alpha(s[i])) return 0;
+  size_t k = i + 1;
+  while (k < e && (is_alpha(s[k]) || is_digit(s[k]) || s[k] == '_' || s[k] == '-')) {
+    k++;
+  }
+  return k == e;
+}
+
+/* `s` with `"` written `'`. Owned. */
+static char *single_quoted(const char *s) {
+  char *out = som_strdup(s);
+  for (char *q = out; *q != '\0'; q++) {
+    if (*q == '"') *q = '\'';
+  }
+  return out;
+}
+
+/* The block as a `rejected` div: `reason`, `line`, then `field` / `section` /
+ * `kept` where they apply, then `label` (the report's message, its double
+ * quotes written as single ones). A fence the block does not close, or
+ * closes without opening, is written escaped (`\:::`, RN-9); the div's
+ * fences are longer than any fence inside it (RN-7). */
+static void kept_block_div(const MdKeptBlock *b, LineVec *out) {
+  lv_init(out);
+  size_t s = 0, e = b->lines.len;
+  while (s < e && trim_is_blank(b->lines.items[s])) s++;
+  while (e > s && trim_is_blank(b->lines.items[e - 1])) e--;
+  size_t n = e - s;
+  char **inner = calloc(n ? n : 1, sizeof(char *));
+  for (size_t k = 0; k < n; k++) inner[k] = som_strdup(b->lines.items[s + k]);
+  unsigned char *unpaired = calloc(n ? n : 1, 1);
+  size_t *open = calloc(n ? n : 1, sizeof(size_t));
+  size_t open_len = 0;
+  SpecMarkdownFenceTracker fence;
+  spec_markdown_fence_init(&fence);
+  for (size_t k = 0; k < n; k++) {
+    if (!spec_markdown_fence_in_fence(&fence)) {
+      if (kd_div_close(inner[k])) {
+        if (open_len == 0) {
+          unpaired[k] = 1;
+        } else {
+          open_len--;
+        }
+      } else if (kd_div_open(inner[k])) {
+        open[open_len++] = k;
+      }
+    }
+    spec_markdown_fence_feed(&fence, inner[k]);
+  }
+  for (size_t k = 0; k < open_len; k++) unpaired[open[k]] = 1;
+  size_t longest = 0;
+  for (size_t k = 0; k < n; k++) {
+    if (unpaired[k]) {
+      /* `^( {0,3}):` -> `$1\:` */
+      size_t sp = 0;
+      while (sp < 3 && inner[k][sp] == ' ') sp++;
+      if (inner[k][sp] == ':') {
+        SomBuf x;
+        som_buf_init(&x);
+        som_buf_putn(&x, inner[k], sp);
+        som_buf_putc(&x, '\\');
+        som_buf_puts(&x, inner[k] + sp);
+        free(inner[k]);
+        inner[k] = som_buf_take(&x);
+      }
+      continue;
+    }
+    size_t run = kd_colons(inner[k]);
+    if (run > longest) longest = run;
+  }
+  size_t ncolons = longest >= 3 ? longest + 1 : 3;
+  SomBuf colons;
+  som_buf_init(&colons);
+  for (size_t k = 0; k < ncolons; k++) som_buf_putc(&colons, ':');
+  char *fence_s = som_buf_take(&colons);
+  SomBuf head;
+  som_buf_init(&head);
+  som_buf_puts(&head, fence_s);
+  som_buf_puts(&head, " {.rejected reason=\"");
+  som_buf_puts(&head, b->reason);
+  som_buf_puts(&head, "\" line=\"");
+  som_buf_puti(&head, (long long)b->line);
+  som_buf_putc(&head, '"');
+  const char *names[3] = {"field", "section", "kept"};
+  const char *vals[3] = {b->field, b->section, b->kept};
+  for (int k = 0; k < 3; k++) {
+    if (vals[k] == NULL) continue;
+    char *q = single_quoted(vals[k]);
+    som_buf_putc(&head, ' ');
+    som_buf_puts(&head, names[k]);
+    som_buf_puts(&head, "=\"");
+    som_buf_puts(&head, q);
+    som_buf_putc(&head, '"');
+    free(q);
+  }
+  char *label = single_quoted(b->message);
+  som_buf_puts(&head, " label=\"");
+  som_buf_puts(&head, label);
+  som_buf_puts(&head, "\"}");
+  free(label);
+  lv_push(out, som_buf_take(&head));
+  for (size_t k = 0; k < n; k++) lv_push(out, inner[k]);
+  lv_push(out, fence_s);
+  free(inner);
+  free(unpaired);
+  free(open);
+}
+
+/* One div written into a part at a position. */
+typedef struct {
+  size_t part; /* the keeper's part key */
+  size_t at;
+  LineVec div;
+} MdInsert;
+
+typedef struct {
+  MdInsert *items;
+  size_t len, cap;
+} MdInserts;
+
+static void inserts_add(MdInserts *v, size_t part, size_t at, const MdKeptBlock *b) {
+  if (v->len == v->cap) {
+    v->cap = v->cap ? v->cap * 2 : 4;
+    v->items = realloc(v->items, v->cap * sizeof(MdInsert));
+  }
+  v->items[v->len].part = part;
+  v->items[v->len].at = at;
+  kept_block_div(b, &v->items[v->len].div);
+  v->len++;
+}
+
+static void inserts_free(MdInserts *v) {
+  for (size_t i = 0; i < v->len; i++) lv_free(&v->items[i].div);
+  free(v->items);
+}
+
+/* `part` with the divs of `ins` for `key` written in at their positions, a
+ * blank line between a div and the text around it; the lines whose
+ * `replaced` flag is set are left out. Writes `out` (init by the callee). */
+static void kept_merge(char *const *part, size_t part_len, const MdInserts *ins,
+                       size_t key, const unsigned char *replaced, LineVec *out) {
+  lv_init(out);
+  int blank_due = 0;
+  for (size_t k = 0; k <= part_len; k++) {
+    for (size_t i = 0; ins != NULL && i < ins->len; i++) {
+      if (ins->items[i].part != key || ins->items[i].at != k) continue;
+      if (out->len > 0 && !trim_is_blank(out->items[out->len - 1])) {
+        lv_push(out, som_strdup(""));
+      }
+      for (size_t d = 0; d < ins->items[i].div.len; d++) {
+        lv_push(out, som_strdup(ins->items[i].div.items[d]));
+      }
+      blank_due = 1;
+    }
+    if (k == part_len || (replaced != NULL && replaced[k])) continue;
+    if (blank_due && !trim_is_blank(part[k])) lv_push(out, som_strdup(""));
+    blank_due = 0;
+    lv_push(out, som_strdup(part[k]));
+  }
+}
+
+/* Where one frame's rejected blocks go (RN-11): the frame's marks by body
+ * index (stable), and the divs written into each part. */
+typedef struct {
+  MdKeptMark *marks;
+  size_t marks_len;
+  size_t next;
+  MdInserts inserts;
+} MdKeeper;
+
+static void keeper_init(MdKeeper *k, const MdFrame *frame) {
+  k->marks_len = frame->kept_len;
+  k->marks = k->marks_len ? malloc(k->marks_len * sizeof(MdKeptMark)) : NULL;
+  for (size_t i = 0; i < k->marks_len; i++) k->marks[i] = frame->kept[i];
+  for (size_t i = 1; i < k->marks_len; i++) {
+    MdKeptMark m = k->marks[i];
+    size_t j = i;
+    while (j > 0 && k->marks[j - 1].at > m.at) {
+      k->marks[j] = k->marks[j - 1];
+      j--;
+    }
+    k->marks[j] = m;
+  }
+  k->next = 0;
+  k->inserts.items = NULL;
+  k->inserts.len = 0;
+  k->inserts.cap = 0;
+}
+
+static void keeper_free(MdKeeper *k) {
+  free(k->marks);
+  inserts_free(&k->inserts);
+}
+
+/* Writes `b` into part `key` (currently `len` lines) at its end. */
+static void keeper_keep(MdKeeper *k, size_t key, size_t len, const MdKeptBlock *b) {
+  inserts_add(&k->inserts, key, len, b);
+}
+
+/* Writes the frame's blocks standing before body index `up_to` into part
+ * `key` (currently `len` lines). */
+static void keeper_drain(MdKeeper *k, size_t up_to, size_t key, size_t len) {
+  while (k->next < k->marks_len && k->marks[k->next].at <= up_to) {
+    keeper_keep(k, key, len, k->marks[k->next].block);
+    k->next++;
+  }
+}
+
+static int keeper_has(const MdKeeper *k, size_t key) {
+  for (size_t i = 0; i < k->inserts.len; i++) {
+    if (k->inserts.items[i].part == key) return 1;
+  }
+  return 0;
+}
+
+/* The restored value of one part with the kept divs written in. Owned. */
+static char *keeper_part_value(const MdKeeper *k, size_t key, char *const *part,
+                               size_t part_len) {
+  if (!keeper_has(k, key)) return restore_value(part, part_len);
+  LineVec merged;
+  kept_merge(part, part_len, &k->inserts, key, NULL, &merged);
+  char *v = restore_value(merged.items, merged.len);
+  lv_free(&merged);
+  return v;
 }
 
 /* ---- form-field lookup (case-insensitive) ------------------------------- */
@@ -2946,13 +3435,12 @@ static void read_table(MdParser *p, char *const *lines, size_t len,
     som_strlist_free(&d);
   }
   if (!is_delimiter || delimiter_len != out->header.len) {
-    parser_push_rejection(p, line_base + start,
-                          SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
+    parser_reject(p, line_base + start, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
                           !is_delimiter
                               ? "table without its delimiter row"
                               : "table whose delimiter row does not match its "
                                 "header",
-                          anchor);
+                          anchor, lines, start, end);
     return;
   }
   if (end > start + 2) out->rows = calloc(end - start - 2, sizeof(MdRow));
@@ -2967,8 +3455,8 @@ static void read_table(MdParser *p, char *const *lines, size_t len,
       som_buf_puts(&msg, " cells, the header has ");
       som_buf_puti(&msg, (long long)out->header.len);
       char *m = som_buf_take(&msg);
-      parser_push_rejection(p, line_base + i,
-                            SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK, m, anchor);
+      parser_reject(p, line_base + i, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK, m,
+                    anchor, lines, i, i + 1);
       free(m);
       som_strlist_free(&cells);
       continue;
@@ -3093,8 +3581,10 @@ static int given_twice(MdParser *p, const char *form_path, const char *field,
   }
   free(k);
   char *msg = vcat3("field \"", field, "\" given twice");
-  parser_push_rejection(p, line, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK, msg,
-                        form_path);
+  MdKeptBlock *b = parser_reject(p, line, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
+                                 msg, form_path, NULL, 0, 0);
+  b->field = som_strdup(field);
+  b->kept = som_strdup(form_path);
   free(msg);
   return 1;
 }
@@ -3114,8 +3604,12 @@ static void stage_row(MdParser *p, const char *form_path,
   free(lower);
   if (f == NULL) {
     char *msg = vcat3("row \"", label, "\" names no field of this form");
-    parser_push_rejection(p, line, SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD, msg,
-                          form_path);
+    MdKeptBlock *b = parser_reject(p, line, SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD,
+                                   msg, form_path, NULL, 0, 0);
+    const char **names = malloc((fields_len ? fields_len : 1) * sizeof(char *));
+    for (size_t i = 0; i < fields_len; i++) names[i] = fields[i]->name;
+    b->field = near_miss(label, names, fields_len);
+    free((void *)names);
     free(msg);
     return;
   }
@@ -3296,6 +3790,55 @@ static int section_table_target(MdParser *p, MdFrame *frame,
   return found;
 }
 
+/* The child a section-table `Section` cell naming none is a near miss of
+ * (RN-11): a child form section's id, or `<LIST> / <ITEM>` with a near list
+ * id. Owned, or NULL. */
+static char *near_section(MdParser *p, const SomMetaNode *node,
+                          const char *section) {
+  SomStrList parts;
+  som_strlist_init(&parts);
+  const char *q = section;
+  for (;;) {
+    const char *slash = strchr(q, '/');
+    const char *e = slash != NULL ? slash : q + strlen(q);
+    const char *a = q;
+    if (parts.len > 0) {
+      while (a < e && is_ws(*a)) a++;
+    }
+    const char *b = e;
+    if (slash != NULL) {
+      while (b > a && is_ws(b[-1])) b--;
+    }
+    som_strlist_push(&parts, som_strdup_n(a, (size_t)(b - a)));
+    if (slash == NULL) break;
+    q = slash + 1;
+  }
+  char *out = NULL;
+  if (parts.len <= 2) {
+    const char *want = parts.len == 1 ? SOM_META_KIND_FORM : SOM_META_KIND_LIST;
+    NodeRelVec eff;
+    effective_children(p->codec, node, &eff);
+    SomStrList ids;
+    som_strlist_init(&ids);
+    for (size_t i = 0; i < eff.len; i++) {
+      if (strcmp(eff.items[i].node->kind, want) == 0) {
+        som_strlist_push(&ids, heading_id_of(p->codec, eff.items[i].node));
+      }
+    }
+    char *hit = near_miss(parts.items[0], (const char *const *)ids.items, ids.len);
+    if (hit != NULL && parts.len == 2) {
+      out = vcat3(hit, " / ", parts.items[1]);
+      free(hit);
+    } else {
+      out = hit;
+    }
+    som_strlist_free(&ids);
+    nrv_free(&eff);
+  }
+  som_strlist_free(&parts);
+  return out;
+}
+
 /* Reads and removes every section table of `frame`'s body (SOM §11.5). */
 static void extract_section_tables(MdParser *p, MdFrame *frame,
                                    const SomMetaNode *node) {
@@ -3317,11 +3860,16 @@ static void extract_section_tables(MdParser *p, MdFrame *frame,
     const SomFormFieldMeta **fields = NULL;
     size_t fields_len = 0;
     int skip = 0;
+    /* The rejected section's block: its row and the rows continuing it. */
+    MdKeptBlock *skipped = NULL;
     for (size_t r = 0; r < table.rows_len; r++) {
       const MdRow *row = &table.rows[r];
       char *section = cell_id(row->cells.items[0]);
       size_t line_no = base + row->index;
       if (section[0] == '\0' && skip) {
+        if (skipped != NULL) {
+          lv_push(&skipped->lines, som_strdup(frame->body.items[row->index]));
+        }
         free(section);
         continue;
       }
@@ -3337,17 +3885,18 @@ static void extract_section_tables(MdParser *p, MdFrame *frame,
         if (!ok) {
           char *msg = vcat3("section-table row names no child section of \"",
                             frame->path, "\"");
-          parser_push_rejection(p, line_no,
-                                SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION, msg,
-                                section);
+          skipped = parser_reject(p, line_no, SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION,
+                                  msg, section, frame->body.items, row->index,
+                                  row->index + 1);
+          skipped->section = near_section(p, node, section);
           free(msg);
           free(section);
           continue;
         }
       } else if (form_path == NULL) {
-        parser_push_rejection(p, line_no, SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION,
-                              "section-table row names no section",
-                              frame->path);
+        parser_reject(p, line_no, SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION,
+                      "section-table row names no section", frame->path,
+                      frame->body.items, row->index, row->index + 1);
         free(section);
         continue;
       }
@@ -3359,6 +3908,8 @@ static void extract_section_tables(MdParser *p, MdFrame *frame,
     free(form_path);
     free((void *)fields);
     for (size_t k = i; k < table.end; k++) blank_body_line(frame, k);
+    /* What the table rejected is kept where the table stood. */
+    parser_mark_pending(p, frame, i, i);
     i = table.end - 1;
     md_table_free(&table);
   }
@@ -3450,17 +4001,16 @@ static const SomFormFieldMeta *reference_field(MdCodec *c,
 static void stage_reference_line(MdParser *p, MdFrame *frame,
                                  const SomMetaNode *list_node,
                                  char *const *inner, size_t inner_len,
-                                 size_t at) {
+                                 size_t at, size_t close) {
   size_t line_no = frame->line + 1 + at;
   const SomMetaNode *element = list_node->element_node;
   char *ref_rel = NULL;
   const SomFormFieldMeta *ref =
       element != NULL ? reference_field(p->codec, element, &ref_rel) : NULL;
   if (ref == NULL) {
-    parser_push_rejection(p, line_no, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
-                          "a refs div in a list whose items are not "
-                          "references",
-                          frame->path);
+    parser_reject(p, line_no, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
+                  "a refs div in a list whose items are not references",
+                  frame->path, frame->body.items, at, close + 1);
     return;
   }
   SomBuf joined;
@@ -3491,8 +4041,9 @@ static void stage_reference_line(MdParser *p, MdFrame *frame,
   }
   free(all);
   if (ids.len == 0) {
-    parser_push_rejection(p, line_no, SPEC_MARKDOWN_REJECT_MISSING_VALUE,
-                          "an empty refs div", frame->path);
+    parser_reject(p, line_no, SPEC_MARKDOWN_REJECT_MISSING_VALUE,
+                  "an empty refs div", frame->path, frame->body.items, at,
+                  close + 1);
     som_strlist_free(&ids);
     free(ref_rel);
     return;
@@ -3527,7 +4078,7 @@ static void stage_reference_line(MdParser *p, MdFrame *frame,
 static void stage_record_table(MdParser *p, MdFrame *frame,
                                const SomMetaNode *list_node,
                                char *const *inner, size_t inner_len,
-                               size_t at) {
+                               size_t at, size_t close) {
   size_t open_line = frame->line + 1 + at;
   size_t base = open_line + 1; /* inner line k is source line base + k */
   size_t start = 0;
@@ -3539,16 +4090,17 @@ static void stage_record_table(MdParser *p, MdFrame *frame,
     start++;
   }
   if (start >= inner_len || !match_table_line(inner[start])) {
-    parser_push_rejection(p, open_line, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
-                          "a records div holding no table", frame->path);
+    parser_reject(p, open_line, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
+                  "a records div holding no table", frame->path,
+                  frame->body.items, at, close + 1);
     return;
   }
   SomStrList header;
   row_cells(inner[start], &header);
   if (strcmp(header.items[0], "Id") != 0) {
-    parser_push_rejection(p, open_line, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
-                          "a records table whose first column is not Id",
-                          frame->path);
+    parser_reject(p, open_line, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
+                  "a records table whose first column is not Id", frame->path,
+                  frame->body.items, at, close + 1);
     som_strlist_free(&header);
     return;
   }
@@ -3557,10 +4109,9 @@ static void stage_record_table(MdParser *p, MdFrame *frame,
   const SomMetaNode *form =
       element != NULL ? item_form(p->codec, element, &form_rel) : NULL;
   if (form == NULL) {
-    parser_push_rejection(p, open_line, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
-                          "a records div in a list whose items have no single "
-                          "form",
-                          frame->path);
+    parser_reject(p, open_line, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
+                  "a records div in a list whose items have no single form",
+                  frame->path, frame->body.items, at, close + 1);
     som_strlist_free(&header);
     return;
   }
@@ -3574,8 +4125,19 @@ static void stage_record_table(MdParser *p, MdFrame *frame,
     if (f == NULL) {
       char *msg = vcat3("records column \"", header.items[first_column + c],
                         "\" names no field of the items");
-      parser_push_rejection(p, base + start, SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD,
-                            msg, frame->path);
+      /* The table is skipped whole, so the whole div is kept. */
+      MdKeptBlock *b =
+          parser_reject(p, base + start, SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD, msg,
+                        frame->path, frame->body.items, at, close + 1);
+      const char **names =
+          malloc((form->form->fields_len ? form->form->fields_len : 1) *
+                 sizeof(char *));
+      for (size_t k = 0; k < form->form->fields_len; k++) {
+        names[k] = form->form->fields[k].name;
+      }
+      b->field = near_miss(header.items[first_column + c], names,
+                           form->form->fields_len);
+      free((void *)names);
       free(msg);
       free((void *)columns);
       free(form_rel);
@@ -3646,10 +4208,13 @@ static void finalize_list_body(MdParser *p, MdFrame *frame,
       }
     }
     if (close == frame->body.len) {
+      /* The fence's lines read as text; kept, they are the rejected div
+       * (the container's parent holds it, see finalize_frame). */
       char *msg = vcat3("unclosed ", kind, " fence");
-      parser_push_rejection(p, line_no, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK,
-                            msg, frame->path);
+      parser_reject(p, line_no, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK, msg,
+                    frame->path, frame->body.items, i, frame->body.len);
       free(msg);
+      parser_mark_pending(p, frame, i, frame->body.len);
       return;
     }
     int beside_text = 0;
@@ -3670,20 +4235,23 @@ static void finalize_list_body(MdParser *p, MdFrame *frame,
       som_buf_puts(&msg, has_items ? "item headings" : "other text");
       som_buf_puts(&msg, " in a list container");
       char *m = som_buf_take(&msg);
-      parser_push_rejection(p, line_no, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK, m,
-                            frame->path);
+      parser_reject(p, line_no, SPEC_MARKDOWN_REJECT_MALFORMED_BLOCK, m,
+                    frame->path, frame->body.items, i, close + 1);
       free(m);
       for (size_t k = i; k <= close; k++) blank_body_line(frame, k);
+      parser_mark_pending(p, frame, close + 1, close + 1);
       return;
     }
     char *const *inner = frame->body.items + i + 1;
     size_t inner_len = close - i - 1;
     if (strcmp(kind, "refs") == 0) {
-      stage_reference_line(p, frame, list_node, inner, inner_len, i);
+      stage_reference_line(p, frame, list_node, inner, inner_len, i, close);
     } else {
-      stage_record_table(p, frame, list_node, inner, inner_len, i);
+      stage_record_table(p, frame, list_node, inner, inner_len, i, close);
     }
     for (size_t k = i; k <= close; k++) blank_body_line(frame, k);
+    /* What the div rejected is kept after it. */
+    parser_mark_pending(p, frame, close + 1, close + 1);
     return;
   }
 }
@@ -3719,6 +4287,13 @@ static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
   size_t parts_len = 1;
   lv_init(&parts[0]);
   size_t base = frame->line + 1;
+  /* Rejected blocks go to the preamble at their place (RN-11); a field given
+   * twice is kept whole, its label line and continuation. */
+  MdKeeper keeper;
+  keeper_init(&keeper, frame);
+  MdKeptBlock *discarded = NULL;
+  size_t discard_start = 0;
+  size_t at = 0;
 
 #define FORM_FLUSH()                                                          \
   do {                                                                        \
@@ -3732,6 +4307,12 @@ static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
       }                                                                       \
       free(value);                                                            \
     }                                                                         \
+    if (discard && discarded != NULL) {                                       \
+      kept_block_set_lines(discarded, frame->body.items, discard_start, at);  \
+      keeper_keep(&keeper, parts_len - 1, parts[parts_len - 1].len,           \
+                  discarded);                                                 \
+      discarded = NULL;                                                       \
+    }                                                                         \
     lv_free(&current);                                                        \
     lv_init(&current);                                                        \
     discard = 0;                                                              \
@@ -3739,6 +4320,8 @@ static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
 
   for (size_t i = 0; i < frame->body.len; i++) {
     const char *line = frame->body.items[i];
+    at = i;
+    keeper_drain(&keeper, i, parts_len - 1, parts[parts_len - 1].len);
     if (!spec_markdown_fence_in_fence(&fence)) {
       int is_section = 0;
       if (match_layout_header(line, 0, &is_section) && !is_section) {
@@ -3753,6 +4336,15 @@ static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
                     table.rows[r].cells.items[0], table.rows[r].cells.items[1],
                     base + table.rows[r].index);
         }
+        {
+          MdBlockList taken;
+          parser_take_pending(p, &taken);
+          for (size_t k = 0; k < taken.len; k++) {
+            keeper_keep(&keeper, parts_len - 1, parts[parts_len - 1].len,
+                        taken.items[k]);
+          }
+          free(taken.items);
+        }
         i = table.end - 1;
         md_table_free(&table);
         continue;
@@ -3765,6 +4357,11 @@ static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
           FORM_FLUSH();
           current_field = field;
           discard = given_twice(p, path, field->name, base + i);
+          if (discard) {
+            discarded =
+                p->pending.len > 0 ? p->pending.items[--p->pending.len] : NULL;
+            discard_start = i;
+          }
           lv_push(&current, value);
           value = NULL;
           spec_markdown_fence_feed(&fence, line);
@@ -3785,11 +4382,19 @@ static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
     }
     spec_markdown_fence_feed(&fence, line);
   }
+  at = frame->body.len;
   FORM_FLUSH();
 #undef FORM_FLUSH
+  keeper_drain(&keeper, at, parts_len - 1, parts[parts_len - 1].len);
   lv_free(&current);
   SomBuf b;
   som_buf_init(&b);
+  SomBuf kb;
+  som_buf_init(&kb);
+  int any_kept = 0;
+  for (size_t k = 0; k < parts_len; k++) {
+    if (keeper_has(&keeper, k)) any_kept = 1;
+  }
   for (size_t k = 0; k < parts_len; k++) {
     char *v = restore_value(parts[k].items, parts[k].len);
     if (v[0] != '\0') {
@@ -3797,12 +4402,24 @@ static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
       som_buf_puts(&b, v);
     }
     free(v);
+    if (any_kept) {
+      char *kv = keeper_part_value(&keeper, k, parts[k].items, parts[k].len);
+      if (kv[0] != '\0') {
+        if (kb.len > 0) som_buf_puts(&kb, "\n\n");
+        som_buf_puts(&kb, kv);
+      }
+      free(kv);
+    }
     lv_free(&parts[k]);
   }
   free(parts);
   char *preamble = som_buf_take(&b);
   if (preamble[0] != '\0') staged_set_content(p, path, preamble);
   free(preamble);
+  char *kept = som_buf_take(&kb);
+  if (any_kept && kept[0] != '\0') som_map_set(&p->kept_content, path, kept);
+  free(kept);
+  keeper_free(&keeper);
   free((void *)declared);
 }
 
@@ -3926,6 +4543,13 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
                   : spec_path_join(frame->path, default_rel));
 
   p->current_form_idx = 0;
+  /* Rejected blocks go to the unlabelled text at their place (RN-11); a
+   * field given twice is kept whole, its label line and continuation. */
+  MdKeeper keeper;
+  keeper_init(&keeper, frame);
+  MdKeptBlock *discarded = NULL;
+  size_t discard_start = 0;
+  size_t at = 0;
 
 #define SLOTS_FLUSH()                                                         \
   do {                                                                        \
@@ -3939,6 +4563,12 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
       }                                                                       \
       free(v);                                                                \
     }                                                                         \
+    if (discard && discarded != NULL) {                                       \
+      kept_block_set_lines(discarded, frame->body.items, discard_start, at);  \
+      keeper_keep(&keeper, content_part, parts.items[content_part].lines.len, \
+                  discarded);                                                 \
+      discarded = NULL;                                                       \
+    }                                                                         \
     lv_free(&current);                                                        \
     lv_init(&current);                                                        \
     discard = 0;                                                              \
@@ -3946,6 +4576,8 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
 
   for (size_t i = 0; i < frame->body.len; i++) {
     const char *line = frame->body.items[i];
+    at = i;
+    keeper_drain(&keeper, i, content_part, parts.items[content_part].lines.len);
     if (!spec_markdown_fence_in_fence(&fence)) {
       char *rel = match_slot_marker(line);
       if (rel != NULL) {
@@ -4003,8 +4635,22 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
           if (hit == NULL) {
             char *msg =
                 vcat3("row \"", row_label, "\" names no field of this form");
-            parser_push_rejection(p, row_line, SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD,
-                                  msg, frame->path);
+            MdKeptBlock *kb = parser_reject(
+                p, row_line, SPEC_MARKDOWN_REJECT_UNKNOWN_FIELD, msg,
+                frame->path, frame->body.items, table.rows[r].index,
+                table.rows[r].index + 1);
+            SomStrList names;
+            som_strlist_init(&names);
+            for (size_t fs = 0; fs < forms.len; fs++) {
+              const SomMetaNode *fn = forms.items[fs].node;
+              for (size_t fi = 0; fn->form != NULL && fi < fn->form->fields_len;
+                   fi++) {
+                som_strlist_push_copy(&names, fn->form->fields[fi].name);
+              }
+            }
+            kb->field = near_miss(row_label, (const char *const *)names.items,
+                                  names.len);
+            som_strlist_free(&names);
             free(msg);
             continue;
           }
@@ -4014,6 +4660,16 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
           stage_row(p, form_path, &hit, 1, row_label,
                     table.rows[r].cells.items[1], row_line);
           free(form_path);
+        }
+        /* What the table rejected is kept where the table stood. */
+        {
+          MdBlockList taken;
+          parser_take_pending(p, &taken);
+          for (size_t k = 0; k < taken.len; k++) {
+            keeper_keep(&keeper, content_part,
+                        parts.items[content_part].lines.len, taken.items[k]);
+          }
+          free(taken.items);
         }
         i = table.end - 1;
         md_table_free(&table);
@@ -4058,6 +4714,11 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
               spec_path_join(frame->path, forms.items[found_idx].rel);
           discard = given_twice(p, current_form_path, current_field,
                                 frame->line + 1 + i);
+          if (discard) {
+            discarded =
+                p->pending.len > 0 ? p->pending.items[--p->pending.len] : NULL;
+            discard_start = i;
+          }
           lv_push(&current, value);
           value = NULL;
           spec_markdown_fence_feed(&fence, line);
@@ -4082,8 +4743,10 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
     }
     spec_markdown_fence_feed(&fence, line);
   }
+  at = frame->body.len;
   SLOTS_FLUSH();
 #undef SLOTS_FLUSH
+  keeper_drain(&keeper, at, content_part, parts.items[content_part].lines.len);
 
   /* one value per target path, in the order the targets were first opened */
   for (size_t i = 0; i < parts.len; i++) {
@@ -4115,7 +4778,33 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
       staged_set_content(p, parts.items[i].path, value);
     }
     free(value);
+    /* The same target's value with the kept divs written in (RN-11). */
+    int any_kept = 0;
+    for (size_t k = i; k < parts.len; k++) {
+      if (strcmp(parts.items[k].path, parts.items[i].path) == 0 &&
+          keeper_has(&keeper, k)) {
+        any_kept = 1;
+      }
+    }
+    if (any_kept) {
+      SomBuf kb;
+      som_buf_init(&kb);
+      for (size_t k = i; k < parts.len; k++) {
+        if (strcmp(parts.items[k].path, parts.items[i].path) != 0) continue;
+        char *kv = keeper_part_value(&keeper, k, parts.items[k].lines.items,
+                                     parts.items[k].lines.len);
+        if (kv[0] != '\0') {
+          if (kb.len > 0) som_buf_puts(&kb, "\n\n");
+          som_buf_puts(&kb, kv);
+        }
+        free(kv);
+      }
+      char *kept = som_buf_take(&kb);
+      if (kept[0] != '\0') som_map_set(&p->kept_content, parts.items[i].path, kept);
+      free(kept);
+    }
   }
+  keeper_free(&keeper);
   lv_free(&current);
   text_parts_free(&parts);
   free(current_form_path);
@@ -4124,8 +4813,57 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
 
 /* ---- finalize frame ----------------------------------------------------- */
 
+/* Whether a frame of `node` passes its rejected blocks to its parent: a list
+ * container, which holds no text, and a scalar or enum value, whose text is a
+ * typed value (RN-11). */
+static int kept_in_parent(const SomMetaNode *node) {
+  return node != NULL && (strcmp(node->kind, SOM_META_KIND_LIST) == 0 ||
+                          strcmp(node->kind, SOM_META_KIND_SCALAR) == 0 ||
+                          strcmp(node->kind, SOM_META_KIND_ENUM_VALUE) == 0);
+}
+
+/* An ignored frame's heading and body, with its ignored children's blocks
+ * after it, go to the text of the nearest section above it that was read,
+ * after that section's own text (RN-11); with none above nothing holds them
+ * and only the report remains. The frame is already off the stack. */
+static void keep_ignored(MdParser *p, MdFrame *frame) {
+  const SpecMarkdownRejection *own = NULL;
+  for (size_t i = p->rejections_len; i-- > 0;) {
+    if (p->rejections[i].line == frame->line) {
+      own = &p->rejections[i];
+      break;
+    }
+  }
+  MdBlockList blocks = {NULL, 0, 0};
+  if (own != NULL) {
+    MdKeptBlock *b = kept_block_new(p, own->line, own->reason, own->message);
+    if (p->src != NULL && frame->line >= 1 && frame->line <= p->src->len) {
+      lv_push(&b->lines, som_strdup(p->src->items[frame->line - 1]));
+    }
+    for (size_t k = 0; k < frame->body.len; k++) {
+      lv_push(&b->lines, som_strdup(frame->body.items[k]));
+    }
+    block_list_push(&blocks, b);
+  }
+  for (size_t k = 0; k < frame->deferred.len; k++) {
+    block_list_push(&blocks, frame->deferred.items[k]);
+  }
+  if (p->stack_len > 0 && blocks.len > 0) {
+    MdFrame *parent = &p->stack[p->stack_len - 1];
+    for (size_t k = 0; k < blocks.len; k++) {
+      if (parent->ignored) {
+        block_list_push(&parent->deferred, blocks.items[k]);
+      } else {
+        frame_keep(parent, parent->body.len, blocks.items[k], parent->body.len);
+      }
+    }
+  }
+  free(blocks.items);
+}
+
 static void finalize_frame(MdParser *p, MdFrame *frame) {
   if (frame->ignored) {
+    keep_ignored(p, frame);
     return;
   }
   const SomMetaNode *node = frame->node;
@@ -4148,6 +4886,46 @@ static void finalize_frame(MdParser *p, MdFrame *frame) {
   }
   if (slots.len == 0) {
     char *value = restore_value(frame->body.items, frame->body.len);
+    if (frame->kept_len > 0) {
+      unsigned char *replaced = calloc(frame->body.len + 1, 1);
+      for (size_t m = 0; m < frame->kept_len; m++) {
+        for (size_t k = frame->kept[m].at;
+             k < frame->kept[m].end && k < frame->body.len; k++) {
+          replaced[k] = 1;
+        }
+      }
+      MdFrame *parent = p->stack_len > 0 ? &p->stack[p->stack_len - 1] : NULL;
+      if (kept_in_parent(node) && parent != NULL) {
+        /* A list container (no text of its own, SOM §11.5) or a typed value
+         * has no place for a block: its parent takes them, after its own text
+         * (RN-11); the lines they replace leave this frame's text. */
+        LineVec merged;
+        kept_merge(frame->body.items, frame->body.len, NULL, 0, replaced,
+                   &merged);
+        char *own = restore_value(merged.items, merged.len);
+        lv_free(&merged);
+        if (strcmp(own, value) != 0) som_map_set(&p->kept_content, frame->path, own);
+        free(own);
+        for (size_t m = 0; m < frame->kept_len; m++) {
+          frame_keep(parent, parent->body.len, frame->kept[m].block,
+                     parent->body.len);
+        }
+      } else {
+        MdInserts ins = {NULL, 0, 0};
+        for (size_t m = 0; m < frame->kept_len; m++) {
+          inserts_add(&ins, 0, frame->kept[m].at, frame->kept[m].block);
+        }
+        LineVec merged;
+        kept_merge(frame->body.items, frame->body.len, &ins, 0, replaced,
+                   &merged);
+        char *kept = restore_value(merged.items, merged.len);
+        lv_free(&merged);
+        if (kept[0] != '\0') som_map_set(&p->kept_content, frame->path, kept);
+        free(kept);
+        inserts_free(&ins);
+      }
+      free(replaced);
+    }
     if (value[0] != '\0') {
       staged_set_content(p, frame->path, value);
     } else if (node != NULL && is_value_leaf(node->kind)) {
@@ -4168,6 +4946,8 @@ static void finalize_frame(MdParser *p, MdFrame *frame) {
 static void frame_free(MdFrame *f) {
   free(f->path);
   lv_free(&f->body);
+  free(f->kept);
+  free(f->deferred.items);
   free(f->anchor_scope);
   free(f->anchor_section);
 }
@@ -4185,15 +4965,20 @@ static void parser_push_frame(MdParser *p, int level, const SomMetaNode *node,
   f->line = line;
   f->ignored = ignored;
   lv_init(&f->body);
+  f->kept = NULL;
+  f->kept_len = 0;
+  f->kept_cap = 0;
+  f->deferred.items = NULL;
+  f->deferred.len = 0;
+  f->deferred.cap = 0;
   f->anchor_scope = NULL;
   f->anchor_section = NULL;
 }
 
 static void parser_finalize_top(MdParser *p) {
-  MdFrame *top = &p->stack[p->stack_len - 1];
-  finalize_frame(p, top);
-  frame_free(top);
-  p->stack_len--;
+  MdFrame top = p->stack[--p->stack_len];
+  finalize_frame(p, &top);
+  frame_free(&top);
 }
 
 static void parser_close_to(MdParser *p, int level) {
@@ -4638,6 +5423,11 @@ static void parser_open_root(MdParser *p, int level, const char *id,
       }
       parser_push_frame(p, level, tree->root, som_strdup(seg), line, 0);
       p->stack[p->stack_len - 1].anchor_section = som_strdup(seg);
+      /* Text before the root heading is kept at the start of its text. */
+      for (size_t k = 0; k < p->orphans.len; k++) {
+        frame_keep(&p->stack[p->stack_len - 1], 0, p->orphans.items[k], 0);
+      }
+      p->orphans.len = 0;
       return;
     }
   }
@@ -4686,6 +5476,7 @@ void spec_markdown_parse(const SpecModel *model, const char *text,
   out->rejections_len = 0;
   out->rejections_cap = 0;
   som_strlist_init(&out->root_prefixes);
+  som_map_init(&out->kept_content);
 
   MdCodec codec;
   codec_init(&codec, model, NULL);
@@ -4707,9 +5498,21 @@ void spec_markdown_parse(const SpecModel *model, const char *text,
   p.current_form_idx = 0;
   p.heading_units = NULL;
   som_map_init(&p.given);
+  p.src = NULL;
+  p.all_blocks = NULL;
+  p.all_blocks_len = 0;
+  p.all_blocks_cap = 0;
+  p.pending.items = NULL;
+  p.pending.len = 0;
+  p.pending.cap = 0;
+  p.orphans.items = NULL;
+  p.orphans.len = 0;
+  p.orphans.cap = 0;
+  som_map_init(&p.kept_content);
 
   LineVec lines;
   split_lines(text, &lines);
+  p.src = &lines;
 
   for (size_t i = 0; i < lines.len; i++) {
     const char *raw = lines.items[i];
@@ -4737,6 +5540,11 @@ void spec_markdown_parse(const SpecModel *model, const char *text,
     } else if (trimmed[0] != '\0') {
       parser_push_rejection(&p, line_no, SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT,
                             "text before the document root heading", "");
+      MdKeptBlock *ob = kept_block_new(&p, line_no,
+                                       SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT,
+                                       "text before the document root heading");
+      lv_push(&ob->lines, som_strdup(raw));
+      block_list_push(&p.orphans, ob);
     }
     spec_markdown_fence_feed(&p.fence, raw);
     free(trimmed);
@@ -4756,6 +5564,11 @@ void spec_markdown_parse(const SpecModel *model, const char *text,
   out->rejections_len = p.rejections_len;
   out->rejections_cap = p.rejections_cap;
   out->root_prefixes = p.root_prefixes;
+  out->kept_content = p.kept_content;
+  for (size_t i = 0; i < p.all_blocks_len; i++) kept_block_free(p.all_blocks[i]);
+  free(p.all_blocks);
+  free(p.pending.items);
+  free(p.orphans.items);
 
   /* free per-list scratch */
   for (size_t i = 0; i < p.lists_len; i++) {
@@ -4899,6 +5712,21 @@ int spec_document_apply_markdown_result(SpecDocument *doc,
   spec_document_to_json(doc, &held);
   const DocumentJson *staged = &result->staged;
   map_merge(&held.content, &staged->content);
+  /* With allow_rejections each rejected block is kept rather than dropped:
+   * the kept content is written over the parsed content, so the block stands
+   * as a `rejected` div in the text of the section it stood in (else its
+   * parent), at its place (SOM §11.7, DocSpecs RN-11). An empty value
+   * removes the path's text. */
+  if (allow_rejections) {
+    for (size_t i = 0; i < result->kept_content.len; i++) {
+      const SomMapEntry *e = &result->kept_content.entries[i];
+      if (e->val[0] == '\0') {
+        som_map_remove(&held.content, e->key);
+      } else {
+        som_map_set(&held.content, e->key, e->val);
+      }
+    }
+  }
   for (size_t i = 0; i < staged->forms_len; i++) {
     SomMap *fields = document_json_form_fields(&held, staged->forms[i].key);
     som_map_clear(fields);

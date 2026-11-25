@@ -57,7 +57,7 @@ anything that computes the path rather than knowing it.
 | `SpecModel` | The exported class graph — roots, classes, fields, annotations |
 | `SpecReflection` | Resolves and enumerates paths against the model **without reading values** |
 | `SpecValidator` / `validateDocument` | The instance tier: a filled document's values checked against the model |
-| the YAML and Markdown codecs | `*.tomspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages; the emitter writes the reading view's tables (SOM §11.4, §11.5) and the parser reads them and the older `Field:` lines |
+| the YAML and Markdown codecs | `*.tomspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages; the emitter writes the reading view's tables (SOM §11.4, §11.5) and the parser reads them and the older `Field:` lines; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7) |
 | `spec_scan_notation` | The reading notation of one text value: its divs, spans and citations and the notation's findings, which the DocSpecs validator reports as rules |
 | the editing-facade bases | What the generated `tom_som_c_v0` types extend |
 
