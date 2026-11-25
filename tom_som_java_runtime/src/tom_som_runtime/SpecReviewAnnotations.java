@@ -2350,6 +2350,15 @@ public final class SpecReviewAnnotations {
   }
 
   /**
+   * How many comment and question blocks and inline marks {@code value} holds: what {@link
+   * #stripAnnotationsText} removes, as a strip's report counts it.
+   */
+  public static int countAnnotationsText(String value) {
+    Parsed p = parse(value);
+    return p.blocks.size() + p.marks.size();
+  }
+
+  /**
    * {@code value} without any comment block, question block or inline mark (every mark accepted).
    * Plain quotes and code stay.
    */
@@ -3614,22 +3623,17 @@ public final class SpecReviewAnnotations {
     return paragraphs(path, null);
   }
 
-  /** A copy of the document without any annotation, for reading. The document is unchanged. */
+  /**
+   * A copy of the document without any annotation, for reading. The document
+   * is unchanged.
+   *
+   * <p>The strip of SOM §11.10 with {@code drop: [comments]} ({@link
+   * SpecDocumentStrip#strip}): every value is stripped, headlines included.
+   */
   public SpecDocument stripped() {
-    SpecDocument copy = new SpecDocument();
-    copy.loadJson(doc.toJson());
-    for (Value v : values()) {
-      String clean = stripAnnotationsText(v.text);
-      if (clean.equals(v.text)) {
-        continue;
-      }
-      if (v.field == null) {
-        copy.setContent(v.path, clean);
-      } else {
-        copy.setFormField(v.path, v.field, clean);
-      }
-    }
-    return copy;
+    Set<String> drop = new HashSet<>(Arrays.asList("comments"));
+    return SpecDocumentStrip.strip(doc, new SpecStripOptions(drop, null, null, false, false))
+        .document;
   }
 
   private static int paragraphLastLine(String value, int afterParagraph) {

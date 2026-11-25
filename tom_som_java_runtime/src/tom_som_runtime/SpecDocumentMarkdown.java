@@ -77,6 +77,93 @@ public final class SpecDocumentMarkdown {
       Pattern.compile("^<!--\\[([^\\]]+)\\]([^>]*)-->\\s*(.*)$");
   static final Pattern DOCSPEC_COMMENT = Pattern.compile("^<!--\\s*docspec:.*-->\\s*$");
 
+  /** Matches the readable header line of a stripped rendition (SOM §11.1). */
+  public static final Pattern READABLE_COMMENT = Pattern.compile("^<!--\\s*readable:.*-->$");
+
+  /**
+   * The line a stripped rendition's appendix begins with (SOM §11.1): after a
+   * readable header, the parsers stop reading at it.
+   */
+  public static final String APPENDIX_MARKER = "<!-- readable-appendix -->";
+
+  /** The fixed start of a styled-div heading's style, up to its indent. */
+  public static final String HEADING_DIV_STYLE_START = "margin:1em 0 0.5em;padding-left:";
+
+  /**
+   * A styled-div heading line (DocSpecs <em>Styled-div headings</em>): group 1
+   * the level, group 2 the inner text. A level below 7 is content.
+   */
+  static final Pattern HEADING_DIV_LINE =
+      Pattern.compile("^<div class=\"heading([0-9]+)\"[^>]*>(.*)</div>$");
+
+  /** A line read as a styled-div heading ({@link #headingDiv}). */
+  public static final class HeadingDiv {
+    /** The heading level, 7 or more. */
+    public final int level;
+    /** The inner text with {@code &lt;}, {@code &gt;} and {@code &amp;} decoded. */
+    public final String inner;
+
+    HeadingDiv(int level, String inner) {
+      this.level = level;
+      this.inner = inner;
+    }
+  }
+
+  /**
+   * A styled-div heading's indent at {@code depth}: {@code (depth − 6) × 0.75},
+   * written without a trailing {@code .0} ({@code 0.75}, {@code 1.5}, {@code 3}).
+   */
+  public static String headingDivIndent(int depth) {
+    int quarter = (depth - 6) * 3;
+    int whole = Math.floorDiv(quarter, 4);
+    switch (Math.floorMod(quarter, 4)) {
+      case 0:
+        return String.valueOf(whole);
+      case 1:
+        return whole + ".25";
+      case 2:
+        return whole + ".5";
+      default:
+        return whole + ".75";
+    }
+  }
+
+  /**
+   * {@code line} read as a styled-div heading: its level (7 or more) and its
+   * inner text with {@code &lt;}, {@code &gt;} and {@code &amp;} decoded, or
+   * {@code null}.
+   */
+  public static HeadingDiv headingDiv(String line) {
+    Matcher m = HEADING_DIV_LINE.matcher(line);
+    if (!m.matches()) {
+      return null;
+    }
+    int level;
+    try {
+      level = Integer.parseInt(m.group(1));
+    } catch (NumberFormatException e) {
+      level = Integer.MAX_VALUE; // more digits than an int holds: still 7 or more.
+    }
+    if (level < 7) {
+      return null;
+    }
+    return new HeadingDiv(
+        level, m.group(2).replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&"));
+  }
+
+  /**
+   * Whether {@code line} would read as a styled-div heading after any run of
+   * backslashes (SOM §11.3): such a value line is written escaped, as a
+   * {@code #} line is.
+   */
+  public static boolean escapableDiv(String line) {
+    int k = 0;
+    while (k < line.length() && line.charAt(k) == '\\') {
+      k++;
+    }
+    return headingDiv(TRAILING_WS.matcher(line.substring(k)).replaceAll("")) != null;
+  }
+
   // The `codeSpec="…"` (single/double-quoted or bare) key inside a heading
   // comment's key=value region (codespecs_mapping.md §9.2).
   static final Pattern CODE_SPEC_PATTERN =
@@ -403,6 +490,18 @@ public final class SpecDocumentMarkdown {
    * a root it does not name takes the {@link #fileStem} name.
    */
   public final Map<String, String> documentFiles;
+  /**
+   * Whether every section deeper than level 6 is written as a styled-div
+   * heading ({@code <div class="heading<N>" style="…">…</div>}, SOM §11.2);
+   * the parser reads both forms whatever it says.
+   */
+  public final boolean headingDivs;
+  /**
+   * The readable header line of a stripped rendition, written after the
+   * {@code docspec} declaration (SOM §11.1), or {@code null}; the parser
+   * skips it.
+   */
+  public final String readableHeader;
   // The document's keys of one kind, sorted once per export for `under`.
   private final Map<String, List<String>> sortedKeys = new HashMap<>();
   // The root the current export renders (the target of same-document links).
@@ -424,11 +523,23 @@ public final class SpecDocumentMarkdown {
    */
   public SpecDocumentMarkdown(SpecModel model, SpecDocument document, String fileStem,
       Map<String, String> documentFiles) {
+    this(model, document, fileStem, documentFiles, false, null);
+  }
+
+  /**
+   * {@link #SpecDocumentMarkdown(SpecModel, SpecDocument, String, Map)} with
+   * the options of a stripped rendition: {@link #headingDivs} and {@link
+   * #readableHeader} ({@code null} for none).
+   */
+  public SpecDocumentMarkdown(SpecModel model, SpecDocument document, String fileStem,
+      Map<String, String> documentFiles, boolean headingDivs, String readableHeader) {
     this.model = model;
     this.document = document;
     this.fileStem = fileStem;
     this.documentFiles =
         documentFiles == null ? new LinkedHashMap<>() : new LinkedHashMap<>(documentFiles);
+    this.headingDivs = headingDivs;
+    this.readableHeader = readableHeader;
   }
 
   private List<String> sorted(String kind, Set<String> keys) {
@@ -722,7 +833,8 @@ public final class SpecDocumentMarkdown {
    * matches: heading-like body lines are escaped (SOM §11.3) and fenced ones
    * skipped.
    */
-  private static final Pattern EMITTED_HEADING = Pattern.compile("^#+ <!--\\[");
+  private static final Pattern EMITTED_HEADING =
+      Pattern.compile("^(?:#+ <!--\\[|<div class=\"heading[0-9]+\"[^>]*><!--\\[)");
 
   /** The paths of the headings written by the current export, in order. */
   private final List<String> headingPaths = new ArrayList<>();
@@ -736,6 +848,9 @@ public final class SpecDocumentMarkdown {
     StringBuilder b = new StringBuilder();
     writeln(b, "<!-- docspec: " + kebabCase(root.title) + "/"
         + model.modelVersionString() + " -->");
+    if (readableHeader != null) {
+      writeln(b, readableHeader);
+    }
     String rootSeg = node.segment();
     // YRD3: a stored headline overrides the derived title at every heading.
     // YRD4: the @Headline default wins over the @Document title.
@@ -1682,8 +1797,20 @@ public final class SpecDocumentMarkdown {
     // The section id follows as an HTML anchor after the id comment and its
     // keys, so `#<ID>` links jump in every viewer; below a list item or in a
     // `@SameAs` copy the anchor is qualified (SOM §11.2).
+    String anchor = anchorFor(path, id);
+    if (headingDivs && depth > 6) {
+      // A styled-div heading (SOM §11.2, DocSpecs *Styled-div headings*): one
+      // line, the title HTML-escaped, the indent growing with the depth.
+      String escaped = title.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+          .replace("\n", "<br>");
+      writeln(b, "<div class=\"heading" + depth + "\" style=\"" + HEADING_DIV_STYLE_START
+          + headingDivIndent(depth) + "em;font-weight:bold\"><!--[" + id + "]" + cs
+          + "--> <a id=\"" + anchor + "\"></a> " + escaped + "</div>");
+      writeln(b, "");
+      return;
+    }
     writeln(b, "#".repeat(depth) + " <!--[" + id + "]" + cs + "--> <a id=\""
-        + anchorFor(path, id) + "\"></a> " + title.replace("\n", "<br>"));
+        + anchor + "\"></a> " + title.replace("\n", "<br>"));
     writeln(b, "");
   }
 
@@ -1768,7 +1895,7 @@ public final class SpecDocumentMarkdown {
     for (String line : splitLines(collapsed)) {
       if (fence.inFence()) {
         out.add(line); // SOM §11.3: fences shield their lines.
-      } else if (ESCAPABLE.matcher(line).find()) {
+      } else if (ESCAPABLE.matcher(line).find() || escapableDiv(line)) {
         out.add("\\" + line);
       } else if (TABLE_HEADER_SHAPED.matcher(line).find()) {
         out.add(" " + line); // a value line is never a layout table.
@@ -1868,6 +1995,7 @@ public final class SpecDocumentMarkdown {
     result.rejections.addAll(p.rejections);
     result.rootPrefixes.addAll(p.rootPrefixes);
     result.keptContent.putAll(p.keptContent);
+    result.readableHeader = p.readableHeader;
     return result;
   }
 
@@ -2127,6 +2255,8 @@ public final class SpecDocumentMarkdown {
     // order.
     int currentFormIdx;
     final Map<String, String> keptContent = new LinkedHashMap<>();
+    /** The readable header a stripped rendition carries (SOM §11.1). */
+    String readableHeader;
     // The source lines, for the text of a rejected block.
     String[] source = new String[0];
     // Blocks reported by reject and not yet placed.
@@ -2304,10 +2434,25 @@ public final class SpecDocumentMarkdown {
           if (stack.isEmpty() && DOCSPEC_COMMENT.matcher(trimmed).matches()) {
             continue; // SOM §11.1 header — informational.
           }
+          if (stack.isEmpty()
+              && readableHeader == null
+              && READABLE_COMMENT.matcher(trimmed).matches()) {
+            readableHeader = trimmed; // SOM §11.1 readable header — skipped.
+            continue;
+          }
+          if (readableHeader != null && trimmed.equals(APPENDIX_MARKER)) {
+            break; // A stripped rendition's appendix is not the document.
+          }
           Matcher h = HEADING_LINE.matcher(trimmed);
           if (h.matches()) {
             closeTo(h.group(1).length());
             openHeading(h.group(1).length(), h.group(2), lineNo);
+            continue;
+          }
+          HeadingDiv div = headingDiv(trimmed);
+          if (div != null) {
+            closeTo(div.level);
+            openHeading(div.level, div.inner, lineNo);
             continue;
           }
         }
@@ -3593,7 +3738,9 @@ public final class SpecDocumentMarkdown {
       MarkdownFenceTracker restoreFence = new MarkdownFenceTracker();
       List<String> out = new ArrayList<>(body.size());
       for (String line : body) {
-        if (!restoreFence.inFence() && ESCAPED_HEADING.matcher(line).find()) {
+        if (!restoreFence.inFence()
+            && (ESCAPED_HEADING.matcher(line).find()
+                || (line.startsWith("\\") && escapableDiv(line)))) {
           out.add(line.substring(1));
         } else if (!restoreFence.inFence() && ESCAPED_TABLE_HEADER.matcher(line).find()) {
           out.add(line.substring(1)); // the emitter's one escape space.

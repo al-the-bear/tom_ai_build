@@ -2,6 +2,59 @@
 
 ## Unreleased
 
+- **The strip of a document** (`SpecDocumentStrip`, SOM §11.10):
+  `SpecDocumentStrip.strip(document, options, …)` strips every value —
+  content, form-field values and stored headlines — into a copy. Given a
+  model (and, optionally, its DocSpecs schema, the root type, the file names
+  references link to and a `SpecReadableSource`) it applies the emptying rule
+  (a value whose strip would add an instance or schema finding is stripped
+  with `SpecStripOptions.keeping()` instead, or left as it was,
+  `SpecStripKept`), removes the list items left with nothing
+  (`removedItems`), numbers the appendix through the rendition (each
+  `SpecAppendixEntry` with its `value`, a `SpecStripValueRef`), renders the
+  readable rendition with the appendix *Notes* after
+  `<!-- readable-appendix -->` (with links back under `appendixReferences`)
+  and checks that it reads back and adds no finding (`SpecStripFinding`).
+  `SpecStripResult` carries the stripped document, the changed values
+  (`SpecStrippedValue`), the counts and `report()`.
+  `SpecReviewAnnotations.stripped()` is the strip with `drop: [comments]`,
+  headlines included. `SpecDocument.rootToExport` names the root an export
+  takes. The rendition writes neither linked markers (SOM §11.11) nor
+  generated parts (SOM §11.12), so `linked` and `derived` find nothing of
+  theirs to leave out of it.
+
+- **The readable header and styled-div headings** (SOM §11.1, §11.2):
+  `SpecReadableHeader.format` / `parse` write and read
+  `<!-- readable: drop=…; unmark=…; appendix=…; appendix-references;
+  headings=divs; of=<file>@<revision>; commit=<sha>[+dirty] -->`
+  (`SpecReadableSource`). `SpecDocumentMarkdown` takes `headingDivs` and
+  `readableHeader` in its six-argument constructor: the header is written
+  after the docspec line and every section deeper than level six as a
+  `<div class="heading<N>" …>` line, its title HTML-escaped
+  (`headingDivIndent`); a value line shaped like such a div is escaped
+  `\<div …` (`escapableDiv`). The parser skips the readable header before the
+  root heading (`SpecMarkdownResult.readableHeader`), reads no further than
+  the appendix marker (`APPENDIX_MARKER`) after one, and reads styled-div
+  headings (`headingDiv`); `DocSpecsDocument.parse`, and with it the DocSpecs
+  validator, skips the header and the appendix too. The conformance runner
+  reads `headerCases` and `documentCases` of `strip_cases.json` and runs the
+  three `readingView` import cases of the readable header and the styled-div
+  headings; `SpecDocumentStripTest` covers the div writer, the appendix and
+  the report.
+
+- **The strip of a value** (`SpecDocumentStrip`, SOM §11.10):
+  `SpecDocumentStrip.stripNotationText(value, options)` drops, unmarks or
+  moves to an appendix the secondary prose of the kinds `SpecStripOptions`
+  names (`provenance`, `trace`, `editorial`, `aside`, `linked`, `derived`,
+  `comments`; `SpecStripOptions.fromNames` reads the user's lists and throws
+  `SpecStripUsageError`), then the whitespace the removals leave. The result
+  (`SpecStripTextResult`) carries the counts per kind, `marksDropped`, the
+  appendix entries (`SpecAppendixEntry`) and every removed piece with its
+  UTF-16 anchor and origin (`SpecStripPiece`); a value with a notation error
+  is refused unchanged. `SpecReviewAnnotations.countAnnotationsText` counts
+  the review annotations `stripAnnotationsText` removes. The conformance
+  runner reads `cases` and `usageCases` of `strip_cases.json`.
+
 - **Rejected blocks kept for review** (SOM §11.7, DocSpecs RN-11): the parse
   result carries `keptContent`, and an apply that accepts rejections
   (`applyMarkdownResult(result, true)`, which `SpecDocument.fromMarkdown`

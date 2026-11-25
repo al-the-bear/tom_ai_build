@@ -98,6 +98,17 @@ import tom_som_runtime.NotationFinding;
 import tom_som_runtime.NotationFindingCode;
 import tom_som_runtime.NotationScan;
 import tom_som_runtime.SpecNotation;
+import tom_som_runtime.SpecAppendixEntry;
+import tom_som_runtime.SpecDocumentStrip;
+import tom_som_runtime.SpecReadableHeader;
+import tom_som_runtime.SpecReadableSource;
+import tom_som_runtime.SpecStripFinding;
+import tom_som_runtime.SpecStripKept;
+import tom_som_runtime.SpecStripResult;
+import tom_som_runtime.SpecStripOptions;
+import tom_som_runtime.SpecStripPiece;
+import tom_som_runtime.SpecStripTextResult;
+import tom_som_runtime.SpecStripUsageError;
 import tom_som_runtime.SpecReviewMember;
 import tom_som_runtime.SpecReviewMerge;
 import tom_som_runtime.SpecReviewMergeError;
@@ -1684,13 +1695,6 @@ public final class ConformanceRunner {
     for (Object caseObj : (List<Object>) table.get("cases")) {
       Map<String, Object> c = (Map<String, Object>) caseObj;
       String name = (String) c.get("name");
-      // The reading view's table layout is read; the readable header and the
-      // styled-div headings belong to the strip of a document
-      // (runtime_parity.md § Reading view).
-      if (Boolean.TRUE.equals(c.get("readingView"))
-          && (c.containsKey("readableHeader") || name.startsWith("styled-div headings"))) {
-        continue;
-      }
       SpecMarkdownResult parsed =
           new SpecDocumentMarkdown(model, new SpecDocument()).parse((String) c.get("markdown"));
       List<Object> got = new ArrayList<>();
@@ -1719,6 +1723,13 @@ public final class ConformanceRunner {
           "md.reject[" + name + "].landed",
           landed.toJson().equals(wantDocument),
           jsonMismatch(landed.toJson(), wantDocument));
+      // A case naming the readable header holds it (SOM §11.1).
+      if (c.containsKey("readableHeader")) {
+        check(
+            "md.reject[" + name + "].readableHeader",
+            Objects.equals(parsed.readableHeader, c.get("readableHeader")),
+            "got " + parsed.readableHeader);
+      }
       // A case naming heading-comment values holds them too (read trimmed).
       for (String key : new String[] {"codeSpecs", "units"}) {
         Object want = c.get(key);
@@ -2367,6 +2378,169 @@ public final class ConformanceRunner {
     }
     check("notation.validatorCases report every notation rule", missing.isEmpty(),
         String.valueOf(missing));
+  }
+
+  // --- strip_cases.json: stripped renditions (SOM §11.10) --------------------
+
+  /**
+   * A case's strip options, from its name lists and flags; throws {@link
+   * SpecStripUsageError} for a usage error.
+   */
+  private static SpecStripOptions stripOptions(Map<String, Object> c) {
+    return SpecStripOptions.fromNames(
+        c.get("drop") == null ? null : stringList(c.get("drop")),
+        c.get("unmark") == null ? null : stringList(c.get("unmark")),
+        c.get("appendix") == null ? null : stringList(c.get("appendix")),
+        Boolean.TRUE.equals(c.get("appendixReferences")),
+        Boolean.TRUE.equals(c.get("headingDivs")));
+  }
+
+  /** {@code stripped} with every piece put back at its anchor: the original. */
+  private static String unstrip(String stripped, List<SpecStripPiece> pieces) {
+    StringBuilder out = new StringBuilder();
+    int at = 0;
+    for (SpecStripPiece p : pieces) {
+      out.append(stripped, at, p.anchor).append(p.removed);
+      at = p.anchor + p.inserted.length();
+    }
+    return out.append(stripped.substring(at)).toString();
+  }
+
+  /**
+   * {@code strip_cases.json}: {@code cases} — {@link SpecDocumentStrip#stripNotationText} of one
+   * value, its pieces restoring the original, and a strip of only {@code comments} equal to
+   * {@code stripAnnotationsText}; {@code usageCases} — {@link SpecStripOptions#fromNames}, the
+   * expanded lists or the usage error's message; {@code headerCases} — {@link
+   * SpecReadableHeader#parse} and {@code format}, inverse; {@code documentCases} — {@link
+   * SpecDocumentStrip#strip} of a whole document: the copy, what was kept and removed, the
+   * appendix, the counts, the readable header, the rendition and the kinds of its findings.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testStripCases(SpecModel model) throws IOException {
+    Map<String, Object> table = readJsonObject("strip_cases.json");
+    DocSpecsSchema schema = DocSpecsSchema.fromYamlText(read("docspecs_schema.yaml"));
+    List<Object> cases = (List<Object>) table.get("cases");
+    check("strip.cases", !cases.isEmpty(), "no cases");
+    for (Object caseObj : cases) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = "strip[" + c.get("name") + "]";
+      String text = (String) c.get("text");
+      try {
+        SpecStripTextResult r = SpecDocumentStrip.stripNotationText(text, stripOptions(c));
+        Map<String, Object> got = r.toJson();
+        check(name, got.equals(c.get("expect")), jsonMismatch(got, c.get("expect")));
+        check(name + ".pieces", unstrip(r.text, r.pieces).equals(text), "pieces do not restore");
+        if (List.of("comments").equals(c.get("drop"))) {
+          check(
+              name + ".stripAnnotationsText",
+              r.text.equals(SpecReviewAnnotations.stripAnnotationsText(text)),
+              r.text);
+        }
+      } catch (RuntimeException e) {
+        check(name, false, "threw " + e);
+      }
+    }
+    List<Object> usage = (List<Object>) table.get("usageCases");
+    check("strip.usageCases", !usage.isEmpty(), "no usage cases");
+    for (Object caseObj : usage) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      Object got;
+      try {
+        got = stripOptions(c).toJson();
+      } catch (SpecStripUsageError e) {
+        Map<String, Object> error = new LinkedHashMap<>();
+        error.put("error", e.getMessage());
+        got = error;
+      } catch (RuntimeException e) {
+        got = "threw " + e;
+      }
+      check(
+          "strip.usage[" + c.get("name") + "]",
+          got.equals(c.get("expect")),
+          jsonMismatch(got, c.get("expect")));
+    }
+    List<Object> headers = (List<Object>) table.get("headerCases");
+    check("strip.headerCases", !headers.isEmpty(), "no header cases");
+    for (Object caseObj : headers) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = "strip.header[" + c.get("name") + "]";
+      SpecReadableHeader h = SpecReadableHeader.parse((String) c.get("line"));
+      Map<String, Object> got = null;
+      if (h != null) {
+        got = h.options.toJson();
+        if (h.source != null) {
+          Map<String, Object> source = new LinkedHashMap<>();
+          source.put("file", h.source.file);
+          source.put("revision", h.source.revision);
+          source.put("commit", h.source.commit);
+          source.put("dirty", h.source.dirty);
+          got.put("source", source);
+        }
+        got.put("format", h.format());
+        SpecReadableHeader again = SpecReadableHeader.parse(h.format());
+        check(
+            name + ".inverse",
+            again != null && again.format().equals(h.format()),
+            "format does not parse back");
+      }
+      boolean same = Objects.equals(got, c.get("expect"));
+      check(name, same, same ? "" : "got " + got + ", want " + c.get("expect"));
+    }
+    List<Object> documents = (List<Object>) table.get("documentCases");
+    check("strip.documentCases", !documents.isEmpty(), "no document cases");
+    for (Object caseObj : documents) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = "strip.document[" + c.get("name") + "]";
+      try {
+        SpecDocument doc = new SpecDocument();
+        doc.loadJson((Map<String, Object>) c.get("state"));
+        boolean withModel = !Boolean.FALSE.equals(c.get("model"));
+        Map<String, Object> src = (Map<String, Object>) c.get("source");
+        SpecStripResult r =
+            SpecDocumentStrip.strip(
+                doc,
+                stripOptions(c),
+                withModel ? model : null,
+                withModel ? schema : null,
+                (String) c.get("rootType"),
+                null,
+                null,
+                src == null
+                    ? null
+                    : new SpecReadableSource(
+                        (String) src.get("file"),
+                        (String) src.get("revision"),
+                        (String) src.get("commit"),
+                        Boolean.TRUE.equals(src.get("dirty"))));
+        Map<String, Object> got = new LinkedHashMap<>();
+        got.put("document", r.document.toJson());
+        List<Object> kept = new ArrayList<>();
+        for (SpecStripKept k : r.kept) {
+          kept.add(k.ref.toJson());
+        }
+        got.put("kept", kept);
+        got.put("removedItems", new ArrayList<Object>(r.removedItems));
+        List<Object> appendix = new ArrayList<>();
+        for (SpecAppendixEntry e : r.appendix) {
+          appendix.add(e.toJson());
+        }
+        got.put("appendix", appendix);
+        got.put("dropped", new LinkedHashMap<String, Object>(r.dropped));
+        got.put("unmarked", new LinkedHashMap<String, Object>(r.unmarked));
+        got.put("appended", new LinkedHashMap<String, Object>(r.appended));
+        got.put("marksDropped", r.marksDropped);
+        got.put("readableHeader", r.readableHeader);
+        got.put("readable", r.readable);
+        List<Object> kinds = new ArrayList<>();
+        for (SpecStripFinding f : r.findings) {
+          kinds.add(f.kind);
+        }
+        got.put("findings", kinds);
+        check(name, got.equals(c.get("expect")), jsonMismatch(got, c.get("expect")));
+      } catch (RuntimeException e) {
+        check(name, false, "threw " + e);
+      }
+    }
   }
 
   /**
@@ -3316,6 +3490,7 @@ public final class ConformanceRunner {
     testSerializationOrder();
     testDocSpecs();
     testNotation();
+    testStripCases(model);
     testDocSpecsReplace();
     testDocSpecsPaths(model);
     testFixtureDocument();

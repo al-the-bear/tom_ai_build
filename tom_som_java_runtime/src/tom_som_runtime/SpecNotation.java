@@ -133,7 +133,7 @@ public final class SpecNotation {
     CITATION_KINDS.put("<~", "provenance");
   }
 
-  private static boolean isJsWhitespace(char c) {
+  static boolean isJsWhitespace(char c) {
     switch (c) {
       case '\t':
       case '\n':
@@ -164,8 +164,21 @@ public final class SpecNotation {
     return s.substring(i);
   }
 
+  /** ECMAScript's {@code String.prototype.trim}. */
+  static String jsTrim(String s) {
+    int i = 0;
+    int e = s.length();
+    while (i < e && isJsWhitespace(s.charAt(i))) {
+      i++;
+    }
+    while (e > i && isJsWhitespace(s.charAt(e - 1))) {
+      e--;
+    }
+    return s.substring(i, e);
+  }
+
   /** Whether ECMAScript's {@code trim()} of {@code s} is empty. */
-  private static boolean isBlank(String s) {
+  static boolean isBlank(String s) {
     for (int i = 0; i < s.length(); i++) {
       if (!isJsWhitespace(s.charAt(i))) {
         return false;

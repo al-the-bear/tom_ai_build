@@ -150,6 +150,15 @@ public final class SpecDocument {
   }
 
   /**
+   * The root {@link #toMarkdown(SpecModel, String)} exports: {@code rootType}'s
+   * when given, else the single populated root (throws {@link
+   * IllegalStateException} when zero or more than one root is populated).
+   */
+  public SpecRoot rootToExport(SpecModel model, String rootType) {
+    return rootType != null ? model.rootByType(rootType) : singlePopulatedRoot(model);
+  }
+
+  /**
    * {@link #toMarkdown(SpecModel, String)}, plus the document path behind every
    * heading ({@link SpecDocumentMarkdown#exportRootWithMap}). Root selection is
    * the same: {@code rootType}, else the single populated root.

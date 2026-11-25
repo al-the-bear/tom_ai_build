@@ -49,6 +49,13 @@ public final class SpecMarkdownResult {
    */
   public final Map<String, String> keptContent = new LinkedHashMap<>();
 
+  /**
+   * The readable header line of a stripped rendition (SOM §11.1), when the
+   * text carried one before its root heading; the parser skipped it.
+   * {@code null} when none.
+   */
+  public String readableHeader;
+
   public boolean isClean() {
     return rejections.isEmpty();
   }

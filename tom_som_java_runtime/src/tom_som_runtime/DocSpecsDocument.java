@@ -44,6 +44,7 @@ public final class DocSpecsDocument {
     MarkdownFenceTracker fence = new MarkdownFenceTracker();
     List<DocSpecsSection> stack = new ArrayList<>();
     String[] lines = text.split("\n", -1);
+    boolean readable = false;
     for (int idx = 0; idx < lines.length; idx++) {
       String raw = lines[idx];
       int lineNo = idx + 1;
@@ -56,6 +57,16 @@ public final class DocSpecsDocument {
             fence.feed(raw);
             continue;
           }
+        }
+        // A stripped rendition (SOM §11.1): its readable header stands before
+        // the root heading, and its appendix after the marker is not part of
+        // the document.
+        if (stack.isEmpty() && SpecDocumentMarkdown.READABLE_COMMENT.matcher(line).matches()) {
+          readable = true;
+          continue;
+        }
+        if (readable && line.equals(SpecDocumentMarkdown.APPENDIX_MARKER)) {
+          break;
         }
         Matcher m = SpecDocumentMarkdown.HEADING_LINE.matcher(line);
         boolean hash = m.matches();
