@@ -1378,6 +1378,89 @@ static void test_docspecs(Checker& c) {
           "uncovered: " + join(uncovered));
 }
 
+/* ---- stripped renditions (strip_cases.json, SOM §11.10) ------------------ */
+
+/* A case's strip options, from its name lists and flags; throws
+ * som::SpecStripUsageError for a usage error. */
+static som::SpecStripOptions strip_case_options(const som::JsonRef& c) {
+  return som::SpecStripOptions::fromNames(
+      json_str_list(som::jsonGet(c, "drop")),
+      json_str_list(som::jsonGet(c, "unmark")),
+      json_str_list(som::jsonGet(c, "appendix")),
+      som::jsonBoolOr(c, "appendixReferences"),
+      som::jsonBoolOr(c, "headingDivs"));
+}
+
+/* `stripped` with every piece's removed text put back: the original value.
+ * The pieces' offsets count UTF-16 units, so the walk does too. */
+static std::string strip_unstrip(const std::string& stripped,
+                                 const som::SpecStripTextResult& r) {
+  const std::u16string t = som::somUtf16Units(stripped);
+  std::u16string out;
+  std::size_t at = 0;
+  for (const auto& p : r.pieces) {
+    out += t.substr(at, static_cast<std::size_t>(p.anchor) - at);
+    out += som::somUtf16Units(p.removed);
+    at = static_cast<std::size_t>(p.anchor) + som::somUtf16Units(p.inserted).size();
+  }
+  out += t.substr(std::min(at, t.size()));
+  // Back to UTF-8 through the JSON codec's encoder and decoder.
+  std::string json = "\"";
+  for (char16_t ch : out) {
+    char buf[8];
+    std::snprintf(buf, sizeof(buf), "\\u%04x", static_cast<unsigned>(ch));
+    json += buf;
+  }
+  json += "\"";
+  std::string err;
+  som::JsonPtr v = som::jsonParse(json, &err);
+  return v != nullptr ? v->str : std::string();
+}
+
+static void test_strip(Checker& c) {
+  som::JsonPtr table = read_json("strip_cases.json");
+  som::JsonRef cases = som::jsonGet(table, "cases");
+  std::size_t n = som::jsonArrayLen(cases);
+  c.check("strip.cases", n > 0, "no cases");
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef kase = som::jsonArrayAt(cases, i);
+    const std::string tag = "strip[" + som::jsonStrOr(kase, "name") + "]";
+    const std::string text = som::jsonStrOr(kase, "text");
+    try {
+      som::SpecStripTextResult r =
+          som::stripNotationText(text, strip_case_options(kase));
+      const std::string got = json_text_canon(r.toJson());
+      const std::string want = json_canon(som::jsonGet(kase, "expect"));
+      c.check(tag, got == want, got + " != " + want);
+      const std::string back = strip_unstrip(r.text, r);
+      c.check(tag + ".pieces", back == text, back);
+      std::vector<std::string> drop = json_str_list(som::jsonGet(kase, "drop"));
+      if (drop.size() == 1 && drop[0] == "comments") {
+        c.check(tag + ".stripAnnotationsText",
+                som::stripAnnotationsText(text) == r.text, r.text);
+      }
+    } catch (const std::exception& e) {
+      c.check(tag, false, std::string("threw ") + e.what());
+    }
+  }
+  som::JsonRef usage = som::jsonGet(table, "usageCases");
+  std::size_t un = som::jsonArrayLen(usage);
+  c.check("strip.usageCases", un > 0, "no usage cases");
+  for (std::size_t i = 0; i < un; i++) {
+    som::JsonRef kase = som::jsonArrayAt(usage, i);
+    const std::string tag = "strip.usage[" + som::jsonStrOr(kase, "name") + "]";
+    std::string got;
+    try {
+      got = strip_case_options(kase).toJson();
+    } catch (const som::SpecStripUsageError& e) {
+      got = "{\"error\":" + som::jsonEncodeStr(e.what()) + "}";
+    }
+    const std::string gotCanon = json_text_canon(got);
+    const std::string want = json_canon(som::jsonGet(kase, "expect"));
+    c.check(tag, gotCanon == want, gotCanon + " != " + want);
+  }
+}
+
 /* ---- the reading notation (notation_cases.json, RN-1 to RN-13) ---------- */
 
 /* `cases`: scanNotation's elements (UTF-16 offsets, source / content, nesting)
@@ -3906,6 +3989,7 @@ int main(int argc, char** argv) {
   test_serialization_order(c);
   test_docspecs(c);
   test_notation(c);
+  test_strip(c);
   test_docspecs_replace(c);
   test_docspecs_path(c, *model);
   test_text_pattern(c);

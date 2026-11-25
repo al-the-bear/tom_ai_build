@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- **The strip of a value** (`spec_document_strip.hpp`, SOM §11.10):
+  `stripNotationText(value, options)` drops, unmarks or moves to an appendix
+  the secondary prose of the kinds `SpecStripOptions` names (`provenance`,
+  `trace`, `editorial`, `aside`, `linked`, `derived`, `comments`;
+  `SpecStripOptions::fromNames` reads the user's lists and throws
+  `SpecStripUsageError`), then the whitespace the removals leave. The result
+  (`SpecStripTextResult`) carries the counts per kind, `marksDropped`, the
+  appendix entries (`SpecAppendixEntry`) and every removed piece with its
+  UTF-16 anchor and origin (`SpecStripPiece`); a value with a notation error
+  is refused unchanged. `countAnnotationsText` counts the review annotations
+  `stripAnnotationsText` removes. The conformance runner reads `cases` and
+  `usageCases` of `strip_cases.json`.
+
 - **Rejected blocks kept for review** (SOM §11.7, DocSpecs RN-11): the parse
   result carries `keptContent`, and an apply that accepts rejections
   (`applyMarkdownResult(result, true)`, which `SpecDocument::fromMarkdown`

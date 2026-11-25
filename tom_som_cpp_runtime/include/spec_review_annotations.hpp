@@ -468,6 +468,10 @@ std::vector<std::string> formatConflictBlock(
  * mark accepted). Plain quotes and code stay. */
 std::string stripAnnotationsText(const std::string& value);
 
+/* How many comment and question blocks and inline marks `value` holds: what
+ * stripAnnotationsText removes, as a strip's report counts it. */
+std::size_t countAnnotationsText(const std::string& value);
+
 /* The instance-tier findings on annotations (SOM §11.9.5) of `doc`, ordered by
  * path: `annotationMalformed`, `annotationMisplaced`, `duplicateAnnotationId`.
  * The group `validateDocument` reports last. */
