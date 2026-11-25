@@ -222,6 +222,7 @@ func TestConformance(t *testing.T) {
 	testSectionId(c, t)
 	testSerializationOrder(c, t)
 	testDocSpecs(c, t)
+	testNotation(c, t)
 	testDocSpecsReplace(c, t)
 	testDocSpecsPaths(c, t, model)
 	testAssembly(c, t)
@@ -921,7 +922,7 @@ type docSpecsCase struct {
 	Name        string                  `json:"name"`
 	ReadingView bool                    `json:"readingView"`
 	Markdown    string                  `json:"markdown"`
-	Violations []docSpecsViolationCase `json:"violations"`
+	Violations  []docSpecsViolationCase `json:"violations"`
 }
 
 // testDocSpecs replays the shared DocSpecs corpus: one schema, one case per
@@ -942,8 +943,9 @@ func testDocSpecs(c *checker, t *testing.T) {
 	covered := map[string]bool{}
 	for _, cc := range cases {
 		// The reading view's table forms (`readingView`) are read by the Dart and
-		// TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
-		if cc.ReadingView {
+		// TypeScript runtimes only until their ports (runtime_parity.md § Reading view);
+		// the reading notation's case (a rejected block, RN-11) runs since its scanner port.
+		if cc.ReadingView && !readingNotationDocSpecsCases[cc.Name] {
 			continue
 		}
 		var got [][3]string
@@ -959,6 +961,16 @@ func testDocSpecs(c *checker, t *testing.T) {
 			canonJSON(t, got)+" != "+canonJSON(t, want))
 	}
 
+	// The reading notation's rules are exercised by notation_cases.json's
+	// validator cases (testNotation), not by the nine-runtime table.
+	var notation notationTable
+	readJSON(t, "notation_cases.json", &notation)
+	for _, cc := range notation.ValidatorCases {
+		for _, v := range cc.Violations {
+			covered[v.Rule] = true
+		}
+	}
+
 	var uncovered []string
 	for _, rule := range som.DocSpecsAllRules {
 		if !covered[rule] {
@@ -966,6 +978,100 @@ func testDocSpecs(c *checker, t *testing.T) {
 		}
 	}
 	c.check("docspecs.ruleCoverage", len(uncovered) == 0, "uncovered: "+join(uncovered))
+}
+
+// readingNotationDocSpecsCases are the `readingView` cases of
+// docspecs_cases.json the reading notation's scanner port (spec_notation.go)
+// makes run: the rest wait for the reading view's validator port.
+var readingNotationDocSpecsCases = map[string]bool{
+	"readingView: rejected block": true,
+}
+
+// notationTable mirrors corpus/notation_cases.json: text values with the
+// elements and findings ScanNotation reports, and DocSpecs documents with the
+// notation rules the validator reports.
+type notationTable struct {
+	Cases []struct {
+		Name     string        `json:"name"`
+		Text     string        `json:"text"`
+		TomSpecs bool          `json:"tomSpecs"`
+		Elements []interface{} `json:"elements"`
+		Findings []struct {
+			Code     string `json:"code"`
+			Severity string `json:"severity"`
+			Line     int    `json:"line"`
+		} `json:"findings"`
+	} `json:"cases"`
+	ValidatorCases []struct {
+		Name       string                  `json:"name"`
+		TomSpecs   bool                    `json:"tomSpecs"`
+		Markdown   string                  `json:"markdown"`
+		Violations []docSpecsViolationCase `json:"violations"`
+	} `json:"validatorCases"`
+}
+
+// testNotation runs the reading notation (notation_cases.json): each text
+// value scanned with ScanNotation — its elements (UTF-16 start/end,
+// line/endLine, source/content, nesting) and findings — and the validator
+// cases, the nine notation rules of the embedded DocSpecs validator (DocSpecs
+// specification, Reading Notation RN-1 … RN-13).
+func testNotation(c *checker, t *testing.T) {
+	var table notationTable
+	readJSON(t, "notation_cases.json", &table)
+	c.check("notation.cases", len(table.Cases) > 0 && len(table.ValidatorCases) > 0,
+		"no cases in notation_cases.json")
+	codes := map[string]bool{}
+	for _, cc := range table.Cases {
+		scan := som.ScanNotation(cc.Text, cc.TomSpecs)
+		elements := make([]interface{}, 0, len(scan.Elements))
+		for _, e := range scan.Elements {
+			elements = append(elements, e.ToJSON(cc.Text))
+		}
+		findings := make([]interface{}, 0, len(scan.Findings))
+		for _, f := range scan.Findings {
+			findings = append(findings, f.ToJSON())
+		}
+		wantElements := cc.Elements
+		if wantElements == nil {
+			wantElements = []interface{}{}
+		}
+		got, want := canonJSON(t, elements), canonJSON(t, wantElements)
+		c.check("notation.scan["+cc.Name+"].elements", got == want, got+" != "+want)
+		wantFindings := make([]interface{}, 0, len(cc.Findings))
+		for _, f := range cc.Findings {
+			wantFindings = append(wantFindings, map[string]interface{}{
+				"code": f.Code, "severity": f.Severity, "line": f.Line,
+			})
+			codes[f.Code] = true
+		}
+		got, want = canonJSON(t, findings), canonJSON(t, wantFindings)
+		c.check("notation.scan["+cc.Name+"].findings", got == want, got+" != "+want)
+	}
+	var uncovered []string
+	for _, code := range som.NotationFindingCodes {
+		if !codes[code.String()] {
+			uncovered = append(uncovered, code.String())
+		}
+	}
+	c.check("notation.codeCoverage", len(uncovered) == 0, "uncovered: "+join(uncovered))
+
+	schema, err := som.DocSpecsSchemaFromYamlText(readCorpus(t, "docspecs_schema.yaml"))
+	if err != nil {
+		t.Fatalf("docspecs schema: %v", err)
+	}
+	for _, cc := range table.ValidatorCases {
+		validator := som.NewDocSpecsValidatorWithTomSpecs(schema, cc.TomSpecs)
+		var got [][3]string
+		for _, v := range validator.ValidateMarkdown(cc.Markdown) {
+			got = append(got, [3]string{v.Rule, v.SectionID, itoa(v.Line)})
+		}
+		var want [][3]string
+		for _, v := range cc.Violations {
+			want = append(want, [3]string{v.Rule, v.SectionID, itoa(v.Line)})
+		}
+		c.check("notation.validate["+cc.Name+"]", triplesEq(got, want),
+			canonJSON(t, got)+" != "+canonJSON(t, want))
+	}
 }
 
 // docSpecsPathTable mirrors corpus/docspecs_path_cases.json: a DocSpecs

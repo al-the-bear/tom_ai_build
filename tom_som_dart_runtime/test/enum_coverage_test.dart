@@ -352,12 +352,12 @@ final List<CorpusGuardedEnum> _guarded = [
         for (final v in (k['violations'] as List).cast<Map<String, dynamic>>())
           v['rule'] as String,
     },
-    // The reading notation's nine rules are reported by the Dart, TypeScript,
-    // C, C++, JavaScript, Java, Python and Rust validators so far;
+    // The reading notation's nine rules are reported by all nine validators
+    // (Dart, TypeScript, C, C++, JavaScript, Java, Python, Rust and Go);
     // notation_cases.json exercises them (`validatorCases`, and
-    // NotationFindingCode below, which they mirror constant for constant) and
-    // the other runtime joins through its scanner port (tspubnondart51). Once it has, the nine rules get
-    // `docspecs_cases.json` cases and this waiver ends (rvclose1).
+    // NotationFindingCode below, which they mirror constant for constant).
+    // The nine rules get `docspecs_cases.json` cases next, and this waiver
+    // ends (rvclose1).
     // `rejectedBlock`, `unclosedDiv` (an unclosed `refs` fence), `malformedBlock` and `unknownField` are
     // exercised here by the reading view's cases (`readingView: true`,
     // 04a_rdv2), which those seven runners skip until their validator ports

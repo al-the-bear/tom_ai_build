@@ -58,6 +58,7 @@ anything that computes the path rather than knowing it.
 | `SpecReflection` | Resolves and enumerates paths against the model **without reading values** |
 | `ValidateDocument` (`SpecValidationError`) | The instance tier: a filled document's values checked against the model |
 | the YAML and Markdown codecs | `*.tomspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages |
+| `ScanNotation` | The reading notation of one text value: its divs, spans and citations and the notation's findings, which the DocSpecs validator reports as rules |
 | the editing-facade bases | What the generated `tom_som_go_v0` types extend |
 
 The full catalogue is the [README](../README.md); this guide is about using

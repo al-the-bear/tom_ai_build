@@ -95,6 +95,10 @@ type SomFormFieldMeta struct {
 	// markdown codec writes it as an inline code span and unwraps it on import
 	// (SOM §11.4 rule 8).
 	Code bool
+	// MultiParagraph is whether the field's values hold paragraphs or blocks
+	// (`Field.multiParagraph`): the markdown renderer writes them as a
+	// `Field:` paragraph, never as a row of the form table (SOM §11.4).
+	MultiParagraph bool
 }
 
 // SomFormMeta is the form metadata of a @Form node (SOM §7.1 FormMeta).

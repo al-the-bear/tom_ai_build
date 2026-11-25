@@ -250,15 +250,16 @@ func bridgeFieldNode(
 		fields := make([]*SomFormFieldMeta, 0, len(field.FormFields))
 		for i, ff := range field.FormFields {
 			fields = append(fields, &SomFormFieldMeta{
-				Name:        ff.Name,
-				TypeName:    ff.Type,
-				Description: ff.Label,
-				Required:    ff.Required,
-				Hint:        ff.Hint,
-				Order:       i,
-				EnumValues:  ff.EnumValues,
-				RefersTo:    ff.RefersTo,
-				Code:        ff.Code,
+				Name:           ff.Name,
+				TypeName:       ff.Type,
+				Description:    ff.Label,
+				Required:       ff.Required,
+				Hint:           ff.Hint,
+				Order:          i,
+				EnumValues:     ff.EnumValues,
+				RefersTo:       ff.RefersTo,
+				Code:           ff.Code,
+				MultiParagraph: ff.MultiParagraph,
 			})
 		}
 		form = &SomFormMeta{Fields: fields}

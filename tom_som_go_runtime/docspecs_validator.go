@@ -50,6 +50,36 @@ const (
 	// sibling's, so its id path (the ids from the root down to it) is not
 	// unique.
 	DocSpecsRuleDuplicateIDPath = "duplicateIdPath"
+
+	// The reading notation's findings (DocSpecs specification, RN-10),
+	// reported by ScanNotation per value: a section's own body, and in a
+	// TomSpecs rendition each form field's value apart. Each is the
+	// NotationFindingCode.String() of its code.
+
+	// DocSpecsRuleUnclosedDiv: an opening fence without its closing fence.
+	DocSpecsRuleUnclosedDiv = "unclosedDiv"
+	// DocSpecsRuleStrayClosingFence: a closing fence without an open div.
+	DocSpecsRuleStrayClosingFence = "strayClosingFence"
+	// DocSpecsRuleUnclosedSpan: a span's attribute braces do not close on the
+	// paragraph.
+	DocSpecsRuleUnclosedSpan = "unclosedSpan"
+	// DocSpecsRuleDivWithoutKind: a div whose attributes hold no class
+	// (TomSpecs renditions only).
+	DocSpecsRuleDivWithoutKind = "divWithoutKind"
+	// DocSpecsRuleUnknownKind: an unregistered kind (TomSpecs renditions only;
+	// a warning).
+	DocSpecsRuleUnknownKind = "unknownKind"
+	// DocSpecsRuleMarkAcrossNotation: an inline review mark crosses the
+	// boundary of a span or citation.
+	DocSpecsRuleMarkAcrossNotation = "markAcrossNotation"
+	// DocSpecsRuleAnnotationInsideDiv: a comment or question block stands
+	// inside a div.
+	DocSpecsRuleAnnotationInsideDiv = "annotationInsideDiv"
+	// DocSpecsRuleDivInsideAnnotation: a div stands inside a comment or
+	// question block.
+	DocSpecsRuleDivInsideAnnotation = "divInsideAnnotation"
+	// DocSpecsRuleRejectedBlock: a `rejected` block waits for its resolution.
+	DocSpecsRuleRejectedBlock = "rejectedBlock"
 )
 
 // DocSpecsAllRules is the complete §14 vocabulary, in declaration order — the
@@ -70,6 +100,15 @@ var DocSpecsAllRules = []string{
 	DocSpecsRuleMalformedHeading,
 	DocSpecsRuleSectionOutOfOrder,
 	DocSpecsRuleDuplicateIDPath,
+	DocSpecsRuleUnclosedDiv,
+	DocSpecsRuleStrayClosingFence,
+	DocSpecsRuleUnclosedSpan,
+	DocSpecsRuleDivWithoutKind,
+	DocSpecsRuleUnknownKind,
+	DocSpecsRuleMarkAcrossNotation,
+	DocSpecsRuleAnnotationInsideDiv,
+	DocSpecsRuleDivInsideAnnotation,
+	DocSpecsRuleRejectedBlock,
 }
 
 // DocSpecsViolation is one validation finding.
@@ -652,11 +691,24 @@ func (s *DocSpecsSchema) ResolveSectionType(id string) *DocSpecsSectionType {
 // against a schema.
 type DocSpecsValidator struct {
 	Schema *DocSpecsSchema
+	// TomSpecs says the documents are TomSpecs renditions: the reading
+	// notation is then scanned value by value (a form field's value apart from
+	// the next), and a div without a class and an unregistered kind are
+	// reported too.
+	TomSpecs bool
 }
 
-// NewDocSpecsValidator binds a schema to the validator.
+// NewDocSpecsValidator binds a schema to the validator of plain DocSpecs
+// documents.
 func NewDocSpecsValidator(schema *DocSpecsSchema) *DocSpecsValidator {
 	return &DocSpecsValidator{Schema: schema}
+}
+
+// NewDocSpecsValidatorWithTomSpecs binds a schema to a validator of TomSpecs
+// renditions (tomSpecs true) or of plain DocSpecs documents (false, as
+// NewDocSpecsValidator).
+func NewDocSpecsValidatorWithTomSpecs(schema *DocSpecsSchema, tomSpecs bool) *DocSpecsValidator {
+	return &DocSpecsValidator{Schema: schema, TomSpecs: tomSpecs}
 }
 
 // ValidateMarkdown parses + validates in one step.
@@ -697,8 +749,71 @@ func (val *DocSpecsValidator) Validate(doc *DocSpecsDocument) []*DocSpecsViolati
 		})
 	}
 	v = val.validateDocumentSections(root, v)
+	v = val.validateNotation(doc, v)
 	v = validateIDPaths(doc.Sections, v)
 	return v
+}
+
+// validateNotation checks the reading notation of every section's own body:
+// one value per section, and in a TomSpecs rendition one per form field of a
+// form-formatted section (its preamble included).
+func (val *DocSpecsValidator) validateNotation(
+	doc *DocSpecsDocument, v []*DocSpecsViolation,
+) []*DocSpecsViolation {
+	for _, section := range doc.AllSections() {
+		for _, value := range val.notationValues(section) {
+			scan := ScanNotation(strings.Join(value.lines, "\n"), val.TomSpecs)
+			for _, f := range scan.Findings {
+				v = append(v, &DocSpecsViolation{
+					Rule:      f.Code.String(),
+					Line:      section.BodyStartLine() + value.first + f.Line - 1,
+					Message:   f.Message,
+					SectionID: section.ID,
+				})
+			}
+		}
+	}
+	return v
+}
+
+// docspecsNotationValue is one value of a section's own body: the index of its
+// first line and its lines.
+type docspecsNotationValue struct {
+	first int
+	lines []string
+}
+
+// notationValues splits section's own body into the values the reading
+// notation is scanned in.
+func (val *DocSpecsValidator) notationValues(section *DocSpecsSection) []docspecsNotationValue {
+	body := section.BodyLines
+	var form *DocSpecsFormType
+	if val.TomSpecs && section.ID != "" {
+		if t := val.Schema.ResolveSectionType(section.ID); t != nil && t.Format != "" {
+			form = val.Schema.FormTypes[t.Format]
+		}
+	}
+	if form == nil {
+		return []docspecsNotationValue{{0, body}}
+	}
+	labels := map[string]bool{}
+	for _, f := range form.Fields {
+		labels[strings.ToLower(f.Name)] = true
+	}
+	var values []docspecsNotationValue
+	fence := &MarkdownFenceTracker{}
+	first := 0
+	for i, line := range body {
+		if !fence.InFence() && i > first {
+			if m := mdFieldLabelRE.FindStringSubmatch(line); m != nil &&
+				labels[strings.ToLower(m[1])] {
+				values = append(values, docspecsNotationValue{first, body[first:i]})
+				first = i
+			}
+		}
+		fence.Feed(line)
+	}
+	return append(values, docspecsNotationValue{first, body[first:]})
 }
 
 // validateIDPaths checks every section's id path (the ids from the root down

@@ -98,6 +98,69 @@ func TestGeneratedTreesAgreeWithBridge(t *testing.T) {
 	}
 }
 
+// countMultiParagraph counts the form fields flagged MultiParagraph under
+// node (each node once).
+func countMultiParagraph(node *som.SomMetaNode, seen map[*som.SomMetaNode]bool) int {
+	if node == nil || seen[node] {
+		return 0
+	}
+	seen[node] = true
+	n := 0
+	if node.Form != nil {
+		for _, ff := range node.Form.Fields {
+			if ff.MultiParagraph {
+				n++
+			}
+		}
+	}
+	for _, c := range node.Children {
+		n += countMultiParagraph(c, seen)
+	}
+	return n + countMultiParagraph(node.ElementNode, seen)
+}
+
+// TestMultiParagraphReachesBothTrees proves the form-field MultiParagraph flag
+// (`Field.multiParagraph`) reaches both trees. The diff above compares it, but
+// two trees that both lost it would agree: the flag must also be set where the
+// model sets it, on the generated and on the bridge tree (ACPRDE's
+// `decisionCriteria`), and the generated trees must carry it at all.
+func TestMultiParagraphReachesBothTrees(t *testing.T) {
+	model := loadModel(t)
+	seenACPRDE := false
+	generated, bridged := 0, 0
+	for rootType, tree := range generatedTrees {
+		bridge, err := som.BuildSomMetaTree(model, rootType)
+		if err != nil {
+			t.Fatalf("BuildSomMetaTree(%s): %v", rootType, err)
+		}
+		generated += countMultiParagraph(tree.Root, map[*som.SomMetaNode]bool{})
+		bridged += countMultiParagraph(bridge.Root, map[*som.SomMetaNode]bool{})
+		gen := tree.ByID("ACPRDE")
+		if gen == nil || gen.Form == nil {
+			continue
+		}
+		if f := gen.Form.FieldNamed("decisionCriteria"); f == nil || !f.MultiParagraph {
+			t.Errorf("%s: generated tree lacks MultiParagraph on ACPRDE.decisionCriteria", rootType)
+		}
+		bri := bridge.ByID("ACPRDE")
+		if bri == nil || bri.Form == nil {
+			t.Errorf("%s: bridge tree lacks the ACPRDE form", rootType)
+		} else if f := bri.Form.FieldNamed("decisionCriteria"); f == nil || !f.MultiParagraph {
+			t.Errorf("%s: bridge tree lacks MultiParagraph on ACPRDE.decisionCriteria", rootType)
+		}
+		seenACPRDE = true
+	}
+	if !seenACPRDE {
+		t.Errorf("no tree holds ACPRDE")
+	}
+	if generated == 0 {
+		t.Errorf("the generated trees carry no MultiParagraph flag")
+	}
+	if bridged != generated {
+		t.Errorf("bridge %d != generated %d MultiParagraph count", bridged, generated)
+	}
+}
+
 // TestRegistryEntriesAreSelfConsistent proves each registry entry describes
 // itself consistently: the map key is the entry's own Type, both access roots
 // sit at the declared Segment, and both resolve to the entry's own tree root.

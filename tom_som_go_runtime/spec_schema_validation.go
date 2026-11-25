@@ -29,7 +29,7 @@ func ValidateSpecDocument(
 	if err != nil {
 		return nil, err
 	}
-	found := NewDocSpecsValidator(schema).ValidateMarkdown(rendition.Markdown)
+	found := NewDocSpecsValidatorWithTomSpecs(schema, true).ValidateMarkdown(rendition.Markdown)
 	out := make([]*DocSpecsViolation, 0, len(found))
 	for _, v := range found {
 		path := v.Path

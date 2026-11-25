@@ -92,10 +92,11 @@ tag / path-`replace` routes and how to pin.
 | `spec_answers.go` | A review round's answers (SOM §11.9.7): `ExtractAnswers` collects the answered questions and comments with their section-id chain and line, `RenderAnswers` writes `answers.md`. |
 | `spec_meta.go` | The metadata tree types (`SomMetaTree`, `SomMetaNode`, …) the YAML codec and the facade navigate by. |
 | `spec_meta_bridge.go` | `BuildSomMetaTree` — the metadata tree of a model, for one root or all. |
-| `spec_meta_diff.go` | `SomMetaNodeDiff` — the first difference between two metadata trees, or `""`; an optional position prefix. |
+| `spec_meta_diff.go` | `SomMetaNodeDiff` — the first difference between two metadata trees, or `""` (form fields compared with their `Code` and `MultiParagraph` flags); an optional position prefix. |
+| `spec_notation.go` | The reading notation's scanner (DocSpecs Reading Notation): `ScanNotation` returns a value's divs, spans and citations (`NotationElement`, UTF-16 ranges) and the notation's findings (`NotationFinding`, `NotationFindingCode`, `NotationSeverity`), which the DocSpecs validator reports as rules. |
 | `spec_section_id.go` | List-item section ids (AA1): `GenerateListItemSectionID`, `EncodeTwoLetterDate`, `EffectiveListItemSectionID`, `SectionIDPatternPrefix`, `SpecSectionIDCollision`. |
 | `spec_serialization_order.go` | `SpecSerializationOrder` — the model's member order (`OrderKey`, `OrderPaths`, `OrderFormFields`), which every codec writes in. |
-| `docspecs_validator.go` | DocSpecs Markdown documents: the schema-free parse (`DocSpecsDocument`, its sections and `AllSections`), the schema check (`DocSpecsValidator`) and `DocSpecsReplaceSectionBody`. |
+| `docspecs_validator.go` | DocSpecs Markdown documents: the schema-free parse (`DocSpecsDocument`, its sections and `AllSections`), the schema check (`DocSpecsValidator`, with the nine reading-notation rules; `NewDocSpecsValidatorWithTomSpecs(schema, true)`: scanned per form-field value, unknown kinds and classless divs reported) and `DocSpecsReplaceSectionBody`. |
 | `spec_schema_validation.go` | `ValidateSpecDocument` — the DocSpecs schema tier over a document's Markdown rendition. |
 | `yaml.go` | The YAML reader the codec uses (`YamlParse`, `YamlParseMap`) and the insertion-ordered `YamlMap` the review pass is read into. |
 

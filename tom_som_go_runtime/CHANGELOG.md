@@ -2,6 +2,29 @@
 
 ## Unreleased
 
+- **The reading notation's scanner** (DocSpecs specification, Reading
+  Notation RN-1 … RN-13): `spec_notation.go` with `ScanNotation(text,
+  tomSpecs)` returning a `NotationScan` — the value's fenced divs, bracketed
+  spans and citation shapes as `NotationElement`s (type, kind, classes, id,
+  attributes, UTF-16 ranges, lines, nesting) and its `NotationFinding`s
+  (`NotationFindingCode`, `NotationSeverity`), with `RegisteredNotationKinds`.
+  Offsets are UTF-16 code units as in every other runtime, although Go strings
+  are UTF-8; whitespace, trim and `.` follow JavaScript. The DocSpecs
+  validator reports its nine notation rules (`unclosedDiv`, `unclosedSpan`,
+  `strayClosingFence`, `divWithoutKind`, `unknownKind`, `annotationInsideDiv`,
+  `divInsideAnnotation`, `markAcrossNotation`, `rejectedBlock`; the
+  `DocSpecsRule*` constants, in `DocSpecsAllRules`) per value: a section's own
+  body, and with `NewDocSpecsValidatorWithTomSpecs(schema, true)` (which
+  `ValidateSpecDocument` uses) each form field's value apart; a div without a
+  class and an unregistered kind are reported only then. The conformance
+  runner reads both tables of `notation_cases.json`, and the DocSpecs case
+  `readingView: rejected block` runs.
+- **The form-field meta's `MultiParagraph` flag** (`Field.multiParagraph`, a
+  value of paragraphs or blocks): read from `spec_model.meta.json` into
+  `FormFieldSpec` and `SomFormFieldMeta` beside `Code`, carried by the bridge,
+  written into the generated `_v0` meta tree, and compared — with `Code`,
+  which it did not compare before — by `SomMetaNodeDiff`.
+
 - **Section order and unique id paths in the DocSpecs validator** (SOM §14,
   the DocSpecs specification's Validation Rules 3 and 5): two new rules,
   `sectionOutOfOrder` (the root's children follow `document: sections:`; a

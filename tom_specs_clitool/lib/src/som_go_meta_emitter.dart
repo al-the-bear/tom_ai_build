@@ -493,6 +493,7 @@ class SomGoMetaEmitter {
           if (ff.refersTo.isNotEmpty)
             'RefersTo: []string{${ff.refersTo.map(_str).join(', ')}}',
           if (ff.code) 'Code: true',
+          if (ff.multiParagraph) 'MultiParagraph: true',
         ];
         fields.add('{${ffArgs.join(', ')}}');
       }

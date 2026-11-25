@@ -27,6 +27,7 @@
 package tests
 
 import (
+	"strings"
 	"testing"
 
 	som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
@@ -516,4 +517,44 @@ func TestSpecMeta(t *testing.T) {
 	metaTestByPath(c, t)
 	metaTestItemPath(c, t)
 	c.finish()
+}
+
+// metaFormNode is a form node whose one field carries the given Code /
+// MultiParagraph flags, for the meta diff's form-field branch.
+func metaFormNode(code, multiParagraph bool) *som.SomMetaNode {
+	return &som.SomMetaNode{
+		ClassName:  "DocumentControl",
+		MemberName: "documentControl",
+		SectionID:  "DOCO",
+		Kind:       som.SomMetaKindForm,
+		TypeName:   "DocumentControl",
+		Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{
+			Name:           "decisionCriteria",
+			TypeName:       "String",
+			Order:          0,
+			Code:           code,
+			MultiParagraph: multiParagraph,
+		}}},
+	}
+}
+
+// TestSpecMetaDiffFormFieldFlags proves the meta diff's form-field branch
+// compares Code and MultiParagraph: two trees that differ in nothing but one
+// of the flags disagree.
+func TestSpecMetaDiffFormFieldFlags(t *testing.T) {
+	differs := func(a, b *som.SomMetaNode) bool {
+		return strings.Contains(som.SomMetaNodeDiff(a, b), "form field decisionCriteria differs")
+	}
+	if d := som.SomMetaNodeDiff(metaFormNode(false, false), metaFormNode(false, false)); d != "" {
+		t.Errorf("equal nodes differ: %s", d)
+	}
+	if d := som.SomMetaNodeDiff(metaFormNode(true, true), metaFormNode(true, true)); d != "" {
+		t.Errorf("equal flagged nodes differ: %s", d)
+	}
+	if !differs(metaFormNode(false, true), metaFormNode(false, false)) {
+		t.Errorf("MultiParagraph alone must differ")
+	}
+	if !differs(metaFormNode(true, false), metaFormNode(false, false)) {
+		t.Errorf("Code alone must differ")
+	}
 }

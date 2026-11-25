@@ -170,7 +170,9 @@ func metaFormDiff(at string, a, b *SomFormMeta) string {
 			fa.Hint != fb.Hint ||
 			fa.Order != fb.Order ||
 			!stringListEq(fa.EnumValues, fb.EnumValues) ||
-			!stringListEq(fa.RefersTo, fb.RefersTo) {
+			!stringListEq(fa.RefersTo, fb.RefersTo) ||
+			fa.Code != fb.Code ||
+			fa.MultiParagraph != fb.MultiParagraph {
 			return at + ": form field " + fa.Name + " differs"
 		}
 	}
