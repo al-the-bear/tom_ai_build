@@ -929,26 +929,28 @@ decoder's errors are: a port writes the same sentence, word for word.
 The files are written by the Dart runtime's
 `test/section_link_conformance_test.dart` under `UPDATE_CORPUS=1`; every case
 carries a hand-written `intent` the test checks, and the expectations were read
-by hand when the table landed. The other eight runners do not read these
-tables yet: each takes them on with its port todo of the section automation
+by hand when the table landed. The TypeScript runner reads them as well
+(`tom_som_typescript_runtime/tests/conformance_runner.ts`); the other seven
+do not yet: each takes them on with its port todo of the section automation
 idea. Two shared files moved with the rendition ahead of them, and a runner
 fails on them until that port: `expected.tables.md` (with the
 `markdown_apply_cases.json` built from it) writes the qualified anchor below
-a list item, which all eight read, and the usage cases of `strip_cases.json`
-name the kinds `linked` and `derived`, which TypeScript reads. The same holds
-for the `typedCases` of
+a list item, and the usage cases of `strip_cases.json` name the kinds `linked`
+and `derived`. The same holds for the `typedCases` of
 [`corpus/inline_mark_cases.json`](corpus/inline_mark_cases.json) and
 [`corpus/change_mark_cases.json`](corpus/change_mark_cases.json): typed values
 and headlines under review (SOM §11.9.3) — written as marks, read as their old
 value by the typed reads and the instance tier until decided, a headline
-listed under `@headline`. They sit under a key of their own so the eight
-runners, which read `cases`, are not held to them before their port.
+listed under `@headline`. They sit under a key of their own so the runners
+that read only `cases` are not held to them before their port; Dart and
+TypeScript read both.
 
 Each of the seven tables is proven load-bearing with
-[`tool/parity_gate.sh`](tool/parity_gate.sh) over `dart_runtime`, the one
-runner that reads them (2026-11-24, the rendition table 2026-11-25; every run
-`GATE PASSED`: the suite went red on the mutated expectation and the corpus
-was restored):
+[`tool/parity_gate.sh`](tool/parity_gate.sh), over `dart_runtime`
+(2026-11-24, the rendition table 2026-11-25) and over `typescript_runtime`
+(2026-11-25), with the same mutations; the TypeScript runs add one on the
+`typedCases`. Every run `GATE PASSED`: the suite went red on the mutated
+expectation and the corpus was restored.
 
 <!-- markdownlint-disable MD013 -->
 | Table | `--from` (matched once) | `--to` |
@@ -960,6 +962,7 @@ was restored):
 | `backfill_cases.json` | `"kind": "elementAdded",(?=\s*"path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2")` (the real-model case) | `"kind": "value",` |
 | `prefill_cases.json` | `(?<="filledPairs": \[\n {12})"REQS"(?=,\s*"CRIT"\s*\])` | `"ACC"` |
 | `link_rendition_cases.json` | `\[\]\{\.linked\}` (the empty marker) | `[Summary of [X](#X)]{.linked}` |
+| `inline_mark_cases.json` (`typedCases`, TypeScript) | `(?<="results": \[\n {10})"high"(?=,\n\s*\[\],)` (the enum read as its old value) | `"low"` |
 <!-- markdownlint-enable MD013 -->
 
 `--to` is replaced literally (no `$1`), so a mutation that has to keep

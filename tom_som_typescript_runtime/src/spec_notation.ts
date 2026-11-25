@@ -27,6 +27,8 @@ export const registeredNotationKinds: ReadonlySet<string> = new Set([
   'trace',
   'editorial',
   'aside',
+  'linked',
+  'derived',
   'refs',
   'records',
   'rejected',

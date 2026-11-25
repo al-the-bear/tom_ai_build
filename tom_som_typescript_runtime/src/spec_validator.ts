@@ -11,7 +11,7 @@
  */
 
 import { SpecDocument } from './spec_document';
-import { SpecReviewAnnotations } from './spec_review_annotations';
+import { SpecReviewAnnotations, applyInlineMarksText } from './spec_review_annotations';
 import {
   FormFieldSpec,
   SpecClass,
@@ -24,6 +24,7 @@ import {
   specFormDeclaring,
 } from './spec_generation_units';
 import { specPathJoin } from './spec_paths';
+import { SpecPlaceFilter } from './spec_place';
 import {
   SpecNodeKind,
   SpecReflection,
@@ -33,7 +34,13 @@ import {
   K_SECTION_ID_SLOT,
   effectiveListItemSectionId,
 } from './spec_section_id';
-import { somScalarBase, somTypedTextReadable } from './spec_typed_values';
+import {
+  somFormatDouble,
+  somIsTypedField,
+  somScalarBase,
+  somTypedReading,
+  somTypedTextReadable,
+} from './spec_typed_values';
 
 /** Why a single value in a document is invalid against the model. */
 export const SpecValidationCode = {
@@ -143,7 +150,67 @@ export const SpecValidationCode = {
    * (`K_SPEC_STANDARD_EMITTERS`: `openapi`, `jsonschema`, `icu`, `asyncapi`, `markdown`).
    */
   UNIT_EMITTER_UNKNOWN: 'unitEmitterUnknown',
+
+  // The link checks of one document (`validateLinks`,
+  // `tom_specs_model_rules.md` §9.7). A stored derived value its sources do
+  // not give is reported as `derivedValueMismatch` above.
+
+  /** A `@DerivedFrom.lookup` finds no row for its key, or more than one. */
+  DERIVED_LOOKUP_MISS: 'derivedLookupMiss',
+  /**
+   * Two link rows beneath one element name the same id with the same type
+   * (the values `@ExtractsLinks` sets); reported at the second.
+   */
+  DUPLICATE_LINK_ROW: 'duplicateLinkRow',
+  /**
+   * A link names an entry whose other end (`inverseOf`) does not name it
+   * back, or a symmetric row has no counterpart on the entry it names. An end
+   * whose registry the document does not hold is skipped.
+   */
+  INVERSE_MISSING: 'inverseMissing',
+  /**
+   * An id named in an `@ExtractsLinks` text has no row. An id that has a row
+   * of any type is a reference to it and is not reported.
+   */
+  EXTRACTED_LINK_MISSING: 'extractedLinkMissing',
+  /**
+   * A generated row (its `@ExtractsLinks` `set` values match) names an id
+   * the text no longer names.
+   */
+  EXTRACTED_LINK_STALE: 'extractedLinkStale',
+  /** A summary row (`@SummaryOf`) names no element of its detail list. */
+  SUMMARY_NOT_IN_DETAIL: 'summaryNotInDetail',
+  /** Under `relation: equal`, a detail element no summary row names. */
+  DETAIL_NOT_IN_SUMMARY: 'detailNotInSummary',
+  /** Two summary rows name one detail element; reported at the second. */
+  SUMMARY_DUPLICATE: 'summaryDuplicate',
+  /**
+   * A `@SameAs` copy holds a value its holder does not (or lacks one it
+   * holds): the two positions of the section were edited apart.
+   */
+  SAME_AS_MISMATCH: 'sameAsMismatch',
+  /**
+   * A value a link check reads holds pending change marks. It is read with
+   * every mark rejected (the reviewed state) and listed for the user.
+   */
+  LINK_VALUE_PENDING: 'linkValuePending',
+  /**
+   * A change `deriveFields` would write in a document under review that
+   * cannot be marked exactly (a difference inside fenced code, SOM §11.9.3);
+   * it is left as it was, for the agent.
+   */
+  UNMARKABLE: 'unmarkable',
 } as const;
+
+const _CODE_ORDER: string[] = Object.values(SpecValidationCode);
+
+/**
+ * The declaration order of `code` (Dart's `SpecValidationCode.index`), which
+ * sorted finding lists follow.
+ */
+export function specValidationCodeIndex(code: string): number {
+  return _CODE_ORDER.indexOf(code);
+}
 
 export type SpecValidationCodeValue =
   (typeof SpecValidationCode)[keyof typeof SpecValidationCode];
@@ -260,7 +327,7 @@ export function validateDocument(
         continue;
       }
       if (spec.enumValues.length === 0) {
-        const text = doc.formField(path, name);
+        const text = _typedValue(doc.formField(path, name), spec);
         // A stated count (`countOf`) is checked by `countMismatch`, a derived
         // value (`productOf`, `rankOf`) by `derivedValueMismatch`; both
         // already report text that is no number; one finding is enough.
@@ -281,7 +348,7 @@ export function validateDocument(
         }
         continue;
       }
-      const value = doc.formField(path, name);
+      const value = _typedValue(doc.formField(path, name), spec);
       // Absence is not a bad value.
       if (value === null || value === '') continue;
       if (!spec.enumValues.includes(value)) {
@@ -307,7 +374,7 @@ export function validateDocument(
       owner === null ? res.field.name : `${owner}.${res.field.name}`;
     for (const ff of res.field.formFields) {
       if (!ff.required) continue;
-      const raw = doc.formField(path, ff.name);
+      const raw = _typedValue(doc.formField(path, ff.name), ff);
       const value = raw === null || raw === undefined ? '' : String(raw).trim();
       if (value === '') {
         errors.push(
@@ -461,9 +528,9 @@ function _validateOneOfInstances(
     if (formHolder === null) {
       continue; // static tier flagged the mismatch
     }
-    const chosen = doc.formField(
-      `${path}/${refl.fieldSegment(formHolder)}`,
-      discriminator,
+    // The discriminator is an enum: under review it reads as its old value.
+    const chosen = somTypedReading(
+      doc.formField(`${path}/${refl.fieldSegment(formHolder)}`, discriminator),
     );
     if (chosen === null || chosen === undefined || chosen === '') {
       continue; // no case chosen yet
@@ -622,7 +689,7 @@ function _validateReferenceInstances(
       continue;
     }
     for (const ff of form.field.formFields) {
-      const value = doc.formField(form.path, ff.name);
+      const value = _typedValue(doc.formField(form.path, ff.name), ff);
       if (value === null || value === undefined || value.trim() === '') {
         continue;
       }
@@ -667,7 +734,7 @@ function _validateReferenceInstances(
       if (ff.refersTo.length === 0) {
         continue;
       }
-      const value = doc.formField(form.path, ff.name);
+      const value = _typedValue(doc.formField(form.path, ff.name), ff);
       if (value === null || value === undefined || value.trim() === '') {
         continue;
       }
@@ -766,18 +833,6 @@ function _resolvedForms(
 }
 
 /**
- * The section id of a `countOf` target — the part before any `.field=value`,
- * without the `./` scope prefix.
- */
-function _countTargetId(target: string): string {
-  if (target.startsWith('./')) {
-    target = target.substring(2);
-  }
-  const dot = target.indexOf('.');
-  return dot < 0 ? target : target.substring(0, dot);
-}
-
-/**
  * Instance-tier stated-count check (vsctsa43): every non-empty value of a
  * `countOf` form field must be a whole number equal to the number of entries
  * the document holds.
@@ -785,10 +840,12 @@ function _countTargetId(target: string): string {
  * An **entry** is a list item whose element class carries `@SectionId(X)`. A
  * target `X` counts every such entry; `X.f=v` counts only the entries one of
  * whose own forms — a form member of the entry, at `<item>/<member>` — holds
- * `v` in form field `f`. The count is the sum over the targets. As with the
- * reference check, a target whose section id the document's root cannot reach
- * makes the field undecidable here, so it is skipped rather than reported, and
- * an empty value is completeness, not a count.
+ * `v` in form field `f`, and `X.f=a|b` those holding either alternative. A
+ * target is read as a {@link SpecPlaceFilter}. The count is the sum over the
+ * targets. As with the reference check, a target whose section id the
+ * document's root cannot reach — or that is no filter at all — makes the field
+ * undecidable here, so it is skipped rather than reported, and an empty value
+ * is completeness, not a count.
  */
 function _validateCountInstances(
   refl: SpecReflection,
@@ -833,7 +890,7 @@ function _validateCountInstances(
       continue;
     }
     for (const ff of res.field.formFields) {
-      const raw = doc.formField(path, ff.name);
+      const raw = _typedValue(doc.formField(path, ff.name), ff);
       const v = raw === null || raw === undefined ? '' : raw.trim();
       if (v === '') {
         continue;
@@ -854,25 +911,18 @@ function _validateCountInstances(
 
   // A target written `./…` counts only the entries beneath `owner`, the
   // section holding the form; any other target counts the whole document.
-  const countTarget = (target: string, owner: string): number => {
-    const scoped = target.startsWith('./');
-    if (scoped) {
-      target = target.substring(2);
-    }
+  // `X.f=a|b` counts the entries whose `f` holds one of the alternatives.
+  const countTarget = (target: SpecPlaceFilter, owner: string): number => {
     const inScope = (item: string): boolean =>
-      !scoped || item.startsWith(`${owner}/`);
-    const dot = target.indexOf('.');
-    if (dot < 0) {
-      return (entriesById.get(target) || []).filter(inScope).length;
-    }
-    const id = target.substring(0, dot);
-    const eq = target.indexOf('=', dot);
-    const field = target.substring(dot + 1, eq < 0 ? target.length : eq);
-    const value = eq < 0 ? '' : target.substring(eq + 1);
-    return (entriesById.get(id) || []).filter(inScope).filter((item) => {
-      const values = valuesByItem.get(item)?.get(field);
-      return values !== undefined && values.has(value);
-    }).length;
+      !target.scoped || item.startsWith(`${owner}/`);
+    const field = target.field;
+    return (entriesById.get(target.sectionId) || [])
+      .filter(inScope)
+      .filter(
+        (item) =>
+          field === null ||
+          target.matches(valuesByItem.get(item)?.get(field) || new Set<string>()),
+      ).length;
   };
 
   const errors: SpecValidationError[] = [];
@@ -881,30 +931,33 @@ function _validateCountInstances(
       if (ff.countOf.length === 0) {
         continue;
       }
-      const raw = doc.formField(form.path, ff.name);
+      const raw = _typedValue(doc.formField(form.path, ff.name), ff);
       const stated = raw === null || raw === undefined ? '' : raw.trim();
       if (stated === '') {
         continue;
       }
+      // A target that is no filter, or whose entries the root cannot reach,
+      // makes the count undecidable here: skipped, never reported.
+      const targets = ff.countOf.map((t) => SpecPlaceFilter.tryParse(t));
       if (
-        !ff.countOf.every((t) =>
-          scope.has(_registrySectionId(_countTargetId(t))),
+        !targets.every(
+          (t) => t !== null && scope.has(_registrySectionId(t.sectionId)),
         )
       ) {
         continue;
       }
       const owner = form.path.substring(0, form.path.lastIndexOf('/'));
-      const counted = ff.countOf
-        .map((t) => countTarget(t, owner))
+      const counted = targets
+        .map((t) => countTarget(t as SpecPlaceFilter, owner))
         .reduce((a, b) => a + b, 0);
-      const targets = ff.countOf.join(' + ');
+      const written = ff.countOf.join(' + ');
       if (!/^[0-9]+$/.test(stated)) {
         errors.push(
           new SpecValidationError(
             form.path,
             SpecValidationCode.COUNT_MISMATCH,
             `form field "${ff.name}" states "${stated}", which is not a whole ` +
-              `number — it counts ${targets}, of which the document holds ` +
+              `number — it counts ${written}, of which the document holds ` +
               `${counted}`,
           ),
         );
@@ -914,7 +967,7 @@ function _validateCountInstances(
             form.path,
             SpecValidationCode.COUNT_MISMATCH,
             `form field "${ff.name}" states ${stated}, but the document ` +
-              `holds ${counted} (counting ${targets})`,
+              `holds ${counted} (counting ${written})`,
           ),
         );
       }
@@ -959,15 +1012,15 @@ function _validateDerivedValues(
   }
   const errors: SpecValidationError[] = [];
   const numberPattern = /^-?[0-9]+(\.[0-9]+)?$/;
-  const trimmed = (formPath: string, name: string): string => {
-    const raw = doc.formField(formPath, name);
+  const trimmed = (formPath: string, spec: FormFieldSpec): string => {
+    const raw = _typedValue(doc.formField(formPath, spec.name), spec);
     return raw === null || raw === undefined ? '' : raw.trim();
   };
 
   // The number a filled form field contributes, or null when it is empty or
   // unreadable.
   const numberOf = (formPath: string, spec: FormFieldSpec): number | null => {
-    const v = trimmed(formPath, spec.name);
+    const v = trimmed(formPath, spec);
     if (v === '') {
       return null;
     }
@@ -1004,7 +1057,7 @@ function _validateDerivedValues(
     const owner = form.path.substring(0, form.path.lastIndexOf('/'));
     for (const ff of form.field.formFields) {
       if (ff.productOf.length > 0) {
-        const stated = trimmed(form.path, ff.name);
+        const stated = trimmed(form.path, ff);
         if (stated !== '') {
           let product: number | null = 1;
           for (const operand of ff.productOf) {
@@ -1049,7 +1102,7 @@ function _validateDerivedValues(
       }
       const by = ff.rankOf;
       if (by !== null) {
-        const stated = trimmed(form.path, ff.name);
+        const stated = trimmed(form.path, ff);
         const scoreSpec = specAt(form.path, by);
         const score =
           scoreSpec === null ? null : numberOf(form.path, scoreSpec);
@@ -1346,4 +1399,232 @@ function _pow10(exponent: number): number {
 /** `15` for a whole number, `2.8` otherwise (JS already prints it so). */
 function _formatNumber(v: number): string {
   return String(v);
+}
+
+/**
+ * A form field's value as the instance tier reads it: a typed value (an enum,
+ * `int`, `double`, `num`, `bool`) or a reference (`refersTo`) holding inline
+ * marks reads as its old value (SOM §11.9.3); any other value as stored.
+ */
+function _typedValue(raw: string | null, spec: FormFieldSpec): string | null {
+  return somIsTypedField(spec.type, spec.enumValues) || spec.refersTo.length > 0
+    ? (somTypedReading(raw) ?? null)
+    : raw;
+}
+
+/** One derived number {@link specDerivedNumbers} answers. */
+export interface SpecDerivedNumber {
+  path: string;
+  field: string;
+  value: string;
+}
+
+/**
+ * The value every derived number of `doc` should hold, by the rules the
+ * instance tier checks (`countOf`, `productOf`, `rankOf`): one entry per form
+ * field whose value is decidable, whether it is filled or not. With
+ * `readProposed`, values holding pending marks are read with the marks
+ * accepted (the proposal `deriveFields` writes in a document under review),
+ * else with them rejected. `deriveFields` writes these (step 3).
+ */
+export function specDerivedNumbers(
+  model: SpecModel,
+  doc: SpecDocument,
+  options: { readProposed?: boolean } = {},
+): SpecDerivedNumber[] {
+  const readProposed = options.readProposed === true;
+  const refl = new SpecReflection(model);
+  const forms = _resolvedForms(refl, doc);
+  const read = (path: string, ff: FormFieldSpec): string | null => {
+    const raw = doc.formField(path, ff.name);
+    if (raw === null || raw === undefined) {
+      return null;
+    }
+    if (!raw.includes('{')) {
+      return raw.trim();
+    }
+    return applyInlineMarksText(raw, { accept: readProposed }).trim();
+  };
+
+  const out: SpecDerivedNumber[] = [];
+
+  // countOf.
+  const scope = _registryScope(refl, doc);
+  const entriesById = new Map<string, string[]>();
+  for (const listPath of _sorted(doc.listPaths)) {
+    for (const item of doc.listItems(listPath)) {
+      const r = refl.resolve(item);
+      const id = r !== null && r.targetClass !== null ? r.targetClass.sectionId : null;
+      if (!id) {
+        continue;
+      }
+      let list = entriesById.get(id);
+      if (list === undefined) {
+        list = [];
+        entriesById.set(id, list);
+      }
+      list.push(item);
+    }
+  }
+  const valuesByItem = new Map<string, Map<string, Set<string>>>();
+  for (const path of doc.formPaths) {
+    const slash = path.lastIndexOf('/');
+    if (slash <= 0) {
+      continue;
+    }
+    const res = refl.resolve(path);
+    if (res === null || res.field === null) {
+      continue;
+    }
+    for (const ff of res.field.formFields) {
+      const v = read(path, ff);
+      if (v === null || v === '') {
+        continue;
+      }
+      const owner = path.substring(0, slash);
+      let byField = valuesByItem.get(owner);
+      if (byField === undefined) {
+        byField = new Map<string, Set<string>>();
+        valuesByItem.set(owner, byField);
+      }
+      let values = byField.get(ff.name);
+      if (values === undefined) {
+        values = new Set<string>();
+        byField.set(ff.name, values);
+      }
+      values.add(v);
+    }
+  }
+  for (const form of forms) {
+    const owner = form.path.substring(0, form.path.lastIndexOf('/'));
+    for (const ff of form.field.formFields) {
+      if (ff.countOf.length === 0) {
+        continue;
+      }
+      const targets = ff.countOf.map((t) => SpecPlaceFilter.tryParse(t));
+      if (!targets.every((t) => t !== null && scope.has(_registrySectionId(t.sectionId)))) {
+        continue;
+      }
+      let counted = 0;
+      for (const t of targets as SpecPlaceFilter[]) {
+        for (const item of entriesById.get(t.sectionId) || []) {
+          if (t.scoped && !item.startsWith(`${owner}/`)) {
+            continue;
+          }
+          if (t.field !== null) {
+            const byField = valuesByItem.get(item);
+            const have = (byField !== undefined ? byField.get(t.field) : undefined) || new Set<string>();
+            if (!t.matches(have)) {
+              continue;
+            }
+          }
+          counted++;
+        }
+      }
+      out.push({ path: form.path, field: ff.name, value: `${counted}` });
+    }
+  }
+
+  // productOf, then rankOf over the products just derived.
+  const numberPattern = /^-?[0-9]+(\.[0-9]+)?$/;
+  const products = new Map<string, number>();
+  const specAt = (path: string, name: string): FormFieldSpec | null => {
+    const res = refl.resolve(path);
+    if (res === null || res.kind !== SpecNodeKind.FORM || res.field === null) {
+      return null;
+    }
+    return res.field.formFields.find((ff) => ff.name === name) || null;
+  };
+  const numberOf = (path: string, spec: FormFieldSpec): number | null => {
+    const derived = products.get(`${path}#${spec.name}`);
+    if (derived !== undefined) {
+      return derived;
+    }
+    const v = read(path, spec);
+    if (v === null || v === '') {
+      return null;
+    }
+    if (spec.enumValues.length > 0) {
+      const i = spec.enumValues.indexOf(v);
+      return i < 0 ? null : i + 1;
+    }
+    return numberPattern.test(v) ? parseFloat(v) : null;
+  };
+
+  for (const form of forms) {
+    const owner = form.path.substring(0, form.path.lastIndexOf('/'));
+    for (const ff of form.field.formFields) {
+      if (ff.productOf.length === 0) {
+        continue;
+      }
+      let product: number | null = 1;
+      for (const operand of ff.productOf) {
+        const dot = operand.indexOf('.');
+        const path = dot < 0 ? form.path : `${owner}/${operand.substring(0, dot)}`;
+        const name = dot < 0 ? operand : operand.substring(dot + 1);
+        const spec = specAt(path, name);
+        const n = spec === null ? null : numberOf(path, spec);
+        if (n === null) {
+          product = null;
+          break;
+        }
+        product = product! * n;
+      }
+      if (product === null) {
+        continue;
+      }
+      products.set(`${form.path}#${ff.name}`, product);
+      // Written as the field's type writes it (`3.0` in a double).
+      const base = somScalarBase(ff.type);
+      const text =
+        base === 'double'
+          ? somFormatDouble(product)
+          : base === 'int' && product === Math.round(product)
+            ? `${Math.round(product)}`
+            : _formatNumber(product);
+      out.push({ path: form.path, field: ff.name, value: text });
+    }
+  }
+  const groups = new Map<string, { path: string; name: string; score: number; had: number | null }[]>();
+  for (const form of forms) {
+    for (const ff of form.field.formFields) {
+      const by = ff.rankOf;
+      if (by === null) {
+        continue;
+      }
+      const scoreSpec = specAt(form.path, by);
+      const score = scoreSpec === null ? null : numberOf(form.path, scoreSpec);
+      if (score === null) {
+        continue;
+      }
+      const hadText = (read(form.path, ff) || '').trim();
+      const had = /^[+-]?[0-9]+$/.test(hadText) ? parseInt(hadText, 10) : null;
+      const key = `${form.cls.name}#${form.field.name}#${ff.name}`;
+      let group = groups.get(key);
+      if (group === undefined) {
+        group = [];
+        groups.set(key, group);
+      }
+      group.push({ path: form.path, name: ff.name, score, had });
+    }
+  }
+  for (const group of groups.values()) {
+    // Highest score first; equal scores keep the order their ranks give
+    // (the rule leaves it open), then path order.
+    const ordered = group.slice().sort((a, b) => {
+      if (a.score !== b.score) {
+        return b.score > a.score ? 1 : -1;
+      }
+      const ah = a.had !== null ? a.had : 1 << 30;
+      const bh = b.had !== null ? b.had : 1 << 30;
+      if (ah !== bh) {
+        return ah - bh;
+      }
+      return a.path < b.path ? -1 : a.path > b.path ? 1 : 0;
+    });
+    for (let i = 0; i < ordered.length; i++) {
+      out.push({ path: ordered[i].path, field: ordered[i].name, value: `${i + 1}` });
+    }
+  }
+  return out;
 }

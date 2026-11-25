@@ -38,6 +38,13 @@ export {
   SpecModelStampCheck,
   KindLink,
   NoArtifactLink,
+  SpecListRelation,
+  SpecSync,
+  SpecSummaryOf,
+  SpecDerivation,
+  SpecInverseOf,
+  SpecExtractsLinks,
+  SpecSameAs,
   MILLIS_PER_DAY,
   DEFAULT_MAX_SNAPSHOT_AGE_MS,
   parseStampTimestamp,
@@ -48,6 +55,21 @@ export type { SpecFieldKindValue } from './spec_model';
 // reflection
 export { SpecNodeKind, SpecResolution, SpecReflection } from './spec_reflection';
 export type { SpecNodeKindValue } from './spec_reflection';
+
+// places and filters of the link vocabulary (tom_specs_model_rules.md §9.7)
+export {
+  SpecPlaceKind,
+  SpecPlaceProblem,
+  SpecPlaceException,
+  SpecPlace,
+  SpecPlaceResolution,
+  SpecPlaceFilter,
+  SpecSameAsBinding,
+  specSameAsBindings,
+  SpecSectionPosition,
+  specSectionPositions,
+} from './spec_place';
+export type { SpecPlaceKindValue, SpecPlaceProblemValue } from './spec_place';
 
 // document
 export { SpecDocument, SpecListItemMove } from './spec_document';
@@ -88,6 +110,8 @@ export {
   somFormatEnumName,
   somScalarBase,
   somTypedTextReadable,
+  somTypedReading,
+  somIsTypedField,
 } from './spec_typed_values';
 
 // generic modification API (YRD7)
@@ -195,8 +219,55 @@ export {
   SpecValidationCode,
   SpecValidationError,
   validateDocument,
+  specDerivedNumbers,
 } from './spec_validator';
-export type { SpecValidationCodeValue } from './spec_validator';
+export type { SpecValidationCodeValue, SpecDerivedNumber } from './spec_validator';
+
+// the link checks of one document (tom_specs_model_rules.md §9.7)
+export { validateLinks } from './spec_links_validator';
+
+// deriveFields: the derived places of one document, written (§9.7)
+export { deriveFields, SpecDeriveChange, SpecDeriveResult } from './spec_derive_fields';
+
+// the document set: syncReport, renameId (tom_specs_model_rules.md §9.7)
+export {
+  SpecSyncCode,
+  specSyncCodeIndex,
+  SpecSyncResolution,
+  SpecSyncHolder,
+  SpecDocumentSetRefusal,
+  SpecDocumentSetError,
+  SpecSyncPair,
+  SpecDocumentSet,
+  SpecSyncPlace,
+  SpecSyncFinding,
+  SpecSyncReport,
+  syncReport,
+  SpecSetSide,
+  SpecSetCheck,
+  SpecRenameError,
+  SpecRenameChange,
+  renameId,
+} from './spec_document_set';
+// prefill and backfill: the Blueprint into a new Phase 3 document, and the
+// accepted Phase 3 end state back into the Blueprint (BP-8, DP-part-operations-2)
+export { prefill, SpecPrefillError, SpecPrefillResult } from './spec_prefill';
+export {
+  backfill,
+  SpecBackfillError,
+  SpecBackfillChange,
+  SpecBackfillLeft,
+  SpecBackfillResult,
+} from './spec_backfill';
+export type {
+  SpecSyncCodeValue,
+  SpecSyncResolutionValue,
+  SpecSyncHolderValue,
+  SpecDocumentSetRefusalValue,
+  SpecSetOrdered,
+  SpecSetValue,
+  SpecSetPlaces,
+} from './spec_document_set';
 
 // review annotations (SOM §11.9)
 export {
@@ -217,6 +288,7 @@ export {
   formatCommentBlock,
   formatQuestionBlock,
   applyInlineMarksText,
+  K_SPEC_HEADLINE_FIELD,
   decideAllMarksText,
   stripAnnotationsText,
   annotationIssuesText,

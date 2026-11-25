@@ -177,12 +177,59 @@ function _styledDivHeading(line: string): [number, string] | null {
 }
 
 /**
- * `text` with a leading anchor `<a id="ID"></a>` removed when its id is `id`
- * (Section Anchors): the section's own anchor stores nothing.
+ * `text` with a leading anchor `<a id="ID"></a>` removed when it is the
+ * section's own (Section Anchors): its id is `id`, or the qualified form
+ * `<A>/…/<id>` a heading below a list item carries. Any other anchor is
+ * ordinary text and stays.
  */
 export function stripOwnAnchor(text: string, id: string): string {
   const m = _ANCHOR.exec(text);
-  return m != null && m[1] === id ? text.substring(m[0].length) : text;
+  return m != null && _isOwnAnchor(m[1], id) ? text.substring(m[0].length) : text;
+}
+
+/**
+ * Whether `anchor` is the own anchor of a section with `id`: `id` itself, or
+ * a qualified form `<A>/…/<id>` whose segments are all non-empty (Section
+ * Anchors).
+ */
+function _isOwnAnchor(anchor: string, id: string): boolean {
+  if (anchor === id) return true;
+  if (!anchor.endsWith(`/${id}`)) return false;
+  return !anchor.split('/').some((s) => s === '');
+}
+
+/**
+ * The number of leading lines of a section's `lines` that the rendition
+ * writes from the document and that hold no value: a paragraph that is one
+ * `linked` span (SOM §11.11), then a `derived` block (SOM §11.12), with the
+ * blank lines around them (DocSpecs RN-5, *Not text*).
+ */
+function _generatedLead(lines: string[]): number {
+  const skipBlank = (i: number): number => {
+    while (i < lines.length && lines[i].trim() === '') i++;
+    return i;
+  };
+  let i = skipBlank(0);
+  let end = i;
+  while (end < lines.length && lines[end].trim() !== '') end++;
+  const para = lines.slice(i, end).join(' ').trim();
+  if (end > i && /^\[.*\]\{\.linked\}$/.test(para)) {
+    i = skipBlank(end);
+  }
+  const open = i < lines.length ? /^ {0,3}(:{3,})[ \t]*\{\.derived(?=[\s}])/.exec(lines[i]) : null;
+  if (open !== null) {
+    const close = new RegExp(`^ {0,3}:{${open[1].length},}[ \\t]*$`);
+    let k = i + 1;
+    while (k < lines.length && !close.test(lines[k])) k++;
+    if (k < lines.length) i = skipBlank(k + 1);
+  }
+  return i;
+}
+
+/** `text` without its {@link _generatedLead}: what the text rules read. */
+function _withoutGeneratedText(text: string): string {
+  const lines = text.split('\n');
+  return lines.slice(_generatedLead(lines)).join('\n').trim();
 }
 
 /** A schema-free structural parse of a DocSpecs markdown document. */
@@ -749,6 +796,7 @@ const _LINK_TEXT = /\[([^\]]+)\]\([^)]*\)/;
 const _LINK_TEXT_ALL = /\[([^\]]+)\]\([^)]*\)/g;
 const _CELL_ANCHOR = /<a id="([^"]*)"><\/a>\s*/g;
 const _CELL_PART_SEPARATOR = /\s*\/\s*/;
+const _CELL_LINK = /\[([^\]]+)\]\([^)\s]*\)/g;
 const _LIST_DIV_OPEN = /^:{3,}\s*(?:\{\.(refs|records)\}|(refs|records))\s*$/;
 const _DIV_CLOSE = /^:{3,}\s*$/;
 
@@ -862,6 +910,8 @@ function _cellValue(cell: string): string {
  * before the whole cell naming its item. Any other anchor stays.
  */
 function _cellId(cell: string): string {
+  // A summary row's id written as a link is read as its text (SOM §11.5).
+  cell = cell.replace(_CELL_LINK, (_m, t: string) => t);
   let out = '';
   let pos = 0;
   for (const m of cell.matchAll(_CELL_ANCHOR)) {
@@ -871,7 +921,8 @@ function _cellId(cell: string): string {
     const id = m[1];
     const rest = cell.substring(end).split(_CELL_PART_SEPARATOR);
     const own =
-      rest[0].trim() === id || (start === 0 && rest[rest.length - 1].trim() === id);
+      _isOwnAnchor(id, rest[0].trim()) ||
+      (start === 0 && _isOwnAnchor(id, rest[rest.length - 1].trim()));
     if (!own) out += m[0];
     pos = end;
   }
@@ -1233,8 +1284,9 @@ export class DocSpecsValidator {
       return; // form sections carry fields, not body text.
     }
     // A list body or section table already read is blanked in the body, so a
-    // container written with one counts as empty (`max-text-length: 0`).
-    const text = section.text;
+    // container written with one counts as empty (`max-text-length: 0`); the
+    // rendition's marker and generated block are no text either.
+    const text = _withoutGeneratedText(section.text);
     if (type.textRequired && text.length === 0) {
       v.push(
         new DocSpecsViolation(
@@ -1638,8 +1690,9 @@ export class DocSpecsValidator {
         reject(`unclosed ${kind} fence`); // its lines stay text
         return;
       }
+      const lead = _generatedLead(body);
       const besideText = body.some(
-        (l, k) => (k < i || k > close) && l.trim().length > 0,
+        (l, k) => k >= lead && (k < i || k > close) && l.trim().length > 0,
       );
       const hasItems = node.children.length > 0;
       const inner = body.slice(i + 1, close);

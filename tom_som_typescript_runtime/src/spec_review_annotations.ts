@@ -2347,6 +2347,14 @@ function _markReplacement(m: _Mark, accept: boolean): string {
 }
 
 /**
+ * The reserved field name under which a headline is a value of the review
+ * operations ({@link SpecReviewAnnotations.setMarked}, the mark listing, the
+ * decisions): a headline takes inline marks (SOM §11.9.3), named as the place
+ * grammar names it (`<SECTIONID>.@headline`).
+ */
+export const K_SPEC_HEADLINE_FIELD = '@headline';
+
+/**
  * `value` with every inline mark accepted (`accept`) or rejected, and every
  * highlight and comment mark removed, by the rules of SOM §11.9.3. Marks in
  * code and malformed marks stay as written.
@@ -2781,7 +2789,13 @@ export class SpecReviewAnnotations {
     return this.clock !== null ? this.clock() : systemReviewTime();
   }
 
-  /** Every value as `[path, field or null, text]`, in document order. */
+  /**
+   * Every value as `[path, field or null, text]`, in document order: content,
+   * form fields, then the headlines that hold an inline mark, under the
+   * reserved field {@link K_SPEC_HEADLINE_FIELD} (SOM §11.9.3). A headline
+   * without a mark is no value here, so a document's revision is what it was
+   * before headlines could be marked.
+   */
   private _values(): _Value[] {
     const out: _Value[] = [];
     for (const path of Array.from(this.doc.contentPaths).sort()) {
@@ -2792,18 +2806,41 @@ export class SpecReviewAnnotations {
         out.push([path, f, this.doc.formField(path, f) ?? '']);
       }
     }
+    for (const path of Array.from(this.doc.headlinePaths).sort()) {
+      const text = this.doc.headline(path) ?? '';
+      if (text.includes('{') && _parse(text).marks.length > 0) {
+        out.push([path, K_SPEC_HEADLINE_FIELD, text]);
+      }
+    }
     return out;
   }
 
   private _get(path: string, field: string | null): string {
-    return (field === null ? this.doc.content(path) : this.doc.formField(path, field)) ?? '';
+    return (
+      (field === K_SPEC_HEADLINE_FIELD
+        ? this.doc.headline(path)
+        : field === null
+          ? this.doc.content(path)
+          : this.doc.formField(path, field)) ?? ''
+    );
   }
 
   private _set(path: string, field: string | null, value: string): void {
-    if (field === null) {
+    if (field === K_SPEC_HEADLINE_FIELD) {
+      this.doc.setHeadline(path, value);
+    } else if (field === null) {
       this.doc.setContent(path, value);
     } else {
       this.doc.setFormField(path, field, value);
+    }
+  }
+
+  /** A headline is one line: it takes inline marks, never a block. */
+  private _refuseBlockIn(field: string | null): void {
+    if (field === K_SPEC_HEADLINE_FIELD) {
+      throw new SpecReviewAnnotationError(
+        'a headline takes inline marks only, not a comment or question block',
+      );
     }
   }
 
@@ -2921,6 +2958,7 @@ export class SpecReviewAnnotations {
     const time = this._time(options.at);
     const field = options.field ?? null;
     const cid = options.id ?? this.nextCommentId();
+    this._refuseBlockIn(field);
     const value = this._get(options.path, field);
     const end = this._paragraphLastLine(value, options.afterParagraph);
     this._set(
@@ -2954,6 +2992,7 @@ export class SpecReviewAnnotations {
   }): void {
     const time = this._time(options.at);
     const field = options.field ?? null;
+    this._refuseBlockIn(field);
     const value = this._get(options.path, field);
     const end = this._paragraphLastLine(value, options.afterParagraph);
     this._set(

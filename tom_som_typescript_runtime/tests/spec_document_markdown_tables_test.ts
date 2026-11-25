@@ -553,10 +553,10 @@ function testSectionTables(): void {
       'ST1 section table',
       _body(md, 'ATTR-1'),
       '| Section | TomSpecField | Value |\n| --- | --- | --- |\n' +
-        '| <a id="ATTR-IDEN"></a>ATTR-IDEN | ColumnName | name |\n' +
+        '| <a id="ATTR-1/ATTR-IDEN"></a>ATTR-IDEN | ColumnName | name |\n' +
         '|  | Description | Display name. |\n' +
-        '| <a id="ATTR-DATA"></a>ATTR-DATA | DataType | string |\n' +
-        '| <a id="ATTR-CONS-1"></a>ATTR-CONS-LST / ATTR-CONS-1 | Mandatory | Yes |\n' +
+        '| <a id="ATTR-1/ATTR-DATA"></a>ATTR-DATA | DataType | string |\n' +
+        '| <a id="ATTR-1/ATTR-CONS-1"></a>ATTR-CONS-LST / ATTR-CONS-1 | Mandatory | Yes |\n' +
         '|  | Unique | Per parent |',
     );
     _check('ST1 no child headings', !md.includes('<!--[ATTR-IDEN]-->'), md);
@@ -568,8 +568,8 @@ function testSectionTables(): void {
     doc.setContent(`${a}/ATTR-NOTE`, 'A free note.');
     const md = _render(doc, 'Req');
     _check('ST2 no section table', !md.includes('| Section | TomSpecField | Value |'), md);
-    _check('ST2 form heading', md.includes('<!--[ATTR-IDEN]--> <a id="ATTR-IDEN"></a>'), md);
-    _check('ST2 note heading', md.includes('<!--[ATTR-NOTE]--> <a id="ATTR-NOTE"></a>'), md);
+    _check('ST2 form heading', md.includes('<!--[ATTR-IDEN]--> <a id="ATTR-1/ATTR-IDEN"></a>'), md);
+    _check('ST2 note heading', md.includes('<!--[ATTR-NOTE]--> <a id="ATTR-1/ATTR-NOTE"></a>'), md);
   }
   {
     const doc = new SpecDocument();

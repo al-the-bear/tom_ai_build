@@ -129,11 +129,33 @@ import {
   somParseDouble,
   somParseInt,
   somParseNum,
+  somParseBool,
+  somParseEnumName,
+  somScalarBase,
+  somTypedReading,
   somTypedTextReadable,
   YamlFloat,
   formatYamlFloat,
   scanNotation,
   NotationFindingCode,
+  SpecPlace,
+  SpecPlaceException,
+  SpecPlaceFilter,
+  SpecPlaceProblem,
+  SpecValidationCode,
+  specSameAsBindings,
+  validateLinks,
+  SpecValidationError,
+  SpecDocumentSet,
+  SpecDocumentSetError,
+  SpecRenameError,
+  renameId,
+  syncReport,
+  deriveFields,
+  prefill,
+  SpecPrefillError,
+  backfill,
+  SpecBackfillError,
 } from '../src/index';
 import type { SpecNodeKindValue, SpecStateFilterValue } from '../src/index';
 
@@ -834,8 +856,45 @@ function _runAnnotationOp(
           JSON.stringify(fromMd.document.toJson()) === current,
       };
     }
+    // The instance tier's findings as `{path, code}`: a marked typed value
+    // is read as its old value (SOM §11.9.3).
+    case 'validate':
+      return validateDocument(model, doc).map((e) => ({ path: e.path, code: e.code }));
+    // The typed reading of one value, as the typed accessors read it.
+    case 'typedRead':
+      return _typedRead(model, doc, op);
     default:
       throw new Error(`unknown annotation op ${op.op}`);
+  }
+}
+
+// The typed reading of the value at `path` / `field`: an enum by its name,
+// `int`, `double`, `num` and `bool` as numbers and booleans, null when the
+// text reads as nothing — with any inline mark rejected (its old value).
+function _typedRead(model: SpecModel, doc: SpecDocument, op: any): unknown {
+  const p: string = op.path;
+  const field: string | null = op.field ?? null;
+  const res = new SpecReflection(model).resolve(p);
+  const spec =
+    field === null || res === null || res.field === null
+      ? null
+      : (res.field.formFields.find((f) => f.name === field) ?? null);
+  const raw = field === null ? doc.content(p) : doc.formField(p, field);
+  const type = somScalarBase(spec !== null ? spec.type : (res?.field?.type ?? null));
+  const values: readonly string[] =
+    spec !== null ? spec.enumValues : (res?.field?.enumValues ?? []);
+  if (values.length > 0) return somParseEnumName(raw, values);
+  switch (type) {
+    case 'int':
+      return somParseInt(raw);
+    case 'double':
+      return somParseDouble(raw);
+    case 'num':
+      return somParseNum(raw);
+    case 'bool':
+      return somParseBool(raw);
+    default:
+      return somTypedReading(raw) ?? null;
   }
 }
 
@@ -1147,6 +1206,16 @@ function testInlineMarks(model: SpecModel, tree: SomMetaTree): void {
         `removed ${JSON.stringify(rem)} vs ${JSON.stringify(c.removed)}`,
     );
   }
+  // Typed values and headlines under review (SOM §11.9.3).
+  for (const c of table.typedCases as any[]) {
+    const name = `typedInlineMark[${c.name}]`;
+    try {
+      const got = _runAnnotationCase(model, tree, c);
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
   for (const c of table.cases as any[]) {
     const name = `inlineMark[${c.name}]`;
     try {
@@ -1181,6 +1250,16 @@ function testChangeMarks(model: SpecModel, tree: SomMetaTree): void {
           `accept ${JSON.stringify(acc)} vs ${JSON.stringify(c.accept)}; ` +
           `reject ${JSON.stringify(rej)} vs ${JSON.stringify(c.reject)}`,
       );
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
+  // Typed values and headlines written as marks (SOM §11.9.3).
+  for (const c of table.typedCases as any[]) {
+    const name = `typedChangeMark[${c.name}]`;
+    try {
+      const got = _runAnnotationCase(model, tree, c);
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
     } catch (e) {
       _check(name, false, `threw ${String(e)}`);
     }
@@ -3041,6 +3120,1010 @@ function testCodeSpecsGate(meta: any): void {
   }
 }
 
+// ---------------------------------------------------------------------------
+// The section-link readers (`link_reader_cases.json` over `links.meta.json`)
+// ---------------------------------------------------------------------------
+
+// What the readers return for `model`, in canonical JSON: every class sync,
+// every member link, every form-field qualifier, and the `@SameAs` bindings per
+// root. Classes by name, fields and form fields in declaration order (the Dart
+// test's `linkReadBack`).
+function _linkReadBack(model: SpecModel): any {
+  const names = [...model.classes.keys()].sort();
+  const refl = new SpecReflection(model);
+  const classes: any[] = [];
+  const fields: any[] = [];
+  const formFields: any[] = [];
+  for (const n of names) {
+    const cls = model.classes.get(n)!;
+    const sync = cls.syncedWith;
+    if (sync !== null) {
+      classes.push({ class: n, syncedWith: sync.toJson() });
+    }
+  }
+  for (const n of names) {
+    for (const f of model.classes.get(n)!.fields) {
+      const sync = f.syncedWith;
+      const summary = f.summaryOf;
+      const derived = f.derivedFrom;
+      const extracts = f.extractsLinks;
+      const sameAs = f.sameAs;
+      if (
+        sync === null &&
+        summary === null &&
+        derived === null &&
+        extracts.length === 0 &&
+        sameAs === null
+      ) {
+        continue;
+      }
+      const row: any = { class: n, field: f.name };
+      if (sync !== null) row.syncedWith = sync.toJson();
+      if (summary !== null) row.summaryOf = summary.toJson();
+      if (derived !== null) row.derivedFrom = derived.toJson();
+      if (extracts.length > 0) row.extractsLinks = extracts.map((e) => e.toJson());
+      if (sameAs !== null) row.sameAs = sameAs.toJson();
+      fields.push(row);
+    }
+  }
+  for (const n of names) {
+    for (const f of model.classes.get(n)!.fields) {
+      for (const ff of f.formFields) {
+        if (ff.derivedFrom === null && ff.inverseOf === null && ff.summaryOf === null) {
+          continue;
+        }
+        const row: any = { class: n, field: f.name, formField: ff.name };
+        if (ff.derivedFrom !== null) row.derivedFrom = ff.derivedFrom.toJson();
+        if (ff.inverseOf !== null) row.inverseOf = ff.inverseOf.toJson();
+        if (ff.summaryOf !== null) row.summaryOf = ff.summaryOf.toJson();
+        formFields.push(row);
+      }
+    }
+  }
+  const sameAsBindings: any[] = [];
+  for (const r of model.roots) {
+    for (const b of specSameAsBindings(refl, r.type)) {
+      sameAsBindings.push(b.toJson());
+    }
+  }
+  return { classes, fields, formFields, sameAsBindings, classCount: model.classes.size };
+}
+
+// One place case: the text parsed, then resolved under `anchor` when given.
+function _placeCase(refl: SpecReflection, c: any): any {
+  const place = SpecPlace.tryParse(c.text);
+  if (place === null) {
+    return { problem: SpecPlaceProblem.MALFORMED };
+  }
+  if (c.anchor == null) {
+    return { parsed: place.toJson() };
+  }
+  try {
+    return { parsed: place.toJson(), resolved: place.resolve(refl, c.anchor).toJson() };
+  } catch (e) {
+    if (e instanceof SpecPlaceException) {
+      return { parsed: place.toJson(), problem: e.problem };
+    }
+    throw e;
+  }
+}
+
+// One filter case: the text parsed, resolved under `anchor` when given, and
+// matched against `stored` when given.
+function _filterCase(refl: SpecReflection, c: any): any {
+  const filter = SpecPlaceFilter.tryParse(c.text);
+  if (filter === null) {
+    return { problem: SpecPlaceProblem.MALFORMED };
+  }
+  const out: any = { parsed: filter.toJson() };
+  if (Array.isArray(c.stored)) {
+    out.matches = filter.matches(c.stored.map((v: unknown) => String(v)));
+  }
+  if (c.anchor != null) {
+    try {
+      out.resolved = filter.resolve(refl, c.anchor).toJson();
+    } catch (e) {
+      if (e instanceof SpecPlaceException) {
+        out.problem = e.problem;
+      } else {
+        throw e;
+      }
+    }
+  }
+  return out;
+}
+
+// Whether the reader-case intent `token` holds in the expectation `e` (the
+// Dart test's `_readerIntentHolds`); an unknown token is `null`.
+function _readerIntentHolds(token: string, e: any): boolean | null {
+  const rows = (key: string): any[] => e[key] as any[];
+  const fieldHas = (key: string): boolean => rows('fields').some((r) => key in r);
+  const formHas = (key: string): boolean => rows('formFields').some((r) => key in r);
+  switch (token) {
+    case 'syncedWith':
+      return rows('classes').length > 0;
+    case 'syncRelationWhere':
+      return rows('classes').some((r) =>
+        (r.syncedWith.relations as any[]).some((x) => 'where' in x),
+      );
+    case 'summaryOf':
+      return fieldHas('summaryOf');
+    case 'summaryOfDocument':
+      return rows('fields').some((r) => r.summaryOf != null && 'document' in r.summaryOf);
+    case 'derivedFrom':
+      return fieldHas('derivedFrom');
+    case 'extractsLinksRepeated':
+      return rows('fields').some((r) => (r.extractsLinks || []).length > 1);
+    case 'sameAs':
+      return fieldHas('sameAs');
+    case 'formDerivedFrom':
+      return formHas('derivedFrom');
+    case 'formInverseOf':
+      return formHas('inverseOf');
+    case 'formSymmetric':
+      return rows('formFields').some(
+        (r) => r.inverseOf != null && (r.inverseOf.fields || []).includes('@self'),
+      );
+    case 'formSummaryOf':
+      return formHas('summaryOf');
+    case 'sameAsHolder':
+      return rows('sameAsBindings').some((r) => 'holder' in r);
+    case 'loadsUnchanged':
+      return (
+        e.classCount > 0 &&
+        rows('classes').length === 0 &&
+        rows('fields').length === 0 &&
+        rows('formFields').length === 0 &&
+        rows('sameAsBindings').length === 0
+      );
+    default:
+      return null;
+  }
+}
+
+// Every string a text case's expectation shows: kinds, problems, and
+// `matches` / `noMatch` (the Dart test's `_tokens`).
+function _linkTokens(e: any): Set<string> {
+  const out = new Set<string>();
+  const walk = (v: any, key: string | null): void => {
+    if (Array.isArray(v)) {
+      for (const x of v) walk(x, null);
+    } else if (v !== null && typeof v === 'object') {
+      for (const [k, x] of Object.entries(v)) walk(x, k);
+    } else if (key === 'matches' && typeof v === 'boolean') {
+      out.add(v ? 'matches' : 'noMatch');
+    } else if (typeof v === 'string' && (key === 'kind' || key === 'problem')) {
+      out.add(v);
+    }
+  };
+  walk(e, null);
+  return out;
+}
+
+// `link_reader_cases.json`: the typed readers of the link annotations, the
+// `@SameAs` holders, an older meta loading unchanged, the place grammar and
+// the filter (Dart `section_link_conformance_test.dart`, LRC3 / LRC4), then the
+// reader spot checks (LR1–LR4) and `countOf` reading the filter (CO1–CO2).
+function testLinkReaders(): void {
+  const meta = _readJson('links.meta.json');
+  const table = _readJson('link_reader_cases.json');
+  for (const c of table.cases) {
+    const name = `links.reader[${c.name}]`;
+    try {
+      const m = c.model === 'links.meta.json' ? meta : c.meta;
+      const got = _linkReadBack(SpecModel.fromJson(m));
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+    for (const token of c.intent) {
+      const holds = _readerIntentHolds(token, c.expect);
+      _check(
+        `links.reader.intent[${c.name}: ${token}]`,
+        holds === true,
+        holds === null ? 'unknown intent token' : 'does not hold',
+      );
+    }
+  }
+  const model = SpecModel.fromJson(meta);
+  const refl = new SpecReflection(model);
+  const runText = (kind: string, cases: any[], run: (c: any) => any): void => {
+    for (const c of cases) {
+      const name = `links.${kind}[${c.name}]`;
+      try {
+        const got = run(c);
+        _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+      } catch (e) {
+        _check(name, false, `threw ${String(e)}`);
+      }
+      const shown = _linkTokens(c.expect);
+      for (const token of c.intent) {
+        _check(`links.${kind}.intent[${c.name}: ${token}]`, shown.has(token));
+      }
+    }
+  };
+  runText('place', table.textCases.places, (c) => _placeCase(refl, c));
+  runText('filter', table.textCases.filters, (c) => _filterCase(refl, c));
+
+  // LR1: the class sync is read with its relations.
+  const reqs = model.classes.get('Requirements')!.syncedWith;
+  _check(
+    'links.LR1.sync',
+    reqs !== null &&
+      reqs.document === 'Detail' &&
+      _deepEqual(reqs.detailOnly, ['REQX']) &&
+      _deepEqual(reqs.heldHere, ['REQ.owner']) &&
+      reqs.relations.length === 1 &&
+      reqs.relations[0].relation === 'subset',
+  );
+  const crit = model.classes.get('Criteria')!.syncedWith;
+  _check(
+    'links.LR1.where',
+    crit !== null &&
+      crit.relations.length === 1 &&
+      crit.relations[0].where === 'CRITE.kind=functional|quality',
+  );
+  _check('links.LR1.none', model.classes.get('Blueprint')!.syncedWith === null);
+
+  // LR2: member links and the repeated @ExtractsLinks.
+  const req = model.classes.get('Requirement')!;
+  const links = req.fieldNamed('links')!.extractsLinks;
+  _check('links.LR2.modes', _deepEqual(links.map((x) => x.mode), ['generate', 'warn']));
+  _check('links.LR2.set', _deepEqual(links[0].set, { 'LNK.linkType': 'namedInText' }));
+  _check('links.LR2.copy', req.fieldNamed('abstract')!.derivedFrom?.kind === 'copy');
+  _check(
+    'links.LR2.map',
+    _deepEqual(req.fieldNamed('prerequisites')!.derivedFrom?.map, {
+      'PRE.ref': 'LNK-REF.ref',
+    }),
+  );
+  _check('links.LR2.noSummary', req.fieldNamed('links')!.summaryOf === null);
+
+  // LR3: the form-field qualifiers.
+  const ff = (cls: string, field: string, name: string) =>
+    model.classes.get(cls)!.fieldNamed(field)!.formFields.find((f) => f.name === name)!;
+  _check(
+    'links.LR3.where',
+    ff('Requirement', 'constraints', 'conflictsWith').derivedFrom?.where ===
+      'LNK.linkType=conflict',
+  );
+  _check('links.LR3.symmetric', ff('Link', 'ref', 'ref').inverseOf?.symmetric === true);
+  _check(
+    'links.LR3.notSymmetric',
+    ff('Requirement', 'trace', 'relatedScreens').inverseOf?.symmetric === false,
+  );
+  _check(
+    'links.LR3.summaryDocument',
+    ff('Blueprint', 'focus', 'focusScreens').summaryOf?.document === 'Screens',
+  );
+
+  // LR4: the real model — S1 has one holder in each document.
+  const realRefl = new SpecReflection(_loadSomModel());
+  for (const root of ['D00SolutionBlueprint', 'D10QualityAcceptancePlan']) {
+    const bindings = specSameAsBindings(realRefl, root);
+    _check(
+      `links.LR4[${root}]`,
+      bindings.length === 1 &&
+        bindings[0].className === 'AcceptanceCriteriaList' &&
+        bindings[0].problem === null &&
+        bindings[0].copyPath.endsWith('/detailedCriteria'),
+      JSON.stringify(bindings.map((b) => b.toJson())),
+    );
+  }
+
+  // CO1–CO2: countOf reads the filter, `|` included.
+  const base = 'BLU/requirements';
+  const doc = (settled: string, total = '3'): SpecDocument => {
+    const d = new SpecDocument();
+    for (const status of ['approved', 'done', 'draft']) {
+      const item = d.addListItem(`${base}/REQ-ITEM-LST`);
+      d.setFormField(`${item}/content`, 'status', status);
+    }
+    d.setFormField(`${base}/REQS-SUM`, 'total', total);
+    d.setFormField(`${base}/REQS-SUM`, 'settled', settled);
+    return d;
+  };
+  const counts = (d: SpecDocument): string[] =>
+    validateDocument(model, d)
+      .filter((e) => e.code === SpecValidationCode.COUNT_MISMATCH)
+      .map((e) => e.path);
+  const co = (name: string, got: string[], want: string[]): void =>
+    _check(name, _deepEqual(got, want), _jsonMismatch(got, want));
+  co('links.CO1', counts(doc('2')), []);
+  co('links.CO2.settled', counts(doc('3')), [`${base}/REQS-SUM`]);
+  co('links.CO2.total', counts(doc('2', '2')), [`${base}/REQS-SUM`]);
+}
+
+// `link_validation_cases.json`: each case's state loaded, then `validateLinks`
+// (`errors`) and the instance tier (`instanceErrors`), every finding as
+// `{path, code}` (Dart `section_link_conformance_test.dart`, LVC2); every case
+// shows its intent (LVC3); every link code has a provoking case (LVC4).
+function testLinkValidation(): void {
+  const table = _readJson('link_validation_cases.json');
+  const model = SpecModel.fromJson(_readJson(table.model || 'links.meta.json'));
+  const pairs = (errors: SpecValidationError[]): { path: string; code: string }[] =>
+    errors.map((e) => ({ path: e.path, code: e.code }));
+  const provoked = new Set<string>();
+  for (const c of table.cases) {
+    const name = `links.validate[${c.name}]`;
+    for (const e of c.errors) {
+      provoked.add(e.code);
+    }
+    try {
+      const doc = new SpecDocument();
+      doc.loadJson(c.state);
+      const errors = pairs(validateLinks(model, doc));
+      _check(`${name}.errors`, _deepEqual(errors, c.errors), _jsonMismatch(errors, c.errors));
+      const instance = pairs(validateDocument(model, doc));
+      _check(
+        `${name}.instanceErrors`,
+        _deepEqual(instance, c.instanceErrors),
+        _jsonMismatch(instance, c.instanceErrors),
+      );
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+    const codes = new Set<string>(
+      [...c.errors, ...c.instanceErrors].map((e: any) => e.code as string),
+    );
+    for (const token of c.intent as string[]) {
+      _check(
+        `links.validate.intent[${c.name}: ${token}]`,
+        token === 'clean' ? codes.size === 0 : codes.has(token),
+      );
+    }
+  }
+  for (const code of [
+    SpecValidationCode.DERIVED_VALUE_MISMATCH,
+    SpecValidationCode.DERIVED_LOOKUP_MISS,
+    SpecValidationCode.DUPLICATE_LINK_ROW,
+    SpecValidationCode.INVERSE_MISSING,
+    SpecValidationCode.EXTRACTED_LINK_MISSING,
+    SpecValidationCode.EXTRACTED_LINK_STALE,
+    SpecValidationCode.SUMMARY_NOT_IN_DETAIL,
+    SpecValidationCode.DETAIL_NOT_IN_SUMMARY,
+    SpecValidationCode.SUMMARY_DUPLICATE,
+    SpecValidationCode.SAME_AS_MISMATCH,
+    SpecValidationCode.LINK_VALUE_PENDING,
+  ]) {
+    _check(`links.validate.provoked[${code}]`, provoked.has(code));
+  }
+}
+
+// ---------------------------------------------------------------------------
+// The document set (`document_set_cases.json` over `links.meta.json`)
+// ---------------------------------------------------------------------------
+
+// The documents of a case, `[[name, state], …]`, as stores.
+function _setDocuments(json: any[]): [string, SpecDocument][] {
+  return json.map((e: any[]) => {
+    const d = new SpecDocument();
+    d.loadJson(e[1]);
+    return [e[0] as string, d] as [string, SpecDocument];
+  });
+}
+
+// One construction case: the set built (from fragments when `fragments`),
+// answered as its pairs and roots, or the refusal.
+function _setConstructionCase(model: SpecModel, c: any): any {
+  const docs = _setDocuments(c.documents);
+  try {
+    const set =
+      c.fragments === true
+        ? SpecDocumentSet.fromFragments(model, docs)
+        : new SpecDocumentSet(model, docs);
+    return {
+      blueprintRoot: set.blueprintRoot,
+      names: set.names,
+      roots: set.roots,
+      missingRoots: set.missingRoots,
+      pairs: set.pairs.map((p) => p.toJson()),
+    };
+  } catch (e) {
+    if (e instanceof SpecDocumentSetError) {
+      return { refused: e.toJson() };
+    }
+    throw e;
+  }
+}
+
+let _somModelCache: SpecModel | null = null;
+
+// The real model, loaded once (11 MB).
+function _somModel(): SpecModel {
+  if (_somModelCache === null) {
+    _somModelCache = _loadSomModel();
+  }
+  return _somModelCache;
+}
+
+// The model a case runs against: an inline one, the real one, or the fixture.
+function _setModelOf(fixture: SpecModel, c: any): SpecModel {
+  if (c.inline !== null && typeof c.inline === 'object') {
+    return SpecModel.fromJson(c.inline);
+  }
+  return c.model === 'som' ? _somModel() : fixture;
+}
+
+// One report case: `syncReport` over the documents, optionally scoped.
+function _setReportCase(fixture: SpecModel, c: any): any {
+  const model = _setModelOf(fixture, c);
+  const set = new SpecDocumentSet(model, _setDocuments(c.documents));
+  const pairs = Array.isArray(c.pairs) ? (c.pairs as string[]) : null;
+  return syncReport(set, { pairs }).toJson();
+}
+
+// One rename case: `renameId`, answered as its changes and the report after
+// it, or the documents that refused it.
+function _setRenameCase(model: SpecModel, c: any): any {
+  const set = new SpecDocumentSet(model, _setDocuments(c.documents));
+  try {
+    const changes = renameId(set, c.from, c.to);
+    const after = syncReport(set);
+    return {
+      changes: changes.map((x) => x.toJson()),
+      cleanAfter: after.clean,
+      findingsAfter: after.findings.filter((f) => !f.isInfo).length,
+    };
+  } catch (e) {
+    if (e instanceof SpecRenameError) {
+      return { refused: e.documents };
+    }
+    throw e;
+  }
+}
+
+// Every token a document-set expectation shows (the Dart test's `_setTokens`).
+function _setTokens(e: any): Set<string> {
+  const out = new Set<string>();
+  if (e.refused !== null && typeof e.refused === 'object' && !Array.isArray(e.refused)) {
+    out.add(e.refused.refusal);
+  }
+  if (Array.isArray(e.refused)) out.add('refused');
+  if (e.pairs != null && e.refused == null) {
+    out.add('built');
+    if (e.missingRoots.length > 0) out.add('missingRoots');
+  }
+  if (e.findings != null) {
+    if (e.clean === true) out.add('clean');
+    if (e.notStarted.length > 0) out.add('notStarted');
+    if (e.notStartedPairs.length > 0) out.add('notStartedPairs');
+    for (const f of e.findings) {
+      out.add(f.code);
+      out.add(f.resolution);
+    }
+    for (const d of e.documentFindings) {
+      for (const x of d[1]) out.add(x.code);
+    }
+  }
+  if (e.changes != null && e.changes.length > 0) out.add('renamed');
+  return out;
+}
+
+// `document_set_cases.json`: construction, reports and renames reproduced from
+// their inputs, compared as JSON (Dart `section_link_conformance_test.dart`,
+// group `document set`, DSC2); every case shows its intent (DSC3); the real
+// model pairs every synced class (DSC4).
+function testDocumentSet(): void {
+  const table = _readJson('document_set_cases.json');
+  const fixture = SpecModel.fromJson(_readJson(table.model || 'links.meta.json'));
+  const run = (group: string, f: (c: any) => any): void => {
+    for (const c of table[group]) {
+      const name = `set.${group}[${c.name}]`;
+      try {
+        const got = JSON.parse(JSON.stringify(f(c)));
+        _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+      } catch (e) {
+        _check(name, false, `threw ${e instanceof Error ? (e.stack ?? String(e)) : String(e)}`);
+      }
+      const shown = _setTokens(c.expect);
+      for (const token of c.intent) {
+        _check(`set.${group}.intent[${c.name}: ${token}]`, shown.has(token));
+      }
+    }
+  };
+  run('construction', (c) =>
+    _setConstructionCase(c.meta == null ? fixture : SpecModel.fromJson(c.meta), c),
+  );
+  run('reports', (c) => _setReportCase(fixture, c));
+  run('renames', (c) => _setRenameCase(fixture, c));
+
+  // DSC4: the real model pairs every synced class.
+  const real = new SpecDocumentSet(_somModel());
+  _check('set.DSC4.blueprintRoot', real.blueprintRoot === 'D00SolutionBlueprint', String(real.blueprintRoot));
+  _check('set.DSC4.pairs', real.pairs.length === 132, String(real.pairs.length));
+}
+
+// ---------------------------------------------------------------------------
+// deriveFields (`derive_cases.json` over `links.meta.json`)
+// ---------------------------------------------------------------------------
+
+// One derive case: `deriveFields` run twice on the case's document (the
+// second run shows idempotence), each as its result, then the findings of
+// both tiers on the document after it, and the given document after both
+// runs (unchanged on a dry run). The Dart test's `deriveCase`.
+function _deriveCase(model: SpecModel, c: any): any {
+  const doc = new SpecDocument();
+  doc.loadJson(c.state);
+  const run = () =>
+    deriveFields(model, doc, {
+      marked: c.marked ?? true,
+      author: c.author ?? null,
+      at: c.at ?? null,
+      dryRun: c.dryRun ?? false,
+    });
+  const first = run();
+  const second = run();
+  const pairs = (errors: SpecValidationError[]) =>
+    errors.map((e) => ({ path: e.path, code: e.code }));
+  return {
+    first: first.toJson(),
+    second: second.toJson(),
+    findingsAfter: pairs([
+      ...validateLinks(model, second.document),
+      ...validateDocument(model, second.document),
+    ]),
+    given: doc.toJson(),
+  };
+}
+
+// Whether the derive-case intent `token` holds (the Dart test's
+// `_deriveIntentHolds`); an unknown token is `null`.
+function _deriveIntentHolds(token: string, c: any): boolean | null {
+  const e = c.expect;
+  const changes: any[] = e.first.changes;
+  const unresolved = (code: string): boolean =>
+    (e.first.unresolved as any[]).some((u) => u.code === code);
+  switch (token) {
+    case 'nothing':
+      return changes.length === 0;
+    case 'step1':
+    case 'step2':
+    case 'step3':
+      return changes.some((x) => x.step === Number(token.substring(4)));
+    case 'rowAdded':
+    case 'rowRemoved':
+      return changes.some((x) => x.kind === token);
+    case 'marked':
+      return changes.some((x) => (x.new as string).includes('{'));
+    case 'clean':
+      return e.findingsAfter.length === 0;
+    case 'idempotent':
+      return e.second.changes.length === 0 && _deepEqual(e.second.document, e.first.document);
+    case 'unchanged':
+      return _deepEqual(e.given, c.state);
+    case 'unmarkable':
+    case 'derivedLookupMiss':
+      return unresolved(token);
+    default:
+      return null;
+  }
+}
+
+// `derive_cases.json`: every case reproduced from its inputs (Dart
+// `section_link_conformance_test.dart`, DRC2) and showing its intent (DRC3).
+function testDeriveFields(): void {
+  const table = _readJson('derive_cases.json');
+  const model = SpecModel.fromJson(_readJson(table.model || 'links.meta.json'));
+  for (const c of table.cases) {
+    const name = `derive[${c.name}]`;
+    try {
+      const got = JSON.parse(JSON.stringify(_deriveCase(model, c)));
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+    } catch (e) {
+      _check(name, false, `threw ${e instanceof Error ? (e.stack ?? String(e)) : String(e)}`);
+    }
+    for (const token of c.intent) {
+      const holds = _deriveIntentHolds(token, c);
+      _check(
+        `derive.intent[${c.name}: ${token}]`,
+        holds === true,
+        holds === null ? 'unknown intent token' : 'does not hold',
+      );
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// prefill and backfill (`prefill_cases.json`, `backfill_cases.json`)
+// ---------------------------------------------------------------------------
+
+// One prefill case: `prefill` run twice for the case's root (the second run
+// writes nothing), or its refusal; then the set's report after it. The Dart
+// test's `prefillCase`.
+function _prefillCase(model: SpecModel, c: any): any {
+  const set = new SpecDocumentSet(model, _setDocuments(c.documents));
+  const pairs = Array.isArray(c.pairs) ? (c.pairs as string[]) : null;
+  const run = (): any => {
+    try {
+      return prefill(set, c.root, { name: c.name_ ?? null, pairs }).toJson();
+    } catch (e) {
+      if (e instanceof SpecPrefillError) {
+        return { refused: e.code };
+      }
+      throw e;
+    }
+  };
+  const first = run();
+  const second = run();
+  const after = syncReport(set);
+  return {
+    first,
+    second,
+    reportAfter: {
+      countsByCode: Array.from(after.countsByCode().entries()).map(([k, v]) => [k, v]),
+      notStartedPairs: after.notStartedPairs,
+    },
+  };
+}
+
+// Whether the prefill-case intent `token` holds (the Dart test's
+// `_prefillIntentHolds`); an unknown token is `null`.
+function _prefillIntentHolds(token: string, c: any): boolean | null {
+  const e = c.expect;
+  const first = e.first;
+  const second = e.second;
+  switch (token) {
+    case 'created':
+      return first.created === true;
+    case 'filled':
+      return (first.filledPairs ?? []).length > 0;
+    case 'skipped':
+      return (first.skippedPairs ?? []).length > 0;
+    case 'derived':
+      return (first.derived?.changes ?? []).length > 0;
+    case 'idempotent':
+      return (
+        second.filledPairs.length === 0 &&
+        second.derived.changes.length === 0 &&
+        JSON.stringify(second.document) === JSON.stringify(first.document)
+      );
+    case 'agrees':
+      return (e.reportAfter.countsByCode as any[]).every((x) => !String(x[0]).startsWith('shared'));
+    case 'noBlueprint':
+    case 'unknownRoot':
+      return first.refused === token;
+    default:
+      return null;
+  }
+}
+
+// One backfill case: `backfill` run twice on the case's set (the second run
+// shows idempotence), or its refusal; then the set's report after it, and
+// the documents as the set holds them after both runs. The Dart test's
+// `backfillCase`.
+function _backfillCase(fixture: SpecModel, c: any): any {
+  const model = _setModelOf(fixture, c);
+  const set = new SpecDocumentSet(model, _setDocuments(c.documents));
+  const pairs = Array.isArray(c.pairs) ? (c.pairs as string[]) : null;
+  const run = (): any => {
+    try {
+      return backfill(set, {
+        pairs,
+        path: c.path ?? null,
+        dryRun: c.dryRun ?? false,
+        author: c.author ?? null,
+        date: c.date ?? null,
+      }).toJson();
+    } catch (e) {
+      if (e instanceof SpecBackfillError) {
+        return { refused: e.toJson() };
+      }
+      throw e;
+    }
+  };
+  const first = run();
+  const second = run();
+  const after = syncReport(set);
+  return {
+    first,
+    second,
+    reportAfter: {
+      countsByCode: Array.from(after.countsByCode().entries()).map(([k, v]) => [k, v]),
+      clean: after.clean,
+    },
+    given: set.names.map((n) => [n, set.get(n)!.toJson()]),
+  };
+}
+
+// Whether the backfill-case intent `token` holds (the Dart test's
+// `_backfillIntentHolds`); an unknown token is `null`.
+function _backfillIntentHolds(token: string, c: any): boolean | null {
+  const e = c.expect;
+  const first = e.first;
+  const second = e.second;
+  const changes: any[] = first.changes ?? [];
+  const left: any[] = first.left ?? [];
+  switch (token) {
+    case 'nothing':
+      return first.refused == null && changes.length === 0;
+    case 'value':
+    case 'elementAdded':
+    case 'elementRemoved':
+    case 'revision':
+    case 'derived':
+      return changes.some((x) => x.kind === token);
+    case 'heldHere':
+    case 'mayBeAdded':
+    case 'agent':
+      return left.some((x) => x.reason === token);
+    case 'setHasMarks':
+      return first.refused?.code === 'setHasMarks' && first.refused.places.length > 0;
+    case 'idempotent':
+      return second.changes.length === 0;
+    case 'unchanged':
+      return JSON.stringify(e.given) === JSON.stringify(c.documents);
+    case 'cleanAfter':
+      return e.reportAfter.clean === true;
+    default:
+      return null;
+  }
+}
+
+// `prefill_cases.json` and `backfill_cases.json`: every case reproduced from
+// its inputs, compared as JSON (Dart `section_link_conformance_test.dart`,
+// PFC2 / BFC2) and showing its intent (PFC3 / BFC3).
+function testPrefillBackfill(): void {
+  const groups: [string, string, (m: SpecModel, c: any) => any, (t: string, c: any) => boolean | null][] = [
+    ['prefill', 'prefill_cases.json', _prefillCase, _prefillIntentHolds],
+    ['backfill', 'backfill_cases.json', _backfillCase, _backfillIntentHolds],
+  ];
+  for (const [label, file, kase, holds] of groups) {
+    const table = _readJson(file);
+    const model = SpecModel.fromJson(_readJson(table.model || 'links.meta.json'));
+    for (const c of table.cases) {
+      const name = `${label}[${c.name}]`;
+      try {
+        const got = JSON.parse(JSON.stringify(kase(model, c)));
+        _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+      } catch (e) {
+        _check(name, false, `threw ${e instanceof Error ? (e.stack ?? String(e)) : String(e)}`);
+      }
+      for (const token of c.intent) {
+        const h = holds(token, c);
+        _check(
+          `${label}.intent[${c.name}: ${token}]`,
+          h === true,
+          h === null ? 'unknown intent token' : 'does not hold',
+        );
+      }
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// The rendition's navigation and generated parts (`link_rendition_cases.json`,
+// SOM §11.2, §11.11, §11.12): each case's document rendered with file stem
+// `links`, the rendition (its markers deleted or edited where the case says)
+// handed to the parser, and the rendition of what it staged.
+// ---------------------------------------------------------------------------
+
+// `doc` rendered as its root's rendition.
+function _rendition(
+  model: SpecModel,
+  doc: SpecDocument,
+  markers = true,
+  generated = true,
+): string {
+  const root = model.roots.find((r) => doc.hasValuesUnder(r.sectionId ?? r.type));
+  if (root === undefined) throw new Error('no root holds a value');
+  return new SpecDocumentMarkdown(model, doc, {
+    fileStem: 'links',
+    linkedMarkers: markers,
+    generatedParts: generated,
+  }).exportRoot(root);
+}
+
+// `markdown` with its `linked` marker paragraphs removed.
+function _withoutMarkers(markdown: string): string {
+  const lines = markdown.split('\n');
+  const out: string[] = [];
+  for (let i = 0; i < lines.length; i++) {
+    if (/^\[.*\]\{\.linked\}$/.test(lines[i])) {
+      if (i + 1 < lines.length && lines[i + 1] === '') i++;
+      continue;
+    }
+    out.push(lines[i]);
+  }
+  return out.join('\n');
+}
+
+// One rendition case, as the Dart test's `renditionCase` computes it.
+function _renditionCase(fixture: SpecModel, c: any): any {
+  const model = _setModelOf(fixture, c);
+  const doc = new SpecDocument();
+  doc.loadJson(c.state);
+  const markers = c.linkedMarkers ?? true;
+  const generated = c.generatedParts ?? true;
+  const markdown = _rendition(model, doc, markers, generated);
+  let given = markdown;
+  if (c.dropMarkers === true) given = _withoutMarkers(given);
+  for (const [from, to] of (c.edits ?? []) as [string, string][]) {
+    if (!given.includes(from)) {
+      throw new Error(`${c.name}: the rendition has no "${from}"`);
+    }
+    given = given.replace(from, () => to);
+  }
+  const parsed = SpecDocument.fromMarkdown(given, model);
+  const out: any = { markdown };
+  if (given !== markdown) out.given = given;
+  out.rejections = parsed.result.rejections.map((r) => r.reason);
+  out.parseMatches =
+    JSON.stringify(parsed.document.toJson()) === JSON.stringify(doc.toJson());
+  out.reemitMatches = _rendition(model, parsed.document, markers, generated) === markdown;
+  return out;
+}
+
+// Whether the rendition-case intent `token` holds in case `c` (the Dart
+// test's `_renditionIntentHolds`); an unknown token is `null`.
+function _renditionIntentHolds(token: string, c: any): boolean | null {
+  const e = c.expect;
+  const md: string = e.markdown;
+  const parsed = e.parseMatches === true;
+  const reemit = e.reemitMatches === true;
+  const edited = e.given !== undefined && e.given !== null;
+  const given: string = edited ? e.given : '';
+  switch (token) {
+    case 'alsoInHeldThere':
+      return /\[Also in \[[^\]]+\]\([^)]+\), held there/.test(md);
+    case 'alsoInHeldHere':
+      return /\[Also in \[[^\]]+\]\([^)]+\), held here/.test(md);
+    case 'heldException':
+      return md.includes(' except REQ.owner');
+    case 'summaryOf':
+      return md.includes(
+        'held there except REQ.owner; Summary of [REQ-EXPORT](#REQ-EXPORT)]{.linked}',
+      );
+    case 'summarisedIn':
+      return md.includes('Summarised in [KEY-1](#KEY-1)');
+    case 'derivedTwoFields':
+      return /Derived from (\[[^\]]+\]\([^)]+\)(, )?)+: \w+, \w+/.test(md);
+    case 'extractedFrom':
+      return md.includes('[Extracted from [REQD](#REQ-EXPORT/REQD)]{.linked}');
+    case 'copyOf':
+      return md.includes('[Copy of [CRIT](#CRIT), edit it there]{.linked}');
+    case 'copiedTo':
+      return md.includes('Copied to [CRIT](#CSUM/CRIT)');
+    case 'copyAnchors':
+      return md.includes('<a id="CSUM/CRIT/CRIT-SPEED"></a>');
+    case 'qualifiedThree':
+      return /^#+ <!--\[LNK-REF\]--> <a id="REQ-EXPORT\/LNK-1\/LNK-REF"><\/a> /m.test(md);
+    case 'markerRestored':
+      return edited && !given.includes('{.linked}') && parsed && reemit;
+    case 'handEditDiscarded':
+      return edited && given.includes('Copy of [X]') && parsed && reemit;
+    case 'emptyMarker':
+      return md.includes('[]{.linked}\n\n[To be chosen') && parsed;
+    case 'spanKept':
+      return JSON.stringify(c.state).includes('{.linked}') && parsed;
+    case 'dangling':
+      return md.includes(
+        '[Also in [BLU REQ-PRESETS](links.blu.tomspecs.md#REQ-PRESETS), held here',
+      );
+    case 'generatedTrace':
+      return md.includes(
+        '::: {.derived label="Generated from each requirement\'s traceability; ' +
+          'edit it there"}\n| Requirement | Use cases | Screens | Data entities | ' +
+          'Tests |',
+      );
+    case 'generatedCoverage':
+      return /\| Requirement \| Covered \| By \|\n\| --- \| --- \| --- \|\n\| \[FRE-REQU-TENANT-LIFECYCLE\]\(#FRE-REQU-TENANT-LIFECYCLE\) \| (yes|no) \|/.test(
+        md,
+      );
+    case 'generatedRelationships':
+      return md.includes('| Requirement | Dependency | Related requirement |');
+    case 'generatedFirst':
+      return /^## <!--\[REQCOV\]--> <a id="REQCOV"><\/a> [^\n]*\n\n(\[[^\n]*\]\{\.linked\}\n\n)?::: \{\.derived /m.test(
+        md,
+      );
+    case 'generatedOverview':
+      return md.includes('<!--[RO-TRAC]-->') && md.includes('| Requirement | Use cases | Screens |');
+    case 'generatedUseCases':
+      return md.includes('| [INEN-INTE-UC-02](#INEN-INTE-UC-02) |  | [FRE-REQU-TENANT-FEATURES](');
+    case 'generatedEditDiscarded':
+      return edited && given.includes('| Requirement | Covered |\n') && parsed && reemit;
+    case 'noGenerated':
+      return !md.includes('{.derived');
+    case 'emptyGenerated':
+      return md.includes('::: {.derived}\n:::\n\n::: {.derived}\nTraced by hand.\n:::');
+    case 'summaryRowLink':
+      return (
+        md.includes('| <a id="TOP-BETA"></a>[TOP-BETA](#TOP-BETA) |') &&
+        md.includes('| <a id="TOP-BETA"></a>TOP-BETA |')
+      );
+    case 'noMarkers':
+      return !md.includes('{.linked}') && md.includes('<a id="REQ-EXPORT/REQD"></a>');
+    case 'roundTrip':
+      return !edited && parsed && reemit;
+    case 'clean':
+      return (e.rejections as unknown[]).length === 0;
+    default:
+      return null;
+  }
+}
+
+function testLinkRendition(): void {
+  const table = _readJson('link_rendition_cases.json');
+  const model = SpecModel.fromJson(_readJson(table.model || 'links.meta.json'));
+  for (const c of table.cases) {
+    const name = `links.rendition[${c.name}]`;
+    try {
+      const got = JSON.parse(JSON.stringify(_renditionCase(model, c)));
+      for (const k of ['markdown', 'given', 'rejections', 'parseMatches', 'reemitMatches']) {
+        _check(`${name}.${k}`, _deepEqual(got[k], c.expect[k]), _jsonMismatch(got[k], c.expect[k]));
+      }
+      _check(`${name}.keys`, _deepEqual(Object.keys(got).sort(), Object.keys(c.expect).sort()));
+    } catch (e) {
+      _check(name, false, `threw ${e instanceof Error ? (e.stack ?? String(e)) : String(e)}`);
+    }
+    for (const token of c.intent) {
+      const h = _renditionIntentHolds(token, c);
+      _check(
+        `links.rendition.intent[${c.name}: ${token}]`,
+        h === true,
+        h === null ? 'unknown intent token' : 'does not hold',
+      );
+    }
+  }
+}
+
+// The schema tier finds nothing in the markers and generated parts (the Dart
+// test's RNC5, real model): each document's findings with navigation equal
+// its findings without.
+function testRenditionSchemaTier(): void {
+  const cut = _readJson('uam_requirements_cut.json');
+  const rsp = new SpecDocument();
+  rsp.loadJson(cut.rsp);
+  const sbp = new SpecDocument();
+  sbp.loadJson(cut.blueprint);
+  const isc = new SpecDocument();
+  const item = isc.addListItem('ISC/interactionCatalog/INEN-INTE-LST', 'INEN-INTE-UC-01');
+  isc.setFormField(`${item}/INTR`, 'relatedRequirements', 'FRE-REQU-TENANT-LIFECYCLE');
+  const som = _somModel();
+  for (const [doc, schemaName] of [
+    [rsp, 'requirements-specification'],
+    [sbp, 'solution-blueprint'],
+    [isc, 'interaction-scenarios'],
+  ] as [SpecDocument, string][]) {
+    const name = `links.rendition.schemaTier[${schemaName}]`;
+    try {
+      const schema = DocSpecsSchema.fromYamlText(
+        fs.readFileSync(
+          path.join(
+            _PKG_ROOT,
+            '..',
+            'tom_som_dart_v0',
+            'schemas',
+            schemaName,
+            `${schemaName}.1.0.docspecs-schema.yaml`,
+          ),
+          'utf8',
+        ),
+      );
+      const root = som.roots.find((r) => doc.hasValuesUnder(r.sectionId ?? r.type))!;
+      const findings = (navigation: boolean): [string, string[]] => {
+        const md = new SpecDocumentMarkdown(som, doc, {
+          linkedMarkers: navigation,
+          generatedParts: navigation,
+        }).exportRoot(root);
+        return [
+          md,
+          new DocSpecsValidator(schema, { tomSpecs: true })
+            .validateMarkdown(md)
+            .map((v) => `${v.rule} ${v.sectionId}`)
+            .sort(),
+        ];
+      };
+      const [md, withNav] = findings(true);
+      const [, without] = findings(false);
+      _check(`${name}.derived`, md.includes('{.derived'));
+      _check(name, _deepEqual(withNav, without), _jsonMismatch(withNav, without));
+    } catch (e) {
+      _check(name, false, `threw ${e instanceof Error ? (e.stack ?? String(e)) : String(e)}`);
+    }
+  }
+}
+
 export function main(): number {
   if (!fs.existsSync(_CORPUS) || !fs.statSync(_CORPUS).isDirectory()) {
     process.stderr.write(`corpus not found at ${_CORPUS}\n`);
@@ -3097,6 +4180,13 @@ export function main(): number {
   testGenerationUnits(model);
   testTypedValues();
   testImpactWalk();
+  testLinkReaders();
+  testLinkValidation();
+  testDeriveFields();
+  testDocumentSet();
+  testPrefillBackfill();
+  testLinkRendition();
+  testRenditionSchemaTier();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

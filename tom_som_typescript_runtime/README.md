@@ -87,6 +87,14 @@ path-link routes, version pinning, and building from source.
 | `spec_review_annotations.ts` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks (`SpecReviewAnnotations`: insert, answer, decide, comment on a change, assign comment ids, strip, validate), conflict blocks, change times and attribution; `formatCommentBlock` / `formatQuestionBlock` / `formatConflictBlock`. |
 | `spec_review_merge.ts` | Team review (SOM §11.9.8): `mergeReviews` merges the returned copies of a round into one document with votes, individual answers and conflict blocks (`SpecReviewMergeResult`, `SpecReviewMergeReport`). |
 | `spec_answers.ts` | A review round's answers (SOM §11.9.7): `extractAnswers` collects the answered questions and comments with their section-id chain and line, `renderAnswers` writes `answers.md`. |
+| `spec_place.ts` | The place and filter grammar of the links between places (`tom_specs_model_rules.md` §9.7): `SpecPlace` (parsed, resolved under an anchor to the path its value is stored at), `SpecPlaceFilter` (`<SECTIONID>.<field>=<value>`, `\|` alternatives, read by `countOf` too), the `@SameAs` bindings and section positions. The typed link readers themselves (`SpecSync`, `SpecSummaryOf`, `SpecDerivation`, `SpecInverseOf`, `SpecExtractsLinks`, `SpecSameAs`) are in `spec_model.ts`. |
+| `spec_links_validator.ts` | `validateLinks` — the link checks of one document: derived copies, rows, lookups and lists in step, inverses named back, ids named in a text with their rows, summaries against their details, `@SameAs` copies against their holders, pending changes. |
+| `spec_document_set.ts` | The documents of one specification as a set (`SpecDocumentSet`, from documents or fragments), `syncReport` (every shared fact compared across the documents that hold it, `SpecSyncReport`) and `renameId` (an id renamed in every document). |
+| `spec_derive_fields.ts` | `deriveFields` — the derived places of one document written in three steps, plain or as marked changes. |
+| `spec_backfill.ts` | `backfill` — the Phase 3 documents' accepted end state carried into the Blueprint, plain, with what it leaves and why. |
+| `spec_prefill.ts` | `prefill` — a Phase 3 document started from the Blueprint's shared sections. |
+| `spec_document_markdown_linked.ts` | The rendition's navigation: qualified anchors below a list item (SOM §11.2) and the `linked` marker of each link (SOM §11.11), removed on parse. |
+| `spec_document_markdown_generated.ts` | The rendition's generated parts (SOM §11.12): the requirement views' tables in `derived` blocks, read back as nothing. |
 | `spec_document_assembly.ts` | Fragments of one document assembled into one (`assembleSpecDocuments`, `SpecDocumentAssembly`), refusing overlapping values (`SpecAssemblyOverlap`). |
 | `spec_meta.ts` | The metadata tree types (`SomMetaTree`, `SomMetaNode`, `SomMetaKind`, …) the YAML codec and the facade navigate by. |
 | `spec_meta_bridge.ts` | `buildSomMetaTree` — the metadata tree of a model, for one root or all. |
@@ -178,6 +186,12 @@ YAML route), reflection resolution,
 validation, the imperative operations script, and the **Phase-4 CodeSpecs
 extract** tier (routing verdicts, the per-area extracts with their YAML and
 Markdown goldens, and the `ROUTE-TOTAL` error cases).
+
+It also replays the section-automation tables: the link readers, `validateLinks`,
+the document set (`syncReport`, `renameId`), `deriveFields`, `backfill`,
+`prefill`, the rendition's navigation and generated parts, and the typed inline
+marks (`typedCases`) — over the fixture model `corpus/links.meta.json` and, for
+the cases naming it, the real model of `tom_som_dart_v0/meta/`.
 
 ## Architecture
 

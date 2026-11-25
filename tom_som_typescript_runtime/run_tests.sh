@@ -39,7 +39,10 @@ rc=0
 for t in dist/tests/*.js; do
   echo "== $t =="
   "$NODE" "$t"
-  tk_result "tests/$(basename "$t" .js).ts" $?
+  # Take the status before anything else runs: a command substitution in
+  # tk_result's arguments would reset $? to its own (0) first.
+  status=$?
+  tk_result "tests/$(basename "$t" .js).ts" "$status"
 done
 
 if [ "$rc" -eq 0 ]; then

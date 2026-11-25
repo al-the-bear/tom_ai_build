@@ -219,7 +219,9 @@ function testExportFormat(): void {
   _check('export.item.container', md.includes('## <!--[D00-ITM]--> <a id="D00-ITM"></a> Items'));
   _check('export.item.1', md.includes('### <!--[items-1]--> <a id="items-1"></a> Demo Item 1'));
   _check('export.item.2', md.includes('### <!--[items-2]--> <a id="items-2"></a> Demo Item 2'));
-  _check('export.item.label', md.includes('#### <!--[D01-LBL]--> <a id="D01-LBL"></a> Label'));
+  // Below a list item the anchor is qualified (SOM §11.2).
+  _check('export.item.label', md.includes('#### <!--[D01-LBL]--> <a id="items-1/D01-LBL"></a> Label'));
+  _check('export.item2.label', md.includes('#### <!--[D01-LBL]--> <a id="items-2/D01-LBL"></a> Label'));
 
   _check('export.noSchemaDescription', !md.includes('A demo document.'));
 }

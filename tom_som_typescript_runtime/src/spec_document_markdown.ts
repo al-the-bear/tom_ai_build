@@ -52,6 +52,24 @@ import {
 } from './spec_meta';
 import { buildSomMetaTree } from './spec_meta_bridge';
 import { effectiveListItemSectionId } from './spec_section_id';
+import {
+  SpecDocumentSet,
+  SpecDocumentSetError,
+  type SpecSyncPair,
+} from './spec_document_set';
+import {
+  _Navigation,
+  _isLinkedParagraph,
+  _kLinkedPlaceholder,
+  _qualifyAnchor,
+  _resolveLinkedPlaceholders,
+} from './spec_document_markdown_linked';
+import {
+  _Generated,
+  _kDerivedPlaceholder,
+  _opensDerived,
+  _resolveDerivedPlaceholders,
+} from './spec_document_markdown_generated';
 
 /** Why an imported Markdown block was rejected (SOM §11.7 rejection protocol). */
 export const SpecMarkdownRejectReason = {
@@ -350,6 +368,18 @@ export interface SpecDocumentMarkdownOptions {
    * `docspec` declaration (SOM §11.1); the parser skips it.
    */
   readableHeader?: string | null;
+  /**
+   * Whether the `linked` marker is written after a markable heading (SOM
+   * §11.11); a stripped rendition dropping `linked` turns it off. The parser
+   * removes the marker either way. Default true.
+   */
+  linkedMarkers?: boolean;
+  /**
+   * Whether the generated parts (SOM §11.12) are written at their sections;
+   * a stripped rendition dropping `derived` turns it off. The parser removes
+   * them either way. Default true.
+   */
+  generatedParts?: boolean;
 }
 
 /**
@@ -513,6 +543,54 @@ export class SpecDocumentMarkdown {
   }
   /** The root the current export renders (the target of same-document links). */
   private _currentRoot: import('./spec_model').SpecRoot | null = null;
+  /** See {@link SpecDocumentMarkdownOptions.linkedMarkers}. */
+  readonly linkedMarkers: boolean;
+  /** See {@link SpecDocumentMarkdownOptions.generatedParts}. */
+  readonly generatedParts: boolean;
+  /** The navigation of the root the current export renders (SOM §11.11). */
+  private _nav: _Navigation | null = null;
+  /** The generated parts of the root the current export renders (SOM §11.12). */
+  private _gen: _Generated | null = null;
+
+  /** Whether a generated part stands at or beneath `path` of the current
+   *  export, which writes its heading even without a value. */
+  private _forced(path: string): boolean {
+    return this._gen !== null && this._gen.forces(path);
+  }
+
+  private _syncPairsCache: [string | null, readonly SpecSyncPair[]] | null = null;
+
+  /**
+   * The Blueprint's root and the model's anchor pairs, from the model alone;
+   * none when the model's synced positions cannot be paired.
+   *
+   * @internal
+   */
+  get _syncPairs(): [string | null, readonly SpecSyncPair[]] {
+    if (this._syncPairsCache === null) {
+      try {
+        const set = new SpecDocumentSet(this.model, []);
+        this._syncPairsCache = [set.blueprintRoot, set.pairs];
+      } catch (e) {
+        if (!(e instanceof SpecDocumentSetError)) throw e;
+        this._syncPairsCache = [null, []];
+      }
+    }
+    return this._syncPairsCache;
+  }
+
+  /**
+   * Whether `n` is a `@SameAs` copy: its member carries the annotation.
+   *
+   * @internal
+   */
+  _isCopyNode(n: SomMetaNode): boolean {
+    const member = n.memberName;
+    const parent = n.parent;
+    if (member === null || parent === null) return false;
+    const f = this.model.classNamed(parent.className)?.fieldNamed(member);
+    return (f?.sameAs ?? null) !== null;
+  }
 
   /**
    * The emitter writes the reading-view layout (SOM §11.4, §11.5): form tables
@@ -540,6 +618,8 @@ export class SpecDocumentMarkdown {
     this.headingDivs = options.headingDivs === true;
     this.readableHeader =
       options.readableHeader === undefined ? null : options.readableHeader;
+    this.linkedMarkers = options.linkedMarkers !== false;
+    this.generatedParts = options.generatedParts !== false;
   }
 
   /**
@@ -834,6 +914,8 @@ export class SpecDocumentMarkdown {
 
   private _exportRoot(root: import('./spec_model').SpecRoot): string {
     this._currentRoot = root;
+    this._nav = new _Navigation(this, root);
+    this._gen = this.generatedParts ? new _Generated(this._nav) : null;
     this._sortedKeys.clear();
     const tree = this._treeFor(root.type);
     const node = tree.root;
@@ -855,7 +937,9 @@ export class SpecDocumentMarkdown {
     );
     this._writeSectionBody(b, node, rootSeg);
     this._writeChildren(b, node, rootSeg, 2);
-    return b.toString();
+    this._nav = null;
+    this._gen = null;
+    return _resolveLinkedPlaceholders(_resolveDerivedPlaceholders(b.toString()));
   }
 
   /**
@@ -981,7 +1065,7 @@ export class SpecDocumentMarkdown {
   ): void {
     for (const [child, rel] of this._effectiveChildren(node)) {
       const path = `${basePath}/${rel}`;
-      if (!this.document.hasValuesUnder(path)) {
+      if (!this.document.hasValuesUnder(path) && !this._forced(path)) {
         continue;
       }
       const kind = child.kind;
@@ -991,7 +1075,7 @@ export class SpecDocumentMarkdown {
         kind === SomMetaKind.ENUM_VALUE
       ) {
         const value = this.document.content(path);
-        if (value === null) {
+        if (value === null && !this._forced(path)) {
           continue;
         }
         this._writeHeading(
@@ -1027,6 +1111,7 @@ export class SpecDocumentMarkdown {
           path,
           this.document.codeSpec(path),
           this.document.units(path),
+          this._writeSectionTable(new _Buffer(), child, path),
         );
         this._writeSectionBody(b, child, path);
         if (!this._writeSectionTable(b, child, path)) {
@@ -1052,7 +1137,7 @@ export class SpecDocumentMarkdown {
     depth: number,
   ): void {
     const items = this.document.listItems(listPath);
-    if (items.length === 0) return;
+    if (items.length === 0 && !this._forced(listPath)) return;
     // The container heading: its id is the list's `-LST` `@SectionId` (else the
     // member segment for a pattern-less list); its title is the member name.
     this._writeHeading(
@@ -1106,6 +1191,10 @@ export class SpecDocumentMarkdown {
         itemPath,
         this.document.codeSpec(itemPath),
         this.document.units(itemPath),
+        element !== null &&
+          element !== undefined &&
+          !element.recursive &&
+          this._writeSectionTable(new _Buffer(), element, itemPath),
       );
       if (element === null || element === undefined) {
         // Scalar list: the item's value is its body.
@@ -1299,7 +1388,13 @@ export class SpecDocumentMarkdown {
     for (let i = 0; i < items.length; i++) {
       const itemPath = items[i];
       const id = this._itemId(node, itemPath, i + 1, pattern);
-      const cells = [`<a id="${id}"></a>${id}`];
+      // A summary naming its detail element by its own id links it from
+      // the Id cell (SOM §11.5, §11.11).
+      const listPath = itemPath.substring(0, itemPath.lastIndexOf('-'));
+      const cells = [
+        this._nav?.summaryIdCell(itemPath, listPath, id) ??
+          `<a id="${this._nav?.anchorOf(itemPath) ?? id}"></a>${id}`,
+      ];
       if (withTitle) {
         cells.push(
           (doc.headline(itemPath) || '')
@@ -1325,7 +1420,8 @@ export class SpecDocumentMarkdown {
    * children's headings are not written (DP-part-renditions-4). All or
    * nothing; returns whether it was written.
    */
-  private _writeSectionTable(
+  /** @internal */
+  _writeSectionTable(
     b: _Buffer,
     node: SomMetaNode,
     path: string,
@@ -1362,7 +1458,11 @@ export class SpecDocumentMarkdown {
         if (!this._isFormOnlyItem(child, childPath, childPath, false)) {
           return false;
         }
-        addRows(`<a id="${childId}"></a>${childId}`, child, childPath);
+        addRows(
+          `<a id="${this._nav?.anchorOf(childPath) ?? childId}"></a>${childId}`,
+          child,
+          childPath,
+        );
       } else if (child.kind === SomMetaKind.LIST) {
         const element = child.elementNode;
         if (element === null || element === undefined || element.recursive) {
@@ -1385,7 +1485,8 @@ export class SpecDocumentMarkdown {
           }
           const itemId = this._itemId(child, itemPath, i + 1, pattern);
           addRows(
-            `<a id="${itemId}"></a>${childId} / ${itemId}`,
+            `<a id="${this._nav?.anchorOf(itemPath) ?? itemId}"></a>` +
+              `${childId} / ${itemId}`,
             form,
             `${itemPath}/${rel2}`,
           );
@@ -1408,7 +1509,8 @@ export class SpecDocumentMarkdown {
    * `value` as a table cell, every reference id of a `refersTo` field written
    * as a link to its section (reading view, DI-14).
    */
-  private _linkedCellText(f: SomFormFieldMeta, value: string): string {
+  /** @internal */
+  _linkedCellText(f: SomFormFieldMeta, value: string): string {
     if (f.refersTo.length === 0 || f.code) {
       return SpecDocumentMarkdown._cellText(f, value);
     }
@@ -1482,7 +1584,8 @@ export class SpecDocumentMarkdown {
    * The rendition file of the root a reference to `className` points into:
    * the root other than the current one that reaches the class, the most
    * specific (fewest classes) first, so a detailed document wins over a
-   * projection such as the Solution Blueprint.
+   * projection such as the Solution Blueprint. The CodeSpecs projection is
+   * no document anyone renders, so it is never a target.
    */
   private _fileFor(className: string | null): string | null {
     if (className === null) return null;
@@ -1490,11 +1593,23 @@ export class SpecDocumentMarkdown {
       this._currentRoot !== null ? this._currentRoot.type : null;
     const candidates = this.model.roots
       .filter(
-        (r) => r.type !== currentType && this._reachedBy(r).has(className),
+        (r) =>
+          r.type !== currentType &&
+          !(this.model.classNamed(r.type)?.isCodeSpecsProjection ?? false) &&
+          this._reachedBy(r).has(className),
       )
       .sort((a, b) => this._reachedBy(a).size - this._reachedBy(b).size);
     if (candidates.length === 0) return null;
-    const root = candidates[0];
+    return this._fileOfRoot(candidates[0]);
+  }
+
+  /**
+   * The rendition file of `root`: `<fileStem>.<root id>.tomspecs.md`, or the
+   * name {@link documentFiles} gives it.
+   *
+   * @internal
+   */
+  _fileOfRoot(root: import('./spec_model').SpecRoot): string {
     const id = root.sectionId !== null ? root.sectionId : root.type;
     const mapped =
       this.documentFiles[id] !== undefined
@@ -1724,8 +1839,36 @@ export class SpecDocumentMarkdown {
     path: string,
     codeSpec: string | null = null,
     units: string | null = null,
+    sectionTable = false,
   ): void {
     this._headingPaths.push(path);
+    // SOM §11.2: below a list item or a `@SameAs` copy the anchor is
+    // qualified; SOM §11.11: the `linked` marker follows the heading.
+    const nav = this._nav;
+    const anchor = nav !== null ? nav.anchorOf(path) : id;
+    // SOM §11.12: a generated table opens its section, after the marker.
+    const derived = (): void => {
+      const gen = this._gen;
+      if (gen === null || !gen.isPlace(path)) return;
+      const block = gen.blocks.get(path);
+      if (block !== undefined) {
+        for (const line of block) b.writeln(line);
+      } else {
+        b.writeln(_kDerivedPlaceholder);
+      }
+      b.writeln();
+    };
+    const marker = (): void => {
+      if (nav === null || !this.linkedMarkers) return;
+      const entries = nav.entries(path, sectionTable);
+      if (entries.length > 0) {
+        b.writeln(`[${entries.join('; ')}]{.linked}`);
+        b.writeln();
+      } else if (nav.markable(path)) {
+        b.writeln(_kLinkedPlaceholder);
+        b.writeln();
+      }
+    };
     let code =
       codeSpec !== null && codeSpec !== undefined && codeSpec !== ''
         ? ` codeSpec="${codeSpec}"`
@@ -1747,16 +1890,20 @@ export class SpecDocumentMarkdown {
       b.writeln(
         `<div class="heading${depth}" style="${SpecDocumentMarkdown.headingDivStyleStart}` +
           `${SpecDocumentMarkdown.headingDivIndent(depth)}em;font-weight:bold">` +
-          `<!--[${id}]${code}--> <a id="${id}"></a> ${escaped}</div>`,
+          `<!--[${id}]${code}--> <a id="${anchor}"></a> ${escaped}</div>`,
       );
       b.writeln();
+      marker();
+      derived();
       return;
     }
     b.writeln(
-      `${'#'.repeat(depth)} <!--[${id}]${code}--> <a id="${id}"></a> ` +
+      `${'#'.repeat(depth)} <!--[${id}]${code}--> <a id="${anchor}"></a> ` +
         title.replace(/\n/g, '<br>'),
     );
     b.writeln();
+    marker();
+    derived();
   }
 
   /**
@@ -1874,6 +2021,14 @@ class _Frame {
   /** For an ignored frame: the blocks of its ignored children, kept after its
    *  own block wherever that lands. */
   deferred: _KeptBlock[] = [];
+  /** The scope this heading's descendants' anchors are qualified with, and
+   *  the id of the nearest heading at or above it that is no list container
+   *  (SOM §11.2, {@link _qualifyAnchor}). */
+  anchorScope: string[] | null = null;
+  anchorSection: string | null = null;
+  /** Whether its body opened with a generated block (SOM §11.12): the
+   *  heading stands for the block, so an empty value is no rejection. */
+  generated = false;
 
   constructor(
     level: number,
@@ -2319,11 +2474,23 @@ class _Parser {
     const codeSpec = SpecDocumentMarkdown.codeSpecOf(m[2]);
     const unitIds = SpecDocumentMarkdown.unitsOf(m[2]);
     // Reading view (DI-3): an anchor equal to the section id after the id
-    // comment is the renderer's, not part of the title.
-    const title = m[3]
-      .trim()
-      .replace(new RegExp('^<a id="' + _escapeRegExp(id) + '"></a>\\s*'), '')
-      .replace(/<br>/g, '\n');
+    // comment, or to its qualified form (SOM §11.2), is the renderer's, not
+    // part of the title.
+    const rawTitle = m[3].trim();
+    const titleWith = (anchor: string): string =>
+      rawTitle
+        .replace(
+          new RegExp(
+            '^<a id="(?:' +
+              _escapeRegExp(id) +
+              '|' +
+              _escapeRegExp(anchor) +
+              ')"></a>\\s*',
+          ),
+          '',
+        )
+        .replace(/<br>/g, '\n');
+    const title = titleWith(id);
 
     if (this._stack.length === 0) {
       this._openRoot(level, id, title, codeSpec, unitIds, lineNo);
@@ -2360,9 +2527,18 @@ class _Parser {
     // 1. Under a `-LST` container frame (SOM §11.2), every child heading is one
     //    of that list's items — resolved positionally, not by the schema tree.
     if (pNode.kind === SomMetaKind.LIST) {
-      this._openItemHeading(
-        level, parent, pNode, id, title, codeSpec, unitIds, lineNo,
+      const [anchor, scope] = _qualifyAnchor(
+        parent.anchorScope,
+        parent.anchorSection,
+        id,
+        { item: true },
       );
+      this._openItemHeading(
+        level, parent, pNode, id, titleWith(anchor), codeSpec, unitIds, lineNo,
+      );
+      const last = this._stack[this._stack.length - 1];
+      last.anchorScope = scope;
+      last.anchorSection = id;
       return;
     }
 
@@ -2376,6 +2552,14 @@ class _Parser {
     for (const [c, rel] of effective) {
       if (this.codec._headingIdOf(c) === id) {
         const path = `${parent.path}/${rel}`;
+        const container = c.kind === SomMetaKind.LIST;
+        const [anchor, scope] = _qualifyAnchor(
+          parent.anchorScope,
+          parent.anchorSection,
+          id,
+          { container, copy: !container && this.codec._isCopyNode(c) },
+        );
+        const title = titleWith(anchor);
         if (title && title !== SpecDocumentMarkdown._titleOf(c)) {
           this.headlines[path] = title;
         }
@@ -2388,7 +2572,10 @@ class _Parser {
         if (unitIds) {
           this.units[path] = unitIds;
         }
-        this._stack.push(new _Frame(level, c, path, lineNo));
+        const frame = new _Frame(level, c, path, lineNo);
+        frame.anchorScope = scope;
+        frame.anchorSection = container ? parent.anchorSection : id;
+        this._stack.push(frame);
         return;
       }
     }
@@ -2496,6 +2683,7 @@ class _Parser {
           this.units[seg] = unitIds;
         }
         const frame = new _Frame(level, tree.root, seg, lineNo);
+        frame.anchorSection = seg;
         // Text before the root heading is kept at the start of its text.
         for (const b of this._orphans) frame.kept.push([0, b, 0]);
         this._orphans = [];
@@ -2564,6 +2752,62 @@ class _Parser {
     return itemPath;
   }
 
+  /** The navigation of each root parsed, for its markable places. */
+  private _navs = new Map<string, _Navigation>();
+
+  private _navFor(frame: _Frame): _Navigation | null {
+    const seg = frame.path.split('/')[0];
+    const root = this.codec.model.roots.find((r) => (r.sectionId ?? r.type) === seg);
+    if (root === undefined) return null;
+    let nav = this._navs.get(root.type);
+    if (nav === undefined) {
+      nav = new _Navigation(this.codec, root);
+      this._navs.set(root.type, nav);
+    }
+    return nav;
+  }
+
+  /**
+   * Removes the `linked` marker (SOM §11.11): the first paragraph of the
+   * body of a markable heading when it is one `linked` span. Its lines are
+   * blanked, not removed, so the body indices kept blocks refer to hold.
+   */
+  private _stripLinkedMarker(frame: _Frame): void {
+    const nav = this._navFor(frame);
+    if (nav === null || !nav.markable(frame.path)) return;
+    const body = frame.body;
+    let k = 0;
+    while (k < body.length && body[k].trim() === '') k++;
+    let end = k;
+    while (end < body.length && body[end].trim() !== '') end++;
+    if (end === k || !_isLinkedParagraph(body.slice(k, end).join('\n'))) {
+      return;
+    }
+    for (let i = k; i < end; i++) body[i] = '';
+  }
+
+  /**
+   * Removes a generated part (SOM §11.12): the first block of a generated
+   * place's body, after its marker, when it is a `derived` block. Its lines
+   * are blanked, as the marker's are.
+   */
+  private _stripGenerated(frame: _Frame): void {
+    const nav = this._navFor(frame);
+    if (nav === null) return;
+    if (!new _Generated(nav).isPlace(frame.path)) return;
+    const body = frame.body;
+    let k = 0;
+    while (k < body.length && body[k].trim() === '') k++;
+    if (k >= body.length || !_opensDerived(body[k])) return;
+    const fence = /^ {0,3}(:{3,})/.exec(body[k])![1];
+    const close = new RegExp(`^ {0,3}:{${fence.length},}[ \t]*$`);
+    let end = k + 1;
+    while (end < body.length && !close.test(body[end])) end++;
+    if (end >= body.length) return; // unclosed: the value's, reported there
+    for (let i = k; i <= end; i++) body[i] = '';
+    frame.generated = true;
+  }
+
   private static _isValueLeaf(kind: SomMetaKindValue): boolean {
     return (
       kind === SomMetaKind.CONTENT ||
@@ -2580,6 +2824,9 @@ class _Parser {
       return;
     }
     const node = frame.node;
+    // A scalar list item's frame has no node; it is markable all the same.
+    this._stripLinkedMarker(frame);
+    this._stripGenerated(frame);
     if (node !== null && node.kind === SomMetaKind.FORM) {
       this._finalizeForm(frame, node, frame.path);
       return;
@@ -2623,7 +2870,7 @@ class _Parser {
       }
       if (value) {
         this.content[frame.path] = value;
-      } else if (node !== null && _Parser._isValueLeaf(node.kind)) {
+      } else if (node !== null && _Parser._isValueLeaf(node.kind) && !frame.generated) {
         this.rejections.push(
           new SpecMarkdownRejection(
             frame.line,
@@ -2740,9 +2987,12 @@ class _Parser {
     return f.code ? _decodeCodeSpan(text) : text;
   }
 
-  /** A cell's id with the renderer's anchor (`<a id="X"></a>X`) removed. */
+  /** A cell's id with the renderer's anchor (`<a id="X"></a>X`) removed and
+   *  a link the cell is read as its text (`[X](<file>#X)`, SOM §11.5). */
   private static _cellId(cell: string): string {
-    return cell.replace(/^<a id="[^"]*"><\/a>\s*/, '');
+    const id = cell.replace(/^<a id="[^"]*"><\/a>\s*/, '');
+    const m = /^\[([^\]]+)\]\([^)\s]*\)$/.exec(id);
+    return m !== null ? m[1] : id;
   }
 
   /** The fields given so far per form path, for the given-twice rule. */

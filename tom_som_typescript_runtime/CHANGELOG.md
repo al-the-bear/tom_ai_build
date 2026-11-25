@@ -2,6 +2,21 @@
 
 ## 1.13.0
 
+- **Section automation**, the port of the Dart runtime (`tom_specs_model_rules.md`
+  §9.7): the typed link readers in `spec_model.ts`; `SpecPlace` and
+  `SpecPlaceFilter` (`spec_place.ts`, `|` alternatives read by `countOf` too);
+  `validateLinks`; `SpecDocumentSet`, `syncReport` and `renameId`;
+  `deriveFields`, `backfill` and `prefill`; typed values and headlines under
+  review read as their old value until decided (`somTypedReading`, SOM
+  §11.9.3); the rendition's qualified anchors, `linked` marker and generated
+  parts (SOM §11.2, §11.11, §11.12), and the strip kinds `linked` and
+  `derived`. The runner replays `link_reader_cases.json`,
+  `link_validation_cases.json`, `document_set_cases.json`, `derive_cases.json`,
+  `backfill_cases.json`, `prefill_cases.json`, `link_rendition_cases.json` and
+  the `typedCases`.
+- **`run_tests.sh` reports a failing test.** It read `$?` after a command
+  substitution in the same command, which reset it to `0`, so the suite
+  passed whatever its tests returned.
 - **Section order and unique id paths in the DocSpecs validator** (SOM §14,
   the DocSpecs specification's Validation Rules 3 and 5): two new rules,
   `sectionOutOfOrder` (the root's children follow `document: sections:`; a
