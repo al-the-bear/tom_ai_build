@@ -87,7 +87,7 @@ Ids are never renumbered and keep their meaning. An item added later takes the n
 >
 > *Assumption until answered:* the structure stays as it is: the adverbs stay in their items and nothing is moved to `SCO > SCO-LATER`; no "serves" line is written; restating `NFR` items stay and agree in wording with the items they restate; no item is split.
 >
-> **Answer:**
+> **Answer (2026-11-26T05:42+01:00):** (a)
 
 ## <!--[SRC]--> 1 Sources
 
@@ -488,7 +488,7 @@ not used, or only in the sense named there.
 >
 > *Assumption until answered:* the glossary's entries old extension, new extension, copy point, swap, parallel period, team and team runtimes stand as written; the ten words keep one entry each as they stand, and the items write the word with its qualifier where the sense is not plain; "change-branch mode" stays as the second name of worktree mode.
 >
-> **Answer:**
+> **Answer (2026-11-26T05:50+01:00):** Try to guess the correct meaning from the context and suggest an extended glossary/terminology for this specification. Unfortunately it's hard for me to be strict with it, too, but I think you can. In future rounds here you might want to double check my answers if the terms used introduce ambiguities. Maybe the glossary should mention what other terms are frequently used by the user (by me). Make sure we use our terms cleanly in the actual document and the specification. Try to "translate" my words into the correct terms if I'm not so exact with it, ask if in doubt.
 
 ## <!--[SCO]--> 5 Scope
 
@@ -551,7 +551,8 @@ The specification's root is `tom_ai/ai_build/specification/`.
 >
 > *Assumption until answered:* as (b): `SCO > SCO-OUT` O-4 says the VS Code language-model transport stays in the old extension only; the new extension has no Telegram (D-6, L-9); nothing in the Project Idea says the new extension keeps or drops the script server, and CL.10 stands; SC-19 and SC-28 stand as written.
 >
-> **Answer:**
+> **Answer (2026-11-26T05:54+01:00):** The runtime doesn't have (1) - (3), but it must get support for the team review and personal review features planned in Webwork. There are also a lot of new planned views for agent collaboration etc. (caf* todos) which will be part of the "old extension" soon. AI runtime must replace the old extension in the state it is in then.
+> Should we just wait with this specification until the features have all been built?
 
 - **O-5** A port of the engine to another language. The runtime is
   {~~TypeScript; other languages get client SDKs. (S1 § 4, § 12.1)~>TypeScript; other languages get client SDKs. (<- S1 § 4, § 12.1)~~}
@@ -744,7 +745,7 @@ it, attaches to it and shows what it does. {~~(S1 § 4, § 5; FO-1)~>(<- S1 § 4
 >
 > *Assumption until answered:* CR.1 keeps its text; CR.112 names the old engine as a writer during the parallel period; no item speaks of fixtures or of a rule for other writers, and none says that the runtime commits or pushes.
 >
-> **Answer:**
+> **Answer (2026-11-26T06:03+01:00):** (b), the should be a "AI Runtime State SDK" or so, that allows to write to the various parts of the runtime files and directories in a way that consistent file formats are ensured, for anything that's not already having an API, like the todo model. What is part of this SDK must be decided as part of this specification. For the transition period we'll either write all in a common format (and maybe upgrade the old extension if needed to follow the new extension) or we use the old extension only in old format workspaces (meaning the new runtime would probably run in a test copy of the current runtime until it is ready). So in the end we need a sound migration and test/development strategy here plus an SDK for other programs to interact with the workspaces in a controlled fashion, e.g. for reading and writing todo files, but the are a lot more files. Probably we'll introduce a tom_runtime_model package which has all the data models for all parts of the ai runtime (excluding the todo model, which is separate) and readers/writers for them. This would have start with Dart + TS/JS implementations of it and get extended to the nine languages at the end of the development phase, with cross-language alignment test just as we've done in tom_specs.
 
 - **CR.2** It reads and writes the stores of a quest and a workspace: quests,
   todos (with groups, due dates, follow-ups and blockers in other quests),
@@ -803,7 +804,7 @@ it, attaches to it and shows what it does. {~~(S1 § 4, § 5; FO-1)~>(<- S1 § 4
 >
 > *Assumption until answered:* CR.61 writes the level "the host's choice for this runtime" and CR.121 writes night mode with "who switches it on, and for which of a person's runtimes, is open (PQ-35)". The quest refresh, the stored prompt and `prerequisites.yaml` are named only in this question.
 >
-> **Answer:**
+> **Answer (2026-11-26T06:12+01:00):** (b), we should devise a better strategy for the quest refresh, so we don't get overlapping writes into the quest files maintained in the quest refresh. Probably the quest refresh should first get the updates from remote before it writes again to get updates already made in other windows. The window reload prompt will probably become a general "application started" prompt and we should decide how it is handled. Probably it should be sent to all sessions on application start, but per quest - it's probably only needed in the ai runtime development quests. Night mode is definitely per user and ideally across all machines (probably asking the user first as night mode might also mean the user is away, but he might have one machine or a tablet with him).
 
 - **CR.58** Plan mode is per run: while it is on for a run, every writing tool is refused on every transport, and reading and asking work. Only the user ends it; a prompt that ends while its plan is proposed leaves plan mode on. {~~(S23: vscimpb81)~>(<- S23: vscimpb81, ccparity_c_transports-3)~~}
 - **CR.59** Instruction files are found from the workspace folder: an agent transport is started with the workspace folder as its working directory, and for a model transport the runtime collects the instruction files by the same rules (the root's, then the workspace folder's, imports followed). {~~(S12; S27, `workspace_layout.md` § 6)~>(<- S12; S27: `workspace_layout.md` § 6; S23: ccparity_d_claudecode-4, gsel18)~~}
@@ -838,7 +839,7 @@ it, attaches to it and shows what it does. {~~(S1 § 4, § 5; FO-1)~>(<- S1 § 4
 >
 > *Assumption until answered:* N-10, T2, CR.44, CA.6, CA.19, CP.5 and CR.106 keep their text; CR.112 says the old engine and the runtime work on one `_ai` folder, and whether on the same quest is open; no item says where queue entries live.
 >
-> **Answer:**
+> **Answer (2026-11-26T06:25+01:00):** (b), I think we'll need a ai runtime service to be installed on every machine so we connect host -> ai runtime -> ai runtime service -> tac, runtime holds the host state, service coordinates the runtimes on a single machine and tac coordinates multiple machines (in the service/server implementation of tac, tac is the abstraction hiding if we run internetworked, local network/git or local). Maybe it is easier to just say we have always a locally installed service which knows about hosts and quests and keep the state of them and if I connect to a quest I see just the same as the other hosts (what host1 queues appears in the view of host2). Some of the state is per host, like night mode. Think it through and make proposals.
 
 - **CR.60** One host can have a runtime without a quest and runtimes that serve quests at the same time; a run that is bound to a quest's folder runs in that quest's runtime. Any host can start a quest's runtime, not only a workbench. {~~(S25: 12a_woneb1; `NFR > NFR-TOPO`, T2; CR.42)~>(<- S25: 12a_woneb1) (-> T2, CR.42)~~}
 - **CR.7** A runtime belongs to exactly one person. This is stated for a host on the user's machine; whose runtime runs behind the web runtime service is open (PQ-38).
@@ -923,7 +924,7 @@ it, attaches to it and shows what it does. {~~(S1 § 4, § 5; FO-1)~>(<- S1 § 4
 >
 > *Assumption until answered:* `RT-QUEUE` names only the process-step marker (CR.123) and CW.13's pause request; no control, wait, notify or barrier item is written.
 >
-> **Answer:**
+> **Answer (2026-11-26T06:40+01:00):** (c), I think we'll have to look at every item separately and probably add options to control how they work. But in general the ai runtime extends the currently local-only, one-host-per-quest model to a multi-machine setup and we must think through how we handle this. We might also extend the rules about quests to say that there is only one shared state across all participants for a single quest, so if some other user connects to a quest he'd see the runs and item etc. just the same as other users connected to the same quest. However, we've introduced the resource locking etc. so it should actually be possible to work in parallel, even though I avoided it. I get the impression that we're coming to an important philosophy question here.
 
 - **CR.65** An item bound to a todo does more than a prompt: the todo's record is appended to the prompt; the todo is set to in progress when the item is sent and put back when the send fails; and its completion is checked (CR.82). {~~(S23: vscimpb127)~>(<- S23: vscimpb127, dapieff8, dapieff9)~~}
 - **CR.66** A group item walks the members of a group todo in their order, and the user or an agent can choose which of the members still to come are sent; members of another quest are not walked. One walk engine serves prefix, todo and group items. {~~(S23: vscimpb127, vscimpb125)~>(<- S23: vscimpb127 … vscimpb129, vscimpb125)~~}
@@ -1165,7 +1166,7 @@ it, attaches to it and shows what it does. {~~(S1 § 4, § 5; FO-1)~>(<- S1 § 4
 >
 > *Assumption until answered:* CR.40 … CR.43 and N-24 name no source of Node and no installer besides the host; CR.29 and D-16 keep their text; CR.142 says the new extension runs the runtime in its own process, as G-1 and CP.14 say.
 >
-> **Answer:**
+> **Answer (2026-11-26T06:41+01:00):** (b)
 
 - **CR.41** Versions are installed side by side, each in a folder of its
   own, with a pointer `current` to the newest. A running runtime keeps its
@@ -1219,7 +1220,7 @@ it, attaches to it and shows what it does. {~~(S1 § 4, § 5; FO-1)~>(<- S1 § 4
 >
 > *Assumption until answered:* The text says "web runtime service" where it said "runtime host server". CR.46's statements on how it works (one runtime per connected application, ending with the connection, the service as the host) and CR.110 (how it checks an application and reaches tac) are kept and marked as assumed. CR.7, CS.1 and CR.40 are stated for a host on the user's machine. Beside the unit G-10, no deliverable or user group is added for the service.
 >
-> **Answer:**
+> **Answer (2026-11-26T06:54+01:00):** I think for mobile devices or "roaming mode" we either work directly on the same machine or we have a runtime we can reconnect to in case the application stopped or we lost network connection. In both cases the host state is kept and we can continue once connectivity is reestablished, so the usage experience would be almost the same, only mobile devices actually doing the work on the server only, the host only being a reviewer of the runtime it connects to.
 
 - **CR.110** The web runtime service reaches tac only through the runtimes it starts. It checks a connecting application against its own configuration, or by starting the runtime, which then presents the user's team token. Assumed until PQ-38 is answered. {~~(PQ-26)~>(-> PQ-26)~~}
 - **CR.109** Open for a runtime behind the web runtime service (PQ-38): whose it is, where its settings, its secrets, its runtime installation and its clones are, how long it lives, and who operates the service. The Solution Blueprint describes the service, its deliverables and who uses it once that is answered; `NFR > NFR-GEN`, G-10 names it as a unit already.
@@ -1477,7 +1478,7 @@ An ask must not get lost: it is escalated, and it can be seen for as long as it 
 >
 > *Assumption until answered:* leases are held "for as long as the todo is executed" (CW.5); CP.21 names the leases as open.
 >
-> **Answer:**
+> **Answer (2026-11-26T06:54+01:00):** (b)
 
 - **CP.41** A run has at most one open ask at a time, whatever its kind: a question, a pick, an ask in a document, the proposal of a plan. A second ask from the same run while the first is open is refused, not queued. Asks of different runs are open at the same time and are answered in any order. {~~A tool approval belongs to the execution whose tool call waits. (S23: vscimpb81; PQ-24)~>A tool approval belongs to the execution whose tool call waits. (<- S23: vscimpb81) (-> PQ-24)~~}
 - **CP.42** An ask belongs to the execution of its item. When that execution is ended (stop, resend, skip, a hard interrupt), every wait it is blocked in ends at once, on every transport: a question and a pick close unanswered, an approval counts as denied, a plan as not accepted, and the tool answers that the prompt was ended. An answer given after that is not delivered, and the ask closes for everyone it was shown to {~~or escalated to. (S23: vscimpb78, vscimpb33)~>or escalated to. (<- S23: vscimpb78, vscimpb33)~~}
@@ -1509,7 +1510,7 @@ An ask must not get lost: it is escalated, and it can be seen for as long as it 
 >
 > *Assumption until answered:* CR.55 keeps its text (per host and quest); CP.8 names neither question blocks nor prompt buttons.
 >
-> **Answer:**
+> **Answer (2026-11-26T06:55+01:00):** (b)
 
 Asking a person outside the team is deferred (`SCO > SCO-LATER`, L-3).
 
@@ -1568,7 +1569,7 @@ A runtime update often comes with a new format of the workspace and quest
 >
 > *Assumption until answered:* CP.29, CP.32, CP.33 and F12 keep their text; CP.29 names the format during the parallel period and the time of a migration as open; CR.112 says the same.
 >
-> **Answer:**
+> **Answer (2026-11-26T07:00+01:00):** (b), actually the old extension has just reached format version 11. Once I finish this review the workspace will be migrated. I will also finish the open todos in the vscode extension quest before actually finalizing this specification, so we have a well-defined and hopefully complete feature set for a first version. We might still get version 12 during the remaining todos, but once we started implementing the runtime we'll have a specific version from which we start. If we then need a new version both the runtime and the old extension must support it. Currently the extension detects and upgrade and quits working in a window that has not been updated, forcing the user to reload to get the latest version. We need a similar mechanism.
 
 - **CP.30** The aim is that the protocol and the formats become very stable
   {~~after a while. (S1 § 6.7, DQ-9)~>after a while. (<- S1 § 6.7) (-> DQ-9)~~}
@@ -1655,7 +1656,7 @@ CP.24 … CP.27 are stated for a host that carries a runtime. What of them holds
 >
 > *Assumption until answered:* CL.1, CL.3, CL.7 and G-5 keep nine languages, with TypeScript and JavaScript counted as two; CL.1 names the point as open.
 >
-> **Answer:**
+> **Answer (2026-11-26T07:00+01:00):** (b), we do the same split as we do in tom_specs/the SOM runtime.
 
 - **CL.2** In each of the nine languages there are two client SDKs, each in a package of its
   own: the **runtime client SDK**, which speaks the runtime protocol, and the
@@ -1691,7 +1692,7 @@ CP.24 … CP.27 are stated for a host that carries a runtime. What of them holds
 >
 > *Assumption until answered:* N-29 says where the JavaScript / TypeScript web runtime client SDK is published is open. CL.12 names three client SDKs: the runtime client SDK and the tac client SDK in nine languages, and the web runtime client SDK in Dart and in JavaScript / TypeScript, with no package name and no place. CL.4 … CL.9 are stated for the first two. CU.1 keeps "over the Dart runtime client SDK" and says that it is open over which SDK the components work on the web, iOS and Android. CP.1 says the wire to the web runtime service is HTTP-based and that events and reverse requests over it are open. `NFR > NFR-GEN` names it as two units (G-8, G-9) without a package or a place.
 >
-> **Answer:**
+> **Answer (2026-11-26T07:03+01:00):** (b), the web version of a host needs to see the exact same API as a locally running host, it's the same code base, just connecting via HTTP as this is the only thing the browser allows. If we change the architecture fundamentally that might change though, but now this is how it is.
 
 {~~- **CL.3** The places (S1 § 12.1; S2 § 5, FO-11):~>- **CL.3** The places (<- S1 § 12.1; S2 § 5) (-> FO-11, D-1):~~}
 
@@ -1775,7 +1776,7 @@ CP.24 … CP.27 are stated for a host that carries a runtime. What of them holds
 >
 > *Assumption until answered:* CU.1, CU.3, CU.5 and CU.6 keep their text; CU.5 names the point as open. E-20 states the three packages as built over other backends, and Webwork keeps `tom_ai_trail_ui` until its wave 1b2.
 >
-> **Answer:**
+> **Answer (2026-11-26T07:10+01:00):** (b), consider the existing packages as input, but we're basically migrating the current vs code extension to Flutter. I also changed the structure of tom_forge in the meantime, so I think we'll add the data model of the runtime to tom_modules and create a new repo tom_ai_modules for forge modules to build UIs for the ai runtime as forge applications easily, basically extending the tom_forge kit with more ui modules. Using tom forge as a basis brings a lot of advantages, as certain aspects like configuration, integration, undo/redo and more aspects are covered already. We can extend and change tom_forge as part of this quest to make this all fit together. Webwork will be (re-)implemented AFTER the ai runtime has been created. You don't need to respect any existing packages, but you can plan replacing anything, but I need to be asked.
 
 {~~- **CU.6** The component groups (S1 § 12.2):~>- **CU.6** The component groups (<- S1 § 12.2):~~}
 
@@ -1828,7 +1829,7 @@ CP.24 … CP.27 are stated for a host that carries a runtime. What of them holds
 >
 > *Assumption until answered:* CU.6's Review and Messaging groups, CU.9, CU.16, SC-18, SC-27, CK.2, G-6 and R-19 keep their text; CU.9 names the two routes the other quests plan, the page protocol and its planned navigation, and says the place is open; CU.16 names `tom_messaging_ui` and says the place is open.
 >
-> **Answer:**
+> **Answer (2026-11-26T07:14+01:00):** (b), the ai runtime sdk must provide what webwork needs to build these ui, though. Maybe it is better to plan them as part of the AI runtime now that I decided to actually integrate everything into tom forge (and base tom_forge on tom_core). As the API and the views are typically closely related this might be the best solution and webwork gets well-integrated components to use in the team review and review areas.
 
 - **CU.16** What Webwork needs of the messaging components: the kinds of attachment, the kinds of card and the actions on a card come from the host (attaching a file, an item, a section or a document; on the card of a received copy: open, save into, merge, remind me, make a todo); the conversation list, the conversation and the composer are separate components, so that a host lays them out narrow, full or as two screens (CU.15); and they show the states of `TAC > TAC-DOCS`, CV.9. How the components take what the host supplies is for the Solution Blueprint. The components are Flutter components; the messaging views of the VS Code extension are the extension's own (`SCO > SCO-OUT`, O-1). {~~(S25: 13_woneb7 … 13_woneb9, planned; `TAC > TAC-KINDS`, CM.3; PQ-30)~>(<- S25: 13_woneb7 … 13_woneb9, planned) (-> CM.3, PQ-30)~~} {++Webwork plans these components as a module `tom_messaging_ui` in `tom_modules`, outside this product; whether the Messaging group is built here or there is open (PQ-43). (<- S29: C21, Q-8)++}
 - **CU.17** A run that waits or is held says so wherever it is shown. The run tab, the runs overview, the queue and the supervision components show the state of the run (`RT > RT-QUEUE`, CR.23), what it waits for or is held by (an ask, a lease another execution has, a secret to unlock, a time or an event, its own background work, a result to apply or discard, a blocked todo, open decisions, an error) and {~~since when. (PQ-24; S23: vscimpb123, vscimpb124)~>since when. (<- S23: vscimpb123, vscimpb124) (-> PQ-24)~~}
@@ -2055,7 +2056,7 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
 >
 > *Assumption until answered:* the text writes resource names with `git:` as CA.10 says; CA.10 records that the extension plans its own notation; CA.17's example is a classic quest in the `_ai` state's repository; CS.7, CM.12 and CW.18 keep their own forms.
 >
-> **Answer:**
+> **Answer (2026-11-26T07:18+01:00):** (c), in general we're moving with the extension for now, as the extension will be updated first, then the ai runtime gets split out. This gives the vscode extension the lead until the implementation of the ai runtime starts, which is after the current todos (and queued prompts) in vscode extension are done (probably plus some smaller additions on top).
 
 - **CA.11** Two `git:` resources **overlap** when they name the same repository and
   one is the whole repository, or when they name parts of one repository
@@ -2092,7 +2093,7 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
 >
 > *Assumption until answered:* no `caf_*` feature is written as a runtime item; CA.10 and CA.11 say that the extension plans a notation and leases of its own and that this is open (PQ-45, PQ-63); `CON` records the conflict (X-22).
 >
-> **Answer:**
+> **Answer (2026-11-26T07:22+01:00):** (a), we may improve on what the extension is planning, though. So if we have a better lease management we should plan it as another option, but for interoperability we'll need the extension's solution, too. But I did create the new collaboration features to outline the scope of what the ai runtime must cover, too. The vs code extension is the minimum requirements for the ai runtime, the ai runtime must add networked and multi-user and team features, typically in a way that the old extension can still work on top, just without using the features (but we add them there, too, in the "new extension").
 
 > **❓ PQ-46 (2026-11-25T20:05+01:00) — the lease rules: integration lease, fencing at the push, and the extension's lease table:** How does the integration step of worktree mode get its lease while others work in the same repository, who checks the fencing token when the result is pushed to a repository server that knows no token, and do tac's leases or the extension's planned lease table in the repository's remote hold them?
 >
@@ -2111,7 +2112,7 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
 >
 > *Assumption until answered:* CA.11, CA.13, CA.14, CW.5 and F8 keep their text; CA.11 says the lease rules are open and that the extension plans leases of its own (PQ-63); CA.14 says the check at the push is open.
 >
-> **Answer:**
+> **Answer (2026-11-26T07:29+01:00):** (d) + (b). We need to include the integration leases to give feature branch integration priority. This will probably be a different way of waiting for the claim to be full-filled: once a prompt is waiting for an integration lease, no new leases on the same repo will be granted, so the leases get freed once the parallel work has finished and the integration lease can be given to the prompt waiting for integration. I'd recommend to work on a single repo only either in worktree mode or in "main mode", not mixed, but we need to be prepared for mixed use.
 
 - **CA.12** A **claim** is the attempt to get leases: it is answered with
   leases on all the resources it names, or with none. When one is held, the
@@ -2210,7 +2211,7 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
 >
 > *Assumption until answered:* the text says that a team on the GitHub backend shares leases and endpoints through the coordination repository and that what else it has is open; CA.4 and CA.15 are stated for the local backend and the tac server; CI.5 … CI.10, CI.14, CI.15, CI.20 and CS.4 are stated for a tac server.
 >
-> **Answer:**
+> **Answer (2026-11-26T07:35+01:00):** (b), what is stored in the coordination repo is totally up to the ai runtime implementation and doesn't have to be decided here in the project idea in detail. The target of the git based tac is provide a simple setup for people who are working on the same VPN using a git on the VPN or on the internet without a shared server for a tac service. A tac service might use a database instead (or remain file-based).
 
 - **CA.27** The tac server is the full tac server from the start: accounts, access
   keys kept as salted hashes, quotas per account, the administration
@@ -2255,7 +2256,7 @@ local mode (`LAND > LAND-BUILT`, E-3); this section states what tac is to be.
 >
 > *Assumption until answered:* CA.31, CA.32, CR.38 and T1 keep their text, with a pointer here.
 >
-> **Answer:**
+> **Answer (2026-11-26T07:42+01:00):** Using the local tac is like what the vscode extension will do after the currently todos have been implemented. Git-based and server-based tac will provide the additional features we're planning for the ai runtime, these will be turned off in the local tac implementation (unless we find easy solutions). Use of leases and coordination are becoming standard features of the vscode extension and don't need to be turned off anymore. So I think this boils down to the choice of tac running on a machine/a machine is connecting to. And we've introduce the remote runtimes already, which would offer another way of doing this. I think remote runtimes can only use the tac server or the git-based tac.
 
 - **CA.32** When the backend cannot be reached, nothing falls back on its
   own: the runs of the team runtimes are held after their current item, and the tac client
@@ -2303,7 +2304,7 @@ teams.
 >
 > *Assumption until answered:* CI.2, CI.13, CA.39 and CA.44 keep their text, each with a line that the team of a runtime without a quest is open; CR.6, CR.29 and T2 keep their text and no name such as `webwork-app` is written.
 >
-> **Answer:**
+> **Answer (2026-11-26T07:43+01:00):** (b)
 
 - **CI.3** A **participant** is a user (a user id, an e-mail address, a
   display name) or a runtime. A runtime names the person it belongs to, so
@@ -2387,7 +2388,7 @@ teams.
 >
 > *Assumption until answered:* CI.13, CK.2, CK.5, CT.11, CT.12, CT.13 and CA.23 keep their text, each saying that the point is open; no part writes a new credential or a second endpoint.
 >
-> **Answer:**
+> **Answer (2026-11-26T07:59+01:00):** (b), I just struggling with the requirement to be able to work on several machine, e.g. to provide windows, linux and macos applications and be able to test them. I think it must be so: if I want to work on a quest on more than one machine I need to use worktrees/feature branches, if I'm in "main mode" a quest can only be worked on on a single machine at a time. To avoid huge cloning efforts (network traffic, local disk space) for feature branches we'd migrate all repos to "per-package" repos instead of grouping the packages as we do now. With this we'd create worktrees for what is changing only and we only need the leases we already have for the integration. Please analyze and think about this and make suggestions.
 
 - **CI.14** A team lists its members, the known and the present ones, with
   their ids and e-mail addresses. A message names the user who sent it.
@@ -2507,7 +2508,7 @@ hold leases on. {~~(PQ-23)~>(-> PQ-23)~~}
 >
 > *Assumption until answered:* CM.9 and CM.13 keep "a tac client that was offline", which is the tac client inside the runtime; no item says that a host keeps a cache or an outbox.
 >
-> **Answer:**
+> **Answer (2026-11-26T07:59+01:00):** (b)
 
 - **CM.8** Messages have replies and threads, mentions, and a mute per
   conversation. {~~(S1 § 7.5, § 3.2)~>(<- S1 § 7.5, § 3.2; S25: 13_woneb7, 13_woneb8, planned)~~}
@@ -2599,7 +2600,7 @@ hold leases on. {~~(PQ-23)~>(-> PQ-23)~~}
 >
 > *Assumption until answered:* CM.2, CV.1 and CV.14 keep their text; CV.12 names the three points as open (PQ-66); no item says how a set travels, how a member is matched or that a round's blobs are capped.
 >
-> **Answer:**
+> **Answer (2026-11-26T08:05+01:00):** (a), please note that we'll be reviewing mostly *.tomspecs.md or *.docschema.md files, webwork files being the exception. We'll have to provide other means to return the files, too, like an upload form, so reviewer who received the review request and/or the files via email can upload the reviewed files there and a download site with one-time links to get the documents. User's receive these links via email invitation to a review and can enter their email to ask for a new link. They always get both a link for download and may upload the results with these one-time links.
 
 {~~- **CV.13** The **round folder** is the record of a round: the description
   of the round, the base, each member's copy, the merged result. It lies
@@ -2640,7 +2641,7 @@ hold leases on. {~~(PQ-23)~>(-> PQ-23)~~}
 >
 > *Assumption until answered:* CI.18 says "a server a device reaches from the internet" and names no program; CI.19, CK.10, CK.11, CM.6, CA.30, T5, T8, D-51 and R-22 keep their text and name the point as open; no push service is named; L-6 is an open point.
 >
-> **Answer:**
+> **Answer (2026-11-26T08:08+01:00):** (b), probably we'll introduce user authentication in a later version, once tom_uam is ready. For new we stick to this.
 
 - **CI.19** ___check here___ **An open point for the security model of the
   Solution Blueprint:** whether encryption in transit (HTTPS), the team
@@ -2888,7 +2889,7 @@ the queue itself and lives much longer. {~~(S21, TQ-4)~>(<- S21: TQ-4)~~}
 >
 > *Assumption until answered:* CQ.2, CQ.3 and D-34 keep their text; CQ.11 states the four classes and says that the place of the per-host files is open; CR.53, CR.55 and CR.79 say "per host" without naming the place; no new text writes "personal repository" or `_ai/personal/`.
 >
-> **Answer:**
+> **Answer (2026-11-26T08:10+01:00):** (a), we might revisit this later, but leave it out in the first version.
 
 - **CQ.3** Personal files, kept in the personal repository and never in a
   quest's {~~(S2 § 3.7, § 5, FO-22)~>(<- S2 § 3.7, § 5) (-> FO-22)~~}:
@@ -2936,7 +2937,7 @@ the queue itself and lives much longer. {~~(S21, TQ-4)~>(<- S21: TQ-4)~~}
 >
 > *Assumption until answered:* CQ.6 keeps its text with a line saying this is open; CW.14 says that for a quest in a repository of its own its main branch is the branch the register names, and that member branches are open; CQ.7's join and migrate keep their text.
 >
-> **Answer:**
+> **Answer (2026-11-26T08:21+01:00):** (b), we need to revisit the structure of the quest directories again for this: probably we'd introduce todo files per member, too, so members can work independently. This would probably also mean work with feature-branches for the code repos or strict locking and per-repo reconciles as work requires. Actually even with a multi-quest repo branches can be used by branching from a quest branch and merging back into it. It's just a little more complicated to say.
 
 - **CQ.12** A quest in a repository of its own carries the merge rules of the `_ai` state in its own attributes file, and its clone uses the guards of the `_ai` state: the todo-schema guard, and the guard that refuses a new kind of file or folder at a quest's top level (documents may be added freely). The merge drivers are registered on each machine. Shared files are merged with a driver per kind: todos, process states and the shared configuration as YAML by id; the overview, {--the progress, --}the curated memory and similar Markdown files by section; {++the dated journals (the progress, the deferred work, the documentation updates) as the union of their dated sections, sorted by date and time (<- S30: ww_e_gitruntime-2, planned);++} notes and documents in subfolders as plain text. Per-host files are never merged, since each has one writer. Between machines a single-quest repository is synced like a code repository, a multi-quest repository with one fetch and a merge per working tree; syncing stays a step the user starts (CW.27). {~~(S22 § 2.2 CQ-17, § 3.5, § 3.6; S22 § 2.4 QM-7, QM-9)~>(<- S22 § 2.2: CQ-17; S22 § 3.5, § 3.6; S22 § 2.4: QM-7, QM-9)~~}
 - **CQ.13** For a quest in a repository of its own, the `_ai` state keeps only its entry in the register, its pick in a workspace's list, its line in the generated block of ignored folders, and the clone of a multi-quest repository, which is not tracked; nothing of the quest's content. Besides the quests, the `_ai` state keeps what is no quest: processes, roles, role types, schemas and the guards. {~~(S22 § 1, § 3.3, § 3.4)~>(<- S22 § 1, § 3.3, § 3.4)~~}
@@ -2982,7 +2983,7 @@ the queue itself and lives much longer. {~~(S21, TQ-4)~>(<- S21: TQ-4)~~}
 >
 > *Assumption until answered:* CQ.7 names the operations, the workspace setup and the creation of a quest without saying which program carries them; no screen row and no component are added; no item names the workspace template or the setup todo; CQ.1 and CQ.9 name three types; nothing is said of working copies on a server.
 >
-> **Answer:**
+> **Answer (2026-11-26T08:25+01:00):** (d) and (c) and the runtime can also setup up a complete workspace and provides all commands to manage and supervise it, as the old extension is being able to after the current todos have been implemented.
 
 - **CQ.8** The first quest is migrated alone, to see that it works; then the
   quests worked in most. {~~(S4, note n)~>(<- S4: note n)~~}
@@ -3179,7 +3180,7 @@ A record of what people did to runs that are not theirs is part of the question 
 >
 > *Assumption until answered:* N-35 … N-38 name the topics and point to this question; no value is written into an item.
 >
-> **Answer:**
+> **Answer (2026-11-26T08:26+01:00):** (b), check what the old extension is using.
 
 ### <!--[NFR-TOPO]--> 11.1 Network topologies
 
@@ -3610,7 +3611,7 @@ and between the tracks no order is fixed (below).~>The two tracks touch differen
 >
 > *Assumption until answered:* the new extension has an extension id of its own and is used in a window or profile where the old one is not active (N-33); everything else about its identity, the swap and the retirement is open; `ai_runtime` builds it.
 >
-> **Answer:**
+> **Answer (2026-11-26T08:27+01:00):** (a)
 
 > **❓ PQ-61 (2026-11-25T22:30+01:00) — the copy point, what the old extension gets meanwhile, and when the Dart scripting API is split:** When is the old extension copied for the new one, from what, which of the extension's open todos still land in the old one before that, what does the old one get after it, and is the Dart scripting API split before the copy or on the copy?
 >
@@ -3629,7 +3630,7 @@ and between the tracks no order is fixed (below).~>The two tracks touch differen
 >
 > *Assumption until answered:* the copy is taken after the extension's features and the workspace layout are finished (D-40); nothing else about it is fixed; the old extension keeps getting what its quest plans.
 >
-> **Answer:**
+> **Answer (2026-11-26T08:28+01:00):** (a), after more or less all currently planned todos have been done.
 
 {~~**The documents of the specification.** (PQ-19; D-36, D-37)~>**The documents of the specification.** (-> PQ-19, D-36, D-37)~~}
 
@@ -3674,7 +3675,7 @@ and between the tracks no order is fixed (below).~>The two tracks touch differen
 >
 > *Assumption until answered:* `DEL` names no intermediate state; the new extension is finished when "every feature of the old one works in it as before, through the runtime, and the team features work across machines and between the members of a team", without a named check; D-45, D-21 and D-32 stand as they are.
 >
-> **Answer:**
+> **Answer (2026-11-26T08:28+01:00):** (b)
 
 {++**What the first version contains** is the feature baseline: the features of the old extension, built and planned, of Webwork's plans for the runtime and tac (team review and review document bundles first), and of this quest's queued todos, carried across machines, between the members of a team and over the internet, except what a decision puts out of scope or later (`SCO > SCO-IN`, `SCO > SCO-OUT`, `SCO > SCO-LATER`). (-> D-74)++}
 
