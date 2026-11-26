@@ -297,6 +297,7 @@ static void field_from_json(const SomJson *f, SpecField *out) {
       out->form_fields[i].multi_paragraph =
           som_json_bool_or(ff, "multiParagraph");
       out->form_fields[i].multiple = som_json_bool_or(ff, "multiple");
+      spec_form_field_links_from_json(ff, &out->form_fields[i]);
     }
     out->form_fields_len = fn;
   }
@@ -647,6 +648,7 @@ static void field_free(SpecField *f) {
     som_strlist_free(&f->form_fields[i].count_of);
     som_strlist_free(&f->form_fields[i].product_of);
     free(f->form_fields[i].rank_of);
+    spec_form_field_links_free(&f->form_fields[i]);
   }
   free(f->form_fields);
   annotations_free(&f->annotations);

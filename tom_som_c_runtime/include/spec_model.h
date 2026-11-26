@@ -13,6 +13,7 @@
 
 #include "som_json.h"
 #include "som_util.h"
+#include "spec_model_links.h"
 
 #define SPEC_FIELD_KIND_LIST "list"
 #define SPEC_FIELD_KIND_FORM "form"
@@ -182,6 +183,15 @@ typedef struct {
      the reading view writes it as a `Field:` block. Read from the
      `multiParagraph` key; absent means false. */
   int multi_paragraph;
+  /* The derivation this field's value follows (`Field.derivedFrom`,
+     `tom_specs_model_rules.md` §9.7), NULL when it states none. Owned. */
+  SpecDerivation *derived_from;
+  /* The other ends of the link this reference field is one end of
+     (`Field.inverseOf`), NULL when it states none. Owned. */
+  SpecInverseOf *inverse_of;
+  /* The detailed list this multi-valued reference field summarises
+     (`Field.summaryOf`), NULL when it states none. Owned. */
+  SpecSummaryOf *summary_of;
 } FormFieldSpec;
 
 typedef struct {
@@ -226,6 +236,39 @@ typedef struct {
 
 /* Returns the field named `name` on `cls`, or NULL. */
 const SpecField *spec_class_field_named(const SpecClass *cls, const char *name);
+
+/* ---- the link readers (`tom_specs_model_rules.md` §9.7) ------------------
+ *
+ * Over a class's or a field's annotation list, like the kind links above; the
+ * value types are in `spec_model_links.h`. Each `int` reader returns 1 and
+ * fills `*out` (release with the type's free function) when the annotation is
+ * present, 0 when absent, leaving `*out` untouched. */
+
+/* `@SyncedWith` — the sync of a section with its detail document. On a class,
+ * absent means "not declared yet", not "nothing shared". */
+int spec_annotations_synced_with(const SpecAnnotationList *l, SpecSync *out);
+/* `@SummaryOf` — the detailed list this member summarises. */
+int spec_annotations_summary_of(const SpecAnnotationList *l,
+                                SpecSummaryOf *out);
+/* `@DerivedFrom` — the derivation this member follows. */
+int spec_annotations_derived_from(const SpecAnnotationList *l,
+                                  SpecDerivation *out);
+/* Every `@ExtractsLinks`, in source order (the annotation is repeatable);
+ * `*out` is initialised by the callee (empty when there is none), release
+ * with `spec_extracts_links_list_free`. */
+void spec_annotations_extracts_links(const SpecAnnotationList *l,
+                                     SpecExtractsLinksList *out);
+/* `@SameAs` — the copy of a section held at another position. */
+int spec_annotations_same_as(const SpecAnnotationList *l, SpecSameAs *out);
+/* Whether `@SameAs` is present (without reading it). */
+int spec_annotations_has_same_as(const SpecAnnotationList *l);
+
+/* Reads the link qualifiers (`derivedFrom`, `inverseOf`, `summaryOf`) of one
+ * `formFields[]` entry into `out`; a qualifier that is no object reads as
+ * absent. */
+void spec_form_field_links_from_json(const SomJson *ff, FormFieldSpec *out);
+/* Frees the qualifiers of `ff` (they are freed with the model). */
+void spec_form_field_links_free(FormFieldSpec *ff);
 
 typedef struct {
   char *type;
@@ -316,6 +359,9 @@ void spec_stamp_check_warnings(const SpecModelStampCheck *c, SomStrList *out);
 SpecModelStampCheck spec_model_check_stamp(const SpecModel *m,
                                            long long max_age_seconds,
                                            long long now_epoch_seconds);
+
+/* Whether `cls` is the CodeSpecs projection root (`@CodeSpecsProjection`). */
+int spec_class_is_code_specs_projection(const SpecClass *cls);
 
 /* Returns the class named `name`, or NULL. */
 const SpecClass *spec_model_class_named(const SpecModel *m, const char *name);

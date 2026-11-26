@@ -143,7 +143,7 @@ exceptions:
       Elsewhere the token is a form field of the model's documents.
 
   - token: syncedWith
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
@@ -154,7 +154,7 @@ exceptions:
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: detailOnly
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
@@ -165,7 +165,7 @@ exceptions:
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: heldHere
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
@@ -176,7 +176,7 @@ exceptions:
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: summaryOf
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
@@ -187,7 +187,7 @@ exceptions:
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: derivedFrom
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
@@ -198,7 +198,7 @@ exceptions:
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: inverseOf
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
@@ -209,7 +209,7 @@ exceptions:
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: extractsLinks
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
@@ -220,7 +220,7 @@ exceptions:
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: anchorUnresolved
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
@@ -231,7 +231,7 @@ exceptions:
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: notScoped
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
@@ -242,7 +242,7 @@ exceptions:
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: noSuchField
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
@@ -253,7 +253,7 @@ exceptions:
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: noContent
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
@@ -264,7 +264,7 @@ exceptions:
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: notListElement
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
@@ -275,7 +275,7 @@ exceptions:
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: reservedSlot
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
@@ -286,7 +286,7 @@ exceptions:
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: derivedLookupMiss
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
@@ -296,7 +296,7 @@ exceptions:
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: detailNotInSummary
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
@@ -306,7 +306,7 @@ exceptions:
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: duplicateLinkRow
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
@@ -316,7 +316,7 @@ exceptions:
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: extractedLinkMissing
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
@@ -326,7 +326,7 @@ exceptions:
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: extractedLinkStale
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
@@ -336,7 +336,7 @@ exceptions:
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: inverseMissing
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
@@ -346,7 +346,7 @@ exceptions:
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: linkValuePending
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
@@ -356,7 +356,7 @@ exceptions:
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: sameAsMismatch
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
@@ -366,7 +366,7 @@ exceptions:
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: summaryDuplicate
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
@@ -376,7 +376,7 @@ exceptions:
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: summaryNotInDetail
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
@@ -386,7 +386,7 @@ exceptions:
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: validateLinks
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) are in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart by decision (idea section_automation, DP-part-conformance-4); their

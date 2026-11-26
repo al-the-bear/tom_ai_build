@@ -167,6 +167,16 @@ left as written.
 | `{== text ==}{>> c <<}`, `{== text ==}` | `text` | `text` |
 | `{>> c <<}` | nothing | nothing |
 
+A headline takes inline marks too (never a comment or question block, which
+`spec_review_annotations_insert_comment` / `_insert_question` refuse): a marked
+headline is listed, decided and written under the reserved field
+`SPEC_HEADLINE_FIELD` (`@headline`). A headline without a mark is no value of
+these operations, so `spec_review_annotations_revision` is unchanged by it. A
+typed value (an enum, `int`, `double`, `num`, `bool`) or a reference holding a
+change reads as its **old** value until the change is decided: the typed
+parsers (`som_typed_reading`) and the validator see that value, never the
+markup.
+
 The whitespace rules (words never join, an edge space written inside a change
 mark is kept after punctuation — `sentence.{++ Next sentence.++}` accepts to
 `sentence. Next sentence.` —, no double space and no space before punctuation,

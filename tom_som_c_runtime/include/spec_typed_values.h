@@ -30,7 +30,10 @@
  *     parsing accepts exactly those, anything else reads as no value;
  *   - enums — stored as the constant **name** (e.g. `high`); the generic layer
  *     validates against the field's `enum_values` domain, a generated facade
- *     converts name <-> native constant.
+ *     converts name <-> native constant;
+ *   - a typed value holding inline marks (SOM §11.9.3, a change under
+ *     review: `{~~ 30 ~> 15 ~~}`) reads as its **old** value, every mark
+ *     rejected, until the marks are decided (`som_typed_reading`).
  *
  * Ownership: every `som_format_*` returns a fresh owned string (free with
  * `free`); a `SomValue` owns its `str` (free with `som_value_free`).
@@ -80,6 +83,21 @@ int som_value_equals(const SomValue *a, const SomValue *b);
 /* A short human-readable rendering for diagnostics ("none", "int 3",
  * "str \"high\"", ...). Owned result. */
 char *som_value_debug(const SomValue *v);
+
+/* ---- typed values under review (SOM §11.9.3) ---------------------------- */
+
+/* The reading of a typed value under review: `raw` with every inline mark
+ * rejected (its old value), trimmed; `raw` itself when it holds no mark.
+ *
+ * A typed value marked as a change (`{~~ 30 ~> 15 ~~}`) is the old value until
+ * the change is accepted: the parsers below, the validator and every typed
+ * read see that value, never the markup. Owned result; NULL for a NULL `raw`. */
+char *som_typed_reading(const char *raw);
+
+/* Whether a form field holds a typed value: an enum (`enum_values` not empty),
+ * or `int`, `double`, `num` or `bool` — the values that read as their old
+ * value while marked. `enum_values` may be NULL. */
+int som_is_typed_field(const char *type_name, const SomStrList *enum_values);
 
 /* ---- the ten boundary helpers ------------------------------------------- */
 

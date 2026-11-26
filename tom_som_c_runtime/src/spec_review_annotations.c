@@ -3006,12 +3006,34 @@ static void values_of(const SpecDocument *doc, Values *out) {
     som_strlist_free(&fields);
   }
   som_strlist_free(&paths);
+  /* Then the headlines that hold an inline mark, under the reserved field
+   * SPEC_HEADLINE_FIELD (SOM §11.9.3). */
+  spec_document_headline_paths(doc, &paths);
+  for (size_t i = 0; i < paths.len; i++) {
+    const char *t = spec_document_headline(doc, paths.items[i]);
+    if (t == NULL || strchr(t, '{') == NULL) continue;
+    Parsed p;
+    parse(t, &p);
+    size_t marks = p.marks_len;
+    parsed_free(&p);
+    if (marks == 0) continue;
+    Value v = {som_strdup(paths.items[i]), som_strdup(SPEC_HEADLINE_FIELD),
+               som_strdup(t)};
+    PUSH(out->items, out->len, out->cap, v);
+  }
+  som_strlist_free(&paths);
+}
+
+static int is_headline_field(const char *field) {
+  return field != NULL && strcmp(field, SPEC_HEADLINE_FIELD) == 0;
 }
 
 static const char *get_value(const SpecDocument *doc, const char *path,
                              const char *field) {
   const char *v = field == NULL ? spec_document_content(doc, path)
-                                : spec_document_form_field(doc, path, field);
+                  : is_headline_field(field)
+                      ? spec_document_headline(doc, path)
+                      : spec_document_form_field(doc, path, field);
   return v ? v : "";
 }
 
@@ -3019,9 +3041,23 @@ static void set_value(SpecDocument *doc, const char *path, const char *field,
                       const char *value) {
   if (field == NULL) {
     spec_document_set_content(doc, path, value);
+  } else if (is_headline_field(field)) {
+    spec_document_set_headline(doc, path, value);
   } else {
     spec_document_set_form_field(doc, path, field, value);
   }
+}
+
+/* Refuses a comment or question block in a headline: a headline is one line,
+ * it takes inline marks, never a block. Returns 0 (with `err` set) when
+ * refused. */
+static int refuse_block_in(const char *field, SpecReviewAnnotationError *err) {
+  if (is_headline_field(field)) {
+    set_error(err, "a headline takes inline marks only, not a comment or "
+                   "question block");
+    return 0;
+  }
+  return 1;
 }
 
 SpecReviewAnnotations spec_review_annotations_make(SpecDocument *doc,
@@ -3278,6 +3314,11 @@ char *spec_review_annotations_insert_comment(const SpecReviewAnnotations *r,
   if (time == NULL) return NULL;
   char *cid = id != NULL ? som_strdup(id)
                          : spec_review_annotations_next_comment_id(r, 0);
+  if (!refuse_block_in(field, err)) {
+    free(cid);
+    free(time);
+    return NULL;
+  }
   char *value = som_strdup(get_value(r->doc, path, field));
   long long end;
   if (!paragraph_last_line(value, after_paragraph, &end, err)) {
@@ -3306,6 +3347,10 @@ int spec_review_annotations_insert_question(const SpecReviewAnnotations *r,
                                             SpecReviewAnnotationError *err) {
   char *time = review_time(r, at, err);
   if (time == NULL) return 0;
+  if (!refuse_block_in(field, err)) {
+    free(time);
+    return 0;
+  }
   char *value = som_strdup(get_value(r->doc, path, field));
   long long end;
   if (!paragraph_last_line(value, after_paragraph, &end, err)) {

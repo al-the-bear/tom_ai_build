@@ -2,6 +2,42 @@
 
 ## Unreleased
 
+- **Section automation, first part** (`tom_specs_model_rules.md` §9.7): the
+  typed link readers (`spec_model_links.h` / `.c`: `SpecSync` with its
+  `SpecListRelation`s, `SpecSummaryOf`, `SpecDerivation`, `SpecInverseOf`,
+  `SpecExtractsLinks`, `SpecSameAs`, read with
+  `spec_annotations_synced_with`, `_summary_of`, `_derived_from`,
+  `_extracts_links`, `_same_as` over a class's or a field's annotations;
+  `FormFieldSpec` carries the qualifiers `derived_from` / `inverse_of` /
+  `summary_of`; `spec_class_is_code_specs_projection`; a string → string
+  argument keeps the meta's order as `SpecStringPairs`). The place and filter
+  grammar (`spec_place.h` / `.c`): `SpecPlace`, `SpecPlaceFilter` with `|`
+  alternatives, `SpecPlaceResolution`, `SpecPlaceError` with the
+  `SPEC_PLACE_PROBLEM_*` and `SPEC_PLACE_KIND_*` strings,
+  `spec_same_as_bindings`, `spec_section_positions`. The typed inline marks:
+  `som_typed_reading` / `som_is_typed_field`, the typed parsers and the
+  instance tier read a typed value, a reference or the `@OneOf` discriminator
+  under review as its old value; a marked headline is a review value under
+  `SPEC_HEADLINE_FIELD` (listed, part of the revision, decided), and a
+  comment or question block in a headline is refused. `countOf` reads its
+  targets as `SpecPlaceFilter`s (`X.f=a|b`). The validator's eleven link codes
+  (`derivedLookupMiss` … `linkValuePending`, `unmarkable`;
+  `spec_validation_code_index`), `spec_validation_errors_push` and
+  `spec_derived_numbers`. The link checks (`spec_links_validator.h` / `.c`):
+  `spec_validate_links`, `SpecLinkValidator` with its value readers and the
+  `SpecLinkFix` each finding carries (an `addRow`'s values and a derived
+  list's tuple places in their write order), `spec_expand_pattern`,
+  `spec_resolve_place_at`, `spec_resolve_link_place`, `spec_link_ids`,
+  `spec_link_field_of`. The conformance runner replays
+  `link_reader_cases.json` (with LR1–LR4 and CO1–CO2),
+  `link_validation_cases.json` and the `typedCases` of
+  `inline_mark_cases.json` / `change_mark_cases.json`
+  (`tests/conformance_links.h`; 3996 → 4277 checks);
+  `tests/spec_place_test.c` and `tests/spec_links_validator_test.c` hold the
+  errors, defaults, meta order, fixes, derived numbers and the headline field.
+  Findings, messages, fixes and derived numbers agree with the Go and Rust
+  runtimes on all 23 link-validation cases, reviewed and proposed.
+
 - **The merge back** (SOM §11.10, stripped renditions): `spec_document_merge.h`
   / `.c`. `spec_merge_stripped_value` merges the edited text of one value
   onto its original, every piece of the strip put back where the edit left

@@ -73,12 +73,15 @@ pkg-config / vendored-tarball / in-tree-monorepo routes and how to pin.
 | ---- | -------------- |
 | `spec_paths.c` | The section-path grammar (root / child / list-item segments). |
 | `spec_model.c` | The meta-data loader — the exported class graph (`SpecModel`, `SpecRoot`, `SpecClass`, `SpecField`, …). |
+| `spec_model_links.c` | The typed link readers (`tom_specs_model_rules.md` §9.7): `SpecSync` (`SpecListRelation`), `SpecSummaryOf`, `SpecDerivation`, `SpecInverseOf`, `SpecExtractsLinks`, `SpecSameAs`, read through `spec_annotations_synced_with`, `_summary_of`, `_derived_from`, `_extracts_links`, `_same_as` over a class's or a field's annotations and the form-field qualifiers `derived_from` / `inverse_of` / `summary_of`; a string → string argument keeps the meta's order (`SpecStringPairs`). |
+| `spec_place.c` | The place and filter grammar of the link vocabulary: `SpecPlace` and `SpecPlaceFilter` (`\|` alternatives) resolved under an anchor without reading a value (`SpecPlaceResolution`, `SpecPlaceError` with its `SPEC_PLACE_PROBLEM_*`), `spec_same_as_bindings`, `spec_section_positions`. |
+| `spec_links_validator.c` | `spec_validate_links` — the link checks of one document: derived values against their sources, summaries against their detail lists, each end of a link against the other, ids named in a text against the link rows, `@SameAs` copies against their holders, pending changes read with every mark rejected; `SpecLinkValidator` collects beside each finding the fix `deriveFields` writes (`SpecLinkFix`, an `addRow`'s values and a derived list's tuple places in their write order). |
 | `spec_reflection.c` | Value-free enumeration + path resolution (`SpecReflection`, `SpecResolution`, node-kind constants). |
 | `spec_document.c` | A sparse in-memory document — values keyed by section path. |
 | `spec_document_assembly.c` | Assembling one document from fragments written in parallel (`spec_document_assemble`) — a refusing merge of the plain-data stores: any place two fragments both write is a `SpecAssemblyOverlap`, and an assembly with an overlap yields no document. |
 | `spec_typed_values.c` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided; also the tagged `SomValue` typed positions travel as. |
 | `spec_editor.c` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |
-| `spec_validator.c` | Validates a document's values against the model. |
+| `spec_validator.c` | Validates a document's values against the model; a typed value or reference holding inline marks is read as its old value (SOM §11.9.3), a `countOf` target as a `SpecPlaceFilter`. `spec_derived_numbers` gives the value every `countOf`, `productOf` and `rankOf` field calls for. |
 | `spec_text_pattern.c` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (standard C has no regex at all, and POSIX `regex.h` would be both a dependency and a different grammar). |
 | `spec_query.c` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
 | `spec_node_creation.c` | The constrained node-creation gate (`spec_check_add_node`, `spec_node_creator_add`) — a document may only grow in ways the model permits. |
@@ -202,7 +205,17 @@ The conformance harness (`tests/conformance.c`) reproduces the same checks as
 every other port — model meta, `state.json` round-trip, YAML encode/decode,
 Markdown export/parse/landing, reflection, validation, the imperative operations
 script, the generic editing script (`SpecEditor`), and the Phase-4 CodeSpecs
-extract generator and reading its extracts and gate record back. Exit 0 == all green. The corpus directory can be overridden:
+extract generator and reading its extracts and gate record back. Exit 0 == all green.
+
+The section-automation tables of this port so far run in
+`tests/conformance_links.h` (included by the harness): the link readers and the
+place / filter grammar (`link_reader_cases.json`), `spec_validate_links`
+(`link_validation_cases.json`) and the typed inline marks (the `typedCases` of
+`inline_mark_cases.json` / `change_mark_cases.json`) — over the fixture model
+`corpus/links.meta.json` and, for the cases naming it, the real model of
+`tom_som_dart_v0/meta/`.
+
+The corpus directory can be overridden:
 
 ```sh
 make test CORPUS=/path/to/corpus
@@ -238,6 +251,8 @@ make test CORPUS=/path/to/corpus
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated structs. |
 | `SpecNodeCreator` | The creation gate — a document may only grow in ways the model permits. |
 | `validate_document` | The instance tier: a filled document's values checked against the model. |
+| `spec_validate_links` | The link checks of one document (`tom_specs_model_rules.md` §9.7), with the fixes `deriveFields` writes collected by `SpecLinkValidator`. |
+| `SpecPlace` / `SpecPlaceFilter` | The place and filter grammar of the link annotations, resolved under an anchor without reading a value. |
 | `spec_document_yaml` | Byte-stable `*.tomspecs.yaml` encode/decode. |
 | `spec_document_markdown` | DocSpecs-conform Markdown export, parse and round-trip. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
@@ -290,6 +305,6 @@ make test CORPUS=/path/to/corpus
 
 ## Status
 
-Version **1.10.0**, tracking the TomSpecs model version. Covered by 9 test files;
-the conformance runner reports **OK: 1969 checks passed** and `./run_tests.sh` is
-green.
+Version **1.13.0**, tracking the TomSpecs model version. Covered by 19 test
+files; the conformance runner reports **OK: 4277 checks passed** and
+`./run_tests.sh` is green.

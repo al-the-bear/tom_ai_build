@@ -94,13 +94,53 @@
  * (`SPEC_STANDARD_EMITTERS`: `openapi`, `jsonschema`, `icu`, `asyncapi`, `markdown`). */
 #define SPEC_VALIDATION_CODE_UNIT_EMITTER_UNKNOWN "unitEmitterUnknown"
 
+/* The link checks of one document (`spec_validate_links`,
+ * `tom_specs_model_rules.md` §9.7). A stored derived value its sources do not
+ * give is reported as derivedValueMismatch above. */
+
+/* A `@DerivedFrom.lookup` finds no row for its key, or more than one. */
+#define SPEC_VALIDATION_CODE_DERIVED_LOOKUP_MISS "derivedLookupMiss"
+/* Two link rows beneath one element name the same id with the same type (the
+ * values `@ExtractsLinks` sets); reported at the second. */
+#define SPEC_VALIDATION_CODE_DUPLICATE_LINK_ROW "duplicateLinkRow"
+/* A link names an entry whose other end (`inverseOf`) does not name it back,
+ * or a symmetric row has no counterpart on the entry it names. An end whose
+ * registry the document does not hold is skipped. */
+#define SPEC_VALIDATION_CODE_INVERSE_MISSING "inverseMissing"
+/* An id named in an `@ExtractsLinks` text has no row. An id that has a row of
+ * any type is a reference to it and is not reported. */
+#define SPEC_VALIDATION_CODE_EXTRACTED_LINK_MISSING "extractedLinkMissing"
+/* A generated row (its `@ExtractsLinks` `set` values match) names an id the
+ * text no longer names. */
+#define SPEC_VALIDATION_CODE_EXTRACTED_LINK_STALE "extractedLinkStale"
+/* A summary row (`@SummaryOf`) names no element of its detail list. */
+#define SPEC_VALIDATION_CODE_SUMMARY_NOT_IN_DETAIL "summaryNotInDetail"
+/* Under `relation: equal`, a detail element no summary row names. */
+#define SPEC_VALIDATION_CODE_DETAIL_NOT_IN_SUMMARY "detailNotInSummary"
+/* Two summary rows name one detail element; reported at the second. */
+#define SPEC_VALIDATION_CODE_SUMMARY_DUPLICATE "summaryDuplicate"
+/* A `@SameAs` copy holds a value its holder does not (or lacks one it holds):
+ * the two positions of the section were edited apart. */
+#define SPEC_VALIDATION_CODE_SAME_AS_MISMATCH "sameAsMismatch"
+/* A value a link check reads holds pending change marks. It is read with
+ * every mark rejected (the reviewed state) and listed for the user. */
+#define SPEC_VALIDATION_CODE_LINK_VALUE_PENDING "linkValuePending"
+/* A change `deriveFields` would write in a document under review that cannot
+ * be marked exactly (a difference inside fenced code, SOM §11.9.3); it is
+ * left as it was, for the agent. */
+#define SPEC_VALIDATION_CODE_UNMARKABLE "unmarkable"
+
 /* Every SPEC_VALIDATION_CODE_* above, in declaration order — the enumerable
  * vocabulary Dart has from its enum, as DOCSPECS_ALL_RULES is for the §14
  * rules. A tool switches over it exhaustively instead of matching on message
  * text; tests/spec_validation_all_codes_test.c reads the defines above and
  * fails when one is missing here. */
-#define SPEC_VALIDATION_ALL_CODES_COUNT 21
+#define SPEC_VALIDATION_ALL_CODES_COUNT 32
 extern const char *const SPEC_VALIDATION_ALL_CODES[SPEC_VALIDATION_ALL_CODES_COUNT];
+
+/* The declaration order of `code` (Dart's `SpecValidationCode.index`), which
+ * sorted finding lists follow; -1 for a string that is no code. */
+int spec_validation_code_index(const char *code);
 
 typedef struct {
   char *path;    /* owned */
@@ -125,5 +165,34 @@ void validate_document(const SpecModel *model, const SpecDocument *doc,
                        SpecValidationErrors *out);
 
 void spec_validation_errors_free(SpecValidationErrors *errs);
+
+/* Appends one finding (path, code and message copied). */
+void spec_validation_errors_push(SpecValidationErrors *errs, const char *path,
+                                 const char *code, const char *message);
+
+/* One derived number `spec_derived_numbers` computes: the value the form
+ * field `field` of the form at `path` should hold. Strings owned. */
+typedef struct {
+  char *path;
+  char *field;
+  char *value;
+} SpecDerivedNumber;
+
+typedef struct {
+  SpecDerivedNumber *items;
+  size_t len;
+  size_t cap;
+} SpecDerivedNumbers;
+
+/* The value every derived number of `doc` should hold, by the rules the
+ * instance tier checks (`countOf`, `productOf`, `rankOf`): one entry per form
+ * field whose value is decidable, whether it is filled or not — the counts,
+ * then the products, then the ranks (over the products just derived). With
+ * `read_proposed`, values holding pending marks are read with the marks
+ * accepted (the proposal `deriveFields` writes in a document under review),
+ * else with them rejected. `*out` initialised by the callee. */
+void spec_derived_numbers(const SpecModel *model, const SpecDocument *doc,
+                          int read_proposed, SpecDerivedNumbers *out);
+void spec_derived_numbers_free(SpecDerivedNumbers *n);
 
 #endif /* SPEC_VALIDATOR_H */

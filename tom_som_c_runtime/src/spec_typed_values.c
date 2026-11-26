@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "spec_review_annotations.h"
 #include "yaml.h"
 
 /* ---- SomValue ----------------------------------------------------------- */
@@ -198,8 +199,52 @@ static int float_text(const char *s) {
 
 /* ---- int ---------------------------------------------------------------- */
 
+/* ---- typed values under review (SOM §11.9.3) ---------------------------- */
+
+char *som_typed_reading(const char *raw) {
+  if (raw == NULL) {
+    return NULL;
+  }
+  if (strchr(raw, '{') == NULL) {
+    return som_strdup(raw);
+  }
+  char *old = spec_apply_inline_marks_text(raw, 0);
+  if (strcmp(old, raw) == 0) {
+    return old;
+  }
+  /* Trimmed, as the reference trims the old value. */
+  const char *s = old;
+  while (*s == ' ' || *s == '\t' || *s == '\n' || *s == '\r' || *s == '\f' ||
+         *s == '\v') {
+    s++;
+  }
+  size_t n = strlen(s);
+  while (n > 0 && (s[n - 1] == ' ' || s[n - 1] == '\t' || s[n - 1] == '\n' ||
+                   s[n - 1] == '\r' || s[n - 1] == '\f' || s[n - 1] == '\v')) {
+    n--;
+  }
+  char *out = som_strdup_n(s, n);
+  free(old);
+  return out;
+}
+
+int som_is_typed_field(const char *type_name, const SomStrList *enum_values) {
+  if (enum_values != NULL && enum_values->len > 0) {
+    return 1;
+  }
+  char *base = som_scalar_base(type_name);
+  int typed = base != NULL &&
+              (strcmp(base, "int") == 0 || strcmp(base, "double") == 0 ||
+               strcmp(base, "num") == 0 || strcmp(base, "bool") == 0);
+  free(base);
+  return typed;
+}
+
+
 int som_parse_int(const char *raw, long long *out) {
-  char *text = trimmed_copy(raw);
+  char *reading = som_typed_reading(raw);
+  char *text = trimmed_copy(reading);
+  free(reading);
   if (text == NULL) {
     return 0;
   }
@@ -213,7 +258,9 @@ char *som_format_int(long long value) { return som_format_i64(value); }
 /* ---- double ------------------------------------------------------------- */
 
 int som_parse_double(const char *raw, double *out) {
-  char *text = trimmed_copy(raw);
+  char *reading = som_typed_reading(raw);
+  char *text = trimmed_copy(reading);
+  free(reading);
   if (text == NULL) {
     return 0;
   }
@@ -270,18 +317,20 @@ char *som_format_num(const SomValue *value) {
 /* ---- bool --------------------------------------------------------------- */
 
 int som_parse_bool(const char *raw, int *out) {
-  if (raw == NULL) {
+  char *reading = som_typed_reading(raw);
+  if (reading == NULL) {
     return 0;
   }
-  if (strcmp(raw, "true") == 0) {
+  int ok = 0;
+  if (strcmp(reading, "true") == 0) {
     *out = 1;
-    return 1;
-  }
-  if (strcmp(raw, "false") == 0) {
+    ok = 1;
+  } else if (strcmp(reading, "false") == 0) {
     *out = 0;
-    return 1;
+    ok = 1;
   }
-  return 0;
+  free(reading);
+  return ok;
 }
 
 char *som_format_bool(int value) {
@@ -291,14 +340,16 @@ char *som_format_bool(int value) {
 /* ---- enum constant names ------------------------------------------------ */
 
 int som_parse_enum_name(const char *raw, const SomStrList *values, char **out) {
-  if (raw == NULL || raw[0] == '\0' || values == NULL) {
-    return 0;
-  }
-  if (!som_strlist_contains(values, raw)) {
+  char *reading = som_typed_reading(raw);
+  if (reading == NULL || reading[0] == '\0' || values == NULL ||
+      !som_strlist_contains(values, reading)) {
+    free(reading);
     return 0;
   }
   if (out != NULL) {
-    *out = som_strdup(raw);
+    *out = reading;
+  } else {
+    free(reading);
   }
   return 1;
 }
@@ -343,7 +394,10 @@ char *som_scalar_base(const char *type_name) {
 }
 
 int som_typed_text_readable(const char *type_name, const char *raw) {
-  if (raw == NULL || raw[0] == '\0') {
+  char *reading = som_typed_reading(raw);
+  int empty = reading == NULL || reading[0] == '\0';
+  free(reading);
+  if (empty) {
     return 1;
   }
   char *base = som_scalar_base(type_name);

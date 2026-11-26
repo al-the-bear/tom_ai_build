@@ -56,7 +56,9 @@ anything that computes the path rather than knowing it.
 | `SpecDocument` | The sparse, path-keyed store of content, form and list values |
 | `SpecModel` | The exported class graph — roots, classes, fields, annotations |
 | `SpecReflection` | Resolves and enumerates paths against the model **without reading values** |
-| `SpecValidator` / `validateDocument` | The instance tier: a filled document's values checked against the model |
+| `SpecValidator` / `validateDocument` | The instance tier: a filled document's values checked against the model; a typed value or reference holding inline marks is read as its old value (SOM §11.9.3) |
+| `spec_validate_links` | The link checks of one document (`tom_specs_model_rules.md` §9.7): derived values against their sources, summaries against their detail lists, each end of a link against the other, ids named in a text against the link rows, `@SameAs` copies against their holders |
+| `SpecPlace`, `SpecPlaceFilter` | The place and filter grammar the link annotations are written in, resolved under an anchor without reading a value; the typed link readers (`spec_annotations_synced_with`, `_summary_of`, `_derived_from`, `_extracts_links`, `_same_as`, the form-field `derived_from` / `inverse_of` / `summary_of`) read a class's or a field's annotations |
 | the YAML and Markdown codecs | `*.tomspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages; the emitter writes the reading view's tables (SOM §11.4, §11.5) and the parser reads them and the older `Field:` lines; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7) |
 | `spec_strip_notation_text` | The strip of one value (SOM §11.10): secondary prose and review annotations dropped, unmarked or moved to an appendix, with the pieces that restore the original |
 | `spec_strip_merge` | The merge back (SOM §11.10): an edited readable rendition merged onto its document, every piece the strip removed put back (`spec_merge_stripped_value` for one value); a stale original merged three ways from the original at the export, read from the readable header's commit with `spec_strip_merge_git_show_file`; structural edits refused; the report and an exit code |
@@ -131,6 +133,42 @@ spec_model_free(model);
 This is the surface that makes generic editing safe rather than blind: before
 writing to a path you can ask whether the model has one, what kind of node it
 is, and whether it is a value leaf.
+
+The links between places (`tom_specs_model_rules.md` §9.7) are model data too:
+the readers return them typed, and a place resolves to where its value is
+stored — list items below the anchor written `<list>-*` — again without a
+document. `spec_validate_links` then holds a document to them.
+
+```c
+SpecSync sync;
+const SpecClass *cls = spec_model_class_named(model, "AcceptanceCriteriaList");
+if (cls != NULL && spec_annotations_synced_with(&cls->annotations, &sync)) {
+  printf("%s\n", sync.document); /* the root it is kept in sync with */
+  spec_sync_free(&sync);
+}
+
+SpecPlace place;
+SpecPlaceResolution r;
+SpecPlaceError perr;
+spec_place_error_init(&perr);
+if (spec_place_parse("FRED.description", &place, &perr)) {
+  if (spec_place_resolve(&place, &ref, "SBP", &r, &perr)) {
+    printf("%s %s %s\n", r.kind, r.path, spec_place_resolution_field(&r));
+    // formField SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-*/FRED description
+    spec_place_resolution_free(&r);
+  }
+  spec_place_free(&place);
+}
+spec_place_error_free(&perr);
+
+SpecValidationErrors links;
+spec_validate_links(model, &doc, &links);
+for (size_t i = 0; i < links.len; i++) {
+  printf("%s %s %s\n", links.items[i].code, links.items[i].path,
+         links.items[i].message);
+}
+spec_validation_errors_free(&links);
+```
 
 ## When to prefer the generic path
 

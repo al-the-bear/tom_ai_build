@@ -13,7 +13,7 @@ here cite it rather than restating it
 
 | Document | Covers |
 |----------|--------|
-| [generic_access.md](generic_access.md) | Driving a document by path, the model as data, and when to prefer this over the typed facade |
+| [generic_access.md](generic_access.md) | Driving a document by path, the model as data (the links between places and their checks included), and when to prefer this over the typed facade |
 | [review_annotations.md](review_annotations.md) | Listing and editing review annotations — comment blocks, question blocks and inline marks (SOM §11.9) |
 
 ## API reference

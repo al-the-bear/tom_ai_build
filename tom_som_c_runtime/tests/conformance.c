@@ -4633,6 +4633,8 @@ static SpecQuestionDraft draft_from_json(const SomJson *j,
   return d;
 }
 
+#include "conformance_links.h"
+
 /* Runs one op; returns its result as JSON text (owned) — `{"error":true}`
  * when it raised the annotation error. For `strip` writes the stripped
  * document into `*stripped` (owned) instead and returns NULL. `team` renders
@@ -4865,6 +4867,17 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
       free(j);
     }
     spec_marked_change_free(&mc);
+  } else if (strcmp(name, "validate") == 0) {
+    /* The instance tier's findings as `{path, code}`: a marked typed value
+     * is read as its old value (SOM §11.9.3). */
+    char *j = lk_validate_pairs(model, api->doc);
+    som_buf_puts(&b, j);
+    free(j);
+  } else if (strcmp(name, "typedRead") == 0) {
+    /* The typed reading of one value, as the typed accessors read it. */
+    char *j = lk_typed_read(model, api->doc, op);
+    som_buf_puts(&b, j);
+    free(j);
   } else if (strcmp(name, "strip") == 0) {
     *stripped = spec_review_annotations_stripped(api);
     som_buf_free(&b);
@@ -4927,16 +4940,17 @@ static char *fixed_clock(void *context) {
  * every op runs in order on one document loaded from `state`; each op's
  * result and the final state must equal `expect` (JSON equality). `team`
  * renders the results in their extended form (team_annotation_cases.json). */
-static void run_annotation_cases_in(Checker *c, const SpecModel *model,
-                                    const SomMetaTree *tree, const char *file,
-                                    const char *prefix, int team) {
+static void run_annotation_cases_keyed(Checker *c, const SpecModel *model,
+                                       const SomMetaTree *tree,
+                                       const char *file, const char *key,
+                                       const char *prefix, int team) {
   SomJson *table = read_json(file);
-  const SomJson *cases = som_json_get(table, "cases");
+  const SomJson *cases = som_json_get(table, key);
   size_t n = som_json_array_len(cases);
   char ctag[256];
   snprintf(ctag, sizeof(ctag), "%s.cases", prefix);
   char cmsg[256];
-  snprintf(cmsg, sizeof(cmsg), "no cases in %s", file);
+  snprintf(cmsg, sizeof(cmsg), "no %s in %s", key, file);
   check(c, ctag, n > 0, cmsg);
   for (size_t i = 0; i < n; i++) {
     const SomJson *kase = som_json_array_at(cases, i);
@@ -5000,6 +5014,12 @@ static void run_annotation_cases_in(Checker *c, const SpecModel *model,
     spec_document_free(&doc);
   }
   som_json_free(table);
+}
+
+static void run_annotation_cases_in(Checker *c, const SpecModel *model,
+                                    const SomMetaTree *tree, const char *file,
+                                    const char *prefix, int team) {
+  run_annotation_cases_keyed(c, model, tree, file, "cases", prefix, team);
 }
 
 static void run_annotation_cases(Checker *c, const SpecModel *model,
@@ -5275,6 +5295,9 @@ static void test_inline_marks(Checker *c, const SpecModel *model,
     }
   }
   som_json_free(table);
+  /* Typed values and headlines under review (SOM §11.9.3). */
+  run_annotation_cases_keyed(c, model, tree, "inline_mark_cases.json",
+                             "typedCases", "typedInlineMark", 0);
   run_annotation_cases(c, model, tree, "inline_mark_cases.json",
                        "inlineMarks");
 }
@@ -5317,6 +5340,9 @@ static void test_change_marks(Checker *c, const SpecModel *model,
     spec_marked_change_free(&r);
   }
   som_json_free(table);
+  /* Typed values and headlines written as marks (SOM §11.9.3). */
+  run_annotation_cases_keyed(c, model, tree, "change_mark_cases.json",
+                             "typedCases", "typedChangeMark", 0);
   run_annotation_cases(c, model, tree, "change_mark_cases.json",
                        "changeMarks");
 }
@@ -6639,6 +6665,8 @@ int main(int argc, char **argv) {
   test_generation_units(&c, model);
   test_impact_walk(&c);
   test_typed_values(&c);
+  test_link_readers(&c);
+  test_link_validation(&c);
 
   int rc = checker_finish(&c);
   som_meta_tree_free(tree);

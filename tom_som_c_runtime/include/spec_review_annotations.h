@@ -521,6 +521,15 @@ void spec_annotation_issues_text(const char *value, SomStrList *out);
 
 /* ---- document level ----------------------------------------------------- */
 
+/* The reserved field name under which a headline is a value of the review
+ * operations (`spec_review_annotations_set_marked`, the mark listing, the
+ * decisions): a headline takes inline marks (SOM §11.9.3), named as the place
+ * grammar names it (`<SECTIONID>.@headline`). A headline takes no comment or
+ * question block: the inserts refuse one. A headline without a mark is no
+ * value of the listing, so a document's revision is what it was before
+ * headlines could be marked. */
+#define SPEC_HEADLINE_FIELD "@headline"
+
 /* One paragraph of a value (SOM §11.9.1, "Paragraphs"): a run of non-blank
  * lines, where a blank line inside fenced code does not end the run. Its
  * `index` is what `after_paragraph` of the inserts takes. Strings owned. */
