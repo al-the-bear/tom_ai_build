@@ -200,6 +200,7 @@ func ParseDocSpecsDocument(text string) *DocSpecsDocument {
 	fence := &MarkdownFenceTracker{}
 	var stack []*DocSpecsSection
 	lines := strings.Split(text, "\n")
+	readable := false
 	for idx, raw := range lines {
 		lineNo := idx + 1
 		line := mdTrailingWSRE.ReplaceAllString(raw, "")
@@ -210,6 +211,17 @@ func ParseDocSpecsDocument(text string) *DocSpecsDocument {
 					fence.Feed(raw)
 					continue
 				}
+			}
+			// A stripped rendition (SOM §11.1): its readable header stands
+			// before the root heading, and its appendix after the marker is
+			// not part of the document.
+			if len(stack) == 0 && SpecMarkdownIsReadableComment(line) {
+				readable = true
+				fence.Feed(raw)
+				continue
+			}
+			if readable && line == SpecMarkdownAppendixMarker {
+				break
 			}
 			m := mdHeadingLineRE.FindStringSubmatch(line)
 			divLevel, divText, isDiv := 0, "", false

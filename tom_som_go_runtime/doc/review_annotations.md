@@ -96,6 +96,7 @@ The same program runs as `ExampleSpecReviewAnnotations` in
 | `SpecReviewAnnotationCounts` | `Questions`, `OpenQuestions`, `AnsweredQuestions`, `Comments`, `Marks`, `UnresolvedQuestions`, `Conflicts`, `OpenConflicts` |
 | `*SpecReviewAnnotationError` | An operation named something that is not there |
 | `StripAnnotationsText` | One value without its annotations |
+| `CountAnnotationsText` | How many comment, question and conflict blocks and inline marks one value holds: what `StripAnnotationsText` removes |
 | `FormatCommentBlock` / `FormatQuestionBlock` / `FormatConflictBlock` | The lines of a block as the operations write it |
 | `SpecMarkDecision`, `SpecMarkEntry`, `SpecMarkOutcome`, `SpecMarkIssue`, `SpecMarkReport` | The inline-mark review: decisions, listed marks, what was done, malformed marks |
 
@@ -115,7 +116,7 @@ The same program runs as `ExampleSpecReviewAnnotations` in
 | `EditComment(commentID, text, at)` | New text; the marker, id and author stay as written, the change time moves |
 | `Resolve(id)` | Removes one comment or question (a qualified comment id is accepted) and one adjacent blank line. A question of a combined block takes only its own lines; the block goes with its last question |
 | `ApplyMark(path, field, index, accept)` | Accepts or rejects inline mark `index` of one value. Accept takes the insertion, the deletion or the new text; reject keeps the old. A highlight or comment mark is removed either way, its text staying |
-| `Stripped()` | A copy of the document without any annotation, every mark accepted, for reading. The document is unchanged |
+| `Stripped()` | A copy of the document without any annotation, every mark accepted, headlines included, for reading: the strip with `drop: [comments]` (`SpecDocumentStrip`). The document is unchanged |
 
 Record each applied comment or answer in the project's log **before**
 `Resolve` removes it (`tom_specs_project_flow.md` PF-ITR-REV).

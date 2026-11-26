@@ -152,6 +152,10 @@ type SpecMarkdownResult struct {
 	// writes these over Content, so nothing written is lost; an empty value
 	// removes the path's text. Empty for a clean parse.
 	KeptContent map[string]string
+	// ReadableHeader is the readable header line of a stripped rendition (SOM
+	// §11.1), when the text carried one before its root heading; the parse
+	// skipped it. "" when there was none.
+	ReadableHeader string
 }
 
 // SpecMarkdownImport is a Markdown document loaded by SpecDocumentFromMarkdown:
@@ -371,6 +375,15 @@ type SpecDocumentMarkdown struct {
 	// root's file, keyed by its section id or type.
 	FileStem      string
 	DocumentFiles map[string]string
+
+	// HeadingDivs writes every section deeper than level 6 as a styled-div
+	// heading (`<div class="heading<N>" style="…">…</div>`, SOM §11.2); the
+	// parser reads both forms whatever it says.
+	HeadingDivs bool
+	// ReadableHeader is the readable header line of a stripped rendition,
+	// written after the `docspec` declaration (SOM §11.1); "" writes none. The
+	// parser skips it.
+	ReadableHeader string
 
 	// The document's keys of one kind, sorted once per export for mdUnder.
 	sortedKeys map[string][]string
@@ -676,10 +689,71 @@ func (c *SpecDocumentMarkdown) ExportRootWithMap(root *SpecRoot) (*SpecMarkdownR
 	return &SpecMarkdownRendition{Markdown: markdown, HeadingPaths: headingPaths}, nil
 }
 
-// mdEmittedHeading matches a heading line as writeHeading writes it. Body text
-// never matches: heading-like body lines are escaped (SOM §11.3) and fenced
-// ones skipped.
-var mdEmittedHeading = regexp.MustCompile(`^#+ <!--\[`)
+// mdEmittedHeading matches a heading line as writeHeading writes it: `#`
+// headings and styled-div headings (SOM §11.2). Body text never matches:
+// heading-like body lines are escaped (SOM §11.3) and fenced ones skipped.
+var mdEmittedHeading = regexp.MustCompile(`^(?:#+ |<div class="heading[0-9]+"[^>]*>)<!--\[`)
+
+// SpecMarkdownAppendixMarker is the line a stripped rendition's appendix
+// begins with (SOM §11.1): after a readable header, the parsers stop reading
+// at it.
+const SpecMarkdownAppendixMarker = "<!-- readable-appendix -->"
+
+// mdHeadingDivStyleStart is the fixed start of a styled-div heading's style,
+// up to its indent.
+const mdHeadingDivStyleStart = "margin:1em 0 0.5em;padding-left:"
+
+var mdReadableCommentRE = regexp.MustCompile(`^<!--\s*readable:.*-->$`)
+
+// SpecMarkdownIsReadableComment reports whether line (trailing whitespace
+// trimmed) is the readable header of a stripped rendition (SOM §11.1).
+func SpecMarkdownIsReadableComment(line string) bool {
+	return mdReadableCommentRE.MatchString(line)
+}
+
+// SpecMarkdownHeadingDiv reads line as a styled-div heading (DocSpecs
+// *Styled-div headings*, SOM §11.2): `<div class="heading<N>" …>…</div>` with
+// N ≥ 7 — its level and inner text with `&lt;`, `&gt;` and `&amp;` decoded.
+// ok is false for anything else, a `heading<N>` div below level 7 included
+// (content).
+func SpecMarkdownHeadingDiv(line string) (level int, inner string, ok bool) {
+	return docspecsStyledDivHeading(line)
+}
+
+// SpecMarkdownEscapableDiv reports whether line would read as a styled-div
+// heading after any run of backslashes (SOM §11.3): such a value line is
+// written escaped, `\<div …`, as a `#` line is.
+func SpecMarkdownEscapableDiv(line string) bool {
+	_, _, ok := SpecMarkdownHeadingDiv(mdTrailingWSRE.ReplaceAllString(strings.TrimLeft(line, "\\"), ""))
+	return ok
+}
+
+// SpecMarkdownHeadingDivIndent is a styled-div heading's indent at depth:
+// (depth − 6) × 0.75, written without a trailing `.0` (`0.75`, `1.5`, `3`).
+func SpecMarkdownHeadingDivIndent(depth int) string {
+	quarter := (depth - 6) * 3
+	if quarter < 0 {
+		quarter = 0
+	}
+	return itoa(quarter/4) + [...]string{"", ".25", ".5", ".75"}[quarter%4]
+}
+
+// SpecMarkdownHeadingTitle is the title of a heading line (`#` or styled
+// div) as a reader sees it: the headline comment's title without the
+// section's own anchor.
+func SpecMarkdownHeadingTitle(line string) string {
+	rest := line
+	if h := mdHeadingLineRE.FindStringSubmatch(line); h != nil {
+		rest = h[2]
+	} else if _, inner, ok := SpecMarkdownHeadingDiv(line); ok {
+		rest = inner
+	}
+	trimmed := strings.TrimSpace(rest)
+	if c := mdHeadlineCommentRE.FindStringSubmatch(trimmed); c != nil {
+		return StripOwnAnchor(strings.TrimSpace(c[3]), c[1])
+	}
+	return StripOwnAnchor(trimmed, "")
+}
 
 // SpecMarkdownRendition is a Markdown rendition of a document and the
 // document path behind each of its headings (ExportRootWithMap).
@@ -716,6 +790,9 @@ func (c *SpecDocumentMarkdown) exportRoot(root *SpecRoot) (string, error) {
 	b := &mdBuffer{}
 	b.writeln("<!-- docspec: " + SpecMarkdownKebabCase(root.Title) + "/" +
 		c.Model.ModelVersionString() + " -->")
+	if c.ReadableHeader != "" {
+		b.writeln(c.ReadableHeader) // SOM §11.1: a stripped rendition's readable header.
+	}
 	rootSeg := node.Segment()
 	// YRD3: a stored headline overrides the derived title at every heading.
 	// YRD4: the @Headline default wins over the @Document title.
@@ -1838,6 +1915,19 @@ func (c *SpecDocumentMarkdown) writeHeading(b *mdBuffer, depth int, id, title, p
 	if units != "" {
 		code += ` units="` + units + `"`
 	}
+	if c.HeadingDivs && depth > 6 {
+		// A styled-div heading (SOM §11.2, DocSpecs *Styled-div headings*): one
+		// line, the title HTML-escaped, the indent growing with the depth.
+		escaped := strings.ReplaceAll(title, "&", "&amp;")
+		escaped = strings.ReplaceAll(escaped, "<", "&lt;")
+		escaped = strings.ReplaceAll(escaped, ">", "&gt;")
+		escaped = strings.ReplaceAll(escaped, "\n", "<br>")
+		b.writeln("<div class=\"heading" + itoa(depth) + "\" style=\"" + mdHeadingDivStyleStart +
+			SpecMarkdownHeadingDivIndent(depth) + "em;font-weight:bold\"><!--[" + id + "]" + code +
+			"--> <a id=\"" + anchor + "\"></a> " + escaped + "</div>")
+		b.writeln("")
+		return
+	}
 	// A heading is one line: a stored headline's line breaks travel as `<br>`.
 	b.writeln(strings.Repeat("#", depth) + " <!--[" + id + "]" + code + "--> <a id=\"" +
 		anchor + "\"></a> " + strings.ReplaceAll(title, "\n", "<br>"))
@@ -1924,7 +2014,7 @@ func (c *SpecDocumentMarkdown) prepareValue(value, path string) (string, error) 
 	for _, line := range strings.Split(collapsed, "\n") {
 		if fence.InFence() {
 			out = append(out, line) // SOM §11.3: fences shield their lines.
-		} else if mdEscapableRE.MatchString(line) {
+		} else if mdEscapableRE.MatchString(line) || SpecMarkdownEscapableDiv(line) {
 			out = append(out, "\\"+line)
 		} else if mdTableHeaderShapedRE.MatchString(line) {
 			out = append(out, " "+line) // A value line is never a layout table.
@@ -2017,6 +2107,8 @@ func (c *SpecDocumentMarkdown) Parse(text string) *SpecMarkdownResult {
 		CodeSpecs:    p.codeSpecs,
 		Units:        p.units,
 		KeptContent:  p.keptContent,
+
+		ReadableHeader: p.readableHeader,
 	}
 }
 
@@ -2339,6 +2431,9 @@ type mdParser struct {
 	// repeated field names across an owner's transparent forms follow emit
 	// order.
 	currentFormIdx int
+	// readableHeader is the readable header a stripped rendition carries
+	// (SOM §11.1), "" when none was read.
+	readableHeader string
 }
 
 func newMdParser(codec *SpecDocumentMarkdown) *mdParser {
@@ -2436,9 +2531,21 @@ func (p *mdParser) run(lines []string) {
 			if len(p.stack) == 0 && mdDocspecCommentRE.MatchString(trimmed) {
 				continue // SOM §11.1 header — informational.
 			}
+			if len(p.stack) == 0 && p.readableHeader == "" && SpecMarkdownIsReadableComment(trimmed) {
+				p.readableHeader = trimmed // SOM §11.1 readable header — skipped.
+				continue
+			}
+			if p.readableHeader != "" && trimmed == SpecMarkdownAppendixMarker {
+				break // A stripped rendition's appendix is not the document.
+			}
 			if h := mdHeadingLineRE.FindStringSubmatch(trimmed); h != nil {
 				p.closeTo(len(h[1]))
 				p.openHeading(len(h[1]), h[2], lineNo)
+				continue
+			}
+			if level, inner, ok := SpecMarkdownHeadingDiv(trimmed); ok {
+				p.closeTo(level)
+				p.openHeading(level, inner, lineNo)
 				continue
 			}
 		}
@@ -3705,7 +3812,8 @@ func mdRestoreValue(body []string) string {
 	fence := &MarkdownFenceTracker{}
 	out := make([]string, 0, len(body))
 	for _, line := range body {
-		if !fence.InFence() && mdEscapedHeadingRE.MatchString(line) {
+		if !fence.InFence() && (mdEscapedHeadingRE.MatchString(line) ||
+			(strings.HasPrefix(line, "\\") && SpecMarkdownEscapableDiv(line))) {
 			out = append(out, line[1:])
 		} else if !fence.InFence() && mdEscapedTableHeaderRE.MatchString(line) {
 			out = append(out, line[1:]) // The emitter's one escape space.

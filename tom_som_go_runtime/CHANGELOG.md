@@ -2,6 +2,43 @@
 
 ## Unreleased
 
+- **Stripped renditions** (SOM §11.10, RV7 and RV8), ported from the
+  JavaScript and Rust runtimes; `spec_document_strip.go` is new.
+  - The strip of one value: `StripNotationText(value, options)` drops,
+    unmarks or moves to the appendix the secondary prose of the named kinds
+    (`provenance`, `trace`, `editorial`, `aside`, `linked`, `derived`,
+    `comments`): comments first, then the notation from the outside in, then
+    the whitespace the removals leave. `SpecStripTextResult` holds the text,
+    the counts per kind, `MarksDropped`, the appendix entries
+    (`SpecAppendixEntry`) and the pieces it removed (`SpecStripPiece`,
+    offsets in UTF-16 code units); a value with a notation error is refused
+    unchanged. `SpecStripOptions` with `SpecStripOptionsFromNames` (`all`,
+    comma-joined names, `SpecStripUsageError`), `SpecStripKindNames`,
+    `SpecStripNotationKinds`; `CountAnnotationsText`.
+  - The strip of a document: `SpecDocumentStrip{}.Strip` strips every content
+    value, form field and stored headline into a copy; given a model it
+    applies the emptying rule (`SpecStripKept`), removes the list items left
+    empty (`RemovedItems`), numbers the appendix through the rendition,
+    renders the `.readable.md` with its readable header and appendix *Notes*
+    (`AppendixReferences` links each moved element to its entry) and checks
+    it reads back and validates (`SpecStripResult`, `SpecStripFinding`,
+    `SpecStripValueRef`, `SpecStrippedValue`). The plan of one value, the
+    edit scripts and the tier findings stay package-internal for the merge
+    back.
+  - The readable header (`SpecReadableHeader`, `ParseSpecReadableHeader`,
+    `SpecReadableSource`): the codec writes `ReadableHeader` after the
+    `docspec` line, the parser skips it (`SpecMarkdownResult.ReadableHeader`)
+    and stops at the appendix marker (`SpecMarkdownAppendixMarker`), as the
+    DocSpecs parse does. `HeadingDivs` writes the sections below level six as
+    styled-div headings (`SpecMarkdownHeadingDiv`,
+    `SpecMarkdownHeadingDivIndent`), which the parser and the heading map
+    read back; a div-shaped value line is escaped. `SpecDocument.RootToExport`.
+  - `SpecReviewAnnotations.Stripped()` is the strip with `drop: [comments]`:
+    headlines are stripped too.
+  - The conformance runner reads the four tables of `strip_cases.json` and
+    runs the last three `readingView` import cases: no `readingView` skip is
+    left (1927 -> 2031 checks); `tests/spec_document_strip_test.go` is new.
+
 - **Rejected blocks kept for review** (SOM §11.7, DocSpecs RN-11): the parse
   result carries `KeptContent`, and an apply that accepts rejections
   (`ApplyMarkdownResult(result, true)`, which `SpecDocumentFromMarkdown`

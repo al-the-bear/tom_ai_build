@@ -2325,6 +2325,14 @@ func annMarkKeepingChangeComments(current, text string) SpecMarkedChange {
 	return SpecMarkedChange{Text: out, Exact: result.Exact}
 }
 
+// CountAnnotationsText is how many comment, question and conflict blocks and
+// inline marks value holds: what StripAnnotationsText removes, as a strip's
+// report counts it (SOM §11.10).
+func CountAnnotationsText(value string) int {
+	p := annParse(value)
+	return len(p.blocks) + len(p.marks)
+}
+
 // StripAnnotationsText returns value without any comment block, question
 // block or inline mark (every mark accepted). Plain quotes and code stay.
 func StripAnnotationsText(value string) string {
@@ -3017,21 +3025,12 @@ func (r *SpecReviewAnnotations) ApplyMark(path, field string, index int, accept 
 
 // Stripped returns a copy of the document without any annotation, for
 // reading. The document itself is unchanged.
+//
+// It is the strip of SOM §11.10 with `drop: [comments]`
+// (SpecDocumentStrip.Strip): every value is stripped, headlines included.
 func (r *SpecReviewAnnotations) Stripped() *SpecDocument {
-	cp := NewSpecDocument()
-	cp.LoadJSON(r.Doc.ToJSON())
-	for _, v := range r.values() {
-		clean := StripAnnotationsText(v.text)
-		if clean == v.text {
-			continue
-		}
-		if v.field == "" {
-			cp.SetContent(v.path, clean)
-		} else {
-			cp.SetFormField(v.path, v.field, clean)
-		}
-	}
-	return cp
+	options := SpecStripOptions{Drop: map[string]bool{"comments": true}}
+	return SpecDocumentStrip{}.Strip(r.Doc, options, SpecDocumentStripOptions{}).Document
 }
 
 func (r *SpecReviewAnnotations) paragraphLastLine(value string, afterParagraph int) (int, error) {

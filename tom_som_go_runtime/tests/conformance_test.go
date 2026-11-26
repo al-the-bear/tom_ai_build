@@ -223,6 +223,7 @@ func TestConformance(t *testing.T) {
 	testSerializationOrder(c, t)
 	testDocSpecs(c, t)
 	testNotation(c, t)
+	testStripCases(c, t, model)
 	testDocSpecsReplace(c, t)
 	testDocSpecsPaths(c, t, model)
 	testAssembly(c, t)
@@ -811,13 +812,6 @@ func testMarkdownImportRejections(c *checker, t *testing.T, model *som.SpecModel
 	var table markdownImportCaseTable
 	readJSON(t, "markdown_import_cases.json", &table)
 	for _, kase := range table.Cases {
-		// The reading view's table layout is read; the readable header and the
-		// styled-div headings belong to the strip of a document
-		// (runtime_parity.md § Reading view).
-		if kase.ReadingView &&
-			(kase.ReadableHeader != nil || strings.HasPrefix(kase.Name, "styled-div headings")) {
-			continue
-		}
 		name := kase.Name
 		parsed := som.NewSpecDocumentMarkdown(model, som.NewSpecDocument()).Parse(kase.Markdown)
 		c.check("md.reject["+name+"].count",
@@ -850,6 +844,19 @@ func testMarkdownImportRejections(c *checker, t *testing.T, model *som.SpecModel
 		wantJSON := canonJSON(t, &want)
 		c.check("md.reject["+name+"].landed", gotJSON == wantJSON,
 			"got "+gotJSON+" want "+wantJSON)
+		// A case naming the readable header holds it (SOM §11.1); null is none.
+		if kase.ReadableHeader != nil {
+			var want *string
+			if err := json.Unmarshal(kase.ReadableHeader, &want); err != nil {
+				t.Fatalf("md.reject[%s]: readableHeader: %v", name, err)
+			}
+			w := ""
+			if want != nil {
+				w = *want
+			}
+			c.check("md.reject["+name+"].readableHeader", parsed.ReadableHeader == w,
+				"got "+strconv.Quote(parsed.ReadableHeader))
+		}
 		// A case naming heading-comment values holds them too (read trimmed).
 		for _, kv := range []struct {
 			key       string

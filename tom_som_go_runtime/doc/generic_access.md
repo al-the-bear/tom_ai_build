@@ -58,8 +58,10 @@ anything that computes the path rather than knowing it.
 | `SpecReflection` | Resolves and enumerates paths against the model **without reading values** |
 | `ValidateDocument` (`SpecValidationError`) | The instance tier: a filled document's values checked against the model |
 | the YAML and Markdown codecs | `*.tomspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages; the emitter writes the reading view's form, record and section tables and reference lines with an anchor in every heading (SOM §11.2, §11.4, §11.5), and the parser reads them as well as the older `Field:` lines; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7) |
-| `DocSpecsValidator` | The DocSpecs schema check of a rendition, in the `Field:` layout and in the reading view's tables, list bodies and styled-div headings |
+| `DocSpecsValidator` | The DocSpecs schema check of a rendition, in the `Field:` layout and in the reading view's tables, list bodies and styled-div headings, skipping a stripped rendition's readable header and appendix |
 | `ScanNotation` | The reading notation of one text value: its divs, spans and citations and the notation's findings, which the DocSpecs validator reports as rules |
+| `StripNotationText` | The strip of one value (SOM §11.10): the secondary prose of named kinds dropped, unmarked or moved to an appendix, with the pieces that went (UTF-16 offsets); `SpecStripOptionsFromNames` reads the kind names |
+| `SpecDocumentStrip{}.Strip` | The strip of a whole document (SOM §11.10): every content value, form field and stored headline stripped into a copy; given a model, the emptying rule, the list items left empty removed, the appendix numbered through the rendition and the readable rendition (readable header, styled-div headings, appendix *Notes*) checked to read back and validate (`SpecStripResult`) |
 | the editing-facade bases | What the generated `tom_som_go_v0` types extend |
 
 The full catalogue is the [README](../README.md); this guide is about using
