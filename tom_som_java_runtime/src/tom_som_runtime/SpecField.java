@@ -147,4 +147,41 @@ public final class SpecField {
   public NoArtifactLink noArtifact() {
     return SpecAnnotations.noArtifact(annotations);
   }
+
+  /**
+   * Every annotation named {@code name}, in source order — empty when absent.
+   * Some annotations are repeatable ({@code @ExtractsLinks}, {@code @Case});
+   * reading only the first would drop the rest.
+   */
+  public List<SpecAnnotation> annotationsNamed(String name) {
+    return SpecAnnotations.allNamed(annotations, name);
+  }
+
+  /**
+   * The {@code @SyncedWith} sync ({@code tom_specs_model_rules.md} §9.7), or
+   * {@code null} when this member carries none.
+   */
+  public SpecSync syncedWith() {
+    return SpecAnnotations.syncedWith(annotations);
+  }
+
+  /** The {@code @SummaryOf} link of this member, or {@code null} when it carries none. */
+  public SpecSummaryOf summaryOf() {
+    return SpecAnnotations.summaryOf(annotations);
+  }
+
+  /** The {@code @DerivedFrom} derivation of this member, or {@code null} when it carries none. */
+  public SpecDerivation derivedFrom() {
+    return SpecAnnotations.derivedFrom(annotations);
+  }
+
+  /** Every {@code @ExtractsLinks} of this member, in source order; empty when it carries none. */
+  public List<SpecExtractsLinks> extractsLinks() {
+    return SpecAnnotations.extractsLinks(annotations);
+  }
+
+  /** The {@code @SameAs} copy of this member, or {@code null} when it carries none. */
+  public SpecSameAs sameAs() {
+    return SpecAnnotations.sameAs(annotations);
+  }
 }

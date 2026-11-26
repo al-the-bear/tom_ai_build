@@ -99,6 +99,41 @@ public final class SpecAnnotations {
     return dot < 0 ? raw : raw.substring(dot + 1);
   }
 
+  // --- the link vocabulary (tom_specs_model_rules.md §9.7) ------------------
+
+  /** The {@code @SyncedWith} sync, or {@code null} when absent. */
+  public static SpecSync syncedWith(List<SpecAnnotation> annotations) {
+    SpecAnnotation a = named(annotations, "SyncedWith");
+    return a == null ? null : SpecSync.fromAnnotation(a);
+  }
+
+  /** The {@code @SummaryOf} link, or {@code null} when absent. */
+  public static SpecSummaryOf summaryOf(List<SpecAnnotation> annotations) {
+    SpecAnnotation a = named(annotations, "SummaryOf");
+    return a == null ? null : SpecSummaryOf.from(LinkArguments.of(a));
+  }
+
+  /** The {@code @DerivedFrom} derivation, or {@code null} when absent. */
+  public static SpecDerivation derivedFrom(List<SpecAnnotation> annotations) {
+    SpecAnnotation a = named(annotations, "DerivedFrom");
+    return a == null ? null : SpecDerivation.from(LinkArguments.of(a));
+  }
+
+  /** Every {@code @ExtractsLinks}, in source order; empty when absent. */
+  public static List<SpecExtractsLinks> extractsLinks(List<SpecAnnotation> annotations) {
+    List<SpecExtractsLinks> out = new ArrayList<>();
+    for (SpecAnnotation a : allNamed(annotations, "ExtractsLinks")) {
+      out.add(SpecExtractsLinks.fromAnnotation(a));
+    }
+    return out;
+  }
+
+  /** The {@code @SameAs} copy, or {@code null} when absent. */
+  public static SpecSameAs sameAs(List<SpecAnnotation> annotations) {
+    SpecAnnotation a = named(annotations, "SameAs");
+    return a == null ? null : SpecSameAs.fromAnnotation(a);
+  }
+
   private static KindLink link(
       List<SpecAnnotation> annotations, String name, String listArgument) {
     SpecAnnotation a = named(annotations, name);

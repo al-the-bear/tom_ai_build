@@ -56,7 +56,9 @@ anything that computes the path rather than knowing it.
 | `SpecDocument` | The sparse, path-keyed store of content, form and list values |
 | `SpecModel` | The exported class graph — roots, classes, fields, annotations |
 | `SpecReflection` | Resolves and enumerates paths against the model **without reading values** |
-| `SpecValidator` / `validateDocument` | The instance tier: a filled document's values checked against the model |
+| `SpecValidator` / `validateDocument` | The instance tier: a filled document's values checked against the model; a typed value or reference holding inline marks is read as its old value (SOM §11.9.3) |
+| `SpecValidator.validateLinks` | The link checks of one document (`tom_specs_model_rules.md` §9.7): derived values against their sources, summaries against their detail lists, each end of a link against the other, ids named in a text against the link rows, `@SameAs` copies against their holders |
+| `SpecPlace`, `SpecPlaceFilter` | The place and filter grammar the link annotations are written in, resolved under an anchor without reading a value; the typed link readers (`syncedWith()`, `summaryOf()`, `derivedFrom()`, `extractsLinks()`, `sameAs()`, the form-field `derivedFrom` / `inverseOf` / `summaryOf`) are on the model's classes, fields and form fields |
 | the YAML and Markdown codecs | `*.tomspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages; the emitter writes the reading view's form, record and section tables and reference lines with an anchor in every heading (SOM §11.2, §11.4, §11.5), and the parser reads them as well as the older `Field:` lines; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7); the emitter writes a stripped rendition's readable header and styled-div headings on request, and the parser reads them back and stops at its appendix (SOM §11.1, §11.2) |
 | `DocSpecsValidator` | The DocSpecs schema check of a rendition, in the `Field:` layout and in the reading view's tables, list bodies and styled-div headings |
 | `SpecDocumentStrip.stripNotationText` | The strip of one text value (SOM §11.10): secondary prose of named kinds dropped, unmarked or moved to an appendix, with the pieces removed |
@@ -124,6 +126,37 @@ System.out.println("kind=" + res.kind.value + "  valueLeaf=" + res.isValueLeaf()
 This is the surface that makes generic editing safe rather than blind: before
 writing to a path you can ask whether the model has one, what kind of node it
 is, and whether it is a value leaf.
+
+The links between places (`tom_specs_model_rules.md` §9.7) are model data too:
+the readers return them typed, and a place resolves to where its value is
+stored — list items below the anchor written `<list>-*` — again without a
+document. `SpecValidator.validateLinks` then holds a document to them.
+
+```java
+import tom_som_runtime.SpecPlace;
+import tom_som_runtime.SpecPlaceResolution;
+import tom_som_runtime.SpecSync;
+import tom_som_runtime.SpecValidationError;
+import tom_som_runtime.SpecValidator;
+
+SpecSync sync = model.classNamed("AcceptanceCriteriaList").syncedWith();
+if (sync != null) {
+  System.out.println(sync.document); // the root it is kept in sync with
+}
+
+SpecPlaceResolution r = SpecPlace.parse("FRED.description").resolve(reflection, "SBP");
+System.out.println(r.kind.value + " " + r.path + " " + r.field());
+// formField SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-*/FRED description
+
+for (SpecValidationError e : SpecValidator.validateLinks(model, doc)) {
+  System.out.println(e.code.value + " " + e.path + " " + e.message);
+}
+```
+
+A place or filter that does not parse or resolve throws a `SpecPlaceException`
+whose `problem` (`SpecPlaceProblem`) says why: `malformed`, `anchorUnresolved`,
+`notScoped`, `unresolved`, `ambiguous`, `noSuchField`, `noContent`,
+`notListElement`, `reservedSlot`.
 
 ## When to prefer the generic path
 

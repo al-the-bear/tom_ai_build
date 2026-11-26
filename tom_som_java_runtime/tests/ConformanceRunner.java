@@ -128,6 +128,18 @@ import tom_som_runtime.SpecTypedValues;
 import tom_som_runtime.SpecValidationError;
 import tom_som_runtime.SpecValidator;
 import tom_som_runtime.SpecYamlContents;
+import tom_som_runtime.SpecDerivation;
+import tom_som_runtime.SpecExtractsLinks;
+import tom_som_runtime.SpecInverseOf;
+import tom_som_runtime.SpecPlace;
+import tom_som_runtime.SpecPlaceException;
+import tom_som_runtime.SpecPlaceFilter;
+import tom_som_runtime.SpecPlaceProblem;
+import tom_som_runtime.SpecSameAs;
+import tom_som_runtime.SpecSameAsBinding;
+import tom_som_runtime.SpecSummaryOf;
+import tom_som_runtime.SpecSync;
+import tom_som_runtime.SpecValidationCode;
 
 /**
  * Shared-corpus conformance runner for the Java generic runtime — a plain-Java
@@ -1161,6 +1173,8 @@ public final class ConformanceRunner {
             "got " + Json.write(e.getValue()) + ", want " + Json.write(c.get(e.getKey())));
       }
     }
+    // Typed values and headlines under review (SOM §11.9.3).
+    runTypedMarkCases("typedInlineMark", model, tree, (List<Object>) table.get("typedCases"));
     for (Object caseObj : (List<Object>) table.get("cases")) {
       Map<String, Object> c = (Map<String, Object>) caseObj;
       Map<String, Object> got = runAnnotationCase(model, tree, c);
@@ -1206,6 +1220,8 @@ public final class ConformanceRunner {
             "accept/reject do not give new/old");
       }
     }
+    // Typed values and headlines written as marks (SOM §11.9.3).
+    runTypedMarkCases("typedChangeMark", model, tree, (List<Object>) table.get("typedCases"));
     for (Object caseObj : (List<Object>) table.get("cases")) {
       Map<String, Object> c = (Map<String, Object>) caseObj;
       Map<String, Object> got = runAnnotationCase(model, tree, c);
@@ -1448,6 +1464,13 @@ public final class ConformanceRunner {
                 (String) op.get("author"),
                 (String) op.get("at"))
             .toJson();
+      case "validate":
+        // The instance tier's findings as `{path, code}`: a marked typed value is
+        // read as its old value (SOM §11.9.3).
+        return validationPairs(SpecValidator.validateDocument(model, doc));
+      case "typedRead":
+        // The typed reading of one value, as the typed accessors read it.
+        return typedRead(model, doc, op);
       case "roundTrip":
         {
           String yaml = SpecDocumentYaml.encode(doc, tree, MODEL_VERSION);
@@ -3582,6 +3605,595 @@ public final class ConformanceRunner {
     }
   }
 
+  // --- the section links (tom_specs_model_rules.md §9.7) --------------------
+
+  /**
+   * Replays the {@code typedCases} of {@code inline_mark_cases.json} /
+   * {@code change_mark_cases.json} like the scripted annotation cases: typed values
+   * and headlines under review (SOM §11.9.3).
+   */
+  @SuppressWarnings("unchecked")
+  private static void runTypedMarkCases(
+      String label, SpecModel model, SomMetaTree tree, List<Object> cases) {
+    check(label + ".cases", cases != null && !cases.isEmpty(), "no typedCases");
+    if (cases == null) {
+      return;
+    }
+    for (Object caseObj : cases) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      Map<String, Object> got = runAnnotationCase(model, tree, c);
+      Object expect = c.get("expect");
+      check(label + "[" + c.get("name") + "]", got.equals(expect), jsonMismatch(got, expect));
+    }
+  }
+
+  /** The findings as {@code {path, code}}. */
+  private static List<Object> validationPairs(List<SpecValidationError> errors) {
+    List<Object> out = new ArrayList<>();
+    for (SpecValidationError e : errors) {
+      Map<String, Object> m = new LinkedHashMap<>();
+      m.put("path", e.path);
+      m.put("code", e.code.value);
+      out.add(m);
+    }
+    return out;
+  }
+
+  /**
+   * The typed reading of the value at {@code path} / {@code field}: an enum by its
+   * name, {@code int}, {@code double}, {@code num} and {@code bool} as numbers and
+   * booleans, null when the text reads as nothing — with any inline mark rejected
+   * (its old value).
+   */
+  private static Object typedRead(SpecModel model, SpecDocument doc, Map<String, Object> op) {
+    String path = (String) op.get("path");
+    String field = (String) op.get("field");
+    SpecResolution res = new SpecReflection(model).resolve(path);
+    FormFieldSpec spec = null;
+    if (field != null && res != null && res.field != null) {
+      for (FormFieldSpec ff : res.field.formFields) {
+        if (ff.name.equals(field)) {
+          spec = ff;
+          break;
+        }
+      }
+    }
+    String raw = field != null ? doc.formField(path, field) : doc.content(path);
+    String typeName = null;
+    List<String> values = null;
+    if (spec != null) {
+      typeName = spec.type;
+      values = spec.enumValues;
+    } else if (res != null && res.field != null) {
+      typeName = res.field.type;
+      values = res.field.enumValues;
+    }
+    if (values != null && !values.isEmpty()) {
+      return SpecTypedValues.somParseEnumName(raw, values);
+    }
+    String base = SpecTypedValues.somScalarBase(typeName);
+    if ("int".equals(base)) {
+      return SpecTypedValues.somParseInt(raw);
+    }
+    if ("double".equals(base)) {
+      return SpecTypedValues.somParseDouble(raw);
+    }
+    if ("num".equals(base)) {
+      return SpecTypedValues.somParseNum(raw);
+    }
+    if ("bool".equals(base)) {
+      return SpecTypedValues.somParseBool(raw);
+    }
+    return raw == null ? null : SpecTypedValues.somTypedReading(raw);
+  }
+
+  /**
+   * What the link readers return for {@code model}, in canonical JSON: every class
+   * sync, every member link, every form-field qualifier, and the {@code @SameAs}
+   * bindings per root. Classes by name, fields and form fields in declaration
+   * order (the Dart test's {@code linkReadBack}).
+   */
+  private static Map<String, Object> linkReadBack(SpecModel model) {
+    List<String> names = new ArrayList<>(new java.util.TreeSet<>(model.classes.keySet()));
+    SpecReflection refl = new SpecReflection(model);
+    List<Object> classes = new ArrayList<>();
+    List<Object> fields = new ArrayList<>();
+    List<Object> formFields = new ArrayList<>();
+    for (String n : names) {
+      SpecSync sync = model.classes.get(n).syncedWith();
+      if (sync != null) {
+        Map<String, Object> row = new LinkedHashMap<>();
+        row.put("class", n);
+        row.put("syncedWith", sync.toJson());
+        classes.add(row);
+      }
+    }
+    for (String n : names) {
+      for (SpecField f : model.classes.get(n).fields) {
+        SpecSync sync = f.syncedWith();
+        SpecSummaryOf summary = f.summaryOf();
+        SpecDerivation derived = f.derivedFrom();
+        List<SpecExtractsLinks> extracts = f.extractsLinks();
+        SpecSameAs sameAs = f.sameAs();
+        if (sync == null && summary == null && derived == null && extracts.isEmpty()
+            && sameAs == null) {
+          continue;
+        }
+        Map<String, Object> row = new LinkedHashMap<>();
+        row.put("class", n);
+        row.put("field", f.name);
+        if (sync != null) {
+          row.put("syncedWith", sync.toJson());
+        }
+        if (summary != null) {
+          row.put("summaryOf", summary.toJson());
+        }
+        if (derived != null) {
+          row.put("derivedFrom", derived.toJson());
+        }
+        if (!extracts.isEmpty()) {
+          List<Object> list = new ArrayList<>();
+          for (SpecExtractsLinks e : extracts) {
+            list.add(e.toJson());
+          }
+          row.put("extractsLinks", list);
+        }
+        if (sameAs != null) {
+          row.put("sameAs", sameAs.toJson());
+        }
+        fields.add(row);
+      }
+    }
+    for (String n : names) {
+      for (SpecField f : model.classes.get(n).fields) {
+        for (FormFieldSpec ff : f.formFields) {
+          if (ff.derivedFrom == null && ff.inverseOf == null && ff.summaryOf == null) {
+            continue;
+          }
+          Map<String, Object> row = new LinkedHashMap<>();
+          row.put("class", n);
+          row.put("field", f.name);
+          row.put("formField", ff.name);
+          if (ff.derivedFrom != null) {
+            row.put("derivedFrom", ff.derivedFrom.toJson());
+          }
+          if (ff.inverseOf != null) {
+            row.put("inverseOf", ff.inverseOf.toJson());
+          }
+          if (ff.summaryOf != null) {
+            row.put("summaryOf", ff.summaryOf.toJson());
+          }
+          formFields.add(row);
+        }
+      }
+    }
+    List<Object> bindings = new ArrayList<>();
+    for (SpecRoot r : model.roots) {
+      for (SpecSameAsBinding b : SpecPlace.sameAsBindings(refl, r.type)) {
+        bindings.add(b.toJson());
+      }
+    }
+    Map<String, Object> out = new LinkedHashMap<>();
+    out.put("classes", classes);
+    out.put("fields", fields);
+    out.put("formFields", formFields);
+    out.put("sameAsBindings", bindings);
+    out.put("classCount", model.classes.size());
+    return out;
+  }
+
+  /** One place case: the text parsed, then resolved under {@code anchor} when given. */
+  private static Map<String, Object> placeCase(SpecReflection refl, Map<String, Object> c) {
+    Map<String, Object> out = new LinkedHashMap<>();
+    SpecPlace place = SpecPlace.tryParse((String) c.get("text"));
+    if (place == null) {
+      out.put("problem", SpecPlaceProblem.MALFORMED.value);
+      return out;
+    }
+    out.put("parsed", place.toJson());
+    String anchor = (String) c.get("anchor");
+    if (anchor == null) {
+      return out;
+    }
+    try {
+      out.put("resolved", place.resolve(refl, anchor).toJson());
+    } catch (SpecPlaceException e) {
+      out.put("problem", e.problem.value);
+    }
+    return out;
+  }
+
+  /**
+   * One filter case: the text parsed, resolved under {@code anchor} when given,
+   * and matched against {@code stored} when given.
+   */
+  @SuppressWarnings("unchecked")
+  private static Map<String, Object> filterCase(SpecReflection refl, Map<String, Object> c) {
+    Map<String, Object> out = new LinkedHashMap<>();
+    SpecPlaceFilter f = SpecPlaceFilter.tryParse((String) c.get("text"));
+    if (f == null) {
+      out.put("problem", SpecPlaceProblem.MALFORMED.value);
+      return out;
+    }
+    out.put("parsed", f.toJson());
+    if (c.get("stored") != null) {
+      List<String> stored = new ArrayList<>();
+      for (Object v : (List<Object>) c.get("stored")) {
+        stored.add(v instanceof String ? (String) v : Json.write(v));
+      }
+      out.put("matches", f.matches(stored));
+    }
+    String anchor = (String) c.get("anchor");
+    if (anchor != null) {
+      try {
+        out.put("resolved", f.resolve(refl, anchor).toJson());
+      } catch (SpecPlaceException e) {
+        out.put("problem", e.problem.value);
+      }
+    }
+    return out;
+  }
+
+  /** The rows of list {@code key} of an expectation. */
+  @SuppressWarnings("unchecked")
+  private static List<Map<String, Object>> expectRows(Map<String, Object> e, String key) {
+    List<Map<String, Object>> out = new ArrayList<>();
+    Object raw = e.get(key);
+    if (raw instanceof List) {
+      for (Object r : (List<Object>) raw) {
+        if (r instanceof Map) {
+          out.add((Map<String, Object>) r);
+        }
+      }
+    }
+    return out;
+  }
+
+  private static boolean anyRowHas(Map<String, Object> e, String key, String member) {
+    for (Map<String, Object> r : expectRows(e, key)) {
+      if (r.containsKey(member)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Whether the reader-case intent token holds in the expectation {@code e} (the
+   * Dart test's {@code _readerIntentHolds}); {@code null} for an unknown token.
+   */
+  @SuppressWarnings("unchecked")
+  private static Boolean readerIntentHolds(String token, Map<String, Object> e) {
+    switch (token) {
+      case "syncedWith":
+        return !expectRows(e, "classes").isEmpty();
+      case "syncRelationWhere":
+        for (Map<String, Object> m : expectRows(e, "classes")) {
+          Object sync = m.get("syncedWith");
+          if (sync instanceof Map) {
+            for (Map<String, Object> rel :
+                expectRows((Map<String, Object>) sync, "relations")) {
+              if (rel.containsKey("where")) {
+                return true;
+              }
+            }
+          }
+        }
+        return false;
+      case "summaryOf":
+        return anyRowHas(e, "fields", "summaryOf");
+      case "summaryOfDocument":
+        for (Map<String, Object> m : expectRows(e, "fields")) {
+          Object s = m.get("summaryOf");
+          if (s instanceof Map && ((Map<String, Object>) s).containsKey("document")) {
+            return true;
+          }
+        }
+        return false;
+      case "derivedFrom":
+        return anyRowHas(e, "fields", "derivedFrom");
+      case "extractsLinksRepeated":
+        for (Map<String, Object> m : expectRows(e, "fields")) {
+          Object l = m.get("extractsLinks");
+          if (l instanceof List && ((List<Object>) l).size() > 1) {
+            return true;
+          }
+        }
+        return false;
+      case "sameAs":
+        return anyRowHas(e, "fields", "sameAs");
+      case "formDerivedFrom":
+        return anyRowHas(e, "formFields", "derivedFrom");
+      case "formInverseOf":
+        return anyRowHas(e, "formFields", "inverseOf");
+      case "formSymmetric":
+        for (Map<String, Object> m : expectRows(e, "formFields")) {
+          Object inv = m.get("inverseOf");
+          if (inv instanceof Map) {
+            Object fs = ((Map<String, Object>) inv).get("fields");
+            if (fs instanceof List && ((List<Object>) fs).contains("@self")) {
+              return true;
+            }
+          }
+        }
+        return false;
+      case "formSummaryOf":
+        return anyRowHas(e, "formFields", "summaryOf");
+      case "sameAsHolder":
+        return anyRowHas(e, "sameAsBindings", "holder");
+      case "loadsUnchanged":
+        {
+          Object count = e.get("classCount");
+          return count instanceof Number
+              && ((Number) count).intValue() > 0
+              && expectRows(e, "classes").isEmpty()
+              && expectRows(e, "fields").isEmpty()
+              && expectRows(e, "formFields").isEmpty()
+              && expectRows(e, "sameAsBindings").isEmpty();
+        }
+      default:
+        return null;
+    }
+  }
+
+  /**
+   * Every string a text case's expectation shows: kinds, problems, and
+   * {@code matches} / {@code noMatch} (the Dart test's {@code _tokens}).
+   */
+  @SuppressWarnings("unchecked")
+  private static void linkTokens(Object v, String key, Set<String> out) {
+    if (v instanceof List) {
+      for (Object x : (List<Object>) v) {
+        linkTokens(x, "", out);
+      }
+    } else if (v instanceof Map) {
+      for (Map.Entry<String, Object> e : ((Map<String, Object>) v).entrySet()) {
+        linkTokens(e.getValue(), e.getKey(), out);
+      }
+    } else if (v instanceof Boolean) {
+      if (key.equals("matches")) {
+        out.add((Boolean) v ? "matches" : "noMatch");
+      }
+    } else if (v instanceof String) {
+      if (key.equals("kind") || key.equals("problem")) {
+        out.add((String) v);
+      }
+    }
+  }
+
+  /**
+   * {@code link_reader_cases.json}: the typed readers of the link annotations
+   * over {@code links.meta.json}, the place / filter grammar, and the LR / CO
+   * spot checks.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testLinkReaders() throws IOException {
+    Map<String, Object> metaJson = readJsonObject("links.meta.json");
+    Map<String, Object> table = readJsonObject("link_reader_cases.json");
+    List<Object> cases = (List<Object>) table.get("cases");
+    check("links.reader.cases", !cases.isEmpty(), "no cases in link_reader_cases.json");
+    for (Object caseObj : cases) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = "links.reader[" + c.get("name") + "]";
+      Object meta = "links.meta.json".equals(c.get("model")) ? metaJson : c.get("meta");
+      if (meta instanceof String) {
+        meta = Json.parse((String) meta);
+      }
+      Object want = c.get("expect");
+      try {
+        Map<String, Object> got =
+            Json.parseObject(Json.write(linkReadBack(SpecModel.fromJson((Map<String, Object>) meta))));
+        check(name, got.equals(want), jsonMismatch(got, want));
+      } catch (RuntimeException e) {
+        check(name, false, "threw " + e);
+      }
+      for (Object tokenObj : (List<Object>) c.get("intent")) {
+        String token = (String) tokenObj;
+        Boolean holds = readerIntentHolds(token, (Map<String, Object>) want);
+        check(
+            "links.reader.intent[" + c.get("name") + ": " + token + "]",
+            Boolean.TRUE.equals(holds),
+            holds == null ? "unknown intent token" : "does not hold");
+      }
+    }
+    SpecModel model = SpecModel.fromJson(metaJson);
+    SpecReflection refl = new SpecReflection(model);
+    Map<String, Object> textCases = (Map<String, Object>) table.get("textCases");
+    for (String kind : List.of("place", "filter")) {
+      List<Object> list = (List<Object>) textCases.get(kind.equals("place") ? "places" : "filters");
+      check("links." + kind + ".cases", list != null && !list.isEmpty(), "no " + kind + " cases");
+      for (Object caseObj : list) {
+        Map<String, Object> c = (Map<String, Object>) caseObj;
+        String name = "links." + kind + "[" + c.get("name") + "]";
+        Object want = c.get("expect");
+        try {
+          Map<String, Object> got =
+              Json.parseObject(
+                  Json.write(kind.equals("place") ? placeCase(refl, c) : filterCase(refl, c)));
+          check(name, got.equals(want), jsonMismatch(got, want));
+        } catch (RuntimeException e) {
+          check(name, false, "threw " + e);
+        }
+        Set<String> shown = new HashSet<>();
+        linkTokens(want, "", shown);
+        for (Object token : (List<Object>) c.get("intent")) {
+          check(
+              "links." + kind + ".intent[" + c.get("name") + ": " + token + "]",
+              shown.contains(token),
+              "");
+        }
+      }
+    }
+
+    // LR1: the class sync is read with its relations.
+    SpecSync reqs = model.classes.get("Requirements").syncedWith();
+    check(
+        "links.LR1.sync",
+        reqs != null
+            && reqs.document.equals("Detail")
+            && reqs.detailOnly.equals(List.of("REQX"))
+            && reqs.heldHere.equals(List.of("REQ.owner"))
+            && reqs.relations.size() == 1
+            && reqs.relations.get(0).relation.equals("subset"),
+        "");
+    SpecSync crit = model.classes.get("Criteria").syncedWith();
+    check(
+        "links.LR1.where",
+        crit != null
+            && crit.relations.size() == 1
+            && "CRITE.kind=functional|quality".equals(crit.relations.get(0).where),
+        "");
+    check("links.LR1.none", model.classes.get("Blueprint").syncedWith() == null, "");
+
+    // LR2: member links and the repeated @ExtractsLinks.
+    SpecClass req = model.classes.get("Requirement");
+    List<SpecExtractsLinks> links = req.fieldNamed("links").extractsLinks();
+    List<String> modes = new ArrayList<>();
+    for (SpecExtractsLinks x : links) {
+      modes.add(x.mode);
+    }
+    check("links.LR2.modes", modes.equals(List.of("generate", "warn")), String.join(",", modes));
+    check(
+        "links.LR2.set",
+        !links.isEmpty() && links.get(0).set.equals(Map.of("LNK.linkType", "namedInText")),
+        "");
+    SpecDerivation abstractD = req.fieldNamed("abstract").derivedFrom();
+    check("links.LR2.copy", abstractD != null && abstractD.kind.equals("copy"), "");
+    SpecDerivation pre = req.fieldNamed("prerequisites").derivedFrom();
+    check("links.LR2.map", pre != null && pre.map.equals(Map.of("PRE.ref", "LNK-REF.ref")), "");
+    check("links.LR2.noSummary", req.fieldNamed("links").summaryOf() == null, "");
+
+    // LR3: the form-field qualifiers.
+    SpecDerivation conflicts = formField(model, "Requirement", "constraints", "conflictsWith").derivedFrom;
+    check(
+        "links.LR3.where",
+        conflicts != null && "LNK.linkType=conflict".equals(conflicts.where),
+        "");
+    SpecInverseOf sym = formField(model, "Link", "ref", "ref").inverseOf;
+    check("links.LR3.symmetric", sym != null && sym.symmetric(), "");
+    SpecInverseOf nsym = formField(model, "Requirement", "trace", "relatedScreens").inverseOf;
+    check("links.LR3.notSymmetric", nsym != null && !nsym.symmetric(), "");
+    SpecSummaryOf focus = formField(model, "Blueprint", "focus", "focusScreens").summaryOf;
+    check("links.LR3.summaryDocument", focus != null && "Screens".equals(focus.document), "");
+
+    // LR4: the real model — S1 has one holder in each document.
+    SpecModel somModel =
+        SpecModel.fromJson(
+            Json.parseObject(
+                new String(
+                    Files.readAllBytes(
+                        corpus.resolve("../../tom_som_dart_v0/meta/spec_model.meta.json").normalize()),
+                    StandardCharsets.UTF_8)));
+    SpecReflection realRefl = new SpecReflection(somModel);
+    for (String root : List.of("D00SolutionBlueprint", "D10QualityAcceptancePlan")) {
+      List<SpecSameAsBinding> bindings = SpecPlace.sameAsBindings(realRefl, root);
+      List<Object> shown = new ArrayList<>();
+      for (SpecSameAsBinding b : bindings) {
+        shown.add(b.toJson());
+      }
+      check(
+          "links.LR4[" + root + "]",
+          bindings.size() == 1
+              && bindings.get(0).className.equals("AcceptanceCriteriaList")
+              && bindings.get(0).problem == null
+              && bindings.get(0).copyPath.endsWith("/detailedCriteria"),
+          Json.write(shown));
+    }
+
+    // CO1–CO2: countOf reads the filter, `|` included.
+    check("links.CO1", countFindings(model, "2", "3").isEmpty(), "");
+    String base = "BLU/requirements";
+    check("links.CO2.settled", countFindings(model, "3", "3").equals(List.of(base + "/REQS-SUM")), "");
+    check("links.CO2.total", countFindings(model, "2", "2").equals(List.of(base + "/REQS-SUM")), "");
+  }
+
+  private static FormFieldSpec formField(SpecModel model, String cls, String field, String name) {
+    for (FormFieldSpec f : model.classes.get(cls).fieldNamed(field).formFields) {
+      if (f.name.equals(name)) {
+        return f;
+      }
+    }
+    throw new IllegalStateException("no form field " + cls + "." + field + "." + name);
+  }
+
+  /** The countMismatch paths of a requirements list stating {@code settled} / {@code total}. */
+  private static List<String> countFindings(SpecModel model, String settled, String total) {
+    String base = "BLU/requirements";
+    SpecDocument d = new SpecDocument();
+    for (String status : List.of("approved", "done", "draft")) {
+      String item = d.addListItem(base + "/REQ-ITEM-LST");
+      d.setFormField(item + "/content", "status", status);
+    }
+    d.setFormField(base + "/REQS-SUM", "total", total);
+    d.setFormField(base + "/REQS-SUM", "settled", settled);
+    List<String> out = new ArrayList<>();
+    for (SpecValidationError e : SpecValidator.validateDocument(model, d)) {
+      if (e.code == SpecValidationCode.COUNT_MISMATCH) {
+        out.add(e.path);
+      }
+    }
+    return out;
+  }
+
+  /** {@code {path, code}} rows of an expectation list (null: none). */
+  @SuppressWarnings("unchecked")
+  private static List<Object> expectedFindings(Object raw) {
+    return raw == null ? new ArrayList<>() : (List<Object>) raw;
+  }
+
+  /** {@code link_validation_cases.json}: the link checks of one document. */
+  @SuppressWarnings("unchecked")
+  private static void testLinkValidation() throws IOException {
+    Map<String, Object> table = readJsonObject("link_validation_cases.json");
+    Object metaName = table.get("model");
+    SpecModel model =
+        SpecModel.fromJson(readJsonObject(metaName == null ? "links.meta.json" : (String) metaName));
+    List<Object> cases = (List<Object>) table.get("cases");
+    check("links.validate.cases", !cases.isEmpty(), "no cases in link_validation_cases.json");
+    Set<String> provoked = new HashSet<>();
+    for (Object caseObj : cases) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = "links.validate[" + c.get("name") + "]";
+      List<Object> want = expectedFindings(c.get("errors"));
+      List<Object> wantInstance = expectedFindings(c.get("instanceErrors"));
+      Set<String> codes = new HashSet<>();
+      for (Object e : want) {
+        String code = (String) ((Map<String, Object>) e).get("code");
+        provoked.add(code);
+        codes.add(code);
+      }
+      for (Object e : wantInstance) {
+        codes.add((String) ((Map<String, Object>) e).get("code"));
+      }
+      SpecDocument d =
+          documentFromState(Json.parseObject(Json.write(c.get("state"))));
+      List<Object> got = validationPairs(SpecValidator.validateLinks(model, d));
+      check(name + ".errors", got.equals(want), jsonMismatch(got, want));
+      List<Object> instance = validationPairs(SpecValidator.validateDocument(model, d));
+      check(name + ".instanceErrors", instance.equals(wantInstance), jsonMismatch(instance, wantInstance));
+      for (Object tokenObj : (List<Object>) c.get("intent")) {
+        String token = (String) tokenObj;
+        boolean holds = token.equals("clean") ? codes.isEmpty() : codes.contains(token);
+        check("links.validate.intent[" + c.get("name") + ": " + token + "]", holds, "");
+      }
+    }
+    for (SpecValidationCode code :
+        List.of(
+            SpecValidationCode.DERIVED_VALUE_MISMATCH,
+            SpecValidationCode.DERIVED_LOOKUP_MISS,
+            SpecValidationCode.DUPLICATE_LINK_ROW,
+            SpecValidationCode.INVERSE_MISSING,
+            SpecValidationCode.EXTRACTED_LINK_MISSING,
+            SpecValidationCode.EXTRACTED_LINK_STALE,
+            SpecValidationCode.SUMMARY_NOT_IN_DETAIL,
+            SpecValidationCode.DETAIL_NOT_IN_SUMMARY,
+            SpecValidationCode.SUMMARY_DUPLICATE,
+            SpecValidationCode.SAME_AS_MISMATCH,
+            SpecValidationCode.LINK_VALUE_PENDING)) {
+      check("links.validate.provoked[" + code.value + "]", provoked.contains(code.value), "");
+    }
+  }
+
   public static void main(String[] args) throws IOException {
     String corpusArg =
         args.length > 0 ? args[0] : "../tom_som_conformance/corpus";
@@ -3639,6 +4251,8 @@ public final class ConformanceRunner {
     testGenerationUnits(model);
     testTypedValues();
     testImpactWalk();
+    testLinkReaders();
+    testLinkValidation();
 
     int total = passed + failed.size();
     if (!failed.isEmpty()) {

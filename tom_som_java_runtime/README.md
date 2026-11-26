@@ -71,13 +71,16 @@ install / JDK-only `build_jar.sh` routes and how to pin.
 | ------- | -------------- |
 | `SpecPaths` | The section-path grammar (root / child / list-item segments). |
 | `SpecModel`, `SpecRoot`, `SpecClass`, `SpecField`, … | The meta-data loader — the exported class graph. |
+| `SpecSync`, `SpecListRelation`, `SpecSummaryOf`, `SpecDerivation`, `SpecInverseOf`, `SpecExtractsLinks`, `SpecSameAs` | The typed readers of the link annotations (`tom_specs_model_rules.md` §9.7): `syncedWith()`, `summaryOf()`, `derivedFrom()`, `extractsLinks()`, `sameAs()` and `annotationsNamed()` on `SpecClass` and `SpecField`, the form-field qualifiers `FormFieldSpec.derivedFrom` / `inverseOf` / `summaryOf`, `SpecClass.isCodeSpecsProjection()`. A string → string argument (`repeats`, `map`, `set`) keeps the meta's order. |
+| `SpecPlace`, `SpecPlaceFilter`, `SpecPlaceResolution`, `SpecPlaceKind`, `SpecPlaceProblem`, `SpecPlaceException`, `SpecSameAsBinding`, `SpecSectionPosition` | The place and filter grammar of the links between places (`tom_specs_model_rules.md` §9.7): a place parsed and resolved under an anchor to the path its value is stored at (list items written `<list>-*`), a filter `<SECTIONID>.<field>=<value>` with `\|` alternatives (read by `countOf` too), the `@SameAs` bindings (`SpecPlace.sameAsBindings`) and the section positions of a root (`SpecPlace.sectionPositions`). |
+| `SpecLinkValidator`, `SpecLinkFix` | `SpecValidator.validateLinks` — the link checks of one document: derived copies, rows, lookups and lists in step, inverses named back, ids named in a text with their rows, summaries against their details, `@SameAs` copies against their holders; a value holding pending marks is read with them rejected and listed (`linkValuePending`). `SpecLinkValidator` collects beside every finding the fix `deriveFields` writes (`SpecLinkFix`, the order of an added row's values and of a derived list's places recorded). |
 | `SpecReflection`, `SpecResolution`, `SpecNodeKind` | Value-free enumeration + path resolution. |
 | `SpecDocument` | A sparse in-memory document — values keyed by section path. |
 | `SpecDocumentAssembly`, `SpecAssemblyOverlap` | Assembling one document from fragments written in parallel (`SpecDocument.assemble`): a refusing merge of the plain-data stores — a content path, form field, list, headline or code-spec location two fragments both write is an overlap, and an assembly with any overlap has no document. |
 | `SpecListItemMove` | Moving a list item (`SpecDocument.moveListItem`) to another position of its list, or into another list of the same element class: the affected lists are renumbered, every value under each item travels with it, and an anonymous item whose position changed keeps its old id (pinned). `SpecDocumentYaml.rekeyReview` re-keys a `review:` pass with the move's `renamed` map. |
-| `SpecTypedValues` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
+| `SpecTypedValues` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided; a typed value holding inline marks reads as its old value (`somTypedReading`, SOM §11.9.3). |
 | `SpecEditor` | The generic meta-model-driven modification API (YRD7) — typed edits over any path, without a generated facade. |
-| `SpecValidator` | Validates a document's values against the model. |
+| `SpecValidator`, `SpecDerivedNumber` | Validates a document's values against the model (typed values and references under review read as their old value); `derivedNumbers` gives the values `countOf`, `productOf` and `rankOf` call for. |
 | `SomTextPattern`, `SomPatternError` | The portable pattern subset — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (`java.util.regex` is a different grammar, and its case folding is Unicode-wide where the contract stops at ASCII). |
 | `SpecQuery`, `SpecQueryEngine`, `SpecQueryCursor`, `SpecQueryMatch` | The lexical/structural query surface plus the flat tier-1 node projection. |
 | `SpecNodeCreator`, `SpecCreationError`, `SpecCreationCode` | The constrained node-creation gate (`checkAddNode`, `add`) — a document may only grow in ways the model permits. |
@@ -91,7 +94,7 @@ install / JDK-only `build_jar.sh` routes and how to pin.
 | `SpecImpactWalk`, `SpecImpactRootWalk`, `SpecImpactRow`, `SpecImpactRowKind`, `SpecImpactLevel`, `SpecImpactLevelDocument`, `SpecImpactFolder` | The impact walk of the `tom_specs` change mode: `specImpactWalk` lists every section of every document root of the model for a specification (a root without a document over an empty one) — section-id chain, class, fill state, value count, CodeSpecs routing — and an empty list of sections as a template `<list>/*`; `specImpactLevel` records how far the project has come from a listing of its spec root; `specImpactDocumentFiles` finds the current documents in that listing; `specImpactWalkMarkdown` writes the table. The routing verdict is shared with the extractor as `CodeSpecsRouting.codeSpecsClassRouting` / `codeSpecsFieldRouting`. Pure (no IO). |
 | `CodeSpecsGate`, `CodeSpecsGateReport`, `CodeSpecsGateCheckResult`, `CodeSpecsGateFinding`, `CodeSpecsGateCheck`, `CodeSpecsFieldRef`, `CodeSpecsRequiredArgument`, `CodeSpecsCarrier` | The Stage-A gate (`codespecs_prompt.md` §4, A1–A5) run as one over model, document, catalogue and DocSpecs schema: every check runs, a check that cannot run is reported not run, and the report carries the extracts when A3 passed. A4/A5 read the catalogue's optional `gate` tables. |
 | `CodeSpecsExtract.fromYaml`, `CodeSpecsGateRecord`, `CodeSpecsGateEntry`, `CodeSpecsGateVerdict`, `CodeSpecsExtractSet`, `CodeSpecsExcludedArea`, `CodeSpecsRecordError` | Reading a Phase-4 run back: an extract file (the inverse of `toYaml`, refusing an unknown `formatVersion`), the Stage-B gate record `gate.verdicts.yaml` (read, checked, edited with `withVerdict`, written byte-stable) and a set of extracts scoped by that record (`fromFiles`, `fromDirectory`), with the excluded areas kept visible. |
-| `SpecReviewAnnotations`, `SpecReviewAnnotation`, `SpecReviewAnnotationKind` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks, conflict blocks, change times and attribution. |
+| `SpecReviewAnnotations`, `SpecReviewAnnotation`, `SpecReviewAnnotationKind` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks, in headlines too under `K_SPEC_HEADLINE_FIELD`, conflict blocks, change times and attribution. |
 | `SpecReviewMerge`, `SpecReviewMergeResult`, `SpecReviewMergeReport`, `SpecReviewMergeOptions` | Team review (SOM §11.9.8): `SpecReviewMerge.mergeReviews` merges the returned copies of a round into one document (or Markdown file) with votes, individual answers and conflict blocks. |
 | `SpecAnswers`, `SpecAnswerExtract`, `SpecAnswerEntry` | A review round's answers (SOM §11.9.7): `extractAnswers` and `renderAnswers` (`answers.md`). |
 | `SomMetaTree`, `SomMetaNode`, `SomMetaKind`, … | The metadata tree the YAML codec and the facade navigate by. |
@@ -158,6 +161,14 @@ The runner asserts byte-for-byte equality of the YAML and Markdown encodings, th
 document round-trips, the Markdown→memory landing, the reflection / validation /
 operations behaviour, and the Phase-4 CodeSpecs extracts (exit 0 on success).
 
+The section-automation tables of this port so far run in the same runner: the
+link readers and the place / filter grammar (`link_reader_cases.json`),
+`validateLinks` (`link_validation_cases.json`) and the typed inline marks (the
+`typedCases` of `inline_mark_cases.json` / `change_mark_cases.json`) — over the
+fixture model `corpus/links.meta.json` and, for the cases naming it, the real
+model of `tom_som_dart_v0/meta/`. `SpecPlaceTest` and `SpecLinkValidatorTest`
+hold the Java surface around them.
+
 ## Architecture
 
 ```
@@ -185,7 +196,8 @@ operations behaviour, and the Phase-4 CodeSpecs extracts (exit 0 on success).
 | `SpecReflection` | Resolves and enumerates paths against the model without reading values. |
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated classes. |
 | `SpecNodeCreator` | The creation gate — a document may only grow in ways the model permits. |
-| `SpecValidator` | The instance tier: a filled document's values checked against the model. |
+| `SpecValidator` | The instance tier: a filled document's values checked against the model; `validateLinks`, the link checks of one document (`tom_specs_model_rules.md` §9.7). |
+| `SpecPlace`, `SpecPlaceFilter` | The place and filter grammar the link annotations are written in, resolved without reading a value. |
 | `SpecDocumentYaml` | Byte-stable `*.tomspecs.yaml` encode/decode. |
 | `SpecDocumentMarkdown` | DocSpecs-conform Markdown export, parse and round-trip. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
@@ -238,5 +250,5 @@ operations behaviour, and the Phase-4 CodeSpecs extracts (exit 0 on success).
 ## Status
 
 Version **1.13.0**, tracking the TomSpecs model version. Requires JDK ≥ 17
-(verified with `javac`/`java` 21). Covered by 16 test files; the conformance
-runner reports **OK: 1862 checks passed** and `./run_tests.sh` is green.
+(verified with `javac`/`java` 21). Covered by 18 test files; the conformance
+runner reports **OK: 2089 checks passed** and `./run_tests.sh` is green.

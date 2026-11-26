@@ -2682,7 +2682,21 @@ public final class SpecReviewAnnotations {
     return out;
   }
 
-  /** Every value, in document order. */
+  /**
+   * The reserved field name under which a headline is a value of the review
+   * operations ({@link #setMarked}, the mark listing, the decisions): a headline
+   * takes inline marks (SOM §11.9.3), named as the place grammar names it
+   * ({@code <SECTIONID>.@headline}).
+   */
+  public static final String K_SPEC_HEADLINE_FIELD = "@headline";
+
+  /**
+   * Every value, in document order: content, form fields, then the headlines
+   * that hold an inline mark, under the reserved field
+   * {@link #K_SPEC_HEADLINE_FIELD} (SOM §11.9.3). A headline without a mark is
+   * no value here, so a document's revision is what it was before headlines
+   * could be marked.
+   */
   private List<Value> values() {
     List<Value> out = new ArrayList<>();
     for (String path : sorted(doc.contentPaths())) {
@@ -2695,19 +2709,45 @@ public final class SpecReviewAnnotations {
         out.add(new Value(path, f, v == null ? "" : v));
       }
     }
+    for (String path : sorted(doc.headlinePaths())) {
+      String v = doc.headline(path);
+      if (v != null && v.indexOf('{') >= 0 && !parse(v).marks.isEmpty()) {
+        out.add(new Value(path, K_SPEC_HEADLINE_FIELD, v));
+      }
+    }
     return out;
   }
 
   private String get(String path, String field) {
-    String v = field == null ? doc.content(path) : doc.formField(path, field);
+    String v;
+    if (field == null) {
+      v = doc.content(path);
+    } else if (field.equals(K_SPEC_HEADLINE_FIELD)) {
+      v = doc.headline(path);
+    } else {
+      v = doc.formField(path, field);
+    }
     return v == null ? "" : v;
   }
 
   private void set(String path, String field, String value) {
     if (field == null) {
       doc.setContent(path, value);
+    } else if (field.equals(K_SPEC_HEADLINE_FIELD)) {
+      doc.setHeadline(path, value);
     } else {
       doc.setFormField(path, field, value);
+    }
+  }
+
+  /**
+   * Refuses a comment or question block in a headline: a headline is one line,
+   * it takes inline marks, never a block.
+   */
+  private static void refuseBlockIn(String field) {
+    if (K_SPEC_HEADLINE_FIELD.equals(field)) {
+      throw new SpecReviewAnnotationError(
+          "a headline takes inline marks only, not a comment or question block");
     }
   }
 
@@ -2852,6 +2892,7 @@ public final class SpecReviewAnnotations {
       String at) {
     String time = time(at);
     String cid = id != null ? id : nextCommentId();
+    refuseBlockIn(field);
     String value = get(path, field);
     int end = paragraphLastLine(value, afterParagraph);
     set(path, field, insertAfterLine(value, end, formatCommentBlock(cid, text, author, time)));
@@ -2875,6 +2916,7 @@ public final class SpecReviewAnnotations {
   public void insertQuestion(
       String path, String field, int afterParagraph, SpecQuestionDraft question, String at) {
     String time = time(at);
+    refuseBlockIn(field);
     String value = get(path, field);
     int end = paragraphLastLine(value, afterParagraph);
     set(path, field, insertAfterLine(value, end, formatQuestionBlock(question, time)));

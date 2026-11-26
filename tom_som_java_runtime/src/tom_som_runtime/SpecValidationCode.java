@@ -103,7 +103,57 @@ public enum SpecValidationCode {
    * ({@link SpecGenerationUnits#SPEC_STANDARD_EMITTERS}: {@code openapi},
    * {@code jsonschema}, {@code icu}, {@code asyncapi}, {@code markdown}).
    */
-  UNIT_EMITTER_UNKNOWN("unitEmitterUnknown");
+  UNIT_EMITTER_UNKNOWN("unitEmitterUnknown"),
+
+  // The link checks of one document (SpecLinkValidator#validateLinks,
+  // tom_specs_model_rules.md §9.7). A stored derived value its sources do not
+  // give is reported as derivedValueMismatch above.
+
+  /** A {@code @DerivedFrom.lookup} finds no row for its key, or more than one. */
+  DERIVED_LOOKUP_MISS("derivedLookupMiss"),
+  /**
+   * Two link rows beneath one element name the same id with the same type (the
+   * values {@code @ExtractsLinks} sets); reported at the second.
+   */
+  DUPLICATE_LINK_ROW("duplicateLinkRow"),
+  /**
+   * A link names an entry whose other end ({@code inverseOf}) does not name it
+   * back, or a symmetric row has no counterpart on the entry it names. An end
+   * whose registry the document does not hold is skipped.
+   */
+  INVERSE_MISSING("inverseMissing"),
+  /**
+   * An id named in an {@code @ExtractsLinks} text has no row. An id that has a
+   * row of any type is a reference to it and is not reported.
+   */
+  EXTRACTED_LINK_MISSING("extractedLinkMissing"),
+  /**
+   * A generated row (its {@code @ExtractsLinks} {@code set} values match) names
+   * an id the text no longer names.
+   */
+  EXTRACTED_LINK_STALE("extractedLinkStale"),
+  /** A summary row ({@code @SummaryOf}) names no element of its detail list. */
+  SUMMARY_NOT_IN_DETAIL("summaryNotInDetail"),
+  /** Under {@code relation: equal}, a detail element no summary row names. */
+  DETAIL_NOT_IN_SUMMARY("detailNotInSummary"),
+  /** Two summary rows name one detail element; reported at the second. */
+  SUMMARY_DUPLICATE("summaryDuplicate"),
+  /**
+   * A {@code @SameAs} copy holds a value its holder does not (or lacks one it
+   * holds): the two positions of the section were edited apart.
+   */
+  SAME_AS_MISMATCH("sameAsMismatch"),
+  /**
+   * A value a link check reads holds pending change marks. It is read with every
+   * mark rejected (the reviewed state) and listed for the user.
+   */
+  LINK_VALUE_PENDING("linkValuePending"),
+  /**
+   * A change {@code deriveFields} would write in a document under review that
+   * cannot be marked exactly (a difference inside fenced code, SOM §11.9.3); it
+   * is left as it was, for the agent.
+   */
+  UNMARKABLE("unmarkable");
 
   public final String value;
 

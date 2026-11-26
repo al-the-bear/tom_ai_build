@@ -22,6 +22,16 @@ import java.util.TreeSet;
 public final class SpecValidator {
   private SpecValidator() {}
 
+  /**
+   * The link checks of one document ({@code tom_specs_model_rules.md} §9.7):
+   * derived values, summaries, the two ends of a link, the link rows a text
+   * names and the {@code @SameAs} copies; see {@link SpecLinkValidator}. The
+   * findings sorted by path, then by code (declaration order), then by message.
+   */
+  public static List<SpecValidationError> validateLinks(SpecModel model, SpecDocument doc) {
+    return SpecLinkValidator.validateLinks(model, doc);
+  }
+
   private static SpecValidationError dangling(String path) {
     return new SpecValidationError(
         path, SpecValidationCode.DANGLING_PATH, "path does not resolve to any model node");
@@ -102,7 +112,7 @@ public final class SpecValidator {
           continue;
         }
         if (spec.enumValues.isEmpty()) {
-          String text = doc.formField(path, name);
+          String text = typedValue(doc.formField(path, name), spec);
           // A stated count (countOf) is checked by countMismatch, a product or
           // rank (productOf, rankOf) by derivedValueMismatch; both already
           // report text that is no number, and one finding is enough.
@@ -120,7 +130,7 @@ public final class SpecValidator {
           }
           continue;
         }
-        String value = doc.formField(path, name);
+        String value = typedValue(doc.formField(path, name), spec);
         // Absence is not a bad value.
         if (value == null || value.isEmpty()) {
           continue;
@@ -156,7 +166,7 @@ public final class SpecValidator {
         if (!ff.required) {
           continue;
         }
-        String value = doc.formField(path, ff.name);
+        String value = typedValue(doc.formField(path, ff.name), ff);
         if (value == null || value.trim().isEmpty()) {
           errors.add(
               new SpecValidationError(
@@ -309,7 +319,10 @@ public final class SpecValidator {
       if (formHolder == null) {
         continue; // static tier flagged the mismatch
       }
-      String chosen = doc.formField(path + "/" + refl.fieldSegment(formHolder), discriminator);
+      // The discriminator is an enum: under review it reads as its old value.
+      String chosen =
+          SpecTypedValues.somTypedReading(
+              doc.formField(path + "/" + refl.fieldSegment(formHolder), discriminator));
       if (chosen == null || chosen.isEmpty()) {
         continue; // no case chosen yet
       }
@@ -436,7 +449,7 @@ public final class SpecValidator {
         continue;
       }
       for (FormFieldSpec ff : form.field.formFields) {
-        String value = doc.formField(form.path, ff.name);
+        String value = typedValue(doc.formField(form.path, ff.name), ff);
         if (value == null || value.trim().isEmpty()) {
           continue;
         }
@@ -482,7 +495,7 @@ public final class SpecValidator {
         if (ff.refersTo.isEmpty()) {
           continue;
         }
-        String value = doc.formField(form.path, ff.name);
+        String value = typedValue(doc.formField(form.path, ff.name), ff);
         if (value == null || value.trim().isEmpty()) {
           continue;
         }
@@ -571,10 +584,12 @@ public final class SpecValidator {
    * {@code @SectionId(X)}. A target {@code X} counts every such entry;
    * {@code X.f=v} counts only the entries one of whose own forms — a form member
    * of the entry, at {@code <item>/<member>} — holds {@code v} in form field
-   * {@code f}. The count is the sum over the targets. As with the reference
-   * check, a target whose section id the document's root cannot reach makes the
-   * field undecidable here, so it is skipped rather than reported, and an empty
-   * value is completeness, not a count.
+   * {@code f}, and {@code X.f=a|b} those holding either alternative. A target
+   * is read as a {@link SpecPlaceFilter}. The count is the sum over the targets.
+   * As with the reference check, a target whose section id the document's root
+   * cannot reach — or that is no filter at all — makes the field undecidable
+   * here, so it is skipped rather than reported, and an empty value is
+   * completeness, not a count.
    */
   private static List<SpecValidationError> validateCountInstances(
       SpecReflection refl, SpecDocument doc) {
@@ -618,7 +633,7 @@ public final class SpecValidator {
         continue;
       }
       for (FormFieldSpec ff : res.field.formFields) {
-        String v = doc.formField(path, ff.name);
+        String v = typedValue(doc.formField(path, ff.name), ff);
         if (v == null) {
           continue;
         }
@@ -639,7 +654,7 @@ public final class SpecValidator {
         if (ff.countOf.isEmpty()) {
           continue;
         }
-        String stated = doc.formField(form.path, ff.name);
+        String stated = typedValue(doc.formField(form.path, ff.name), ff);
         if (stated == null) {
           continue;
         }
@@ -647,19 +662,15 @@ public final class SpecValidator {
         if (stated.isEmpty()) {
           continue;
         }
-        boolean allInScope = true;
-        for (String target : ff.countOf) {
-          if (!scope.contains(registrySectionId(countTargetId(target)))) {
-            allInScope = false;
-            break;
-          }
-        }
-        if (!allInScope) {
+        // A target that is no filter, or whose entries the root cannot reach,
+        // makes the count undecidable here: skipped, never reported.
+        List<SpecPlaceFilter> filters = countFilters(ff.countOf, scope);
+        if (filters == null) {
           continue;
         }
         String owner = form.path.substring(0, form.path.lastIndexOf('/'));
         int counted = 0;
-        for (String target : ff.countOf) {
+        for (SpecPlaceFilter target : filters) {
           counted += countTarget(target, owner, entriesById, valuesByItem);
         }
         String targets = String.join(" + ", ff.countOf);
@@ -699,46 +710,62 @@ public final class SpecValidator {
   /**
    * The number of entries one {@code countOf} target names: every entry of
    * section id {@code X}, or — for {@code X.f=v} — those whose own forms hold
-   * {@code v} in form field {@code f}. A target written {@code ./…} counts
-   * only the entries beneath {@code owner}, the section holding the form; any
-   * other target counts the whole document.
+   * {@code v} in form field {@code f}, and for {@code X.f=a|b} those holding
+   * either alternative. A target written {@code ./…} counts only the entries
+   * beneath {@code owner}, the section holding the form; any other target counts
+   * the whole document.
    */
   private static int countTarget(
-      String target,
+      SpecPlaceFilter target,
       String owner,
       Map<String, List<String>> entriesById,
       Map<String, Map<String, Set<String>>> valuesByItem) {
-    boolean scoped = target.startsWith("./");
-    if (scoped) {
-      target = target.substring(2);
-    }
     String prefix = owner + "/";
-    int dot = target.indexOf('.');
-    if (dot < 0) {
-      int n = 0;
-      for (String item : entriesById.getOrDefault(target, Collections.emptyList())) {
-        if (!scoped || item.startsWith(prefix)) {
-          n++;
-        }
-      }
-      return n;
-    }
-    String id = target.substring(0, dot);
-    int eq = target.indexOf('=', dot);
-    String field = target.substring(dot + 1, eq < 0 ? target.length() : eq);
-    String value = eq < 0 ? "" : target.substring(eq + 1);
     int n = 0;
-    for (String item : entriesById.getOrDefault(id, Collections.emptyList())) {
-      if (scoped && !item.startsWith(prefix)) {
+    for (String item : entriesById.getOrDefault(target.sectionId, Collections.emptyList())) {
+      if (target.scoped && !item.startsWith(prefix)) {
         continue;
       }
-      Map<String, Set<String>> byField = valuesByItem.get(item);
-      Set<String> values = byField == null ? null : byField.get(field);
-      if (values != null && values.contains(value)) {
-        n++;
+      if (target.field != null) {
+        Map<String, Set<String>> byField = valuesByItem.get(item);
+        Set<String> values = byField == null ? null : byField.get(target.field);
+        if (!target.matches(values)) {
+          continue;
+        }
       }
+      n++;
     }
     return n;
+  }
+
+  /**
+   * Every {@code countOf} target read as a {@link SpecPlaceFilter}; {@code null}
+   * when one is no filter or names entries the document's root cannot reach
+   * ({@code scope}), which makes the count undecidable.
+   */
+  private static List<SpecPlaceFilter> countFilters(List<String> countOf, Set<String> scope) {
+    List<SpecPlaceFilter> filters = new ArrayList<>();
+    for (String t : countOf) {
+      SpecPlaceFilter f = SpecPlaceFilter.tryParse(t);
+      if (f == null || !scope.contains(registrySectionId(f.sectionId))) {
+        return null;
+      }
+      filters.add(f);
+    }
+    return filters;
+  }
+
+  /**
+   * A form field's value as the instance tier reads it: a typed value (an enum,
+   * {@code int}, {@code double}, {@code num}, {@code bool}) or a reference
+   * ({@code refersTo}) holding inline marks reads as its old value (SOM
+   * §11.9.3); any other value as stored.
+   */
+  static String typedValue(String raw, FormFieldSpec spec) {
+    if (SpecTypedValues.somIsTypedField(spec.type, spec.enumValues) || !spec.refersTo.isEmpty()) {
+      return SpecTypedValues.somTypedReading(raw);
+    }
+    return raw;
   }
 
   /**
@@ -785,7 +812,7 @@ public final class SpecValidator {
       String owner = form.path.substring(0, form.path.lastIndexOf('/'));
       for (FormFieldSpec ff : form.field.formFields) {
         if (!ff.productOf.isEmpty()) {
-          String stated = doc.formField(form.path, ff.name);
+          String stated = typedValue(doc.formField(form.path, ff.name), ff);
           stated = stated == null ? null : stated.trim();
           if (stated != null && !stated.isEmpty()) {
             Double product = 1.0;
@@ -826,7 +853,7 @@ public final class SpecValidator {
         }
         String by = ff.rankOf;
         if (by != null) {
-          String stated = doc.formField(form.path, ff.name);
+          String stated = typedValue(doc.formField(form.path, ff.name), ff);
           stated = stated == null ? null : stated.trim();
           FormFieldSpec scoreSpec = formFieldSpecAt(refl, form.path, by);
           Double score = scoreSpec == null ? null : derivedNumberOf(doc, form.path, scoreSpec);
@@ -918,7 +945,7 @@ public final class SpecValidator {
    * position, any other field its decimal value.
    */
   private static Double derivedNumberOf(SpecDocument doc, String formPath, FormFieldSpec spec) {
-    String v = doc.formField(formPath, spec.name);
+    String v = typedValue(doc.formField(formPath, spec.name), spec);
     if (v == null) {
       return null;
     }
@@ -952,18 +979,6 @@ public final class SpecValidator {
     return v == Math.rint(v) && !Double.isInfinite(v)
         ? java.math.BigDecimal.valueOf(v).toBigInteger().toString()
         : Double.toString(v);
-  }
-
-  /**
-   * The section id of a {@code countOf} target — the part before any
-   * {@code .field=value}, without the {@code ./} scope prefix.
-   */
-  private static String countTargetId(String target) {
-    if (target.startsWith("./")) {
-      target = target.substring(2);
-    }
-    int dot = target.indexOf('.');
-    return dot < 0 ? target : target.substring(0, dot);
   }
 
   /**
@@ -1040,6 +1055,222 @@ public final class SpecValidator {
       }
     }
     return ids;
+  }
+
+  // --- the derived numbers (deriveFields step 3) -----------------------------
+
+  /**
+   * The value every derived number of {@code doc} should hold, by the rules the
+   * instance tier checks ({@code countOf}, {@code productOf}, {@code rankOf}):
+   * one entry per form field whose value is decidable, whether it is filled or
+   * not. With {@code readProposed}, values holding pending marks are read with
+   * the marks accepted (the proposal {@code deriveFields} writes in a document
+   * under review), else with them rejected. {@code deriveFields} writes these
+   * (step 3).
+   */
+  public static List<SpecDerivedNumber> derivedNumbers(
+      SpecModel model, SpecDocument doc, boolean readProposed) {
+    SpecReflection refl = new SpecReflection(model);
+    List<FormInstance> forms = resolvedForms(refl, doc);
+    List<SpecDerivedNumber> out = new ArrayList<>();
+
+    // countOf.
+    Set<String> scope = registryScope(refl, doc);
+    Map<String, List<String>> entriesById = new HashMap<>();
+    for (String listPath : new TreeSet<>(doc.listPaths())) {
+      for (String item : doc.listItems(listPath)) {
+        SpecResolution r = refl.resolve(item);
+        String id = r == null || r.targetClass == null ? null : r.targetClass.sectionId;
+        if (id == null || id.isEmpty()) {
+          continue;
+        }
+        entriesById.computeIfAbsent(id, k -> new ArrayList<>()).add(item);
+      }
+    }
+    Map<String, Map<String, Set<String>>> valuesByItem = new HashMap<>();
+    for (String path : doc.formPaths()) {
+      int slash = path.lastIndexOf('/');
+      if (slash <= 0) {
+        continue;
+      }
+      SpecResolution res = refl.resolve(path);
+      if (res == null || res.field == null) {
+        continue;
+      }
+      for (FormFieldSpec ff : res.field.formFields) {
+        String v = readNumberSource(doc, path, ff, readProposed);
+        if (v == null || v.isEmpty()) {
+          continue;
+        }
+        valuesByItem
+            .computeIfAbsent(path.substring(0, slash), k -> new HashMap<>())
+            .computeIfAbsent(ff.name, k -> new HashSet<>())
+            .add(v);
+      }
+    }
+    for (FormInstance form : forms) {
+      String owner = form.path.substring(0, form.path.lastIndexOf('/'));
+      for (FormFieldSpec ff : form.field.formFields) {
+        if (ff.countOf.isEmpty()) {
+          continue;
+        }
+        List<SpecPlaceFilter> targets = countFilters(ff.countOf, scope);
+        if (targets == null) {
+          continue;
+        }
+        int counted = 0;
+        for (SpecPlaceFilter t : targets) {
+          counted += countTarget(t, owner, entriesById, valuesByItem);
+        }
+        out.add(new SpecDerivedNumber(form.path, ff.name, Integer.toString(counted)));
+      }
+    }
+
+    // productOf, then rankOf over the products just derived.
+    Map<String, Double> products = new HashMap<>();
+    for (FormInstance form : forms) {
+      String owner = form.path.substring(0, form.path.lastIndexOf('/'));
+      for (FormFieldSpec ff : form.field.formFields) {
+        if (ff.productOf.isEmpty()) {
+          continue;
+        }
+        Double product = 1.0;
+        for (String operand : ff.productOf) {
+          int dot = operand.indexOf('.');
+          String path = dot < 0 ? form.path : owner + "/" + operand.substring(0, dot);
+          String name = dot < 0 ? operand : operand.substring(dot + 1);
+          FormFieldSpec spec = formFieldSpecAt(refl, path, name);
+          Double n = spec == null ? null : proposedNumberOf(doc, path, spec, readProposed, products);
+          if (n == null) {
+            product = null;
+            break;
+          }
+          product = product * n;
+        }
+        if (product == null) {
+          continue;
+        }
+        products.put(form.path + "#" + ff.name, product);
+        // Written as the field's type writes it (`3.0` in a double).
+        String base = SpecTypedValues.somScalarBase(ff.type);
+        String text;
+        if ("double".equals(base)) {
+          text = SpecTypedValues.somFormatDouble(product);
+        } else if ("int".equals(base) && product == Math.rint(product)) {
+          text = Long.toString(Math.round(product));
+        } else {
+          text = formatNumber(product);
+        }
+        out.add(new SpecDerivedNumber(form.path, ff.name, text));
+      }
+    }
+
+    final class RankEntry {
+      final String path;
+      final String name;
+      final double score;
+      final int had;
+
+      RankEntry(String path, String name, double score, int had) {
+        this.path = path;
+        this.name = name;
+        this.score = score;
+        this.had = had;
+      }
+    }
+    Map<String, List<RankEntry>> groups = new java.util.LinkedHashMap<>();
+    for (FormInstance form : forms) {
+      for (FormFieldSpec ff : form.field.formFields) {
+        if (ff.rankOf == null) {
+          continue;
+        }
+        FormFieldSpec scoreSpec = formFieldSpecAt(refl, form.path, ff.rankOf);
+        if (scoreSpec == null) {
+          continue;
+        }
+        Double score = proposedNumberOf(doc, form.path, scoreSpec, readProposed, products);
+        if (score == null) {
+          continue;
+        }
+        String hadText = readNumberSource(doc, form.path, ff, readProposed);
+        // Equal scores keep the order their ranks give (the rule leaves it
+        // open); an entry without a readable rank sorts after them.
+        int had = 1 << 30;
+        if (hadText != null && hadText.matches("[+-]?[0-9]+")) {
+          try {
+            had = Integer.parseInt(hadText.startsWith("+") ? hadText.substring(1) : hadText);
+          } catch (NumberFormatException e) {
+            had = 1 << 30;
+          }
+        }
+        groups
+            .computeIfAbsent(
+                form.cls.name + "#" + form.field.name + "#" + ff.name, k -> new ArrayList<>())
+            .add(new RankEntry(form.path, ff.name, score, had));
+      }
+    }
+    for (List<RankEntry> group : groups.values()) {
+      List<RankEntry> sorted = new ArrayList<>(group);
+      // Highest score first, then the order the ranks give, then path order.
+      sorted.sort(
+          (a, b) -> {
+            if (a.score != b.score) {
+              return a.score > b.score ? -1 : 1;
+            }
+            if (a.had != b.had) {
+              return Integer.compare(a.had, b.had);
+            }
+            return a.path.compareTo(b.path);
+          });
+      for (int i = 0; i < sorted.size(); i++) {
+        RankEntry e = sorted.get(i);
+        out.add(new SpecDerivedNumber(e.path, e.name, Integer.toString(i + 1)));
+      }
+    }
+    return out;
+  }
+
+  /**
+   * The trimmed value a derived number reads, {@code null} when the form holds
+   * no such field: pending marks accepted with {@code readProposed}, else
+   * rejected.
+   */
+  private static String readNumberSource(
+      SpecDocument doc, String path, FormFieldSpec ff, boolean readProposed) {
+    String raw = doc.formField(path, ff.name);
+    if (raw == null) {
+      return null;
+    }
+    if (raw.indexOf('{') < 0) {
+      return raw.trim();
+    }
+    return SpecReviewAnnotations.applyInlineMarksText(raw, readProposed).trim();
+  }
+
+  /**
+   * The number a field contributes to a derived number: a product derived just
+   * before, else its enum position or decimal value; {@code null} when empty or
+   * unreadable.
+   */
+  private static Double proposedNumberOf(
+      SpecDocument doc,
+      String path,
+      FormFieldSpec spec,
+      boolean readProposed,
+      Map<String, Double> products) {
+    Double derived = products.get(path + "#" + spec.name);
+    if (derived != null) {
+      return derived;
+    }
+    String v = readNumberSource(doc, path, spec, readProposed);
+    if (v == null || v.isEmpty()) {
+      return null;
+    }
+    if (!spec.enumValues.isEmpty()) {
+      int i = spec.enumValues.indexOf(v);
+      return i < 0 ? null : (double) (i + 1);
+    }
+    return v.matches(DECIMAL_NUMBER) ? Double.parseDouble(v) : null;
   }
 
   // --- generation units (SOM §11.2, phase 8) ---------------------------------

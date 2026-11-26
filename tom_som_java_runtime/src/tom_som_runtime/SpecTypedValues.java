@@ -43,7 +43,10 @@ import java.util.regex.Pattern;
  *       {@code null};
  *   <li>enums — stored as the constant <b>name</b> (e.g. {@code high}); the
  *       generic layer validates against the field's {@code enumValues} domain,
- *       a generated facade converts name ⇄ native constant.
+ *       a generated facade converts name ⇄ native constant;
+ *   <li>a typed value holding inline marks (SOM §11.9.3, a change under review:
+ *       {@code {~~ 30 ~> 15 ~~}}) reads as its <b>old</b> value, every mark
+ *       rejected, until the marks are decided ({@link #somTypedReading}).
  * </ul>
  *
  * <p>Reads are forgiving and writes are strict: unparsable stored text reads as
@@ -52,6 +55,37 @@ import java.util.regex.Pattern;
  */
 public final class SpecTypedValues {
   private SpecTypedValues() {}
+
+  /**
+   * The reading of a typed value under review: {@code raw} with every inline mark
+   * rejected (its old value), trimmed; {@code raw} itself when it holds no mark
+   * ({@code null} stays {@code null}).
+   *
+   * <p>A typed value marked as a change (SOM §11.9.3) is the old value until the
+   * change is accepted: the parsers here, the validator and every typed read see
+   * that value, never the markup.
+   */
+  public static String somTypedReading(String raw) {
+    if (raw == null || raw.indexOf('{') < 0) {
+      return raw;
+    }
+    String old = SpecReviewAnnotations.applyInlineMarksText(raw, false);
+    return old.equals(raw) ? raw : trimmed(old);
+  }
+
+  /**
+   * Whether a form field holds a typed value: an enum, or {@code int},
+   * {@code double}, {@code num} or {@code bool} — the values that read as their
+   * old value while marked.
+   */
+  public static boolean somIsTypedField(String typeName, List<String> enumValues) {
+    if (enumValues != null && !enumValues.isEmpty()) {
+      return true;
+    }
+    String base = somScalarBase(typeName);
+    return "int".equals(base) || "double".equals(base) || "num".equals(base)
+        || "bool".equals(base);
+  }
 
   /** A decimal integer literal with an optional sign. */
   private static final Pattern INT_TEXT = Pattern.compile("[+-]?[0-9]+");
@@ -69,7 +103,7 @@ public final class SpecTypedValues {
       "\t\n\u000B\f\r \u00A0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006"
           + "\u2007\u2008\u2009\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF";
 
-  private static String trimmed(String raw) {
+  static String trimmed(String raw) {
     int start = 0;
     int end = raw.length();
     while (start < end && TRIM_CHARS.indexOf(raw.charAt(start)) >= 0) {
@@ -83,6 +117,7 @@ public final class SpecTypedValues {
 
   /** Parses a stored string as {@code int}, or {@code null} when absent/unparsable. */
   public static Integer somParseInt(String raw) {
+    raw = somTypedReading(raw);
     if (raw == null || raw.isEmpty()) {
       return null;
     }
@@ -112,6 +147,7 @@ public final class SpecTypedValues {
    * read as {@code null}, because the store is language-neutral.
    */
   public static Double somParseDouble(String raw) {
+    raw = somTypedReading(raw);
     if (raw == null || raw.isEmpty()) {
       return null;
     }
@@ -180,6 +216,7 @@ public final class SpecTypedValues {
 
   /** Parses a stored string as {@code bool} — exactly {@code true}/{@code false}, else {@code null}. */
   public static Boolean somParseBool(String raw) {
+    raw = somTypedReading(raw);
     if ("true".equals(raw)) {
       return Boolean.TRUE;
     }
@@ -201,7 +238,8 @@ public final class SpecTypedValues {
    * the same forgiveness the other parsers extend to malformed numbers.
    */
   public static String somParseEnumName(String raw, List<String> values) {
-    return (raw != null && values != null && values.contains(raw)) ? raw : null;
+    raw = somTypedReading(raw);
+    return (raw != null && !raw.isEmpty() && values != null && values.contains(raw)) ? raw : null;
   }
 
   /**
@@ -250,6 +288,7 @@ public final class SpecTypedValues {
    * never silently read as unset.
    */
   public static boolean somTypedTextReadable(String typeName, String raw) {
+    raw = somTypedReading(raw);
     if (raw == null || raw.isEmpty()) {
       return true;
     }

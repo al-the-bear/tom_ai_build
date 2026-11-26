@@ -65,6 +65,21 @@ public final class FormFieldSpec {
    * {@code Field:} paragraph, never as a row of the form table (SOM §11.4).
    */
   public final boolean multiParagraph;
+  /**
+   * The derivation this field's value follows ({@code Field.derivedFrom},
+   * {@code tom_specs_model_rules.md} §9.7), or {@code null} when it states none.
+   */
+  public final SpecDerivation derivedFrom;
+  /**
+   * The other ends of the link this reference field is one end of
+   * ({@code Field.inverseOf}), or {@code null} when it states none.
+   */
+  public final SpecInverseOf inverseOf;
+  /**
+   * The detailed list this multi-valued reference field summarises
+   * ({@code Field.summaryOf}), or {@code null} when it states none.
+   */
+  public final SpecSummaryOf summaryOf;
 
   public FormFieldSpec(
       String name, String label, String type, String hint, boolean required) {
@@ -153,6 +168,30 @@ public final class FormFieldSpec {
       String rankOf,
       boolean multiple,
       boolean multiParagraph) {
+    this(name, label, type, hint, required, enumValues, refersTo, countOf, code, productOf, rankOf,
+        multiple, multiParagraph, null, null, null);
+  }
+
+  public FormFieldSpec(
+      String name,
+      String label,
+      String type,
+      String hint,
+      boolean required,
+      List<String> enumValues,
+      List<String> refersTo,
+      List<String> countOf,
+      boolean code,
+      List<String> productOf,
+      String rankOf,
+      boolean multiple,
+      boolean multiParagraph,
+      SpecDerivation derivedFrom,
+      SpecInverseOf inverseOf,
+      SpecSummaryOf summaryOf) {
+    this.derivedFrom = derivedFrom;
+    this.inverseOf = inverseOf;
+    this.summaryOf = summaryOf;
     this.name = name;
     this.label = label;
     this.type = type;
@@ -185,7 +224,28 @@ public final class FormFieldSpec {
         stringList(j.get("productOf")),
         j.get("rankOf") != null ? j.get("rankOf").toString() : null,
         Boolean.TRUE.equals(j.get("multiple")),
-        Boolean.TRUE.equals(j.get("multiParagraph")));
+        Boolean.TRUE.equals(j.get("multiParagraph")),
+        derivation(j.get("derivedFrom")),
+        inverse(j.get("inverseOf")),
+        summary(j.get("summaryOf")));
+  }
+
+  /** The {@code derivedFrom} qualifier read typed; {@code null} when it is no object. */
+  private static SpecDerivation derivation(Object raw) {
+    LinkArguments a = LinkArguments.ofObject(raw);
+    return a == null ? null : SpecDerivation.from(a);
+  }
+
+  /** The {@code inverseOf} qualifier read typed; {@code null} when it is no object. */
+  private static SpecInverseOf inverse(Object raw) {
+    LinkArguments a = LinkArguments.ofObject(raw);
+    return a == null ? null : SpecInverseOf.from(a);
+  }
+
+  /** The {@code summaryOf} qualifier read typed; {@code null} when it is no object. */
+  private static SpecSummaryOf summary(Object raw) {
+    LinkArguments a = LinkArguments.ofObject(raw);
+    return a == null ? null : SpecSummaryOf.from(a);
   }
 
   private static List<String> stringList(Object raw) {
