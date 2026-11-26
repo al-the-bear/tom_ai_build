@@ -73,6 +73,10 @@ tag / path-`replace` routes and how to pin.
 | `spec_model_links.go` | The typed readers of the link annotations (`tom_specs_model_rules.md` §9.7): `SpecSync`, `SpecSummaryOf`, `SpecDerivation`, `SpecInverseOf`, `SpecExtractsLinks`, `SpecSameAs` on classes and fields, and the form-field qualifiers `DerivedFrom`, `InverseOf`, `SummaryOf`. |
 | `spec_place.go` | The place and filter grammar of the links between places (`tom_specs_model_rules.md` §9.7): `SpecPlace` (parsed, resolved under an anchor to the path its value is stored at, list items written `<list>-*`), `SpecPlaceFilter` (`<SECTIONID>.<field>=<value>`, `\|` alternatives, read by `countOf` too), the `@SameAs` bindings (`SpecSameAsBindings`) and the section positions of a root. |
 | `spec_links_validator.go` | `ValidateLinks` — the link checks of one document: derived copies, rows, lookups and lists in step, inverses named back, ids named in a text with their rows, summaries against their details, `@SameAs` copies against their holders; a value holding pending marks is read with them rejected and listed (`linkValuePending`). |
+| `spec_derive_fields.go` | `DeriveFields` — the derived places of one document written (link ends and rows, derived values and lists, repeats and `@SameAs` copies, then counts, products and ranks), plain or as inline marks in a document under review (`SpecDeriveOptions`); a change that cannot be marked exactly is left `unmarkable`; `DryRun` works on a copy. |
+| `spec_document_set.go` | `SpecDocumentSet` — a project's documents read side by side, one per root (`NewSpecDocumentSet`, `SpecDocumentSetFromFragments`, `LoadSpecDocumentSet`), with the anchor pairs of the synced classes; `SyncReport` (the shared places of each Phase 3 document against the Blueprint, the links across two documents, pending and unmarkable values, each document's own findings) and `RenameID` (an id renamed in every document at once). |
+| `spec_prefill.go` | `Prefill` — a Phase 3 document started from the Blueprint: the pairs that hold nothing yet copied with their elements' ids, then derived. |
+| `spec_backfill.go` | `Backfill` — the accepted Phase 3 end state carried into the Blueprint as plain values, with one revision entry; refused while a document holds marks or annotation blocks. |
 | `spec_reflection.go` | Value-free enumeration + path resolution (`SpecReflection`, `SpecResolution`, `SpecNodeKind*`). |
 | `spec_document.go` | A sparse in-memory document — values keyed by section path. |
 | `spec_document_assembly.go` | Assembles one document from fragments written in parallel (`AssembleSpecDocuments`, `SpecDocumentAssemble`) — a refusing merge: a place two fragments both write is reported as a `SpecAssemblyOverlap` and yields no document. |
@@ -189,11 +193,14 @@ go test ./tests/ -run Conformance -count=1 -v   # → "OK: N checks passed"
 ```
 
 The section-automation tables of this port so far run in
-`tests/conformance_links_test.go`: the link readers and the place / filter
-grammar (`link_reader_cases.json`), `ValidateLinks`
-(`link_validation_cases.json`) and the typed inline marks (`typedCases`) —
-over the fixture model `corpus/links.meta.json` and, for the cases naming it,
-the real model of `tom_som_dart_v0/meta/`.
+`tests/conformance_links_test.go` and `tests/conformance_document_set_test.go`:
+the link readers and the place / filter grammar (`link_reader_cases.json`),
+`ValidateLinks` (`link_validation_cases.json`), the typed inline marks
+(`typedCases`), the document set with `SyncReport` and `RenameID`
+(`document_set_cases.json`), `DeriveFields` (`derive_cases.json`), `Prefill`
+and `Backfill` (`prefill_cases.json`, `backfill_cases.json`) — over the
+fixture model `corpus/links.meta.json` and, for the cases naming it, the real
+model of `tom_som_dart_v0/meta/`.
 
 The runner reproduces every golden byte-for-byte and exercises the same cases as
 the Dart/Python/Java/JavaScript/TypeScript runners: model meta-data load,

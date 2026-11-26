@@ -59,6 +59,9 @@ anything that computes the path rather than knowing it.
 | `ValidateDocument` (`SpecValidationError`) | The instance tier: a filled document's values checked against the model; a typed value or reference holding inline marks is read as its old value (SOM §11.9.3) |
 | `ValidateLinks` | The link checks of one document (`tom_specs_model_rules.md` §9.7): derived values against their sources, summaries against their detail lists, each end of a link against the other, ids named in a text against the link rows, `@SameAs` copies against their holders |
 | `SpecPlace`, `SpecPlaceFilter` | The place and filter grammar the link annotations are written in, resolved under an anchor without reading a value; the typed link readers (`SyncedWith`, `SummaryOf`, `DerivedFrom`, `ExtractsLinks`, `SameAs`, the form-field `DerivedFrom` / `InverseOf` / `SummaryOf`) are on the model's classes, fields and form fields |
+| `DeriveFields` | The derived places of one document written (§9.7), plain or as inline marks under review; `DryRun` answers the changes on a copy |
+| `SpecDocumentSet`, `SyncReport`, `RenameID` | The documents of a project read side by side, one per root: the places a Phase 3 document shares with the Blueprint compared, the links across two documents checked, an id renamed in every document at once |
+| `Prefill`, `Backfill` | The Blueprint into a new Phase 3 document, and the accepted Phase 3 end state back into the Blueprint |
 | the YAML and Markdown codecs | `*.tomspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages; the emitter writes the reading view's form, record and section tables and reference lines with an anchor in every heading (SOM §11.2, §11.4, §11.5), and the parser reads them as well as the older `Field:` lines; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7) |
 | `DocSpecsValidator` | The DocSpecs schema check of a rendition, in the `Field:` layout and in the reading view's tables, list bodies and styled-div headings, skipping a stripped rendition's readable header and appendix |
 | `ScanNotation` | The reading notation of one text value: its divs, spans and citations and the notation's findings, which the DocSpecs validator reports as rules |
@@ -153,6 +156,27 @@ fmt.Println(r.Kind, r.Path, r.Field())
 
 for _, e := range som.ValidateLinks(model, doc) {
 	fmt.Println(e.Code, e.Path, e.Message)
+}
+```
+
+Across documents, the set compares what a Phase 3 document shares with the
+Blueprint; `DeriveFields` writes a document's derived places:
+
+```go
+set, err := som.NewSpecDocumentSet(model, []som.SpecNamedDocument{
+	{Name: "sbp.tomspecs.yaml", Document: sbp},
+	{Name: "rsp.tomspecs.yaml", Document: rsp},
+})
+if err != nil {
+	panic(err) // a *SpecDocumentSetError: two documents of one root, …
+}
+for _, f := range som.SyncReport(set, nil).Findings {
+	fmt.Println(f.Code, f.Resolution, f.Message)
+}
+
+result := som.DeriveFields(model, rsp, som.SpecDeriveOptions{DryRun: true})
+for _, c := range result.Changes {
+	fmt.Println(c.Step, c.Kind, c.Path, c.Field, c.NewValue)
 }
 ```
 

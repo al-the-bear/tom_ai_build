@@ -257,6 +257,10 @@ func TestConformance(t *testing.T) {
 	testImpactWalk(c, t)
 	testLinkReaders(c, t)
 	testLinkValidation(c, t)
+	setModelCache := &setModels{t: t}
+	testDeriveFields(c, t)
+	testDocumentSet(c, t, setModelCache)
+	testPrefillBackfill(c, t, setModelCache)
 
 	c.finish()
 }

@@ -41,8 +41,57 @@
     `inline_mark_cases.json` / `change_mark_cases.json`
     (`tests/conformance_links_test.go`; 2075 -> 2302 checks);
     `tests/spec_place_test.go` and `tests/spec_links_validator_test.go` are
-    new. The document set, `deriveFields`, `backfill`, `prefill` and the
-    rendition's navigation follow.
+    new.
+
+- **Section automation, second part** (`tom_specs_model_rules.md` §9.7),
+  ported from the Python and JavaScript runtimes (the TypeScript port and the
+  Dart reference behind them).
+  - `SpecDocumentSet` (`spec_document_set.go`): a project's documents read
+    side by side, one per root (`NewSpecDocumentSet`,
+    `SpecDocumentSetFromFragments` assembling the fragments of one root,
+    `LoadSpecDocumentSet` from YAML or SOM Markdown files), the Blueprint root
+    from `@Document(basedOn:)` and the anchor pairs of the synced classes
+    (`SpecSyncPair`); refused with a `*SpecDocumentSetError`
+    (`SpecDocumentSetRefusal*`: `sameRoot`, `noRoot`, `twoRoots`,
+    `projection`, `overlap`, `unpairable`). `Put` adds or replaces a document.
+  - `SyncReport`: the places each Phase 3 document shares with the Blueprint
+    compared element by element and value by value (`equal` / `subset` /
+    `superset` relations with their `where:` filters, `heldHere`,
+    `detailOnly`, typed sameness), the summaries and inverses across two
+    documents, pending and unmarkable values, each document's own findings,
+    the roots and pairs not started (`SpecSyncReport` with `CountsByCode`,
+    `CountsByResolution`, `Clean`; `SpecSyncFinding`, `SpecSyncPlace`,
+    `SpecSyncCode*`, `SpecSyncResolution*`, `SpecSyncHolder*`). The comparison
+    internals are `SpecSetCheck` and `SpecSetSide`.
+  - `RenameID`: an id renamed in every document at once, the element and every
+    value naming it as a whole token (`SpecRenameChange`); refused, nothing
+    changed, when an element already carries the new id (`*SpecRenameError`).
+  - `DeriveFields` (`spec_derive_fields.go`): the derived places of one
+    document in three steps — link ends and rows, derived values and lists
+    with repeats and `@SameAs` copies, counts, products and ranks — plain or
+    as inline marks attributed to an author at a change time
+    (`SpecDeriveOptions`); a change that cannot be marked exactly is left
+    `unmarkable`, a lookup without its row `derivedLookupMiss`
+    (`SpecDeriveResult`, `SpecDeriveChange`). `SpecLinkFix` records the order
+    an added row's values and a derived list's tuples are written in
+    (`ValueKeys`, `TupleKeys`), so the changes come in the reference order.
+  - `Prefill` (`spec_prefill.go`): a Phase 3 document started from the
+    Blueprint, the pairs holding nothing yet copied with their elements' ids
+    and then derived; a created document joins the set (`SpecPrefillResult`,
+    `*SpecPrefillError`: `noBlueprint`, `unknownRoot`).
+  - `Backfill` (`spec_backfill.go`): the accepted Phase 3 end state carried
+    into the Blueprint as plain values — values written or cleared, elements
+    added at their place or removed — with one revision entry and the
+    Blueprint's derived places rewritten; what it leaves is listed with the
+    reason (`SpecBackfillResult`, `SpecBackfillChange`, `SpecBackfillLeft`;
+    `*SpecBackfillError`: `setHasMarks`, `noBlueprint`).
+  - The conformance suite replays `document_set_cases.json`,
+    `derive_cases.json`, `prefill_cases.json` and `backfill_cases.json`
+    (`tests/conformance_document_set_test.go`; the real model gives 132 pairs
+    with `D00SolutionBlueprint` as the Blueprint root; 2302 -> 2538 checks);
+    `tests/spec_document_set_test.go`, `tests/spec_derive_fields_test.go` and
+    `tests/spec_prefill_backfill_test.go` are new. The rendition's navigation
+    follows.
 
 - **The merge back of an edited stripped rendition** (SOM §11.10, RV9),
   ported from the JavaScript and Rust runtimes; `spec_document_merge.go` is

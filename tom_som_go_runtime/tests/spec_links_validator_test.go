@@ -66,8 +66,11 @@ func TestSpecLinkFixes(t *testing.T) {
 	}
 
 	// A symmetric row without its counterpart: a row is added there.
-	want = []som.SpecLinkFix{som.SpecLinkFixOfAddRow(1, "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST",
-		map[string]string{"LNK-REF#ref": "REQ-EXPORT", "content#linkType": "conflict"})}
+	// The row's values keep the order they are written in (ValueKeys).
+	addRow := som.SpecLinkFixOfAddRow(1, "BLU/requirements/REQ-ITEM-LST-3/LNK-ITEM-LST",
+		map[string]string{"LNK-REF#ref": "REQ-EXPORT", "content#linkType": "conflict"})
+	addRow.ValueKeys = []string{"LNK-REF#ref", "content#linkType"}
+	want = []som.SpecLinkFix{addRow}
 	if got := linkFixes(t, linkCaseDoc(t, "a symmetric row without its counterpart"), false); !reflect.DeepEqual(got, want) {
 		t.Fatalf("symmetric fixes %+v", got)
 	}

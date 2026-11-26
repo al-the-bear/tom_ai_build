@@ -160,6 +160,48 @@ type SpecLinkFix struct {
 	Tuples []map[string]string
 	Holder string
 	Empty  bool
+	// ValueKeys are the keys of Values in the order they were written (an
+	// `addRow` writes its values in this order); empty: sorted.
+	ValueKeys []string
+	// TupleKeys are the target places of each tuple of Tuples, in the
+	// derivation's order; empty: sorted.
+	TupleKeys []string
+}
+
+// OrderedValueKeys returns the keys of Values in their written order (sorted
+// when the order was not recorded).
+func (f SpecLinkFix) OrderedValueKeys() []string {
+	if len(f.ValueKeys) > 0 {
+		return f.ValueKeys
+	}
+	keys := make([]string, 0, len(f.Values))
+	for k := range f.Values {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
+}
+
+// OrderedTupleKeys returns the target places of the tuples in the
+// derivation's order (sorted when the order was not recorded).
+func (f SpecLinkFix) OrderedTupleKeys() []string {
+	if len(f.TupleKeys) > 0 || len(f.Tuples) == 0 {
+		return f.TupleKeys
+	}
+	keys := make([]string, 0, len(f.Tuples[0]))
+	for k := range f.Tuples[0] {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
+}
+
+// linkPutOrdered sets values[key] = value, recording a new key in keys.
+func linkPutOrdered(values map[string]string, keys *[]string, key, value string) {
+	if _, ok := values[key]; !ok {
+		*keys = append(*keys, key)
+	}
+	values[key] = value
 }
 
 // SpecLinkFixOfSet sets the value at path / field ("" content) to value.
@@ -884,7 +926,13 @@ func (v *SpecLinkValidator) checkDerivedList(i linkInstance, listPath string, d 
 		return out
 	}
 	if !sliceEqual(sortedKeys(wanted), sortedKeys(current)) {
-		v.Fixes = append(v.Fixes, SpecLinkFixOfList(listPath, wanted))
+		fix := SpecLinkFixOfList(listPath, wanted)
+		for _, e := range d.Map {
+			if !containsString(fix.TupleKeys, e.Key) {
+				fix.TupleKeys = append(fix.TupleKeys, e.Key)
+			}
+		}
+		v.Fixes = append(v.Fixes, fix)
 	}
 	if len(elements) == 0 {
 		return // not derived yet
@@ -1304,15 +1352,19 @@ func (v *SpecLinkValidator) checkSymmetric(form string, ff *FormFieldSpec, inv *
 			if star+3 <= len(rel) {
 				below = rel[star+3:]
 			}
-			values := map[string]string{below + "#" + ff.Name: aID}
+			values := map[string]string{}
+			var keys []string
+			linkPutOrdered(values, &keys, below+"#"+ff.Name, aID)
 			if filterField != "" {
 				for _, p := range v.ownForms(row) {
 					if _, ok := v.Doc.FormField(p, filterField); ok {
-						values[p[len(row)+1:]+"#"+filterField] = v.FormValue(p, filterField)
+						linkPutOrdered(values, &keys, p[len(row)+1:]+"#"+filterField, v.FormValue(p, filterField))
 					}
 				}
 			}
-			v.Fixes = append(v.Fixes, SpecLinkFixOfAddRow(1, lst, values))
+			fix := SpecLinkFixOfAddRow(1, lst, values)
+			fix.ValueKeys = keys
+			v.Fixes = append(v.Fixes, fix)
 		}
 		suffix := ""
 		if inv.Where != "" {
@@ -1433,6 +1485,7 @@ func (v *SpecLinkValidator) checkExtracts(i linkInstance, f *SpecField) {
 			}
 			if e.Mode == "generate" {
 				values := map[string]string{}
+				var keys []string
 				writes := append([]SpecStringPair{{Key: e.Ref, Value: id}}, e.Set...)
 				for _, w := range writes {
 					r := v.At(w.Key, listPath+"-0")
@@ -1440,9 +1493,11 @@ func (v *SpecLinkValidator) checkExtracts(i linkInstance, f *SpecField) {
 						continue
 					}
 					rel := r.Path[len(listPath+"-0")+1:]
-					values[rel+"#"+r.Field()] = w.Value
+					linkPutOrdered(values, &keys, rel+"#"+r.Field(), w.Value)
 				}
-				v.Fixes = append(v.Fixes, SpecLinkFixOfAddRow(1, listPath, values))
+				fix := SpecLinkFixOfAddRow(1, listPath, values)
+				fix.ValueKeys = keys
+				v.Fixes = append(v.Fixes, fix)
 			}
 			warn := ""
 			if e.Mode == "warn" {
