@@ -135,6 +135,16 @@ const {
   SpecValidationCode,
   specSameAsBindings,
   validateLinks,
+  SpecDocumentSet,
+  SpecDocumentSetError,
+  SpecRenameError,
+  syncReport,
+  renameId,
+  deriveFields,
+  prefill,
+  SpecPrefillError,
+  backfill,
+  SpecBackfillError,
   SpecStripOptions,
   SpecStripUsageError,
   SpecReadableHeader,
@@ -3230,6 +3240,407 @@ function testLinkReaders() {
   co('links.CO2.total', counts(doc('2', '2')), [`${base}/REQS-SUM`]);
 }
 
+// ---------------------------------------------------------------------------
+// The document set (`document_set_cases.json` over `links.meta.json`)
+// ---------------------------------------------------------------------------
+
+// The documents of a case, `[[name, state], …]`, as stores.
+function _setDocuments(json) {
+  return json.map((e) => {
+    const d = new SpecDocument();
+    d.loadJson(e[1]);
+    return [e[0], d];
+  });
+}
+
+// One construction case: the set built (from fragments when `fragments`),
+// answered as its pairs and roots, or the refusal.
+function _setConstructionCase(model, c) {
+  const docs = _setDocuments(c.documents);
+  try {
+    const set =
+      c.fragments === true
+        ? SpecDocumentSet.fromFragments(model, docs)
+        : new SpecDocumentSet(model, docs);
+    return {
+      blueprintRoot: set.blueprintRoot,
+      names: set.names,
+      roots: set.roots,
+      missingRoots: set.missingRoots,
+      pairs: set.pairs.map((p) => p.toJson()),
+    };
+  } catch (e) {
+    if (e instanceof SpecDocumentSetError) {
+      return { refused: e.toJson() };
+    }
+    throw e;
+  }
+}
+
+let _somModelCache = null;
+
+// The real model, loaded once (11 MB).
+function _somModel() {
+  if (_somModelCache === null) {
+    _somModelCache = _loadSomModel();
+  }
+  return _somModelCache;
+}
+
+// The model a case runs against: an inline one, the real one, or the fixture.
+function _setModelOf(fixture, c) {
+  if (c.inline !== null && typeof c.inline === 'object') {
+    return SpecModel.fromJson(c.inline);
+  }
+  return c.model === 'som' ? _somModel() : fixture;
+}
+
+// One report case: `syncReport` over the documents, optionally scoped.
+function _setReportCase(fixture, c) {
+  const model = _setModelOf(fixture, c);
+  const set = new SpecDocumentSet(model, _setDocuments(c.documents));
+  const pairs = Array.isArray(c.pairs) ? c.pairs : null;
+  return syncReport(set, { pairs }).toJson();
+}
+
+// One rename case: `renameId`, answered as its changes and the report after
+// it, or the documents that refused it.
+function _setRenameCase(model, c) {
+  const set = new SpecDocumentSet(model, _setDocuments(c.documents));
+  try {
+    const changes = renameId(set, c.from, c.to);
+    const after = syncReport(set);
+    return {
+      changes: changes.map((x) => x.toJson()),
+      cleanAfter: after.clean,
+      findingsAfter: after.findings.filter((f) => !f.isInfo).length,
+    };
+  } catch (e) {
+    if (e instanceof SpecRenameError) {
+      return { refused: e.documents };
+    }
+    throw e;
+  }
+}
+
+// Every token a document-set expectation shows (the Dart test's `_setTokens`).
+function _setTokens(e) {
+  const out = new Set();
+  if (e.refused !== null && typeof e.refused === 'object' && !Array.isArray(e.refused)) {
+    out.add(e.refused.refusal);
+  }
+  if (Array.isArray(e.refused)) out.add('refused');
+  if (e.pairs != null && e.refused == null) {
+    out.add('built');
+    if (e.missingRoots.length > 0) out.add('missingRoots');
+  }
+  if (e.findings != null) {
+    if (e.clean === true) out.add('clean');
+    if (e.notStarted.length > 0) out.add('notStarted');
+    if (e.notStartedPairs.length > 0) out.add('notStartedPairs');
+    for (const f of e.findings) {
+      out.add(f.code);
+      out.add(f.resolution);
+    }
+    for (const d of e.documentFindings) {
+      for (const x of d[1]) out.add(x.code);
+    }
+  }
+  if (e.changes != null && e.changes.length > 0) out.add('renamed');
+  return out;
+}
+
+// `document_set_cases.json`: construction, reports and renames reproduced from
+// their inputs, compared as JSON (Dart `section_link_conformance_test.dart`,
+// group `document set`, DSC2); every case shows its intent (DSC3); the real
+// model pairs every synced class (DSC4).
+function testDocumentSet() {
+  const table = _readJson('document_set_cases.json');
+  const fixture = SpecModel.fromJson(_readJson(table.model || 'links.meta.json'));
+  const run = (group, f) => {
+    for (const c of table[group]) {
+      const name = `set.${group}[${c.name}]`;
+      try {
+        const got = JSON.parse(JSON.stringify(f(c)));
+        _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+      } catch (e) {
+        _check(name, false, `threw ${e instanceof Error ? (e.stack ?? String(e)) : String(e)}`);
+      }
+      const shown = _setTokens(c.expect);
+      for (const token of c.intent) {
+        _check(`set.${group}.intent[${c.name}: ${token}]`, shown.has(token));
+      }
+    }
+  };
+  run('construction', (c) =>
+    _setConstructionCase(c.meta == null ? fixture : SpecModel.fromJson(c.meta), c),
+  );
+  run('reports', (c) => _setReportCase(fixture, c));
+  run('renames', (c) => _setRenameCase(fixture, c));
+
+  // DSC4: the real model pairs every synced class.
+  const real = new SpecDocumentSet(_somModel());
+  _check('set.DSC4.blueprintRoot', real.blueprintRoot === 'D00SolutionBlueprint', String(real.blueprintRoot));
+  _check('set.DSC4.pairs', real.pairs.length === 132, String(real.pairs.length));
+}
+
+// ---------------------------------------------------------------------------
+// deriveFields (`derive_cases.json` over `links.meta.json`)
+// ---------------------------------------------------------------------------
+
+// One derive case: `deriveFields` run twice on the case's document (the
+// second run shows idempotence), each as its result, then the findings of
+// both tiers on the document after it, and the given document after both
+// runs (unchanged on a dry run). The Dart test's `deriveCase`.
+function _deriveCase(model, c) {
+  const doc = new SpecDocument();
+  doc.loadJson(c.state);
+  const run = () =>
+    deriveFields(model, doc, {
+      marked: c.marked ?? true,
+      author: c.author ?? null,
+      at: c.at ?? null,
+      dryRun: c.dryRun ?? false,
+    });
+  const first = run();
+  const second = run();
+  const pairs = (errors) =>
+    errors.map((e) => ({ path: e.path, code: e.code }));
+  return {
+    first: first.toJson(),
+    second: second.toJson(),
+    findingsAfter: pairs([
+      ...validateLinks(model, second.document),
+      ...validateDocument(model, second.document),
+    ]),
+    given: doc.toJson(),
+  };
+}
+
+// Whether the derive-case intent `token` holds (the Dart test's
+// `_deriveIntentHolds`); an unknown token is `null`.
+function _deriveIntentHolds(token, c) {
+  const e = c.expect;
+  const changes = e.first.changes;
+  const unresolved = (code) =>
+    (e.first.unresolved).some((u) => u.code === code);
+  switch (token) {
+    case 'nothing':
+      return changes.length === 0;
+    case 'step1':
+    case 'step2':
+    case 'step3':
+      return changes.some((x) => x.step === Number(token.substring(4)));
+    case 'rowAdded':
+    case 'rowRemoved':
+      return changes.some((x) => x.kind === token);
+    case 'marked':
+      return changes.some((x) => (x.new).includes('{'));
+    case 'clean':
+      return e.findingsAfter.length === 0;
+    case 'idempotent':
+      return e.second.changes.length === 0 && _deepEqual(e.second.document, e.first.document);
+    case 'unchanged':
+      return _deepEqual(e.given, c.state);
+    case 'unmarkable':
+    case 'derivedLookupMiss':
+      return unresolved(token);
+    default:
+      return null;
+  }
+}
+
+// `derive_cases.json`: every case reproduced from its inputs (Dart
+// `section_link_conformance_test.dart`, DRC2) and showing its intent (DRC3).
+function testDeriveFields() {
+  const table = _readJson('derive_cases.json');
+  const model = SpecModel.fromJson(_readJson(table.model || 'links.meta.json'));
+  for (const c of table.cases) {
+    const name = `derive[${c.name}]`;
+    try {
+      const got = JSON.parse(JSON.stringify(_deriveCase(model, c)));
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+    } catch (e) {
+      _check(name, false, `threw ${e instanceof Error ? (e.stack ?? String(e)) : String(e)}`);
+    }
+    for (const token of c.intent) {
+      const holds = _deriveIntentHolds(token, c);
+      _check(
+        `derive.intent[${c.name}: ${token}]`,
+        holds === true,
+        holds === null ? 'unknown intent token' : 'does not hold',
+      );
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// prefill and backfill (`prefill_cases.json`, `backfill_cases.json`)
+// ---------------------------------------------------------------------------
+
+// One prefill case: `prefill` run twice for the case's root (the second run
+// writes nothing), or its refusal; then the set's report after it. The Dart
+// test's `prefillCase`.
+function _prefillCase(model, c) {
+  const set = new SpecDocumentSet(model, _setDocuments(c.documents));
+  const pairs = Array.isArray(c.pairs) ? c.pairs : null;
+  const run = () => {
+    try {
+      return prefill(set, c.root, { name: c.name_ ?? null, pairs }).toJson();
+    } catch (e) {
+      if (e instanceof SpecPrefillError) {
+        return { refused: e.code };
+      }
+      throw e;
+    }
+  };
+  const first = run();
+  const second = run();
+  const after = syncReport(set);
+  return {
+    first,
+    second,
+    reportAfter: {
+      countsByCode: Array.from(after.countsByCode().entries()).map(([k, v]) => [k, v]),
+      notStartedPairs: after.notStartedPairs,
+    },
+  };
+}
+
+// Whether the prefill-case intent `token` holds (the Dart test's
+// `_prefillIntentHolds`); an unknown token is `null`.
+function _prefillIntentHolds(token, c) {
+  const e = c.expect;
+  const first = e.first;
+  const second = e.second;
+  switch (token) {
+    case 'created':
+      return first.created === true;
+    case 'filled':
+      return (first.filledPairs ?? []).length > 0;
+    case 'skipped':
+      return (first.skippedPairs ?? []).length > 0;
+    case 'derived':
+      return (first.derived?.changes ?? []).length > 0;
+    case 'idempotent':
+      return (
+        second.filledPairs.length === 0 &&
+        second.derived.changes.length === 0 &&
+        JSON.stringify(second.document) === JSON.stringify(first.document)
+      );
+    case 'agrees':
+      return (e.reportAfter.countsByCode).every((x) => !String(x[0]).startsWith('shared'));
+    case 'noBlueprint':
+    case 'unknownRoot':
+      return first.refused === token;
+    default:
+      return null;
+  }
+}
+
+// One backfill case: `backfill` run twice on the case's set (the second run
+// shows idempotence), or its refusal; then the set's report after it, and
+// the documents as the set holds them after both runs. The Dart test's
+// `backfillCase`.
+function _backfillCase(fixture, c) {
+  const model = _setModelOf(fixture, c);
+  const set = new SpecDocumentSet(model, _setDocuments(c.documents));
+  const pairs = Array.isArray(c.pairs) ? c.pairs : null;
+  const run = () => {
+    try {
+      return backfill(set, {
+        pairs,
+        path: c.path ?? null,
+        dryRun: c.dryRun ?? false,
+        author: c.author ?? null,
+        date: c.date ?? null,
+      }).toJson();
+    } catch (e) {
+      if (e instanceof SpecBackfillError) {
+        return { refused: e.toJson() };
+      }
+      throw e;
+    }
+  };
+  const first = run();
+  const second = run();
+  const after = syncReport(set);
+  return {
+    first,
+    second,
+    reportAfter: {
+      countsByCode: Array.from(after.countsByCode().entries()).map(([k, v]) => [k, v]),
+      clean: after.clean,
+    },
+    given: set.names.map((n) => [n, set.get(n).toJson()]),
+  };
+}
+
+// Whether the backfill-case intent `token` holds (the Dart test's
+// `_backfillIntentHolds`); an unknown token is `null`.
+function _backfillIntentHolds(token, c) {
+  const e = c.expect;
+  const first = e.first;
+  const second = e.second;
+  const changes = first.changes ?? [];
+  const left = first.left ?? [];
+  switch (token) {
+    case 'nothing':
+      return first.refused == null && changes.length === 0;
+    case 'value':
+    case 'elementAdded':
+    case 'elementRemoved':
+    case 'revision':
+    case 'derived':
+      return changes.some((x) => x.kind === token);
+    case 'heldHere':
+    case 'mayBeAdded':
+    case 'agent':
+      return left.some((x) => x.reason === token);
+    case 'setHasMarks':
+      return first.refused?.code === 'setHasMarks' && first.refused.places.length > 0;
+    case 'idempotent':
+      return second.changes.length === 0;
+    case 'unchanged':
+      return JSON.stringify(e.given) === JSON.stringify(c.documents);
+    case 'cleanAfter':
+      return e.reportAfter.clean === true;
+    default:
+      return null;
+  }
+}
+
+// `prefill_cases.json` and `backfill_cases.json`: every case reproduced from
+// its inputs, compared as JSON (Dart `section_link_conformance_test.dart`,
+// PFC2 / BFC2) and showing its intent (PFC3 / BFC3).
+function testPrefillBackfill() {
+  const groups = [
+    ['prefill', 'prefill_cases.json', _prefillCase, _prefillIntentHolds],
+    ['backfill', 'backfill_cases.json', _backfillCase, _backfillIntentHolds],
+  ];
+  for (const [label, file, kase, holds] of groups) {
+    const table = _readJson(file);
+    const model = SpecModel.fromJson(_readJson(table.model || 'links.meta.json'));
+    for (const c of table.cases) {
+      const name = `${label}[${c.name}]`;
+      try {
+        const got = JSON.parse(JSON.stringify(kase(model, c)));
+        _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+      } catch (e) {
+        _check(name, false, `threw ${e instanceof Error ? (e.stack ?? String(e)) : String(e)}`);
+      }
+      for (const token of c.intent) {
+        const h = holds(token, c);
+        _check(
+          `${label}.intent[${c.name}: ${token}]`,
+          h === true,
+          h === null ? 'unknown intent token' : 'does not hold',
+        );
+      }
+    }
+  }
+}
+
 // `link_validation_cases.json`: each case's state loaded, then `validateLinks`
 // (`errors`) and the instance tier (`instanceErrors`), every finding as
 // `{path, code}` (Dart `section_link_conformance_test.dart`, LVC2); every case
@@ -3342,6 +3753,9 @@ function main() {
   testTypedValues();
   testLinkReaders();
   testLinkValidation();
+  testDeriveFields();
+  testDocumentSet();
+  testPrefillBackfill();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

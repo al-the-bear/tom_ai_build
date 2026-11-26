@@ -69,41 +69,10 @@ test('every name TS index.ts exports exists here (workspace checkout only)', (t)
 });
 
 /**
- * TS names this runtime does not have yet, each with the todo that ports it.
+ * TS names this runtime does not have yet, each with the todo that ports it
+ * (none at present).
  */
-const PENDING_PARITY = new Set([
-  // section automation (tom_specs_model_rules.md §9.7): the document set,
-  // deriveFields, backfill and prefill — ported by tom_specs
-  // 05a_sau2_akrk-javascript-runtime
-  'deriveFields',
-  'SpecDeriveChange',
-  'SpecDeriveResult',
-  'SpecSyncCode',
-  'specSyncCodeIndex',
-  'SpecSyncResolution',
-  'SpecSyncHolder',
-  'SpecDocumentSetRefusal',
-  'SpecDocumentSetError',
-  'SpecSyncPair',
-  'SpecDocumentSet',
-  'SpecSyncPlace',
-  'SpecSyncFinding',
-  'SpecSyncReport',
-  'syncReport',
-  'SpecSetSide',
-  'SpecSetCheck',
-  'SpecRenameError',
-  'SpecRenameChange',
-  'renameId',
-  'prefill',
-  'SpecPrefillError',
-  'SpecPrefillResult',
-  'backfill',
-  'SpecBackfillError',
-  'SpecBackfillChange',
-  'SpecBackfillLeft',
-  'SpecBackfillResult',
-]);
+const PENDING_PARITY = new Set([]);
 
 test('no pending-parity name is here already (the exception ends with its port)', () => {
   const present = [...PENDING_PARITY].filter((n) => n in R);

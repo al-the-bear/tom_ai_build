@@ -2,6 +2,28 @@
 
 ## Unreleased
 
+- **Section automation over the document set** (`tom_specs_model_rules.md`
+  §9.7), as Dart and TypeScript have it: `SpecDocumentSet` holds the
+  documents of one specification (from documents, `fromFragments`, or `load`
+  from YAML / SOM Markdown files; refused with `SpecDocumentSetError` and a
+  `SpecDocumentSetRefusal`), pairs every `@DetailedIn` class with its detail
+  root (`SpecSyncPair`) and answers `syncReport`: every shared fact compared
+  across the documents that hold it (`SpecSyncReport`, `SpecSyncFinding` with
+  `SpecSyncCode`, `specSyncCodeIndex`, `SpecSyncResolution`, `SpecSyncHolder`,
+  `SpecSyncPlace`; `countsByCode`, `countsByResolution`, `documentFindings`,
+  `notStarted`). `renameId` renames a section id in every document with every
+  link naming it (`SpecRenameChange`, `SpecRenameError`). `deriveFields`
+  writes the derived places of one document in three steps, plain or as
+  marked changes, `dryRun` on a copy (`SpecDeriveChange`, `SpecDeriveResult`).
+  `prefill` starts a Phase 3 document from the Blueprint (`SpecPrefillResult`,
+  `SpecPrefillError`; `SpecSetSide`, `SpecSetCheck`); `backfill` carries the
+  accepted Phase 3 end state into the Blueprint, plain, with what it leaves
+  and why (`SpecBackfillChange`, `SpecBackfillLeft`, `SpecBackfillResult`,
+  `SpecBackfillError`). The conformance runner replays
+  `document_set_cases.json`, `derive_cases.json`, `prefill_cases.json` and
+  `backfill_cases.json` (2126 checks); no TypeScript name is pending parity
+  any more.
+
 - **The merge back** (SOM §11.10), as Dart, TypeScript and C have it:
   `mergeStrippedValue` merges the edited text of one value onto its original,
   each piece the strip removed put back where the edit left its neighbours,

@@ -84,6 +84,12 @@ and how to pin.
 | `spec_document_merge.js` | The merge back (SOM §11.10): `mergeStrippedValue` merges one edited value onto its original, `SpecStripMerge.merge` an edited `.readable.md` onto its document — pieces put back or placed, conflicts and refused edits reported, a stale original merged three ways from git (`SpecStripMergeResult`, `exitCode`). |
 | `docspecs_validator.js` | Schema-free DocSpecs parse, schema loader, and never-fail-fast validator (`SOM §14`), with the nine reading-notation rules (`{ tomSpecs: true }`: scanned per form-field value, unknown kinds and classless divs reported) and the reading view's form tables, list bodies, section tables and styled-div headings (`malformedBlock`, `unknownField`); a stripped rendition's readable header and appendix are skipped. |
 | `som_facade.js` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList`) for the generated `tom_som_javascript_v0`. |
+| `spec_place.js` | The place and filter grammar of the links between places (`tom_specs_model_rules.md` §9.7): `SpecPlace` (parsed, resolved under an anchor to the path its value is stored at), `SpecPlaceFilter` (`<SECTIONID>.<field>=<value>`, `\|` alternatives, read by `countOf` too), the `@SameAs` bindings and section positions. The typed link readers themselves (`SpecSync`, `SpecSummaryOf`, `SpecDerivation`, `SpecInverseOf`, `SpecExtractsLinks`, `SpecSameAs`) are in `spec_model.js`. |
+| `spec_links_validator.js` | `validateLinks` — the link checks of one document: derived copies, rows, lookups and lists in step, inverses named back, ids named in a text with their rows, summaries against their details, `@SameAs` copies against their holders, pending changes. |
+| `spec_document_set.js` | The documents of one specification as a set (`SpecDocumentSet`, from documents, fragments or files), `syncReport` (every shared fact compared across the documents that hold it, `SpecSyncReport` with its findings, codes and resolutions) and `renameId` (an id renamed in every document, with every link naming it). |
+| `spec_derive_fields.js` | `deriveFields` — the derived places of one document written in three steps (link ends and rows; derived values, repeats and `@SameAs` copies; counts, products and ranks), plain or as marked changes, on a copy with `dryRun`. |
+| `spec_backfill.js` | `backfill` — the Phase 3 documents' accepted end state carried into the Blueprint, plain, with what it leaves and why (`SpecBackfillResult`, `SpecBackfillLeft`); a set still under review is refused (`setHasMarks`). |
+| `spec_prefill.js` | `prefill` — a Phase 3 document started from the Blueprint's shared sections, every pair filled once, then its derived places (`SpecPrefillResult`). |
 | `spec_review_annotations.js` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks (`SpecReviewAnnotations`: insert, answer, decide, comment on a change, assign comment ids, strip, validate), conflict blocks, change times and attribution; `formatCommentBlock` / `formatQuestionBlock` / `formatConflictBlock`. |
 | `spec_review_merge.js` | Team review (SOM §11.9.8): `mergeReviews` merges the returned copies of a round into one document with votes, individual answers and conflict blocks (`SpecReviewMergeResult`, `SpecReviewMergeReport`). |
 | `spec_answers.js` | A review round's answers (SOM §11.9.7): `extractAnswers` collects the answered questions and comments with their section-id chain and line, `renderAnswers` writes `answers.md`. |
@@ -175,7 +181,11 @@ node --test                        # the thin node:test wrapper
 
 The runner asserts byte-for-byte equality of the YAML and Markdown encodings, the
 document round-trips, the Markdown→memory landing, and the reflection /
-validation / operations behaviour (exit 0 on success). The conformance suite is a
+validation / operations behaviour (exit 0 on success). It also replays the
+section-automation tables: the link readers, `validateLinks`, the document set
+(`syncReport`, `renameId`), `deriveFields`, `backfill`, `prefill` and the typed
+inline marks (`typedCases`) — over the fixture model `corpus/links.meta.json`
+and, for the cases naming it, the real model of `tom_som_dart_v0/meta/`. The conformance suite is a
 plain-Node `main()` (`tests/conformance_runner.js`), with a thin `node --test`
 wrapper (`tests/conformance.test.js`).
 
@@ -258,6 +268,8 @@ wrapper (`tests/conformance.test.js`).
 
 ## Status
 
-Version **1.10.0**, tracking the TomSpecs model version. Requires Node.js ≥ 18
-(verified with Node 22.x). Covered by 10 test files; the conformance runner
-reports **OK: 896 checks passed** and `./run_tests.sh` is green.
+Version **1.13.0**, tracking the TomSpecs model version. Requires Node.js ≥ 18
+(verified with Node 22.x). Covered by 13 test files; the conformance runner
+reports **OK: 2126 checks passed** and `./run_tests.sh` is green. The
+rendition's navigation and generated parts (qualified anchors, the `linked`
+marker, `derived` blocks) are not ported yet.

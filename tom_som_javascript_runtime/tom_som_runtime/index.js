@@ -179,6 +179,38 @@ const {
 } = require('./spec_validator');
 const { validateLinks } = require('./spec_links_validator');
 const {
+  deriveFields,
+  SpecDeriveChange,
+  SpecDeriveResult,
+} = require('./spec_derive_fields');
+const {
+  SpecSyncCode,
+  specSyncCodeIndex,
+  SpecSyncResolution,
+  SpecSyncHolder,
+  SpecDocumentSetRefusal,
+  SpecDocumentSetError,
+  SpecSyncPair,
+  SpecDocumentSet,
+  SpecSyncPlace,
+  SpecSyncFinding,
+  SpecSyncReport,
+  syncReport,
+  SpecSetSide,
+  SpecSetCheck,
+  SpecRenameError,
+  SpecRenameChange,
+  renameId,
+} = require('./spec_document_set');
+const { prefill, SpecPrefillError, SpecPrefillResult } = require('./spec_prefill');
+const {
+  backfill,
+  SpecBackfillError,
+  SpecBackfillChange,
+  SpecBackfillLeft,
+  SpecBackfillResult,
+} = require('./spec_backfill');
+const {
   SpecReviewAnnotationKind,
   SpecMarkKind,
   SpecMarkDecision,
@@ -492,6 +524,38 @@ module.exports = {
   specDerivedNumbers,
   // the link checks of one document (tom_specs_model_rules.md §9.7)
   validateLinks,
+  // deriveFields: the derived places of one document, written (§9.7)
+  deriveFields,
+  SpecDeriveChange,
+  SpecDeriveResult,
+  // the document set: syncReport, renameId (tom_specs_model_rules.md §9.7)
+  SpecSyncCode,
+  specSyncCodeIndex,
+  SpecSyncResolution,
+  SpecSyncHolder,
+  SpecDocumentSetRefusal,
+  SpecDocumentSetError,
+  SpecSyncPair,
+  SpecDocumentSet,
+  SpecSyncPlace,
+  SpecSyncFinding,
+  SpecSyncReport,
+  syncReport,
+  SpecSetSide,
+  SpecSetCheck,
+  SpecRenameError,
+  SpecRenameChange,
+  renameId,
+  // prefill and backfill: the Blueprint into a new Phase 3 document, and the
+  // accepted Phase 3 end state back into the Blueprint (BP-8, DP-part-operations-2)
+  prefill,
+  SpecPrefillError,
+  SpecPrefillResult,
+  backfill,
+  SpecBackfillError,
+  SpecBackfillChange,
+  SpecBackfillLeft,
+  SpecBackfillResult,
   // review annotations (SOM §11.9)
   SpecReviewAnnotationKind,
   SpecMarkKind,
