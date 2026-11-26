@@ -79,7 +79,9 @@ and how to pin.
 | `spec_generation_units.js` | The generation-unit register of a document (SOM §11.2): `specGenerationUnits` reads each unit (`SpecGenerationUnit`: id, kind, mappings per area, the standard emitters it ships — `K_SPEC_STANDARD_EMITTERS`), recognised by `@NoArtifact(generation)` as validation phase 8 recognises it; `specDefaultUnits` is the default destination of an area — the extract fills an entry's `units` from it when no section stores units. |
 | `spec_codespecs_gate.js` | The Phase-4 Stage-A gate (`CodeSpecsGate`) — checks A1–A5 of `codespecs_prompt.md` §4 run as one over model, document, catalogue and DocSpecs schema; a check that could not run is reported not run, never passed. |
 | `spec_document_yaml.js` | Byte-stable `*.tomspecs.yaml` codec (`SOM §12`). |
-| `spec_document_markdown.js` | DocSpecs-conform Markdown import/export codec (`SOM §11`): the emitter writes the reading view's form tables, record tables, reference lines and section tables with an anchor in every heading, a value no table cell holds as a `Field:` paragraph (SOM §11.2, §11.4, §11.5); the parser reads them and the older `Field:` layout; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7); a stripped rendition's readable header and styled-div headings are written on request and read back, its appendix not read (SOM §11.1, §11.2). |
+| `spec_document_markdown.js` | DocSpecs-conform Markdown import/export codec (`SOM §11`): the emitter writes the reading view's form tables, record tables, reference lines and section tables with an anchor in every heading, a value no table cell holds as a `Field:` paragraph (SOM §11.2, §11.4, §11.5); the parser reads them and the older `Field:` layout; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7); a stripped rendition's readable header and styled-div headings are written on request and read back, its appendix not read (SOM §11.1, §11.2); the anchors below a list item are qualified, a `linked` marker follows each markable heading and the generated parts open their sections (SOM §11.2, §11.11, §11.12), all removed on parse. |
+| `spec_document_markdown_linked.js` | The rendition's navigation: qualified anchors below a list item and in a `@SameAs` copy (SOM §11.2), the `linked` marker of each link and the summary rows' `Id` links (SOM §11.11). |
+| `spec_document_markdown_generated.js` | The rendition's generated parts (SOM §11.12): the requirement views' tables in `derived` blocks, read back as nothing. |
 | `spec_document_strip.js` | Stripped renditions (SOM §11.10): `stripNotationText` strips one value, `SpecDocumentStrip.strip` a whole document into a `.readable.md` with its readable header and appendix (`SpecStripOptions`, `SpecReadableHeader`, `SpecStripResult`). |
 | `spec_document_merge.js` | The merge back (SOM §11.10): `mergeStrippedValue` merges one edited value onto its original, `SpecStripMerge.merge` an edited `.readable.md` onto its document — pieces put back or placed, conflicts and refused edits reported, a stale original merged three ways from git (`SpecStripMergeResult`, `exitCode`). |
 | `docspecs_validator.js` | Schema-free DocSpecs parse, schema loader, and never-fail-fast validator (`SOM §14`), with the nine reading-notation rules (`{ tomSpecs: true }`: scanned per form-field value, unknown kinds and classless divs reported) and the reading view's form tables, list bodies, section tables and styled-div headings (`malformedBlock`, `unknownField`); a stripped rendition's readable header and appendix are skipped. |
@@ -183,8 +185,9 @@ The runner asserts byte-for-byte equality of the YAML and Markdown encodings, th
 document round-trips, the Markdown→memory landing, and the reflection /
 validation / operations behaviour (exit 0 on success). It also replays the
 section-automation tables: the link readers, `validateLinks`, the document set
-(`syncReport`, `renameId`), `deriveFields`, `backfill`, `prefill` and the typed
-inline marks (`typedCases`) — over the fixture model `corpus/links.meta.json`
+(`syncReport`, `renameId`), `deriveFields`, `backfill`, `prefill`, the
+rendition's navigation and generated parts (`link_rendition_cases.json`) and the
+typed inline marks (`typedCases`) — over the fixture model `corpus/links.meta.json`
 and, for the cases naming it, the real model of `tom_som_dart_v0/meta/`. The conformance suite is a
 plain-Node `main()` (`tests/conformance_runner.js`), with a thin `node --test`
 wrapper (`tests/conformance.test.js`).
@@ -270,6 +273,4 @@ wrapper (`tests/conformance.test.js`).
 
 Version **1.13.0**, tracking the TomSpecs model version. Requires Node.js ≥ 18
 (verified with Node 22.x). Covered by 13 test files; the conformance runner
-reports **OK: 2126 checks passed** and `./run_tests.sh` is green. The
-rendition's navigation and generated parts (qualified anchors, the `linked`
-marker, `derived` blocks) are not ported yet.
+reports **OK: 2302 checks passed** and `./run_tests.sh` is green.

@@ -2,6 +2,23 @@
 
 ## Unreleased
 
+- **The rendition's navigation and generated parts** (SOM §11.2, §11.11,
+  §11.12), as Dart and TypeScript have them: below a list item or a
+  `@SameAs` copy a heading's anchor is qualified (`<A>/…/<id>`); a markable
+  heading is followed by its `linked` marker (`Also in`, `Summary of`,
+  `Summarised in`, `Derived from`, `Extracted from`, `Copy of`, `Copied to`),
+  a summary row's `Id` cell links the detail element it names, and the
+  requirement views open their sections with a generated table in a
+  `derived` block (`spec_document_markdown_linked.js`,
+  `spec_document_markdown_generated.js`). The options `linkedMarkers` and
+  `generatedParts` (default true) turn them off; a stripped rendition dropping
+  or unmarking `linked` / `derived` does. The parser removes the marker and
+  the generated block, and an empty value under a generated block is no
+  missing value. The conformance runner replays `link_rendition_cases.json`
+  and the schema tier over the real model's renditions with and without them
+  (2302 checks); `parity_gate.sh` over `javascript_runtime` sends all eight
+  section-automation mutations red.
+
 - **Section automation over the document set** (`tom_specs_model_rules.md`
   §9.7), as Dart and TypeScript have it: `SpecDocumentSet` holds the
   documents of one specification (from documents, `fromFragments`, or `load`

@@ -46,7 +46,19 @@
 const { SomMetaKind } = require('./spec_meta');
 const { buildSomMetaTree } = require('./spec_meta_bridge');
 const { effectiveListItemSectionId } = require('./spec_section_id');
-const { splitListItemSegment } = require('./spec_paths');
+const {
+  _Navigation,
+  _isLinkedParagraph,
+  _kLinkedPlaceholder,
+  _qualifyAnchor,
+  _resolveLinkedPlaceholders,
+} = require('./spec_document_markdown_linked');
+const {
+  _Generated,
+  _kDerivedPlaceholder,
+  _opensDerived,
+  _resolveDerivedPlaceholders,
+} = require('./spec_document_markdown_generated');
 
 /** Why an imported Markdown block was rejected (SOM §11.7 rejection protocol). */
 const SpecMarkdownRejectReason = Object.freeze({
@@ -286,24 +298,6 @@ function _decodeCodeSpan(value) {
   return inner;
 }
 
-/**
- * The qualified anchor of a heading `id` (SOM §11.2) and the scope its
- * descendants' anchors are qualified with: below a list item, or in a
- * `@SameAs` copy, an anchor is the ids from the scope's start joined by `/`;
- * elsewhere it is the id itself. `section` is the id of the nearest heading
- * above that is no list container.
- */
-function _qualifyAnchor(scope, section, id, opts = {}) {
-  const joined = (sc) => (sc === null ? id : [...sc, id].join('/'));
-  if (opts.container === true) return [joined(scope), scope];
-  if (opts.item === true) return [joined(scope), [...(scope ?? []), id]];
-  if (opts.copy === true) {
-    const sc = [...(scope ?? (section === null ? [] : [section])), id];
-    return [sc.join('/'), sc];
-  }
-  return [joined(scope), scope === null ? null : [...scope, id]];
-}
-
 // A section id as a reference holds it: upper-case segments joined by `-`.
 const _ID_SHAPE = /^[A-Z][A-Z0-9]*(-[A-Z0-9]+)*$/;
 // A one-line value that Markdown reads as a block: a list item, a block quote
@@ -354,97 +348,6 @@ function _encodeCodeSpan(value) {
   return SpecDocumentMarkdown._encodeCodeSpan(value);
 }
 
-/**
- * One root's anchors (SOM §11.2): the anchor of the heading a path names,
- * qualified below a list item and in a `@SameAs` copy. The port of the
- * anchor walk of the TypeScript runtime's `_Navigation`; the `linked` marker
- * and the summary links it also writes there are later ports.
- */
-class _Navigation {
-  constructor(codec, root) {
-    this.codec = codec;
-    this.root = root;
-    this.tree = codec._treeFor(root.type);
-    /** @type {Map<string, string>} */
-    this._anchors = new Map();
-  }
-
-  /** The heading id of the item at `itemPath` of `listNode`, as the emitter
-   *  writes it. */
-  itemId(listNode, itemPath) {
-    const d = this.codec.document;
-    const split = splitListItemSegment(itemPath.split('/').pop());
-    const listPath = itemPath.substring(0, itemPath.lastIndexOf('/') + 1) + split.base;
-    const pos = d.listItems(listPath).indexOf(itemPath) + 1;
-    return effectiveListItemSectionId(
-      d.itemSectionId(itemPath),
-      listNode.sectionIdPattern ??
-        (listNode.elementNode ? listNode.elementNode.sectionIdPattern : null) ??
-        null,
-      pos === 0 ? split.seq : pos,
-      listNode.memberName ?? listNode.segment,
-    );
-  }
-
-  /** The anchor of the heading `path` names in this document. */
-  anchorOf(path) {
-    const hit = this._anchors.get(path);
-    if (hit !== undefined) return hit;
-    const segs = path.split('/');
-    let node = this.tree.root;
-    let cur = segs[0];
-    let anchor = node.segment;
-    let scope = null;
-    let section = node.segment;
-    for (let i = 1; i < segs.length; i++) {
-      const seg = segs[i];
-      const child = node.childBySegment(seg);
-      if (child !== null) {
-        cur = `${cur}/${seg}`;
-        node = child;
-        if (
-          this.codec._isTransparentSection(child) ||
-          SpecDocumentMarkdown._isTransparentValue(child)
-        ) {
-          continue;
-        }
-        const id = this.codec._headingIdOf(child);
-        const container = child.kind === SomMetaKind.LIST;
-        const [a, s] = _qualifyAnchor(scope, section, id, {
-          container,
-          copy: !container && this.codec._isCopyNode(child),
-        });
-        anchor = a;
-        scope = s;
-        if (!container) section = id;
-        continue;
-      }
-      const split = splitListItemSegment(seg);
-      const base = split === null ? null : split.base;
-      const listNode = base === null ? null : node.childBySegment(base);
-      if (listNode === null || listNode.kind !== SomMetaKind.LIST) break;
-      const itemPath = `${cur}/${seg}`;
-      const id = this.itemId(listNode, itemPath);
-      const [a, s] = _qualifyAnchor(scope, section, id, { item: true });
-      anchor = a;
-      scope = s;
-      section = id;
-      cur = itemPath;
-      const element = listNode.elementNode ?? null;
-      node = element ?? listNode;
-      if (element === null && i < segs.length - 1) break;
-    }
-    this._anchors.set(path, anchor);
-    return anchor;
-  }
-
-  /** The `Id` cell of a records row standing for a summary element: the
-   *  summary links are a later port, so none. */
-  summaryIdCell() {
-    return null;
-  }
-}
-
 const _ESCAPABLE = /^\\*#/;
 
 // A line that would parse as a form-field label: `Word:` at column 0
@@ -489,6 +392,11 @@ class SpecDocumentMarkdown {
    *   parser reads both forms whatever it says. `readableHeader` is the
    *   readable header line of a stripped rendition, written after the
    *   `docspec` declaration (SOM §11.1); the parser skips it.
+   *   `linkedMarkers` (default true) writes the `linked` marker after a
+   *   markable heading (SOM §11.11); `generatedParts` (default true) writes
+   *   the generated parts at their sections (SOM §11.12). A stripped
+   *   rendition dropping `linked` / `derived` turns them off; the parser
+   *   removes both either way.
    */
   constructor(model, document, options = {}) {
     this.model = model;
@@ -499,12 +407,20 @@ class SpecDocumentMarkdown {
     this.headingDivs = options.headingDivs === true;
     this.readableHeader =
       options.readableHeader === undefined ? null : options.readableHeader;
+    /** Whether the `linked` marker is written (SOM §11.11). */
+    this.linkedMarkers = options.linkedMarkers !== false;
+    /** Whether the generated parts are written (SOM §11.12). */
+    this.generatedParts = options.generatedParts !== false;
     /** The document's keys of one kind, sorted once per export for `_under`. */
     this._sortedKeys = new Map();
     /** The root the current export renders (the target of same-document links). */
     this._currentRoot = null;
-    /** The anchors of the root the current export renders (SOM §11.2). */
+    /** The navigation of the root the current export renders (SOM §11.11). */
     this._nav = null;
+    /** The generated parts of the root the current export renders (SOM §11.12). */
+    this._gen = null;
+    /** The Blueprint's root and the model's anchor pairs ({@link _syncPairs}). */
+    this._syncPairsCache = null;
     /** The class names each root reaches, for reference links. */
     this._reach = new Map();
     // Metadata trees per root type, built lazily (the generated facades
@@ -525,10 +441,31 @@ class SpecDocumentMarkdown {
   }
 
   /** Whether a generated part stands at or beneath `path` of the current
-   *  export, which writes its heading even without a value; this runtime
-   *  writes no generated parts yet (SOM §11.12). */
-  _forced(path) { // eslint-disable-line no-unused-vars
-    return false;
+   *  export, which writes its heading even without a value. */
+  _forced(path) {
+    return this._gen !== null && this._gen.forces(path);
+  }
+
+  /**
+   * The Blueprint's root and the model's anchor pairs, from the model alone;
+   * none when the model's synced positions cannot be paired.
+   *
+   * @internal
+   */
+  get _syncPairs() {
+    if (this._syncPairsCache === null) {
+      // Required here: the document set reads documents, whose Markdown
+      // import requires this module.
+      const { SpecDocumentSet, SpecDocumentSetError } = require('./spec_document_set');
+      try {
+        const set = new SpecDocumentSet(this.model, []);
+        this._syncPairsCache = [set.blueprintRoot, set.pairs];
+      } catch (e) {
+        if (!(e instanceof SpecDocumentSetError)) throw e;
+        this._syncPairsCache = [null, []];
+      }
+    }
+    return this._syncPairsCache;
   }
 
   _treeFor(rootType) {
@@ -858,6 +795,7 @@ class SpecDocumentMarkdown {
   _exportRoot(root) {
     this._currentRoot = root;
     this._nav = new _Navigation(this, root);
+    this._gen = this.generatedParts ? new _Generated(this._nav) : null;
     this._sortedKeys.clear();
     const tree = this._treeFor(root.type);
     const node = tree.root;
@@ -880,7 +818,8 @@ class SpecDocumentMarkdown {
     this._writeSectionBody(b, node, rootSeg);
     this._writeChildren(b, node, rootSeg, 2);
     this._nav = null;
-    return b.toString();
+    this._gen = null;
+    return _resolveLinkedPlaceholders(_resolveDerivedPlaceholders(b.toString()));
   }
 
   /**
@@ -1784,9 +1723,32 @@ class SpecDocumentMarkdown {
   ) {
     this._headingPaths.push(path);
     // SOM §11.2: below a list item or a `@SameAs` copy the anchor is
-    // qualified.
+    // qualified; SOM §11.11: the `linked` marker follows the heading.
     const nav = this._nav;
     const anchor = nav !== null ? nav.anchorOf(path) : id;
+    // SOM §11.12: a generated table opens its section, after the marker.
+    const derived = () => {
+      const gen = this._gen;
+      if (gen === null || !gen.isPlace(path)) return;
+      const block = gen.blocks.get(path);
+      if (block !== undefined) {
+        for (const line of block) b.writeln(line);
+      } else {
+        b.writeln(_kDerivedPlaceholder);
+      }
+      b.writeln();
+    };
+    const marker = () => {
+      if (nav === null || !this.linkedMarkers) return;
+      const entries = nav.entries(path, sectionTable);
+      if (entries.length > 0) {
+        b.writeln(`[${entries.join('; ')}]{.linked}`);
+        b.writeln();
+      } else if (nav.markable(path)) {
+        b.writeln(_kLinkedPlaceholder);
+        b.writeln();
+      }
+    };
     let code =
       codeSpec !== null && codeSpec !== undefined && codeSpec !== ''
         ? ` codeSpec="${codeSpec}"`
@@ -1811,6 +1773,8 @@ class SpecDocumentMarkdown {
           `<!--[${id}]${code}--> <a id="${anchor}"></a> ${escaped}</div>`,
       );
       b.writeln();
+      marker();
+      derived();
       return;
     }
     b.writeln(
@@ -1818,6 +1782,8 @@ class SpecDocumentMarkdown {
         title.replace(/\n/g, '<br>'),
     );
     b.writeln();
+    marker();
+    derived();
   }
 
   /**
@@ -2213,6 +2179,8 @@ class _Parser {
   rootPrefixes = new Set();
   keptContent = {};
   readableHeader = null;
+  /** The navigation of each root parsed, for its markable places. */
+  _navs = new Map();
   /** The source lines, for the text of a rejected block. */
   _lines = [];
   /** Blocks reported by `_reject` and not yet placed. */
@@ -2751,6 +2719,63 @@ class _Parser {
     return itemPath;
   }
 
+  /**
+   * The navigation of the root `frame` lies in, for its markable places;
+   * one per root parsed.
+   */
+  _navFor(frame) {
+    const seg = frame.path.split('/')[0];
+    const root = this.codec.model.roots.find((r) => (r.sectionId ?? r.type) === seg);
+    if (root === undefined) return null;
+    let nav = this._navs.get(root.type);
+    if (nav === undefined) {
+      nav = new _Navigation(this.codec, root);
+      this._navs.set(root.type, nav);
+    }
+    return nav;
+  }
+
+  /**
+   * Removes the `linked` marker (SOM §11.11): the first paragraph of the
+   * body of a markable heading when it is one `linked` span. Its lines are
+   * blanked, not removed, so the body indices kept blocks refer to hold.
+   */
+  _stripLinkedMarker(frame) {
+    const nav = this._navFor(frame);
+    if (nav === null || !nav.markable(frame.path)) return;
+    const body = frame.body;
+    let k = 0;
+    while (k < body.length && body[k].trim() === '') k++;
+    let end = k;
+    while (end < body.length && body[end].trim() !== '') end++;
+    if (end === k || !_isLinkedParagraph(body.slice(k, end).join('\n'))) {
+      return;
+    }
+    for (let i = k; i < end; i++) body[i] = '';
+  }
+
+  /**
+   * Removes a generated part (SOM §11.12): the first block of a generated
+   * place's body, after its marker, when it is a `derived` block. Its lines
+   * are blanked, as the marker's are.
+   */
+  _stripGenerated(frame) {
+    const nav = this._navFor(frame);
+    if (nav === null) return;
+    if (!new _Generated(nav).isPlace(frame.path)) return;
+    const body = frame.body;
+    let k = 0;
+    while (k < body.length && body[k].trim() === '') k++;
+    if (k >= body.length || !_opensDerived(body[k])) return;
+    const fence = /^ {0,3}(:{3,})/.exec(body[k])[1];
+    const close = new RegExp(`^ {0,3}:{${fence.length},}[ \t]*$`);
+    let end = k + 1;
+    while (end < body.length && !close.test(body[end])) end++;
+    if (end >= body.length) return; // unclosed: the value's, reported there
+    for (let i = k; i <= end; i++) body[i] = '';
+    frame.generated = true;
+  }
+
   static _isValueLeaf(kind) {
     return (
       kind === SomMetaKind.CONTENT ||
@@ -2767,6 +2792,9 @@ class _Parser {
       return;
     }
     const node = frame.node;
+    // A scalar list item's frame has no node; it is markable all the same.
+    this._stripLinkedMarker(frame);
+    this._stripGenerated(frame);
     if (node !== null && node.kind === SomMetaKind.FORM) {
       this._finalizeForm(frame, node, frame.path);
       return;

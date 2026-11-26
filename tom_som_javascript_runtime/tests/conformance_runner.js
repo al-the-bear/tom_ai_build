@@ -36,7 +36,12 @@
  *     goldens (YAML + Markdown, byte-for-byte), the "copied, never composed"
  *     guard and the `ROUTE-TOTAL` error cases;
  *   * the SOM §14 DocSpecs tier (schema load + one violation case per rule),
- *     and findings bound to their document path (`docspecs_path_cases.json`).
+ *     and findings bound to their document path (`docspecs_path_cases.json`);
+ *   * section automation over `links.meta.json` and the real model: the link
+ *     readers, `validateLinks`, the document set, deriveFields, prefill,
+ *     backfill, and the rendition's qualified anchors, `linked` marker and
+ *     generated parts (`link_rendition_cases.json`, SOM §11.2, §11.11,
+ *     §11.12) with the schema tier finding nothing in them.
  *
  * Run with: `node tests/conformance_runner.js`. Exit code 0 == all green.
  */
@@ -3697,6 +3702,234 @@ function testLinkValidation() {
   }
 }
 
+// ---------------------------------------------------------------------------
+// The rendition's navigation and generated parts (`link_rendition_cases.json`,
+// SOM §11.2, §11.11, §11.12): each case's document rendered with file stem
+// `links`, the rendition (its markers deleted or edited where the case says)
+// handed to the parser, and the rendition of what it staged.
+// ---------------------------------------------------------------------------
+
+// `doc` rendered as its root's rendition.
+function _rendition(model, doc, markers = true, generated = true) {
+  const root = model.roots.find((r) => doc.hasValuesUnder(r.sectionId ?? r.type));
+  if (root === undefined) throw new Error('no root holds a value');
+  return new SpecDocumentMarkdown(model, doc, {
+    fileStem: 'links',
+    linkedMarkers: markers,
+    generatedParts: generated,
+  }).exportRoot(root);
+}
+
+// `markdown` with its `linked` marker paragraphs removed.
+function _withoutMarkers(markdown) {
+  const lines = markdown.split('\n');
+  const out = [];
+  for (let i = 0; i < lines.length; i++) {
+    if (/^\[.*\]\{\.linked\}$/.test(lines[i])) {
+      if (i + 1 < lines.length && lines[i + 1] === '') i++;
+      continue;
+    }
+    out.push(lines[i]);
+  }
+  return out.join('\n');
+}
+
+// One rendition case, as the Dart test's `renditionCase` computes it.
+function _renditionCase(fixture, c) {
+  const model = _setModelOf(fixture, c);
+  const doc = new SpecDocument();
+  doc.loadJson(c.state);
+  const markers = c.linkedMarkers ?? true;
+  const generated = c.generatedParts ?? true;
+  const markdown = _rendition(model, doc, markers, generated);
+  let given = markdown;
+  if (c.dropMarkers === true) given = _withoutMarkers(given);
+  for (const [from, to] of (c.edits ?? [])) {
+    if (!given.includes(from)) {
+      throw new Error(`${c.name}: the rendition has no "${from}"`);
+    }
+    given = given.replace(from, () => to);
+  }
+  const parsed = SpecDocument.fromMarkdown(given, model);
+  const out = { markdown };
+  if (given !== markdown) out.given = given;
+  out.rejections = parsed.result.rejections.map((r) => r.reason);
+  out.parseMatches =
+    JSON.stringify(parsed.document.toJson()) === JSON.stringify(doc.toJson());
+  out.reemitMatches = _rendition(model, parsed.document, markers, generated) === markdown;
+  return out;
+}
+
+// Whether the rendition-case intent `token` holds in case `c` (the Dart
+// test's `_renditionIntentHolds`); an unknown token is `null`.
+function _renditionIntentHolds(token, c) {
+  const e = c.expect;
+  const md = e.markdown;
+  const parsed = e.parseMatches === true;
+  const reemit = e.reemitMatches === true;
+  const edited = e.given !== undefined && e.given !== null;
+  const given = edited ? e.given : '';
+  switch (token) {
+    case 'alsoInHeldThere':
+      return /\[Also in \[[^\]]+\]\([^)]+\), held there/.test(md);
+    case 'alsoInHeldHere':
+      return /\[Also in \[[^\]]+\]\([^)]+\), held here/.test(md);
+    case 'heldException':
+      return md.includes(' except REQ.owner');
+    case 'summaryOf':
+      return md.includes(
+        'held there except REQ.owner; Summary of [REQ-EXPORT](#REQ-EXPORT)]{.linked}',
+      );
+    case 'summarisedIn':
+      return md.includes('Summarised in [KEY-1](#KEY-1)');
+    case 'derivedTwoFields':
+      return /Derived from (\[[^\]]+\]\([^)]+\)(,)?)+: \w+, \w+/.test(md);
+    case 'extractedFrom':
+      return md.includes('[Extracted from [REQD](#REQ-EXPORT/REQD)]{.linked}');
+    case 'copyOf':
+      return md.includes('[Copy of [CRIT](#CRIT), edit it there]{.linked}');
+    case 'copiedTo':
+      return md.includes('Copied to [CRIT](#CSUM/CRIT)');
+    case 'copyAnchors':
+      return md.includes('<a id="CSUM/CRIT/CRIT-SPEED"></a>');
+    case 'qualifiedThree':
+      return /^#+ <!--\[LNK-REF\]--> <a id="REQ-EXPORT\/LNK-1\/LNK-REF"><\/a> /m.test(md);
+    case 'markerRestored':
+      return edited && !given.includes('{.linked}') && parsed && reemit;
+    case 'handEditDiscarded':
+      return edited && given.includes('Copy of [X]') && parsed && reemit;
+    case 'emptyMarker':
+      return md.includes('[]{.linked}\n\n[To be chosen') && parsed;
+    case 'spanKept':
+      return JSON.stringify(c.state).includes('{.linked}') && parsed;
+    case 'dangling':
+      return md.includes(
+        '[Also in [BLU REQ-PRESETS](links.blu.tomspecs.md#REQ-PRESETS), held here',
+      );
+    case 'generatedTrace':
+      return md.includes(
+        '::: {.derived label="Generated from each requirement\'s traceability; ' +
+          'edit it there"}\n| Requirement | Use cases | Screens | Data entities | ' +
+          'Tests |',
+      );
+    case 'generatedCoverage':
+      return /\| Requirement \| Covered \| By \|\n\| --- \| --- \| --- \|\n\| \[FRE-REQU-TENANT-LIFECYCLE\]\(#FRE-REQU-TENANT-LIFECYCLE\) \| (yes|no) \|/.test(
+        md,
+      );
+    case 'generatedRelationships':
+      return md.includes('| Requirement | Dependency | Related requirement |');
+    case 'generatedFirst':
+      return /^## <!--\[REQCOV\]--> <a id="REQCOV"><\/a> [^\n]*\n\n(\[[^\n]*\]\{\.linked\}\n\n)?::: \{\.derived /m.test(
+        md,
+      );
+    case 'generatedOverview':
+      return md.includes('<!--[RO-TRAC]-->') && md.includes('| Requirement | Use cases | Screens |');
+    case 'generatedUseCases':
+      return md.includes('| [INEN-INTE-UC-02](#INEN-INTE-UC-02) |  | [FRE-REQU-TENANT-FEATURES](');
+    case 'generatedEditDiscarded':
+      return edited && given.includes('| Requirement | Covered |\n') && parsed && reemit;
+    case 'noGenerated':
+      return !md.includes('{.derived');
+    case 'emptyGenerated':
+      return md.includes('::: {.derived}\n:::\n\n::: {.derived}\nTraced by hand.\n:::');
+    case 'summaryRowLink':
+      return (
+        md.includes('| <a id="TOP-BETA"></a>[TOP-BETA](#TOP-BETA) |') &&
+        md.includes('| <a id="TOP-BETA"></a>TOP-BETA |')
+      );
+    case 'noMarkers':
+      return !md.includes('{.linked}') && md.includes('<a id="REQ-EXPORT/REQD"></a>');
+    case 'roundTrip':
+      return !edited && parsed && reemit;
+    case 'clean':
+      return (e.rejections).length === 0;
+    default:
+      return null;
+  }
+}
+
+function testLinkRendition() {
+  const table = _readJson('link_rendition_cases.json');
+  const model = SpecModel.fromJson(_readJson(table.model || 'links.meta.json'));
+  for (const c of table.cases) {
+    const name = `links.rendition[${c.name}]`;
+    try {
+      const got = JSON.parse(JSON.stringify(_renditionCase(model, c)));
+      for (const k of ['markdown', 'given', 'rejections', 'parseMatches', 'reemitMatches']) {
+        _check(`${name}.${k}`, _deepEqual(got[k], c.expect[k]), _jsonMismatch(got[k], c.expect[k]));
+      }
+      _check(`${name}.keys`, _deepEqual(Object.keys(got).sort(), Object.keys(c.expect).sort()));
+    } catch (e) {
+      _check(name, false, `threw ${e instanceof Error ? (e.stack ?? String(e)) : String(e)}`);
+    }
+    for (const token of c.intent) {
+      const h = _renditionIntentHolds(token, c);
+      _check(
+        `links.rendition.intent[${c.name}: ${token}]`,
+        h === true,
+        h === null ? 'unknown intent token' : 'does not hold',
+      );
+    }
+  }
+}
+
+// The schema tier finds nothing in the markers and generated parts (the Dart
+// test's RNC5, real model): each document's findings with navigation equal
+// its findings without.
+function testRenditionSchemaTier() {
+  const cut = _readJson('uam_requirements_cut.json');
+  const rsp = new SpecDocument();
+  rsp.loadJson(cut.rsp);
+  const sbp = new SpecDocument();
+  sbp.loadJson(cut.blueprint);
+  const isc = new SpecDocument();
+  const item = isc.addListItem('ISC/interactionCatalog/INEN-INTE-LST', 'INEN-INTE-UC-01');
+  isc.setFormField(`${item}/INTR`, 'relatedRequirements', 'FRE-REQU-TENANT-LIFECYCLE');
+  const som = _somModel();
+  for (const [doc, schemaName] of [
+    [rsp, 'requirements-specification'],
+    [sbp, 'solution-blueprint'],
+    [isc, 'interaction-scenarios'],
+  ]) {
+    const name = `links.rendition.schemaTier[${schemaName}]`;
+    try {
+      const schema = DocSpecsSchema.fromYamlText(
+        fs.readFileSync(
+          path.join(
+            _PKG_ROOT,
+            '..',
+            'tom_som_dart_v0',
+            'schemas',
+            schemaName,
+            `${schemaName}.1.0.docspecs-schema.yaml`,
+          ),
+          'utf8',
+        ),
+      );
+      const root = som.roots.find((r) => doc.hasValuesUnder(r.sectionId ?? r.type));
+      const findings = (navigation) => {
+        const md = new SpecDocumentMarkdown(som, doc, {
+          linkedMarkers: navigation,
+          generatedParts: navigation,
+        }).exportRoot(root);
+        return [
+          md,
+          new DocSpecsValidator(schema, { tomSpecs: true })
+            .validateMarkdown(md)
+            .map((v) => `${v.rule} ${v.sectionId}`)
+            .sort(),
+        ];
+      };
+      const [md, withNav] = findings(true);
+      const [, without] = findings(false);
+      _check(`${name}.derived`, md.includes('{.derived'));
+      _check(name, _deepEqual(withNav, without), _jsonMismatch(withNav, without));
+    } catch (e) {
+      _check(name, false, `threw ${e instanceof Error ? (e.stack ?? String(e)) : String(e)}`);
+    }
+  }
+}
+
 function main() {
   if (!fs.existsSync(_CORPUS) || !fs.statSync(_CORPUS).isDirectory()) {
     process.stderr.write(`corpus not found at ${_CORPUS}\n`);
@@ -3756,6 +3989,8 @@ function main() {
   testDeriveFields();
   testDocumentSet();
   testPrefillBackfill();
+  testLinkRendition();
+  testRenditionSchemaTier();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {
