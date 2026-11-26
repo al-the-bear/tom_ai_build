@@ -90,8 +90,42 @@
     (`tests/conformance_document_set_test.go`; the real model gives 132 pairs
     with `D00SolutionBlueprint` as the Blueprint root; 2302 -> 2538 checks);
     `tests/spec_document_set_test.go`, `tests/spec_derive_fields_test.go` and
-    `tests/spec_prefill_backfill_test.go` are new. The rendition's navigation
-    follows.
+    `tests/spec_prefill_backfill_test.go` are new.
+
+- **Section automation, third part: the rendition's navigation and generated
+  parts** (SOM §11.2, §11.11, §11.12), ported from the Python runtime (the
+  JavaScript and TypeScript ports and the Dart reference behind it).
+  - The navigation (`spec_document_markdown_linked.go`): every markable
+    heading is followed by its `linked` marker, its entries in the order of
+    SOM §11.11 — `Also in` (a `@SyncedWith` anchor or an element of a shared
+    list, held here / there with the `heldHere` exceptions), `Summary of`,
+    `Summarised in`, `Derived from` (with the derived fields), `Extracted
+    from`, `Copy of`, `Copied to`. A markable heading without an entry gets
+    the empty marker `[]{.linked}` when its value itself begins with a
+    `linked` span, else nothing. A summary row whose `@SummaryOf` has no
+    `match` writes its `Id` cell as a link to the detail element it names.
+    The qualified anchors (SOM §11.2) come from the same walk.
+  - The generated parts (`spec_document_markdown_generated.go`): the four
+    requirement views — traceability (`RSP-TRAC` / `RO-TRAC`), coverage
+    (`REQCOV`), relationships (`RERE-REQU-LST`) and use-case traceability
+    (`USCATR`) — written as a `derived` block at the start of their section,
+    after the marker; a section holding such a block is written even without
+    a value of its own, and an empty generated place before a value that
+    begins with a `derived` block gets an empty block.
+  - `SpecDocumentMarkdown.LinkedMarkers` / `GeneratedParts` (both true from
+    `NewSpecDocumentMarkdown`) turn them off; a stripped rendition dropping or
+    unmarking `linked` / `derived` does. The parser removes the marker of a
+    markable heading and the closed `derived` block at the start of a
+    generated place's body, whatever they say, and an empty value under a
+    generated block is no `missingValue`.
+  - The conformance suite replays `link_rendition_cases.json` (markdown,
+    given, rejections, parse and re-emit, keys, intent tokens) and the
+    real-model schema tier over `uam_requirements_cut.json` with the
+    `tom_som_dart_v0` schemas (`tests/conformance_rendition_test.go`; 2538 ->
+    2714 checks); `tests/spec_document_markdown_linked_test.go` and
+    `tests/spec_document_markdown_generated_test.go` are new.
+    `tom_som_conformance/tool/parity_gate.sh` over `go_runtime`: all eight
+    section-automation mutations go red.
 
 - **The merge back of an edited stripped rendition** (SOM §11.10, RV9),
   ported from the JavaScript and Rust runtimes; `spec_document_merge.go` is

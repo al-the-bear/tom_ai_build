@@ -948,9 +948,10 @@ TypeScript read both.
 Each of the seven tables is proven load-bearing with
 [`tool/parity_gate.sh`](tool/parity_gate.sh), over `dart_runtime`
 (2026-11-24, the rendition table 2026-11-25), over `typescript_runtime`
-(2026-11-25), over `javascript_runtime` (2026-11-26) and over
-`python_runtime` (2026-11-26), with the same mutations; the TypeScript,
-JavaScript and Python runs add one on the `typedCases`.
+(2026-11-25), over `javascript_runtime` (2026-11-26), over
+`python_runtime` (2026-11-26) and over `go_runtime` (2026-11-26), with the
+same mutations; the TypeScript, JavaScript, Python and Go runs add one on the
+`typedCases`.
 Every run `GATE PASSED`: the suite went red on the mutated expectation and the
 corpus was restored.
 
@@ -964,7 +965,7 @@ corpus was restored.
 | `backfill_cases.json` | `"kind": "elementAdded",(?=\s*"path": "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-2")` (the real-model case) | `"kind": "value",` |
 | `prefill_cases.json` | `(?<="filledPairs": \[\n {12})"REQS"(?=,\s*"CRIT"\s*\])` | `"ACC"` |
 | `link_rendition_cases.json` | `\[\]\{\.linked\}` (the empty marker) | `[Summary of [X](#X)]{.linked}` |
-| `inline_mark_cases.json` (`typedCases`, TypeScript, JavaScript and Python) | `(?<="results": \[\n {10})"high"(?=,\n\s*\[\],)` (the enum read as its old value) | `"low"` |
+| `inline_mark_cases.json` (`typedCases`, TypeScript, JavaScript, Python and Go) | `(?<="results": \[\n {10})"high"(?=,\n\s*\[\],)` (the enum read as its old value) | `"low"` |
 <!-- markdownlint-enable MD013 -->
 
 `--to` is replaced literally (no `$1`), so a mutation that has to keep

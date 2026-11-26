@@ -53,6 +53,16 @@ package somruntime
 // escaped with one space. The parser reads this layout and the older `Field:`
 // layout alike.
 //
+// Navigation and generated parts (SOM §11.11, §11.12): a markable heading is
+// followed by its `linked` marker (`Also in`, `Summary of`, `Summarised in`,
+// `Derived from`, `Extracted from`, `Copy of`, `Copied to`;
+// spec_document_markdown_linked.go), a summary row's `Id` cell links the
+// detail element it names, and the requirement views open their sections with
+// a generated table in a `derived` block (spec_document_markdown_generated.go).
+// The fields LinkedMarkers and GeneratedParts turn them off; the parser
+// removes both, and an empty value under a generated block is no missing
+// value.
+//
 // Go conventions: where the other ports throw, ExportRoot returns an
 // error (the unterminated-fence case); the empty string stands in for a null
 // Anchor.
@@ -384,13 +394,31 @@ type SpecDocumentMarkdown struct {
 	// written after the `docspec` declaration (SOM §11.1); "" writes none. The
 	// parser skips it.
 	ReadableHeader string
+	// LinkedMarkers writes the `linked` marker after a markable heading (SOM
+	// §11.11); true from NewSpecDocumentMarkdown. A stripped rendition dropping
+	// or unmarking `linked` turns it off; the parser removes the marker either
+	// way.
+	LinkedMarkers bool
+	// GeneratedParts writes the generated parts at their sections (SOM
+	// §11.12); true from NewSpecDocumentMarkdown. A stripped rendition dropping
+	// or unmarking `derived` turns it off; the parser removes them either way,
+	// and an empty value under a generated block is no missing value.
+	GeneratedParts bool
 
 	// The document's keys of one kind, sorted once per export for mdUnder.
 	sortedKeys map[string][]string
 	// The root the current export renders (the target of same-document links).
 	currentRoot *SpecRoot
-	// The anchors of the root the current export renders (SOM §11.2).
+	// The navigation of the root the current export renders (SOM §11.2,
+	// §11.11).
 	nav *mdNavigation
+	// The generated parts of the root the current export renders (SOM
+	// §11.12); nil without GeneratedParts.
+	gen *mdGenerated
+	// The Blueprint's root and the model's anchor pairs (syncPairs).
+	syncBlueprint string
+	syncPairList  []*SpecSyncPair
+	syncDone      bool
 	// The class names each root reaches, for reference links.
 	reach map[string]map[string]bool
 }
@@ -398,12 +426,32 @@ type SpecDocumentMarkdown struct {
 // NewSpecDocumentMarkdown binds model and document to the codec.
 func NewSpecDocumentMarkdown(model *SpecModel, document *SpecDocument) *SpecDocumentMarkdown {
 	return &SpecDocumentMarkdown{
-		Model:      model,
-		Document:   document,
-		trees:      map[string]*SomMetaTree{},
-		sortedKeys: map[string][]string{},
-		reach:      map[string]map[string]bool{},
+		Model:          model,
+		Document:       document,
+		LinkedMarkers:  true,
+		GeneratedParts: true,
+		trees:          map[string]*SomMetaTree{},
+		sortedKeys:     map[string][]string{},
+		reach:          map[string]map[string]bool{},
 	}
+}
+
+// syncPairs returns the Blueprint's root and the model's anchor pairs, from
+// the model alone; none when the model's synced positions cannot be paired.
+func (c *SpecDocumentMarkdown) syncPairs() (string, []*SpecSyncPair) {
+	if !c.syncDone {
+		c.syncDone = true
+		if set, err := NewSpecDocumentSet(c.Model, nil); err == nil {
+			c.syncBlueprint, c.syncPairList = set.BlueprintRoot, set.Pairs()
+		}
+	}
+	return c.syncBlueprint, c.syncPairList
+}
+
+// forced reports whether a generated part stands at or beneath path of the
+// current export, which writes its heading even without a value.
+func (c *SpecDocumentMarkdown) forced(path string) bool {
+	return c.gen != nil && c.gen.forces(path)
 }
 
 func (c *SpecDocumentMarkdown) treeFor(rootType string) (*SomMetaTree, error) {
@@ -783,9 +831,12 @@ func (c *SpecDocumentMarkdown) exportRoot(root *SpecRoot) (string, error) {
 		return "", err
 	}
 	c.currentRoot = root
-	c.nav = &mdNavigation{codec: c, tree: tree, anchors: map[string]string{}}
+	c.nav = newMdNavigation(c, root, tree)
+	if c.GeneratedParts {
+		c.gen = newMdGenerated(c.nav)
+	}
 	c.sortedKeys = map[string][]string{}
-	defer func() { c.nav = nil }()
+	defer func() { c.nav, c.gen = nil, nil }()
 	node := tree.Root
 	b := &mdBuffer{}
 	b.writeln("<!-- docspec: " + SpecMarkdownKebabCase(root.Title) + "/" +
@@ -803,14 +854,14 @@ func (c *SpecDocumentMarkdown) exportRoot(root *SpecRoot) (string, error) {
 	if rootTitle == "" {
 		rootTitle = root.Title
 	}
-	c.writeHeading(b, 1, rootSeg, rootTitle, rootSeg, c.Document.CodeSpecOr(rootSeg), c.Document.UnitsOr(rootSeg))
+	c.writeHeading(b, 1, rootSeg, rootTitle, rootSeg, c.Document.CodeSpecOr(rootSeg), c.Document.UnitsOr(rootSeg), false)
 	if err := c.writeSectionBody(b, node, rootSeg); err != nil {
 		return "", err
 	}
 	if err := c.writeChildren(b, node, rootSeg, 2); err != nil {
 		return "", err
 	}
-	return b.String(), nil
+	return mdResolveLinkedPlaceholders(mdResolveDerivedPlaceholders(b.String())), nil
 }
 
 // writeSectionBody writes the body region of a section heading: the section
@@ -990,16 +1041,16 @@ func (c *SpecDocumentMarkdown) writeChildren(
 	for _, entry := range c.effectiveChildren(node) {
 		child := entry.node
 		path := basePath + "/" + entry.rel
-		if !c.Document.HasValuesUnder(path) {
+		if !c.Document.HasValuesUnder(path) && !c.forced(path) {
 			continue
 		}
 		switch child.Kind {
 		case SomMetaKindContent, SomMetaKindScalar, SomMetaKindEnumValue:
 			value, ok := c.Document.Content(path)
-			if !ok {
+			if !ok && !c.forced(path) {
 				continue
 			}
-			c.writeHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), path, c.Document.CodeSpecOr(path), c.Document.UnitsOr(path))
+			c.writeHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), path, c.Document.CodeSpecOr(path), c.Document.UnitsOr(path), false)
 			if err := c.writeBody(b, value, path); err != nil {
 				return err
 			}
@@ -1007,12 +1058,13 @@ func (c *SpecDocumentMarkdown) writeChildren(
 			if !c.formHasValues(child, path) {
 				continue
 			}
-			c.writeHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), path, c.Document.CodeSpecOr(path), c.Document.UnitsOr(path))
+			c.writeHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), path, c.Document.CodeSpecOr(path), c.Document.UnitsOr(path), false)
 			if err := c.writeForm(b, child, path); err != nil {
 				return err
 			}
 		case SomMetaKindSection, SomMetaKindComplex:
-			c.writeHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), path, c.Document.CodeSpecOr(path), c.Document.UnitsOr(path))
+			c.writeHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), path, c.Document.CodeSpecOr(path), c.Document.UnitsOr(path),
+				c.writeSectionTable(&mdBuffer{}, child, path))
 			if err := c.writeSectionBody(b, child, path); err != nil {
 				return err
 			}
@@ -1039,12 +1091,12 @@ func (c *SpecDocumentMarkdown) writeListItems(
 	b *mdBuffer, node *SomMetaNode, listPath string, depth int,
 ) error {
 	items := c.Document.ListItems(listPath)
-	if len(items) == 0 {
+	if len(items) == 0 && !c.forced(listPath) {
 		return nil
 	}
 	// The container heading: its id is the list's `-LST` `@SectionId` (else the
 	// member segment for a pattern-less list); its title is the member name.
-	c.writeHeading(b, depth, c.headingIdOf(node), c.headingTitle(listPath, node), listPath, c.Document.CodeSpecOr(listPath), c.Document.UnitsOr(listPath))
+	c.writeHeading(b, depth, c.headingIdOf(node), c.headingTitle(listPath, node), listPath, c.Document.CodeSpecOr(listPath), c.Document.UnitsOr(listPath), false)
 	// Item heading stem. Complex lists derive it from the element class name
 	// (SOM §11.5, `Entry` dropped). A scalar list (`[]string`, shape 6) has no
 	// element class — its element type name is literally `String`, which would
@@ -1079,7 +1131,8 @@ func (c *SpecDocumentMarkdown) writeListItems(
 		if itemTitle == "" {
 			itemTitle = stem + " " + itoa(pos)
 		}
-		c.writeHeading(b, depth+1, itemID, itemTitle, itemPath, c.Document.CodeSpecOr(itemPath), c.Document.UnitsOr(itemPath))
+		c.writeHeading(b, depth+1, itemID, itemTitle, itemPath, c.Document.CodeSpecOr(itemPath), c.Document.UnitsOr(itemPath),
+			element != nil && !element.Recursive && c.writeSectionTable(&mdBuffer{}, element, itemPath))
 		if element == nil {
 			// Scalar list: the item's value is its body.
 			value, _ := c.Document.Content(itemPath)
@@ -1150,100 +1203,6 @@ func (c *SpecDocumentMarkdown) sorted(kind string) []string {
 	sort.Strings(keys)
 	c.sortedKeys[kind] = keys
 	return keys
-}
-
-// mdNavigation holds one root's anchors (SOM §11.2): the anchor of the heading
-// a path names, qualified below a list item and in a `@SameAs` copy. The port
-// of the anchor walk of the TypeScript runtime's `_Navigation`; the `linked`
-// marker and the summary links it also writes there are later ports.
-type mdNavigation struct {
-	codec   *SpecDocumentMarkdown
-	tree    *SomMetaTree
-	anchors map[string]string
-}
-
-// itemID returns the heading id of the item at itemPath of listNode, as the
-// emitter writes it.
-func (n *mdNavigation) itemID(listNode *SomMetaNode, itemPath string) string {
-	d := n.codec.Document
-	slash := strings.LastIndex(itemPath, "/")
-	split, _ := SplitListItemSegment(itemPath[slash+1:])
-	listPath := itemPath[:slash+1] + split.Base
-	pos := 0
-	for i, p := range d.ListItems(listPath) {
-		if p == itemPath {
-			pos = i + 1
-			break
-		}
-	}
-	if pos == 0 {
-		pos = split.Seq
-	}
-	pattern := listNode.SectionIDPattern
-	if pattern == "" && listNode.ElementNode != nil {
-		pattern = listNode.ElementNode.SectionIDPattern
-	}
-	stem := listNode.MemberName
-	if stem == "" {
-		stem = listNode.Segment()
-	}
-	stored, has := d.ItemSectionID(itemPath)
-	return EffectiveListItemSectionID(stored, has, pattern, pos, stem)
-}
-
-// anchorOf returns the anchor of the heading path names in this document.
-func (n *mdNavigation) anchorOf(path string) string {
-	if hit, ok := n.anchors[path]; ok {
-		return hit
-	}
-	segs := strings.Split(path, "/")
-	node := n.tree.Root
-	cur := segs[0]
-	anchor := node.Segment()
-	var scope []string
-	section := node.Segment()
-	for i := 1; i < len(segs); i++ {
-		seg := segs[i]
-		if child := node.ChildBySegment(seg); child != nil {
-			cur += "/" + seg
-			node = child
-			if n.codec.isTransparentSection(child) || mdIsTransparentValue(child) {
-				continue
-			}
-			id := n.codec.headingIdOf(child)
-			container := child.Kind == SomMetaKindList
-			anchor, scope = mdQualifyAnchor(scope, section, id, container, false,
-				!container && n.codec.isCopyNode(child))
-			if !container {
-				section = id
-			}
-			continue
-		}
-		split, ok := SplitListItemSegment(seg)
-		if !ok {
-			break
-		}
-		listNode := node.ChildBySegment(split.Base)
-		if listNode == nil || listNode.Kind != SomMetaKindList {
-			break
-		}
-		itemPath := cur + "/" + seg
-		id := n.itemID(listNode, itemPath)
-		anchor, scope = mdQualifyAnchor(scope, section, id, false, true, false)
-		section = id
-		cur = itemPath
-		element := listNode.ElementNode
-		if element == nil {
-			node = listNode
-			if i < len(segs)-1 {
-				break
-			}
-		} else {
-			node = element
-		}
-	}
-	n.anchors[path] = anchor
-	return anchor
 }
 
 // anchorOf is the qualified anchor of the heading path names in the current
@@ -1438,10 +1397,15 @@ func (c *SpecDocumentMarkdown) writeRecordTable(b *mdBuffer, node *SomMetaNode, 
 	b.writeln("| " + strings.Join(delimiter, " | ") + " |")
 	for i, itemPath := range items {
 		id := c.itemID(node, itemPath, i+1, pattern)
-		// A summary naming its detail element by its own id would link it
-		// from the Id cell (SOM §11.5, §11.11); the summary links are a later
-		// port.
-		cells := []string{`<a id="` + c.anchorOf(itemPath, id) + `"></a>` + id}
+		// A summary naming its detail element by its own id links it from the
+		// Id cell (SOM §11.5, §11.11).
+		cell := `<a id="` + c.anchorOf(itemPath, id) + `"></a>` + id
+		if c.nav != nil {
+			if linked, ok := c.nav.summaryIDCell(itemPath, itemPath[:strings.LastIndex(itemPath, "-")], id); ok {
+				cell = linked
+			}
+		}
+		cells := []string{cell}
 		if withTitle {
 			title := strings.ReplaceAll(d.HeadlineOr(itemPath), "\n", "<br>")
 			cells = append(cells, strings.ReplaceAll(title, "|", `\|`))
@@ -1902,11 +1866,42 @@ func (c *SpecDocumentMarkdown) writeForm(b *mdBuffer, node *SomMetaNode, path st
 // follows the comment as an HTML anchor, `<a id="ID"></a>`, qualified below a
 // list item and in a `@SameAs` copy (SOM §11.2), so `#<ID>` links jump in
 // every viewer.
-func (c *SpecDocumentMarkdown) writeHeading(b *mdBuffer, depth int, id, title, path, codeSpec, units string) {
+//
+// The `linked` marker follows the heading (SOM §11.11), then a generated table
+// opening its section (SOM §11.12). sectionTable: the heading's children are
+// written as a section table.
+func (c *SpecDocumentMarkdown) writeHeading(b *mdBuffer, depth int, id, title, path, codeSpec, units string, sectionTable bool) {
 	c.headingPaths = append(c.headingPaths, path)
 	anchor := id
-	if c.nav != nil {
-		anchor = c.nav.anchorOf(path)
+	nav := c.nav
+	if nav != nil {
+		anchor = nav.anchorOf(path)
+	}
+	marker := func() {
+		if nav == nil || !c.LinkedMarkers {
+			return
+		}
+		if entries := nav.entries(path, sectionTable); len(entries) > 0 {
+			b.writeln("[" + strings.Join(entries, "; ") + "]{.linked}")
+			b.writeln("")
+		} else if nav.markable(path) {
+			b.writeln(mdLinkedPlaceholder)
+			b.writeln("")
+		}
+	}
+	derived := func() {
+		gen := c.gen
+		if gen == nil || !gen.isPlace(path) {
+			return
+		}
+		if block, ok := gen.blocks()[path]; ok {
+			for _, line := range block {
+				b.writeln(line)
+			}
+		} else {
+			b.writeln(mdDerivedPlaceholder)
+		}
+		b.writeln("")
 	}
 	code := ""
 	if codeSpec != "" {
@@ -1926,12 +1921,16 @@ func (c *SpecDocumentMarkdown) writeHeading(b *mdBuffer, depth int, id, title, p
 			SpecMarkdownHeadingDivIndent(depth) + "em;font-weight:bold\"><!--[" + id + "]" + code +
 			"--> <a id=\"" + anchor + "\"></a> " + escaped + "</div>")
 		b.writeln("")
+		marker()
+		derived()
 		return
 	}
 	// A heading is one line: a stored headline's line breaks travel as `<br>`.
 	b.writeln(strings.Repeat("#", depth) + " <!--[" + id + "]" + code + "--> <a id=\"" +
 		anchor + "\"></a> " + strings.ReplaceAll(title, "\n", "<br>"))
 	b.writeln("")
+	marker()
+	derived()
 }
 
 // writeBody writes value as a section body followed by a blank line; no-op
@@ -2127,6 +2126,10 @@ type mdFrame struct {
 	// at or above it that is no list container (SOM §11.2, mdQualifyAnchor).
 	anchorScope   []string
 	anchorSection string
+	// generated is whether its body opened with a generated block (SOM
+	// §11.12): the heading stands for the block, so an empty value is no
+	// rejection.
+	generated bool
 	// kept holds the rejected blocks to keep in this frame's text (RN-11):
 	// the body index they stand before, the block, and the end of the body
 	// lines it replaces (the index itself when it replaces none).
@@ -2434,6 +2437,8 @@ type mdParser struct {
 	// readableHeader is the readable header a stripped rendition carries
 	// (SOM §11.1), "" when none was read.
 	readableHeader string
+	// navs holds the navigation of each root parsed, for its markable places.
+	navs map[string]*mdNavigation
 }
 
 func newMdParser(codec *SpecDocumentMarkdown) *mdParser {
@@ -2449,6 +2454,7 @@ func newMdParser(codec *SpecDocumentMarkdown) *mdParser {
 		fence:        &MarkdownFenceTracker{},
 		given:        map[string]map[string]bool{},
 		keptContent:  map[string]string{},
+		navs:         map[string]*mdNavigation{},
 	}
 }
 
@@ -2871,11 +2877,100 @@ func mdIsValueLeaf(kind string) bool {
 
 // --- Body finalisation --------------------------------------------------------
 
+// navFor returns the navigation of the root frame lies in, for its markable
+// places; one per root parsed. nil when the root is unknown.
+func (p *mdParser) navFor(frame *mdFrame) *mdNavigation {
+	seg := strings.SplitN(frame.path, "/", 2)[0]
+	var root *SpecRoot
+	for _, r := range p.codec.Model.Roots {
+		id := r.SectionID
+		if id == "" {
+			id = r.Type
+		}
+		if id == seg {
+			root = r
+			break
+		}
+	}
+	if root == nil {
+		return nil
+	}
+	if nav, ok := p.navs[root.Type]; ok {
+		return nav
+	}
+	tree, err := p.codec.treeFor(root.Type)
+	if err != nil {
+		return nil
+	}
+	nav := newMdNavigation(p.codec, root, tree)
+	p.navs[root.Type] = nav
+	return nav
+}
+
+// stripLinkedMarker removes the `linked` marker (SOM §11.11): the first
+// paragraph of the body of a markable heading when it is one `linked` span.
+// Its lines are blanked, not removed, so the body indices kept blocks refer to
+// hold.
+func (p *mdParser) stripLinkedMarker(frame *mdFrame) {
+	nav := p.navFor(frame)
+	if nav == nil || !nav.markable(frame.path) {
+		return
+	}
+	body := frame.body
+	k := 0
+	for k < len(body) && strings.TrimSpace(body[k]) == "" {
+		k++
+	}
+	end := k
+	for end < len(body) && strings.TrimSpace(body[end]) != "" {
+		end++
+	}
+	if end == k || !mdIsLinkedParagraph(strings.Join(body[k:end], "\n")) {
+		return
+	}
+	for i := k; i < end; i++ {
+		body[i] = ""
+	}
+}
+
+// stripGenerated removes a generated part (SOM §11.12): the first block of a
+// generated place's body, after its marker, when it is a `derived` block. Its
+// lines are blanked, as the marker's are.
+func (p *mdParser) stripGenerated(frame *mdFrame) {
+	nav := p.navFor(frame)
+	if nav == nil || !newMdGenerated(nav).isPlace(frame.path) {
+		return
+	}
+	body := frame.body
+	k := 0
+	for k < len(body) && strings.TrimSpace(body[k]) == "" {
+		k++
+	}
+	if k >= len(body) || !mdOpensDerived(body[k]) {
+		return
+	}
+	closeRE := mdDerivedFenceClose(body[k])
+	end := k + 1
+	for end < len(body) && !closeRE.MatchString(body[end]) {
+		end++
+	}
+	if end >= len(body) {
+		return // unclosed: the value's, reported there
+	}
+	for i := k; i <= end; i++ {
+		body[i] = ""
+	}
+	frame.generated = true
+}
+
 func (p *mdParser) finalize(frame *mdFrame) {
 	if frame.ignored {
 		p.keepIgnored(frame)
 		return
 	}
+	// A scalar list item's frame has no node; it is markable all the same.
+	p.stripLinkedMarker(frame)
+	p.stripGenerated(frame)
 	node := frame.node
 	if node != nil && node.Kind == SomMetaKindForm {
 		p.finalizeForm(frame, node, frame.path)
@@ -2897,7 +2992,7 @@ func (p *mdParser) finalize(frame *mdFrame) {
 		}
 		if value != "" {
 			p.content[frame.path] = value
-		} else if node != nil && mdIsValueLeaf(node.Kind) {
+		} else if node != nil && mdIsValueLeaf(node.Kind) && !frame.generated {
 			p.rejections = append(p.rejections, &SpecMarkdownRejection{
 				Line:    frame.line,
 				Reason:  SpecMarkdownRejectMissingValue,

@@ -53,95 +53,93 @@ exceptions:
       matched Dart's same-named member by coincidence, not by meaning.
 
   - token: linkedMarkers
-    planes: [java, go, rust, c, cpp]
+    planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The rendition's navigation — the qualified anchors of SOM
       §11.2 and the `linked` marker of SOM §11.11, with the renderer option
-      that turns the marker off for a stripped rendition — is in the Dart
-      runtime only, built first by decision (idea section_automation,
+      that turns the marker off for a stripped rendition — is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea section_automation,
       DP-part-conformance-4); its ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_rendition_cases.json` is the corpus they will run.
 
   - token: generatedParts
-    planes: [java, go, rust, c, cpp]
+    planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The rendition's generated parts (SOM §11.12) — the
       requirement views' tables in `derived` blocks, with the renderer option
-      that leaves them out of a stripped rendition — are in the Dart runtime
-      only, built first by decision (idea section_automation,
+      that leaves them out of a stripped rendition — are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea section_automation,
       DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_rendition_cases.json` is the corpus they will run.
 
   - token: dependencyType
-    planes: [java, go, rust, c, cpp]
+    planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
       requirement views: traceability, coverage, relationships, use-case
       traceability), which the Dart runtime defines and the others take on
       with the tables; their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`.
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`.
       Elsewhere the token is a form field of the model's documents.
 
   - token: relatedDataEntities
-    planes: [java, go, rust, c, cpp]
+    planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
       requirement views: traceability, coverage, relationships, use-case
       traceability), which the Dart runtime defines and the others take on
       with the tables; their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`.
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`.
       Elsewhere the token is a form field of the model's documents.
 
   - token: relatedProcess
-    planes: [java, go, rust, c, cpp]
+    planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
       requirement views: traceability, coverage, relationships, use-case
       traceability), which the Dart runtime defines and the others take on
       with the tables; their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`.
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`.
       Elsewhere the token is a form field of the model's documents.
 
   - token: relatedRequirements
-    planes: [java, go, rust, c, cpp]
+    planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
       requirement views: traceability, coverage, relationships, use-case
       traceability), which the Dart runtime defines and the others take on
       with the tables; their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`.
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`.
       Elsewhere the token is a form field of the model's documents.
 
   - token: relatedScreens
-    planes: [java, go, rust, c, cpp]
+    planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
       requirement views: traceability, coverage, relationships, use-case
       traceability), which the Dart runtime defines and the others take on
       with the tables; their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`.
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`.
       Elsewhere the token is a form field of the model's documents.
 
   - token: relatedTestCases
-    planes: [java, go, rust, c, cpp]
+    planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
       requirement views: traceability, coverage, relationships, use-case
       traceability), which the Dart runtime defines and the others take on
       with the tables; their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`.
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`.
       Elsewhere the token is a form field of the model's documents.
 
   - token: relatedUseCases
-    planes: [java, go, rust, c, cpp]
+    planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
       requirement views: traceability, coverage, relationships, use-case
       traceability), which the Dart runtime defines and the others take on
       with the tables; their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`.
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`.
       Elsewhere the token is a form field of the model's documents.
 
   - token: syncedWith
@@ -150,9 +148,9 @@ exceptions:
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
       SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
-      SpecPlaceFilter, SpecPlaceProblem) are in the Dart runtime only, built first by decision (idea
+      SpecPlaceFilter, SpecPlaceProblem) are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: detailOnly
@@ -161,9 +159,9 @@ exceptions:
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
       SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
-      SpecPlaceFilter, SpecPlaceProblem) are in the Dart runtime only, built first by decision (idea
+      SpecPlaceFilter, SpecPlaceProblem) are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: heldHere
@@ -172,9 +170,9 @@ exceptions:
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
       SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
-      SpecPlaceFilter, SpecPlaceProblem) are in the Dart runtime only, built first by decision (idea
+      SpecPlaceFilter, SpecPlaceProblem) are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: summaryOf
@@ -183,9 +181,9 @@ exceptions:
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
       SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
-      SpecPlaceFilter, SpecPlaceProblem) are in the Dart runtime only, built first by decision (idea
+      SpecPlaceFilter, SpecPlaceProblem) are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: derivedFrom
@@ -194,9 +192,9 @@ exceptions:
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
       SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
-      SpecPlaceFilter, SpecPlaceProblem) are in the Dart runtime only, built first by decision (idea
+      SpecPlaceFilter, SpecPlaceProblem) are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: inverseOf
@@ -205,9 +203,9 @@ exceptions:
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
       SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
-      SpecPlaceFilter, SpecPlaceProblem) are in the Dart runtime only, built first by decision (idea
+      SpecPlaceFilter, SpecPlaceProblem) are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: extractsLinks
@@ -216,9 +214,9 @@ exceptions:
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
       SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
-      SpecPlaceFilter, SpecPlaceProblem) are in the Dart runtime only, built first by decision (idea
+      SpecPlaceFilter, SpecPlaceProblem) are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: anchorUnresolved
@@ -227,9 +225,9 @@ exceptions:
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
       SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
-      SpecPlaceFilter, SpecPlaceProblem) are in the Dart runtime only, built first by decision (idea
+      SpecPlaceFilter, SpecPlaceProblem) are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: notScoped
@@ -238,9 +236,9 @@ exceptions:
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
       SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
-      SpecPlaceFilter, SpecPlaceProblem) are in the Dart runtime only, built first by decision (idea
+      SpecPlaceFilter, SpecPlaceProblem) are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: noSuchField
@@ -249,9 +247,9 @@ exceptions:
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
       SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
-      SpecPlaceFilter, SpecPlaceProblem) are in the Dart runtime only, built first by decision (idea
+      SpecPlaceFilter, SpecPlaceProblem) are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: noContent
@@ -260,9 +258,9 @@ exceptions:
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
       SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
-      SpecPlaceFilter, SpecPlaceProblem) are in the Dart runtime only, built first by decision (idea
+      SpecPlaceFilter, SpecPlaceProblem) are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: notListElement
@@ -271,9 +269,9 @@ exceptions:
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
       SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
-      SpecPlaceFilter, SpecPlaceProblem) are in the Dart runtime only, built first by decision (idea
+      SpecPlaceFilter, SpecPlaceProblem) are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: reservedSlot
@@ -282,9 +280,9 @@ exceptions:
       KNOWN GAP. The typed readers of the link vocabulary and the place and
       filter grammar of `tom_specs_model_rules.md` §9.7 (SpecSync, SpecSummaryOf,
       SpecDerivation, SpecInverseOf, SpecExtractsLinks, SpecSameAs, SpecPlace,
-      SpecPlaceFilter, SpecPlaceProblem) are in the Dart runtime only, built first by decision (idea
+      SpecPlaceFilter, SpecPlaceProblem) are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_reader_cases.json` is the corpus they will run.
 
   - token: derivedLookupMiss
@@ -292,9 +290,9 @@ exceptions:
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
-      are in the Dart runtime only, built first by decision (idea
+      are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: detailNotInSummary
@@ -302,9 +300,9 @@ exceptions:
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
-      are in the Dart runtime only, built first by decision (idea
+      are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: duplicateLinkRow
@@ -312,9 +310,9 @@ exceptions:
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
-      are in the Dart runtime only, built first by decision (idea
+      are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: extractedLinkMissing
@@ -322,9 +320,9 @@ exceptions:
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
-      are in the Dart runtime only, built first by decision (idea
+      are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: extractedLinkStale
@@ -332,9 +330,9 @@ exceptions:
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
-      are in the Dart runtime only, built first by decision (idea
+      are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: inverseMissing
@@ -342,9 +340,9 @@ exceptions:
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
-      are in the Dart runtime only, built first by decision (idea
+      are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: linkValuePending
@@ -352,9 +350,9 @@ exceptions:
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
-      are in the Dart runtime only, built first by decision (idea
+      are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: sameAsMismatch
@@ -362,9 +360,9 @@ exceptions:
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
-      are in the Dart runtime only, built first by decision (idea
+      are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: summaryDuplicate
@@ -372,9 +370,9 @@ exceptions:
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
-      are in the Dart runtime only, built first by decision (idea
+      are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: summaryNotInDetail
@@ -382,296 +380,287 @@ exceptions:
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
       `tom_specs_model_rules.md` §9.7) and their SpecValidationCode constants
-      are in the Dart runtime only, built first by decision (idea
+      are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: validateLinks
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The link checks of one document (`validateLinks`,
-      `tom_specs_model_rules.md` §9.7) are in the Dart runtime only, built
-      first by decision (idea section_automation, DP-part-conformance-4); their
-      ports are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      `tom_specs_model_rules.md` §9.7) are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea section_automation, DP-part-conformance-4); their
+      ports are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: blueprintRoot
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: countsByCode
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: countsByResolution
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: crossInverseMissing
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: crossSummaryMismatch
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: detailRoot
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: documentFindings
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: missingRoots
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: noRoot
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: notStarted
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: pendingMarks
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: pendingReview
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: renameId
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: sameRoot
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: sharedElementMayBeAdded
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: sharedElementMissing
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: sharedElementOnlyInBlueprint
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: sharedValueDiffers
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: sharedValueMissing
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: sharedValueOnlyInBlueprint
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: syncReport
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: twoRoots
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
-      `tom_specs_model_rules.md` §9.7) is in the Dart runtime only, built first
+      `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart
       by decision (idea section_automation, DP-part-conformance-4); its ports
-      are the todos `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`,
+      are the todos `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`,
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: deriveFields
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. `deriveFields` (the derived places of one document written,
-      plain or as marks; `tom_specs_model_rules.md` §9.7) is in the Dart runtime
-      only, built first by decision (idea section_automation,
+      plain or as marks; `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea section_automation,
       DP-part-conformance-4); its ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `derive_cases.json` is the corpus they will run.
 
   - token: dryRun
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. `deriveFields` (the derived places of one document written,
-      plain or as marks; `tom_specs_model_rules.md` §9.7) is in the Dart runtime
-      only, built first by decision (idea section_automation,
+      plain or as marks; `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea section_automation,
       DP-part-conformance-4); its ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `derive_cases.json` is the corpus they will run.
 
   - token: rowAdded
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. `deriveFields` (the derived places of one document written,
-      plain or as marks; `tom_specs_model_rules.md` §9.7) is in the Dart runtime
-      only, built first by decision (idea section_automation,
+      plain or as marks; `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea section_automation,
       DP-part-conformance-4); its ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `derive_cases.json` is the corpus they will run.
 
   - token: rowRemoved
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. `deriveFields` (the derived places of one document written,
-      plain or as marks; `tom_specs_model_rules.md` §9.7) is in the Dart runtime
-      only, built first by decision (idea section_automation,
+      plain or as marks; `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea section_automation,
       DP-part-conformance-4); its ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `derive_cases.json` is the corpus they will run.
 
   - token: elementAdded
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. `backfill` (the Phase 3 documents' accepted end state carried
-      into the Blueprint; `tom_specs_model_rules.md` §9.7) is in the Dart
-      runtime only, built first by decision (idea section_automation,
+      into the Blueprint; `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea section_automation,
       DP-part-conformance-4); its ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `backfill_cases.json` is the corpus they will run.
 
   - token: elementRemoved
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. `backfill` (the Phase 3 documents' accepted end state carried
-      into the Blueprint; `tom_specs_model_rules.md` §9.7) is in the Dart
-      runtime only, built first by decision (idea section_automation,
+      into the Blueprint; `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea section_automation,
       DP-part-conformance-4); its ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `backfill_cases.json` is the corpus they will run.
 
   - token: mayBeAdded
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. `backfill` (the Phase 3 documents' accepted end state carried
-      into the Blueprint; `tom_specs_model_rules.md` §9.7) is in the Dart
-      runtime only, built first by decision (idea section_automation,
+      into the Blueprint; `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea section_automation,
       DP-part-conformance-4); its ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `backfill_cases.json` is the corpus they will run.
 
   - token: setHasMarks
     planes: [java, rust, c, cpp]
     reason: >-
       KNOWN GAP. `backfill` (the Phase 3 documents' accepted end state carried
-      into the Blueprint; `tom_specs_model_rules.md` §9.7) is in the Dart
-      runtime only, built first by decision (idea section_automation,
+      into the Blueprint; `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea section_automation,
       DP-part-conformance-4); its ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `backfill_cases.json` is the corpus they will run.
 
   - token: filledPairs
@@ -679,9 +668,9 @@ exceptions:
     reason: >-
       KNOWN GAP. `prefill` (a Phase 3 document started from the Blueprint) and
       the document set's not-started pairs (`tom_specs_model_rules.md` §9.7)
-      are in the Dart runtime only, built first by decision (idea
+      are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `prefill_cases.json` and `document_set_cases.json` are the
       corpus they will run.
 
@@ -690,9 +679,9 @@ exceptions:
     reason: >-
       KNOWN GAP. `prefill` (a Phase 3 document started from the Blueprint) and
       the document set's not-started pairs (`tom_specs_model_rules.md` §9.7)
-      are in the Dart runtime only, built first by decision (idea
+      are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `prefill_cases.json` and `document_set_cases.json` are the
       corpus they will run.
 
@@ -701,9 +690,9 @@ exceptions:
     reason: >-
       KNOWN GAP. `prefill` (a Phase 3 document started from the Blueprint) and
       the document set's not-started pairs (`tom_specs_model_rules.md` §9.7)
-      are in the Dart runtime only, built first by decision (idea
+      are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `prefill_cases.json` and `document_set_cases.json` are the
       corpus they will run.
 
@@ -712,9 +701,9 @@ exceptions:
     reason: >-
       KNOWN GAP. `prefill` (a Phase 3 document started from the Blueprint) and
       the document set's not-started pairs (`tom_specs_model_rules.md` §9.7)
-      are in the Dart runtime only, built first by decision (idea
+      are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `prefill_cases.json` and `document_set_cases.json` are the
       corpus they will run.
 
@@ -723,8 +712,8 @@ exceptions:
     reason: >-
       KNOWN GAP. `prefill` (a Phase 3 document started from the Blueprint) and
       the document set's not-started pairs (`tom_specs_model_rules.md` §9.7)
-      are in the Dart runtime only, built first by decision (idea
+      are in the Dart, TypeScript, JavaScript, Python and Go runtimes, built first in Dart by decision (idea
       section_automation, DP-part-conformance-4); their ports are the todos
-      `05a_sau1_akrk-typescript-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
+      `05a_sau5_akrk-java-runtime`..`05a_sau8_akrk-cpp-runtime`, one per
       runtime. `prefill_cases.json` and `document_set_cases.json` are the
       corpus they will run.

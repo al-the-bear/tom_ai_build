@@ -92,8 +92,10 @@ tag / path-`replace` routes and how to pin.
 | `spec_codespecs_gate.go` | The Phase-4 Stage-A gate (`CodeSpecsGate`) — checks A1–A5 of `codespecs_prompt.md` §4 run as one over model, document, area catalogue (its `gate` tables) and DocSpecs schema; a check that cannot run is reported not run and fails the gate. |
 | `spec_codespecs_records.go` | Reads a Phase-4 run back: `CodeSpecsExtractFromYaml` (the byte-stable inverse of `ToYaml`), the Stage-B gate record `gate.verdicts.yaml` (`CodeSpecsGateRecord` — read, checked, written), and `CodeSpecsExtractSet`, a tree of extracts scoped by its gate record. |
 | `spec_document_yaml.go` | Byte-stable `*.tomspecs.yaml` codec (`SOM §12`). |
-| `spec_document_markdown.go` | Meta-data-driven Markdown import/export codec (`SOM §11`): the emitter writes the reading view's form tables, record tables, reference lines and section tables with an anchor in every heading, a value no table cell holds as a `Field:` paragraph (SOM §11.2, §11.4, §11.5); with `HeadingDivs` styled-div headings below level six and with `ReadableHeader` a stripped rendition's readable header (SOM §11.1, §11.2); the parser reads them, styled-div headings and the older `Field:` layout, skips a readable header (`SpecMarkdownResult.ReadableHeader`) and stops at the appendix marker; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7). |
-| `spec_document_strip.go` | Stripped renditions (SOM §11.10). The strip of one value: `StripNotationText(value, options)` drops, unmarks or moves to the appendix the secondary prose of the named kinds (`provenance`, `trace`, `editorial`, `aside`, `linked`, `derived`, `comments`) and returns a `SpecStripTextResult` — the text, the counts per kind, `MarksDropped`, the appendix entries (`SpecAppendixEntry`) and the pieces it removed (`SpecStripPiece`, UTF-16 offsets); a value with a notation error is refused unchanged. `SpecStripOptionsFromNames` reads the kind names a user gives (`all`, comma-joined lists) and refuses a misuse with `SpecStripUsageError`. The strip of a document: `SpecDocumentStrip{}.Strip` strips every value into a copy with the emptying rule and writes its readable rendition, the readable header (`SpecReadableHeader`, `SpecReadableSource`) and the appendix *Notes* included (`SpecStripResult`). |
+| `spec_document_markdown.go` | Meta-data-driven Markdown import/export codec (`SOM §11`): the emitter writes the reading view's form tables, record tables, reference lines and section tables with an anchor in every heading, a value no table cell holds as a `Field:` paragraph (SOM §11.2, §11.4, §11.5); with `HeadingDivs` styled-div headings below level six and with `ReadableHeader` a stripped rendition's readable header (SOM §11.1, §11.2); the parser reads them, styled-div headings and the older `Field:` layout, skips a readable header (`SpecMarkdownResult.ReadableHeader`) and stops at the appendix marker; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7); the anchors below a list item and in a `@SameAs` copy are qualified, a `linked` marker follows each markable heading and the generated parts open their sections (SOM §11.2, §11.11, §11.12; fields `LinkedMarkers`, `GeneratedParts`), all removed on parse. |
+| `spec_document_markdown_linked.go` | The rendition's navigation: qualified anchors below a list item and in a `@SameAs` copy (SOM §11.2), the `linked` marker of each link (`Also in`, `Summary of`, `Summarised in`, `Derived from`, `Extracted from`, `Copy of`, `Copied to`) and the summary rows' `Id` links (SOM §11.11). |
+| `spec_document_markdown_generated.go` | The rendition's generated parts (SOM §11.12): the requirement views' tables in `derived` blocks, read back as nothing. |
+| `spec_document_strip.go` | Stripped renditions (SOM §11.10). The strip of one value: `StripNotationText(value, options)` drops, unmarks or moves to the appendix the secondary prose of the named kinds (`provenance`, `trace`, `editorial`, `aside`, `linked`, `derived`, `comments`) and returns a `SpecStripTextResult` — the text, the counts per kind, `MarksDropped`, the appendix entries (`SpecAppendixEntry`) and the pieces it removed (`SpecStripPiece`, UTF-16 offsets); a value with a notation error is refused unchanged. `SpecStripOptionsFromNames` reads the kind names a user gives (`all`, comma-joined lists) and refuses a misuse with `SpecStripUsageError`. The strip of a document: `SpecDocumentStrip{}.Strip` strips every value into a copy with the emptying rule and writes its readable rendition, the readable header (`SpecReadableHeader`, `SpecReadableSource`) and the appendix *Notes* included (`SpecStripResult`); dropping or unmarking `linked` / `derived` leaves the markers / generated parts out. |
 | `spec_document_merge.go` | The merge back of an edited stripped rendition (SOM §11.10). One value: `MergeStrippedValue(original, stripped, edited, pieces)` puts every piece the strip removed back between its unchanged neighbours, places it after an edited run (`SpecStripMergePlaced`) or reports a conflict (`SpecStripMergeConflict`: `crossesBoundary`, `sentenceRemoved`, `stripTextEdited`, `unplaceable`, `notation`, `annotations`) in a `SpecStripValueMerge`. A document: `SpecStripMerge{}.Merge(original, edited, options)` reads the switches from the readable header (or `SpecStripMergeOptions.Options`), merges three ways from a base when the original is stale (`CurrentRevision`, `Base`, `LoadBase`; `GitShowFile` reads a commit's file), refuses structural edits (`SpecStripMergeRefusal`), takes a wrapped paragraph read back on one line as no edit (SOM §11.4 rule 13) and checks the merged document strips back and adds no finding (`SpecStripMergeResult`: `OK`, `ExitCode`, `Report`). |
 | `som_facade.go` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList[T]`) for the generated `tom_som_go_v0`. |
 | `spec_review_annotations.go` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks, in headlines too under `KSpecHeadlineField` (`SpecReviewAnnotations`: insert, answer, decide, comment on a change, assign comment ids, strip, validate), conflict blocks, change times and attribution. |
@@ -192,14 +194,17 @@ go test ./tests/ -run Conformance -count=1 -v   # → "OK: N checks passed"
 ./run_tests.sh                                  # conformance + the per-module suites
 ```
 
-The section-automation tables of this port so far run in
-`tests/conformance_links_test.go` and `tests/conformance_document_set_test.go`:
+The section-automation tables of this port run in
+`tests/conformance_links_test.go`, `tests/conformance_document_set_test.go`
+and `tests/conformance_rendition_test.go`:
 the link readers and the place / filter grammar (`link_reader_cases.json`),
 `ValidateLinks` (`link_validation_cases.json`), the typed inline marks
 (`typedCases`), the document set with `SyncReport` and `RenameID`
 (`document_set_cases.json`), `DeriveFields` (`derive_cases.json`), `Prefill`
-and `Backfill` (`prefill_cases.json`, `backfill_cases.json`) — over the
-fixture model `corpus/links.meta.json` and, for the cases naming it, the real
+and `Backfill` (`prefill_cases.json`, `backfill_cases.json`), the rendition's
+navigation and generated parts (`link_rendition_cases.json`, and the schema
+tier over the real model's renditions with and without them,
+`uam_requirements_cut.json`) — over the fixture model `corpus/links.meta.json` and, for the cases naming it, the real
 model of `tom_som_dart_v0/meta/`.
 
 The runner reproduces every golden byte-for-byte and exercises the same cases as
@@ -298,5 +303,5 @@ guard and the `ROUTE-TOTAL` error cases), the stripped renditions
 ## Status
 
 Version **1.13.0**, tracking the TomSpecs model version. Requires Go ≥ 1.21.
-Covered by 21 test files; the conformance runner reports
-**OK: 2075 checks passed** and `./run_tests.sh` is green.
+Covered by 31 test files; the conformance runner reports
+**OK: 2714 checks passed** and `./run_tests.sh` is green.

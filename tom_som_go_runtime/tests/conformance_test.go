@@ -261,6 +261,8 @@ func TestConformance(t *testing.T) {
 	testDeriveFields(c, t)
 	testDocumentSet(c, t, setModelCache)
 	testPrefillBackfill(c, t, setModelCache)
+	testLinkRendition(c, t, setModelCache)
+	testRenditionSchemaTier(c, t, setModelCache)
 
 	c.finish()
 }

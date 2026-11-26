@@ -775,6 +775,8 @@ func (SpecDocumentStrip) Strip(document *SpecDocument, options SpecStripOptions,
 		c := codec(cp)
 		c.HeadingDivs = options.HeadingDivs
 		c.ReadableHeader = result.ReadableHeader
+		c.LinkedMarkers = !options.WritesNoLinkedMarkers()
+		c.GeneratedParts = !options.WritesNoGeneratedParts()
 		rendition, err := c.ExportRootWithMap(root)
 		if err != nil {
 			findings = append(findings, SpecStripFinding{Kind: "parse", Message: err.Error()})
