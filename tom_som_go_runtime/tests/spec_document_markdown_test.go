@@ -119,12 +119,12 @@ func TestMarkdownExportFormat(t *testing.T) {
 	mdCheck(t, "export.docspec.prefix", strings.HasPrefix(first, "<!-- docspec: demo-document/"), first)
 	mdCheck(t, "export.docspec.suffix", strings.HasSuffix(first, "-->"), first)
 
-	mdCheck(t, "export.heading.root", strings.Contains(md, "# <!--[D00]--> Demo Document"))
-	mdCheck(t, "export.heading.overview", strings.Contains(md, "## <!--[D00-OVR]--> Overview"))
-	mdCheck(t, "export.heading.status", strings.Contains(md, "## <!--[D00-ST]--> Status"))
-	mdCheck(t, "export.heading.header", strings.Contains(md, "## <!--[D00-HDR]--> Header"))
-	mdCheck(t, "export.heading.meta", strings.Contains(md, "## <!--[D00-MET]--> Meta"))
-	mdCheck(t, "export.heading.note", strings.Contains(md, "### <!--[D00-MET-NOTE]--> Note"))
+	mdCheck(t, "export.heading.root", strings.Contains(md, "# <!--[D00]--> <a id=\"D00\"></a> Demo Document"))
+	mdCheck(t, "export.heading.overview", strings.Contains(md, "## <!--[D00-OVR]--> <a id=\"D00-OVR\"></a> Overview"))
+	mdCheck(t, "export.heading.status", strings.Contains(md, "## <!--[D00-ST]--> <a id=\"D00-ST\"></a> Status"))
+	mdCheck(t, "export.heading.header", strings.Contains(md, "## <!--[D00-HDR]--> <a id=\"D00-HDR\"></a> Header"))
+	mdCheck(t, "export.heading.meta", strings.Contains(md, "## <!--[D00-MET]--> <a id=\"D00-MET\"></a> Meta"))
+	mdCheck(t, "export.heading.note", strings.Contains(md, "### <!--[D00-MET-NOTE]--> <a id=\"D00-MET-NOTE\"></a> Note"))
 
 	mdCheck(t, "export.content.plain", strings.Contains(md, "An overview paragraph.\nWith two lines."))
 	noFence := true
@@ -137,15 +137,17 @@ func TestMarkdownExportFormat(t *testing.T) {
 	mdCheck(t, "export.content.noFieldAnchor", !strings.Contains(md, "<!-- field:"))
 	mdCheck(t, "export.content.noPathHeading", !strings.Contains(md, "D00/D00-OVR"))
 
-	mdCheck(t, "export.form.sparse.author", strings.Contains(md, "Author: Ada Lovelace"))
+	mdCheck(t, "export.form.sparse.author", strings.Contains(md, "| Author | Ada Lovelace |"))
 	mdCheck(t, "export.form.sparse.noReviewer", !strings.Contains(md, "Reviewer"))
 
 	// The list container heads (SOM §11.2): `D00-ITM` at the owner's child
 	// level, its numbered items one level below it, item fields one deeper.
-	mdCheck(t, "export.item.container", strings.Contains(md, "## <!--[D00-ITM]--> Items"))
-	mdCheck(t, "export.item.1", strings.Contains(md, "### <!--[items-1]--> Demo Item 1"))
-	mdCheck(t, "export.item.2", strings.Contains(md, "### <!--[items-2]--> Demo Item 2"))
-	mdCheck(t, "export.item.label", strings.Contains(md, "#### <!--[D01-LBL]--> Label"))
+	mdCheck(t, "export.item.container", strings.Contains(md, `## <!--[D00-ITM]--> <a id="D00-ITM"></a> Items`))
+	mdCheck(t, "export.item.1", strings.Contains(md, `### <!--[items-1]--> <a id="items-1"></a> Demo Item 1`))
+	mdCheck(t, "export.item.2", strings.Contains(md, `### <!--[items-2]--> <a id="items-2"></a> Demo Item 2`))
+	// Below a list item the anchor is qualified (SOM §11.2).
+	mdCheck(t, "export.item.label", strings.Contains(md, `#### <!--[D01-LBL]--> <a id="items-1/D01-LBL"></a> Label`))
+	mdCheck(t, "export.item2.label", strings.Contains(md, `#### <!--[D01-LBL]--> <a id="items-2/D01-LBL"></a> Label`))
 
 	mdCheck(t, "export.noSchemaDescription", !strings.Contains(md, "A demo document."))
 }
@@ -160,8 +162,8 @@ func TestMarkdownExportStoredItemId(t *testing.T) {
 	md := mdExport(t, doc)
 	// YRD3: the stored id IS the md heading id; only
 	// anonymous items fall back to the positional derivation.
-	mdCheck(t, "export.storedId.container", strings.Contains(md, "## <!--[D00-ITM]--> Items"), md)
-	mdCheck(t, "export.storedId.heading", strings.Contains(md, "### <!--[D01-CUSTOM]--> Demo Item 1"), md)
+	mdCheck(t, "export.storedId.container", strings.Contains(md, `## <!--[D00-ITM]--> <a id="D00-ITM"></a> Items`), md)
+	mdCheck(t, "export.storedId.heading", strings.Contains(md, `### <!--[D01-CUSTOM]--> <a id="D01-CUSTOM"></a> Demo Item 1`), md)
 	mdCheck(t, "export.storedId.noPositional", !strings.Contains(md, "items-1"), md)
 }
 
@@ -336,8 +338,10 @@ func TestMarkdownRoundTripStoredItemId(t *testing.T) {
 
 func TestMarkdownRoundTripLabelShapedContinuation(t *testing.T) {
 	doc := som.NewSpecDocument()
+	// A hard break keeps it a paragraph (a wrapped paragraph would be one
+	// table cell, SOM §11.4).
 	doc.SetFormField("D00/D00-HDR", "author",
-		"Ada Lovelace\nNote: also a mathematician\nplain line")
+		"Ada Lovelace  \nNote: also a mathematician\nplain line")
 	md1 := mdExport(t, doc)
 	// The label-shaped continuation is space-escaped on emit.
 	mdCheck(t, "formCont.escaped", strings.Contains(md1, "\n Note: also a mathematician\n"), md1)
@@ -346,12 +350,64 @@ func TestMarkdownRoundTripLabelShapedContinuation(t *testing.T) {
 	mdCheck(t, "formCont.clean", report.IsClean(), mdRejStr(report))
 	mdCheck(t, "formCont.value",
 		reloaded.FormFieldOr("D00/D00-HDR", "author") ==
-			"Ada Lovelace\nNote: also a mathematician\nplain line",
+			"Ada Lovelace  \nNote: also a mathematician\nplain line",
 		fmt.Sprintf("%q", reloaded.FormFieldOr("D00/D00-HDR", "author")))
 	mdCheck(t, "formCont.byteStable", mdExport(t, reloaded) == md1)
 }
 
 // --- the reading view's table layout (SOM §11.4, §11.5) -----------------------
+
+// SOM §11.4 rule 13: a wrapped one-paragraph value is one table cell; a value
+// of several paragraphs stays a `Field:` paragraph.
+func TestMarkdownWrappedParagraphJoined(t *testing.T) {
+	for _, tc := range []struct {
+		value, want string
+		ok          bool
+	}{
+		{"one line", "", false},
+		{"Ada\nLovelace", "Ada Lovelace", true},
+		{"a\n\nb", "", false},
+		{"a  \nb", "", false},
+		{"a\\\nb", "", false},
+		{"a\n- b", "", false},
+		{"a\n| b |", "", false},
+		{"a\n## b", "", false},
+		{"a\n---", "", false},
+		{"a\n b", "", false},
+	} {
+		got, ok := som.SpecMarkdownWrappedParagraphJoined(tc.value)
+		mdCheck(t, fmt.Sprintf("wrapped[%q]", tc.value), ok == tc.ok && got == tc.want,
+			fmt.Sprintf("%q %v", got, ok))
+	}
+}
+
+func TestMarkdownFormCellLayout(t *testing.T) {
+	doc := som.NewSpecDocument()
+	doc.SetFormField("D00/D00-HDR", "author", "Ada\nLovelace")
+	md := mdExport(t, doc)
+	mdCheck(t, "formCell.wrapped",
+		strings.Contains(md, "| TomSpecField | Value |\n| --- | --- |\n| Author | Ada Lovelace |\n"), md)
+
+	doc = som.NewSpecDocument()
+	doc.SetFormField("D00/D00-HDR", "author", "first paragraph\n\nsecond paragraph")
+	md = mdExport(t, doc)
+	mdCheck(t, "formCell.paragraphs",
+		strings.Contains(md, "Author: first paragraph\n\nsecond paragraph\n") &&
+			!strings.Contains(md, "| TomSpecField |"), md)
+	reloaded, report := mdReload(t, md)
+	mdCheck(t, "formCell.paragraphs.clean", report.IsClean(), mdRejStr(report))
+	mdCheck(t, "formCell.paragraphs.value",
+		reloaded.FormFieldOr("D00/D00-HDR", "author") == "first paragraph\n\nsecond paragraph",
+		fmt.Sprintf("%q", reloaded.FormFieldOr("D00/D00-HDR", "author")))
+
+	doc = som.NewSpecDocument()
+	doc.SetFormField("D00/D00-HDR", "author", "a | b")
+	md = mdExport(t, doc)
+	mdCheck(t, "formCell.pipe", strings.Contains(md, "| Author | a \\| b |\n"), md)
+	reloaded, _ = mdReload(t, md)
+	mdCheck(t, "formCell.pipe.value", reloaded.FormFieldOr("D00/D00-HDR", "author") == "a | b",
+		fmt.Sprintf("%q", reloaded.FormFieldOr("D00/D00-HDR", "author")))
+}
 
 func TestMarkdownTableHeaderShapedLineEscaped(t *testing.T) {
 	// A value line shaped like a layout table header gains one space on emit
@@ -431,7 +487,8 @@ func TestMarkdownFormPreambleEmits(t *testing.T) {
 	doc.SetFormField("D00/D00-HDR", "author", "Ada Lovelace")
 	md := mdExport(t, doc)
 	mdCheck(t, "formPre.emitOrder",
-		strings.Contains(md, "why this header exists\n\nAuthor: Ada Lovelace\n"), md)
+		strings.Contains(md, "why this header exists\n\n| TomSpecField | Value |\n| --- | --- |\n"+
+			"| Author | Ada Lovelace |\n"), md)
 }
 
 func TestMarkdownFormPreambleOnly(t *testing.T) {
@@ -608,10 +665,10 @@ func TestMarkdownCodeSpecRidesInHeadlineComment(t *testing.T) {
 	md := mdExport(t, doc)
 	mdCheck(t, "codeSpec.md.attribute",
 		strings.Contains(md,
-			`## <!--[D00-OVR] codeSpec="CsOrder,CsOrder.total,CsOrderRepository"--> Overview`),
+			`## <!--[D00-OVR] codeSpec="CsOrder,CsOrder.total,CsOrderRepository"--> <a id="D00-OVR"></a> Overview`),
 		md)
 	// Untouched sections stay byte-stable (no empty codeSpec attribute).
-	mdCheck(t, "codeSpec.md.untouched", strings.Contains(md, "## <!--[D00-ST]--> Status"))
+	mdCheck(t, "codeSpec.md.untouched", strings.Contains(md, `## <!--[D00-ST]--> <a id="D00-ST"></a> Status`), md)
 }
 
 func TestMarkdownCodeSpecParsedBackOut(t *testing.T) {

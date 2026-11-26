@@ -85,7 +85,7 @@ tag / path-`replace` routes and how to pin.
 | `spec_codespecs_gate.go` | The Phase-4 Stage-A gate (`CodeSpecsGate`) — checks A1–A5 of `codespecs_prompt.md` §4 run as one over model, document, area catalogue (its `gate` tables) and DocSpecs schema; a check that cannot run is reported not run and fails the gate. |
 | `spec_codespecs_records.go` | Reads a Phase-4 run back: `CodeSpecsExtractFromYaml` (the byte-stable inverse of `ToYaml`), the Stage-B gate record `gate.verdicts.yaml` (`CodeSpecsGateRecord` — read, checked, written), and `CodeSpecsExtractSet`, a tree of extracts scoped by its gate record. |
 | `spec_document_yaml.go` | Byte-stable `*.tomspecs.yaml` codec (`SOM §12`). |
-| `spec_document_markdown.go` | Meta-data-driven Markdown import/export codec (`SOM §11`): the emitter writes `Field:` lines; the parser reads them and the reading view's form, record and section tables, reference lines and heading anchors (SOM §11.4, §11.5). |
+| `spec_document_markdown.go` | Meta-data-driven Markdown import/export codec (`SOM §11`): the emitter writes the reading view's form tables, record tables, reference lines and section tables with an anchor in every heading, a value no table cell holds as a `Field:` paragraph (SOM §11.2, §11.4, §11.5); the parser reads them and the older `Field:` layout. |
 | `som_facade.go` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList[T]`) for the generated `tom_som_go_v0`. |
 | `spec_review_annotations.go` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks (`SpecReviewAnnotations`: insert, answer, decide, comment on a change, assign comment ids, strip, validate), conflict blocks, change times and attribution. |
 | `spec_review_merge.go` | Team review (SOM §11.9.8): `MergeReviews` / `MergeMarkdownReviews` merge the returned copies of a round into one document with votes, individual answers and conflict blocks. |
@@ -185,9 +185,10 @@ go test ./tests/ -run Conformance -count=1 -v   # → "OK: N checks passed"
 
 The runner reproduces every golden byte-for-byte and exercises the same cases as
 the Dart/Python/Java/JavaScript/TypeScript runners: model meta-data load,
-`state.json` round-trip, YAML encode/decode, Markdown export/round-trip, the
-**Markdown→memory landing** check (the `md.land.*` shared contract — parsing
-`expected.tomspecs.md` lands the same memory as the YAML route), reflection resolution,
+`state.json` round-trip, YAML encode/decode, Markdown export/round-trip (held to
+`expected.tables.md`), the **Markdown→memory landing** check (the `md.land.*`
+shared contract — parsing `expected.tables.md` or `expected.tomspecs.md` lands
+the same memory as the YAML route), reflection resolution,
 validation, the imperative operations script, and the Phase-4 CodeSpecs extract
 tier (routing verdicts, the per-area YAML/Markdown goldens, the verbatim-copy
 guard and the `ROUTE-TOTAL` error cases).

@@ -170,8 +170,8 @@ func TestUnitsMarkdownEmit(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, want := range []string{
-		"## <!--[TTL] codeSpec=\"DemoTitle\" units=\"u_a,u_b\"--> Document Title\n",
-		"## <!--[SUM] units=\"u_a\"--> Summary\n",
+		"## <!--[TTL] codeSpec=\"DemoTitle\" units=\"u_a,u_b\"--> <a id=\"TTL\"></a> Document Title\n",
+		"## <!--[SUM] units=\"u_a\"--> <a id=\"SUM\"></a> Summary\n",
 	} {
 		if !strings.Contains(md, want) {
 			t.Fatalf("markdown lacks %q:\n%s", want, md)

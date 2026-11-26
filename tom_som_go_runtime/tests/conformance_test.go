@@ -602,13 +602,23 @@ func typedReview(v interface{}) interface{} {
 
 // --- markdown conformance (SOM §11) -----------------------------------------
 
-// The layout this runtime emits: `fields` (the `Field:` lines of SOM §11.4).
-// Its export golden is expected.tomspecs.md; Dart and TypeScript emit `tables` and are held to expected.tables.md.
-// The emitter port tspubnondart72 (runtime_parity.md § Reading view) brings this runtime to tables.
+// The layout this runtime emits: `tables` (SOM §11.4, §11.5). Its export
+// golden is expected.tables.md; expected.tomspecs.md, the `Field:`-line
+// layout, is parsed only.
 const (
-	emittedLayout = "fields"
-	exportGolden  = "expected.tomspecs.md"
+	emittedLayout = "tables"
+	exportGolden  = "expected." + emittedLayout + ".md"
 )
+
+// expectFor returns the expectation of a case for this runtime's layout:
+// `expectTables` when the case has one (its renditions' lines differ by
+// layout), else `expect`.
+func expectFor(expect, expectTables json.RawMessage) json.RawMessage {
+	if emittedLayout == "tables" && expectTables != nil {
+		return expectTables
+	}
+	return expect
+}
 
 func testMarkdownExport(c *checker, t *testing.T, model *som.SpecModel) {
 	var state som.DocumentJson
@@ -663,8 +673,8 @@ func testMarkdownMemoryLanding(c *checker, t *testing.T, model *som.SpecModel) {
 	readJSON(t, "state.json", &canonical)
 	want := canonJSON(t, &canonical)
 	for _, golden := range []struct{ label, file string }{
-		{"tables", "expected.tables.md"},
-		{"fields", exportGolden},
+		{"tables", exportGolden},
+		{"fields", "expected.tomspecs.md"},
 	} {
 		imported, err := som.SpecDocumentFromMarkdown(readCorpus(t, golden.file), model)
 		if err != nil {
@@ -3071,7 +3081,7 @@ func testCodeSpecsGate(c *checker, t *testing.T) {
 			c.check(tag, false, err.Error())
 			continue
 		}
-		want := jsonAny(t, cs["expect"])
+		want := jsonAny(t, expectFor(cs["expect"], cs["expectTables"]))
 		c.check(tag, reflect.DeepEqual(got, want), canonJSON(t, got)+" != "+canonJSON(t, want))
 	}
 }
@@ -3600,14 +3610,18 @@ type answerCase struct {
 		Label string           `json:"label"`
 		State som.DocumentJson `json:"state"`
 	} `json:"documents"`
-	Path         *string `json:"path"`
-	IncludeOpen  bool    `json:"includeOpen"`
-	IncludeMarks bool    `json:"includeMarks"`
-	Title        *string `json:"title"`
-	Expect       struct {
-		Extracts any    `json:"extracts"`
-		Markdown string `json:"markdown"`
-	} `json:"expect"`
+	Path         *string         `json:"path"`
+	IncludeOpen  bool            `json:"includeOpen"`
+	IncludeMarks bool            `json:"includeMarks"`
+	Title        *string         `json:"title"`
+	Expect       json.RawMessage `json:"expect"`
+	ExpectTables json.RawMessage `json:"expectTables"`
+}
+
+// answerExpect is the expectation of an answer case.
+type answerExpect struct {
+	Extracts any    `json:"extracts"`
+	Markdown string `json:"markdown"`
 }
 
 // testAnswers replays answer_cases.json: extracting a review round's
@@ -3642,8 +3656,12 @@ func testAnswers(c *checker, t *testing.T, model *som.SpecModel) {
 		if failed {
 			continue
 		}
+		var expect answerExpect
+		if err := json.Unmarshal(expectFor(cc.Expect, cc.ExpectTables), &expect); err != nil {
+			t.Fatalf("answers[%s]: decode expect: %v", cc.Name, err)
+		}
 		got := toGenericJSON(t, extractsJSON)
-		want := toGenericJSON(t, cc.Expect.Extracts)
+		want := toGenericJSON(t, expect.Extracts)
 		c.check("answers["+cc.Name+"].extracts", reflect.DeepEqual(got, want),
 			"got "+canonJSON(t, got)+" want "+canonJSON(t, want))
 		options := som.DefaultSpecAnswerRenderOptions()
@@ -3653,8 +3671,8 @@ func testAnswers(c *checker, t *testing.T, model *som.SpecModel) {
 			options.Title = *cc.Title
 		}
 		md := som.RenderAnswers(extracts, options)
-		c.check("answers["+cc.Name+"].markdown", md == cc.Expect.Markdown,
-			byteDiff("answers["+cc.Name+"].markdown", md, cc.Expect.Markdown))
+		c.check("answers["+cc.Name+"].markdown", md == expect.Markdown,
+			byteDiff("answers["+cc.Name+"].markdown", md, expect.Markdown))
 	}
 }
 

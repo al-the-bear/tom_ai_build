@@ -10,8 +10,8 @@ package somruntime
 // section is one markdown heading whose machine-readable identity is the
 // DocSpecs headline comment `<!--[SECTION-ID]-->` and whose text is the
 // human-readable Title-Case member name. Content values are **normal markdown
-// text** under their heading (no fences, no anchors); `@Form` sections use the
-// DocSpecs plain-text `FieldName: value` format; a list emits its `-LST`
+// text** under their heading (no fences); `@Form` sections are written as the
+// reading view's tables (see below); a list emits its `-LST`
 // container heading (id = the list's `@SectionId`, else the member segment)
 // at the owner's child level, wrapping the numbered item headings one level
 // deeper — each item carrying the `@SectionIdPattern` resolved with the 1-based
@@ -38,12 +38,17 @@ package somruntime
 // under a value leaf, orphaned text — is collected into
 // SpecMarkdownResult.Rejections rather than dropped (SOM §11.7).
 //
-// Reading view (SOM §11.4, §11.5): the parser also reads form tables
-// `| TomSpecField | Value |`, record tables in a `::: {.records}` div,
-// reference lines in a `::: {.refs}` div, section tables
-// `| Section | TomSpecField | Value |` and heading anchors `<a id="ID">`; the
-// emitter keeps writing `Field:` lines and escapes a value line shaped like a
-// layout table header with one space.
+// Reading view (SOM §11.2, §11.4, §11.5): the emitter writes form tables
+// `| TomSpecField | Value |` between `Field:` paragraphs, record tables in a
+// `::: {.records}` div, reference lines in a `::: {.refs}` div, section tables
+// `| Section | TomSpecField | Value |` and an HTML anchor `<a id="ID"></a>` in
+// every heading (qualified below a list item and in a `@SameAs` copy). A value
+// that cannot be one table cell (a `multiParagraph` field, several paragraphs,
+// a block, a line shaped like a layout header) stays a `Field:` paragraph; a
+// wrapped one-paragraph value is one cell (SpecMarkdownWrappedParagraphJoined,
+// SOM §11.4 rule 13). A value line shaped like a layout table header is
+// escaped with one space. The parser reads this layout and the older `Field:`
+// layout alike.
 //
 // Go conventions: where the other ports throw, ExportRoot returns an
 // error (the unterminated-fence case); the empty string stands in for a null
@@ -349,14 +354,32 @@ type SpecDocumentMarkdown struct {
 	// The paths of the headings written by the current export, in emission
 	// order (ExportRootWithMap).
 	headingPaths []string
+
+	// FileStem and DocumentFiles name the files a reference to another
+	// document root links to: `<FileStem>.<root id in lower case>.tomspecs.md`
+	// (without the stem when FileStem is empty) unless DocumentFiles names the
+	// root's file, keyed by its section id or type.
+	FileStem      string
+	DocumentFiles map[string]string
+
+	// The document's keys of one kind, sorted once per export for mdUnder.
+	sortedKeys map[string][]string
+	// The root the current export renders (the target of same-document links).
+	currentRoot *SpecRoot
+	// The anchors of the root the current export renders (SOM §11.2).
+	nav *mdNavigation
+	// The class names each root reaches, for reference links.
+	reach map[string]map[string]bool
 }
 
 // NewSpecDocumentMarkdown binds model and document to the codec.
 func NewSpecDocumentMarkdown(model *SpecModel, document *SpecDocument) *SpecDocumentMarkdown {
 	return &SpecDocumentMarkdown{
-		Model:    model,
-		Document: document,
-		trees:    map[string]*SomMetaTree{},
+		Model:      model,
+		Document:   document,
+		trees:      map[string]*SomMetaTree{},
+		sortedKeys: map[string][]string{},
+		reach:      map[string]map[string]bool{},
 	}
 }
 
@@ -675,6 +698,10 @@ func (c *SpecDocumentMarkdown) exportRoot(root *SpecRoot) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	c.currentRoot = root
+	c.nav = &mdNavigation{codec: c, tree: tree, anchors: map[string]string{}}
+	c.sortedKeys = map[string][]string{}
+	defer func() { c.nav = nil }()
 	node := tree.Root
 	b := &mdBuffer{}
 	b.writeln("<!-- docspec: " + SpecMarkdownKebabCase(root.Title) + "/" +
@@ -902,8 +929,10 @@ func (c *SpecDocumentMarkdown) writeChildren(
 			if err := c.writeSectionBody(b, child, path); err != nil {
 				return err
 			}
-			if err := c.writeChildren(b, child, path, depth+1); err != nil {
-				return err
+			if !c.writeSectionTable(b, child, path) {
+				if err := c.writeChildren(b, child, path, depth+1); err != nil {
+					return err
+				}
 			}
 		case SomMetaKindList:
 			if err := c.writeListItems(b, child, path, depth); err != nil {
@@ -945,6 +974,9 @@ func (c *SpecDocumentMarkdown) writeListItems(
 	if memberStem == "" {
 		memberStem = node.Segment()
 	}
+	if c.writeReferenceLine(b, node, items, pattern) || c.writeRecordTable(b, node, items, pattern) {
+		return nil
+	}
 	for i, itemPath := range items {
 		pos := i + 1
 		// YRD3: an item's STORED section id IS its md heading
@@ -971,7 +1003,7 @@ func (c *SpecDocumentMarkdown) writeListItems(
 			if err := c.writeSectionBody(b, element, itemPath); err != nil {
 				return err
 			}
-			if !element.Recursive {
+			if !element.Recursive && !c.writeSectionTable(b, element, itemPath) {
 				if err := c.writeChildren(b, element, itemPath, depth+2); err != nil {
 					return err
 				}
@@ -979,6 +1011,644 @@ func (c *SpecDocumentMarkdown) writeListItems(
 		}
 	}
 	return nil
+}
+
+// --- Reading view: anchors, reference lines, record and section tables -------
+
+var (
+	// A section id as a reference holds it: upper-case segments joined by `-`.
+	mdIDShapeRE = regexp.MustCompile(`^[A-Z][A-Z0-9]*(-[A-Z0-9]+)*$`)
+	// A one-line value that Markdown reads as a block: a list item, a block
+	// quote (review comment and question blocks among them), a fence or a
+	// fenced div. A table needs two lines, so it is caught by the line break.
+	mdBlockStartRE = regexp.MustCompile("^\\s*([-*+]\\s|\\d+[.)]\\s|>|```|~~~|:::)")
+	// A line that is a block of its own, or would make the line above one,
+	// beyond mdBlockStartRE: a table row, an ATX heading, a setext underline
+	// or a thematic break, an HTML block.
+	mdWrappedLineBlockRE = regexp.MustCompile(`^(?:\||#{1,6}(?:\s|$)|=+$|(?:[-*_]\s*){3,}$|<)`)
+)
+
+// mdUnder returns the keys of sorted at or below prefix: a binary search to
+// the first key not before it, then the run sharing it as a prefix, so a large
+// document is not scanned once per list item.
+func mdUnder(sorted []string, prefix string) []string {
+	var out []string
+	for i := sort.SearchStrings(sorted, prefix); i < len(sorted) && strings.HasPrefix(sorted[i], prefix); i++ {
+		k := sorted[i]
+		if len(k) == len(prefix) || k[len(prefix)] == '/' {
+			out = append(out, k)
+		}
+	}
+	return out
+}
+
+// sorted returns the document's keys of one kind, sorted once per export.
+func (c *SpecDocumentMarkdown) sorted(kind string) []string {
+	if keys, ok := c.sortedKeys[kind]; ok {
+		return keys
+	}
+	var keys []string
+	switch kind {
+	case "content":
+		keys = c.Document.ContentPaths()
+	case "lists":
+		keys = c.Document.ListPaths()
+	case "units":
+		keys = c.Document.UnitsPaths()
+	case "forms":
+		keys = c.Document.FormPaths()
+	case "headlines":
+		keys = c.Document.HeadlinePaths()
+	}
+	sort.Strings(keys)
+	c.sortedKeys[kind] = keys
+	return keys
+}
+
+// mdNavigation holds one root's anchors (SOM §11.2): the anchor of the heading
+// a path names, qualified below a list item and in a `@SameAs` copy. The port
+// of the anchor walk of the TypeScript runtime's `_Navigation`; the `linked`
+// marker and the summary links it also writes there are later ports.
+type mdNavigation struct {
+	codec   *SpecDocumentMarkdown
+	tree    *SomMetaTree
+	anchors map[string]string
+}
+
+// itemID returns the heading id of the item at itemPath of listNode, as the
+// emitter writes it.
+func (n *mdNavigation) itemID(listNode *SomMetaNode, itemPath string) string {
+	d := n.codec.Document
+	slash := strings.LastIndex(itemPath, "/")
+	split, _ := SplitListItemSegment(itemPath[slash+1:])
+	listPath := itemPath[:slash+1] + split.Base
+	pos := 0
+	for i, p := range d.ListItems(listPath) {
+		if p == itemPath {
+			pos = i + 1
+			break
+		}
+	}
+	if pos == 0 {
+		pos = split.Seq
+	}
+	pattern := listNode.SectionIDPattern
+	if pattern == "" && listNode.ElementNode != nil {
+		pattern = listNode.ElementNode.SectionIDPattern
+	}
+	stem := listNode.MemberName
+	if stem == "" {
+		stem = listNode.Segment()
+	}
+	stored, has := d.ItemSectionID(itemPath)
+	return EffectiveListItemSectionID(stored, has, pattern, pos, stem)
+}
+
+// anchorOf returns the anchor of the heading path names in this document.
+func (n *mdNavigation) anchorOf(path string) string {
+	if hit, ok := n.anchors[path]; ok {
+		return hit
+	}
+	segs := strings.Split(path, "/")
+	node := n.tree.Root
+	cur := segs[0]
+	anchor := node.Segment()
+	var scope []string
+	section := node.Segment()
+	for i := 1; i < len(segs); i++ {
+		seg := segs[i]
+		if child := node.ChildBySegment(seg); child != nil {
+			cur += "/" + seg
+			node = child
+			if n.codec.isTransparentSection(child) || mdIsTransparentValue(child) {
+				continue
+			}
+			id := n.codec.headingIdOf(child)
+			container := child.Kind == SomMetaKindList
+			anchor, scope = mdQualifyAnchor(scope, section, id, container, false,
+				!container && n.codec.isCopyNode(child))
+			if !container {
+				section = id
+			}
+			continue
+		}
+		split, ok := SplitListItemSegment(seg)
+		if !ok {
+			break
+		}
+		listNode := node.ChildBySegment(split.Base)
+		if listNode == nil || listNode.Kind != SomMetaKindList {
+			break
+		}
+		itemPath := cur + "/" + seg
+		id := n.itemID(listNode, itemPath)
+		anchor, scope = mdQualifyAnchor(scope, section, id, false, true, false)
+		section = id
+		cur = itemPath
+		element := listNode.ElementNode
+		if element == nil {
+			node = listNode
+			if i < len(segs)-1 {
+				break
+			}
+		} else {
+			node = element
+		}
+	}
+	n.anchors[path] = anchor
+	return anchor
+}
+
+// anchorOf is the qualified anchor of the heading path names in the current
+// export, path's last segment as id outside an export.
+func (c *SpecDocumentMarkdown) anchorOf(path, id string) string {
+	if c.nav == nil {
+		return id
+	}
+	return c.nav.anchorOf(path)
+}
+
+// hasKeys reports whether path stores a codeSpec or units.
+func (c *SpecDocumentMarkdown) hasKeys(path string) bool {
+	return c.Document.CodeSpecOr(path) != "" || c.Document.UnitsOr(path) != ""
+}
+
+// itemID returns the id of item pos (1-based) of node at itemPath, as its
+// heading carries it.
+func (c *SpecDocumentMarkdown) itemID(node *SomMetaNode, itemPath string, pos int, pattern string) string {
+	stem := node.MemberName
+	if stem == "" {
+		stem = node.Segment()
+	}
+	stored, has := c.Document.ItemSectionID(itemPath)
+	return EffectiveListItemSectionID(stored, has, pattern, pos, stem)
+}
+
+// isFormOnlyItem reports whether the item at itemPath holds values only in its
+// form at formPath, all of them table cells: no preamble, no other content,
+// form or list, no codeSpec / units, no headline other than the item's own
+// when allowHeadline.
+func (c *SpecDocumentMarkdown) isFormOnlyItem(form *SomMetaNode, itemPath, formPath string, allowHeadline bool) bool {
+	if len(mdUnder(c.sorted("content"), itemPath)) > 0 ||
+		len(mdUnder(c.sorted("lists"), itemPath)) > 0 ||
+		len(mdUnder(c.sorted("units"), itemPath)) > 0 {
+		return false
+	}
+	for _, k := range mdUnder(c.sorted("forms"), itemPath) {
+		if k != formPath {
+			return false
+		}
+	}
+	for _, h := range mdUnder(c.sorted("headlines"), itemPath) {
+		if !allowHeadline || h != itemPath {
+			return false
+		}
+	}
+	if c.hasKeys(itemPath) || c.hasKeys(formPath) {
+		return false
+	}
+	if len(c.undeclaredFormFields(form, formPath)) > 0 {
+		return false
+	}
+	any := false
+	for _, f := range mdFormFields(form) {
+		value, ok := c.Document.FormField(formPath, f.Name)
+		if !ok {
+			continue
+		}
+		if !mdIsCellValue(f, value) {
+			return false
+		}
+		any = true
+	}
+	return any
+}
+
+// writeReferenceLine writes a list whose every item holds only one reference
+// id as one `refs` div of links in list order (BP-11). All or nothing; reports
+// whether it was written.
+func (c *SpecDocumentMarkdown) writeReferenceLine(b *mdBuffer, node *SomMetaNode, items []string, pattern string) bool {
+	element := node.ElementNode
+	if element == nil || element.Recursive {
+		return false
+	}
+	var ref *mdNodeRel
+	for _, entry := range c.effectiveChildren(element) {
+		fields := mdFormFields(entry.node)
+		if entry.node.Kind != SomMetaKindForm || len(fields) != 1 || len(fields[0].RefersTo) == 0 {
+			continue
+		}
+		isRef := false
+		for _, e := range entry.node.Extra {
+			if e.Annotation == "Reference" {
+				isRef = true
+			}
+		}
+		if isRef {
+			e := entry
+			ref = &e
+			break
+		}
+	}
+	if ref == nil {
+		return false
+	}
+	field := ref.node.Form.Fields[0]
+	d := c.Document
+	stem := node.MemberName
+	if stem == "" {
+		stem = node.Segment()
+	}
+	var links []string
+	for i, itemPath := range items {
+		refPath := itemPath + "/" + ref.rel
+		if stored, has := d.ItemSectionID(itemPath); has &&
+			stored != EffectiveListItemSectionID("", false, pattern, i+1, stem) {
+			return false
+		}
+		if len(mdUnder(c.sorted("content"), itemPath)) > 0 ||
+			len(mdUnder(c.sorted("lists"), itemPath)) > 0 ||
+			len(mdUnder(c.sorted("units"), itemPath)) > 0 ||
+			len(mdUnder(c.sorted("headlines"), itemPath)) > 0 ||
+			c.hasKeys(itemPath) || c.hasKeys(refPath) {
+			return false
+		}
+		for _, k := range mdUnder(c.sorted("forms"), itemPath) {
+			if k != refPath {
+				return false
+			}
+		}
+		names := d.FormFieldNames(refPath)
+		if len(names) != 1 || names[0] != field.Name {
+			return false
+		}
+		id := strings.TrimSpace(d.FormFieldOr(refPath, field.Name))
+		if !mdIDShapeRE.MatchString(id) {
+			return false
+		}
+		if link, ok := c.link(field, id); ok {
+			links = append(links, link)
+		} else {
+			links = append(links, id)
+		}
+	}
+	b.writeln("::: {.refs}")
+	b.writeln(strings.Join(links, ", "))
+	b.writeln(":::")
+	b.writeln("")
+	return true
+}
+
+// writeRecordTable writes a list whose every item is one form of table cells
+// as a `records` div with one table: `Id` (with its anchor), `Title` when any
+// item has a stored headline, one column per declared field any item
+// populates (BP-11). All or nothing; reports whether it was written.
+func (c *SpecDocumentMarkdown) writeRecordTable(b *mdBuffer, node *SomMetaNode, items []string, pattern string) bool {
+	element := node.ElementNode
+	if element == nil || element.Recursive {
+		return false
+	}
+	slot, ok := c.itemForm(element)
+	if !ok {
+		return false
+	}
+	form, rel := slot.node, slot.rel
+	for _, itemPath := range items {
+		if !c.isFormOnlyItem(form, itemPath, itemPath+"/"+rel, true) {
+			return false
+		}
+	}
+	d := c.Document
+	var columns []*SomFormFieldMeta
+	for _, f := range mdFormFields(form) {
+		for _, item := range items {
+			if _, ok := d.FormField(item+"/"+rel, f.Name); ok {
+				columns = append(columns, f)
+				break
+			}
+		}
+	}
+	withTitle := false
+	for _, item := range items {
+		if _, ok := d.Headline(item); ok {
+			withTitle = true
+			break
+		}
+	}
+	header := []string{"Id"}
+	if withTitle {
+		header = append(header, "Title")
+	}
+	for _, f := range columns {
+		header = append(header, SpecMarkdownFormLabel(f.Name))
+	}
+	delimiter := make([]string, len(header))
+	for i := range delimiter {
+		delimiter[i] = "---"
+	}
+	b.writeln("::: {.records}")
+	b.writeln("| " + strings.Join(header, " | ") + " |")
+	b.writeln("| " + strings.Join(delimiter, " | ") + " |")
+	for i, itemPath := range items {
+		id := c.itemID(node, itemPath, i+1, pattern)
+		// A summary naming its detail element by its own id would link it
+		// from the Id cell (SOM §11.5, §11.11); the summary links are a later
+		// port.
+		cells := []string{`<a id="` + c.anchorOf(itemPath, id) + `"></a>` + id}
+		if withTitle {
+			title := strings.ReplaceAll(d.HeadlineOr(itemPath), "\n", "<br>")
+			cells = append(cells, strings.ReplaceAll(title, "|", `\|`))
+		}
+		for _, f := range columns {
+			if v, ok := d.FormField(itemPath+"/"+rel, f.Name); ok {
+				cells = append(cells, c.linkedCellText(f, v))
+			} else {
+				cells = append(cells, "")
+			}
+		}
+		b.writeln("| " + strings.Join(cells, " | ") + " |")
+	}
+	b.writeln(":::")
+	b.writeln("")
+	return true
+}
+
+// writeSectionTable writes a section whose populated children are all single
+// forms of table cells with default headlines (or lists of such single-form
+// items) as one `| Section | TomSpecField | Value |` table after its own body;
+// the children's headings are not written (DP-part-renditions-4). All or
+// nothing; reports whether it was written.
+func (c *SpecDocumentMarkdown) writeSectionTable(b *mdBuffer, node *SomMetaNode, path string) bool {
+	d := c.Document
+	var rows []string
+	children := 0
+	addRows := func(sectionCell string, form *SomMetaNode, formPath string) {
+		first := true
+		for _, f := range mdFormFields(form) {
+			value, ok := d.FormField(formPath, f.Name)
+			if !ok {
+				continue
+			}
+			cell := ""
+			if first {
+				cell = sectionCell
+			}
+			rows = append(rows, "| "+cell+" | "+SpecMarkdownFormLabel(f.Name)+" | "+
+				c.linkedCellText(f, value)+" |")
+			first = false
+		}
+	}
+	for _, entry := range c.effectiveChildren(node) {
+		child := entry.node
+		childPath := path + "/" + entry.rel
+		if !d.HasValuesUnder(childPath) {
+			continue
+		}
+		children++
+		childID := c.headingIdOf(child)
+		switch child.Kind {
+		case SomMetaKindForm:
+			if !c.isFormOnlyItem(child, childPath, childPath, false) {
+				return false
+			}
+			addRows(`<a id="`+c.anchorOf(childPath, childID)+`"></a>`+childID, child, childPath)
+		case SomMetaKindList:
+			element := child.ElementNode
+			if element == nil || element.Recursive {
+				return false
+			}
+			if _, ok := d.Headline(childPath); ok || c.hasKeys(childPath) {
+				return false
+			}
+			slot, ok := c.itemForm(element)
+			if !ok {
+				return false
+			}
+			pattern := child.SectionIDPattern
+			if pattern == "" {
+				pattern = element.SectionIDPattern
+			}
+			for i, itemPath := range d.ListItems(childPath) {
+				formPath := itemPath + "/" + slot.rel
+				if !c.isFormOnlyItem(slot.node, itemPath, formPath, false) {
+					return false
+				}
+				itemID := c.itemID(child, itemPath, i+1, pattern)
+				addRows(`<a id="`+c.anchorOf(itemPath, itemID)+`"></a>`+childID+" / "+itemID,
+					slot.node, formPath)
+			}
+		default:
+			return false
+		}
+	}
+	if children == 0 || len(rows) == 0 {
+		return false
+	}
+	b.writeln("| Section | TomSpecField | Value |")
+	b.writeln("| --- | --- | --- |")
+	for _, row := range rows {
+		b.writeln(row)
+	}
+	b.writeln("")
+	return true
+}
+
+// linkedCellText returns value as a table cell, every reference id of a
+// refersTo field written as a link to its section (reading view, DI-14).
+func (c *SpecDocumentMarkdown) linkedCellText(f *SomFormFieldMeta, value string) string {
+	if len(f.RefersTo) == 0 || f.Code {
+		return mdCellText(f, value)
+	}
+	if joined, ok := SpecMarkdownWrappedParagraphJoined(value); ok {
+		value = joined
+	}
+	ids := strings.Split(value, ",")
+	links := make([]string, 0, len(ids))
+	for _, raw := range ids {
+		id := strings.TrimSpace(raw)
+		if !mdIDShapeRE.MatchString(id) {
+			return mdCellText(f, value)
+		}
+		link, ok := c.link(f, id)
+		if !ok {
+			return mdCellText(f, value)
+		}
+		links = append(links, link)
+	}
+	return strings.Join(links, ", ")
+}
+
+// link returns `[ID](<file>#ID)` for a reference id of form field f,
+// `[ID](#ID)` when the target lives in the document being rendered; ok false
+// when no target of f names a section id (`<SECTIONID>.@sectionId`), which has
+// no anchor.
+func (c *SpecDocumentMarkdown) link(f *SomFormFieldMeta, id string) (string, bool) {
+	var classIDs []string
+	for _, t := range f.RefersTo {
+		if strings.HasSuffix(t, ".@sectionId") {
+			classIDs = append(classIDs, strings.TrimSuffix(t, ".@sectionId"))
+		}
+	}
+	if len(classIDs) == 0 {
+		return "", false
+	}
+	for _, classID := range classIDs {
+		if className := c.classBySectionID(classID); className != "" &&
+			c.currentRoot != nil && c.reachedBy(c.currentRoot)[className] {
+			return "[" + id + "](#" + id + ")", true
+		}
+	}
+	if file := c.fileFor(c.classBySectionID(classIDs[0])); file != "" {
+		return "[" + id + "](" + file + "#" + id + ")", true
+	}
+	return "[" + id + "](#" + id + ")", true
+}
+
+// classBySectionID returns the name of the class carrying sectionID, the
+// first by name when several do; "" when none does.
+func (c *SpecDocumentMarkdown) classBySectionID(sectionID string) string {
+	found := ""
+	for _, cls := range c.Model.Classes {
+		if cls.SectionID == sectionID && (found == "" || cls.Name < found) {
+			found = cls.Name
+		}
+	}
+	return found
+}
+
+// reachedBy returns the class names the meta tree of root reaches.
+func (c *SpecDocumentMarkdown) reachedBy(root *SpecRoot) map[string]bool {
+	if names, ok := c.reach[root.Type]; ok {
+		return names
+	}
+	names := map[string]bool{}
+	if tree, err := c.treeFor(root.Type); err == nil {
+		var walk func(n *SomMetaNode)
+		walk = func(n *SomMetaNode) {
+			names[n.ClassName] = true
+			if n.Recursive {
+				return
+			}
+			for _, child := range n.Children {
+				walk(child)
+			}
+			if n.ElementNode != nil {
+				walk(n.ElementNode)
+			}
+		}
+		walk(tree.Root)
+	}
+	c.reach[root.Type] = names
+	return names
+}
+
+// fileFor returns the rendition file of the root a reference to className
+// points into: the root other than the current one that reaches the class,
+// the most specific (fewest classes) first, so a detailed document wins over a
+// projection such as the Solution Blueprint. The CodeSpecs projection is no
+// document anyone renders, so it is never a target. "" when no root does.
+func (c *SpecDocumentMarkdown) fileFor(className string) string {
+	if className == "" {
+		return ""
+	}
+	var best *SpecRoot
+	bestSize := 0
+	for _, r := range c.Model.Roots {
+		if (c.currentRoot != nil && r.Type == c.currentRoot.Type) || c.Model.IsGenerationInput(r) {
+			continue
+		}
+		reached := c.reachedBy(r)
+		if !reached[className] {
+			continue
+		}
+		if best == nil || len(reached) < bestSize {
+			best, bestSize = r, len(reached)
+		}
+	}
+	if best == nil {
+		return ""
+	}
+	return c.fileOfRoot(best)
+}
+
+// fileOfRoot returns the rendition file of root:
+// `<FileStem>.<root id>.tomspecs.md`, or the name DocumentFiles gives it.
+func (c *SpecDocumentMarkdown) fileOfRoot(root *SpecRoot) string {
+	id := root.SectionID
+	if id == "" {
+		id = root.Type
+	}
+	if mapped, ok := c.DocumentFiles[id]; ok {
+		return mapped
+	}
+	if mapped, ok := c.DocumentFiles[root.Type]; ok {
+		return mapped
+	}
+	name := strings.ToLower(id) + ".tomspecs.md"
+	if c.FileStem == "" {
+		return name
+	}
+	return c.FileStem + "." + name
+}
+
+// mdIsCellValue reports whether value of form field f is written as a table
+// row (reading view, part *What the model says about reading*): not when the
+// model flags the field multiParagraph, nor when the value holds a line break
+// other than the soft breaks of one wrapped paragraph
+// (SpecMarkdownWrappedParagraphJoined; a code value keeps every line break),
+// is a block of Markdown, holds a backslash directly before `|`, or holds
+// `<!--`. There is no length limit.
+func mdIsCellValue(f *SomFormFieldMeta, value string) bool {
+	if f.MultiParagraph {
+		return false
+	}
+	if strings.Contains(value, `\|`) || strings.Contains(value, "<!--") {
+		return false
+	}
+	if strings.Contains(value, "\n") {
+		if f.Code {
+			return false
+		}
+		if _, ok := SpecMarkdownWrappedParagraphJoined(value); !ok {
+			return false
+		}
+	}
+	return !mdBlockStartRE.MatchString(value)
+}
+
+// SpecMarkdownWrappedParagraphJoined returns value on one line when it is one
+// paragraph wrapped over several lines — no blank line, and no line that
+// Markdown reads as a block or a block's start (a list item, a quote, a fence,
+// a fenced div, a table row, a heading, a setext underline or a thematic
+// break), that ends in a hard break (a trailing backslash or spaces) or that
+// starts with a space: its soft line breaks, which Markdown reads as spaces,
+// become spaces (SOM §11.4 rule 13). ok is false for any other value, a
+// one-line value among them.
+func SpecMarkdownWrappedParagraphJoined(value string) (string, bool) {
+	if !strings.Contains(value, "\n") {
+		return "", false
+	}
+	lines := strings.Split(value, "\n")
+	for _, l := range lines {
+		if l == "" || l != strings.TrimSpace(l) || strings.HasSuffix(l, `\`) ||
+			mdBlockStartRE.MatchString(l) || mdWrappedLineBlockRE.MatchString(l) {
+			return "", false
+		}
+	}
+	return strings.Join(lines, " "), true
+}
+
+// mdCellText returns the table cell for value: a code value as its inline
+// code span, every `|` written `\|`.
+func mdCellText(f *SomFormFieldMeta, value string) string {
+	if joined, ok := SpecMarkdownWrappedParagraphJoined(value); ok {
+		value = joined
+	}
+	text := value
+	if f.Code && mdIsInlineCode(value) {
+		text = mdEncodeCodeSpan(value)
+	}
+	return strings.ReplaceAll(text, "|", `\|`)
 }
 
 // undeclaredFormFields returns the stored field names at form path that node
@@ -1044,31 +1714,33 @@ func (c *SpecDocumentMarkdown) formHasValues(node *SomMetaNode, path string) boo
 	return len(c.undeclaredFormFields(node, path)) > 0
 }
 
-// writeForm writes a `@Form` section body: the preamble content (when set)
-// followed by one `FieldName: value` group per populated field (SOM §11.4),
-// consecutive groups separated by one blank line. Returns an error when the
-// form holds a field the model does not declare.
+// writeForm writes a `@Form` section body (SOM §11.4): the preamble, then the
+// declared fields in model order — each run of consecutive cell values one
+// `| TomSpecField | Value |` table, each paragraph value a `Field:` group at its
+// place (table – text – table). Groups are one blank line apart. A value line
+// that would read as a table header is escaped by prepareValue. Returns an
+// error when the form holds a field the model does not declare.
 func (c *SpecDocumentMarkdown) writeForm(b *mdBuffer, node *SomMetaNode, path string) error {
 	if err := c.checkFormDeclared(node, path); err != nil {
 		return err
 	}
-	var fields []*SomFormFieldMeta
-	if node.Form != nil {
-		fields = node.Form.Fields
-	}
-	fieldBuf := &mdBuffer{}
-	for _, f := range fields {
+	var groups [][]string
+	table := -1 // index of the open table group, -1 for none
+	for _, f := range mdFormFields(node) {
 		value, ok := c.Document.FormField(path, f.Name)
 		if !ok {
 			continue
 		}
-		// SOM §11.4 rule 2: one blank line between consecutive field groups, so
-		// a markdown viewer renders each field as its own paragraph (and a list
-		// ending a value cannot swallow the next label as a lazy continuation).
-		// Parse trims each value's trailing blank lines, so it is lossless.
-		if fieldBuf.String() != "" {
-			fieldBuf.writeln("")
+		label := SpecMarkdownFormLabel(f.Name)
+		if mdIsCellValue(f, value) {
+			if table < 0 {
+				groups = append(groups, []string{"| TomSpecField | Value |", "| --- | --- |"})
+				table = len(groups) - 1
+			}
+			groups[table] = append(groups[table], "| "+label+" | "+c.linkedCellText(f, value)+" |")
+			continue
 		}
+		table = -1
 		// SOM §11.4 rule 8: a single-line code value is written as an inline
 		// code span, so markdown leaves it literal (`](` is not a link).
 		var lines []string
@@ -1081,16 +1753,17 @@ func (c *SpecDocumentMarkdown) writeForm(b *mdBuffer, node *SomMetaNode, path st
 			}
 			lines = strings.Split(prepared, "\n")
 		}
-		fieldBuf.writeln(SpecMarkdownFormLabel(f.Name) + ": " + lines[0])
+		group := []string{label + ": " + lines[0]}
 		for _, line := range lines[1:] {
-			// SOM §11.4 generalised: any continuation line that could be mistaken
-			// for a field-label line gains one leading space; parse strips it.
+			// Any continuation line that could be mistaken for a field-label
+			// line gains one leading space; parse strips it.
 			if mdLabelShapedRE.MatchString(line) {
-				fieldBuf.writeln(" " + line)
+				group = append(group, " "+line)
 			} else {
-				fieldBuf.writeln(line)
+				group = append(group, line)
 			}
 		}
+		groups = append(groups, group)
 	}
 
 	if preamble, ok := c.Document.Content(path); ok {
@@ -1110,12 +1783,19 @@ func (c *SpecDocumentMarkdown) writeForm(b *mdBuffer, node *SomMetaNode, path st
 					b.writeln(line)
 				}
 			}
-			if fieldBuf.String() != "" {
+			if len(groups) > 0 {
 				b.writeln("")
 			}
 		}
 	}
-	b.write(fieldBuf.String())
+	for i, group := range groups {
+		if i > 0 {
+			b.writeln("")
+		}
+		for _, line := range group {
+			b.writeln(line)
+		}
+	}
 	b.writeln("")
 	return nil
 }
@@ -1131,10 +1811,16 @@ func (c *SpecDocumentMarkdown) writeForm(b *mdBuffer, node *SomMetaNode, path st
 // When codeSpec is non-empty it is emitted as a `codeSpec="…"` key inside the
 // same headline comment (codespecs_mapping.md §9.2): `## <!--[ID]
 // codeSpec="A,B"--> Title`. When units is non-empty it follows as a second
-// key, `units="…"`, after `codeSpec` (SOM §11.2). Byte-identical to before
-// when both are empty.
+// key, `units="…"`, after `codeSpec` (SOM §11.2). Reading view: the section id
+// follows the comment as an HTML anchor, `<a id="ID"></a>`, qualified below a
+// list item and in a `@SameAs` copy (SOM §11.2), so `#<ID>` links jump in
+// every viewer.
 func (c *SpecDocumentMarkdown) writeHeading(b *mdBuffer, depth int, id, title, path, codeSpec, units string) {
 	c.headingPaths = append(c.headingPaths, path)
+	anchor := id
+	if c.nav != nil {
+		anchor = c.nav.anchorOf(path)
+	}
 	code := ""
 	if codeSpec != "" {
 		code = ` codeSpec="` + codeSpec + `"`
@@ -1143,8 +1829,8 @@ func (c *SpecDocumentMarkdown) writeHeading(b *mdBuffer, depth int, id, title, p
 		code += ` units="` + units + `"`
 	}
 	// A heading is one line: a stored headline's line breaks travel as `<br>`.
-	b.writeln(strings.Repeat("#", depth) + " <!--[" + id + "]" + code + "--> " +
-		strings.ReplaceAll(title, "\n", "<br>"))
+	b.writeln(strings.Repeat("#", depth) + " <!--[" + id + "]" + code + "--> <a id=\"" +
+		anchor + "\"></a> " + strings.ReplaceAll(title, "\n", "<br>"))
 	b.writeln("")
 }
 
