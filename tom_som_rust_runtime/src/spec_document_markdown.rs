@@ -52,12 +52,26 @@
 //! `rejected` div in the text of the section it stood in, else its parent
 //! ([`SpecMarkdownResult::kept_content`], DocSpecs RN-11).
 //!
+//! Navigation and generated parts (SOM §11.11, §11.12): a markable heading is
+//! followed by its `linked` marker (`Also in`, `Summary of`, `Summarised in`,
+//! `Derived from`, `Extracted from`, `Copy of`, `Copied to`;
+//! `spec_document_markdown_linked.rs`), a summary row's `Id` cell links the
+//! detail element it names, and the requirement views open their sections
+//! with a generated table in a `derived` block
+//! (`spec_document_markdown_generated.rs`). The fields
+//! [`SpecDocumentMarkdown::linked_markers`] and
+//! [`SpecDocumentMarkdown::generated_parts`] turn them off; the parser removes
+//! both, and an empty value under a generated block is no missing value. A
+//! link to another document names its rendition file
+//! `<file_stem>.<root id in lower case>.tomspecs.md`, or the name
+//! [`SpecDocumentMarkdown::document_files`] gives it.
+//!
 //! Rust conventions: where the other ports throw, `export_root` returns
 //! `Err(String)` (the unterminated-fence case); the empty string stands in for
 //! a null anchor. The Go regexes are hand-rolled here to keep the
 //! zero-dependency promise; the message strings are byte-identical to Go.
 
-use std::cell::RefCell;
+use std::cell::{OnceCell, RefCell};
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::rc::Rc;
 
@@ -70,8 +84,19 @@ use crate::spec_meta::{
 };
 use crate::spec_meta_bridge::build_som_meta_tree;
 use crate::spec_model::{SpecModel, SpecRoot};
-use crate::spec_paths::split_list_item_segment;
 use crate::spec_section_id::effective_list_item_section_id;
+use crate::spec_document_set::{SpecDocumentSet, SpecSyncPair};
+
+#[path = "spec_document_markdown_generated.rs"]
+mod generated;
+#[path = "spec_document_markdown_linked.rs"]
+mod linked;
+
+use generated::{
+    md_closes_derived, md_is_generated_place, md_opens_derived, md_resolve_derived_placeholders,
+    MdGenerated, MD_DERIVED_PLACEHOLDER,
+};
+use linked::{md_is_linked_paragraph, md_resolve_linked_placeholders, MdNavigation, MD_LINKED_PLACEHOLDER};
 
 // Why an imported Markdown block was rejected (SOM §11.7 rejection protocol).
 
@@ -1025,6 +1050,23 @@ fn md_is_transparent_value(n: &SomMetaNode) -> bool {
 pub struct SpecDocumentMarkdown<'a> {
     pub model: &'a SpecModel,
     pub document: &'a SpecDocument,
+    /// The stem of the files a reference to another document root links to:
+    /// `<file_stem>.<root id in lower case>.tomspecs.md`, without the stem
+    /// when empty (the default), unless [`document_files`](Self::document_files)
+    /// names the root's file.
+    pub file_stem: String,
+    /// The rendition file of a document root, keyed by its section id or its
+    /// type; a root it does not name takes the name `file_stem` gives.
+    pub document_files: HashMap<String, String>,
+    /// Writes the `linked` marker after a markable heading (SOM §11.11); true
+    /// from [`new`](Self::new). A stripped rendition dropping or unmarking
+    /// `linked` turns it off; the parser removes the marker either way.
+    pub linked_markers: bool,
+    /// Writes the generated parts at their sections (SOM §11.12); true from
+    /// [`new`](Self::new). A stripped rendition dropping or unmarking
+    /// `derived` turns it off; the parser removes them either way, and an
+    /// empty value under a generated block is no missing value.
+    pub generated_parts: bool,
     // Metadata trees per root type, built lazily (the generated facades will
     // hand these in directly; until then the bridge derives them).
     trees: RefCell<HashMap<String, Rc<SomMetaTree>>>,
@@ -1034,9 +1076,14 @@ pub struct SpecDocumentMarkdown<'a> {
     // The type of the root the current export renders (the target of
     // same-document links) and its metadata tree; `None` outside an export.
     current_root_type: RefCell<Option<String>>,
-    current_tree: RefCell<Option<Rc<SomMetaTree>>>,
-    // The anchors of the current export's headings, by path (SOM §11.2).
-    anchors: RefCell<HashMap<String, String>>,
+    // The navigation of the root the current export renders (SOM §11.2,
+    // §11.11); `None` outside an export.
+    nav: RefCell<Option<Rc<MdNavigation<'a>>>>,
+    // The generated parts of the root the current export renders (SOM
+    // §11.12); `None` without `generated_parts` and outside an export.
+    gen: RefCell<Option<Rc<MdGenerated<'a>>>>,
+    // The Blueprint's root and the model's anchor pairs (`sync_pairs`).
+    sync: OnceCell<(String, Vec<SpecSyncPair>)>,
     // The document's keys of one kind, sorted, once per export.
     sorted_keys: RefCell<HashMap<&'static str, Rc<Vec<String>>>>,
     // The class names each root reaches, for reference links.
@@ -1065,11 +1112,16 @@ impl<'a> SpecDocumentMarkdown<'a> {
         SpecDocumentMarkdown {
             model,
             document,
+            file_stem: String::new(),
+            document_files: HashMap::new(),
+            linked_markers: true,
+            generated_parts: true,
             trees: RefCell::new(HashMap::new()),
             heading_paths: RefCell::new(Vec::new()),
             current_root_type: RefCell::new(None),
-            current_tree: RefCell::new(None),
-            anchors: RefCell::new(HashMap::new()),
+            nav: RefCell::new(None),
+            gen: RefCell::new(None),
+            sync: OnceCell::new(),
             sorted_keys: RefCell::new(HashMap::new()),
             reach: RefCell::new(HashMap::new()),
             export_options: RefCell::new(SpecMarkdownExportOptions::default()),
@@ -1094,6 +1146,68 @@ impl<'a> SpecDocumentMarkdown<'a> {
         let result = self.export_root_with_map(root);
         *self.export_options.borrow_mut() = before;
         result
+    }
+
+    /// The codec with `file_stem` for the files a reference to another
+    /// document root links to.
+    pub fn with_file_stem(mut self, file_stem: &str) -> SpecDocumentMarkdown<'a> {
+        self.file_stem = file_stem.to_string();
+        self
+    }
+
+    /// The codec with `document_files` naming the rendition file of a
+    /// document root (keyed by its section id or type).
+    pub fn with_document_files(mut self, document_files: HashMap<String, String>) -> SpecDocumentMarkdown<'a> {
+        self.document_files = document_files;
+        self
+    }
+
+    /// The codec writing the `linked` markers (SOM §11.11) and the generated
+    /// parts (SOM §11.12), or not.
+    pub fn with_navigation(mut self, linked_markers: bool, generated_parts: bool) -> SpecDocumentMarkdown<'a> {
+        self.linked_markers = linked_markers;
+        self.generated_parts = generated_parts;
+        self
+    }
+
+    /// The Blueprint's root and the model's anchor pairs, from the model
+    /// alone; none when the model's synced positions cannot be paired.
+    fn sync_pairs(&self) -> &(String, Vec<SpecSyncPair>) {
+        self.sync.get_or_init(|| match SpecDocumentSet::new(self.model, Vec::new()) {
+            Ok(set) => (set.blueprint_root.clone(), set.pairs().to_vec()),
+            Err(_) => (String::new(), Vec::new()),
+        })
+    }
+
+    /// The rendition file of `root`: `<file_stem>.<root id in lower
+    /// case>.tomspecs.md` (without the stem when it is empty), or the name
+    /// [`document_files`](Self::document_files) gives it.
+    fn file_of_root(&self, root: &SpecRoot) -> String {
+        let id = if root.section_id.is_empty() {
+            &root.type_
+        } else {
+            &root.section_id
+        };
+        if let Some(mapped) = self
+            .document_files
+            .get(id)
+            .or_else(|| self.document_files.get(&root.type_))
+        {
+            return mapped.clone();
+        }
+        let name = format!("{}.tomspecs.md", id.to_lowercase());
+        if self.file_stem.is_empty() {
+            name
+        } else {
+            format!("{}.{}", self.file_stem, name)
+        }
+    }
+
+    /// Whether a generated part stands at or beneath `path` of the current
+    /// export, which writes its heading even without a value.
+    fn forced(&self, path: &str) -> bool {
+        let gen = self.gen.borrow().clone();
+        gen.is_some_and(|g| g.forces(self, path))
     }
 
     fn tree_for(&self, root_type: &str) -> Result<Rc<SomMetaTree>, String> {
@@ -1287,13 +1401,19 @@ impl<'a> SpecDocumentMarkdown<'a> {
         let tree = self.tree_for(&root.type_)?;
         let node = tree.root.clone();
         *self.current_root_type.borrow_mut() = Some(root.type_.clone());
-        *self.current_tree.borrow_mut() = Some(tree.clone());
-        self.anchors.borrow_mut().clear();
+        let nav = Rc::new(MdNavigation::new(self.model, root, tree.clone()));
+        *self.gen.borrow_mut() = if self.generated_parts {
+            Some(Rc::new(MdGenerated::new(nav.clone())))
+        } else {
+            None
+        };
+        *self.nav.borrow_mut() = Some(nav);
         self.sorted_keys.borrow_mut().clear();
         let result = self.export_root_body(root, &node);
         *self.current_root_type.borrow_mut() = None;
-        *self.current_tree.borrow_mut() = None;
-        result
+        *self.nav.borrow_mut() = None;
+        *self.gen.borrow_mut() = None;
+        result.map(|md| md_resolve_linked_placeholders(md_resolve_derived_placeholders(md)))
     }
 
     fn export_root_body(&self, root: &SpecRoot, node: &Rc<SomMetaNode>) -> Result<String, String> {
@@ -1324,6 +1444,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
             &root_seg,
             &self.document.code_spec_or(&root_seg),
             &self.document.units_or(&root_seg),
+            false,
         );
         self.write_section_body(&mut b, node, &root_seg)?;
         self.write_children(&mut b, node, &root_seg, 2)?;
@@ -1453,13 +1574,14 @@ impl<'a> SpecDocumentMarkdown<'a> {
         for entry in self.effective_children(node) {
             let child = &entry.node;
             let path = format!("{}/{}", base_path, entry.rel);
-            if !self.document.has_values_under(&path) {
+            if !self.document.has_values_under(&path) && !self.forced(&path) {
                 continue;
             }
             match child.kind.as_str() {
                 SOM_META_KIND_CONTENT | SOM_META_KIND_SCALAR | SOM_META_KIND_ENUM_VALUE => {
                     let value = match self.document.content(&path) {
                         Some(v) => v.clone(),
+                        None if self.forced(&path) => String::new(),
                         None => continue,
                     };
                     self.write_heading(
@@ -1470,6 +1592,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
                         &path,
                         &self.document.code_spec_or(&path),
                         &self.document.units_or(&path),
+                        false,
                     );
                     self.write_body(b, &value, &path)?;
                 }
@@ -1485,10 +1608,12 @@ impl<'a> SpecDocumentMarkdown<'a> {
                         &path,
                         &self.document.code_spec_or(&path),
                         &self.document.units_or(&path),
+                        false,
                     );
                     self.write_form(b, child, &path)?;
                 }
                 SOM_META_KIND_SECTION | SOM_META_KIND_COMPLEX => {
+                    let section_table = self.write_section_table(&mut MdBuffer::new(), child, &path)?;
                     self.write_heading(
                         b,
                         depth,
@@ -1497,6 +1622,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
                         &path,
                         &self.document.code_spec_or(&path),
                         &self.document.units_or(&path),
+                        section_table,
                     );
                     self.write_section_body(b, child, &path)?;
                     if !self.write_section_table(b, child, &path)? {
@@ -1514,6 +1640,10 @@ impl<'a> SpecDocumentMarkdown<'a> {
 
     /// Writes a heading ([`md_write_heading`]) and records `path`, the document
     /// path it renders, for [`export_root_with_map`](Self::export_root_with_map).
+    ///
+    /// The `linked` marker follows the heading (SOM §11.11), then a generated
+    /// table opening its section (SOM §11.12). `section_table`: the heading's
+    /// children are written as a section table.
     #[allow(clippy::too_many_arguments)]
     fn write_heading(
         &self,
@@ -1524,11 +1654,35 @@ impl<'a> SpecDocumentMarkdown<'a> {
         path: &str,
         code_spec: &str,
         units: &str,
+        section_table: bool,
     ) {
         self.heading_paths.borrow_mut().push(path.to_string());
         let anchor = self.anchor_for(path, id);
         let div = self.export_options.borrow().heading_divs && depth > 6;
         md_write_heading(b, depth, id, &anchor, title, code_spec, units, div);
+        let nav = self.nav.borrow().clone();
+        if let (Some(nav), true) = (&nav, self.linked_markers) {
+            let entries = nav.entries(self, path, section_table);
+            if !entries.is_empty() {
+                b.writeln(&format!("[{}]{{.linked}}", entries.join("; ")));
+                b.writeln("");
+            } else if nav.markable(self, path) {
+                b.writeln(MD_LINKED_PLACEHOLDER);
+                b.writeln("");
+            }
+        }
+        let gen = self.gen.borrow().clone();
+        if let Some(gen) = gen.filter(|g| g.is_place(self, path)) {
+            match gen.blocks(self).get(path) {
+                Some(block) => {
+                    for line in block {
+                        b.writeln(line);
+                    }
+                }
+                None => b.writeln(MD_DERIVED_PLACEHOLDER),
+            }
+            b.writeln("");
+        }
     }
 
     /// Resolves the heading title for a node at `path`: the document's STORED
@@ -1554,7 +1708,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
         depth: usize,
     ) -> Result<(), String> {
         let items = self.document.list_items(list_path);
-        if items.is_empty() {
+        if items.is_empty() && !self.forced(list_path) {
             return Ok(());
         }
         // The container heading: its id is the list's `-LST` `@SectionId` (else
@@ -1568,6 +1722,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
             list_path,
             &self.document.code_spec_or(list_path),
             &self.document.units_or(list_path),
+            false,
         );
         // Item heading stem. Complex lists derive it from the element class
         // name (SOM §11.5, `Entry` dropped). A scalar list (shape 6) has no
@@ -1602,6 +1757,10 @@ impl<'a> SpecDocumentMarkdown<'a> {
             if item_title.is_empty() {
                 item_title = format!("{} {}", stem, pos);
             }
+            let section_table = match element {
+                Some(e) if !e.recursive => self.write_section_table(&mut MdBuffer::new(), e, item_path)?,
+                _ => false,
+            };
             self.write_heading(
                 b,
                 depth + 1,
@@ -1610,6 +1769,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
                 item_path,
                 &self.document.code_spec_or(item_path),
                 &self.document.units_or(item_path),
+                section_table,
             );
             match element {
                 None => {
@@ -1633,104 +1793,11 @@ impl<'a> SpecDocumentMarkdown<'a> {
     /// The anchor of the heading or table row standing for `path` (SOM §11.2):
     /// qualified below a list item and in a `@SameAs` copy, else `id` itself.
     fn anchor_for(&self, path: &str, id: &str) -> String {
-        if self.current_tree.borrow().is_none() {
-            return id.to_string();
+        let nav = self.nav.borrow().clone();
+        match nav {
+            Some(nav) => nav.anchor_of(self, path),
+            None => id.to_string(),
         }
-        self.anchor_of(path)
-    }
-
-    /// The anchor of the heading `path` names in the current export: the walk
-    /// down the meta tree, qualifying below list items and in `@SameAs`
-    /// copies.
-    fn anchor_of(&self, path: &str) -> String {
-        if let Some(hit) = self.anchors.borrow().get(path) {
-            return hit.clone();
-        }
-        let tree = match self.current_tree.borrow().as_ref() {
-            Some(t) => t.clone(),
-            None => return path.to_string(),
-        };
-        let segs: Vec<&str> = path.split('/').collect();
-        let mut node: Rc<SomMetaNode> = tree.root.clone();
-        let mut cur = segs[0].to_string();
-        let mut anchor = node.segment().to_string();
-        let mut scope: Option<Vec<String>> = None;
-        let mut section: Option<String> = Some(node.segment().to_string());
-        for i in 1..segs.len() {
-            let seg = segs[i];
-            if let Some(child) = node.child_by_segment(seg).cloned() {
-                cur = format!("{}/{}", cur, seg);
-                node = child.clone();
-                if self.is_transparent_section(&child) || md_is_transparent_value(&child) {
-                    continue;
-                }
-                let id = self.heading_id_of(&child);
-                let container = child.kind == SOM_META_KIND_LIST;
-                let kind = if container {
-                    MdAnchorKind::Container
-                } else if self.is_copy_node(&child) {
-                    MdAnchorKind::Copy
-                } else {
-                    MdAnchorKind::Plain
-                };
-                let (a, sc) = md_qualify_anchor(&scope, &section, &id, kind);
-                anchor = a;
-                scope = sc;
-                if !container {
-                    section = Some(id);
-                }
-                continue;
-            }
-            let list_node = split_list_item_segment(seg)
-                .and_then(|split| node.child_by_segment(&split.base).cloned());
-            let Some(list_node) = list_node.filter(|l| l.kind == SOM_META_KIND_LIST) else {
-                break;
-            };
-            let item_path = format!("{}/{}", cur, seg);
-            let id = self.nav_item_id(&list_node, &item_path);
-            let (a, sc) = md_qualify_anchor(&scope, &section, &id, MdAnchorKind::Item);
-            anchor = a;
-            scope = sc;
-            section = Some(id);
-            cur = item_path;
-            match list_node.element_node.clone() {
-                Some(element) => node = element,
-                None => {
-                    node = list_node;
-                    if i + 1 < segs.len() {
-                        break;
-                    }
-                }
-            }
-        }
-        self.anchors
-            .borrow_mut()
-            .insert(path.to_string(), anchor.clone());
-        anchor
-    }
-
-    /// The heading id of the item at `item_path` of `list_node`, as the
-    /// emitter writes it.
-    fn nav_item_id(&self, list_node: &SomMetaNode, item_path: &str) -> String {
-        let slash = item_path.rfind('/').map(|i| i + 1).unwrap_or(0);
-        let (base, seq) = match split_list_item_segment(&item_path[slash..]) {
-            Some(split) => (split.base, split.seq),
-            None => (item_path[slash..].to_string(), 0),
-        };
-        let list_path = format!("{}{}", &item_path[..slash], base);
-        let pos = self
-            .document
-            .list_items(&list_path)
-            .iter()
-            .position(|p| p == item_path)
-            .map(|i| i + 1)
-            .unwrap_or(0);
-        effective_list_item_section_id(
-            self.document.item_section_id(item_path).map(|s| s.as_str()),
-            &md_item_pattern(list_node),
-            if pos == 0 { seq.max(0) as usize } else { pos },
-            &md_member_stem(list_node),
-        )
     }
 
     /// Whether `n` is a `@SameAs` copy (SOM §11.2): its anchor and its
@@ -1960,7 +2027,16 @@ impl<'a> SpecDocumentMarkdown<'a> {
                 i + 1,
                 &member,
             );
-            let mut cells = vec![format!("<a id=\"{}\"></a>{}", self.anchor_for(item_path, &id), id)];
+            // A summary naming its detail element by its own id links it from
+            // the Id cell (SOM §11.5, §11.11).
+            let nav = self.nav.borrow().clone();
+            let linked = nav.and_then(|nav| {
+                let list_path = &item_path[..item_path.rfind('-').unwrap_or(item_path.len())];
+                nav.summary_id_cell(self, item_path, list_path, &id)
+            });
+            let cell =
+                linked.unwrap_or_else(|| format!("<a id=\"{}\"></a>{}", self.anchor_for(item_path, &id), id));
+            let mut cells = vec![cell];
             if with_title {
                 let title = doc.headline_or(item_path);
                 cells.push(title.replace('\n', "<br>").replace('|', "\\|"));
@@ -2194,7 +2270,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
                 best = Some((r, reached.len()));
             }
         }
-        best.map(|(r, _)| md_file_of_root(r))
+        best.map(|(r, _)| self.file_of_root(r))
     }
 
     /// `value` on one line when it is one paragraph wrapped over several lines
@@ -2693,6 +2769,9 @@ struct MdFrame {
     /// For an ignored frame: the blocks of its ignored children, kept after
     /// its own block wherever that lands.
     deferred: Vec<MdKeptBlock>,
+    /// Whether its body opened with a generated block (SOM §11.12): the
+    /// heading stands for the block, so an empty value is no rejection.
+    generated: bool,
 }
 
 impl MdFrame {
@@ -2708,6 +2787,7 @@ impl MdFrame {
             anchor_section: None,
             kept: Vec::new(),
             deferred: Vec::new(),
+            generated: false,
         }
     }
 
@@ -3103,6 +3183,8 @@ struct MdParser<'c, 'a> {
     orphans: Vec<MdKeptBlock>,
     /// The readable header a stripped rendition carries (SOM §11.1).
     readable_header: Option<String>,
+    /// The navigation of each root parsed, for its markable places.
+    navs: HashMap<String, Rc<MdNavigation<'a>>>,
 }
 
 impl<'c, 'a> MdParser<'c, 'a> {
@@ -3126,6 +3208,7 @@ impl<'c, 'a> MdParser<'c, 'a> {
             pending: Vec::new(),
             orphans: Vec::new(),
             readable_header: None,
+            navs: HashMap::new(),
         }
     }
 
@@ -3473,11 +3556,94 @@ position (under \"{}\")",
 
     // --- Body finalisation -----------------------------------------------------
 
+    /// The navigation of the root `path` lies in, for its markable places;
+    /// one per root parsed. `None` when the root is unknown.
+    fn nav_for(&mut self, path: &str) -> Option<Rc<MdNavigation<'a>>> {
+        let seg = path.split('/').next().unwrap_or("");
+        let codec = self.codec;
+        let root = codec.model.roots.iter().find(|r| {
+            let id = if r.section_id.is_empty() {
+                &r.type_
+            } else {
+                &r.section_id
+            };
+            id == seg
+        })?;
+        if let Some(nav) = self.navs.get(&root.type_) {
+            return Some(nav.clone());
+        }
+        let tree = codec.tree_for(&root.type_).ok()?;
+        let nav = Rc::new(MdNavigation::new(codec.model, root, tree));
+        self.navs.insert(root.type_.clone(), nav.clone());
+        Some(nav)
+    }
+
+    /// Removes the `linked` marker (SOM §11.11): the first paragraph of the
+    /// body of a markable heading when it is one `linked` span. Its lines are
+    /// blanked, not removed, so the body indices kept blocks refer to hold.
+    fn strip_linked_marker(&mut self, frame: &mut MdFrame) {
+        let Some(nav) = self.nav_for(&frame.path) else {
+            return;
+        };
+        if !nav.markable(self.codec, &frame.path) {
+            return;
+        }
+        let body = &mut frame.body;
+        let mut k = 0;
+        while k < body.len() && body[k].trim().is_empty() {
+            k += 1;
+        }
+        let mut end = k;
+        while end < body.len() && !body[end].trim().is_empty() {
+            end += 1;
+        }
+        if end == k || !md_is_linked_paragraph(&body[k..end].join("\n")) {
+            return;
+        }
+        for line in &mut body[k..end] {
+            line.clear();
+        }
+    }
+
+    /// Removes a generated part (SOM §11.12): the first block of a generated
+    /// place's body, after its marker, when it is a `derived` block. Its
+    /// lines are blanked, as the marker's are.
+    fn strip_generated(&mut self, frame: &mut MdFrame) {
+        let Some(nav) = self.nav_for(&frame.path) else {
+            return;
+        };
+        if !md_is_generated_place(&nav, self.codec, &frame.path) {
+            return;
+        }
+        let body = &mut frame.body;
+        let mut k = 0;
+        while k < body.len() && body[k].trim().is_empty() {
+            k += 1;
+        }
+        if k >= body.len() || !md_opens_derived(&body[k]) {
+            return;
+        }
+        let mut end = k + 1;
+        while end < body.len() && !md_closes_derived(&body[k], &body[end]) {
+            end += 1;
+        }
+        if end >= body.len() {
+            return; // unclosed: the value's, reported there
+        }
+        for line in &mut body[k..=end] {
+            line.clear();
+        }
+        frame.generated = true;
+    }
+
     fn finalize(&mut self, mut frame: MdFrame) {
         if frame.ignored {
             self.keep_ignored(frame);
             return;
         }
+        // A scalar list item's frame has no node; it is markable all the same.
+        self.strip_linked_marker(&mut frame);
+        self.strip_generated(&mut frame);
         let node = frame.node.clone();
         if let Some(node) = &node {
             if node.kind == SOM_META_KIND_FORM {
@@ -3529,7 +3695,7 @@ position (under \"{}\")",
             }
             if !value.is_empty() {
                 self.content.insert(frame.path.clone(), value);
-            } else if frame.node.as_ref().is_some_and(|n| md_is_value_leaf(&n.kind)) {
+            } else if !frame.generated && frame.node.as_ref().is_some_and(|n| md_is_value_leaf(&n.kind)) {
                 self.rejections.push(SpecMarkdownRejection {
                     line: frame.line,
                     reason: SPEC_MARKDOWN_REJECT_MISSING_VALUE.to_string(),
@@ -4849,16 +5015,6 @@ fn md_cell_text(f: &SomFormFieldMeta, value: &str) -> String {
         value.to_string()
     };
     text.replace('|', "\\|")
-}
-
-/// The rendition file of `root`: `<root id in lower case>.tomspecs.md`.
-fn md_file_of_root(root: &SpecRoot) -> String {
-    let id = if root.section_id.is_empty() {
-        &root.type_
-    } else {
-        &root.section_id
-    };
-    format!("{}.tomspecs.md", id.to_lowercase())
 }
 
 /// The `@SectionIdPattern` of a list's items: the list's own, else its element

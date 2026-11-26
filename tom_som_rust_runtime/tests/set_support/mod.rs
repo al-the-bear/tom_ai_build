@@ -84,3 +84,43 @@ pub fn json_eq(a: &Json, b: &Json) -> bool {
         _ => a == b,
     }
 }
+
+/// The real model (`tom_som_dart_v0`), loaded once per test binary.
+pub fn real_model() -> &'static SpecModel {
+    static MODEL: std::sync::OnceLock<SpecModel> = std::sync::OnceLock::new();
+    MODEL.get_or_init(|| {
+        let path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join("../tom_som_dart_v0/meta/spec_model.meta.json");
+        let text = std::fs::read_to_string(&path)
+            .unwrap_or_else(|e| panic!("read {}: {}", path.display(), e));
+        SpecModel::from_json_str(&text).expect("the SOM model")
+    })
+}
+
+/// The `link_rendition_cases.json` case whose intent names `token`, with the
+/// model it runs against (an inline one, the real one for a case marked
+/// `som`, else the links fixture) and its document.
+pub fn rendition_fixture(token: &str) -> (SpecModel, SpecDocument, Json) {
+    let t = table("link_rendition_cases.json");
+    let case = t
+        .get("cases")
+        .and_then(|c| c.as_array())
+        .unwrap_or(&[])
+        .iter()
+        .find(|c| {
+            c.get("intent")
+                .and_then(|i| i.as_array())
+                .is_some_and(|i| i.iter().any(|x| x.as_str() == Some(token)))
+        })
+        .unwrap_or_else(|| panic!("no rendition case with intent {}", token))
+        .clone();
+    let model = if let Some(inline) = case.get("inline").filter(|m| m.as_object().is_some()) {
+        SpecModel::from_json(inline)
+    } else if case.str_or("model") == "som" {
+        real_model().clone()
+    } else {
+        table_model(&t)
+    };
+    let doc = state_document(case.get("state").unwrap_or(&Json::Null));
+    (model, doc, case)
+}

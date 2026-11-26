@@ -19,13 +19,13 @@ use tom_som_rust_runtime::{
 // --- reading the tables ------------------------------------------------------------
 
 /// The real model (11 MB), loaded once across the tables.
-fn real_model() -> &'static SpecModel {
+pub fn real_model() -> &'static SpecModel {
     static MODEL: OnceLock<SpecModel> = OnceLock::new();
     MODEL.get_or_init(load_som_model)
 }
 
 /// The fixture model a table names (`links.meta.json` by default).
-fn table_model(table: &Json) -> SpecModel {
+pub fn table_model(table: &Json) -> SpecModel {
     let name = table
         .get("model")
         .and_then(|m| m.as_str())
@@ -35,7 +35,7 @@ fn table_model(table: &Json) -> SpecModel {
 
 /// The model a case runs against: an inline one, the real one, or the
 /// fixture.
-fn model_of<'a>(fixture: &'a SpecModel, inline: &'a Option<SpecModel>, c: &Json) -> &'a SpecModel {
+pub fn model_of<'a>(fixture: &'a SpecModel, inline: &'a Option<SpecModel>, c: &Json) -> &'a SpecModel {
     if let Some(m) = inline {
         return m;
     }
@@ -45,7 +45,7 @@ fn model_of<'a>(fixture: &'a SpecModel, inline: &'a Option<SpecModel>, c: &Json)
     fixture
 }
 
-fn inline_model(c: &Json) -> Option<SpecModel> {
+pub fn inline_model(c: &Json) -> Option<SpecModel> {
     c.get("inline")
         .filter(|v| v.as_object().is_some())
         .map(SpecModel::from_json)
@@ -81,7 +81,7 @@ pub fn case_pairs(c: &Json) -> Option<Vec<String>> {
     })
 }
 
-fn intent(c: &Json) -> Vec<String> {
+pub fn intent(c: &Json) -> Vec<String> {
     c.get("intent")
         .and_then(|v| v.as_array())
         .unwrap_or(&[])
@@ -99,7 +99,7 @@ fn list_len(v: Option<&Json>) -> usize {
 }
 
 /// Compact JSON text, for a failure's detail.
-fn jtext(v: &Json) -> String {
+pub fn jtext(v: &Json) -> String {
     match v {
         Json::Null => "null".to_string(),
         Json::Bool(b) => b.to_string(),
@@ -427,7 +427,7 @@ fn derive_intent_holds(token: &str, cc: &Json) -> Option<bool> {
     })
 }
 
-fn intent_detail(known: bool) -> &'static str {
+pub fn intent_detail(known: bool) -> &'static str {
     if known {
         "does not hold"
     } else {

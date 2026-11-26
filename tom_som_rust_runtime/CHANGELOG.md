@@ -2,6 +2,44 @@
 
 ## Unreleased
 
+- **Section automation, third part: the rendition** (SOM §11.2, §11.11,
+  §11.12), ported from the Go and Java runtimes (the Dart reference behind
+  them).
+  - `SpecDocumentMarkdown` writes the rendition's navigation: the qualified
+    anchors from one anchor walk, the `linked` marker after each markable
+    heading with its entries in the order of SOM §11.11 (`Also in`, `Summary
+    of`, `Summarised in`, `Derived from`, `Extracted from`, `Copy of`,
+    `Copied to`), an empty `[]{.linked}` where a markable place without an
+    entry holds a value beginning with a `linked` span, and a summary row's
+    `Id` cell as a link to the detail element it names (the child module
+    `spec_document_markdown_linked`).
+  - The generated parts (SOM §11.12; the child module
+    `spec_document_markdown_generated`): the requirement views'
+    traceability, coverage, relationships and use-case traceability tables
+    in `derived` blocks at the start of their sections, a heading written for
+    a block even without a value of its own, an empty block where a place
+    without rows holds a value beginning with a `derived` block.
+  - The new public fields `linked_markers` and `generated_parts` (true from
+    `new`; `with_navigation`) turn them off; the parser removes both, and an
+    empty value under a generated block is no `missingValue`.
+  - `file_stem` and `document_files` (`with_file_stem`,
+    `with_document_files`) name the file a link to another document points
+    into: `<file_stem>.<root id in lower case>.tomspecs.md`, or the file
+    `document_files` gives the root (by section id or type); without either
+    the name stays `<root id>.tomspecs.md`. `SpecDocumentStripOptions` and
+    `SpecStripMergeOptions` carry them to their codecs (new fields
+    `file_stem`, `document_files`; a struct literal of either needs
+    `..Default::default()`).
+  - `SpecDocumentStrip::strip` leaves the markers / generated parts out of
+    the readable rendition when `linked` / `derived` is dropped or unmarked.
+  - The conformance suite replays `link_rendition_cases.json` (markdown,
+    given, rejections, parse and re-emit, keys, intent tokens) and the
+    schema tier over the real model's renditions with and without
+    navigation (`uam_requirements_cut.json`, the `tom_som_dart_v0` schemas)
+    in `tests/conformance_rendition/mod.rs` (6160 -> 6336 checks);
+    `tests/spec_document_markdown_linked.rs` and
+    `tests/spec_document_markdown_generated.rs` are new.
+
 - **Section automation, second part** (`tom_specs_model_rules.md` §9.7),
   ported from the Go and Java runtimes (the Dart reference behind them).
   - The document set (the new module `spec_document_set`):
@@ -96,9 +134,7 @@
     `link_validation_cases.json` and the `typedCases` of
     `inline_mark_cases.json` / `change_mark_cases.json`
     (`tests/conformance_links/mod.rs`; 5643 -> 5924 checks);
-    `tests/spec_place.rs` and `tests/spec_links_validator.rs` are new. The
-    document set, `deriveFields`, `backfill`, `prefill` and the rendition's
-    navigation follow.
+    `tests/spec_place.rs` and `tests/spec_links_validator.rs` are new.
 
 - **The merge back of a stripped rendition** (SOM §11.10, the new module
   `spec_document_merge`): `merge_stripped_value(original, stripped, edited,

@@ -90,7 +90,9 @@ path routes, version pinning, and `cargo package` from source.
 | `spec_codespecs_gate.rs` | The Stage-A gate (`codespecs_prompt.md` §4, A1–A5): `CodeSpecsGate::new(model, document, catalog, schema, root_type).run()` returns a `CodeSpecsGateReport` — every check runs, a check that cannot run is reported not run, and the report carries the extracts when A3 passed. A4/A5 read the catalogue's optional `gate` tables (`CodeSpecsRequiredArgument`, `CodeSpecsCarrier`). |
 | `spec_codespecs_records.rs` | Reading a Phase-4 run back: `CodeSpecsExtract::from_yaml` (the inverse of `to_yaml`, refusing an unknown `formatVersion`), the Stage-B gate record `gate.verdicts.yaml` (`CodeSpecsGateRecord`: read, checked, edited with `with_verdict`, written byte-stable) and `CodeSpecsExtractSet` (`from_files`, `from_directory`) — the extracts scoped by that record, with the excluded areas kept visible. Every reader returns `Result<_, CodeSpecsRecordError>`. |
 | `spec_document_yaml.rs` | Byte-stable `*.tomspecs.yaml` codec (`SOM §12`). |
-| `spec_document_markdown.rs` | Meta-data-driven Markdown import/export codec (`SOM §11`): the emitter writes the reading view's form tables, record tables, reference lines and section tables with an anchor in every heading, a value no table cell holds as a `Field:` paragraph (SOM §11.2, §11.4, §11.5), and with `SpecMarkdownExportOptions` styled-div headings below level six and a readable header (SOM §11.1, §11.2); the parser reads them, styled-div headings and the older `Field:` layout, skips a readable header and stops at the appendix marker; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7). |
+| `spec_document_markdown.rs` | Meta-data-driven Markdown import/export codec (`SOM §11`): the emitter writes the reading view's form tables, record tables, reference lines and section tables with an anchor in every heading, a value no table cell holds as a `Field:` paragraph (SOM §11.2, §11.4, §11.5), and with `SpecMarkdownExportOptions` styled-div headings below level six and a readable header (SOM §11.1, §11.2); the parser reads them, styled-div headings and the older `Field:` layout, skips a readable header and stops at the appendix marker; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7); the anchors below a list item and in a `@SameAs` copy are qualified, a `linked` marker follows each markable heading and the generated parts open their sections (SOM §11.2, §11.11, §11.12; fields `linked_markers`, `generated_parts`), all removed on parse; a link to another document names `<file_stem>.<root id>.tomspecs.md` or the file `document_files` gives. |
+| `spec_document_markdown_linked.rs` | The rendition's navigation, a child module of the codec: qualified anchors, the `linked` marker's entries `Also in`, `Summary of`, `Summarised in`, `Derived from`, `Extracted from`, `Copy of`, `Copied to` (SOM §11.11), the summary rows' `Id` links. |
+| `spec_document_markdown_generated.rs` | The rendition's generated parts, a child module of the codec: the requirement views' tables in `derived` blocks (SOM §11.12). |
 | `som_facade.rs` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList<T>`) for the generated `tom_som_rust_v0`. |
 | `yaml.rs` | Hand-rolled, dependency-free reader for the constrained docspecs YAML subset. |
 | `json.rs` | Hand-rolled, dependency-free JSON reader/encoder (Rust std ships no JSON). |
@@ -100,7 +102,7 @@ path routes, version pinning, and `cargo package` from source.
 | `spec_meta.rs` | The metadata tree types (`SomMetaTree`, `SomMetaNode`, …) the YAML codec and the facade navigate by. |
 | `spec_meta_bridge.rs` | `build_som_meta_tree` — the metadata tree of a model, for one root or all. |
 | `spec_meta_diff.rs` | `som_meta_node_diff` — the first difference between two metadata trees, or `None` (form fields compared with their `code` and `multi_paragraph` flags); `som_meta_node_diff_at` names the starting position. |
-| `spec_document_strip.rs` | Stripped renditions (SOM §11.10). The strip of one value: `strip_notation_text(value, &options)` drops, unmarks or moves to the appendix the secondary prose of the named kinds (`provenance`, `trace`, `editorial`, `aside`, `linked`, `derived`, `comments`) and returns a `SpecStripTextResult` — the text, the counts per kind, `marks_dropped`, the appendix entries (`SpecAppendixEntry`) and the pieces it removed (`SpecStripPiece`, UTF-16 offsets); a value with a notation error is refused unchanged. `SpecStripOptions::from_names` reads the kind names a user gives (`all`, comma-joined lists) and refuses a misuse with `SpecStripUsageError`. The strip of a document: `SpecDocumentStrip::strip` strips every value into a copy with the emptying rule and writes its readable rendition, the readable header (`SpecReadableHeader`, `SpecReadableSource`) and the appendix *Notes* included (`SpecStripResult`). |
+| `spec_document_strip.rs` | Stripped renditions (SOM §11.10). The strip of one value: `strip_notation_text(value, &options)` drops, unmarks or moves to the appendix the secondary prose of the named kinds (`provenance`, `trace`, `editorial`, `aside`, `linked`, `derived`, `comments`) and returns a `SpecStripTextResult` — the text, the counts per kind, `marks_dropped`, the appendix entries (`SpecAppendixEntry`) and the pieces it removed (`SpecStripPiece`, UTF-16 offsets); a value with a notation error is refused unchanged. `SpecStripOptions::from_names` reads the kind names a user gives (`all`, comma-joined lists) and refuses a misuse with `SpecStripUsageError`. The strip of a document: `SpecDocumentStrip::strip` strips every value into a copy with the emptying rule and writes its readable rendition, the readable header (`SpecReadableHeader`, `SpecReadableSource`) and the appendix *Notes* included (`SpecStripResult`); dropping or unmarking `linked` / `derived` leaves the markers / generated parts out. |
 | `spec_document_merge.rs` | The merge back of an edited stripped rendition (SOM §11.10): `merge_stripped_value` puts one value's removed pieces back into its edited text (`SpecStripValueMerge`, `SpecStripMergePlaced`, `SpecStripMergeConflict`); `SpecStripMerge::merge` merges an edited readable rendition onto its document — the switches from the readable header, a stale original merged three ways from a base (`SpecStripMergeOptions`, `SpecStripMerge::git_show_file`), structural edits refused (`SpecStripMergeRefusal`), the result checked (`SpecStripMergeResult` with `merged`, `report()`, `exit_code()`; `SpecStripMergedValue`, `spec_strip_merge_label`). |
 | `spec_notation.rs` | The reading notation's scanner (DocSpecs Reading Notation): `scan_notation` returns a value's divs, spans and citations (`NotationElement`, UTF-16 ranges) and the notation's findings (`NotationFinding`, `NotationFindingCode`, `notation_severity`), which the DocSpecs validator reports as rules. |
 | `spec_section_id.rs` | List-item section ids (AA1): `generate_list_item_section_id`, `encode_two_letter_date`, `effective_list_item_section_id`, `K_SECTION_ID_SLOT`. |
@@ -203,9 +205,15 @@ link readers and the place / filter grammar (`link_reader_cases.json`),
 (`typedCases`) — and in `tests/conformance_document_set/mod.rs` — the document
 set, its report and the global rename (`document_set_cases.json`),
 `derive_fields` (`derive_cases.json`), `prefill` and `backfill`
-(`prefill_cases.json`, `backfill_cases.json`) — over the fixture model
-`corpus/links.meta.json` and, for the cases naming it, the real model of
-`tom_som_dart_v0/meta/`.
+(`prefill_cases.json`, `backfill_cases.json`) — and in
+`tests/conformance_rendition/mod.rs` — the rendition's navigation and
+generated parts (`link_rendition_cases.json`, and the schema tier over the
+real model's renditions with and without them, `uam_requirements_cut.json`)
+— over the fixture model `corpus/links.meta.json` and, for the cases naming
+it, the real model of `tom_som_dart_v0/meta/`.
+`tests/spec_document_markdown_linked.rs` and
+`tests/spec_document_markdown_generated.rs` hold the Rust surface around the
+rendition.
 
 ## Architecture
 
@@ -292,6 +300,6 @@ set, its report and the global rename (`document_set_cases.json`),
 
 ## Status
 
-Version **1.13.0**, tracking the TomSpecs model version. Covered by 18 test files;
-the conformance runner reports **OK: 5643 checks passed** and `./run_tests.sh` is
+Version **1.13.0**, tracking the TomSpecs model version. Covered by 25 test files;
+the conformance runner reports **OK: 6336 checks passed** and `./run_tests.sh` is
 green.

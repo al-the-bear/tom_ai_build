@@ -17,7 +17,7 @@
 //! strings again; a placed piece's `at` counts UTF-16 units of the merged
 //! value, and an excerpt is thirty units either side.
 
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::{BTreeMap, BTreeSet, HashMap};
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 
@@ -326,6 +326,10 @@ pub struct SpecStripMergeOptions<'a> {
     /// The base of a stale original from the header's source (its commit);
     /// `None` when it cannot be read.
     pub load_base: Option<&'a SpecStripBaseLoader<'a>>,
+    /// The codec's file stem ([`SpecDocumentMarkdown::file_stem`]).
+    pub file_stem: Option<&'a str>,
+    /// The codec's document files ([`SpecDocumentMarkdown::document_files`]).
+    pub document_files: Option<&'a HashMap<String, String>>,
 }
 
 // ---------------------------------------------------------------------------
@@ -1151,8 +1155,13 @@ impl SpecStripMerge {
             .model
             .ok_or_else(|| SpecStripUsageError::new("a merge needs the model"))?;
         let (schema, root_type) = (extra.schema, extra.root_type);
+        let codec_options = SpecDocumentStripOptions {
+            file_stem: extra.file_stem,
+            document_files: extra.document_files,
+            ..SpecDocumentStripOptions::default()
+        };
         let empty = SpecDocument::new();
-        let parsed = SpecDocumentMarkdown::new(model, &empty).parse(edited);
+        let parsed = codec_options.codec(model, &empty).parse(edited);
         let header = match &parsed.readable_header {
             None => None,
             Some(line) => Some(SpecReadableHeader::parse(line).ok_or_else(|| {
@@ -1247,6 +1256,8 @@ impl SpecStripMerge {
             schema,
             root_type,
             source: None,
+            file_stem: extra.file_stem,
+            document_files: extra.document_files,
         };
         let strip = SpecDocumentStrip::strip(origin, &opts, &strip_extra);
         let Some(readable) = strip.readable.as_ref().filter(|_| strip.ok()) else {

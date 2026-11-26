@@ -123,6 +123,7 @@ use tom_som_rust_runtime::{
 
 mod conformance_document_set;
 mod conformance_links;
+mod conformance_rendition;
 
 const MODEL_VERSION: &str = "1.0";
 
@@ -269,6 +270,8 @@ fn conformance() {
     conformance_document_set::test_document_set(&mut c);
     conformance_document_set::test_derive_fields(&mut c);
     conformance_document_set::test_prefill_backfill(&mut c);
+    conformance_rendition::test_link_rendition(&mut c);
+    conformance_rendition::test_rendition_schema_tier(&mut c);
 
     c.finish();
 }
@@ -1357,6 +1360,7 @@ fn test_strip(c: &mut Checker, model: &SpecModel) {
             schema: with_model.then_some(&schema),
             root_type,
             source: source.as_ref(),
+            ..Default::default()
         };
         let r = SpecDocumentStrip::strip(&doc, &options, &extra);
         let got = r.to_json();
@@ -1499,6 +1503,7 @@ fn test_strip_merge(c: &mut Checker, model: &SpecModel) {
                 schema: Some(&schema),
                 root_type: None,
                 source: source.as_ref(),
+                ..Default::default()
             },
         );
         let edited = match strip_merge_apply_edits(
@@ -1534,6 +1539,7 @@ fn test_strip_merge(c: &mut Checker, model: &SpecModel) {
             current_revision: kase.get("currentRevision").and_then(|v| v.as_str()),
             base: base.as_ref(),
             load_base: Some(&load),
+            ..Default::default()
         };
         let want = kase.get("expect").cloned().unwrap_or(Json::Null);
         let none = Json::Null;

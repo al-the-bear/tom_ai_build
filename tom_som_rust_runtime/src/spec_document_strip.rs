@@ -27,7 +27,7 @@
 //! "one character" step mean what they mean there — and turns every text it
 //! hands out back into an ordinary string.
 
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::{BTreeMap, BTreeSet, HashMap};
 use std::fmt;
 
 use crate::docspecs_validator::{DocSpecsSchema, DocSpecsValidator, DocSpecsViolation};
@@ -1659,6 +1659,25 @@ pub struct SpecDocumentStripOptions<'a> {
     pub root_type: Option<&'a str>,
     /// The source named in the readable header.
     pub source: Option<&'a SpecReadableSource>,
+    /// The codec's file stem ([`SpecDocumentMarkdown::file_stem`]): the files
+    /// a reference to another document root links to.
+    pub file_stem: Option<&'a str>,
+    /// The codec's document files ([`SpecDocumentMarkdown::document_files`]).
+    pub document_files: Option<&'a HashMap<String, String>>,
+}
+
+impl<'a> SpecDocumentStripOptions<'a> {
+    /// The codec over `doc` with the file stem and document files given.
+    pub(crate) fn codec<'d>(&self, model: &'d SpecModel, doc: &'d SpecDocument) -> SpecDocumentMarkdown<'d> {
+        let mut c = SpecDocumentMarkdown::new(model, doc);
+        if let Some(stem) = self.file_stem {
+            c.file_stem = stem.to_string();
+        }
+        if let Some(files) = self.document_files {
+            c.document_files = files.clone();
+        }
+        c
+    }
 }
 
 /// The strip of a whole document (SOM §11.10).
@@ -1761,7 +1780,7 @@ impl SpecDocumentStrip {
         }
         let mut titles = Headings::default();
         if let (Some(model), Some(root), false) = (model, root, entries.is_empty()) {
-            match SpecDocumentMarkdown::new(model, &s.copy).export_root_with_map(root) {
+            match extra.codec(model, &s.copy).export_root_with_map(root) {
                 Ok(r) => {
                     titles = Headings::from(&r);
                     for e in entries.iter_mut() {
@@ -1809,7 +1828,11 @@ impl SpecDocumentStrip {
                 heading_divs: options.heading_divs,
                 readable_header: Some(out.readable_header.clone()),
             };
-            match SpecDocumentMarkdown::new(model, &s.copy).export_root_with_options(root, &export) {
+            let codec = extra.codec(model, &s.copy).with_navigation(
+                !options.writes_no_linked_markers(),
+                !options.writes_no_generated_parts(),
+            );
+            match codec.export_root_with_options(root, &export) {
                 Ok(rendition) => {
                     if titles.paths.is_empty() && !out.appendix.is_empty() {
                         titles = Headings::from(&rendition);
@@ -1829,7 +1852,7 @@ impl SpecDocumentStrip {
             }
             if let Some(readable) = out.readable.clone() {
                 check_output(
-                    model, schema, root, root_type, &base, document, &s.copy, &readable, &mut out,
+                    model, schema, root, root_type, &base, document, &s.copy, &readable, extra, &mut out,
                 );
             }
         }
@@ -2249,10 +2272,11 @@ fn check_output(
     document: &SpecDocument,
     copy: &SpecDocument,
     readable: &str,
+    extra: &SpecDocumentStripOptions<'_>,
     out: &mut SpecStripResult,
 ) {
     let empty = SpecDocument::new();
-    let parsed = SpecDocumentMarkdown::new(model, &empty).parse(readable);
+    let parsed = extra.codec(model, &empty).parse(readable);
     for r in &parsed.rejections {
         push_finding(out, "parse", format!("the rendition rejects: {}", r.to_display()), None);
     }
@@ -2294,7 +2318,7 @@ fn check_output(
     let Some(schema) = schema else {
         return;
     };
-    let Ok(original) = SpecDocumentMarkdown::new(model, document).export_root(root) else {
+    let Ok(original) = extra.codec(model, document).export_root(root) else {
         return;
     };
     let val = DocSpecsValidator::with_tom_specs(schema.clone(), true);
