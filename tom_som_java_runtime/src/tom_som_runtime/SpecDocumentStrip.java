@@ -221,12 +221,18 @@ public final class SpecDocumentStrip {
     String header = new SpecReadableHeader(options, source).format();
     String readable = null;
     if (model != null && root != null) {
-      // The Java rendition writes neither linked markers (SOM §11.11) nor
-      // generated parts (SOM §11.12), so `linked` and `derived` need no
-      // switch here.
+      // `linked` or `derived` dropped or unmarked: the rendition writes no
+      // linked markers (SOM §11.11) or generated parts (SOM §11.12).
       SpecMarkdownRendition rendition =
           new SpecDocumentMarkdown(
-                  model, copy, fileStem, documentFiles, options.headingDivs, header)
+                  model,
+                  copy,
+                  fileStem,
+                  documentFiles,
+                  options.headingDivs,
+                  header,
+                  !options.writesNoLinkedMarkers(),
+                  !options.writesNoGeneratedParts())
               .exportRootWithMap(root);
       if (titles.isEmpty() && !appendix.isEmpty()) {
         String[] lines = rendition.markdown.split("\n", -1);

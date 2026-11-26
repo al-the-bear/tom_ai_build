@@ -89,7 +89,7 @@ install / JDK-only `build_jar.sh` routes and how to pin.
 | `SpecQuery`, `SpecQueryEngine`, `SpecQueryCursor`, `SpecQueryMatch` | The lexical/structural query surface plus the flat tier-1 node projection. |
 | `SpecNodeCreator`, `SpecCreationError`, `SpecCreationCode` | The constrained node-creation gate (`checkAddNode`, `add`) — a document may only grow in ways the model permits. |
 | `SpecDocumentYaml` | Byte-stable `*.tomspecs.yaml` codec (`SOM §12`). |
-| `SpecDocumentMarkdown` | Meta-data-driven Markdown import/export codec (`SOM §11`): the emitter writes the reading view's form tables, record tables, reference lines and section tables with an anchor in every heading, a value no table cell holds as a `Field:` paragraph (SOM §11.2, §11.4, §11.5); the parser reads them and the older `Field:` layout; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7); a stripped rendition's readable header and styled-div headings below level six are written on request (`headingDivs`, `readableHeader`) and read back, its appendix not read (SOM §11.1, §11.2). |
+| `SpecDocumentMarkdown` | Meta-data-driven Markdown import/export codec (`SOM §11`): the emitter writes the reading view's form tables, record tables, reference lines and section tables with an anchor in every heading, a value no table cell holds as a `Field:` paragraph (SOM §11.2, §11.4, §11.5); the parser reads them and the older `Field:` layout; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7); a stripped rendition's readable header and styled-div headings below level six are written on request (`headingDivs`, `readableHeader`) and read back, its appendix not read (SOM §11.1, §11.2); the anchors below a list item and in a `@SameAs` copy are qualified, a `linked` marker follows each markable heading and the generated parts open their sections (SOM §11.2, §11.11, §11.12; options `linkedMarkers`, `generatedParts`), all removed on parse. The package-private `SpecDocumentMarkdownLinked` (the navigation: qualified anchors, the marker's entries `Also in`, `Summary of`, `Summarised in`, `Derived from`, `Extracted from`, `Copy of`, `Copied to`, the summary rows' `Id` links) and `SpecDocumentMarkdownGenerated` (the requirement views' tables in `derived` blocks) serve it. |
 | `SomNode`, `SomScalar`, `SomList`, `SomFacade` | Editing-facade base types for the generated `tom_som_java_v0`. |
 | `SomEditability`, `SomVersionError` | `SOM §4.2` version-check outcome enum (non-throwing `SomFacade.somEditabilityFor`) and its throwing error. |
 | `SpecAnnotations`, `KindLink`, `NoArtifactLink` | The annotation lookups shared by `SpecClass` and `SpecField`, including the three routing verdicts of `codespecs_mapping.md` §8.3 (`@CodeSpecKind` / `@FollowUpKind` / `@NoArtifact`). |
@@ -107,7 +107,7 @@ install / JDK-only `build_jar.sh` routes and how to pin.
 | `SpecSectionId`, `SpecSectionIdCollision` | List-item section ids (AA1): `generateListItemSectionId`, `effectiveListItemSectionId`. |
 | `SpecSerializationOrder` | The model's member order, which every codec writes in. |
 | `DocSpecsDocument`, `DocSpecsValidator`, `DocSpecsViolation` | DocSpecs Markdown documents: the schema-free parse (`DocSpecsDocument.parse`) and the schema check, with the nine reading-notation rules (`new DocSpecsValidator(schema, true)`: scanned per form-field value, unknown kinds and classless divs reported); it reads the reading view's form tables, list bodies (`refs`, `records`), section tables and styled-div headings; a stripped rendition's readable header and appendix are skipped. |
-| `SpecDocumentStrip`, `SpecStripOptions`, `SpecStripTextResult`, `SpecStripPiece`, `SpecAppendixEntry`, `SpecStripUsageError`, `SpecStripResult`, `SpecStripValueRef`, `SpecStrippedValue`, `SpecStripKept`, `SpecStripFinding`, `SpecReadableHeader`, `SpecReadableSource` | Stripped renditions (SOM §11.10): `SpecDocumentStrip.stripNotationText` drops, unmarks or moves to an appendix the secondary prose of named kinds of one value (`SpecStripOptions.fromNames`), reporting the removed pieces with their UTF-16 offsets; `SpecDocumentStrip.strip` strips a whole document with the emptying rule and writes its readable rendition, the readable header (`SpecReadableHeader`) and the appendix *Notes* included (`SpecStripResult`). |
+| `SpecDocumentStrip`, `SpecStripOptions`, `SpecStripTextResult`, `SpecStripPiece`, `SpecAppendixEntry`, `SpecStripUsageError`, `SpecStripResult`, `SpecStripValueRef`, `SpecStrippedValue`, `SpecStripKept`, `SpecStripFinding`, `SpecReadableHeader`, `SpecReadableSource` | Stripped renditions (SOM §11.10): `SpecDocumentStrip.stripNotationText` drops, unmarks or moves to an appendix the secondary prose of named kinds of one value (`SpecStripOptions.fromNames`), reporting the removed pieces with their UTF-16 offsets; `SpecDocumentStrip.strip` strips a whole document with the emptying rule and writes its readable rendition, the readable header (`SpecReadableHeader`) and the appendix *Notes* included (`SpecStripResult`); dropping or unmarking `linked` / `derived` leaves the markers / generated parts out. |
 | `SpecStripMerge`, `SpecStripMergeOptions`, `SpecStripMergeResult`, `SpecStripMergedValue`, `SpecStripMergeRefusal`, `SpecStripValueMerge`, `SpecStripMergePlaced`, `SpecStripMergeConflict` | The merge back (SOM §11.10): `SpecStripMerge.mergeStrippedValue` merges one edited value onto its original, `SpecStripMerge.merge` an edited `.readable.md` onto its document — pieces put back or placed, conflicts and refused edits reported, a stale original merged three ways from the original at the export (`SpecStripMerge.gitShowFile` reads it from git; `SpecStripMergeResult.report()`, `exitCode()`). |
 | `SpecNotation`, `NotationScan`, `NotationElement`, `NotationFinding`, `NotationFindingCode` | The reading notation's scanner (DocSpecs Reading Notation): `SpecNotation.scanNotation` returns a value's divs, spans and citations (`NotationElement`, UTF-16 ranges) and the notation's findings (`NotationFinding`, `NotationFindingCode`, `notationSeverity`), which the DocSpecs validator reports as rules; `registeredNotationKinds`. |
 | `SpecSchemaValidation` | `validateSpecDocument` — the DocSpecs schema tier over a document's Markdown rendition. |
@@ -165,17 +165,20 @@ The runner asserts byte-for-byte equality of the YAML and Markdown encodings, th
 document round-trips, the Markdown→memory landing, the reflection / validation /
 operations behaviour, and the Phase-4 CodeSpecs extracts (exit 0 on success).
 
-The section-automation tables of this port so far run in the same runner: the
+The section-automation tables of this port run in the same runner: the
 link readers and the place / filter grammar (`link_reader_cases.json`),
 `validateLinks` (`link_validation_cases.json`), the typed inline marks (the
 `typedCases` of `inline_mark_cases.json` / `change_mark_cases.json`), the
 document set with `syncReport` and `renameId` (`document_set_cases.json`),
 `deriveFields` (`derive_cases.json`), `prefill` and `backfill`
-(`prefill_cases.json`, `backfill_cases.json`) — over the fixture model
-`corpus/links.meta.json` and, for the cases naming it, the real model of
-`tom_som_dart_v0/meta/`. `SpecPlaceTest`, `SpecLinkValidatorTest`,
-`SpecDocumentSetTest`, `SpecDeriveFieldsTest` and `SpecPrefillBackfillTest`
-hold the Java surface around them.
+(`prefill_cases.json`, `backfill_cases.json`), the rendition's navigation
+and generated parts (`link_rendition_cases.json`, and the schema tier over the
+real model's renditions with and without them, `uam_requirements_cut.json`) —
+over the fixture model `corpus/links.meta.json` and, for the cases naming it,
+the real model of `tom_som_dart_v0/meta/`. `SpecPlaceTest`,
+`SpecLinkValidatorTest`, `SpecDocumentSetTest`, `SpecDeriveFieldsTest`,
+`SpecPrefillBackfillTest`, `SpecDocumentMarkdownLinkedTest` and
+`SpecDocumentMarkdownGeneratedTest` hold the Java surface around them.
 
 ## Architecture
 
@@ -259,5 +262,5 @@ hold the Java surface around them.
 ## Status
 
 Version **1.13.0**, tracking the TomSpecs model version. Requires JDK ≥ 17
-(verified with `javac`/`java` 21). Covered by 21 test files; the conformance
-runner reports **OK: 2325 checks passed** and `./run_tests.sh` is green.
+(verified with `javac`/`java` 21). Covered by 23 test files; the conformance
+runner reports **OK: 2501 checks passed** and `./run_tests.sh` is green.

@@ -4733,6 +4733,273 @@ public final class ConformanceRunner {
     }
   }
 
+  // --- the rendition's navigation and generated parts (SOM §11.11, §11.12) ---
+
+  /** {@code doc} rendered as the rendition of the first root of {@code model} it holds a value under. */
+  private static String renditionOf(
+      SpecModel model, SpecDocument doc, String fileStem, boolean markers, boolean generated) {
+    SpecRoot root = null;
+    for (SpecRoot r : model.roots) {
+      String seg = r.sectionId == null || r.sectionId.isEmpty() ? r.type : r.sectionId;
+      if (doc.hasValuesUnder(seg)) {
+        root = r;
+        break;
+      }
+    }
+    if (root == null) {
+      throw new IllegalStateException("no root holds a value");
+    }
+    return new SpecDocumentMarkdown(model, doc, fileStem, null, false, null, markers, generated)
+        .exportRoot(root);
+  }
+
+  private static final java.util.regex.Pattern RENDITION_MARKER_LINE =
+      java.util.regex.Pattern.compile("^\\[.*\\]\\{\\.linked\\}$");
+
+  /** {@code markdown} with its {@code linked} marker paragraphs removed. */
+  private static String withoutMarkers(String markdown) {
+    String[] lines = markdown.split("\n", -1);
+    List<String> out = new ArrayList<>();
+    for (int i = 0; i < lines.length; i++) {
+      if (RENDITION_MARKER_LINE.matcher(lines[i]).matches()) {
+        if (i + 1 < lines.length && lines[i + 1].isEmpty()) {
+          i++;
+        }
+        continue;
+      }
+      out.add(lines[i]);
+    }
+    return String.join("\n", out);
+  }
+
+  /** One rendition case, as the Dart test's {@code renditionCase} computes it. */
+  @SuppressWarnings("unchecked")
+  private static Map<String, Object> renditionCase(SpecModel fixture, Map<String, Object> c)
+      throws IOException {
+    SpecModel model = caseModel(fixture, c);
+    SpecDocument doc = stateDocument(c.get("state"));
+    boolean markers = !Boolean.FALSE.equals(c.get("linkedMarkers"));
+    boolean generated = !Boolean.FALSE.equals(c.get("generatedParts"));
+    String markdown = renditionOf(model, doc, "links", markers, generated);
+    String given = markdown;
+    if (caseFlag(c, "dropMarkers")) {
+      given = withoutMarkers(given);
+    }
+    if (c.get("edits") instanceof List) {
+      for (Object e : (List<Object>) c.get("edits")) {
+        List<Object> pair = (List<Object>) e;
+        String from = String.valueOf(pair.get(0));
+        String to = String.valueOf(pair.get(1));
+        int at = given.indexOf(from);
+        if (at < 0) {
+          throw new IllegalStateException(c.get("name") + ": the rendition has no \"" + from + "\"");
+        }
+        given = given.substring(0, at) + to + given.substring(at + from.length());
+      }
+    }
+    SpecMarkdownImport parsed = SpecDocument.fromMarkdown(given, model);
+    Map<String, Object> out = new LinkedHashMap<>();
+    out.put("markdown", markdown);
+    if (!given.equals(markdown)) {
+      out.put("given", given);
+    }
+    List<Object> rejections = new ArrayList<>();
+    for (SpecMarkdownRejection r : parsed.rejections()) {
+      rejections.add(r.reason.value);
+    }
+    out.put("rejections", rejections);
+    out.put(
+        "parseMatches",
+        Objects.equals(
+            Json.parse(Json.write(parsed.document.toJson())), Json.parse(Json.write(doc.toJson()))));
+    String reemit = renditionOf(model, parsed.document, "links", markers, generated);
+    out.put("reemitMatches", reemit.equals(markdown));
+    return out;
+  }
+
+  private static boolean finds(String regex, String text) {
+    return java.util.regex.Pattern.compile(regex, java.util.regex.Pattern.MULTILINE)
+        .matcher(text)
+        .find();
+  }
+
+  /**
+   * Whether the rendition-case intent {@code token} holds in case {@code c}
+   * (the Dart test's {@code _renditionIntentHolds}); {@code null} for an
+   * unknown token.
+   */
+  @SuppressWarnings("unchecked")
+  private static Boolean renditionIntentHolds(String token, Map<String, Object> c) {
+    Map<String, Object> e = (Map<String, Object>) c.get("expect");
+    String md = e.get("markdown") instanceof String ? (String) e.get("markdown") : "";
+    boolean parsed = Boolean.TRUE.equals(e.get("parseMatches"));
+    boolean reemit = Boolean.TRUE.equals(e.get("reemitMatches"));
+    boolean edited = e.get("given") instanceof String;
+    String given = edited ? (String) e.get("given") : "";
+    switch (token) {
+      case "alsoInHeldThere":
+        return finds("\\[Also in \\[[^\\]]+\\]\\([^)]+\\), held there", md);
+      case "alsoInHeldHere":
+        return finds("\\[Also in \\[[^\\]]+\\]\\([^)]+\\), held here", md);
+      case "heldException":
+        return md.contains(" except REQ.owner");
+      case "summaryOf":
+        return md.contains(
+            "held there except REQ.owner; Summary of [REQ-EXPORT](#REQ-EXPORT)]{.linked}");
+      case "summarisedIn":
+        return md.contains("Summarised in [KEY-1](#KEY-1)");
+      case "derivedTwoFields":
+        return finds("Derived from (\\[[^\\]]+\\]\\([^)]+\\)(,)?)+: \\w+, \\w+", md);
+      case "extractedFrom":
+        return md.contains("[Extracted from [REQD](#REQ-EXPORT/REQD)]{.linked}");
+      case "copyOf":
+        return md.contains("[Copy of [CRIT](#CRIT), edit it there]{.linked}");
+      case "copiedTo":
+        return md.contains("Copied to [CRIT](#CSUM/CRIT)");
+      case "copyAnchors":
+        return md.contains("<a id=\"CSUM/CRIT/CRIT-SPEED\"></a>");
+      case "qualifiedThree":
+        return finds("^#+ <!--\\[LNK-REF\\]--> <a id=\"REQ-EXPORT/LNK-1/LNK-REF\"></a> ", md);
+      case "markerRestored":
+        return edited && !given.contains("{.linked}") && parsed && reemit;
+      case "handEditDiscarded":
+        return edited && given.contains("Copy of [X]") && parsed && reemit;
+      case "emptyMarker":
+        return md.contains("[]{.linked}\n\n[To be chosen") && parsed;
+      case "spanKept":
+        return Json.write(c.get("state")).contains("{.linked}") && parsed;
+      case "dangling":
+        return md.contains(
+            "[Also in [BLU REQ-PRESETS](links.blu.tomspecs.md#REQ-PRESETS), held here");
+      case "generatedTrace":
+        return md.contains(
+            "::: {.derived label=\"Generated from each requirement's traceability; "
+                + "edit it there\"}\n| Requirement | Use cases | Screens | Data entities | Tests |");
+      case "generatedCoverage":
+        return finds(
+            "\\| Requirement \\| Covered \\| By \\|\n\\| --- \\| --- \\| --- \\|\n"
+                + "\\| \\[FRE-REQU-TENANT-LIFECYCLE\\]\\(#FRE-REQU-TENANT-LIFECYCLE\\) \\| (yes|no) \\|",
+            md);
+      case "generatedRelationships":
+        return md.contains("| Requirement | Dependency | Related requirement |");
+      case "generatedFirst":
+        return finds(
+            "^## <!--\\[REQCOV\\]--> <a id=\"REQCOV\"></a> [^\n]*\n\n"
+                + "(\\[[^\n]*\\]\\{\\.linked\\}\n\n)?::: \\{\\.derived ",
+            md);
+      case "generatedOverview":
+        return md.contains("<!--[RO-TRAC]-->") && md.contains("| Requirement | Use cases | Screens |");
+      case "generatedUseCases":
+        return md.contains("| [INEN-INTE-UC-02](#INEN-INTE-UC-02) |  | [FRE-REQU-TENANT-FEATURES](");
+      case "generatedEditDiscarded":
+        return edited && given.contains("| Requirement | Covered |\n") && parsed && reemit;
+      case "noGenerated":
+        return !md.contains("{.derived");
+      case "emptyGenerated":
+        return md.contains("::: {.derived}\n:::\n\n::: {.derived}\nTraced by hand.\n:::");
+      case "summaryRowLink":
+        return md.contains("| <a id=\"TOP-BETA\"></a>[TOP-BETA](#TOP-BETA) |")
+            && md.contains("| <a id=\"TOP-BETA\"></a>TOP-BETA |");
+      case "noMarkers":
+        return !md.contains("{.linked}") && md.contains("<a id=\"REQ-EXPORT/REQD\"></a>");
+      case "roundTrip":
+        return !edited && parsed && reemit;
+      case "clean":
+        return listLen(e.get("rejections")) == 0;
+      default:
+        return null;
+    }
+  }
+
+  /**
+   * {@code link_rendition_cases.json}: each case's rendition, what the parser
+   * makes of it and the rendition of that, against the expectation, and its
+   * intent.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testLinkRendition() throws IOException {
+    Map<String, Object> table = readJsonObject("link_rendition_cases.json");
+    SpecModel fixture = corpusModel(table.get("model"));
+    for (Map<String, Object> c : setCases(table, "cases")) {
+      String name = "links.rendition[" + c.get("name") + "]";
+      Map<String, Object> got = null;
+      try {
+        got = (Map<String, Object>) Json.parse(Json.write(renditionCase(fixture, c)));
+      } catch (IOException | RuntimeException ex) {
+        check(name, false, "threw " + ex);
+      }
+      if (got != null) {
+        Map<String, Object> expect = (Map<String, Object>) c.get("expect");
+        for (String k :
+            List.of("markdown", "given", "rejections", "parseMatches", "reemitMatches")) {
+          boolean ok = Objects.equals(got.get(k), expect.get(k));
+          String detail = "";
+          if (!ok) {
+            detail = got.get(k) instanceof String && expect.get(k) instanceof String
+                ? byteDiff(k, (String) got.get(k), (String) expect.get(k))
+                : "got " + Json.write(got.get(k)) + " want " + Json.write(expect.get(k));
+          }
+          check(name + "." + k, ok, detail);
+        }
+        List<String> gk = new ArrayList<>(got.keySet());
+        List<String> ek = new ArrayList<>(expect.keySet());
+        java.util.Collections.sort(gk);
+        java.util.Collections.sort(ek);
+        check(name + ".keys", gk.equals(ek), gk + " vs " + ek);
+      }
+      for (String token : caseIntent(c)) {
+        checkIntent("links.rendition", c, token, renditionIntentHolds(token, c));
+      }
+    }
+  }
+
+  /**
+   * The schema tier finds nothing in the markers and generated parts (the
+   * Dart test's RNC5, real model): each document's findings with navigation
+   * equal its findings without.
+   */
+  private static void testRenditionSchemaTier() throws IOException {
+    Map<String, Object> table = readJsonObject("uam_requirements_cut.json");
+    SpecDocument rsp = stateDocument(table.get("rsp"));
+    SpecDocument sbp = stateDocument(table.get("blueprint"));
+    SpecDocument isc = new SpecDocument();
+    String item = isc.addListItem("ISC/interactionCatalog/INEN-INTE-LST", "INEN-INTE-UC-01");
+    isc.setFormField(item + "/INTR", "relatedRequirements", "FRE-REQU-TENANT-LIFECYCLE");
+    SpecModel model = realModel();
+    Object[][] docs = {
+      {rsp, "requirements-specification"},
+      {sbp, "solution-blueprint"},
+      {isc, "interaction-scenarios"},
+    };
+    for (Object[] dc : docs) {
+      SpecDocument doc = (SpecDocument) dc[0];
+      String schemaName = (String) dc[1];
+      String name = "links.rendition.schemaTier[" + schemaName + "]";
+      try {
+        Path file = corpus.resolve("../../tom_som_dart_v0/schemas/" + schemaName + "/"
+            + schemaName + ".1.0.docspecs-schema.yaml").normalize();
+        DocSpecsSchema schema = DocSpecsSchema.fromYamlText(
+            new String(Files.readAllBytes(file), StandardCharsets.UTF_8));
+        String md = renditionOf(model, doc, null, true, true);
+        List<String> with = schemaFindings(schema, md);
+        List<String> without = schemaFindings(schema, renditionOf(model, doc, null, false, false));
+        check(name + ".derived", md.contains("{.derived"), "");
+        check(name, with.equals(without), "got " + with + " want " + without);
+      } catch (IOException | RuntimeException ex) {
+        check(name, false, "threw " + ex);
+      }
+    }
+  }
+
+  private static List<String> schemaFindings(DocSpecsSchema schema, String md) {
+    List<String> out = new ArrayList<>();
+    for (DocSpecsViolation v : new DocSpecsValidator(schema, true).validateMarkdown(md)) {
+      out.add(v.rule + " " + v.sectionId);
+    }
+    java.util.Collections.sort(out);
+    return out;
+  }
+
   public static void main(String[] args) throws IOException {
     String corpusArg =
         args.length > 0 ? args[0] : "../tom_som_conformance/corpus";
@@ -4795,6 +5062,8 @@ public final class ConformanceRunner {
     testDocumentSet();
     testDeriveFields();
     testPrefillBackfill();
+    testLinkRendition();
+    testRenditionSchemaTier();
 
     int total = passed + failed.size();
     if (!failed.isEmpty()) {

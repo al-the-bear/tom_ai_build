@@ -63,6 +63,17 @@ import java.util.regex.Pattern;
  * heading under a value leaf, orphaned text — is collected into
  * {@link SpecMarkdownResult#rejections} rather than dropped (SOM §11.7).
  *
+ * <p>Navigation and generated parts (SOM §11.11, §11.12): a markable heading
+ * is followed by its {@code linked} marker ({@code Also in}, {@code Summary
+ * of}, {@code Summarised in}, {@code Derived from}, {@code Extracted from},
+ * {@code Copy of}, {@code Copied to}; {@link SpecDocumentMarkdownLinked}), a
+ * summary row's {@code Id} cell links the detail element it names, and the
+ * requirement views open their sections with a generated table in a
+ * {@code derived} block ({@link SpecDocumentMarkdownGenerated}). The options
+ * {@link #linkedMarkers} and {@link #generatedParts} turn them off; the parser
+ * removes both, and an empty value under a generated block is no missing
+ * value.
+ *
  * <p>Java conventions: where Go returns an error, {@link #exportRoot}
  * throws {@link IllegalStateException} (the unterminated-fence case); a null
  * anchor stands in for Go's empty string.
@@ -265,7 +276,7 @@ public final class SpecDocumentMarkdown {
   private static final Pattern REF_SEP = Pattern.compile("[,\\s]+");
 
   /** A heading's qualified anchor and the scope its descendants' anchors take. */
-  private static final class QualifiedAnchor {
+  static final class QualifiedAnchor {
     final String anchor;
     final List<String> scope;
 
@@ -275,7 +286,7 @@ public final class SpecDocumentMarkdown {
     }
   }
 
-  private enum AnchorRole { PLAIN, CONTAINER, ITEM, COPY }
+  enum AnchorRole { PLAIN, CONTAINER, ITEM, COPY }
 
   /**
    * The qualified anchor of a heading {@code id} (SOM §11.2) and the scope its
@@ -284,7 +295,7 @@ public final class SpecDocumentMarkdown {
    * by {@code /}; elsewhere it is the id itself. {@code section} is the id of
    * the nearest heading above that is no list container.
    */
-  private static QualifiedAnchor qualifyAnchor(
+  static QualifiedAnchor qualifyAnchor(
       List<String> scope, String section, String id, AnchorRole role) {
     List<String> withId = new ArrayList<>();
     if (scope != null) {
@@ -385,89 +396,6 @@ public final class SpecDocumentMarkdown {
     return out;
   }
 
-  /**
-   * One root's anchors (SOM §11.2): the anchor of the heading a path names,
-   * qualified below a list item and in a {@code @SameAs} copy.
-   */
-  private final class Navigation {
-    final SomMetaTree tree;
-    private final Map<String, String> anchors = new HashMap<>();
-
-    Navigation(SpecRoot root) {
-      this.tree = treeFor(root.type);
-    }
-
-    /** The heading id of the item at {@code itemPath} of {@code listNode}, as the emitter writes it. */
-    String itemId(SomMetaNode listNode, String itemPath) {
-      int slash = itemPath.lastIndexOf('/');
-      SpecPaths.ListItemSegment split =
-          SpecPaths.splitListItemSegment(itemPath.substring(slash + 1));
-      String listPath = itemPath.substring(0, slash + 1) + split.base;
-      int pos = document.listItems(listPath).indexOf(itemPath) + 1;
-      return SpecSectionId.effectiveListItemSectionId(
-          document.itemSectionId(itemPath),
-          itemPatternOf(listNode),
-          pos == 0 ? split.seq : pos,
-          memberStemOf(listNode));
-    }
-
-    /** The anchor of the heading {@code path} names in this document. */
-    String anchorOf(String path) {
-      String hit = anchors.get(path);
-      if (hit != null) {
-        return hit;
-      }
-      String[] segs = splitAll(path, "/");
-      SomMetaNode node = tree.root;
-      String cur = segs[0];
-      String anchor = node.segment();
-      List<String> scope = null;
-      String section = node.segment();
-      for (int i = 1; i < segs.length; i++) {
-        String seg = segs[i];
-        SomMetaNode child = node.childBySegment(seg);
-        if (child != null) {
-          cur = cur + "/" + seg;
-          node = child;
-          if (isTransparentSection(child) || isTransparentValue(child)) {
-            continue;
-          }
-          String id = headingIdOf(child);
-          boolean container = SomMetaKind.LIST.equals(child.kind);
-          AnchorRole role = container
-              ? AnchorRole.CONTAINER
-              : (isCopyNode(child) ? AnchorRole.COPY : AnchorRole.PLAIN);
-          QualifiedAnchor q = qualifyAnchor(scope, section, id, role);
-          anchor = q.anchor;
-          scope = q.scope;
-          if (!container) {
-            section = id;
-          }
-          continue;
-        }
-        SpecPaths.ListItemSegment split = SpecPaths.splitListItemSegment(seg);
-        SomMetaNode listNode = split == null ? null : node.childBySegment(split.base);
-        if (listNode == null || !SomMetaKind.LIST.equals(listNode.kind)) {
-          break;
-        }
-        String itemPath = cur + "/" + seg;
-        String id = itemId(listNode, itemPath);
-        QualifiedAnchor q = qualifyAnchor(scope, section, id, AnchorRole.ITEM);
-        anchor = q.anchor;
-        scope = q.scope;
-        section = id;
-        cur = itemPath;
-        SomMetaNode element = listNode.elementNode;
-        node = element != null ? element : listNode;
-        if (element == null && i < segs.length - 1) {
-          break;
-        }
-      }
-      anchors.put(path, anchor);
-      return anchor;
-    }
-  }
-
   private static final Pattern TRAILING_WS = Pattern.compile("\\s+$");
   private static final Pattern LEADING_NL = Pattern.compile("^\\n+");
   private static final Pattern TRAILING_NL = Pattern.compile("\\n+$");
@@ -506,8 +434,30 @@ public final class SpecDocumentMarkdown {
   private final Map<String, List<String>> sortedKeys = new HashMap<>();
   // The root the current export renders (the target of same-document links).
   private SpecRoot currentRoot;
-  // The anchors of the root the current export renders (SOM §11.2).
-  private Navigation nav;
+  /**
+   * Whether the {@code linked} marker is written after a markable heading
+   * (SOM §11.11); true by default. A stripped rendition dropping or unmarking
+   * {@code linked} turns it off; the parser removes the marker either way.
+   */
+  public final boolean linkedMarkers;
+  /**
+   * Whether the generated parts are written at their sections (SOM §11.12);
+   * true by default. A stripped rendition dropping or unmarking
+   * {@code derived} turns it off; the parser removes them either way, and an
+   * empty value under a generated block is no missing value.
+   */
+  public final boolean generatedParts;
+  // The navigation of the root the current export renders (SOM §11.2,
+  // §11.11).
+  private SpecDocumentMarkdownLinked nav;
+  // The generated parts of the root the current export renders (SOM §11.12);
+  // null without generatedParts.
+  private SpecDocumentMarkdownGenerated gen;
+  // The Blueprint's root and the model's anchor pairs (syncPairs), computed
+  // once from the model alone.
+  private boolean syncDone;
+  private String syncBlueprint;
+  private List<SpecSyncPair> syncPairs = new ArrayList<>();
   // The class names each root reaches, for reference links.
   private final Map<String, Set<String>> reach = new HashMap<>();
 
@@ -533,6 +483,19 @@ public final class SpecDocumentMarkdown {
    */
   public SpecDocumentMarkdown(SpecModel model, SpecDocument document, String fileStem,
       Map<String, String> documentFiles, boolean headingDivs, String readableHeader) {
+    this(model, document, fileStem, documentFiles, headingDivs, readableHeader, true, true);
+  }
+
+  /**
+   * {@link #SpecDocumentMarkdown(SpecModel, SpecDocument, String, Map, boolean,
+   * String)} with the navigation options: {@link #linkedMarkers} (SOM §11.11)
+   * and {@link #generatedParts} (SOM §11.12).
+   */
+  public SpecDocumentMarkdown(SpecModel model, SpecDocument document, String fileStem,
+      Map<String, String> documentFiles, boolean headingDivs, String readableHeader,
+      boolean linkedMarkers, boolean generatedParts) {
+    this.linkedMarkers = linkedMarkers;
+    this.generatedParts = generatedParts;
     this.model = model;
     this.document = document;
     this.fileStem = fileStem;
@@ -540,6 +503,43 @@ public final class SpecDocumentMarkdown {
         documentFiles == null ? new LinkedHashMap<>() : new LinkedHashMap<>(documentFiles);
     this.headingDivs = headingDivs;
     this.readableHeader = readableHeader;
+  }
+
+  /** Computes the Blueprint's root and the model's anchor pairs once. */
+  private void computeSyncPairs() {
+    if (syncDone) {
+      return;
+    }
+    syncDone = true;
+    try {
+      SpecDocumentSet set = new SpecDocumentSet(model);
+      syncBlueprint = set.blueprintRoot;
+      syncPairs = set.pairs();
+    } catch (RuntimeException e) {
+      // The model's synced positions cannot be paired: no pairs.
+      syncBlueprint = null;
+      syncPairs = new ArrayList<>();
+    }
+  }
+
+  /** The Blueprint's root type, from the model alone; null when none. */
+  String syncBlueprint() {
+    computeSyncPairs();
+    return syncBlueprint;
+  }
+
+  /** The model's anchor pairs (SOM §11.11 {@code Also in}), from the model alone. */
+  List<SpecSyncPair> syncPairList() {
+    computeSyncPairs();
+    return syncPairs;
+  }
+
+  /**
+   * Whether a generated part stands at or beneath {@code path} of the current
+   * export, which writes its heading even without a value.
+   */
+  private boolean forced(String path) {
+    return gen != null && gen.forces(path);
   }
 
   private List<String> sorted(String kind, Set<String> keys) {
@@ -553,7 +553,7 @@ public final class SpecDocumentMarkdown {
   }
 
   /** The {@code @SectionIdPattern} the items of list {@code node} take their ids from, or {@code null}. */
-  private static String itemPatternOf(SomMetaNode node) {
+  static String itemPatternOf(SomMetaNode node) {
     String pattern = node.sectionIdPattern;
     if ((pattern == null || pattern.isEmpty()) && node.elementNode != null) {
       pattern = node.elementNode.sectionIdPattern;
@@ -562,12 +562,12 @@ public final class SpecDocumentMarkdown {
   }
 
   /** The stem of the positional ids of a pattern-less list: its member name, else its segment. */
-  private static String memberStemOf(SomMetaNode node) {
+  static String memberStemOf(SomMetaNode node) {
     String member = node.memberName;
     return member == null || member.isEmpty() ? node.segment() : member;
   }
 
-  private SomMetaTree treeFor(String rootType) {
+  SomMetaTree treeFor(String rootType) {
     SomMetaTree tree = trees.get(rootType);
     if (tree == null) {
       tree = SomMetaBridge.buildSomMetaTree(model, rootType);
@@ -654,7 +654,7 @@ public final class SpecDocumentMarkdown {
    * {@code @SectionId} (the id the generated schema types are keyed by); else the
    * path segment (the member name).
    */
-  private String headingIdOf(SomMetaNode node) {
+  String headingIdOf(SomMetaNode node) {
     if (node.sectionId != null && !node.sectionId.isEmpty()) {
       return node.sectionId;
     }
@@ -693,7 +693,7 @@ public final class SpecDocumentMarkdown {
   // binds to the nearest form in slot order.
 
   /** A body slot / effective child: the node plus its relative path. */
-  private static final class NodeRel {
+  static final class NodeRel {
     final SomMetaNode node;
     final String rel;
 
@@ -708,7 +708,7 @@ public final class SpecDocumentMarkdown {
    * class-level {@code @SectionId}: heading-less, its children hoist to the
    * owner.
    */
-  private boolean isTransparentSection(SomMetaNode n) {
+  boolean isTransparentSection(SomMetaNode n) {
     if (!SomMetaKind.SECTION.equals(n.kind) && !SomMetaKind.COMPLEX.equals(n.kind)) {
       return false;
     }
@@ -725,7 +725,7 @@ public final class SpecDocumentMarkdown {
    * {@code @SectionId}: emitted into the owner's body region instead of under
    * an own heading.
    */
-  private static boolean isTransparentValue(SomMetaNode n) {
+  static boolean isTransparentValue(SomMetaNode n) {
     return (n.sectionId == null || n.sectionId.isEmpty())
         && (SomMetaKind.CONTENT.equals(n.kind)
             || SomMetaKind.SCALAR.equals(n.kind)
@@ -739,7 +739,7 @@ public final class SpecDocumentMarkdown {
    * collected depth-first through transparent sections. These are the value
    * positions that share the owner's heading body.
    */
-  private List<NodeRel> bodySlots(SomMetaNode node) {
+  List<NodeRel> bodySlots(SomMetaNode node) {
     List<NodeRel> out = new ArrayList<>();
     collectBodySlots(node, "", out);
     return out;
@@ -767,7 +767,7 @@ public final class SpecDocumentMarkdown {
    * this position. Each entry carries the relative path from {@code node}
    * (which runs through the transparent segments).
    */
-  private List<NodeRel> effectiveChildren(SomMetaNode node) {
+  List<NodeRel> effectiveChildren(SomMetaNode node) {
     List<NodeRel> out = new ArrayList<>();
     collectEffectiveChildren(node, "", out);
     return out;
@@ -841,9 +841,10 @@ public final class SpecDocumentMarkdown {
 
   private String exportRootText(SpecRoot root) {
     currentRoot = root;
-    nav = new Navigation(root);
-    sortedKeys.clear();
     SomMetaTree tree = treeFor(root.type);
+    nav = new SpecDocumentMarkdownLinked(this, root, tree);
+    gen = generatedParts ? new SpecDocumentMarkdownGenerated(nav) : null;
+    sortedKeys.clear();
     SomMetaNode node = tree.root;
     StringBuilder b = new StringBuilder();
     writeln(b, "<!-- docspec: " + kebabCase(root.title) + "/"
@@ -861,11 +862,16 @@ public final class SpecDocumentMarkdown {
     if (rootTitle == null || rootTitle.isEmpty()) {
       rootTitle = root.title;
     }
-    writeHeading(b, 1, rootSeg, rootTitle, rootSeg, document.codeSpec(rootSeg));
-    writeSectionBody(b, node, rootSeg);
-    writeChildren(b, node, rootSeg, 2);
-    nav = null;
-    return b.toString();
+    try {
+      writeHeading(b, 1, rootSeg, rootTitle, rootSeg, document.codeSpec(rootSeg), false);
+      writeSectionBody(b, node, rootSeg);
+      writeChildren(b, node, rootSeg, 2);
+    } finally {
+      nav = null;
+      gen = null;
+    }
+    return SpecDocumentMarkdownLinked.resolveLinkedPlaceholders(
+        SpecDocumentMarkdownGenerated.resolveDerivedPlaceholders(b.toString()));
   }
 
   /**
@@ -979,7 +985,7 @@ public final class SpecDocumentMarkdown {
    * Whether {@code n} is a {@code @SameAs} copy (SOM §11.2): its anchor and
    * its descendants' are qualified with the section above it.
    */
-  private boolean isCopyNode(SomMetaNode n) {
+  boolean isCopyNode(SomMetaNode n) {
     SomMetaNode parent = n.wiredParent;
     if (n.memberName == null || n.memberName.isEmpty() || parent == null) {
       return false;
@@ -1038,30 +1044,30 @@ public final class SpecDocumentMarkdown {
     for (NodeRel entry : effectiveChildren(node)) {
       SomMetaNode child = entry.node;
       String path = basePath + "/" + entry.rel;
-      if (!document.hasValuesUnder(path)) {
+      if (!document.hasValuesUnder(path) && !forced(path)) {
         continue;
       }
       if (SomMetaKind.CONTENT.equals(child.kind)
           || SomMetaKind.SCALAR.equals(child.kind)
           || SomMetaKind.ENUM_VALUE.equals(child.kind)) {
         String value = document.content(path);
-        if (value == null) {
+        if (value == null && !forced(path)) {
           continue;
         }
         writeHeading(b, depth, headingIdOf(child), headingTitle(path, child), path,
-            document.codeSpec(path));
-        writeBody(b, value, path);
+            document.codeSpec(path), false);
+        writeBody(b, value == null ? "" : value, path);
       } else if (SomMetaKind.FORM.equals(child.kind)) {
         if (!formHasValues(child, path)) {
           continue;
         }
         writeHeading(b, depth, headingIdOf(child), headingTitle(path, child), path,
-            document.codeSpec(path));
+            document.codeSpec(path), false);
         writeForm(b, child, path);
       } else if (SomMetaKind.SECTION.equals(child.kind)
           || SomMetaKind.COMPLEX.equals(child.kind)) {
         writeHeading(b, depth, headingIdOf(child), headingTitle(path, child), path,
-            document.codeSpec(path));
+            document.codeSpec(path), writeSectionTable(new StringBuilder(), child, path));
         writeSectionBody(b, child, path);
         if (!writeSectionTable(b, child, path)) {
           writeChildren(b, child, path, depth + 1);
@@ -1081,14 +1087,14 @@ public final class SpecDocumentMarkdown {
    */
   private void writeListItems(StringBuilder b, SomMetaNode node, String listPath, int depth) {
     List<String> items = document.listItems(listPath);
-    if (items.isEmpty()) {
+    if (items.isEmpty() && !forced(listPath)) {
       return;
     }
     // The container heading: its id is the list's `-LST` `@SectionId` (else the
     // member segment for a pattern-less list); its title is the member name —
     // unless a stored headline overrides it (YRD3).
     writeHeading(b, depth, headingIdOf(node), headingTitle(listPath, node),
-        listPath, document.codeSpec(listPath));
+        listPath, document.codeSpec(listPath), false);
     // Item heading stem. Complex lists derive it from the element class name
     // (SOM §11.5, `Entry` dropped). A scalar list (shape 6) has no element class
     // — its element typeName is literally `String`, which would render
@@ -1120,7 +1126,9 @@ public final class SpecDocumentMarkdown {
         itemTitle = stem + " " + pos;
       }
       writeHeading(b, depth + 1, itemId, itemTitle, itemPath,
-          document.codeSpec(itemPath));
+          document.codeSpec(itemPath),
+          element != null && !element.recursive
+              && writeSectionTable(new StringBuilder(), element, itemPath));
       if (element == null) {
         // Scalar list: the item's value is its body.
         String value = document.content(itemPath);
@@ -1333,7 +1341,12 @@ public final class SpecDocumentMarkdown {
       String id = SpecSectionId.effectiveListItemSectionId(
           doc.itemSectionId(itemPath), pattern, i + 1, memberStemOf(node));
       List<String> cells = new ArrayList<>();
-      cells.add("<a id=\"" + anchorFor(itemPath, id) + "\"></a>" + id);
+      // A summary naming its detail element by its own id links it from the
+      // Id cell (SOM §11.5, §11.11).
+      String linked = nav == null
+          ? null
+          : nav.summaryIdCell(itemPath, itemPath.substring(0, itemPath.lastIndexOf('-')), id);
+      cells.add(linked != null ? linked : "<a id=\"" + anchorFor(itemPath, id) + "\"></a>" + id);
       if (withTitle) {
         String title = doc.headline(itemPath);
         cells.add((title == null ? "" : title).replace("\n", "<br>").replace("|", "\\|"));
@@ -1434,7 +1447,7 @@ public final class SpecDocumentMarkdown {
    * {@code value} as a table cell, every reference id of a {@code refersTo}
    * field written as a link to its section.
    */
-  private String linkedCellText(SomFormFieldMeta f, String value) {
+  String linkedCellText(SomFormFieldMeta f, String value) {
     if (f.refersTo.isEmpty() || f.code) {
       return cellText(f, value);
     }
@@ -1552,7 +1565,7 @@ public final class SpecDocumentMarkdown {
    * The rendition file of {@code root}: {@code <fileStem>.<root id>.tomspecs.md},
    * or the name {@link #documentFiles} gives it.
    */
-  private String fileOfRoot(SpecRoot root) {
+  String fileOfRoot(SpecRoot root) {
     String id = root.sectionId != null ? root.sectionId : root.type;
     String mapped = documentFiles.get(id);
     if (mapped == null) {
@@ -1776,10 +1789,14 @@ public final class SpecDocumentMarkdown {
    * their structure; the parse grammar accepts {@code #{7,}} accordingly.
    * Capping would silently flatten distinct nesting positions into siblings
    * and break schema validation.
+   *
+   * <p>The {@code linked} marker follows the heading (SOM §11.11), then a
+   * generated table opening its section (SOM §11.12). {@code sectionTable}:
+   * the heading's children are written as a section table.
    */
   private void writeHeading(
       StringBuilder b, int depth, String id, String title, String path,
-      String codeSpec) {
+      String codeSpec, boolean sectionTable) {
     headingPaths.add(path);
     // codespecs_mapping.md §9.2: emit ` codeSpec="…"` inside the same comment
     // when a mapping is stored; byte-identical to the plain form when
@@ -1806,11 +1823,51 @@ public final class SpecDocumentMarkdown {
       writeln(b, "<div class=\"heading" + depth + "\" style=\"" + HEADING_DIV_STYLE_START
           + headingDivIndent(depth) + "em;font-weight:bold\"><!--[" + id + "]" + cs
           + "--> <a id=\"" + anchor + "\"></a> " + escaped + "</div>");
-      writeln(b, "");
+    } else {
+      writeln(b, "#".repeat(depth) + " <!--[" + id + "]" + cs + "--> <a id=\""
+          + anchor + "\"></a> " + title.replace("\n", "<br>"));
+    }
+    writeln(b, "");
+    writeLinkedMarker(b, path, sectionTable);
+    writeGeneratedPart(b, path);
+  }
+
+  /**
+   * Writes the {@code linked} marker of the heading at {@code path} (SOM
+   * §11.11): its entries, else the placeholder at a markable place without
+   * one; nothing without {@link #linkedMarkers}.
+   */
+  private void writeLinkedMarker(StringBuilder b, String path, boolean sectionTable) {
+    if (nav == null || !linkedMarkers) {
       return;
     }
-    writeln(b, "#".repeat(depth) + " <!--[" + id + "]" + cs + "--> <a id=\""
-        + anchor + "\"></a> " + title.replace("\n", "<br>"));
+    List<String> entries = nav.entries(path, sectionTable);
+    if (!entries.isEmpty()) {
+      writeln(b, "[" + String.join("; ", entries) + "]{.linked}");
+      writeln(b, "");
+    } else if (nav.markable(path)) {
+      writeln(b, SpecDocumentMarkdownLinked.LINKED_PLACEHOLDER);
+      writeln(b, "");
+    }
+  }
+
+  /**
+   * Writes the generated part of the heading at {@code path} (SOM §11.12):
+   * its {@code derived} block, else the placeholder at a generated place
+   * without rows; nothing without {@link #generatedParts}.
+   */
+  private void writeGeneratedPart(StringBuilder b, String path) {
+    if (gen == null || !gen.isPlace(path)) {
+      return;
+    }
+    List<String> block = gen.blocks().get(path);
+    if (block != null) {
+      for (String line : block) {
+        writeln(b, line);
+      }
+    } else {
+      writeln(b, SpecDocumentMarkdownGenerated.DERIVED_PLACEHOLDER);
+    }
     writeln(b, "");
   }
 
@@ -2022,6 +2079,9 @@ public final class SpecDocumentMarkdown {
     // (SOM §11.2, qualifyAnchor).
     List<String> anchorScope;
     String anchorSection;
+    // Whether its body opened with a generated block (SOM §11.12): the
+    // heading stands for the block, so an empty value is no rejection.
+    boolean generated;
 
     MdFrame(int level, SomMetaNode node, String path, int line, boolean ignored) {
       this.level = level;
@@ -2263,6 +2323,8 @@ public final class SpecDocumentMarkdown {
     List<KeptBlock> pending = new ArrayList<>();
     // Text before the root heading, kept at the start of the root's text.
     final List<KeptBlock> orphans = new ArrayList<>();
+    // The navigation of each root parsed, for its markable places.
+    final Map<String, SpecDocumentMarkdownLinked> navs = new HashMap<>();
 
     MdParser(SpecDocumentMarkdown codec) {
       this.codec = codec;
@@ -2764,11 +2826,108 @@ public final class SpecDocumentMarkdown {
 
     // --- Body finalisation ----------------------------------------------------
 
+    /**
+     * The navigation of the root {@code frame} lies in, for its markable
+     * places; one per root parsed. {@code null} when the root is unknown.
+     */
+    private SpecDocumentMarkdownLinked navFor(MdFrame frame) {
+      if (frame.path == null) {
+        return null;
+      }
+      int slash = frame.path.indexOf('/');
+      String seg = slash < 0 ? frame.path : frame.path.substring(0, slash);
+      SpecRoot root = null;
+      for (SpecRoot r : codec.model.roots) {
+        String id = r.sectionId == null || r.sectionId.isEmpty() ? r.type : r.sectionId;
+        if (id.equals(seg)) {
+          root = r;
+          break;
+        }
+      }
+      if (root == null) {
+        return null;
+      }
+      SpecDocumentMarkdownLinked nav = navs.get(root.type);
+      if (nav == null) {
+        nav = new SpecDocumentMarkdownLinked(codec, root, codec.treeFor(root.type));
+        navs.put(root.type, nav);
+      }
+      return nav;
+    }
+
+    private static boolean blankLine(String line) {
+      return trimWs(line).isEmpty();
+    }
+
+    /**
+     * Removes the {@code linked} marker (SOM §11.11): the first paragraph of
+     * the body of a markable heading when it is one {@code linked} span. Its
+     * lines are blanked, not removed, so the body indices kept blocks refer
+     * to hold.
+     */
+    private void stripLinkedMarker(MdFrame frame) {
+      SpecDocumentMarkdownLinked nav = navFor(frame);
+      if (nav == null || !nav.markable(frame.path)) {
+        return;
+      }
+      List<String> body = frame.body;
+      int k = 0;
+      while (k < body.size() && blankLine(body.get(k))) {
+        k++;
+      }
+      int end = k;
+      while (end < body.size() && !blankLine(body.get(end))) {
+        end++;
+      }
+      if (end == k
+          || !SpecDocumentMarkdownLinked.isLinkedParagraph(String.join("\n", body.subList(k, end)))) {
+        return;
+      }
+      for (int i = k; i < end; i++) {
+        body.set(i, "");
+      }
+    }
+
+    /**
+     * Removes a generated part (SOM §11.12): the first block of a generated
+     * place's body, after its marker, when it is a {@code derived} block. Its
+     * lines are blanked, as the marker's are.
+     */
+    private void stripGenerated(MdFrame frame) {
+      SpecDocumentMarkdownLinked nav = navFor(frame);
+      if (nav == null || !new SpecDocumentMarkdownGenerated(nav).isPlace(frame.path)) {
+        return;
+      }
+      List<String> body = frame.body;
+      int k = 0;
+      while (k < body.size() && blankLine(body.get(k))) {
+        k++;
+      }
+      if (k >= body.size() || !SpecDocumentMarkdownGenerated.opensDerived(body.get(k))) {
+        return;
+      }
+      Pattern close = SpecDocumentMarkdownGenerated.derivedFenceClose(body.get(k));
+      int end = k + 1;
+      while (end < body.size() && !close.matcher(body.get(end)).find()) {
+        end++;
+      }
+      if (end >= body.size()) {
+        return; // unclosed: the value's, reported there
+      }
+      for (int i = k; i <= end; i++) {
+        body.set(i, "");
+      }
+      frame.generated = true;
+    }
+
     void finalizeFrame(MdFrame frame) {
       if (frame.ignored) {
         keepIgnored(frame);
         return;
       }
+      // A scalar list item's frame has no node; it is markable all the same.
+      stripLinkedMarker(frame);
+      stripGenerated(frame);
       SomMetaNode node = frame.node;
       if (node != null && SomMetaKind.FORM.equals(node.kind)) {
         finalizeForm(frame, node, frame.path);
@@ -2817,7 +2976,7 @@ public final class SpecDocumentMarkdown {
         }
         if (!value.isEmpty()) {
           content.put(frame.path, value);
-        } else if (node != null && isValueLeaf(node.kind)) {
+        } else if (node != null && isValueLeaf(node.kind) && !frame.generated) {
           rejections.add(new SpecMarkdownRejection(
               frame.line,
               SpecMarkdownRejectReason.MISSING_VALUE,
