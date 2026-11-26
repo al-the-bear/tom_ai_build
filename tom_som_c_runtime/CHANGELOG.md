@@ -2,6 +2,40 @@
 
 ## Unreleased
 
+- **Section automation, second part** (`tom_specs_model_rules.md` §9.7): the
+  document set (`spec_document_set.h` / `.c`): `SpecDocumentSet` built from
+  documents (`spec_document_set_new`), from fragments assembled per root
+  (`spec_document_set_from_fragments`) or from YAML and SOM Markdown files
+  (`spec_document_set_load`), refused as `SpecDocumentSetError` (`sameRoot`,
+  `noRoot`, `twoRoots`, `projection`, `overlap`, `unpairable`); its
+  `blueprint_root`, the anchor pairs (`SpecSyncPair`), the accessors (by type
+  name or section id) and `spec_document_set_put`. `spec_sync_report`
+  compares every pair element by element and value by value, checks the
+  summaries and inverses across two documents and lists pending and
+  unmarkable values (`SpecSyncReport` with `SpecSyncFinding`,
+  `SpecSyncPlace`, `SpecSyncCode`, `SpecSyncResolution`, `SpecSyncHolder`,
+  the counts by code and by resolution, `documentFindings`, `notStarted`,
+  `notStartedPairs`); `spec_rename_id` renames an id in every document at
+  once (`SpecRenameChange`, `SpecRenameError`). `spec_derive_fields`
+  (`spec_derive_fields.h` / `.c`) applies the link fixes in their recorded
+  write order in three steps, plain or as marks, in place or as a dry run
+  (`SpecDeriveResult`, `SpecDeriveChange`; the checker reads the document as
+  it is written, as in the reference). `spec_backfill` (`spec_backfill.h` /
+  `.c`) carries the accepted Phase 3 end state into the Blueprint with a
+  revision entry (`SpecBackfillResult`, `SpecBackfillChange`,
+  `SpecBackfillLeft`, `SpecBackfillError`: `setHasMarks`, `noBlueprint`;
+  `spec_backfill_bump`); `spec_prefill` (`spec_prefill.h` / `.c`) starts a
+  Phase 3 document from the Blueprint (`SpecPrefillResult`,
+  `SpecPrefillError`: `noBlueprint`, `unknownRoot`).
+  `spec_link_validator_subtree` reads a `@SameAs` copy's values. The
+  conformance runner replays `document_set_cases.json` (with DSC4: the real
+  model gives 132 pairs, `D00SolutionBlueprint` the Blueprint root),
+  `derive_cases.json`, `prefill_cases.json` and `backfill_cases.json`
+  (`tests/conformance_document_set.h`; 4277 → 4513 checks);
+  `tests/spec_document_set_test.c`, `tests/spec_derive_fields_test.c` and
+  `tests/spec_prefill_backfill_test.c` hold the accessors, refusals, typed
+  results, loading files, the dry runs and the revision entry.
+
 - **Section automation, first part** (`tom_specs_model_rules.md` §9.7): the
   typed link readers (`spec_model_links.h` / `.c`: `SpecSync` with its
   `SpecListRelation`s, `SpecSummaryOf`, `SpecDerivation`, `SpecInverseOf`,

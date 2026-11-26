@@ -158,5 +158,13 @@ char *spec_link_validator_place_value(SpecLinkValidator *v, const char *place,
                                       const char *anchor);
 /* Whether anything beneath `path` holds a value (marks included). */
 int spec_link_validator_holds_value(SpecLinkValidator *v, const char *path);
+/* Every value beneath the subtree root `root`, keyed by its path below the
+ * root with list items written by their section id (`c:` content, `f:<path>#
+ * <field>` form field, `h:` headline, `i:` list item -> its id): the value in
+ * `values`, its document path in `paths` (both initialised by the callee,
+ * sorted by key; empty values left out). What `deriveFields` writes a
+ * `@SameAs` copy from. */
+void spec_link_validator_subtree(SpecLinkValidator *v, const char *root,
+                                 SomMap *values, SomMap *paths);
 
 #endif /* SPEC_LINKS_VALIDATOR_H */

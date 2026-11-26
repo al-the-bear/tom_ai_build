@@ -394,7 +394,7 @@ exceptions:
       one per runtime. `link_validation_cases.json` is the corpus they will run.
 
   - token: blueprintRoot
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -403,7 +403,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: countsByCode
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -412,7 +412,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: countsByResolution
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -421,7 +421,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: crossInverseMissing
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -430,7 +430,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: crossSummaryMismatch
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -439,7 +439,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: detailRoot
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -448,7 +448,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: documentFindings
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -457,7 +457,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: missingRoots
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -466,7 +466,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: noRoot
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -475,7 +475,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: notStarted
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -484,7 +484,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: pendingMarks
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -493,7 +493,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: pendingReview
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -502,7 +502,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: renameId
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -511,7 +511,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: sameRoot
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -520,7 +520,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: sharedElementMayBeAdded
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -529,7 +529,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: sharedElementMissing
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -538,7 +538,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: sharedElementOnlyInBlueprint
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -547,7 +547,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: sharedValueDiffers
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -556,7 +556,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: sharedValueMissing
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -565,7 +565,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: sharedValueOnlyInBlueprint
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -574,7 +574,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: syncReport
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -583,7 +583,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: twoRoots
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. The document set (`SpecDocumentSet`, `syncReport`, `renameId`;
       `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart
@@ -592,7 +592,7 @@ exceptions:
       one per runtime. `document_set_cases.json` is the corpus they will run.
 
   - token: deriveFields
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. `deriveFields` (the derived places of one document written,
       plain or as marks; `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart by decision (idea section_automation,
@@ -601,7 +601,7 @@ exceptions:
       runtime. `derive_cases.json` is the corpus they will run.
 
   - token: dryRun
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. `deriveFields` (the derived places of one document written,
       plain or as marks; `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart by decision (idea section_automation,
@@ -610,7 +610,7 @@ exceptions:
       runtime. `derive_cases.json` is the corpus they will run.
 
   - token: rowAdded
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. `deriveFields` (the derived places of one document written,
       plain or as marks; `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart by decision (idea section_automation,
@@ -619,7 +619,7 @@ exceptions:
       runtime. `derive_cases.json` is the corpus they will run.
 
   - token: rowRemoved
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. `deriveFields` (the derived places of one document written,
       plain or as marks; `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart by decision (idea section_automation,
@@ -628,7 +628,7 @@ exceptions:
       runtime. `derive_cases.json` is the corpus they will run.
 
   - token: elementAdded
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. `backfill` (the Phase 3 documents' accepted end state carried
       into the Blueprint; `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart by decision (idea section_automation,
@@ -637,7 +637,7 @@ exceptions:
       runtime. `backfill_cases.json` is the corpus they will run.
 
   - token: elementRemoved
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. `backfill` (the Phase 3 documents' accepted end state carried
       into the Blueprint; `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart by decision (idea section_automation,
@@ -646,7 +646,7 @@ exceptions:
       runtime. `backfill_cases.json` is the corpus they will run.
 
   - token: mayBeAdded
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. `backfill` (the Phase 3 documents' accepted end state carried
       into the Blueprint; `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart by decision (idea section_automation,
@@ -655,7 +655,7 @@ exceptions:
       runtime. `backfill_cases.json` is the corpus they will run.
 
   - token: setHasMarks
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. `backfill` (the Phase 3 documents' accepted end state carried
       into the Blueprint; `tom_specs_model_rules.md` §9.7) is in the Dart, TypeScript, JavaScript, Python, Go, Java and Rust runtimes, built first in Dart by decision (idea section_automation,
@@ -664,7 +664,7 @@ exceptions:
       runtime. `backfill_cases.json` is the corpus they will run.
 
   - token: filledPairs
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. `prefill` (a Phase 3 document started from the Blueprint) and
       the document set's not-started pairs (`tom_specs_model_rules.md` §9.7)
@@ -675,7 +675,7 @@ exceptions:
       corpus they will run.
 
   - token: noBlueprint
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. `prefill` (a Phase 3 document started from the Blueprint) and
       the document set's not-started pairs (`tom_specs_model_rules.md` §9.7)
@@ -686,7 +686,7 @@ exceptions:
       corpus they will run.
 
   - token: notStartedPairs
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. `prefill` (a Phase 3 document started from the Blueprint) and
       the document set's not-started pairs (`tom_specs_model_rules.md` §9.7)
@@ -697,7 +697,7 @@ exceptions:
       corpus they will run.
 
   - token: skippedPairs
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. `prefill` (a Phase 3 document started from the Blueprint) and
       the document set's not-started pairs (`tom_specs_model_rules.md` §9.7)
@@ -708,7 +708,7 @@ exceptions:
       corpus they will run.
 
   - token: unknownRoot
-    planes: [c, cpp]
+    planes: [cpp]
     reason: >-
       KNOWN GAP. `prefill` (a Phase 3 document started from the Blueprint) and
       the document set's not-started pairs (`tom_specs_model_rules.md` §9.7)

@@ -58,6 +58,8 @@ anything that computes the path rather than knowing it.
 | `SpecReflection` | Resolves and enumerates paths against the model **without reading values** |
 | `SpecValidator` / `validateDocument` | The instance tier: a filled document's values checked against the model; a typed value or reference holding inline marks is read as its old value (SOM §11.9.3) |
 | `spec_validate_links` | The link checks of one document (`tom_specs_model_rules.md` §9.7): derived values against their sources, summaries against their detail lists, each end of a link against the other, ids named in a text against the link rows, `@SameAs` copies against their holders |
+| `SpecDocumentSet`, `spec_sync_report` | A project's documents read side by side, one per root: the places a Phase 3 document shares with the Blueprint compared pair by pair, the summaries and inverses across two documents checked; `spec_rename_id` renames an id in every document at once |
+| `spec_derive_fields`, `spec_prefill`, `spec_backfill` | The writes of section automation: a document's derived places, a Phase 3 document started from the Blueprint, the accepted Phase 3 end state carried back into it |
 | `SpecPlace`, `SpecPlaceFilter` | The place and filter grammar the link annotations are written in, resolved under an anchor without reading a value; the typed link readers (`spec_annotations_synced_with`, `_summary_of`, `_derived_from`, `_extracts_links`, `_same_as`, the form-field `derived_from` / `inverse_of` / `summary_of`) read a class's or a field's annotations |
 | the YAML and Markdown codecs | `*.tomspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages; the emitter writes the reading view's tables (SOM §11.4, §11.5) and the parser reads them and the older `Field:` lines; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7) |
 | `spec_strip_notation_text` | The strip of one value (SOM §11.10): secondary prose and review annotations dropped, unmarked or moved to an appendix, with the pieces that restore the original |
@@ -168,6 +170,35 @@ for (size_t i = 0; i < links.len; i++) {
          links.items[i].message);
 }
 spec_validation_errors_free(&links);
+```
+
+Across documents, a `SpecDocumentSet` holds one copy of each and compares
+them without assembling them; `spec_derive_fields` writes what the link checks
+found missing.
+
+```c
+SpecNamedDocument docs[2] = {{"blueprint.tomspecs.yaml", &bp},
+                             {"requirements.tomspecs.yaml", &req}};
+SpecDocumentSet set;
+SpecDocumentSetError serr;
+spec_document_set_error_init(&serr);
+if (spec_document_set_new(model, docs, 2, &set, &serr)) {
+  SpecSyncReport report;
+  spec_sync_report(&set, NULL, &report); /* NULL: every pair */
+  for (size_t i = 0; i < report.findings_len; i++) {
+    printf("%s %s\n", spec_sync_code_name(report.findings[i].code),
+           report.findings[i].message);
+  }
+  spec_sync_report_free(&report);
+  spec_document_set_free(&set);
+}
+spec_document_set_error_free(&serr);
+
+SpecDeriveOptions options = {0}; /* plain values, in place */
+SpecDeriveResult derived;
+spec_derive_fields(model, &doc, &options, &derived);
+printf("%zu places written\n", derived.changes_len);
+spec_derive_result_free(&derived);
 ```
 
 ## When to prefer the generic path

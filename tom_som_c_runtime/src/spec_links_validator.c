@@ -2198,6 +2198,14 @@ static void subtree_of(SpecLinkValidator *v, const char *root, Subtree *out) {
   som_strlist_free(&paths);
 }
 
+void spec_link_validator_subtree(SpecLinkValidator *v, const char *root,
+                                 SomMap *values, SomMap *paths) {
+  Subtree t;
+  subtree_of(v, root, &t);
+  *values = t.values;
+  *paths = t.paths;
+}
+
 /* Reports every difference of the copy from the holder; whether there is
  * one. */
 static int compare_subtrees(SpecLinkValidator *v, const char *copy_path,

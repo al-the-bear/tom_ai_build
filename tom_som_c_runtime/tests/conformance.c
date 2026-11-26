@@ -35,7 +35,10 @@
  *     conflict blocks, `open:`, and their findings;
  *   - merging reviewed copies (SOM §11.9.9), SOM documents and Markdown;
  *   - extracting a review round's answers for a step folder (SOM §11.9.7);
- *   - the impact walk of the change mode (`impact_walk_cases.json`).
+ *   - the impact walk of the change mode (`impact_walk_cases.json`);
+ *   - the document set, its report and the global rename, `deriveFields`,
+ *     `prefill` and `backfill` (`document_set_cases.json`,
+ *     `derive_cases.json`, `prefill_cases.json`, `backfill_cases.json`).
  *
  * The corpus directory is argv[1], defaulting to
  * "../tom_som_conformance/corpus" relative to the runner's cwd. Exit 0 == all
@@ -4634,6 +4637,7 @@ static SpecQuestionDraft draft_from_json(const SomJson *j,
 }
 
 #include "conformance_links.h"
+#include "conformance_document_set.h"
 
 /* Runs one op; returns its result as JSON text (owned) — `{"error":true}`
  * when it raised the annotation error. For `strip` writes the stripped
@@ -6667,6 +6671,10 @@ int main(int argc, char **argv) {
   test_typed_values(&c);
   test_link_readers(&c);
   test_link_validation(&c);
+  test_document_set(&c);
+  test_derive_fields(&c);
+  test_prefill_backfill(&c);
+  ds_release_real_model();
 
   int rc = checker_finish(&c);
   som_meta_tree_free(tree);

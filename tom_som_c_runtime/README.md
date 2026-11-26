@@ -76,6 +76,10 @@ pkg-config / vendored-tarball / in-tree-monorepo routes and how to pin.
 | `spec_model_links.c` | The typed link readers (`tom_specs_model_rules.md` §9.7): `SpecSync` (`SpecListRelation`), `SpecSummaryOf`, `SpecDerivation`, `SpecInverseOf`, `SpecExtractsLinks`, `SpecSameAs`, read through `spec_annotations_synced_with`, `_summary_of`, `_derived_from`, `_extracts_links`, `_same_as` over a class's or a field's annotations and the form-field qualifiers `derived_from` / `inverse_of` / `summary_of`; a string → string argument keeps the meta's order (`SpecStringPairs`). |
 | `spec_place.c` | The place and filter grammar of the link vocabulary: `SpecPlace` and `SpecPlaceFilter` (`\|` alternatives) resolved under an anchor without reading a value (`SpecPlaceResolution`, `SpecPlaceError` with its `SPEC_PLACE_PROBLEM_*`), `spec_same_as_bindings`, `spec_section_positions`. |
 | `spec_links_validator.c` | `spec_validate_links` — the link checks of one document: derived values against their sources, summaries against their detail lists, each end of a link against the other, ids named in a text against the link rows, `@SameAs` copies against their holders, pending changes read with every mark rejected; `SpecLinkValidator` collects beside each finding the fix `deriveFields` writes (`SpecLinkFix`, an `addRow`'s values and a derived list's tuple places in their write order). |
+| `spec_document_set.c`, `spec_document_set_check.c` | The document set (`tom_specs_model_rules.md` §9.7): a project's documents read side by side, one per root (`SpecDocumentSet`, from documents, fragments or files; its anchor pairs `SpecSyncPair`); `spec_sync_report` — the shared places of each pair compared element by element and value by value, the summaries and inverses across two documents checked, pending and unmarkable values listed (`SpecSyncReport`, `SpecSyncFinding`); `spec_rename_id` — an id renamed in every document at once. |
+| `spec_derive_fields.c` | `spec_derive_fields` — the derived places of one document written in three steps from the link fixes `SpecLinkValidator` collects, in their write order: plain or as inline marks under review, in place or as a dry run. |
+| `spec_backfill.c` | `spec_backfill` — the accepted Phase 3 end state carried into the Blueprint as plain values, with a revision entry; what it leaves is listed with the reason. |
+| `spec_prefill.c` | `spec_prefill` — a Phase 3 document started from the Blueprint: the pairs that hold nothing yet filled once, then derived. |
 | `spec_reflection.c` | Value-free enumeration + path resolution (`SpecReflection`, `SpecResolution`, node-kind constants). |
 | `spec_document.c` | A sparse in-memory document — values keyed by section path. |
 | `spec_document_assembly.c` | Assembling one document from fragments written in parallel (`spec_document_assemble`) — a refusing merge of the plain-data stores: any place two fragments both write is a `SpecAssemblyOverlap`, and an assembly with an overlap yields no document. |
@@ -211,7 +215,11 @@ The section-automation tables of this port so far run in
 `tests/conformance_links.h` (included by the harness): the link readers and the
 place / filter grammar (`link_reader_cases.json`), `spec_validate_links`
 (`link_validation_cases.json`) and the typed inline marks (the `typedCases` of
-`inline_mark_cases.json` / `change_mark_cases.json`) — over the fixture model
+`inline_mark_cases.json` / `change_mark_cases.json`); and in
+`tests/conformance_document_set.h`: the document set, its report and the global
+rename (`document_set_cases.json`), `spec_derive_fields` (`derive_cases.json`),
+`spec_prefill` and `spec_backfill` (`prefill_cases.json`,
+`backfill_cases.json`) — over the fixture model
 `corpus/links.meta.json` and, for the cases naming it, the real model of
 `tom_som_dart_v0/meta/`.
 
@@ -253,6 +261,9 @@ make test CORPUS=/path/to/corpus
 | `validate_document` | The instance tier: a filled document's values checked against the model. |
 | `spec_validate_links` | The link checks of one document (`tom_specs_model_rules.md` §9.7), with the fixes `deriveFields` writes collected by `SpecLinkValidator`. |
 | `SpecPlace` / `SpecPlaceFilter` | The place and filter grammar of the link annotations, resolved under an anchor without reading a value. |
+| `SpecDocumentSet` / `spec_sync_report` | The documents of a project read side by side and their agreement checked, pair by pair and across two documents; `spec_rename_id` renames an id everywhere at once. |
+| `spec_derive_fields` | Writes a document's derived places (link ends and rows, derived values, `@SameAs` copies, counts, products, ranks), plain or as marks. |
+| `spec_prefill` / `spec_backfill` | A Phase 3 document started from the Blueprint; the accepted Phase 3 end state carried back into it. |
 | `spec_document_yaml` | Byte-stable `*.tomspecs.yaml` encode/decode. |
 | `spec_document_markdown` | DocSpecs-conform Markdown export, parse and round-trip. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
@@ -305,6 +316,6 @@ make test CORPUS=/path/to/corpus
 
 ## Status
 
-Version **1.13.0**, tracking the TomSpecs model version. Covered by 19 test
-files; the conformance runner reports **OK: 4277 checks passed** and
+Version **1.13.0**, tracking the TomSpecs model version. Covered by 22 test
+files; the conformance runner reports **OK: 4513 checks passed** and
 `./run_tests.sh` is green.
