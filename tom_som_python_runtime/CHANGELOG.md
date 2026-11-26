@@ -2,6 +2,26 @@
 
 ## Unreleased
 
+- **The rendition's navigation and generated parts** (SOM §11.2, §11.11,
+  §11.12), the third part of section automation, as Dart, TypeScript and
+  JavaScript have them: below a list item or a `@SameAs` copy a heading's
+  anchor is qualified (`<A>/…/<id>`); a markable heading is followed by its
+  `linked` marker (`Also in`, `Summary of`, `Summarised in`, `Derived from`,
+  `Extracted from`, `Copy of`, `Copied to`), a summary row's `Id` cell links
+  the detail element it names, and the requirement views open their sections
+  with a generated table in a `derived` block
+  (`spec_document_markdown_linked.py`, `spec_document_markdown_generated.py`).
+  `SpecDocumentMarkdown` takes the keyword options `linked_markers` and
+  `generated_parts` (default true); a stripped rendition dropping or
+  unmarking `linked` / `derived` turns them off. The parser removes the marker
+  and the generated block, and an empty value under a generated block is no
+  missing value. The conformance runner replays `link_rendition_cases.json`
+  and the schema tier over the real model's renditions with and without them
+  (`uam_requirements_cut.json`; 2233 -> 2409 checks);
+  `spec_document_markdown_linked_test.py` (34 checks) and
+  `spec_document_markdown_generated_test.py` (27) are new. `parity_gate.sh`
+  over `python_runtime` sends all eight section-automation mutations red.
+
 - **Section automation, second part** (`tom_specs_model_rules.md` §9.7), the
   port of the Dart runtime as TypeScript and JavaScript have it: the document
   set (`spec_document_set.py`: `SpecDocumentSet` — one document per root,
@@ -21,8 +41,7 @@
   conformance runner replays `document_set_cases.json`, `derive_cases.json`,
   `prefill_cases.json` and `backfill_cases.json` (1997 -> 2233 checks);
   `spec_document_set_test.py` (60 checks), `spec_derive_fields_test.py` (19)
-  and `spec_prefill_backfill_test.py` (43) are new. The rendition's
-  navigation follows.
+  and `spec_prefill_backfill_test.py` (43) are new.
 
 - **Section automation, first part** (`tom_specs_model_rules.md` §9.7), the
   port of the Dart runtime as TypeScript and JavaScript have it: the typed
@@ -98,9 +117,9 @@
   `readable`, `ok` and `report`. `SpecReviewAnnotations.stripped()` is the
   strip with `drop: [comments]`, headlines included; a value whose notation
   has an error finding is now left as it is there, annotations and all.
-  `SpecDocument.root_to_export` names the root an export takes. The rendition
-  writes neither linked markers (SOM §11.11) nor generated parts (SOM §11.12),
-  so `linked` and `derived` find nothing of theirs to leave out of it.
+  `SpecDocument.root_to_export` names the root an export takes. Dropping or
+  unmarking `linked` / `derived` turns the rendition's linked markers
+  (SOM §11.11) and generated parts (SOM §11.12) off.
 
 - **The readable header and styled-div headings** (SOM §11.1, §11.2):
   `SpecReadableHeader.format` / `parse` write and read `<!-- readable:

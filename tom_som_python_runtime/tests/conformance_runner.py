@@ -53,6 +53,7 @@ from __future__ import annotations
 import datetime as _dt
 import json
 import os
+import re
 import sys
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
@@ -3442,6 +3443,282 @@ def test_prefill_backfill() -> None:
                 )
 
 
+# ---------------------------------------------------------------------------
+# The rendition's navigation and generated parts (``link_rendition_cases.json``,
+# SOM §11.2, §11.11, §11.12): each case's document rendered with file stem
+# ``links``, the rendition (its markers deleted or edited where the case says)
+# handed to the parser, and the rendition of what it staged.
+# ---------------------------------------------------------------------------
+
+
+def _rendition(
+    model: SpecModel, doc: SpecDocument, markers: bool = True, generated: bool = True
+) -> str:
+    """*doc* rendered as its root's rendition."""
+    root = next(
+        (
+            r
+            for r in model.roots
+            if doc.has_values_under(r.section_id if r.section_id is not None else r.type)
+        ),
+        None,
+    )
+    if root is None:
+        raise RuntimeError("no root holds a value")
+    return SpecDocumentMarkdown(
+        model,
+        doc,
+        "links",
+        linked_markers=markers,
+        generated_parts=generated,
+    ).export_root(root)
+
+
+_MARKER_LINE = re.compile(r"^\[.*\]\{\.linked\}$")
+
+
+def _without_markers(markdown: str) -> str:
+    """*markdown* with its ``linked`` marker paragraphs removed."""
+    lines = markdown.split("\n")
+    out: list[str] = []
+    i = 0
+    while i < len(lines):
+        if _MARKER_LINE.search(lines[i]) is not None:
+            if i + 1 < len(lines) and lines[i + 1] == "":
+                i += 1
+            i += 1
+            continue
+        out.append(lines[i])
+        i += 1
+    return "\n".join(out)
+
+
+def _rendition_case(fixture: SpecModel, c: dict) -> dict:
+    """One rendition case, as the Dart test's ``renditionCase`` computes
+    it."""
+    model = _set_model_of(fixture, c)
+    doc = SpecDocument()
+    doc.load_json(c["state"])
+    markers = c.get("linkedMarkers", True) is not False
+    generated = c.get("generatedParts", True) is not False
+    markdown = _rendition(model, doc, markers, generated)
+    given = markdown
+    if c.get("dropMarkers") is True:
+        given = _without_markers(given)
+    for frm, to in c.get("edits") or []:
+        if frm not in given:
+            raise RuntimeError(f'{c["name"]}: the rendition has no "{frm}"')
+        given = given.replace(frm, to, 1)
+    parsed = SpecDocument.from_markdown(given, model)
+    out: dict = {"markdown": markdown}
+    if given != markdown:
+        out["given"] = given
+    out["rejections"] = [r.reason.value for r in parsed.result.rejections]
+    out["parseMatches"] = json.dumps(parsed.document.to_json()) == json.dumps(
+        doc.to_json()
+    )
+    out["reemitMatches"] = (
+        _rendition(model, parsed.document, markers, generated) == markdown
+    )
+    return out
+
+
+def _rendition_intent_holds(token: str, c: dict):
+    """Whether the rendition-case intent *token* holds in case *c* (the Dart
+    test's ``_renditionIntentHolds``); an unknown token is ``None``."""
+    e = c["expect"]
+    md = e["markdown"]
+    parsed = e.get("parseMatches") is True
+    reemit = e.get("reemitMatches") is True
+    edited = e.get("given") is not None
+    given = e["given"] if edited else ""
+    if token == "alsoInHeldThere":
+        return re.search(r"\[Also in \[[^\]]+\]\([^)]+\), held there", md) is not None
+    if token == "alsoInHeldHere":
+        return re.search(r"\[Also in \[[^\]]+\]\([^)]+\), held here", md) is not None
+    if token == "heldException":
+        return " except REQ.owner" in md
+    if token == "summaryOf":
+        return (
+            "held there except REQ.owner; Summary of [REQ-EXPORT](#REQ-EXPORT)]{.linked}"
+            in md
+        )
+    if token == "summarisedIn":
+        return "Summarised in [KEY-1](#KEY-1)" in md
+    if token == "derivedTwoFields":
+        return (
+            re.search(r"Derived from (\[[^\]]+\]\([^)]+\)(,)?)+: \w+, \w+", md, re.ASCII)
+            is not None
+        )
+    if token == "extractedFrom":
+        return "[Extracted from [REQD](#REQ-EXPORT/REQD)]{.linked}" in md
+    if token == "copyOf":
+        return "[Copy of [CRIT](#CRIT), edit it there]{.linked}" in md
+    if token == "copiedTo":
+        return "Copied to [CRIT](#CSUM/CRIT)" in md
+    if token == "copyAnchors":
+        return '<a id="CSUM/CRIT/CRIT-SPEED"></a>' in md
+    if token == "qualifiedThree":
+        return (
+            re.search(
+                r'^#+ <!--\[LNK-REF\]--> <a id="REQ-EXPORT/LNK-1/LNK-REF"></a> ',
+                md,
+                re.M,
+            )
+            is not None
+        )
+    if token == "markerRestored":
+        return edited and "{.linked}" not in given and parsed and reemit
+    if token == "handEditDiscarded":
+        return edited and "Copy of [X]" in given and parsed and reemit
+    if token == "emptyMarker":
+        return "[]{.linked}\n\n[To be chosen" in md and parsed
+    if token == "spanKept":
+        return "{.linked}" in json.dumps(c["state"]) and parsed
+    if token == "dangling":
+        return (
+            "[Also in [BLU REQ-PRESETS](links.blu.tomspecs.md#REQ-PRESETS), held here"
+            in md
+        )
+    if token == "generatedTrace":
+        return (
+            "::: {.derived label=\"Generated from each requirement's traceability; "
+            "edit it there\"}\n| Requirement | Use cases | Screens | Data entities | "
+            "Tests |"
+        ) in md
+    if token == "generatedCoverage":
+        return (
+            re.search(
+                r"\| Requirement \| Covered \| By \|\n\| --- \| --- \| --- \|\n"
+                r"\| \[FRE-REQU-TENANT-LIFECYCLE\]\(#FRE-REQU-TENANT-LIFECYCLE\) "
+                r"\| (yes|no) \|",
+                md,
+            )
+            is not None
+        )
+    if token == "generatedRelationships":
+        return "| Requirement | Dependency | Related requirement |" in md
+    if token == "generatedFirst":
+        return (
+            re.search(
+                r'^## <!--\[REQCOV\]--> <a id="REQCOV"></a> [^\n]*\n\n'
+                r"(\[[^\n]*\]\{\.linked\}\n\n)?::: \{\.derived ",
+                md,
+                re.M,
+            )
+            is not None
+        )
+    if token == "generatedOverview":
+        return "<!--[RO-TRAC]-->" in md and "| Requirement | Use cases | Screens |" in md
+    if token == "generatedUseCases":
+        return (
+            "| [INEN-INTE-UC-02](#INEN-INTE-UC-02) |  | [FRE-REQU-TENANT-FEATURES]("
+            in md
+        )
+    if token == "generatedEditDiscarded":
+        return edited and "| Requirement | Covered |\n" in given and parsed and reemit
+    if token == "noGenerated":
+        return "{.derived" not in md
+    if token == "emptyGenerated":
+        return "::: {.derived}\n:::\n\n::: {.derived}\nTraced by hand.\n:::" in md
+    if token == "summaryRowLink":
+        return (
+            '| <a id="TOP-BETA"></a>[TOP-BETA](#TOP-BETA) |' in md
+            and '| <a id="TOP-BETA"></a>TOP-BETA |' in md
+        )
+    if token == "noMarkers":
+        return "{.linked}" not in md and '<a id="REQ-EXPORT/REQD"></a>' in md
+    if token == "roundTrip":
+        return not edited and parsed and reemit
+    if token == "clean":
+        return len(e["rejections"]) == 0
+    return None
+
+
+def test_link_rendition() -> None:
+    """``link_rendition_cases.json``: each case's rendition, what the parser
+    makes of it and the rendition of that, against the expectation, and its
+    intent."""
+    table = _read_json("link_rendition_cases.json")
+    model = SpecModel.from_json(_read_json(table.get("model") or "links.meta.json"))
+    for c in table["cases"]:
+        name = f"links.rendition[{c['name']}]"
+        try:
+            got = json.loads(json.dumps(_rendition_case(model, c)))
+            for k in ("markdown", "given", "rejections", "parseMatches", "reemitMatches"):
+                _check(
+                    f"{name}.{k}",
+                    _deep_equal(got.get(k), c["expect"].get(k)),
+                    _json_mismatch(got.get(k), c["expect"].get(k)),
+                )
+            _check(f"{name}.keys", sorted(got) == sorted(c["expect"]))
+        except Exception as e:  # noqa: BLE001 - reported as a failed check
+            _check(name, False, f"threw {e!r}")
+        for token in c["intent"]:
+            h = _rendition_intent_holds(token, c)
+            _check(
+                f"links.rendition.intent[{c['name']}: {token}]",
+                h is True,
+                "unknown intent token" if h is None else "does not hold",
+            )
+
+
+def test_rendition_schema_tier() -> None:
+    """The schema tier finds nothing in the markers and generated parts (the
+    Dart test's RNC5, real model): each document's findings with navigation
+    equal its findings without."""
+    cut = _read_json("uam_requirements_cut.json")
+    rsp = SpecDocument()
+    rsp.load_json(cut["rsp"])
+    sbp = SpecDocument()
+    sbp.load_json(cut["blueprint"])
+    isc = SpecDocument()
+    item = isc.add_list_item("ISC/interactionCatalog/INEN-INTE-LST", "INEN-INTE-UC-01")
+    isc.set_form_field(f"{item}/INTR", "relatedRequirements", "FRE-REQU-TENANT-LIFECYCLE")
+    som = _som_model()
+    for doc, schema_name in (
+        (rsp, "requirements-specification"),
+        (sbp, "solution-blueprint"),
+        (isc, "interaction-scenarios"),
+    ):
+        name = f"links.rendition.schemaTier[{schema_name}]"
+        try:
+            schema_file = os.path.join(
+                _PKG_ROOT,
+                "..",
+                "tom_som_dart_v0",
+                "schemas",
+                schema_name,
+                f"{schema_name}.1.0.docspecs-schema.yaml",
+            )
+            with open(schema_file, "r", encoding="utf-8") as fh:
+                schema = DocSpecsSchema.from_yaml_text(fh.read())
+            root = next(
+                r
+                for r in som.roots
+                if doc.has_values_under(r.section_id if r.section_id is not None else r.type)
+            )
+
+            def findings(navigation: bool, doc=doc, root=root, schema=schema):
+                md = SpecDocumentMarkdown(
+                    som,
+                    doc,
+                    linked_markers=navigation,
+                    generated_parts=navigation,
+                ).export_root(root)
+                return md, sorted(
+                    f"{v.rule} {v.section_id}"
+                    for v in DocSpecsValidator(schema, tom_specs=True).validate_markdown(md)
+                )
+
+            md, with_nav = findings(True)
+            _, without = findings(False)
+            _check(f"{name}.derived", "{.derived" in md)
+            _check(name, _deep_equal(with_nav, without), _json_mismatch(with_nav, without))
+        except Exception as e:  # noqa: BLE001 - reported as a failed check
+            _check(name, False, f"threw {e!r}")
+
+
 def main() -> int:
     if not os.path.isdir(_CORPUS):
         print(f"corpus not found at {_CORPUS}", file=sys.stderr)
@@ -3498,6 +3775,8 @@ def main() -> int:
     test_derive_fields()
     test_document_set()
     test_prefill_backfill()
+    test_link_rendition()
+    test_rendition_schema_tier()
 
     total = _passed + len(_failed)
     if _failed:

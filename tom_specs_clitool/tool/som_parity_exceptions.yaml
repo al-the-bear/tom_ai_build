@@ -53,7 +53,7 @@ exceptions:
       matched Dart's same-named member by coincidence, not by meaning.
 
   - token: linkedMarkers
-    planes: [python, java, go, rust, c, cpp]
+    planes: [java, go, rust, c, cpp]
     reason: >-
       KNOWN GAP. The rendition's navigation — the qualified anchors of SOM
       §11.2 and the `linked` marker of SOM §11.11, with the renderer option
@@ -64,7 +64,7 @@ exceptions:
       runtime. `link_rendition_cases.json` is the corpus they will run.
 
   - token: generatedParts
-    planes: [python, java, go, rust, c, cpp]
+    planes: [java, go, rust, c, cpp]
     reason: >-
       KNOWN GAP. The rendition's generated parts (SOM §11.12) — the
       requirement views' tables in `derived` blocks, with the renderer option
@@ -75,7 +75,7 @@ exceptions:
       runtime. `link_rendition_cases.json` is the corpus they will run.
 
   - token: dependencyType
-    planes: [python, java, go, rust, c, cpp]
+    planes: [java, go, rust, c, cpp]
     reason: >-
       KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
       requirement views: traceability, coverage, relationships, use-case
@@ -85,7 +85,7 @@ exceptions:
       Elsewhere the token is a form field of the model's documents.
 
   - token: relatedDataEntities
-    planes: [python, java, go, rust, c, cpp]
+    planes: [java, go, rust, c, cpp]
     reason: >-
       KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
       requirement views: traceability, coverage, relationships, use-case
@@ -95,7 +95,7 @@ exceptions:
       Elsewhere the token is a form field of the model's documents.
 
   - token: relatedProcess
-    planes: [python, java, go, rust, c, cpp]
+    planes: [java, go, rust, c, cpp]
     reason: >-
       KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
       requirement views: traceability, coverage, relationships, use-case
@@ -105,7 +105,7 @@ exceptions:
       Elsewhere the token is a form field of the model's documents.
 
   - token: relatedRequirements
-    planes: [python, java, go, rust, c, cpp]
+    planes: [java, go, rust, c, cpp]
     reason: >-
       KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
       requirement views: traceability, coverage, relationships, use-case
@@ -115,7 +115,7 @@ exceptions:
       Elsewhere the token is a form field of the model's documents.
 
   - token: relatedScreens
-    planes: [python, java, go, rust, c, cpp]
+    planes: [java, go, rust, c, cpp]
     reason: >-
       KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
       requirement views: traceability, coverage, relationships, use-case
@@ -125,7 +125,7 @@ exceptions:
       Elsewhere the token is a form field of the model's documents.
 
   - token: relatedTestCases
-    planes: [python, java, go, rust, c, cpp]
+    planes: [java, go, rust, c, cpp]
     reason: >-
       KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
       requirement views: traceability, coverage, relationships, use-case
@@ -135,7 +135,7 @@ exceptions:
       Elsewhere the token is a form field of the model's documents.
 
   - token: relatedUseCases
-    planes: [python, java, go, rust, c, cpp]
+    planes: [java, go, rust, c, cpp]
     reason: >-
       KNOWN GAP. A column place of the generated tables of SOM §11.12 (the
       requirement views: traceability, coverage, relationships, use-case

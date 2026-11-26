@@ -45,6 +45,16 @@ older layout of ``Field:`` lines alike, and reports a block that breaks it as
 ``unknownField`` or ``malformedBlock``. A value line shaped like a layout table
 header is written with one escape space, which the parser removes.
 
+Navigation and generated parts (SOM §11.11, §11.12): a markable heading is
+followed by its ``linked`` marker (``Also in``, ``Summary of``, ``Summarised
+in``, ``Derived from``, ``Extracted from``, ``Copy of``, ``Copied to``;
+``spec_document_markdown_linked.py``), a summary row's ``Id`` cell links the
+detail element it names, and the requirement views open their sections with
+a generated table in a ``derived`` block
+(``spec_document_markdown_generated.py``). The options ``linked_markers`` and
+``generated_parts`` turn them off; the parser removes both, and an empty value
+under a generated block is no missing value.
+
 The codec is free of any UI: it reads from / resolves against a
 :class:`SpecModel` (through the :func:`build_som_meta_tree` metadata tree) and
 a :class:`SpecDocument`. :meth:`SpecDocumentMarkdown.parse` does **not** mutate
@@ -70,8 +80,25 @@ from .spec_document import SpecDocument
 from .spec_meta import SomMetaKind, SomMetaNode, SomMetaTree
 from .spec_meta_bridge import build_som_meta_tree
 from .spec_model import SpecModel, SpecRoot
-from .spec_paths import split_list_item_segment
 from .spec_section_id import effective_list_item_section_id
+from .spec_document_markdown_generated import (
+    K_DERIVED_PLACEHOLDER,
+    Generated as _Generated,
+    derived_fence_close,
+    opens_derived,
+    resolve_derived_placeholders,
+)
+from .spec_document_markdown_linked import (
+    ANCHOR_CONTAINER as _ANCHOR_CONTAINER,
+    ANCHOR_COPY as _ANCHOR_COPY,
+    ANCHOR_ITEM as _ANCHOR_ITEM,
+    ANCHOR_PLAIN as _ANCHOR_PLAIN,
+    K_LINKED_PLACEHOLDER,
+    Navigation as _Navigation,
+    is_linked_paragraph,
+    qualify_anchor as _qualify_anchor,
+    resolve_linked_placeholders,
+)
 
 # The whitespace JavaScript's `\s` and `trim()` know, which the reference
 # codecs decide by (Python's own `\s` and `str.strip` know more).
@@ -358,12 +385,18 @@ class SpecDocumentMarkdown:
         *,
         heading_divs: bool = False,
         readable_header: Optional[str] = None,
+        linked_markers: bool = True,
+        generated_parts: bool = True,
     ) -> None:
         """Binds *model* and *document* to the codec; *file_stem* and
         *document_files* (either may be ``None``) name the files a reference
         to another document root links to. *heading_divs* and
         *readable_header* are the options of a stripped rendition
-        (SOM §11.10)."""
+        (SOM §11.10). *linked_markers* (default true) writes the ``linked``
+        marker after a markable heading (SOM §11.11); *generated_parts*
+        (default true) writes the generated parts at their sections
+        (SOM §11.12). A stripped rendition dropping ``linked`` / ``derived``
+        turns them off; the parser removes both either way."""
         self.model = model
         self.document = document
         #: Whether every section deeper than level 6 is written as a
@@ -374,6 +407,10 @@ class SpecDocumentMarkdown:
         #: the ``docspec`` declaration (SOM §11.1), or ``None``; the parser
         #: skips it.
         self.readable_header = readable_header
+        #: Whether the ``linked`` marker is written (SOM §11.11).
+        self.linked_markers = linked_markers is not False
+        #: Whether the generated parts are written (SOM §11.12).
+        self.generated_parts = generated_parts is not False
         #: The stem of the files a reference to another document root links
         #: to (``<file_stem>.<root id in lower case>.tomspecs.md``), or
         #: ``None``.
@@ -391,10 +428,37 @@ class SpecDocumentMarkdown:
         # The root the current export renders (the target of same-document
         # links).
         self._current_root: Optional[SpecRoot] = None
-        # The anchors of the root the current export renders (SOM §11.2).
+        # The navigation of the root the current export renders
+        # (SOM §11.2, §11.11).
         self._nav: Optional[_Navigation] = None
+        # The generated parts of the root the current export renders
+        # (SOM §11.12).
+        self._gen: Optional[_Generated] = None
+        # The Blueprint's root and the model's anchor pairs (_sync_pairs).
+        self._sync_pairs_cache: Optional[tuple[Optional[str], list[Any]]] = None
         # The class names each root reaches, for reference links.
         self._reach: dict[str, set[str]] = {}
+
+    def _forced(self, path: str) -> bool:
+        """Whether a generated part stands at or beneath *path* of the
+        current export, which writes its heading even without a value."""
+        return self._gen is not None and self._gen.forces(path)
+
+    @property
+    def _sync_pairs(self) -> tuple[Optional[str], list[Any]]:
+        """The Blueprint's root and the model's anchor pairs, from the model
+        alone; none when the model's synced positions cannot be paired."""
+        if self._sync_pairs_cache is None:
+            # Imported here: the document set reads documents, whose Markdown
+            # import imports this module.
+            from .spec_document_set import SpecDocumentSet, SpecDocumentSetError
+
+            try:
+                doc_set = SpecDocumentSet(self.model, [])
+                self._sync_pairs_cache = (doc_set.blueprint_root, doc_set.pairs)
+            except SpecDocumentSetError:
+                self._sync_pairs_cache = (None, [])
+        return self._sync_pairs_cache
 
     @staticmethod
     def heading_div_indent(depth: int) -> str:
@@ -688,6 +752,7 @@ class SpecDocumentMarkdown:
     def _export_root(self, root: SpecRoot) -> str:
         self._current_root = root
         self._nav = _Navigation(self, root)
+        self._gen = _Generated(self._nav) if self.generated_parts else None
         self._sorted_keys.clear()
         tree = self._tree_for(root.type)
         node = tree.root
@@ -711,7 +776,8 @@ class SpecDocumentMarkdown:
         self._write_section_body(b, node, root_seg)
         self._write_children(b, node, root_seg, 2)
         self._nav = None
-        return str(b)
+        self._gen = None
+        return resolve_linked_placeholders(resolve_derived_placeholders(str(b)))
 
     def _write_section_body(
         self, b: _Buffer, node: SomMetaNode, path: str
@@ -832,7 +898,7 @@ class SpecDocumentMarkdown:
     ) -> None:
         for child, rel in self._effective_children(node):
             path = f"{base_path}/{rel}"
-            if not self.document.has_values_under(path):
+            if not self.document.has_values_under(path) and not self._forced(path):
                 continue
             kind = child.kind
             if kind in (
@@ -841,7 +907,7 @@ class SpecDocumentMarkdown:
                 SomMetaKind.ENUM_VALUE,
             ):
                 value = self.document.content(path)
-                if value is None:
+                if value is None and not self._forced(path):
                     continue
                 self._write_heading(
                     b,
@@ -875,6 +941,7 @@ class SpecDocumentMarkdown:
                     path=path,
                     code_spec=self.document.code_spec(path),
                     units=self.document.units(path),
+                    section_table=self._write_section_table(_Buffer(), child, path),
                 )
                 self._write_section_body(b, child, path)
                 if not self._write_section_table(b, child, path):
@@ -892,7 +959,7 @@ class SpecDocumentMarkdown:
         min/max-text-length 0). Item identity is the stored id when one
         exists, else positional (YRD3)."""
         items = self.document.list_items(list_path)
-        if not items:
+        if not items and not self._forced(list_path):
             return
         # The container heading: its id is the list's `-LST` `@SectionId` (else
         # the member segment for a pattern-less list); its title is the stored
@@ -944,6 +1011,9 @@ class SpecDocumentMarkdown:
                 path=item_path,
                 code_spec=self.document.code_spec(item_path),
                 units=self.document.units(item_path),
+                section_table=element is not None
+                and not element.recursive
+                and self._write_section_table(_Buffer(), element, item_path),
             )
             if element is None:
                 # Scalar list: the item's value is its body.
@@ -1123,7 +1193,19 @@ class SpecDocumentMarkdown:
                 position=i + 1,
                 fallback_stem=self._member_stem_of(node),
             )
-            cells = [f'<a id="{self._anchor_for(item_path, id)}"></a>{id}']
+            # A summary naming its detail element by its own id links it from
+            # the Id cell (SOM §11.5, §11.11).
+            list_path = item_path[: item_path.rfind("-")]
+            cell = (
+                self._nav.summary_id_cell(item_path, list_path, id)
+                if self._nav is not None
+                else None
+            )
+            cells = [
+                cell
+                if cell is not None
+                else f'<a id="{self._anchor_for(item_path, id)}"></a>{id}'
+            ]
             if with_title:
                 title = doc.headline(item_path) or ""
                 cells.append(title.replace("\n", "<br>").replace("|", "\\|"))
@@ -1508,6 +1590,7 @@ class SpecDocumentMarkdown:
         path: str,
         code_spec: Optional[str] = None,
         units: Optional[str] = None,
+        section_table: bool = False,
     ) -> None:
         """``## <!--[ID]--> <a id="ID"></a> Title`` at *depth*. SOM §11.2 is
         normative —
@@ -1521,8 +1604,37 @@ class SpecDocumentMarkdown:
         inside the same headline comment (codespecs_mapping.md §9.2):
         ``## <!--[ID] codeSpec="A,B"--> Title``. When *units* is non-empty it
         follows as a second key, ``units="…"``, after ``codeSpec`` (SOM
-        §11.2)."""
+        §11.2).
+
+        The ``linked`` marker follows the heading (SOM §11.11), then a
+        generated table opening its section (SOM §11.12). *section_table*:
+        the heading's children are written as a section table."""
         self._heading_paths.append(path)
+        nav = self._nav
+
+        def derived() -> None:
+            gen = self._gen
+            if gen is None or not gen.is_place(path):
+                return
+            block = gen.blocks.get(path)
+            if block is not None:
+                for line in block:
+                    b.writeln(line)
+            else:
+                b.writeln(K_DERIVED_PLACEHOLDER)
+            b.writeln()
+
+        def marker() -> None:
+            if nav is None or not self.linked_markers:
+                return
+            entries = nav.entries(path, section_table)
+            if entries:
+                b.writeln(f"[{'; '.join(entries)}]{{.linked}}")
+                b.writeln()
+            elif nav.markable(path):
+                b.writeln(K_LINKED_PLACEHOLDER)
+                b.writeln()
+
         code = f' codeSpec="{code_spec}"' if code_spec else ""
         if units:
             code += f' units="{units}"'
@@ -1547,12 +1659,16 @@ class SpecDocumentMarkdown:
                 f'<!--[{id}]{code}--> <a id="{anchor}"></a> {escaped}</div>'
             )
             b.writeln()
+            marker()
+            derived()
             return
         b.writeln(
             f"{'#' * depth} <!--[{id}]{code}--> <a id=\"{anchor}\"></a> "
             f"{title.replace(chr(10), '<br>')}"
         )
         b.writeln()
+        marker()
+        derived()
 
     def _write_body(
         self, b: _Buffer, value: Optional[str], path: str
@@ -1683,6 +1799,9 @@ class _Frame:
         # container (SOM §11.2, _qualify_anchor).
         self.anchor_scope: Optional[list[str]] = None
         self.anchor_section: Optional[str] = None
+        # Whether its body opened with a generated block (SOM §11.12): the
+        # heading stands for the block, so an empty value is no rejection.
+        self.generated = False
         # Rejected blocks to keep in this frame's text (RN-11): the body index
         # they stand before, the block, and the end of the body lines it
         # replaces (the index itself when it replaces none).
@@ -1903,116 +2022,6 @@ _CELL_LINK = re.compile(r"^\[([^\]]+)\]\([^)\s]*\)$")
 _SECTION_CELL_SEP = re.compile(r"\s*/\s*")
 _REF_SEP = re.compile(r"[,\s]+")
 
-# The roles a heading plays for its anchor's qualification (SOM §11.2).
-_ANCHOR_PLAIN = "plain"
-_ANCHOR_CONTAINER = "container"
-_ANCHOR_ITEM = "item"
-_ANCHOR_COPY = "copy"
-
-
-def _qualify_anchor(
-    scope: Optional[list[str]], section: Optional[str], id: str, role: str
-) -> tuple[str, Optional[list[str]]]:
-    """The qualified anchor of a heading *id* (SOM §11.2) and the scope its
-    descendants' anchors are qualified with: below a list item, or in a
-    ``@SameAs`` copy, an anchor is the ids from the scope's start joined by
-    ``/``; elsewhere it is the id itself. *section* is the id of the nearest
-    heading above that is no list container."""
-    with_id: list[str] = []
-    if scope is not None:
-        with_id.extend(scope)
-    elif role == _ANCHOR_COPY and section is not None:
-        with_id.append(section)
-    with_id.append(id)
-    if role == _ANCHOR_COPY:
-        return "/".join(with_id), with_id
-    joined = id if scope is None else "/".join(with_id)
-    if role == _ANCHOR_CONTAINER:
-        return joined, scope
-    if role == _ANCHOR_ITEM:
-        return joined, with_id
-    return joined, (None if scope is None else with_id)
-
-
-class _Navigation:
-    """One root's anchors (SOM §11.2): the anchor of the heading a path names,
-    qualified below a list item and in a ``@SameAs`` copy."""
-
-    def __init__(self, codec: SpecDocumentMarkdown, root: SpecRoot) -> None:
-        self._codec = codec
-        self.tree = codec._tree_for(root.type)
-        self._anchors: dict[str, str] = {}
-
-    def item_id(self, list_node: SomMetaNode, item_path: str) -> str:
-        """The heading id of the item at *item_path* of *list_node*, as the
-        emitter writes it."""
-        doc = self._codec.document
-        slash = item_path.rfind("/")
-        split = split_list_item_segment(item_path[slash + 1:])
-        list_path = item_path[: slash + 1] + split.base
-        items = doc.list_items(list_path)
-        pos = items.index(item_path) + 1 if item_path in items else 0
-        return effective_list_item_section_id(
-            stored_id=doc.item_section_id(item_path),
-            pattern=SpecDocumentMarkdown._item_pattern_of(list_node),
-            position=split.seq if pos == 0 else pos,
-            fallback_stem=SpecDocumentMarkdown._member_stem_of(list_node),
-        )
-
-    def anchor_of(self, path: str) -> str:
-        """The anchor of the heading *path* names in this document."""
-        hit = self._anchors.get(path)
-        if hit is not None:
-            return hit
-        codec = self._codec
-        segs = path.split("/")
-        node = self.tree.root
-        cur = segs[0]
-        anchor = node.segment
-        scope: Optional[list[str]] = None
-        section: Optional[str] = node.segment
-        for i in range(1, len(segs)):
-            seg = segs[i]
-            child = node.child_by_segment(seg)
-            if child is not None:
-                cur = f"{cur}/{seg}"
-                node = child
-                if codec._is_transparent_section(
-                    child
-                ) or codec._is_transparent_value(child):
-                    continue
-                id = codec._heading_id_of(child)
-                container = child.kind == SomMetaKind.LIST
-                role = (
-                    _ANCHOR_CONTAINER
-                    if container
-                    else (
-                        _ANCHOR_COPY if codec._is_copy_node(child) else _ANCHOR_PLAIN
-                    )
-                )
-                anchor, scope = _qualify_anchor(scope, section, id, role)
-                if not container:
-                    section = id
-                continue
-            split = split_list_item_segment(seg)
-            list_node = (
-                None if split is None else node.child_by_segment(split.base)
-            )
-            if list_node is None or list_node.kind != SomMetaKind.LIST:
-                break
-            item_path = f"{cur}/{seg}"
-            id = self.item_id(list_node, item_path)
-            anchor, scope = _qualify_anchor(scope, section, id, _ANCHOR_ITEM)
-            section = id
-            cur = item_path
-            element = list_node.element_node
-            node = element if element is not None else list_node
-            if element is None and i < len(segs) - 1:
-                break
-        self._anchors[path] = anchor
-        return anchor
-
-
 def _title_without_anchor(raw_title: str, id: str, anchor: str) -> str:
     """A heading title without the renderer's anchor — ``<a id="…"></a>``
     naming *id* or its qualified form *anchor* (SOM §11.2) — and with
@@ -2165,6 +2174,8 @@ class _Parser:
         self._pending: list[_KeptBlock] = []
         # Text before the root heading, kept at the start of the root's text.
         self._orphans: list[_KeptBlock] = []
+        # The navigation of each root parsed, for its markable places.
+        self._navs: dict[str, _Navigation] = {}
 
     # --- Rejected blocks kept for review (SOM §11.7, DocSpecs RN-11) ----------
 
@@ -2615,6 +2626,69 @@ class _Parser:
             )
         return item_path
 
+    def _nav_for(self, frame: _Frame) -> Optional[_Navigation]:
+        """The navigation of the root *frame* lies in, for its markable
+        places; one per root parsed."""
+        seg = frame.path.split("/")[0]
+        root = next(
+            (
+                r
+                for r in self.codec.model.roots
+                if (r.section_id if r.section_id is not None else r.type) == seg
+            ),
+            None,
+        )
+        if root is None:
+            return None
+        nav = self._navs.get(root.type)
+        if nav is None:
+            nav = _Navigation(self.codec, root)
+            self._navs[root.type] = nav
+        return nav
+
+    def _strip_linked_marker(self, frame: _Frame) -> None:
+        """Removes the ``linked`` marker (SOM §11.11): the first paragraph of
+        the body of a markable heading when it is one ``linked`` span. Its
+        lines are blanked, not removed, so the body indices kept blocks refer
+        to hold."""
+        nav = self._nav_for(frame)
+        if nav is None or not nav.markable(frame.path):
+            return
+        body = frame.body
+        k = 0
+        while k < len(body) and _trim_ws(body[k]) == "":
+            k += 1
+        end = k
+        while end < len(body) and _trim_ws(body[end]) != "":
+            end += 1
+        if end == k or not is_linked_paragraph("\n".join(body[k:end])):
+            return
+        for i in range(k, end):
+            body[i] = ""
+
+    def _strip_generated(self, frame: _Frame) -> None:
+        """Removes a generated part (SOM §11.12): the first block of a
+        generated place's body, after its marker, when it is a ``derived``
+        block. Its lines are blanked, as the marker's are."""
+        nav = self._nav_for(frame)
+        if nav is None or not _Generated(nav).is_place(frame.path):
+            return
+        body = frame.body
+        k = 0
+        while k < len(body) and _trim_ws(body[k]) == "":
+            k += 1
+        if k >= len(body) or not opens_derived(body[k]):
+            return
+        close = derived_fence_close(body[k])
+        end = k + 1
+        while end < len(body) and close.search(body[end]) is None:
+            end += 1
+        if end >= len(body):
+            return  # unclosed: the value's, reported there
+        for i in range(k, end + 1):
+            body[i] = ""
+        frame.generated = True
+
     @staticmethod
     def _is_value_leaf(kind: SomMetaKind) -> bool:
         return kind in (
@@ -2630,6 +2704,9 @@ class _Parser:
             self._keep_ignored(frame)
             return
         node = frame.node
+        # A scalar list item's frame has no node; it is markable all the same.
+        self._strip_linked_marker(frame)
+        self._strip_generated(frame)
         if node is not None and node.kind == SomMetaKind.FORM:
             self._finalize_form(frame, node, frame.path)
             return
@@ -2671,7 +2748,11 @@ class _Parser:
                         self.kept_content[frame.path] = kept
             if value:
                 self.content[frame.path] = value
-            elif node is not None and self._is_value_leaf(node.kind):
+            elif (
+                node is not None
+                and self._is_value_leaf(node.kind)
+                and not frame.generated
+            ):
                 self.rejections.append(
                     SpecMarkdownRejection(
                         line=frame.line,

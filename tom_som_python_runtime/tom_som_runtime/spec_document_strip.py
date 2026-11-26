@@ -17,8 +17,10 @@ emptying rule, the list items left empty removed, the appendix numbered
 through the rendition, the ``.readable.md`` and its check) and the readable
 header (:class:`SpecReadableHeader`); the port of ``spec_document_strip.ts`` /
 ``spec_document_strip.dart``, which ``strip_cases.json`` holds to the same
-results. The Python rendition writes no ``linked`` markers and no generated
-parts, so dropping or unmarking those kinds has nothing to remove there.
+results. Dropping or unmarking ``linked`` / ``derived`` also turns the
+rendition's markers and generated parts off
+(:attr:`SpecStripOptions.writes_no_linked_markers`,
+:attr:`SpecStripOptions.writes_no_generated_parts`).
 
 **Offsets are UTF-16 code units**, as in every other runtime: a piece's
 ``anchor`` and ``origin`` count UTF-16 units. The plan therefore works on the
@@ -792,6 +794,8 @@ class SpecDocumentStrip:
                 **codec_args,
                 heading_divs=options.heading_divs,
                 readable_header=header,
+                linked_markers=not options.writes_no_linked_markers,
+                generated_parts=not options.writes_no_generated_parts,
             ).export_root_with_map(root)
             if not titles and appendix:
                 lines = rendition.markdown.split("\n")
