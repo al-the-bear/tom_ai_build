@@ -2052,6 +2052,13 @@ def _mark_replacement(m: _Mark, accept: bool) -> str:
     return ""
 
 
+#: The reserved field name under which a headline is a value of the review
+#: operations (:meth:`SpecReviewAnnotations.set_marked`, the mark listing, the
+#: decisions): a headline takes inline marks (SOM §11.9.3), named as the place
+#: grammar names it (``<SECTIONID>.@headline``).
+K_SPEC_HEADLINE_FIELD = "@headline"
+
+
 def apply_inline_marks_text(value: str, accept: bool) -> str:
     """*value* with every inline mark accepted (*accept*) or rejected, and
     every highlight and comment mark removed, by the rules of SOM §11.9.3.
@@ -2485,23 +2492,47 @@ class SpecReviewAnnotations:
         return self.clock() if self.clock is not None else system_review_time()
 
     def _values(self) -> list[tuple[str, Optional[str], str]]:
+        """Every value as ``(path, field or None, text)``, in document order:
+        content, form fields, then the headlines that hold an inline mark,
+        under the reserved field :data:`K_SPEC_HEADLINE_FIELD` (SOM §11.9.3).
+        A headline without a mark is no value here, so a document's revision
+        is what it was before headlines could be marked."""
         out: list[tuple[str, Optional[str], str]] = []
         for path in sorted(self.doc.content_paths):
             out.append((path, None, self.doc.content(path) or ""))
         for path in sorted(self.doc.form_paths):
             for f in sorted(self.doc.form_field_names(path)):
                 out.append((path, f, self.doc.form_field(path, f) or ""))
+        for path in sorted(self.doc.headline_paths):
+            text = self.doc.headline(path) or ""
+            if "{" in text and _parse(text).marks:
+                out.append((path, K_SPEC_HEADLINE_FIELD, text))
         return out
 
     def _get(self, path: str, field: Optional[str]) -> str:
-        v = self.doc.content(path) if field is None else self.doc.form_field(path, field)
+        if field == K_SPEC_HEADLINE_FIELD:
+            v = self.doc.headline(path)
+        elif field is None:
+            v = self.doc.content(path)
+        else:
+            v = self.doc.form_field(path, field)
         return v or ""
 
     def _set(self, path: str, field: Optional[str], value: str) -> None:
-        if field is None:
+        if field == K_SPEC_HEADLINE_FIELD:
+            self.doc.set_headline(path, value)
+        elif field is None:
             self.doc.set_content(path, value)
         else:
             self.doc.set_form_field(path, field, value)
+
+    @staticmethod
+    def _refuse_block_in(field: Optional[str]) -> None:
+        """A headline is one line: it takes inline marks, never a block."""
+        if field == K_SPEC_HEADLINE_FIELD:
+            raise SpecReviewAnnotationError(
+                "a headline takes inline marks only, not a comment or question block"
+            )
 
     def list(self) -> list[SpecReviewAnnotation]:
         """Every annotation, in document order."""
@@ -2596,6 +2627,7 @@ class SpecReviewAnnotations:
         change time: *at*, else the clock's (SOM §11.9.10)."""
         time = self._time(at)
         cid = id if id is not None else self.next_comment_id()
+        self._refuse_block_in(field)
         value = self._get(path, field)
         end = self._paragraph_last_line(value, after_paragraph)
         self._set(
@@ -2617,6 +2649,7 @@ class SpecReviewAnnotations:
         -1: at the start) of the value at *path* / *field*; its header carries
         the time *at* or the clock's (SOM §11.9.10)."""
         time = self._time(at)
+        self._refuse_block_in(field)
         value = self._get(path, field)
         end = self._paragraph_last_line(value, after_paragraph)
         self._set(

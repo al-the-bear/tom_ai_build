@@ -64,13 +64,15 @@ editable routes and how to pin.
 | Module | Responsibility |
 | ------ | -------------- |
 | `spec_paths` | The section-path grammar (root / child / list-item segments). |
-| `spec_model` | The meta-data loader — the exported class graph (`SpecModel`). |
+| `spec_model` | The meta-data loader — the exported class graph (`SpecModel`), with the typed readers of the link annotations (`tom_specs_model_rules.md` §9.7: `SpecSync`, `SpecSummaryOf`, `SpecDerivation`, `SpecInverseOf`, `SpecExtractsLinks`, `SpecSameAs`, and the form-field qualifiers `derived_from`, `inverse_of`, `summary_of`). |
+| `spec_place` | The place and filter grammar of the links between places (`tom_specs_model_rules.md` §9.7): `SpecPlace` (parsed, resolved under an anchor to the path its value is stored at, list items written `<list>-*`), `SpecPlaceFilter` (`<SECTIONID>.<field>=<value>`, `\|` alternatives, read by `countOf` too), the `@SameAs` bindings (`spec_same_as_bindings`) and the section positions of a root. |
+| `spec_links_validator` | `validate_links` — the link checks of one document: derived copies, rows, lookups and lists in step, inverses named back, ids named in a text with their rows, summaries against their details, `@SameAs` copies against their holders; a value holding pending marks is read with them rejected and listed (`linkValuePending`). |
 | `spec_reflection` | Value-free enumeration + path resolution (`SpecReflection`). |
 | `spec_document` | A sparse in-memory document — values keyed by section path. |
 | `spec_document_assembly` | Assembles one document from fragments written in parallel (`SpecDocument.assemble`, `assemble_spec_documents`) — a refusing merge: a place two fragments both write is reported as a `SpecAssemblyOverlap` and yields no document. |
-| `spec_typed_values` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
+| `spec_typed_values` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided; a typed value holding inline marks reads as its old value (`som_typed_reading`, SOM §11.9.3). |
 | `spec_editor` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |
-| `spec_validator` | Validates a document's values against the model. |
+| `spec_validator` | Validates a document's values against the model (typed values and references under review read as their old value); `spec_derived_numbers` gives the values `countOf`, `productOf` and `rankOf` call for. |
 | `spec_text_pattern` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime. `re` is not used, and this module converts to code units explicitly (`utf16_units`) rather than iterating characters: a Python string is a sequence of *code points*, which agrees with code units throughout the BMP and diverges above it. |
 | `spec_query` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
 | `spec_node_creation` | The constrained node-creation gate (`check_add_node`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
@@ -81,7 +83,7 @@ editable routes and how to pin.
 | `spec_impact_walk` | The impact walk of the `tom_specs` change mode: `spec_impact_walk` lists every section of every document root of the model for a specification (a root without a document over an empty one) — section-id chain, class, fill state, value count, CodeSpecs routing — and an empty list of sections as a template `<list>/*`; `spec_impact_level` records how far the project has come from a listing of its spec root; `spec_impact_document_files` finds the current documents in that listing; `spec_impact_walk_markdown` writes the table. Pure (no IO). |
 | `spec_codespecs_gate` | The Phase-4 Stage-A gate (`CodeSpecsGate`) — checks A1–A5 of `codespecs_prompt.md` §4 run as one over model, document, area catalogue (its `gate` tables) and DocSpecs schema; a check that cannot run is reported not run and fails the gate. |
 | `spec_codespecs_records` | Reads a Phase-4 run back: `CodeSpecsExtract.from_yaml` (the byte-stable inverse of `to_yaml`), the Stage-B gate record `gate.verdicts.yaml` (`CodeSpecsGateRecord` — read, checked, written), and `CodeSpecsExtractSet`, a tree of extracts scoped by its gate record. |
-| `spec_review_annotations` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks, conflict blocks, change times and attribution (`SpecReviewAnnotations`). |
+| `spec_review_annotations` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks (in headlines too, under `K_SPEC_HEADLINE_FIELD`), conflict blocks, change times and attribution (`SpecReviewAnnotations`). |
 | `spec_review_merge` | Team review (SOM §11.9.8): `merge_reviews` merges the returned copies of a round into one document with votes, individual answers and conflict blocks. |
 | `spec_answers` | A review round's answers (SOM §11.9.7): `extract_answers` and `render_answers` (`answers.md`). |
 | `spec_meta` | The metadata tree types (`SomMetaTree`, `SomMetaNode`, …) the YAML codec and the facade navigate by. |
@@ -150,6 +152,11 @@ python3 tests/conformance_runner.py   # → "OK: N checks passed"
 
 The runner asserts byte-for-byte equality of the YAML and Markdown encodings, the
 document round-trips, and the reflection / validation / operations behaviour.
+It also replays the section-automation tables of this port so far: the link
+readers and the place / filter grammar (`link_reader_cases.json`),
+`validate_links` (`link_validation_cases.json`) and the typed inline marks
+(`typedCases`) — over the fixture model `corpus/links.meta.json` and, for the
+cases naming it, the real model of `tom_som_dart_v0/meta/`.
 
 ## Architecture
 

@@ -25,7 +25,10 @@ Conventions (the typed contract, mirrored by all nine runtimes):
   * ``bool`` — stored as ``true`` / ``false`` (lower case, language-neutral);
     parsing accepts exactly those, anything else reads as ``None``;
   * enums — stored as the constant **name** (e.g. ``high``); the generic layer
-    validates against the field's ``enum_values`` domain.
+    validates against the field's ``enum_values`` domain;
+  * a typed value holding inline marks (SOM §11.9.3, a change under review:
+    ``{~~ 30 ~> 15 ~~}``) reads as its **old** value, every mark rejected,
+    until the marks are decided (:func:`som_typed_reading`).
 """
 
 from __future__ import annotations
@@ -60,8 +63,25 @@ def _trimmed(raw: str) -> str:
     return raw.strip(_TRIM_CHARS)
 
 
+def som_typed_reading(raw: Optional[str]) -> Optional[str]:
+    """The reading of a typed value under review: *raw* with every inline
+    mark rejected (its old value), trimmed; *raw* itself when it holds no
+    mark.
+
+    A typed value marked as a change (SOM §11.9.3) is the old value until the
+    change is accepted: the parsers below, the validator and every typed read
+    see that value, never the markup."""
+    if raw is None or "{" not in raw:
+        return raw
+    from .spec_review_annotations import apply_inline_marks_text
+
+    old = apply_inline_marks_text(raw, accept=False)
+    return raw if old == raw else _trimmed(old)
+
+
 def som_parse_int(raw: Optional[str]) -> Optional[int]:
     """Parses a stored string as ``int``, or ``None`` when absent/unparsable."""
+    raw = som_typed_reading(raw)
     if raw is None or raw == "":
         return None
     text = _trimmed(raw)
@@ -76,6 +96,7 @@ def som_format_int(value: Optional[int]) -> str:
 def som_parse_double(raw: Optional[str]) -> Optional[float]:
     """Parses a stored string as ``float``, or ``None`` when absent/unparsable
     (the text is trimmed; ``nan``, ``inf``, ``1_000`` and the like are refused)."""
+    raw = som_typed_reading(raw)
     if raw is None or raw == "":
         return None
     text = _trimmed(raw)
@@ -109,6 +130,7 @@ def som_parse_num(raw: Optional[str]) -> Optional[Union[int, float]]:
     Mirrors Dart's ``num.tryParse``: an integral literal yields an ``int``, so
     ``num`` fields keep the narrower type when the text carries no fraction.
     """
+    raw = som_typed_reading(raw)
     if raw is None or raw == "":
         return None
     text = _trimmed(raw)
@@ -130,6 +152,7 @@ def som_format_num(value: Optional[Union[int, float]]) -> str:
 
 def som_parse_bool(raw: Optional[str]) -> Optional[bool]:
     """Parses a stored string as ``bool`` — exactly ``true``/``false``."""
+    raw = som_typed_reading(raw)
     if raw == "true":
         return True
     if raw == "false":
@@ -151,7 +174,8 @@ def som_parse_enum_name(
     field's ``enum_values`` domain). Returns ``None`` when absent or not in the
     domain — a stale/foreign name reads as unset rather than raising, the same
     forgiveness the other parsers extend to malformed numbers."""
-    return raw if (raw is not None and raw in list(values)) else None
+    name = som_typed_reading(raw)
+    return name if (name is not None and name in list(values)) else None
 
 
 def som_format_enum_name(name: Optional[str], values: Iterable[str]) -> str:
@@ -191,6 +215,7 @@ def som_typed_text_readable(type_name: Optional[str], raw: Optional[str]) -> boo
     raise on one — so text a typed field cannot read is never silently read as
     unset.
     """
+    raw = som_typed_reading(raw)
     if raw is None or raw == "":
         return True
     base = som_scalar_base(type_name)
@@ -203,3 +228,12 @@ def som_typed_text_readable(type_name: Optional[str], raw: Optional[str]) -> boo
     if base == "bool":
         return som_parse_bool(raw) is not None
     return True
+
+
+def som_is_typed_field(type_name: Optional[str], enum_values: Iterable[str]) -> bool:
+    """Whether a form field holds a typed value: an enum, or ``int``,
+    ``double``, ``num`` or ``bool`` — the values that read as their old value
+    while marked."""
+    if list(enum_values):
+        return True
+    return som_scalar_base(type_name) in ("int", "double", "num", "bool")

@@ -2,6 +2,36 @@
 
 ## Unreleased
 
+- **Section automation, first part** (`tom_specs_model_rules.md` §9.7), the
+  port of the Dart runtime as TypeScript and JavaScript have it: the typed
+  link readers in `spec_model.py` (`SpecSync` with `SpecListRelation`,
+  `SpecSummaryOf`, `SpecDerivation`, `SpecInverseOf`, `SpecExtractsLinks`,
+  `SpecSameAs`; `synced_with`, `summary_of`, `derived_from`,
+  `extracts_links`, `same_as` on classes and fields; the form-field
+  qualifiers `derived_from`, `inverse_of`, `summary_of`;
+  `SpecClass.is_code_specs_projection`); the place and filter grammar
+  (`spec_place.py`: `SpecPlace`, `SpecPlaceResolution`, `SpecPlaceFilter`
+  with `|` alternatives, `SpecPlaceProblem`, `SpecPlaceException`,
+  `spec_same_as_bindings`, `spec_section_positions`), which `countOf` now
+  reads too; `validate_links` (`spec_links_validator.py`: derived copies,
+  rows, lookups and lists, inverses named back, ids named in a text with
+  their rows, summaries against their details, `@SameAs` copies against their
+  holders, pending changes read with every mark rejected) with eleven new
+  `SpecValidationCode`s and the fixes `deriveFields` will read
+  (`SpecLinkFix`); `spec_derived_numbers` (the values `countOf`, `productOf`
+  and `rankOf` give). Typed values and references holding inline marks read
+  as their old value until decided (`som_typed_reading`, `som_is_typed_field`;
+  the parsers, the instance tier and the `@OneOf` discriminator, SOM
+  §11.9.3), and a headline takes inline marks under the reserved field
+  `K_SPEC_HEADLINE_FIELD` (never a comment or question block). The
+  conformance runner replays `link_reader_cases.json`,
+  `link_validation_cases.json` and the `typedCases` of
+  `inline_mark_cases.json` / `change_mark_cases.json` (1776 -> 1997 checks);
+  `spec_place_test.py` (59 checks) and `spec_links_validator_test.py` (32
+  checks: the fixes, `read_proposed`, the derived numbers, the typed reading,
+  the headline field) are new. The document set, `deriveFields`, `backfill`,
+  `prefill` and the rendition's navigation follow.
+
 - **The merge back** (SOM §11.10), as Dart, TypeScript, C, JavaScript, C++
   and Java have it: `merge_stripped_value(original, stripped, edited, pieces)`
   merges the edited text of one value onto its original, each piece the

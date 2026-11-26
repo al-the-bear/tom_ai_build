@@ -105,6 +105,15 @@ class FormFieldSpec:
     #: (``Field.multiple``, uamtc17); a reference field without it holds one,
     #: and the instance tier reports a list in it (``multipleReferences``).
     multiple: bool = False
+    #: The derivation this field's value follows (``Field.derivedFrom``,
+    #: `tom_specs_model_rules.md` §9.7), or ``None`` when it states none.
+    derived_from: Optional["SpecDerivation"] = None
+    #: The other ends of the link this reference field is one end of
+    #: (``Field.inverseOf``), or ``None`` when it states none.
+    inverse_of: Optional["SpecInverseOf"] = None
+    #: The detailed list this multi-valued reference field summarises
+    #: (``Field.summaryOf``), or ``None`` when it states none.
+    summary_of: Optional["SpecSummaryOf"] = None
 
     @staticmethod
     def from_json(j: dict[str, Any]) -> "FormFieldSpec":
@@ -122,6 +131,21 @@ class FormFieldSpec:
             code=bool(j.get("code") or False),
             multi_paragraph=j.get("multiParagraph") is True,
             multiple=bool(j.get("multiple") or False),
+            derived_from=(
+                SpecDerivation.from_arguments(_object_map(j["derivedFrom"]))
+                if isinstance(j.get("derivedFrom"), dict)
+                else None
+            ),
+            inverse_of=(
+                SpecInverseOf.from_arguments(_object_map(j["inverseOf"]))
+                if isinstance(j.get("inverseOf"), dict)
+                else None
+            ),
+            summary_of=(
+                SpecSummaryOf.from_arguments(_object_map(j["summaryOf"]))
+                if isinstance(j.get("summaryOf"), dict)
+                else None
+            ),
         )
 
 
@@ -213,6 +237,349 @@ class NoArtifactLink:
         )
 
 
+# ---------------------------------------------------------------------------
+# The link vocabulary (`tom_specs_model_rules.md` §9.7)
+# ---------------------------------------------------------------------------
+#
+# Typed readers of the link annotations, read from the lossless ``annotations``
+# block (member and class annotations) or from the curated ``formFields[]``
+# keys (the ``Field`` qualifiers). They follow :class:`KindLink`: an enum
+# constant is read with its type prefix stripped (``LinkRelation.subset`` →
+# ``subset``), a key the reader does not know is ignored, and an absent key
+# takes the annotation's default — so a meta written before a key existed
+# loads unchanged.
+
+
+def _string_list(raw: Any) -> list[str]:
+    """A JSON list read as strings; anything else as empty."""
+    return [str(e) for e in raw if e is not None] if isinstance(raw, list) else []
+
+
+def _object_map(raw: Any) -> dict[str, Any]:
+    """A JSON object read with string keys; anything else as empty."""
+    return dict(raw) if isinstance(raw, dict) else {}
+
+
+def _string_map(raw: Any) -> dict[str, str]:
+    """A JSON object read as string → string; anything else as empty."""
+    if not isinstance(raw, dict):
+        return {}
+    return {str(k): _json_text(v) for k, v in raw.items()}
+
+
+def _json_text(v: Any) -> str:
+    """A JSON scalar as text, the way the reference writes it (``true``, not
+    ``True``)."""
+    if isinstance(v, bool):
+        return "true" if v else "false"
+    if v is None:
+        return "null"
+    return str(v)
+
+
+def _opt_string(raw: Any) -> Optional[str]:
+    """An optional string argument: the string, or ``None`` for anything
+    else."""
+    return raw if isinstance(raw, str) else None
+
+
+def _str(raw: Any, fallback: str) -> str:
+    """A string argument with a default when absent."""
+    return fallback if raw is None else _json_text(raw)
+
+
+@dataclass(frozen=True)
+class SpecListRelation:
+    """The relation of the elements of a list on two sides of a link, as the
+    annotated side reads it (``ListRelation``, `tom_specs_model_rules.md`
+    §9.7)."""
+
+    #: The list or multi-valued reference field the relation is about.
+    place: str
+    #: ``equal``, ``subset`` or ``superset`` (the ``LinkRelation`` constant
+    #: name).
+    relation: str
+    #: The filter selecting the elements the relation applies to, or ``None``
+    #: for all of them (the :class:`SpecPlaceFilter` grammar).
+    where: Optional[str] = None
+
+    @staticmethod
+    def from_arguments(a: dict[str, Any]) -> "SpecListRelation":
+        """Reads one ``relations[]`` entry of a ``@SyncedWith``."""
+        return SpecListRelation(
+            place=_str(a.get("place"), ""),
+            relation=_strip_enum_prefix(_str(a.get("relation"), "equal")),
+            where=_opt_string(a.get("where")),
+        )
+
+    def to_json(self) -> dict[str, Any]:
+        """The canonical JSON form, keys in declaration order, ``None`` left
+        out."""
+        out: dict[str, Any] = {"place": self.place, "relation": self.relation}
+        if self.where is not None:
+            out["where"] = self.where
+        return out
+
+
+@dataclass(frozen=True)
+class SpecSync:
+    """``@SyncedWith(document, {detailOnly, heldHere, relations, note})``: the
+    annotated section is kept in sync with the section of the same id in
+    *document* (`tom_specs_model_rules.md` §9.7)."""
+
+    #: The other document's root class name.
+    document: str
+    #: The places only *document* carries.
+    detail_only: list[str] = field(default_factory=list)
+    #: The places whose value this document holds.
+    held_here: list[str] = field(default_factory=list)
+    #: The lists whose relation is not ``equal``.
+    relations: list[SpecListRelation] = field(default_factory=list)
+    #: The annotation's free-text note.
+    note: Optional[str] = None
+
+    @staticmethod
+    def from_annotation(annotation: "SpecAnnotation") -> "SpecSync":
+        """Reads the sync out of *annotation*."""
+        a = annotation.arguments
+        relations = a.get("relations")
+        return SpecSync(
+            document=_str(a.get("document"), ""),
+            detail_only=_string_list(a.get("detailOnly")),
+            held_here=_string_list(a.get("heldHere")),
+            relations=[
+                SpecListRelation.from_arguments(_object_map(r))
+                for r in (relations if isinstance(relations, list) else [])
+                if isinstance(r, dict)
+            ],
+            note=_opt_string(a.get("note")),
+        )
+
+    def to_json(self) -> dict[str, Any]:
+        """The canonical JSON form, keys in declaration order, ``None`` left
+        out."""
+        out: dict[str, Any] = {
+            "document": self.document,
+            "detailOnly": list(self.detail_only),
+            "heldHere": list(self.held_here),
+            "relations": [r.to_json() for r in self.relations],
+        }
+        if self.note is not None:
+            out["note"] = self.note
+        return out
+
+
+@dataclass(frozen=True)
+class SpecSummaryOf:
+    """``@SummaryOf`` on a member, or the ``summaryOf:`` qualifier of a form
+    field: the annotated list or reference field summarises a detailed list
+    (`tom_specs_model_rules.md` §9.7)."""
+
+    #: The detailed list, ``<LIST-ID>`` (a ``/`` path where needed).
+    detail: str
+    #: The root class name of the document holding :attr:`detail`; ``None``:
+    #: this one.
+    document: Optional[str] = None
+    #: The summary element's field naming its detail element; ``None``: the
+    #: summary element carries the detail element's own section id.
+    match: Optional[str] = None
+    #: ``equal``, ``subset`` (the default) or ``superset``.
+    relation: str = "subset"
+    #: Summary place → detail place for every value the summary repeats.
+    repeats: dict[str, str] = field(default_factory=dict)
+    #: The annotation's free-text note.
+    note: Optional[str] = None
+
+    @staticmethod
+    def from_arguments(a: dict[str, Any]) -> "SpecSummaryOf":
+        """Reads the arguments of a ``SummaryOf`` (annotation or qualifier)."""
+        return SpecSummaryOf(
+            detail=_str(a.get("detail"), ""),
+            document=_opt_string(a.get("document")),
+            match=_opt_string(a.get("match")),
+            relation=_strip_enum_prefix(_str(a.get("relation"), "subset")),
+            repeats=_string_map(a.get("repeats")),
+            note=_opt_string(a.get("note")),
+        )
+
+    def to_json(self) -> dict[str, Any]:
+        """The canonical JSON form, keys in declaration order, ``None`` left
+        out."""
+        out: dict[str, Any] = {"detail": self.detail}
+        if self.document is not None:
+            out["document"] = self.document
+        if self.match is not None:
+            out["match"] = self.match
+        out["relation"] = self.relation
+        out["repeats"] = dict(self.repeats)
+        if self.note is not None:
+            out["note"] = self.note
+        return out
+
+
+@dataclass(frozen=True)
+class SpecDerivation:
+    """``@DerivedFrom`` on a member, or the ``derivedFrom:`` qualifier of a
+    form field: the value is derived from other places
+    (`tom_specs_model_rules.md` §9.7)."""
+
+    #: ``copy``, ``rows`` or ``lookup`` (the ``DerivationKind`` constant name).
+    kind: str
+    #: copy: the place copied; rows / lookup: the rows read.
+    source: str
+    #: rows: which rows count (the :class:`SpecPlaceFilter` grammar).
+    where: Optional[str] = None
+    #: rows / lookup: the row places collected.
+    take: list[str] = field(default_factory=list)
+    #: rows / lookup: the row field compared with this element's :attr:`by`.
+    key: Optional[str] = None
+    #: rows / lookup: this element's field holding the key.
+    by: Optional[str] = None
+    #: For a list member: target element place ← row place.
+    map: dict[str, str] = field(default_factory=dict)
+    #: The annotation's free-text note.
+    note: Optional[str] = None
+
+    @staticmethod
+    def from_arguments(a: dict[str, Any]) -> "SpecDerivation":
+        """Reads the arguments of a ``DerivedFrom`` (annotation or
+        qualifier)."""
+        return SpecDerivation(
+            kind=_strip_enum_prefix(_str(a.get("kind"), "copy")),
+            source=_str(a.get("source"), ""),
+            where=_opt_string(a.get("where")),
+            take=_string_list(a.get("take")),
+            key=_opt_string(a.get("key")),
+            by=_opt_string(a.get("by")),
+            map=_string_map(a.get("map")),
+            note=_opt_string(a.get("note")),
+        )
+
+    def to_json(self) -> dict[str, Any]:
+        """The canonical JSON form, keys in declaration order, ``None`` left
+        out."""
+        out: dict[str, Any] = {"kind": self.kind, "source": self.source}
+        if self.where is not None:
+            out["where"] = self.where
+        out["take"] = list(self.take)
+        if self.key is not None:
+            out["key"] = self.key
+        if self.by is not None:
+            out["by"] = self.by
+        out["map"] = dict(self.map)
+        if self.note is not None:
+            out["note"] = self.note
+        return out
+
+
+@dataclass(frozen=True)
+class SpecInverseOf:
+    """The ``inverseOf:`` qualifier of a reference form field: the other ends
+    of the link (`tom_specs_model_rules.md` §9.7)."""
+
+    #: The other ends, ``<FORMSECTIONID>.<field>``; ``['@self']`` for the
+    #: symmetric form.
+    fields: list[str] = field(default_factory=list)
+    #: Only values (or rows) matching this filter have an inverse.
+    where: Optional[str] = None
+
+    @staticmethod
+    def from_arguments(a: dict[str, Any]) -> "SpecInverseOf":
+        """Reads the ``inverseOf`` key of a ``formFields[]`` entry."""
+        return SpecInverseOf(
+            fields=_string_list(a.get("fields")),
+            where=_opt_string(a.get("where")),
+        )
+
+    @property
+    def symmetric(self) -> bool:
+        """Whether the link is stored on both entries in the same field
+        (``InverseOf.symmetric``)."""
+        return len(self.fields) == 1 and self.fields[0] == "@self"
+
+    def to_json(self) -> dict[str, Any]:
+        """The canonical JSON form, ``None`` left out."""
+        out: dict[str, Any] = {"fields": list(self.fields)}
+        if self.where is not None:
+            out["where"] = self.where
+        return out
+
+
+@dataclass(frozen=True)
+class SpecExtractsLinks:
+    """``@ExtractsLinks`` on a list of link rows: ids named in text get rows
+    (`tom_specs_model_rules.md` §9.7). A member may carry it more than
+    once."""
+
+    #: The row's ``refersTo`` field receiving a found id.
+    ref: str
+    #: The text places searched for ids.
+    from_: list[str] = field(default_factory=list)
+    #: The values every generated row gets.
+    set: dict[str, str] = field(default_factory=dict)
+    #: ``generate`` (the default) or ``warn`` (the ``ExtractMode`` constant
+    #: name).
+    mode: str = "generate"
+    #: The annotation's free-text note.
+    note: Optional[str] = None
+
+    @staticmethod
+    def from_annotation(annotation: "SpecAnnotation") -> "SpecExtractsLinks":
+        """Reads one ``ExtractsLinks`` annotation."""
+        a = annotation.arguments
+        return SpecExtractsLinks(
+            from_=_string_list(a.get("from")),
+            ref=_str(a.get("ref"), ""),
+            set=_string_map(a.get("set")),
+            mode=_strip_enum_prefix(_str(a.get("mode"), "generate")),
+            note=_opt_string(a.get("note")),
+        )
+
+    def to_json(self) -> dict[str, Any]:
+        """The canonical JSON form, keys in declaration order, ``None`` left
+        out."""
+        out: dict[str, Any] = {
+            "from": list(self.from_),
+            "ref": self.ref,
+            "set": dict(self.set),
+            "mode": self.mode,
+        }
+        if self.note is not None:
+            out["note"] = self.note
+        return out
+
+
+@dataclass(frozen=True)
+class SpecSameAs:
+    """``@SameAs({holder, note})`` on a section member: the member holds a
+    copy of the section the same document holds at another position, the
+    holder (`tom_specs_model_rules.md` §9.7). :func:`spec_same_as_bindings`
+    finds the holder per document."""
+
+    #: The holder's section-id path, its last ids as far as needed
+    #: (``ACPLN/ACRITL``); ``None``: the one other position of the class.
+    holder: Optional[str] = None
+    #: The annotation's free-text note.
+    note: Optional[str] = None
+
+    @staticmethod
+    def from_annotation(annotation: "SpecAnnotation") -> "SpecSameAs":
+        """Reads the copy out of *annotation*."""
+        return SpecSameAs(
+            holder=_opt_string(annotation.argument("holder")),
+            note=_opt_string(annotation.argument("note")),
+        )
+
+    def to_json(self) -> dict[str, Any]:
+        """The canonical JSON form, ``None`` left out."""
+        out: dict[str, Any] = {}
+        if self.holder is not None:
+            out["holder"] = self.holder
+        if self.note is not None:
+            out["note"] = self.note
+        return out
+
+
 class AnnotatedSpecNode:
     """Shared behaviour of the two model nodes that carry annotations —
     classes and fields. Keeps the annotation lookups defined once instead of
@@ -267,6 +634,44 @@ class AnnotatedSpecNode:
         nothing downstream (`codespecs_mapping.md` §8.3)."""
         a = self.annotation("NoArtifact")
         return None if a is None else NoArtifactLink.from_annotation(a)
+
+    @property
+    def synced_with(self) -> Optional[SpecSync]:
+        """The ``@SyncedWith`` sync, or ``None`` when this node carries none —
+        a ``@DetailedIn`` without one is "not declared yet", not "nothing
+        shared"."""
+        a = self.annotation("SyncedWith")
+        return None if a is None else SpecSync.from_annotation(a)
+
+    @property
+    def summary_of(self) -> Optional[SpecSummaryOf]:
+        """The ``@SummaryOf`` link of this member, or ``None`` when it carries
+        none."""
+        a = self.annotation("SummaryOf")
+        return None if a is None else SpecSummaryOf.from_arguments(a.arguments)
+
+    @property
+    def derived_from(self) -> Optional[SpecDerivation]:
+        """The ``@DerivedFrom`` derivation of this member, or ``None`` when it
+        carries none."""
+        a = self.annotation("DerivedFrom")
+        return None if a is None else SpecDerivation.from_arguments(a.arguments)
+
+    @property
+    def extracts_links(self) -> list[SpecExtractsLinks]:
+        """Every ``@ExtractsLinks`` of this member, in source order; empty
+        when it carries none."""
+        return [
+            SpecExtractsLinks.from_annotation(a)
+            for a in self.annotations_named("ExtractsLinks")
+        ]
+
+    @property
+    def same_as(self) -> Optional[SpecSameAs]:
+        """The ``@SameAs`` copy of this member, or ``None`` when it carries
+        none."""
+        a = self.annotation("SameAs")
+        return None if a is None else SpecSameAs.from_annotation(a)
 
     def _link(self, name: str, list_argument: str) -> Optional[KindLink]:
         a = self.annotation(name)
@@ -366,6 +771,12 @@ class SpecClass(AnnotatedSpecNode):
             if f.name == name:
                 return f
         return None
+
+    @property
+    def is_code_specs_projection(self) -> bool:
+        """Whether this class is the CodeSpecs projection root
+        (``@CodeSpecsProjection``)."""
+        return self.has_annotation("CodeSpecsProjection")
 
 
 @dataclass(frozen=True)

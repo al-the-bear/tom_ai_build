@@ -34,7 +34,12 @@ golden byte-for-byte and matches every behavioural case:
   * the strip of one value, the readable header and the strip of a document
     (``strip_cases.json``, SOM §11.10).
   * the merge back of an edited value and of an edited readable rendition
-    (``strip_merge_cases.json``, SOM §11.10).
+    (``strip_merge_cases.json``, SOM §11.10);
+  * the section-link readers and the place / filter grammar
+    (``link_reader_cases.json``), the link checks of one document
+    (``link_validation_cases.json``) and the typed values and headlines
+    under review (the ``typedCases`` of ``inline_mark_cases.json`` /
+    ``change_mark_cases.json``), `tom_specs_model_rules.md` §9.7.
 
 Run with: ``python3 tests/conformance_runner.py``. Exit code 0 == all green.
 """
@@ -136,14 +141,25 @@ from tom_som_runtime import (  # noqa: E402
     spec_impact_level,
     spec_impact_walk,
     spec_impact_walk_markdown,
+    SpecPlace,
+    SpecPlaceException,
+    SpecPlaceFilter,
+    SpecPlaceProblem,
+    SpecValidationCode,
+    spec_same_as_bindings,
+    validate_links,
 )
 from tom_som_runtime.spec_typed_values import (  # noqa: E402
     som_format_double,
     som_format_int,
     som_format_num,
+    som_parse_bool,
     som_parse_double,
+    som_parse_enum_name,
     som_parse_int,
     som_parse_num,
+    som_scalar_base,
+    som_typed_reading,
     som_typed_text_readable,
 )
 
@@ -1589,7 +1605,47 @@ def _run_annotation_op(model: SpecModel, tree, doc: SpecDocument,
             "markdown": not from_md.rejections
             and from_md.document.to_json() == doc.to_json(),
         }
+    # The instance tier's findings as `{path, code}`: a marked typed value is
+    # read as its old value (SOM §11.9.3).
+    if kind == "validate":
+        return [{"path": e.path, "code": e.code.value} for e in validate_document(model, doc)]
+    # The typed reading of one value, as the typed accessors read it.
+    if kind == "typedRead":
+        return _typed_read(model, doc, op)
     raise ValueError(f"unknown annotation op {kind}")
+
+
+def _typed_read(model: SpecModel, doc: SpecDocument, op: dict):
+    """The typed reading of the value at `path` / `field`: an enum by its
+    name, `int`, `double`, `num` and `bool` as numbers and booleans, None when
+    the text reads as nothing — with any inline mark rejected (its old
+    value)."""
+    p = op["path"]
+    field = op.get("field")
+    res = SpecReflection(model).resolve(p)
+    spec = None
+    if field is not None and res is not None and res.field is not None:
+        spec = next((f for f in res.field.form_fields if f.name == field), None)
+    raw = doc.content(p) if field is None else doc.form_field(p, field)
+    res_field = res.field if res is not None else None
+    type_ = som_scalar_base(
+        spec.type if spec is not None else (res_field.type if res_field else None)
+    )
+    values = (
+        spec.enum_values if spec is not None
+        else (res_field.enum_values if res_field else [])
+    )
+    if values:
+        return som_parse_enum_name(raw, values)
+    if type_ == "int":
+        return som_parse_int(raw)
+    if type_ == "double":
+        return som_parse_double(raw)
+    if type_ == "num":
+        return som_parse_num(raw)
+    if type_ == "bool":
+        return som_parse_bool(raw)
+    return som_typed_reading(raw)
 
 
 #: The change time every annotation write records in the conformance cases
@@ -1729,6 +1785,8 @@ def test_inline_marks(model: SpecModel, tree) -> None:
         got = apply_inline_marks_text(c["text"], accept=True)
         _check(f"{name}.removed", got == c["removed"],
                f"got {got!r}, want {c['removed']!r}")
+    # Typed values and headlines under review (SOM §11.9.3).
+    _run_typed_mark_cases("typedInlineMark", model, tree, table["typedCases"])
     for case in table["cases"]:
         got = _run_annotation_case(model, tree, case)
         _check(
@@ -1736,6 +1794,29 @@ def test_inline_marks(model: SpecModel, tree) -> None:
             got == case["expect"],
             _json_mismatch(got, case["expect"]),
         )
+
+
+def _run_typed_mark_cases(label: str, model: SpecModel, tree, cases) -> None:
+    for case in cases:
+        name = f"{label}[{case['name']}]"
+        try:
+            got = _run_annotation_case(model, tree, case)
+            _check(name, _deep_equal(got, case["expect"]),
+                   _json_mismatch(got, case["expect"]))
+        except Exception as e:  # noqa: BLE001 - reported as a failed check
+            _check(name, False, f"threw {e!r}")
+
+
+def _deep_equal(a, b) -> bool:
+    """JSON equality: ``True`` is not ``1`` and ``1`` equals ``1.0``, as the
+    reference compares decoded JSON."""
+    if isinstance(a, bool) or isinstance(b, bool):
+        return isinstance(a, bool) and isinstance(b, bool) and a == b
+    if isinstance(a, dict) and isinstance(b, dict):
+        return a.keys() == b.keys() and all(_deep_equal(a[k], b[k]) for k in a)
+    if isinstance(a, (list, tuple)) and isinstance(b, (list, tuple)):
+        return len(a) == len(b) and all(_deep_equal(x, y) for x, y in zip(a, b))
+    return a == b
 
 
 def test_change_marks(model: SpecModel, tree) -> None:
@@ -1756,6 +1837,8 @@ def test_change_marks(model: SpecModel, tree) -> None:
         if r.exact:
             _check(f"{name}.exactRoundTrip",
                    c["accept"] == c["new"] and c["reject"] == c["old"])
+    # Typed values and headlines written as marks (SOM §11.9.3).
+    _run_typed_mark_cases("typedChangeMark", model, tree, table["typedCases"])
     for case in table["cases"]:
         got = _run_annotation_case(model, tree, case)
         _check(
@@ -2620,6 +2703,347 @@ def test_impact_walk() -> None:
             _check(f"impactWalk[{case['name']}].{key}", got[key] == expect, detail)
 
 
+# ---------------------------------------------------------------------------
+# The section-link readers (`link_reader_cases.json` over `links.meta.json`)
+# ---------------------------------------------------------------------------
+
+
+def _link_read_back(model: SpecModel) -> dict:
+    """What the readers return for *model*, in canonical JSON: every class
+    sync, every member link, every form-field qualifier, and the ``@SameAs``
+    bindings per root. Classes by name, fields and form fields in declaration
+    order (the Dart test's ``linkReadBack``)."""
+    names = sorted(model.classes)
+    refl = SpecReflection(model)
+    classes = []
+    fields = []
+    form_fields = []
+    for n in names:
+        sync = model.classes[n].synced_with
+        if sync is not None:
+            classes.append({"class": n, "syncedWith": sync.to_json()})
+    for n in names:
+        for f in model.classes[n].fields:
+            sync = f.synced_with
+            summary = f.summary_of
+            derived = f.derived_from
+            extracts = f.extracts_links
+            same_as = f.same_as
+            if (
+                sync is None and summary is None and derived is None
+                and not extracts and same_as is None
+            ):
+                continue
+            row: dict = {"class": n, "field": f.name}
+            if sync is not None:
+                row["syncedWith"] = sync.to_json()
+            if summary is not None:
+                row["summaryOf"] = summary.to_json()
+            if derived is not None:
+                row["derivedFrom"] = derived.to_json()
+            if extracts:
+                row["extractsLinks"] = [e.to_json() for e in extracts]
+            if same_as is not None:
+                row["sameAs"] = same_as.to_json()
+            fields.append(row)
+    for n in names:
+        for f in model.classes[n].fields:
+            for ff in f.form_fields:
+                if ff.derived_from is None and ff.inverse_of is None and ff.summary_of is None:
+                    continue
+                row = {"class": n, "field": f.name, "formField": ff.name}
+                if ff.derived_from is not None:
+                    row["derivedFrom"] = ff.derived_from.to_json()
+                if ff.inverse_of is not None:
+                    row["inverseOf"] = ff.inverse_of.to_json()
+                if ff.summary_of is not None:
+                    row["summaryOf"] = ff.summary_of.to_json()
+                form_fields.append(row)
+    same_as_bindings = [
+        b.to_json() for r in model.roots for b in spec_same_as_bindings(refl, r.type)
+    ]
+    return {
+        "classes": classes,
+        "fields": fields,
+        "formFields": form_fields,
+        "sameAsBindings": same_as_bindings,
+        "classCount": len(model.classes),
+    }
+
+
+def _place_case(refl: SpecReflection, c: dict) -> dict:
+    """One place case: the text parsed, then resolved under `anchor` when
+    given."""
+    place = SpecPlace.try_parse(c["text"])
+    if place is None:
+        return {"problem": SpecPlaceProblem.MALFORMED}
+    if c.get("anchor") is None:
+        return {"parsed": place.to_json()}
+    try:
+        return {"parsed": place.to_json(), "resolved": place.resolve(refl, c["anchor"]).to_json()}
+    except SpecPlaceException as e:
+        return {"parsed": place.to_json(), "problem": e.problem}
+
+
+def _filter_case(refl: SpecReflection, c: dict) -> dict:
+    """One filter case: the text parsed, resolved under `anchor` when given,
+    and matched against `stored` when given."""
+    f = SpecPlaceFilter.try_parse(c["text"])
+    if f is None:
+        return {"problem": SpecPlaceProblem.MALFORMED}
+    out: dict = {"parsed": f.to_json()}
+    if isinstance(c.get("stored"), list):
+        out["matches"] = f.matches([str(v) for v in c["stored"]])
+    if c.get("anchor") is not None:
+        try:
+            out["resolved"] = f.resolve(refl, c["anchor"]).to_json()
+        except SpecPlaceException as e:
+            out["problem"] = e.problem
+    return out
+
+
+def _reader_intent_holds(token: str, e: dict):
+    """Whether the reader-case intent *token* holds in the expectation *e*
+    (the Dart test's ``_readerIntentHolds``); an unknown token is ``None``."""
+    def field_has(key):
+        return any(key in r for r in e["fields"])
+
+    def form_has(key):
+        return any(key in r for r in e["formFields"])
+
+    if token == "syncedWith":
+        return len(e["classes"]) > 0
+    if token == "syncRelationWhere":
+        return any(any("where" in x for x in r["syncedWith"]["relations"]) for r in e["classes"])
+    if token == "summaryOf":
+        return field_has("summaryOf")
+    if token == "summaryOfDocument":
+        return any(r.get("summaryOf") is not None and "document" in r["summaryOf"]
+                   for r in e["fields"])
+    if token == "derivedFrom":
+        return field_has("derivedFrom")
+    if token == "extractsLinksRepeated":
+        return any(len(r.get("extractsLinks") or []) > 1 for r in e["fields"])
+    if token == "sameAs":
+        return field_has("sameAs")
+    if token == "formDerivedFrom":
+        return form_has("derivedFrom")
+    if token == "formInverseOf":
+        return form_has("inverseOf")
+    if token == "formSymmetric":
+        return any(r.get("inverseOf") is not None and "@self" in (r["inverseOf"].get("fields") or [])
+                   for r in e["formFields"])
+    if token == "formSummaryOf":
+        return form_has("summaryOf")
+    if token == "sameAsHolder":
+        return any("holder" in r for r in e["sameAsBindings"])
+    if token == "loadsUnchanged":
+        return (
+            e["classCount"] > 0 and not e["classes"] and not e["fields"]
+            and not e["formFields"] and not e["sameAsBindings"]
+        )
+    return None
+
+
+def _link_tokens(e) -> set:
+    """Every string a text case's expectation shows: kinds, problems, and
+    ``matches`` / ``noMatch`` (the Dart test's ``_tokens``)."""
+    out: set = set()
+
+    def walk(v, key):
+        if isinstance(v, list):
+            for x in v:
+                walk(x, None)
+        elif isinstance(v, dict):
+            for k, x in v.items():
+                walk(x, k)
+        elif key == "matches" and isinstance(v, bool):
+            out.add("matches" if v else "noMatch")
+        elif isinstance(v, str) and key in ("kind", "problem"):
+            out.add(v)
+
+    walk(e, None)
+    return out
+
+
+def test_link_readers() -> None:
+    """``link_reader_cases.json``: the typed readers of the link annotations,
+    the ``@SameAs`` holders, an older meta loading unchanged, the place
+    grammar and the filter (Dart ``section_link_conformance_test.dart``,
+    LRC3 / LRC4), then the reader spot checks (LR1–LR4) and ``countOf``
+    reading the filter (CO1–CO2)."""
+    meta = _read_json("links.meta.json")
+    table = _read_json("link_reader_cases.json")
+    for c in table["cases"]:
+        name = f"links.reader[{c['name']}]"
+        try:
+            m = meta if c.get("model") == "links.meta.json" else c["meta"]
+            got = _link_read_back(SpecModel.from_json(m))
+            _check(name, _deep_equal(got, c["expect"]), _json_mismatch(got, c["expect"]))
+        except Exception as e:  # noqa: BLE001 - reported as a failed check
+            _check(name, False, f"threw {e!r}")
+        for token in c["intent"]:
+            holds = _reader_intent_holds(token, c["expect"])
+            _check(
+                f"links.reader.intent[{c['name']}: {token}]",
+                holds is True,
+                "unknown intent token" if holds is None else "does not hold",
+            )
+    model = SpecModel.from_json(meta)
+    refl = SpecReflection(model)
+
+    def run_text(kind: str, cases, run) -> None:
+        for c in cases:
+            name = f"links.{kind}[{c['name']}]"
+            try:
+                got = run(c)
+                _check(name, _deep_equal(got, c["expect"]), _json_mismatch(got, c["expect"]))
+            except Exception as e:  # noqa: BLE001 - reported as a failed check
+                _check(name, False, f"threw {e!r}")
+            shown = _link_tokens(c["expect"])
+            for token in c["intent"]:
+                _check(f"links.{kind}.intent[{c['name']}: {token}]", token in shown)
+
+    run_text("place", table["textCases"]["places"], lambda c: _place_case(refl, c))
+    run_text("filter", table["textCases"]["filters"], lambda c: _filter_case(refl, c))
+
+    # LR1: the class sync is read with its relations.
+    reqs = model.classes["Requirements"].synced_with
+    _check(
+        "links.LR1.sync",
+        reqs is not None
+        and reqs.document == "Detail"
+        and reqs.detail_only == ["REQX"]
+        and reqs.held_here == ["REQ.owner"]
+        and len(reqs.relations) == 1
+        and reqs.relations[0].relation == "subset",
+    )
+    crit = model.classes["Criteria"].synced_with
+    _check(
+        "links.LR1.where",
+        crit is not None
+        and len(crit.relations) == 1
+        and crit.relations[0].where == "CRITE.kind=functional|quality",
+    )
+    _check("links.LR1.none", model.classes["Blueprint"].synced_with is None)
+
+    # LR2: member links and the repeated @ExtractsLinks.
+    req = model.classes["Requirement"]
+    links = req.field_named("links").extracts_links
+    _check("links.LR2.modes", [x.mode for x in links] == ["generate", "warn"])
+    _check("links.LR2.set", links[0].set == {"LNK.linkType": "namedInText"})
+    abstract = req.field_named("abstract").derived_from
+    _check("links.LR2.copy", abstract is not None and abstract.kind == "copy")
+    pre = req.field_named("prerequisites").derived_from
+    _check("links.LR2.map", pre is not None and pre.map == {"PRE.ref": "LNK-REF.ref"})
+    _check("links.LR2.noSummary", req.field_named("links").summary_of is None)
+
+    # LR3: the form-field qualifiers.
+    def ff(cls, field, name):
+        return next(
+            f for f in model.classes[cls].field_named(field).form_fields if f.name == name
+        )
+
+    conflicts = ff("Requirement", "constraints", "conflictsWith").derived_from
+    _check("links.LR3.where",
+           conflicts is not None and conflicts.where == "LNK.linkType=conflict")
+    sym = ff("Link", "ref", "ref").inverse_of
+    _check("links.LR3.symmetric", sym is not None and sym.symmetric is True)
+    nsym = ff("Requirement", "trace", "relatedScreens").inverse_of
+    _check("links.LR3.notSymmetric", nsym is not None and nsym.symmetric is False)
+    focus = ff("Blueprint", "focus", "focusScreens").summary_of
+    _check("links.LR3.summaryDocument", focus is not None and focus.document == "Screens")
+
+    # LR4: the real model — S1 has one holder in each document.
+    real_refl = SpecReflection(_load_som_model())
+    for root in ("D00SolutionBlueprint", "D10QualityAcceptancePlan"):
+        bindings = spec_same_as_bindings(real_refl, root)
+        _check(
+            f"links.LR4[{root}]",
+            len(bindings) == 1
+            and bindings[0].class_name == "AcceptanceCriteriaList"
+            and bindings[0].problem is None
+            and bindings[0].copy_path.endswith("/detailedCriteria"),
+            json.dumps([b.to_json() for b in bindings]),
+        )
+
+    # CO1–CO2: countOf reads the filter, `|` included.
+    base = "BLU/requirements"
+
+    def doc(settled: str, total: str = "3") -> SpecDocument:
+        d = SpecDocument()
+        for status in ("approved", "done", "draft"):
+            item = d.add_list_item(f"{base}/REQ-ITEM-LST")
+            d.set_form_field(f"{item}/content", "status", status)
+        d.set_form_field(f"{base}/REQS-SUM", "total", total)
+        d.set_form_field(f"{base}/REQS-SUM", "settled", settled)
+        return d
+
+    def counts(d: SpecDocument) -> list:
+        return [
+            e.path for e in validate_document(model, d)
+            if e.code == SpecValidationCode.COUNT_MISMATCH
+        ]
+
+    def co(name: str, got, want) -> None:
+        _check(name, got == want, _json_mismatch(got, want))
+
+    co("links.CO1", counts(doc("2")), [])
+    co("links.CO2.settled", counts(doc("3")), [f"{base}/REQS-SUM"])
+    co("links.CO2.total", counts(doc("2", "2")), [f"{base}/REQS-SUM"])
+
+
+def test_link_validation() -> None:
+    """``link_validation_cases.json``: each case's state loaded, then
+    ``validate_links`` (``errors``) and the instance tier
+    (``instanceErrors``), every finding as ``{path, code}`` (Dart
+    ``section_link_conformance_test.dart``, LVC2); every case shows its intent
+    (LVC3); every link code has a provoking case (LVC4)."""
+    table = _read_json("link_validation_cases.json")
+    model = SpecModel.from_json(_read_json(table.get("model") or "links.meta.json"))
+
+    def pairs(errors) -> list:
+        return [{"path": e.path, "code": e.code.value} for e in errors]
+
+    provoked: set = set()
+    for c in table["cases"]:
+        name = f"links.validate[{c['name']}]"
+        for e in c["errors"]:
+            provoked.add(e["code"])
+        try:
+            d = _document_from_state(json.loads(json.dumps(c["state"])))
+            errors = pairs(validate_links(model, d))
+            _check(f"{name}.errors", errors == c["errors"], _json_mismatch(errors, c["errors"]))
+            instance = pairs(validate_document(model, d))
+            _check(
+                f"{name}.instanceErrors",
+                instance == c["instanceErrors"],
+                _json_mismatch(instance, c["instanceErrors"]),
+            )
+        except Exception as e:  # noqa: BLE001 - reported as a failed check
+            _check(name, False, f"threw {e!r}")
+        codes = {e["code"] for e in c["errors"] + c["instanceErrors"]}
+        for token in c["intent"]:
+            _check(
+                f"links.validate.intent[{c['name']}: {token}]",
+                len(codes) == 0 if token == "clean" else token in codes,
+            )
+    for code in (
+        SpecValidationCode.DERIVED_VALUE_MISMATCH,
+        SpecValidationCode.DERIVED_LOOKUP_MISS,
+        SpecValidationCode.DUPLICATE_LINK_ROW,
+        SpecValidationCode.INVERSE_MISSING,
+        SpecValidationCode.EXTRACTED_LINK_MISSING,
+        SpecValidationCode.EXTRACTED_LINK_STALE,
+        SpecValidationCode.SUMMARY_NOT_IN_DETAIL,
+        SpecValidationCode.DETAIL_NOT_IN_SUMMARY,
+        SpecValidationCode.SUMMARY_DUPLICATE,
+        SpecValidationCode.SAME_AS_MISMATCH,
+        SpecValidationCode.LINK_VALUE_PENDING,
+    ):
+        _check(f"links.validate.provoked[{code.value}]", code.value in provoked)
+
+
 def main() -> int:
     if not os.path.isdir(_CORPUS):
         print(f"corpus not found at {_CORPUS}", file=sys.stderr)
@@ -2671,6 +3095,8 @@ def main() -> int:
     test_generation_units(model)
     test_typed_values()
     test_impact_walk()
+    test_link_readers()
+    test_link_validation()
 
     total = _passed + len(_failed)
     if _failed:

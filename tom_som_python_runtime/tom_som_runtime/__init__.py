@@ -266,10 +266,17 @@ from .spec_model import (
     SpecModel,
     SpecModelStampCheck,
     SpecRoot,
+    SpecListRelation,
+    SpecSync,
+    SpecSummaryOf,
+    SpecDerivation,
+    SpecInverseOf,
+    SpecExtractsLinks,
+    SpecSameAs,
     parse_stamp_timestamp,
     som_model_version_string,
 )
-from .spec_review_annotations import format_conflict_block
+from .spec_review_annotations import K_SPEC_HEADLINE_FIELD, format_conflict_block
 from .spec_paths import (
     SPEC_PATH_SEPARATOR,
     ListItemSegment,
@@ -283,6 +290,18 @@ from .spec_reflection import (
     SpecNodeKind,
     SpecReflection,
     SpecResolution,
+)
+from .spec_place import (
+    SpecPlace,
+    SpecPlaceException,
+    SpecPlaceFilter,
+    SpecPlaceKind,
+    SpecPlaceProblem,
+    SpecPlaceResolution,
+    SpecSameAsBinding,
+    SpecSectionPosition,
+    spec_same_as_bindings,
+    spec_section_positions,
 )
 from .spec_editor import SpecEditor
 from .spec_node_creation import (
@@ -315,14 +334,19 @@ from .spec_typed_values import (
     som_parse_enum_name,
     som_parse_int,
     som_parse_num,
+    som_is_typed_field,
     som_scalar_base,
+    som_typed_reading,
     som_typed_text_readable,
 )
 from .spec_validator import (
+    SpecDerivedNumber,
     SpecValidationCode,
     SpecValidationError,
+    spec_derived_numbers,
     validate_document,
 )
+from .spec_links_validator import validate_links
 
 __all__ = [
     "SpecDocumentYaml",
@@ -559,6 +583,30 @@ __all__ = [
     "som_parse_num",
     "som_scalar_base",
     "som_typed_text_readable",
+    "som_typed_reading",
+    "som_is_typed_field",
+    # the link vocabulary (tom_specs_model_rules.md §9.7)
+    "SpecListRelation",
+    "SpecSync",
+    "SpecSummaryOf",
+    "SpecDerivation",
+    "SpecInverseOf",
+    "SpecExtractsLinks",
+    "SpecSameAs",
+    "SpecPlaceKind",
+    "SpecPlaceProblem",
+    "SpecPlaceException",
+    "SpecPlace",
+    "SpecPlaceResolution",
+    "SpecPlaceFilter",
+    "SpecSameAsBinding",
+    "spec_same_as_bindings",
+    "SpecSectionPosition",
+    "spec_section_positions",
+    "SpecDerivedNumber",
+    "spec_derived_numbers",
+    "validate_links",
+    "K_SPEC_HEADLINE_FIELD",
     "spec_default_units",
     "spec_generation_units",
     "code_specs_class_routing",

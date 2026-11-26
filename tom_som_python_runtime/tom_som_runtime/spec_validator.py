@@ -13,7 +13,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 from enum import Enum
-from typing import Optional
+from typing import NamedTuple, Optional
 
 from .spec_document import SpecDocument
 from .spec_model import (
@@ -26,7 +26,14 @@ from .spec_model import (
 from .spec_paths import spec_path_join
 from .spec_reflection import SpecNodeKind, SpecReflection, SpecResolution
 from .spec_section_id import K_SECTION_ID_SLOT, effective_list_item_section_id
-from .spec_typed_values import som_scalar_base, som_typed_text_readable
+from .spec_place import SpecPlaceFilter
+from .spec_typed_values import (
+    som_format_double,
+    som_is_typed_field,
+    som_scalar_base,
+    som_typed_reading,
+    som_typed_text_readable,
+)
 
 
 class SpecValidationCode(Enum):
@@ -112,6 +119,48 @@ class SpecValidationCode(Enum):
     #: (:data:`K_SPEC_STANDARD_EMITTERS`: ``openapi``, ``jsonschema``, ``icu``,
     #: ``asyncapi``, ``markdown``).
     UNIT_EMITTER_UNKNOWN = "unitEmitterUnknown"
+
+    # The link checks of one document (:func:`validate_links`,
+    # `tom_specs_model_rules.md` §9.7). A stored derived value its sources do
+    # not give is reported as ``derivedValueMismatch`` above.
+
+    #: A ``@DerivedFrom.lookup`` finds no row for its key, or more than one.
+    DERIVED_LOOKUP_MISS = "derivedLookupMiss"
+    #: Two link rows beneath one element name the same id with the same type
+    #: (the values ``@ExtractsLinks`` sets); reported at the second.
+    DUPLICATE_LINK_ROW = "duplicateLinkRow"
+    #: A link names an entry whose other end (``inverseOf``) does not name it
+    #: back, or a symmetric row has no counterpart on the entry it names. An
+    #: end whose registry the document does not hold is skipped.
+    INVERSE_MISSING = "inverseMissing"
+    #: An id named in an ``@ExtractsLinks`` text has no row. An id that has a
+    #: row of any type is a reference to it and is not reported.
+    EXTRACTED_LINK_MISSING = "extractedLinkMissing"
+    #: A generated row (its ``@ExtractsLinks`` ``set`` values match) names an
+    #: id the text no longer names.
+    EXTRACTED_LINK_STALE = "extractedLinkStale"
+    #: A summary row (``@SummaryOf``) names no element of its detail list.
+    SUMMARY_NOT_IN_DETAIL = "summaryNotInDetail"
+    #: Under ``relation: equal``, a detail element no summary row names.
+    DETAIL_NOT_IN_SUMMARY = "detailNotInSummary"
+    #: Two summary rows name one detail element; reported at the second.
+    SUMMARY_DUPLICATE = "summaryDuplicate"
+    #: A ``@SameAs`` copy holds a value its holder does not (or lacks one it
+    #: holds): the two positions of the section were edited apart.
+    SAME_AS_MISMATCH = "sameAsMismatch"
+    #: A value a link check reads holds pending change marks. It is read with
+    #: every mark rejected (the reviewed state) and listed for the user.
+    LINK_VALUE_PENDING = "linkValuePending"
+    #: A change ``deriveFields`` would write in a document under review that
+    #: cannot be marked exactly (a difference inside fenced code, SOM
+    #: §11.9.3); it is left as it was, for the agent.
+    UNMARKABLE = "unmarkable"
+
+
+def spec_validation_code_index(code: SpecValidationCode) -> int:
+    """The declaration order of *code* (Dart's ``SpecValidationCode.index``),
+    which sorted finding lists follow."""
+    return list(SpecValidationCode).index(code)
 
 
 @dataclass(frozen=True)
@@ -221,7 +270,7 @@ def validate_document(model: SpecModel, doc: SpecDocument) -> list[SpecValidatio
                 )
                 continue
             if not spec.enum_values:
-                text = doc.form_field(path, name)
+                text = _typed_value(doc.form_field(path, name), spec)
                 # A stated count (`count_of`) is checked by `countMismatch`, a
                 # product or rank (`product_of`, `rank_of`) by
                 # `derivedValueMismatch`; both already report text that is no
@@ -244,7 +293,7 @@ def validate_document(model: SpecModel, doc: SpecDocument) -> list[SpecValidatio
                         )
                     )
                 continue
-            value = doc.form_field(path, name)
+            value = _typed_value(doc.form_field(path, name), spec)
             # Absence is not a bad value.
             if not value:
                 continue
@@ -272,7 +321,7 @@ def validate_document(model: SpecModel, doc: SpecDocument) -> list[SpecValidatio
         for ff in res.field.form_fields:
             if not ff.required:
                 continue
-            value = doc.form_field(path, ff.name)
+            value = _typed_value(doc.form_field(path, ff.name), ff)
             if value is None or not value.strip():
                 errors.append(
                     SpecValidationError(
@@ -416,8 +465,9 @@ def _validate_one_of_instances(
                 break
         if form_holder is None:
             continue  # static tier flagged the mismatch
-        chosen = doc.form_field(
-            f"{path}/{refl.field_segment(form_holder)}", discriminator
+        # The discriminator is an enum: under review it reads as its old value.
+        chosen = som_typed_reading(
+            doc.form_field(f"{path}/{refl.field_segment(form_holder)}", discriminator)
         )
         if not chosen:
             continue  # no case chosen yet
@@ -568,7 +618,7 @@ def _validate_reference_instances(
         if not section_id:
             continue
         for ff in field.form_fields:
-            value = doc.form_field(form_path, ff.name)
+            value = _typed_value(doc.form_field(form_path, ff.name), ff)
             if value is None or not value.strip():
                 continue
             declared.setdefault(f"{section_id}.{ff.name}", set()).add(value.strip())
@@ -607,7 +657,7 @@ def _validate_reference_instances(
         for ff in field.form_fields:
             if not ff.refers_to:
                 continue
-            value = doc.form_field(form_path, ff.name)
+            value = _typed_value(doc.form_field(form_path, ff.name), ff)
             if value is None or not value.strip():
                 continue
 
@@ -666,10 +716,12 @@ def _validate_count_instances(
     An **entry** is a list item whose element class carries ``@SectionId(X)``.
     A target ``X`` counts every such entry; ``X.f=v`` counts only the entries
     one of whose own forms — a form member of the entry, at ``<item>/<member>``
-    — holds ``v`` in form field ``f``. The count is the sum over the targets. As
-    with the reference check, a target whose section id the document's root
-    cannot reach makes the field undecidable here, so it is skipped rather than
-    reported, and an empty value is completeness, not a count.
+    — holds ``v`` in form field ``f``, and ``X.f=a|b`` those holding either
+    alternative. A target is read as a :class:`SpecPlaceFilter`. The count is
+    the sum over the targets. As with the reference check, a target whose
+    section id the document's root cannot reach — or that is no filter at all
+    — makes the field undecidable here, so it is skipped rather than reported,
+    and an empty value is completeness, not a count.
     """
     forms = _resolved_forms(refl, doc)
     if not any(ff.count_of for _, _, field in forms for ff in field.form_fields):
@@ -697,7 +749,7 @@ def _validate_count_instances(
         if res is None or res.field is None:
             continue
         for ff in res.field.form_fields:
-            raw = doc.form_field(path, ff.name)
+            raw = _typed_value(doc.form_field(path, ff.name), ff)
             v = raw.strip() if raw is not None else None
             if not v:
                 continue
@@ -705,44 +757,38 @@ def _validate_count_instances(
 
     # A target written `./…` counts only the entries beneath *owner*, the
     # section holding the form; any other target counts the whole document.
-    def count_target(target: str, owner: str) -> int:
-        scoped = target.startswith("./")
-        if scoped:
-            target = target[2:]
+    # `X.f=a|b` counts the entries whose `f` holds one of the alternatives.
+    def count_target(target: SpecPlaceFilter, owner: str) -> int:
+        def selected(item: str) -> bool:
+            if target.scoped and not item.startswith(owner + "/"):
+                return False
+            if target.field is None:
+                return True
+            return target.matches(
+                values_by_item.get(item, {}).get(target.field, set())
+            )
 
-        def in_scope(item: str) -> bool:
-            return not scoped or item.startswith(owner + "/")
-
-        dot = target.find(".")
-        if dot < 0:
-            return sum(1 for item in entries_by_id.get(target, []) if in_scope(item))
-        id = target[:dot]
-        eq = target.find("=", dot)
-        field_name = target[dot + 1:eq if eq >= 0 else len(target)]
-        value = "" if eq < 0 else target[eq + 1:]
-        return sum(
-            1
-            for item in entries_by_id.get(id, [])
-            if in_scope(item)
-            and value in values_by_item.get(item, {}).get(field_name, ())
-        )
+        return sum(1 for item in entries_by_id.get(target.section_id, []) if selected(item))
 
     errors: list[SpecValidationError] = []
     for form_path, _cls, field in forms:
         for ff in field.form_fields:
             if not ff.count_of:
                 continue
-            raw = doc.form_field(form_path, ff.name)
+            raw = _typed_value(doc.form_field(form_path, ff.name), ff)
             stated = raw.strip() if raw is not None else None
             if not stated:
                 continue
-            if not all(
-                _registry_section_id(_count_target_id(t)) in scope
-                for t in ff.count_of
+            # A target that is no filter, or whose entries the root cannot
+            # reach, makes the count undecidable here: skipped, never reported.
+            parsed = [SpecPlaceFilter.try_parse(t) for t in ff.count_of]
+            filters = [t for t in parsed if t is not None]
+            if len(filters) != len(parsed) or not all(
+                _registry_section_id(t.section_id) in scope for t in filters
             ):
                 continue
             owner = form_path[: form_path.rfind("/")]
-            counted = sum(count_target(t, owner) for t in ff.count_of)
+            counted = sum(count_target(t, owner) for t in filters)
             targets = " + ".join(ff.count_of)
             if not _WHOLE_NUMBER.fullmatch(stated):
                 errors.append(
@@ -809,7 +855,7 @@ def _validate_derived_values(
     def number_of(form_path: str, spec: FormFieldSpec) -> Optional[float]:
         """The number a filled form field contributes, or ``None`` when it is
         empty or unreadable."""
-        raw = doc.form_field(form_path, spec.name)
+        raw = _typed_value(doc.form_field(form_path, spec.name), spec)
         v = raw.strip() if raw is not None else None
         if not v:
             return None
@@ -837,7 +883,7 @@ def _validate_derived_values(
         owner = form_path[: form_path.rfind("/")]
         for ff in field.form_fields:
             if ff.product_of:
-                raw = doc.form_field(form_path, ff.name)
+                raw = _typed_value(doc.form_field(form_path, ff.name), ff)
                 stated = raw.strip() if raw is not None else None
                 if stated:
                     product: Optional[float] = 1.0
@@ -884,7 +930,7 @@ def _validate_derived_values(
                             )
             by = ff.rank_of
             if by is not None:
-                raw = doc.form_field(form_path, ff.name)
+                raw = _typed_value(doc.form_field(form_path, ff.name), ff)
                 stated = raw.strip() if raw is not None else None
                 score_spec = spec_at(form_path, by)
                 score = (
@@ -1151,13 +1197,14 @@ def _format_number(v: float) -> str:
     return str(int(v)) if v == round(v) else repr(v)
 
 
-def _count_target_id(target: str) -> str:
-    """The section id of a ``countOf`` target — the part before any
-    ``.field=value``, without the ``./`` scope prefix."""
-    if target.startswith("./"):
-        target = target[2:]
-    dot = target.find(".")
-    return target if dot < 0 else target[:dot]
+def _typed_value(raw: Optional[str], spec: FormFieldSpec) -> Optional[str]:
+    """A form field's value as the instance tier reads it: a typed value (an
+    enum, ``int``, ``double``, ``num``, ``bool``) or a reference
+    (``refersTo``) holding inline marks reads as its old value (SOM
+    §11.9.3); any other value as stored."""
+    if som_is_typed_field(spec.type, spec.enum_values) or spec.refers_to:
+        return som_typed_reading(raw)
+    return raw
 
 
 def _resolved_forms(
@@ -1179,3 +1226,163 @@ def _resolved_forms(
             continue
         forms.append((path, cls, res.field))
     return forms
+
+
+class SpecDerivedNumber(NamedTuple):
+    """One derived number :func:`spec_derived_numbers` computes: the value the
+    form field *field* of the form at *path* should hold."""
+
+    path: str
+    field: str
+    value: str
+
+
+def spec_derived_numbers(
+    model: SpecModel, doc: SpecDocument, read_proposed: bool = False
+) -> list[SpecDerivedNumber]:
+    """The value every derived number of *doc* should hold, by the rules the
+    instance tier checks (``countOf``, ``productOf``, ``rankOf``): one entry
+    per form field whose value is decidable, whether it is filled or not.
+    With *read_proposed*, values holding pending marks are read with the marks
+    accepted (the proposal ``deriveFields`` writes in a document under
+    review), else with them rejected. ``deriveFields`` writes these (step
+    3)."""
+    from .spec_review_annotations import apply_inline_marks_text
+
+    refl = SpecReflection(model)
+    forms = _resolved_forms(refl, doc)
+
+    def read(path: str, ff: FormFieldSpec) -> Optional[str]:
+        raw = doc.form_field(path, ff.name)
+        if raw is None:
+            return None
+        if "{" not in raw:
+            return raw.strip()
+        return apply_inline_marks_text(raw, accept=read_proposed).strip()
+
+    out: list[SpecDerivedNumber] = []
+
+    # countOf.
+    scope = _registry_scope(refl, doc)
+    entries_by_id: dict[str, list[str]] = {}
+    for list_path in sorted(doc.list_paths):
+        for item in doc.list_items(list_path):
+            r = refl.resolve(item)
+            id_ = r.target_class.section_id if r is not None and r.target_class is not None else None
+            if not id_:
+                continue
+            entries_by_id.setdefault(id_, []).append(item)
+    values_by_item: dict[str, dict[str, set[str]]] = {}
+    for path in doc.form_paths:
+        slash = path.rfind("/")
+        if slash <= 0:
+            continue
+        res = refl.resolve(path)
+        if res is None or res.field is None:
+            continue
+        for ff in res.field.form_fields:
+            v = read(path, ff)
+            if not v:
+                continue
+            values_by_item.setdefault(path[:slash], {}).setdefault(ff.name, set()).add(v)
+    for form_path, _cls, field in forms:
+        owner = form_path[: form_path.rfind("/")]
+        for ff in field.form_fields:
+            if not ff.count_of:
+                continue
+            parsed = [SpecPlaceFilter.try_parse(t) for t in ff.count_of]
+            targets = [t for t in parsed if t is not None]
+            if len(targets) != len(parsed) or not all(
+                _registry_section_id(t.section_id) in scope for t in targets
+            ):
+                continue
+            counted = 0
+            for t in targets:
+                for item in entries_by_id.get(t.section_id, []):
+                    if t.scoped and not item.startswith(owner + "/"):
+                        continue
+                    if t.field is not None and not t.matches(
+                        values_by_item.get(item, {}).get(t.field, set())
+                    ):
+                        continue
+                    counted += 1
+            out.append(SpecDerivedNumber(form_path, ff.name, str(counted)))
+
+    # productOf, then rankOf over the products just derived.
+    products: dict[str, float] = {}
+
+    def spec_at(path: str, name: str) -> Optional[FormFieldSpec]:
+        res = refl.resolve(path)
+        if res is None or res.kind != SpecNodeKind.FORM or res.field is None:
+            return None
+        return next((ff for ff in res.field.form_fields if ff.name == name), None)
+
+    def number_of(path: str, spec: FormFieldSpec) -> Optional[float]:
+        derived = products.get(f"{path}#{spec.name}")
+        if derived is not None:
+            return derived
+        v = read(path, spec)
+        if not v:
+            return None
+        if spec.enum_values:
+            return float(spec.enum_values.index(v) + 1) if v in spec.enum_values else None
+        return float(v) if _DECIMAL_NUMBER.fullmatch(v) else None
+
+    for form_path, _cls, field in forms:
+        owner = form_path[: form_path.rfind("/")]
+        for ff in field.form_fields:
+            if not ff.product_of:
+                continue
+            product: Optional[float] = 1.0
+            for operand in ff.product_of:
+                dot = operand.find(".")
+                path = form_path if dot < 0 else f"{owner}/{operand[:dot]}"
+                name = operand if dot < 0 else operand[dot + 1:]
+                spec = spec_at(path, name)
+                n = None if spec is None else number_of(path, spec)
+                if n is None:
+                    product = None
+                    break
+                product *= n
+            if product is None:
+                continue
+            products[f"{form_path}#{ff.name}"] = product
+            # Written as the field's type writes it (`3.0` in a double).
+            base = som_scalar_base(ff.type)
+            if base == "double":
+                text = som_format_double(product)
+            elif base == "int" and product == round(product):
+                text = str(int(round(product)))
+            else:
+                text = _format_number(product)
+            out.append(SpecDerivedNumber(form_path, ff.name, text))
+
+    groups: dict[str, list[tuple[str, str, float, Optional[int]]]] = {}
+    for form_path, cls, field in forms:
+        for ff in field.form_fields:
+            by = ff.rank_of
+            if by is None:
+                continue
+            score_spec = spec_at(form_path, by)
+            score = None if score_spec is None else number_of(form_path, score_spec)
+            if score is None:
+                continue
+            had_text = (read(form_path, ff) or "").strip()
+            had = int(had_text) if _SIGNED_WHOLE.fullmatch(had_text) else None
+            groups.setdefault(f"{cls.name}#{field.name}#{ff.name}", []).append(
+                (form_path, ff.name, score, had)
+            )
+    for group in groups.values():
+        # Highest score first; equal scores keep the order their ranks give
+        # (the rule leaves it open), then path order.
+        ordered = sorted(
+            group,
+            key=lambda g: (-g[2], g[3] if g[3] is not None else 1 << 30, g[0]),
+        )
+        for i, (path, name, _score, _had) in enumerate(ordered):
+            out.append(SpecDerivedNumber(path, name, str(i + 1)))
+    return out
+
+
+#: A stated rank read back: an optionally signed run of ASCII digits.
+_SIGNED_WHOLE = re.compile(r"[+-]?[0-9]+")

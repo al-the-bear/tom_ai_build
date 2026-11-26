@@ -2,7 +2,9 @@
 """The package-root exports TS ``index.ts`` has and Python once kept private
 or unexported (runtime parity audit, ``runtime_parity.md`` § python): the YAML
 helpers, ``SpecDocumentYaml``, ``format_conflict_block``,
-``code_specs_yaml_string`` and ``som_model_version_string``.
+``code_specs_yaml_string`` and ``som_model_version_string``; and the names of
+the section automation's first part (the link readers, ``SpecPlace``,
+``validate_links``, ...).
 
 Each expected value was produced by the TypeScript runtime for the same
 input, so a check holds the Python output to TS's, not only its presence.
@@ -87,6 +89,32 @@ def test_exported() -> None:
         "NotationFindingCode",
         "notation_severity",
         "registered_notation_kinds",
+        # section automation, part 1 (tom_specs_model_rules.md §9.7): the
+        # link readers, places and filters, the typed reading of a value under
+        # review, the derived numbers and the link checks of one document
+        "SpecListRelation",
+        "SpecSync",
+        "SpecSummaryOf",
+        "SpecDerivation",
+        "SpecInverseOf",
+        "SpecExtractsLinks",
+        "SpecSameAs",
+        "SpecPlaceKind",
+        "SpecPlaceProblem",
+        "SpecPlaceException",
+        "SpecPlace",
+        "SpecPlaceResolution",
+        "SpecPlaceFilter",
+        "SpecSameAsBinding",
+        "spec_same_as_bindings",
+        "SpecSectionPosition",
+        "spec_section_positions",
+        "som_typed_reading",
+        "som_is_typed_field",
+        "SpecDerivedNumber",
+        "spec_derived_numbers",
+        "validate_links",
+        "K_SPEC_HEADLINE_FIELD",
     ):
         _check(f"exported.{name}", hasattr(tom_som_runtime, name))
         _check(f"all.{name}", name in tom_som_runtime.__all__)
