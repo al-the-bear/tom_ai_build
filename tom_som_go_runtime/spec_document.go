@@ -909,8 +909,11 @@ func SpecDocumentFromMarkdown(text string, model *SpecModel) (*SpecMarkdownImpor
 // headlines, codeSpecs and units are written. Other roots are left as they are.
 //
 // A result with rejections is refused with an error — and the document left
-// unchanged — unless allowRejections is true: the blocks it rejected would
-// otherwise vanish from a document the caller believes it imported whole.
+// unchanged — unless allowRejections is true. With it, each rejected block is
+// kept rather than dropped: the result's KeptContent is written over the
+// parsed content, so the block stands as a `rejected` div in the text of the
+// section it stood in (else its parent), at its place (SOM §11.7, DocSpecs
+// RN-11), and nothing written is lost.
 //
 // Store-agnostic on both halves: the purge goes through RemoveValuesUnder,
 // which clears every store, and the carry-over is whatever ToJSON emits. This
@@ -946,6 +949,17 @@ func (d *SpecDocument) ApplyMarkdownResult(result *SpecMarkdownResult, allowReje
 	}
 	for k, v := range result.Content {
 		merged.Content[k] = v
+	}
+	if allowRejections {
+		// Each rejected block is kept rather than dropped (RN-11); an empty
+		// value removes the path's text.
+		for k, v := range result.KeptContent {
+			if v == "" {
+				delete(merged.Content, k)
+			} else {
+				merged.Content[k] = v
+			}
+		}
 	}
 	for k, v := range held.Forms {
 		merged.Forms[k] = v

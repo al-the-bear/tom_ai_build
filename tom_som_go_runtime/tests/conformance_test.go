@@ -693,7 +693,10 @@ func testMarkdownMemoryLanding(c *checker, t *testing.T, model *som.SpecModel) {
 // rejections unless allowed). Expect is kept as raw JSON and compared as the
 // decoded generic shape, so numbers compare as JSON numbers.
 type markdownApplyCaseTable struct {
-	Cases []struct {
+	// Schema is the DocSpecs schema the readingView cases validate the applied
+	// document against, for its `rejectedBlock` findings.
+	Schema string `json:"schema"`
+	Cases  []struct {
 		Name            string            `json:"name"`
 		ReadingView     bool              `json:"readingView"`
 		Op              string            `json:"op"`
@@ -711,12 +714,14 @@ func testMarkdownApply(c *checker, t *testing.T, model *som.SpecModel) {
 	var table markdownApplyCaseTable
 	readJSON(t, "markdown_apply_cases.json", &table)
 	c.check("mdApply.cases", len(table.Cases) > 0, "no cases in markdown_apply_cases.json")
-	for _, mc := range table.Cases {
-		// The reading view's table forms (`readingView`) are read by the Dart and
-		// TypeScript runtimes only until their ports (runtime_parity.md § Reading view).
-		if mc.ReadingView {
-			continue
+	var schema *som.DocSpecsSchema
+	if table.Schema != "" {
+		var err error
+		if schema, err = som.DocSpecsSchemaFromYamlText(table.Schema); err != nil {
+			t.Fatalf("markdown_apply_cases.json schema: %v", err)
 		}
+	}
+	for _, mc := range table.Cases {
 		tag := "mdApply[" + mc.Name + "]"
 		var got map[string]interface{}
 		switch mc.Op {
@@ -739,6 +744,22 @@ func testMarkdownApply(c *checker, t *testing.T, model *som.SpecModel) {
 				"refused":        refused,
 				"rejectionCount": len(parsed.Rejections),
 				"document":       document.ToJSON(),
+			}
+			// The validator reports every kept block as `rejectedBlock`
+			// (DocSpecs RN-11), with the document path it stands in.
+			if mc.ReadingView {
+				found, err := som.ValidateSpecDocument(model, document, schema, "Demo")
+				if err != nil {
+					c.check(tag, false, err.Error())
+					continue
+				}
+				blocks := []interface{}{}
+				for _, v := range found {
+					if v.Rule == som.DocSpecsRuleRejectedBlock {
+						blocks = append(blocks, map[string]interface{}{"line": v.Line, "path": v.Path})
+					}
+				}
+				got["rejectedBlocks"] = blocks
 			}
 		default:
 			c.check(tag, false, "unknown op "+mc.Op)

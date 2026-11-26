@@ -36,7 +36,10 @@ package somruntime
 // SpecDocument.ToJSON plus a rejection report; SpecDocument.ApplyMarkdownResult applies them.
 // Anything that cannot be mapped — an unknown section id, a child heading
 // under a value leaf, orphaned text — is collected into
-// SpecMarkdownResult.Rejections rather than dropped (SOM §11.7).
+// SpecMarkdownResult.Rejections rather than dropped (SOM §11.7); an apply
+// that accepts rejections keeps each rejected block as a `rejected` div in the
+// text of the section it stood in, else its parent
+// (SpecMarkdownResult.KeptContent, DocSpecs RN-11).
 //
 // Reading view (SOM §11.2, §11.4, §11.5): the emitter writes form tables
 // `| TomSpecField | Value |` between `Field:` paragraphs, record tables in a
@@ -142,6 +145,13 @@ type SpecMarkdownResult struct {
 	// list of generation-unit ids parsed from the `units="…"` key in the
 	// heading comment. Staged whenever present (absent means the default).
 	Units map[string]string
+	// KeptContent holds the rejected blocks kept for review (SOM §11.7,
+	// DocSpecs RN-11): for every path whose text a rejected block stood in,
+	// the value with each such block written as a `rejected` div at its place.
+	// An apply that accepts rejections (ApplyMarkdownResult(result, true))
+	// writes these over Content, so nothing written is lost; an empty value
+	// removes the path's text. Empty for a clean parse.
+	KeptContent map[string]string
 }
 
 // SpecMarkdownImport is a Markdown document loaded by SpecDocumentFromMarkdown:
@@ -2006,6 +2016,7 @@ func (c *SpecDocumentMarkdown) Parse(text string) *SpecMarkdownResult {
 		Headlines:    p.headlines,
 		CodeSpecs:    p.codeSpecs,
 		Units:        p.units,
+		KeptContent:  p.keptContent,
 	}
 }
 
@@ -2024,6 +2035,262 @@ type mdFrame struct {
 	// at or above it that is no list container (SOM §11.2, mdQualifyAnchor).
 	anchorScope   []string
 	anchorSection string
+	// kept holds the rejected blocks to keep in this frame's text (RN-11):
+	// the body index they stand before, the block, and the end of the body
+	// lines it replaces (the index itself when it replaces none).
+	kept []mdKeptMark
+	// deferred holds, for an ignored frame, the blocks of its ignored
+	// children, kept after its own block wherever that lands.
+	deferred []*mdKeptBlock
+}
+
+// mdKeptMark places a kept block in a frame's body: before body index at,
+// replacing the body lines up to end.
+type mdKeptMark struct {
+	at    int
+	block *mdKeptBlock
+	end   int
+}
+
+var (
+	mdKeptDivOpenRE  = regexp.MustCompile(`^ {0,3}:{3,}[ \t]*(?:\{.*\}|[A-Za-z][A-Za-z0-9_-]*)[ \t]*$`)
+	mdKeptDivCloseRE = regexp.MustCompile(`^ {0,3}:{3,}[ \t]*$`)
+	mdKeptColonsRE   = regexp.MustCompile(`^ {0,3}(:{3,})`)
+	mdKeptEscapeRE   = regexp.MustCompile(`^( {0,3}):`)
+	mdNearMissNormRE = regexp.MustCompile(`[\s_-]`)
+)
+
+// mdKeptBlock is a rejected block an import that accepts rejections keeps for
+// review (SOM §11.7, DocSpecs RN-11): the source lines it held and what its
+// `rejected` div records for a resolution.
+type mdKeptBlock struct {
+	rejection *SpecMarkdownRejection
+	// lines are the source lines of the block, as written.
+	lines []string
+	// field is the field given twice, or the declared field a near-miss label
+	// names ("" when none).
+	field string
+	// section is the child section a near-miss section-table cell names.
+	section string
+	// kept is, for a field given twice, the path of the form holding the kept
+	// value.
+	kept string
+}
+
+// div returns the block as a `rejected` div: `reason`, `line`, then `field` /
+// `section` / `kept` where they apply, then `label` (the report's message, its
+// double quotes written as single ones). A fence the block does not close, or
+// closes without opening, would pair with the div's own fences, so it is
+// written escaped (`\:::`, RN-9); the div's fences are longer than any fence
+// inside it, for the eye (RN-7).
+func (b *mdKeptBlock) div() []string {
+	inner := append([]string{}, b.lines...)
+	for len(inner) > 0 && strings.TrimSpace(inner[0]) == "" {
+		inner = inner[1:]
+	}
+	for len(inner) > 0 && strings.TrimSpace(inner[len(inner)-1]) == "" {
+		inner = inner[:len(inner)-1]
+	}
+	fence := &MarkdownFenceTracker{}
+	var open []int
+	unpaired := map[int]bool{}
+	for k, line := range inner {
+		if !fence.InFence() {
+			if mdKeptDivCloseRE.MatchString(line) {
+				if len(open) == 0 {
+					unpaired[k] = true
+				} else {
+					open = open[:len(open)-1]
+				}
+			} else if mdKeptDivOpenRE.MatchString(line) {
+				open = append(open, k)
+			}
+		}
+		fence.Feed(line)
+	}
+	for _, k := range open {
+		unpaired[k] = true
+	}
+	longest := 0
+	for k := range inner {
+		if unpaired[k] {
+			inner[k] = mdKeptEscapeRE.ReplaceAllString(inner[k], `${1}\:`)
+			continue
+		}
+		if m := mdKeptColonsRE.FindStringSubmatch(inner[k]); m != nil && len(m[1]) > longest {
+			longest = len(m[1])
+		}
+	}
+	colons := ":::"
+	if longest >= 3 {
+		colons = strings.Repeat(":", longest+1)
+	}
+	q := func(s string) string { return strings.ReplaceAll(s, `"`, "'") }
+	attributes := []string{
+		`reason="` + b.rejection.Reason + `"`,
+		`line="` + itoa(b.rejection.Line) + `"`,
+	}
+	if b.field != "" {
+		attributes = append(attributes, `field="`+q(b.field)+`"`)
+	}
+	if b.section != "" {
+		attributes = append(attributes, `section="`+q(b.section)+`"`)
+	}
+	if b.kept != "" {
+		attributes = append(attributes, `kept="`+q(b.kept)+`"`)
+	}
+	attributes = append(attributes, `label="`+q(b.rejection.Message)+`"`)
+	out := []string{colons + " {.rejected " + strings.Join(attributes, " ") + "}"}
+	out = append(out, inner...)
+	return append(out, colons)
+}
+
+// mdInsert is one kept div written into a text part before line index at.
+type mdInsert struct {
+	at  int
+	div []string
+}
+
+// mdKeeper places the rejected blocks of one frame's body (RN-11): each
+// content line list of the frame and the divs written into it, by position.
+type mdKeeper struct {
+	marks   []mdKeptMark
+	next    int
+	inserts map[*[]string][]mdInsert
+}
+
+func newMdKeeper(frame *mdFrame) *mdKeeper {
+	marks := append([]mdKeptMark{}, frame.kept...)
+	sort.SliceStable(marks, func(a, b int) bool { return marks[a].at < marks[b].at })
+	return &mdKeeper{marks: marks, inserts: map[*[]string][]mdInsert{}}
+}
+
+// keep writes b into into at its current end.
+func (k *mdKeeper) keep(into *[]string, b *mdKeptBlock) {
+	k.inserts[into] = append(k.inserts[into], mdInsert{at: len(*into), div: b.div()})
+}
+
+// drain writes the frame's blocks standing before body index upTo into into.
+func (k *mdKeeper) drain(upTo int, into *[]string) {
+	for k.next < len(k.marks) && k.marks[k.next].at <= upTo {
+		k.keep(into, k.marks[k.next].block)
+		k.next++
+	}
+}
+
+// keptValue returns the value of parts with the kept divs written in, joined
+// as the parts are; false when no part holds one.
+func (k *mdKeeper) keptValue(parts []*[]string) (string, bool) {
+	any := false
+	for _, part := range parts {
+		if _, ok := k.inserts[part]; ok {
+			any = true
+		}
+	}
+	if !any {
+		return "", false
+	}
+	var values []string
+	for _, part := range parts {
+		lines := *part
+		if ins, ok := k.inserts[part]; ok {
+			lines = mdMerge(lines, ins, nil)
+		}
+		if v := mdRestoreValue(lines); v != "" {
+			values = append(values, v)
+		}
+	}
+	return strings.Join(values, "\n\n"), true
+}
+
+// mdMerge returns part with the divs of ins written in at their positions, a
+// blank line between a div and the text around it; the lines at replaced
+// positions are left out (a div took their place).
+func mdMerge(part []string, ins []mdInsert, replaced map[int]bool) []string {
+	var out []string
+	blankDue := false
+	for k := 0; k <= len(part); k++ {
+		for _, in := range ins {
+			if in.at != k {
+				continue
+			}
+			if len(out) > 0 && strings.TrimSpace(out[len(out)-1]) != "" {
+				out = append(out, "")
+			}
+			out = append(out, in.div...)
+			blankDue = true
+		}
+		if k == len(part) || replaced[k] {
+			continue
+		}
+		line := part[k]
+		if blankDue && strings.TrimSpace(line) != "" {
+			out = append(out, "")
+		}
+		blankDue = false
+		out = append(out, line)
+	}
+	return out
+}
+
+// mdNearMiss returns the declared name one edit (or only case and separators)
+// away from label, when exactly one is: what a *Rename to* choice offers
+// (RN-11); "" otherwise.
+func mdNearMiss(label string, names []string) string {
+	norm := func(s string) string { return mdNearMissNormRE.ReplaceAllString(strings.ToLower(s), "") }
+	hits := map[string]bool{}
+	var hit string
+	for _, n := range names {
+		if n != label && (norm(n) == norm(label) ||
+			mdOneEdit([]rune(strings.ToLower(n)), []rune(strings.ToLower(label)))) {
+			if !hits[n] {
+				hits[n] = true
+				hit = n
+			}
+		}
+	}
+	if len(hits) == 1 {
+		return hit
+	}
+	return ""
+}
+
+// mdOneEdit reports whether a becomes b by at most one insertion, deletion or
+// substitution.
+func mdOneEdit(a, b []rune) bool {
+	if len(a)-len(b) > 1 || len(b)-len(a) > 1 {
+		return false
+	}
+	i, j, edits := 0, 0, 0
+	for i < len(a) && j < len(b) {
+		if a[i] == b[j] {
+			i++
+			j++
+			continue
+		}
+		edits++
+		if edits > 1 {
+			return false
+		}
+		switch {
+		case len(a) > len(b):
+			i++
+		case len(b) > len(a):
+			j++
+		default:
+			i++
+			j++
+		}
+	}
+	return edits+(len(a)-i)+(len(b)-j) <= 1
+}
+
+// mdKeptInParent reports whether a frame of node passes its rejected blocks
+// to its parent: a list container, which holds no text, and a scalar or enum
+// value, whose text is a typed value (RN-11).
+func mdKeptInParent(node *SomMetaNode) bool {
+	return node != nil && (node.Kind == SomMetaKindList ||
+		node.Kind == SomMetaKindScalar || node.Kind == SomMetaKindEnumValue)
 }
 
 // mdListState is per-list bookkeeping while parsing: ordered item paths,
@@ -2058,6 +2325,15 @@ type mdParser struct {
 	// given holds the fields given so far per form path, for the given-twice
 	// rule (SOM §11.4).
 	given map[string]map[string]bool
+	// keptContent stages the rejected blocks kept for review (RN-11).
+	keptContent map[string]string
+	// lines are the source lines, for the text of a rejected block.
+	lines []string
+	// pending holds blocks reported by hold and not yet placed.
+	pending []*mdKeptBlock
+	// orphans holds text before the root heading, kept at the start of the
+	// root's text.
+	orphans []*mdKeptBlock
 	// Rolling pointer into a body region's transparent form slots — labels
 	// bind to the nearest form at or after the last hit (wrapping), so
 	// repeated field names across an owner's transparent forms follow emit
@@ -2077,10 +2353,81 @@ func newMdParser(codec *SpecDocumentMarkdown) *mdParser {
 		rootPrefixes: map[string]bool{},
 		fence:        &MarkdownFenceTracker{},
 		given:        map[string]map[string]bool{},
+		keptContent:  map[string]string{},
+	}
+}
+
+// hold reports a rejection and holds its block for an import that keeps
+// rejected blocks (RN-11): lines are the source lines it held, its own line
+// when nil.
+func (p *mdParser) hold(line int, reason, message, anchor string, lines []string) *mdKeptBlock {
+	r := &SpecMarkdownRejection{Line: line, Reason: reason, Message: message, Anchor: anchor}
+	p.rejections = append(p.rejections, r)
+	if lines == nil {
+		lines = []string{p.lines[line-1]}
+	}
+	b := &mdKeptBlock{rejection: r, lines: lines}
+	p.pending = append(p.pending, b)
+	return b
+}
+
+// takePending returns the held blocks in source order and empties the hold.
+func (p *mdParser) takePending() []*mdKeptBlock {
+	out := p.pending
+	sort.SliceStable(out, func(a, b int) bool {
+		return out[a].rejection.Line < out[b].rejection.Line
+	})
+	p.pending = nil
+	return out
+}
+
+// popPending removes and returns the last held block (nil when none).
+func (p *mdParser) popPending() *mdKeptBlock {
+	if len(p.pending) == 0 {
+		return nil
+	}
+	b := p.pending[len(p.pending)-1]
+	p.pending = p.pending[:len(p.pending)-1]
+	return b
+}
+
+// markPending places the held blocks before frame's body index at; they take
+// the place of the body lines up to end (end == at: none).
+func (p *mdParser) markPending(frame *mdFrame, at, end int) {
+	for _, b := range p.takePending() {
+		frame.kept = append(frame.kept, mdKeptMark{at: at, block: b, end: end})
+	}
+}
+
+// keepIgnored sends an ignored frame's heading and body, with its ignored
+// children's blocks after it, to the text of the nearest section above it
+// that was read, after that section's own text (RN-11); with none above (an
+// unknown root) nothing holds them and only the report remains.
+func (p *mdParser) keepIgnored(frame *mdFrame) {
+	var blocks []*mdKeptBlock
+	for k := len(p.rejections) - 1; k >= 0; k-- {
+		if p.rejections[k].Line == frame.line {
+			lines := append([]string{p.lines[frame.line-1]}, frame.body...)
+			blocks = append(blocks, &mdKeptBlock{rejection: p.rejections[k], lines: lines})
+			break
+		}
+	}
+	blocks = append(blocks, frame.deferred...)
+	if len(p.stack) == 0 || len(blocks) == 0 {
+		return
+	}
+	parent := p.stack[len(p.stack)-1]
+	if parent.ignored {
+		parent.deferred = append(parent.deferred, blocks...)
+		return
+	}
+	for _, b := range blocks {
+		parent.kept = append(parent.kept, mdKeptMark{at: len(parent.body), block: b, end: len(parent.body)})
 	}
 }
 
 func (p *mdParser) run(lines []string) {
+	p.lines = lines
 	for i, raw := range lines {
 		lineNo := i + 1
 		trimmed := mdTrailingWSRE.ReplaceAllString(raw, "")
@@ -2099,11 +2446,13 @@ func (p *mdParser) run(lines []string) {
 			top := p.stack[len(p.stack)-1]
 			top.body = append(top.body, raw)
 		} else if trimmed != "" {
-			p.rejections = append(p.rejections, &SpecMarkdownRejection{
+			r := &SpecMarkdownRejection{
 				Line:    lineNo,
 				Reason:  SpecMarkdownRejectOrphanContent,
 				Message: "text before the document root heading",
-			})
+			}
+			p.rejections = append(p.rejections, r)
+			p.orphans = append(p.orphans, &mdKeptBlock{rejection: r, lines: []string{raw}})
 		}
 		p.fence.Feed(raw)
 	}
@@ -2321,13 +2670,19 @@ func (p *mdParser) openRoot(level int, id, title, codeSpec, unitIDs string, line
 				p.units[seg] = unitIDs
 			}
 			p.rootPrefixes[seg] = true
-			p.stack = append(p.stack, &mdFrame{
+			frame := &mdFrame{
 				level:         level,
 				node:          tree.Root,
 				path:          seg,
 				line:          lineNo,
 				anchorSection: seg,
-			})
+			}
+			// Text before the root heading is kept at the start of its text.
+			for _, b := range p.orphans {
+				frame.kept = append(frame.kept, mdKeptMark{at: 0, block: b, end: 0})
+			}
+			p.orphans = nil
+			p.stack = append(p.stack, frame)
 			return
 		}
 	}
@@ -2411,6 +2766,7 @@ func mdIsValueLeaf(kind string) bool {
 
 func (p *mdParser) finalize(frame *mdFrame) {
 	if frame.ignored {
+		p.keepIgnored(frame)
 		return
 	}
 	node := frame.node
@@ -2429,6 +2785,9 @@ func (p *mdParser) finalize(frame *mdFrame) {
 	}
 	if len(slots) == 0 {
 		value := mdRestoreValue(frame.body)
+		if len(frame.kept) > 0 {
+			p.keepInText(frame, node, value)
+		}
 		if value != "" {
 			p.content[frame.path] = value
 		} else if node != nil && mdIsValueLeaf(node.Kind) {
@@ -2442,6 +2801,36 @@ func (p *mdParser) finalize(frame *mdFrame) {
 		return
 	}
 	p.finalizeBodySlots(frame, slots)
+}
+
+// keepInText writes the kept blocks of a frame without body slots into its
+// text (RN-11). A list container (no text of its own, SOM §11.5) or a typed
+// value has no place for a block: its parent takes them, after its own text,
+// and the lines they replace leave this frame's text.
+func (p *mdParser) keepInText(frame *mdFrame, node *SomMetaNode, value string) {
+	replaced := map[int]bool{}
+	for _, m := range frame.kept {
+		for k := m.at; k < m.end; k++ {
+			replaced[k] = true
+		}
+	}
+	if mdKeptInParent(node) && len(p.stack) > 0 {
+		parent := p.stack[len(p.stack)-1]
+		if own := mdRestoreValue(mdMerge(frame.body, nil, replaced)); own != value {
+			p.keptContent[frame.path] = own
+		}
+		for _, m := range frame.kept {
+			parent.kept = append(parent.kept, mdKeptMark{at: len(parent.body), block: m.block, end: len(parent.body)})
+		}
+		return
+	}
+	ins := make([]mdInsert, 0, len(frame.kept))
+	for _, m := range frame.kept {
+		ins = append(ins, mdInsert{at: m.at, div: m.block.div()})
+	}
+	if kept := mdRestoreValue(mdMerge(frame.body, ins, replaced)); kept != "" {
+		p.keptContent[frame.path] = kept
+	}
 }
 
 // --- Layout tables (SOM §11.4, §11.5) -----------------------------------------
@@ -2511,29 +2900,21 @@ func (p *mdParser) readTable(
 		if !isDelimiter {
 			message = "table without its delimiter row"
 		}
-		p.reject(lineOf(start), SpecMarkdownRejectMalformedBlock, message, anchor)
+		p.hold(lineOf(start), SpecMarkdownRejectMalformedBlock, message, anchor,
+			append([]string{}, lines[start:end]...))
 		return header, nil, end
 	}
 	for i := start + 2; i < end; i++ {
 		cells := mdRowCells(lines[i])
 		if len(cells) != len(header) {
-			p.reject(lineOf(i), SpecMarkdownRejectMalformedBlock,
+			p.hold(lineOf(i), SpecMarkdownRejectMalformedBlock,
 				"table row with "+itoa(len(cells))+" cells, the header has "+itoa(len(header)),
-				anchor)
+				anchor, []string{lines[i]})
 			continue
 		}
 		rows = append(rows, mdTableRow{index: i, cells: cells})
 	}
 	return header, rows, end
-}
-
-func (p *mdParser) reject(line int, reason, message, anchor string) {
-	p.rejections = append(p.rejections, &SpecMarkdownRejection{
-		Line:    line,
-		Reason:  reason,
-		Message: message,
-		Anchor:  anchor,
-	})
 }
 
 // mdCellValue is a cell's value for field f: `\|` unescaped, a reference
@@ -2577,7 +2958,9 @@ func (p *mdParser) givenTwice(formPath, field string, line int) bool {
 		given[field] = true
 		return false
 	}
-	p.reject(line, SpecMarkdownRejectMalformedBlock, "field \""+field+"\" given twice", formPath)
+	b := p.hold(line, SpecMarkdownRejectMalformedBlock, "field \""+field+"\" given twice", formPath, nil)
+	b.field = field
+	b.kept = formPath
 	return true
 }
 
@@ -2599,8 +2982,9 @@ func (p *mdParser) stageRow(formPath string, fields []*SomFormFieldMeta, label, 
 		}
 	}
 	if f == nil {
-		p.reject(line, SpecMarkdownRejectUnknownField,
-			"row \""+label+"\" names no field of this form", formPath)
+		b := p.hold(line, SpecMarkdownRejectUnknownField,
+			"row \""+label+"\" names no field of this form", formPath, nil)
+		b.field = mdNearMiss(label, mdFieldNames(fields))
 		return
 	}
 	value := mdCellValue(cell, f)
@@ -2611,6 +2995,14 @@ func (p *mdParser) stageRow(formPath string, fields []*SomFormFieldMeta, label, 
 		return
 	}
 	p.setField(formPath, f.Name, value)
+}
+
+func mdFieldNames(fields []*SomFormFieldMeta) []string {
+	names := make([]string, 0, len(fields))
+	for _, f := range fields {
+		names = append(names, f.Name)
+	}
+	return names
 }
 
 func mdFormFields(n *SomMetaNode) []*SomFormFieldMeta {
@@ -2641,24 +3033,31 @@ func (p *mdParser) extractSectionTables(frame *mdFrame, node *SomMetaNode) {
 		var fields []*SomFormFieldMeta
 		haveTarget := false
 		skip := false
+		// The rejected section's block: its row and the rows continuing it.
+		var skipped *mdKeptBlock
 		for _, row := range rows {
 			k, cells := row.index, row.cells
 			section := mdCellID(cells[0])
 			if section == "" && skip {
+				if skipped != nil {
+					skipped.lines = append(skipped.lines, body[k])
+				}
 				continue
 			}
 			if section != "" {
 				fp, fs, ok := p.sectionTableTarget(frame, node, section)
 				skip = !ok
 				if !ok {
-					p.reject(lineOf(k), SpecMarkdownRejectUnknownSection,
-						"section-table row names no child section of \""+frame.path+"\"", section)
+					skipped = p.hold(lineOf(k), SpecMarkdownRejectUnknownSection,
+						"section-table row names no child section of \""+frame.path+"\"", section,
+						[]string{body[k]})
+					skipped.section = p.nearSection(node, section)
 					continue
 				}
 				formPath, fields, haveTarget = fp, fs, true
 			} else if !haveTarget {
-				p.reject(lineOf(k), SpecMarkdownRejectUnknownSection,
-					"section-table row names no section", frame.path)
+				p.hold(lineOf(k), SpecMarkdownRejectUnknownSection,
+					"section-table row names no section", frame.path, []string{body[k]})
 				continue
 			}
 			if skip {
@@ -2669,8 +3068,39 @@ func (p *mdParser) extractSectionTables(frame *mdFrame, node *SomMetaNode) {
 		for k := i; k < end; k++ {
 			body[k] = ""
 		}
+		// What the table rejected is kept where the table stood.
+		p.markPending(frame, i, i)
 		i = end - 1
 	}
+}
+
+// nearSection returns the child a section-table `Section` cell naming none is
+// a near miss of (RN-11): a child form section's id, or `<LIST> / <ITEM>` with
+// a near list id; "" when none.
+func (p *mdParser) nearSection(node *SomMetaNode, section string) string {
+	parts := mdSectionSplitRE.Split(section, -1)
+	ids := func(kind string) []string {
+		var out []string
+		for _, entry := range p.codec.effectiveChildren(node) {
+			if entry.node.Kind == kind {
+				if id := p.codec.headingIdOf(entry.node); id != "" {
+					out = append(out, id)
+				}
+			}
+		}
+		return out
+	}
+	if len(parts) == 1 {
+		return mdNearMiss(section, ids(SomMetaKindForm))
+	}
+	if len(parts) != 2 {
+		return ""
+	}
+	list := mdNearMiss(parts[0], ids(SomMetaKindList))
+	if list == "" {
+		return ""
+	}
+	return list + " / " + parts[1]
 }
 
 // sectionTableTarget returns the form a section-table `Section` cell names
@@ -2746,14 +3176,17 @@ func (p *mdParser) finalizeListBody(frame *mdFrame, listNode *SomMetaNode) {
 				break
 			}
 		}
-		reject := func(message string) {
-			p.reject(mdBodyLine(frame, i), SpecMarkdownRejectMalformedBlock, message, frame.path)
+		reject := func(message string, lines []string) {
+			p.hold(mdBodyLine(frame, i), SpecMarkdownRejectMalformedBlock, message, frame.path, lines)
 		}
 		if closeAt < 0 {
-			// The fence's lines read as text.
-			reject("unclosed " + kind + " fence")
+			// The fence's lines read as text; kept, they are the rejected div
+			// (the container's parent holds it, see finalize).
+			reject("unclosed "+kind+" fence", append([]string{}, body[i:]...))
+			p.markPending(frame, i, len(body))
 			return
 		}
+		divLines := append([]string{}, body[i:closeAt+1]...)
 		besideText := false
 		for k := 0; k < len(body); k++ {
 			if (k < i || k > closeAt) && strings.TrimSpace(body[k]) != "" {
@@ -2767,21 +3200,24 @@ func (p *mdParser) finalizeListBody(frame *mdFrame, listNode *SomMetaNode) {
 			if hasItems {
 				beside = "item headings"
 			}
-			reject("a " + kind + " div beside " + beside + " in a list container")
+			reject("a "+kind+" div beside "+beside+" in a list container", divLines)
 			for k := i; k <= closeAt; k++ {
 				body[k] = ""
 			}
+			p.markPending(frame, closeAt+1, closeAt+1)
 			return
 		}
 		inner := append([]string{}, body[i+1:closeAt]...)
 		if kind == "refs" {
-			p.stageReferenceLine(frame, listNode, inner, i)
+			p.stageReferenceLine(frame, listNode, inner, i, divLines)
 		} else {
-			p.stageRecordTable(frame, listNode, inner, i)
+			p.stageRecordTable(frame, listNode, inner, i, divLines)
 		}
 		for k := i; k <= closeAt; k++ {
 			body[k] = ""
 		}
+		// What the div rejected is kept after it.
+		p.markPending(frame, closeAt+1, closeAt+1)
 		return
 	}
 }
@@ -2816,7 +3252,7 @@ func (p *mdParser) referenceField(element *SomMetaNode) (string, *SomFormFieldMe
 
 // stageReferenceLine stages a `refs` div: ids split on commas and whitespace,
 // links read as their texts.
-func (p *mdParser) stageReferenceLine(frame *mdFrame, listNode *SomMetaNode, inner []string, at int) {
+func (p *mdParser) stageReferenceLine(frame *mdFrame, listNode *SomMetaNode, inner []string, at int, divLines []string) {
 	element := listNode.ElementNode
 	var (
 		refRel   string
@@ -2827,8 +3263,8 @@ func (p *mdParser) stageReferenceLine(frame *mdFrame, listNode *SomMetaNode, inn
 		refRel, refField, ok = p.referenceField(element)
 	}
 	if !ok {
-		p.reject(mdBodyLine(frame, at), SpecMarkdownRejectMalformedBlock,
-			"a refs div in a list whose items are not references", frame.path)
+		p.hold(mdBodyLine(frame, at), SpecMarkdownRejectMalformedBlock,
+			"a refs div in a list whose items are not references", frame.path, divLines)
 		return
 	}
 	var ids []string
@@ -2842,8 +3278,8 @@ func (p *mdParser) stageReferenceLine(frame *mdFrame, listNode *SomMetaNode, inn
 		ids = append(ids, t)
 	}
 	if len(ids) == 0 {
-		p.reject(mdBodyLine(frame, at), SpecMarkdownRejectMissingValue,
-			"an empty refs div", frame.path)
+		p.hold(mdBodyLine(frame, at), SpecMarkdownRejectMissingValue,
+			"an empty refs div", frame.path, divLines)
 		return
 	}
 	pattern := listNode.SectionIDPattern
@@ -2868,10 +3304,10 @@ func (p *mdParser) stageReferenceLine(frame *mdFrame, listNode *SomMetaNode, inn
 
 // stageRecordTable stages a `records` div: one table, `Id` first, `Title`
 // optionally second.
-func (p *mdParser) stageRecordTable(frame *mdFrame, listNode *SomMetaNode, inner []string, at int) {
+func (p *mdParser) stageRecordTable(frame *mdFrame, listNode *SomMetaNode, inner []string, at int, divLines []string) {
 	lineOf := func(k int) int { return mdBodyLine(frame, at+1+k) }
 	reject := func(message string) {
-		p.reject(mdBodyLine(frame, at), SpecMarkdownRejectMalformedBlock, message, frame.path)
+		p.hold(mdBodyLine(frame, at), SpecMarkdownRejectMalformedBlock, message, frame.path, divLines)
 	}
 	start := -1
 	for k, l := range inner {
@@ -2916,9 +3352,10 @@ func (p *mdParser) stageRecordTable(frame *mdFrame, listNode *SomMetaNode, inner
 			}
 		}
 		if f == nil {
-			// The table is skipped whole.
-			p.reject(lineOf(start), SpecMarkdownRejectUnknownField,
-				"records column \""+label+"\" names no field of the items", frame.path)
+			// The table is skipped whole, so the whole div is kept.
+			b := p.hold(lineOf(start), SpecMarkdownRejectUnknownField,
+				"records column \""+label+"\" names no field of the items", frame.path, divLines)
+			b.field = mdNearMiss(label, mdFieldNames(fields))
 			return
 		}
 		columns = append(columns, f)
@@ -3012,6 +3449,11 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 		return lines
 	}
 	contentLines := openText(pathOf(defaultRel))
+	// Rejected blocks go to the unlabelled text at their place (RN-11); a
+	// field given twice is kept whole, its label line and continuation.
+	keeper := newMdKeeper(frame)
+	var discarded *mdKeptBlock
+	discardStart, at := 0, 0
 
 	flush := func() {
 		if haveField && !discard {
@@ -3023,6 +3465,11 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 				p.setField(currentFormPath, currentField, value)
 			}
 		}
+		if discard && discarded != nil {
+			discarded.lines = append([]string{}, frame.body[discardStart:at]...)
+			keeper.keep(contentLines, discarded)
+			discarded = nil
+		}
 		currentLines = nil
 		discard = false
 	}
@@ -3030,6 +3477,8 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 	p.currentFormIdx = 0
 	for i := 0; i < len(frame.body); i++ {
 		line := frame.body[i]
+		at = i
+		keeper.drain(i, contentLines)
 		if !fence.InFence() {
 			if mm := mdSlotMarkerRE.FindStringSubmatch(line); mm != nil {
 				rel := mm[1]
@@ -3070,13 +3519,23 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 				for _, row := range rows {
 					idx, f, ok := findField(row.cells[0])
 					if !ok {
-						p.reject(lineOf(row.index), SpecMarkdownRejectUnknownField,
-							"row \""+row.cells[0]+"\" names no field of this form", frame.path)
+						var names []string
+						for _, fs := range formSlots {
+							names = append(names, mdFieldNames(mdFormFields(fs.node))...)
+						}
+						b := p.hold(lineOf(row.index), SpecMarkdownRejectUnknownField,
+							"row \""+row.cells[0]+"\" names no field of this form", frame.path,
+							[]string{frame.body[row.index]})
+						b.field = mdNearMiss(row.cells[0], names)
 						continue
 					}
 					p.currentFormIdx = idx
 					p.stageRow(frame.path+"/"+formSlots[idx].rel, []*SomFormFieldMeta{f},
 						row.cells[0], row.cells[1], lineOf(row.index))
+				}
+				// What the table rejected is kept where the table stood.
+				for _, b := range p.takePending() {
+					keeper.keep(contentLines, b)
 				}
 				i = end - 1
 				continue
@@ -3090,6 +3549,10 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 					currentCode = f.Code
 					currentFormPath = frame.path + "/" + formSlots[idx].rel
 					discard = p.givenTwice(currentFormPath, currentField, lineOf(i))
+					if discard {
+						discarded = p.popPending()
+						discardStart = i
+					}
 					currentLines = []string{m[2]}
 					fence.Feed(line)
 					continue
@@ -3109,7 +3572,9 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 		}
 		fence.Feed(line)
 	}
+	at = len(frame.body)
 	flush()
+	keeper.drain(at, contentLines)
 	for _, target := range textOrder {
 		var values []string
 		for _, part := range textParts[target] {
@@ -3119,6 +3584,9 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 		}
 		if value := strings.Join(values, "\n\n"); value != "" {
 			p.content[target] = value
+		}
+		if kept, ok := keeper.keptValue(textParts[target]); ok && kept != "" {
+			p.keptContent[target] = kept
 		}
 	}
 }
@@ -3140,7 +3608,12 @@ func (p *mdParser) finalizeForm(frame *mdFrame, node *SomMetaNode, path string) 
 	var currentLines []string
 	// The preamble's parts: the text before the first field, and text a table
 	// interrupts; joined by one blank line.
-	preambleParts := [][]string{nil}
+	preambleParts := []*[]string{{}}
+	last := func() *[]string { return preambleParts[len(preambleParts)-1] }
+	// Rejected blocks go to the preamble at their place (RN-11).
+	keeper := newMdKeeper(frame)
+	var discarded *mdKeptBlock
+	discardStart, at := 0, 0
 
 	flush := func() {
 		if f := currentField; f != nil && !discard {
@@ -3152,20 +3625,30 @@ func (p *mdParser) finalizeForm(frame *mdFrame, node *SomMetaNode, path string) 
 				p.setField(path, f.Name, value)
 			}
 		}
+		if discard && discarded != nil {
+			discarded.lines = append([]string{}, frame.body[discardStart:at]...)
+			keeper.keep(last(), discarded)
+			discarded = nil
+		}
 		currentLines = nil
 		discard = false
 	}
 
 	for i := 0; i < len(frame.body); i++ {
 		line := frame.body[i]
+		at = i
+		keeper.drain(i, last())
 		if !fence.InFence() {
 			if h := mdLayoutTableHeaderRE.FindStringSubmatch(line); h != nil && h[1] == "" {
 				flush()
 				currentField = nil
-				preambleParts = append(preambleParts, nil)
+				preambleParts = append(preambleParts, &[]string{})
 				_, rows, end := p.readTable(frame.body, i, lineOf, path)
 				for _, row := range rows {
 					p.stageRow(path, declared, row.cells[0], row.cells[1], lineOf(row.index))
+				}
+				for _, b := range p.takePending() {
+					keeper.keep(last(), b)
 				}
 				i = end - 1
 				continue
@@ -3175,6 +3658,10 @@ func (p *mdParser) finalizeForm(frame *mdFrame, node *SomMetaNode, path string) 
 					flush()
 					currentField = f
 					discard = p.givenTwice(path, f.Name, lineOf(i))
+					if discard {
+						discarded = p.popPending()
+						discardStart = i
+					}
 					currentLines = []string{m[2]}
 					fence.Feed(line)
 					continue
@@ -3187,22 +3674,26 @@ func (p *mdParser) finalizeForm(frame *mdFrame, node *SomMetaNode, path string) 
 			text = line[1:]
 		}
 		if currentField == nil {
-			last := len(preambleParts) - 1
-			preambleParts[last] = append(preambleParts[last], text)
+			*last() = append(*last(), text)
 		} else {
 			currentLines = append(currentLines, text)
 		}
 		fence.Feed(line)
 	}
+	at = len(frame.body)
 	flush()
+	keeper.drain(at, last())
 	var values []string
 	for _, part := range preambleParts {
-		if v := mdRestoreValue(part); v != "" {
+		if v := mdRestoreValue(*part); v != "" {
 			values = append(values, v)
 		}
 	}
 	if value := strings.Join(values, "\n\n"); value != "" {
 		p.content[path] = value
+	}
+	if kept, ok := keeper.keptValue(preambleParts); ok && kept != "" {
+		p.keptContent[path] = kept
 	}
 }
 

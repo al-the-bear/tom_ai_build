@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+- **Rejected blocks kept for review** (SOM §11.7, DocSpecs RN-11): the parse
+  result carries `KeptContent`, and an apply that accepts rejections
+  (`ApplyMarkdownResult(result, true)`, which `SpecDocumentFromMarkdown`
+  uses) keeps each rejected block as a
+  `::: {.rejected reason=… line=… label=…}` div in the text of the section it
+  stood in, else its parent, at its place: an unknown section (nested unknown
+  sections in order), a row naming no field (with `field` when it is one edit
+  from a declared field), a field given twice (with `field` and `kept`, the
+  form holding the kept value), a table without its delimiter row, a records
+  div or row that does not read, an unclosed records fence (escaped), text
+  before the root heading, a child heading under a value leaf. The DocSpecs
+  validator reports each kept block as `rejectedBlock`. The conformance runner
+  runs the 15 `readingView` cases of `markdown_apply_cases.json` with their
+  `rejectedBlocks` (1927 checks);
+  `tests/spec_document_markdown_rejected_kept_test.go` is new.
+
 - **The Markdown emitter writes the reading view's tables** (SOM §11.4,
   §11.5), as Dart and TypeScript do: form tables `| TomSpecField | Value |`
   between `Field:` paragraphs, record tables in a `::: {.records}` div,
