@@ -17,13 +17,16 @@ pub mod docspecs_validator;
 pub mod json;
 pub mod som_facade;
 pub mod spec_answers;
+pub mod spec_backfill;
 pub mod spec_codespecs_extract;
 pub mod spec_codespecs_gate;
 pub mod spec_codespecs_records;
+pub mod spec_derive_fields;
 pub mod spec_document;
 pub mod spec_document_assembly;
 pub mod spec_document_markdown;
 pub mod spec_document_merge;
+pub mod spec_document_set;
 pub mod spec_document_strip;
 pub mod spec_document_yaml;
 pub mod spec_editor;
@@ -39,6 +42,7 @@ pub mod spec_node_creation;
 pub mod spec_notation;
 pub mod spec_paths;
 pub mod spec_place;
+pub mod spec_prefill;
 pub mod spec_query;
 pub mod spec_reflection;
 pub mod spec_review_annotations;
@@ -80,6 +84,11 @@ pub use spec_answers::{
     extract_answers, render_answers, SpecAnswerCounts, SpecAnswerEntry, SpecAnswerExtract,
     SpecAnswerKind, SpecAnswerRenderOptions,
 };
+pub use spec_backfill::{
+    backfill, spec_backfill_bump, SpecBackfillChange, SpecBackfillChangeKind, SpecBackfillError,
+    SpecBackfillErrorCode, SpecBackfillLeft, SpecBackfillLeftReason, SpecBackfillOptions,
+    SpecBackfillResult,
+};
 pub use spec_codespecs_extract::{
     code_specs_class_routing, code_specs_field_routing, code_specs_yaml_string,
     CodeSpecsArea, CodeSpecsAreaCatalog, CodeSpecsCarrier, CodeSpecsExtract,
@@ -97,6 +106,10 @@ pub use spec_codespecs_records::{
     CodeSpecsGateGap, CodeSpecsGateRecord, CodeSpecsGateVerdict, CodeSpecsRecordError,
     CODE_SPECS_EXTRACT_FILE_SUFFIX, CODE_SPECS_GATE_DESCOPED, CODE_SPECS_GATE_RECORD_FILE,
     CODE_SPECS_GATE_RECORD_FORMAT,
+};
+pub use spec_derive_fields::{
+    derive_fields, derive_fields_dry_run, SpecDeriveChange, SpecDeriveChangeKind,
+    SpecDeriveOptions, SpecDeriveResult,
 };
 pub use spec_document::{
     DocumentJson, ListJson, SpecDocument, SpecListItemMove, SpecListMoveError,
@@ -119,6 +132,14 @@ pub use spec_document_merge::{
     merge_stripped_value, spec_strip_merge_label, SpecStripMerge, SpecStripMergeConflict,
     SpecStripMergeOptions, SpecStripMergePlaced, SpecStripMergeRefusal, SpecStripMergeResult,
     SpecStripMergedValue, SpecStripBaseLoader, SpecStripValueMerge,
+};
+pub use spec_document_set::{
+    rename_id, spec_set_is_pending, spec_set_reviewed, spec_set_same_typed, spec_set_strip_kind,
+    spec_sync_counts_json, sync_report, SpecDocumentFindings, SpecDocumentSet,
+    SpecDocumentSetError, SpecDocumentSetLoadError, SpecDocumentSetRefusal, SpecRenameChange,
+    SpecRenameError, SpecSetCheck, SpecSetFound, SpecSetSide, SpecSetValue, SpecSyncCode,
+    SpecSyncFinding, SpecSyncHolder, SpecSyncPair, SpecSyncPlace, SpecSyncReport,
+    SpecSyncResolution,
 };
 pub use spec_document_strip::{
     spec_strip_kind_names, spec_strip_notation_kinds, strip_notation_text, SpecAppendixEntry,
@@ -200,6 +221,9 @@ pub use spec_place::{
     SPEC_PLACE_PROBLEM_MALFORMED, SPEC_PLACE_PROBLEM_NOT_LIST_ELEMENT,
     SPEC_PLACE_PROBLEM_NOT_SCOPED, SPEC_PLACE_PROBLEM_NO_CONTENT, SPEC_PLACE_PROBLEM_NO_SUCH_FIELD,
     SPEC_PLACE_PROBLEM_RESERVED_SLOT, SPEC_PLACE_PROBLEM_UNRESOLVED,
+};
+pub use spec_prefill::{
+    prefill, SpecPrefillError, SpecPrefillErrorCode, SpecPrefillOptions, SpecPrefillResult,
 };
 pub use spec_review_annotations::{
     K_SPEC_HEADLINE_FIELD,

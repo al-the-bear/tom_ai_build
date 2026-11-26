@@ -2,6 +2,60 @@
 
 ## Unreleased
 
+- **Section automation, second part** (`tom_specs_model_rules.md` §9.7),
+  ported from the Go and Java runtimes (the Dart reference behind them).
+  - The document set (the new module `spec_document_set`):
+    `SpecDocumentSet` (`new`, `from_fragments`, `load` of YAML and SOM
+    Markdown files, fragments of one root assembled; `blueprint`, `document`,
+    `name_of`, `names`, `roots`, `missing_roots`, `pairs`, `put`, `get`,
+    `root_of`) owning one document per root, refused with a
+    `SpecDocumentSetError` (`SpecDocumentSetRefusal`: `sameRoot`, `noRoot`,
+    `twoRoots`, `projection`, `overlap`, `unpairable`); the anchor pairs
+    (`SpecSyncPair`) the Blueprint root's `basedOn` and the `@SyncedWith` /
+    `@DetailedIn` classes give — 132 on the real model, with
+    `D00SolutionBlueprint` as the Blueprint root.
+  - `sync_report` (`SpecSyncReport`: `SpecSyncFinding` with its
+    `SpecSyncCode`, `SpecSyncResolution`, `SpecSyncHolder` and two
+    `SpecSyncPlace` sides, each document's own findings, the roots and pairs
+    not started, `counts_by_code` / `counts_by_resolution`, `clean`): the
+    shared places of every pair compared element by element and value by
+    value (`equal` / `subset` / `superset` with `where`, `heldHere`,
+    `detailOnly`, typed sameness), the summaries and inverses across two
+    documents, the values pending review and the changes `derive_fields`
+    could not mark. `rename_id` renames a section id in every document at
+    once, refused with a `SpecRenameError` when the new id is taken. The
+    comparison internals (`SpecSetCheck`, `SpecSetSide`, `SpecSetValue`,
+    `SpecSetFound`) are public for `backfill` and `prefill`.
+  - `derive_fields` (the new module `spec_derive_fields`): the derived places
+    of one document in three steps, written plain or as inline marks
+    (`SpecDeriveOptions`: `marked`, `author`, `at`, `dry_run`;
+    `derive_fields_dry_run` works on a copy of a borrowed document), applying
+    each `SpecLinkFix` in its recorded write order; `SpecDeriveResult` with
+    its `SpecDeriveChange`s (`SpecDeriveChangeKind`: `value`, `rowAdded`,
+    `rowRemoved`) and the changes it left (`unmarkable`,
+    `derivedLookupMiss`). `SpecLinkValidator::rebind` / `adopt` let it read
+    the document as it writes it, with the caches the run collected.
+  - `backfill` (the new module `spec_backfill`): the accepted Phase 3 end
+    state carried into the Blueprint, with a revision entry and the
+    Blueprint's derived places rewritten (`SpecBackfillOptions`,
+    `SpecBackfillResult` with its `SpecBackfillChange`s and the findings
+    `SpecBackfillLeft` with their `SpecBackfillLeftReason`); a set holding
+    marks or blocks, or no Blueprint, is refused with a `SpecBackfillError`
+    (`setHasMarks`, `noBlueprint`). `spec_backfill_bump` gives the next
+    version.
+  - `prefill` (the new module `spec_prefill`): a Phase 3 document started
+    from the Blueprint, the pairs holding nothing yet filled once and the
+    document's derived places derived (`SpecPrefillOptions`,
+    `SpecPrefillResult` with its filled and skipped pairs); refused with a
+    `SpecPrefillError` (`noBlueprint`, `unknownRoot`).
+  - `DocumentJson::to_json` gives the stores as their canonical JSON value;
+    `FormFieldSpec` implements `Default`.
+  - The conformance suite replays `document_set_cases.json`,
+    `derive_cases.json`, `prefill_cases.json` and `backfill_cases.json`
+    (`tests/conformance_document_set/mod.rs`; 5924 -> 6160 checks);
+    `tests/spec_document_set.rs`, `tests/spec_derive_fields.rs` and
+    `tests/spec_prefill_backfill.rs` are new.
+
 - **Section automation, first part** (`tom_specs_model_rules.md` §9.7),
   ported from the Go and Java runtimes (the Dart reference behind them).
   - The typed link readers (the new module `spec_model_links`): `SpecSync`

@@ -3260,6 +3260,12 @@ fn refuse_block_in(field: Option<&str>) -> Result<(), SpecReviewAnnotationError>
     Ok(())
 }
 
+/// Every annotation of `doc`, in document order, with bare comment ids: what
+/// [`SpecReviewAnnotations::list`] answers, read without a mutable borrow.
+pub(crate) fn spec_review_annotation_list(doc: &SpecDocument) -> Vec<SpecReviewAnnotation> {
+    list_of(doc, None)
+}
+
 fn list_of(doc: &SpecDocument, qualifier: Option<&str>) -> Vec<SpecReviewAnnotation> {
     values_of(doc)
         .iter()

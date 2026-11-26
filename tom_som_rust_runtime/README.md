@@ -71,6 +71,10 @@ path routes, version pinning, and `cargo package` from source.
 | `spec_model_links.rs` | The typed link readers (`tom_specs_model_rules.md` §9.7): `SpecSync` (`SpecListRelation`), `SpecSummaryOf`, `SpecDerivation`, `SpecInverseOf`, `SpecExtractsLinks`, `SpecSameAs`, read through `synced_with`, `summary_of`, `derived_from`, `extracts_links`, `same_as` on classes and fields and the form-field qualifiers `derived_from` / `inverse_of` / `summary_of`; a string → string argument keeps the meta's order. |
 | `spec_place.rs` | The place and filter grammar of the link vocabulary: `SpecPlace` and `SpecPlaceFilter` (`|` alternatives) resolved under an anchor without reading a value (`SpecPlaceResolution`, `SpecPlaceError` with its `SPEC_PLACE_PROBLEM_*`), `spec_same_as_bindings`, `spec_section_positions`. |
 | `spec_links_validator.rs` | `validate_links` — the link checks of one document: derived values against their sources, summaries against their detail lists, each end of a link against the other, ids named in a text against the link rows, `@SameAs` copies against their holders, pending changes read with every mark rejected; `SpecLinkValidator` collects beside each finding the fix `deriveFields` writes (`SpecLinkFix`). |
+| `spec_document_set.rs` | A project's specification documents read side by side, one per root (`SpecDocumentSet`, built from documents, fragments or files), and their validation: `sync_report` compares the places each Phase 3 document shares with the Solution Blueprint, pair by pair, and checks the links across two documents (`SpecSyncReport`, `SpecSyncFinding`); `rename_id` renames a section id in every document at once. |
+| `spec_derive_fields.rs` | `derive_fields` — the derived places of one document written, plain or as inline marks: link ends and generated rows, derived values and lists, summary repeats, `@SameAs` copies, counts, products and ranks (`SpecDeriveResult`, `SpecDeriveChange`). |
+| `spec_backfill.rs` | `backfill` — the accepted end state of the Phase 3 documents carried into the Blueprint as plain values, with a revision entry (`SpecBackfillResult`, `SpecBackfillLeft`); refused while a document holds review marks. |
+| `spec_prefill.rs` | `prefill` — a Phase 3 document started from the Blueprint: the pairs holding nothing yet filled once, the derived places derived (`SpecPrefillResult`). |
 | `spec_reflection.rs` | Value-free enumeration + path resolution (`SpecReflection`, `SpecResolution`, node-kind constants). |
 | `spec_document.rs` | A sparse in-memory document — values keyed by section path. `SpecDocument::move_list_item` moves a list item to another position of its list, or into another list of the same element class: the affected lists are renumbered, every value under each item travels with it, and an anonymous item whose position changed keeps its old id (`SpecListItemMove`; refusals are `SpecListMoveError`). `rekey_review` (`spec_document_yaml.rs`) re-keys a `review:` pass with the move's `renamed` pairs. |
 | `spec_document_assembly.rs` | Assembling one document from fragments written in parallel (`SpecDocument::assemble`, `assemble_spec_documents`): a refusing merge of the plain-data stores — a content path, form field, list, headline or code-spec location two fragments both write is a `SpecAssemblyOverlap`, and an assembly with any overlap has no document. |
@@ -193,12 +197,15 @@ validation, the imperative operations script, and the **Phase-4 CodeSpecs tier**
 the "copied, never composed" guard and the `ROUTE-TOTAL` error cases), and the
 reading back of extracts and the gate record (`codespecs_record_cases.json`).
 
-The section-automation tables of this port so far run in
-`tests/conformance_links/mod.rs`: the link readers and the place / filter
-grammar (`link_reader_cases.json`), `validate_links`
-(`link_validation_cases.json`) and the typed inline marks (`typedCases`) —
-over the fixture model `corpus/links.meta.json` and, for the cases naming it,
-the real model of `tom_som_dart_v0/meta/`.
+The section-automation tables run in `tests/conformance_links/mod.rs` — the
+link readers and the place / filter grammar (`link_reader_cases.json`),
+`validate_links` (`link_validation_cases.json`) and the typed inline marks
+(`typedCases`) — and in `tests/conformance_document_set/mod.rs` — the document
+set, its report and the global rename (`document_set_cases.json`),
+`derive_fields` (`derive_cases.json`), `prefill` and `backfill`
+(`prefill_cases.json`, `backfill_cases.json`) — over the fixture model
+`corpus/links.meta.json` and, for the cases naming it, the real model of
+`tom_som_dart_v0/meta/`.
 
 ## Architecture
 
@@ -230,6 +237,8 @@ the real model of `tom_som_dart_v0/meta/`.
 | `validate_document` | The instance tier: a filled document's values checked against the model. |
 | `validate_links` | The link checks of one document (`tom_specs_model_rules.md` §9.7), with the fixes `deriveFields` writes collected by `SpecLinkValidator`. |
 | `SpecPlace` / `SpecPlaceFilter` | The place and filter grammar of the link annotations, resolved under an anchor without reading a value. |
+| `SpecDocumentSet` / `sync_report` | A project's documents read side by side, and the places the Phase 3 documents share with the Solution Blueprint compared (`tom_specs_model_rules.md` §9.7). |
+| `derive_fields` / `backfill` / `prefill` | The writes of the section automation: a document's derived places, the Phase 3 end state into the Blueprint, a Phase 3 document started from the Blueprint. |
 | `spec_document_yaml` | Byte-stable `*.tomspecs.yaml` encode/decode. |
 | `spec_document_markdown` | DocSpecs-conform Markdown export (the reading view's tables), parse (the tables and the older `Field:` lines, rejected blocks kept for review) and round-trip. |
 | `strip_notation_text` | The strip of one value (SOM §11.10): secondary prose dropped, unmarked or moved to an appendix, with the pieces that went. |

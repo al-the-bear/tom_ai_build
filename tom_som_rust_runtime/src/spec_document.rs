@@ -132,6 +132,52 @@ impl DocumentJson {
         out
     }
 
+    /// The canonical JSON value of the stores (the shape [`from_json`](Self::from_json)
+    /// reads): empty stores left out, a list's `ids` only when it carries any.
+    pub fn to_json(&self) -> Json {
+        let text = |m: &BTreeMap<String, String>| {
+            Json::Object(m.iter().map(|(k, v)| (k.clone(), Json::Str(v.clone()))).collect())
+        };
+        let mut out: Vec<(String, Json)> = Vec::new();
+        if !self.content.is_empty() {
+            out.push(("content".to_string(), text(&self.content)));
+        }
+        if !self.forms.is_empty() {
+            let forms = self.forms.iter().map(|(k, f)| (k.clone(), text(f))).collect();
+            out.push(("forms".to_string(), Json::Object(forms)));
+        }
+        if !self.lists.is_empty() {
+            let lists = self
+                .lists
+                .iter()
+                .map(|(k, l)| {
+                    let mut entry = vec![
+                        ("seq".to_string(), Json::Int(l.seq)),
+                        (
+                            "items".to_string(),
+                            Json::Array(l.items.iter().map(|i| Json::Str(i.clone())).collect()),
+                        ),
+                    ];
+                    if !l.ids.is_empty() {
+                        entry.push(("ids".to_string(), text(&l.ids)));
+                    }
+                    (k.clone(), Json::Object(entry))
+                })
+                .collect();
+            out.push(("lists".to_string(), Json::Object(lists)));
+        }
+        for (key, store) in [
+            ("headlines", &self.headlines),
+            ("codeSpecs", &self.code_specs),
+            ("units", &self.units),
+        ] {
+            if !store.is_empty() {
+                out.push((key.to_string(), text(store)));
+            }
+        }
+        Json::Object(out)
+    }
+
     /// Renders a deterministic canonical JSON string (sorted keys, fixed field
     /// order content/forms/lists/headlines, omitting empty stores). Used only for
     /// internal consistency checks — both compared sides use this same encoder.

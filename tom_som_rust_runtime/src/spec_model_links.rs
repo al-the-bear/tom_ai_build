@@ -133,7 +133,7 @@ impl<'j> LinkArguments<'j> {
 
 /// A JSON value as text, the way the reference writes it (`true`, not `True`;
 /// `null`; a whole number without a fraction).
-fn link_json_text(v: &Json) -> String {
+pub(crate) fn link_json_text(v: &Json) -> String {
     match v {
         Json::Null => "null".to_string(),
         Json::Str(s) => s.clone(),

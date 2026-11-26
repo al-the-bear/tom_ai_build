@@ -302,7 +302,7 @@ impl SpecLinkFix {
 }
 
 /// `values[key] = value`, recording a new key in `keys`.
-fn put_ordered(
+pub(crate) fn put_ordered(
     values: &mut BTreeMap<String, String>,
     keys: &mut Vec<String>,
     key: String,
@@ -440,6 +440,44 @@ impl<'a> SpecLinkValidator<'a> {
             entries_cache: HashMap::new(),
             valued: None,
         }
+    }
+
+    /// This checker with every finding, fix and cache it collected, reading
+    /// `doc` instead: `deriveFields` reads the document as it writes it, with
+    /// the caches the run left (the reference runtimes share one document).
+    pub fn rebind<'b>(&self, doc: &'b SpecDocument) -> SpecLinkValidator<'b>
+    where
+        'a: 'b,
+    {
+        SpecLinkValidator {
+            fixes: self.fixes.clone(),
+            errors: self.errors.clone(),
+            item_ids: self.item_ids.clone(),
+            read_proposed: self.read_proposed,
+            model: self.model,
+            doc,
+            reported: self.reported.clone(),
+            pending: self.pending.clone(),
+            derived: self.derived.clone(),
+            items: self.items.clone(),
+            forms_by_owner: self.forms_by_owner.clone(),
+            entries_cache: self.entries_cache.clone(),
+            valued: self.valued.clone(),
+        }
+    }
+
+    /// Takes over the findings and caches `other` (a
+    /// [`rebind`](Self::rebind) of this checker) collected since.
+    pub fn adopt(&mut self, other: &SpecLinkValidator<'_>) {
+        self.item_ids = other.item_ids.clone();
+        self.reported = other.reported.clone();
+        self.pending = other.pending.clone();
+        self.errors = other.errors.clone();
+        self.derived = other.derived.clone();
+        self.items = other.items.clone();
+        self.forms_by_owner = other.forms_by_owner.clone();
+        self.entries_cache = other.entries_cache.clone();
+        self.valued = other.valued.clone();
     }
 
     /// The reflection over the model.
@@ -1956,7 +1994,7 @@ fn join_non_empty(values: &[String], sep: &str) -> String {
 }
 
 /// `s` from byte `n` on, `""` when `s` is shorter (a slice that cannot fail).
-fn tail_from(s: &str, n: usize) -> &str {
+pub(crate) fn tail_from(s: &str, n: usize) -> &str {
     s.get(n..).unwrap_or("")
 }
 

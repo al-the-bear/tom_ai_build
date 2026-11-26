@@ -52,7 +52,12 @@
 //!     (link_validation_cases.json) and the typed values and headlines under
 //!     review (the typedCases of inline_mark_cases.json /
 //!     change_mark_cases.json), `tom_specs_model_rules.md` §9.7
-//!     (`conformance_links/mod.rs`).
+//!     (`conformance_links/mod.rs`);
+//!   - the document set (`tom_specs_model_rules.md` §9.7): its construction,
+//!     the sync report and the global rename (document_set_cases.json), the
+//!     derived places of one document (derive_cases.json), and prefill and
+//!     backfill (prefill_cases.json, backfill_cases.json)
+//!     (`conformance_document_set/mod.rs`).
 //!
 //! `cargo test` is the native runner; exit 0 == all green.
 
@@ -116,6 +121,7 @@ use tom_som_rust_runtime::{
     SpecReadableSource, merge_stripped_value, SpecStripMerge, SpecStripMergeOptions,
 };
 
+mod conformance_document_set;
 mod conformance_links;
 
 const MODEL_VERSION: &str = "1.0";
@@ -260,6 +266,9 @@ fn conformance() {
     test_typed_values(&mut c);
     conformance_links::test_link_readers(&mut c);
     conformance_links::test_link_validation(&mut c);
+    conformance_document_set::test_document_set(&mut c);
+    conformance_document_set::test_derive_fields(&mut c);
+    conformance_document_set::test_prefill_backfill(&mut c);
 
     c.finish();
 }

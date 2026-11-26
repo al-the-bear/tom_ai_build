@@ -215,7 +215,7 @@ pub fn no_artifact(annotations: &[SpecAnnotation]) -> Option<NoArtifactLink> {
 }
 
 /// A single form field within a `@Form` content section.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct FormFieldSpec {
     pub name: String,
     pub label: String,
