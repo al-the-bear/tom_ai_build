@@ -95,7 +95,9 @@ pkg-config / vendored-tarball / in-tree-monorepo routes and how to pin.
 | `spec_codespecs_records.c` | Reads Phase-4 output back: `spec_codespecs_extract_from_yaml` (the inverse of `spec_codespecs_extract_to_yaml`), the Stage-B gate record `gate.verdicts.yaml` (`CodeSpecsGateRecord` — read, checked, written byte-stable), and `CodeSpecsExtractSet`, a set of extract files scoped by its gate record. Failures fill a `CodeSpecsRecordError`. |
 | `spec_codespecs_gate.c` | The Stage-A gate (`CodeSpecsGate`, `codespecs_prompt.md` §4): runs A1 (DocSpecs completeness of the rendered Markdown), A2 (`validate_document`), A3 (every section routed, then the extraction), A4 (required marker arguments populated, from the catalogue's `gate` tables) and A5 (carriers still in the model) as one, reporting a not-run check as not run. |
 | `spec_document_yaml.c` | Byte-stable `*.tomspecs.yaml` codec (`SOM §12`). |
-| `spec_document_markdown.c` | Meta-data-driven Markdown import/export codec (`SOM §11`): the emitter writes the reading view's form, records and section tables and reference lines, with an anchor in every heading (SOM §11.4, §11.5), and with `spec_markdown_export_root_with_options` styled-div headings below level six and a readable header (SOM §11.1, §11.2); the parser reads them, the older `Field:` layout, and skips a readable header and a stripped rendition's appendix. |
+| `spec_document_markdown.c` | Meta-data-driven Markdown import/export codec (`SOM §11`): the emitter writes the reading view's form, records and section tables and reference lines, with an anchor in every heading (SOM §11.4, §11.5), and with `spec_markdown_export_root_with_options` styled-div headings below level six and a readable header (SOM §11.1, §11.2), the file stem and document files of links to another document root, and the navigation and generated parts on or off; the parser reads them, the older `Field:` layout, removes the `linked` marker and the generated blocks, and skips a readable header and a stripped rendition's appendix. |
+| `spec_document_markdown_linked.c` | The rendition's navigation, internal to the codec: qualified anchors, the `linked` marker's entries `Also in`, `Summary of`, `Summarised in`, `Derived from`, `Extracted from`, `Copy of`, `Copied to` (SOM §11.11), the summary rows' `Id` links. |
+| `spec_document_markdown_generated.c` | The rendition's generated parts, internal to the codec: the requirement views' tables in `derived` blocks (SOM §11.12). |
 | `som_facade.c` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList`) for the generated `tom_som_c_v0`. |
 | `yaml.c` | Hand-rolled, dependency-free reader for the constrained docspecs YAML subset. |
 | `som_json.c` | Hand-rolled, dependency-free JSON reader/encoder (C ships none). |
@@ -108,7 +110,7 @@ pkg-config / vendored-tarball / in-tree-monorepo routes and how to pin.
 | `spec_meta_diff.c` | `som_meta_node_diff` — the first difference between two metadata trees, or NULL. |
 | `spec_section_id.c` | List-item section ids (AA1): `spec_generate_list_item_section_id`, `spec_effective_list_item_section_id`, `spec_section_id_pattern_prefix`. |
 | `spec_serialization_order.c` | The model's member order, which every codec writes in (`spec_serialization_order_paths`, `spec_serialization_order_order_key`, `spec_serialization_order_form_fields`). |
-| `docspecs_validator.c` | DocSpecs Markdown documents: the schema-free parse (`docspecs_parse_document`, `docspecs_document_all_sections`) and the schema check (`docspecs_validator_new`, `docspecs_validator_new_with` for a TomSpecs rendition, `docspecs_validator_validate_markdown`), the reading notation's nine rules included; it reads both form layouts, `refs` / `records` list bodies, section tables and styled-div headings (SOM §14). |
+| `docspecs_validator.c` | DocSpecs Markdown documents: the schema-free parse (`docspecs_parse_document`, `docspecs_document_all_sections`) and the schema check (`docspecs_validator_new`, `docspecs_validator_new_with` for a TomSpecs rendition, `docspecs_validator_validate_markdown`), the reading notation's nine rules included; it reads both form layouts, `refs` / `records` list bodies, section tables and styled-div headings (SOM §14), and the rendition's `linked` marker and generated blocks as no text. |
 | `spec_document_merge.c` | The merge back (SOM §11.10): `spec_merge_stripped_value` puts the pieces of one value's strip back into its edited text, `spec_strip_merge` merges an edited readable rendition onto its document (three ways from the original at the export when it moved, structural edits refused, the result checked to strip back), `spec_strip_merge_git_show_file` reads that original from git. |
 | `spec_document_strip.c` | Stripped renditions (SOM §11.10): `spec_strip_notation_text` drops, unmarks or moves secondary prose and review annotations of one value per `SpecStripOptions` (`spec_strip_options_from_names`), returning the stripped text, its pieces and appendix entries; `spec_document_strip` strips a whole document with the emptying rule and writes its readable rendition, the readable header (`spec_readable_header_format` / `_parse`) first and the appendix *Notes* last. |
 | `spec_notation.c` | The reading notation's scanner (DocSpecs Reading Notation RN-1 to RN-13): `spec_scan_notation` returns a value's fenced divs, bracketed spans and citation shapes, nested, with byte and UTF-16 offsets, and its findings. |
@@ -219,9 +221,14 @@ place / filter grammar (`link_reader_cases.json`), `spec_validate_links`
 `tests/conformance_document_set.h`: the document set, its report and the global
 rename (`document_set_cases.json`), `spec_derive_fields` (`derive_cases.json`),
 `spec_prefill` and `spec_backfill` (`prefill_cases.json`,
-`backfill_cases.json`) — over the fixture model
+`backfill_cases.json`); and in `tests/conformance_rendition.h`: the
+rendition's navigation and generated parts (`link_rendition_cases.json`, and
+the schema tier over the real model's renditions with and without them,
+`uam_requirements_cut.json`) — over the fixture model
 `corpus/links.meta.json` and, for the cases naming it, the real model of
-`tom_som_dart_v0/meta/`.
+`tom_som_dart_v0/meta/`. `tests/spec_document_markdown_linked_test.c` and
+`tests/spec_document_markdown_generated_test.c` hold the C surface around the
+rendition.
 
 The corpus directory can be overridden:
 
@@ -265,7 +272,7 @@ make test CORPUS=/path/to/corpus
 | `spec_derive_fields` | Writes a document's derived places (link ends and rows, derived values, `@SameAs` copies, counts, products, ranks), plain or as marks. |
 | `spec_prefill` / `spec_backfill` | A Phase 3 document started from the Blueprint; the accepted Phase 3 end state carried back into it. |
 | `spec_document_yaml` | Byte-stable `*.tomspecs.yaml` encode/decode. |
-| `spec_document_markdown` | DocSpecs-conform Markdown export, parse and round-trip. |
+| `spec_document_markdown` | DocSpecs-conform Markdown export, parse and round-trip; the rendition's navigation (`linked` marker, qualified anchors) and generated parts (SOM §11.11, §11.12). |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |
 | `SpecGenerationUnit` | One generation unit of a document's register, with its mapping per area and the standard emitters it ships (`spec_generation_units`). |
@@ -316,6 +323,6 @@ make test CORPUS=/path/to/corpus
 
 ## Status
 
-Version **1.13.0**, tracking the TomSpecs model version. Covered by 22 test
-files; the conformance runner reports **OK: 4513 checks passed** and
+Version **1.13.0**, tracking the TomSpecs model version. Covered by 24 test
+files; the conformance runner reports **OK: 4689 checks passed** and
 `./run_tests.sh` is green.

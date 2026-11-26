@@ -2087,6 +2087,7 @@ static void check_output(const SpecModel *model, const DocSpecsSchema *schema,
                          const SpecRoot *root, const char *root_type,
                          const KeyPaths *before, const SpecDocument *document,
                          const SpecDocument *copy, const char *readable,
+                         const SpecMarkdownExportOptions *codec,
                          SpecStripResult *out, size_t *cap) {
   SpecMarkdownResult parsed;
   spec_markdown_parse(model, readable, &parsed);
@@ -2150,7 +2151,14 @@ static void check_output(const SpecModel *model, const DocSpecsSchema *schema,
   kp_free(&after);
   if (schema == NULL) return;
   char *err = NULL;
-  char *original = spec_markdown_export_root(model, document, root, &err);
+  SpecMarkdownRendition orig;
+  char *original = NULL;
+  if (spec_markdown_export_root_with_options(model, document, root, codec, &orig,
+                                             &err)) {
+    original = orig.markdown;
+    orig.markdown = NULL;
+    spec_markdown_rendition_free(&orig);
+  }
   free(err);
   if (original == NULL) return;
   DocSpecsValidator val = docspecs_validator_new_with(schema, 1);
@@ -2232,6 +2240,13 @@ void spec_document_strip(const SpecDocument *document,
   const DocSpecsSchema *schema = extra != NULL ? extra->schema : NULL;
   const char *root_type = extra != NULL ? extra->root_type : NULL;
   const SpecReadableSource *source = extra != NULL ? extra->source : NULL;
+  /* The codec's file stem and document files, for every rendition made. */
+  SpecMarkdownExportOptions codec;
+  memset(&codec, 0, sizeof(codec));
+  if (extra != NULL) {
+    codec.file_stem = extra->file_stem;
+    codec.document_files = extra->document_files;
+  }
   size_t findings_cap = 0;
 
   Strip s;
@@ -2315,7 +2330,8 @@ void spec_document_strip(const SpecDocument *document,
   if (entries_len > 0 && root != NULL) {
     SpecMarkdownRendition map;
     char *err = NULL;
-    if (spec_markdown_export_root_with_map(model, s.copy, root, &map, &err)) {
+    if (spec_markdown_export_root_with_options(model, s.copy, root, &codec, &map,
+                                               &err)) {
       headings_free(&titles);
       headings_from(&map, &titles);
       for (size_t k = 0; k < entries_len; k++) {
@@ -2384,9 +2400,13 @@ void spec_document_strip(const SpecDocument *document,
 
   out->readable_header = spec_readable_header_format(options, source);
   if (root != NULL) {
-    SpecMarkdownExportOptions mo;
+    SpecMarkdownExportOptions mo = codec;
     mo.heading_divs = options->heading_divs;
     mo.readable_header = out->readable_header;
+    mo.no_linked_markers =
+        ((options->drop | options->unmark) & (1u << K_LINKED)) != 0;
+    mo.no_generated_parts =
+        ((options->drop | options->unmark) & (1u << K_DERIVED)) != 0;
     SpecMarkdownRendition rendition;
     char *err = NULL;
     if (spec_markdown_export_root_with_options(model, s.copy, root, &mo,
@@ -2403,7 +2423,7 @@ void spec_document_strip(const SpecDocument *document,
                               options->appendix_references);
       spec_markdown_rendition_free(&rendition);
       check_output(model, schema, root, root_type, &base, document, s.copy,
-                   out->readable, out, &findings_cap);
+                   out->readable, &codec, out, &findings_cap);
     } else {
       push_finding(out, &findings_cap, "parse",
                    som_strdup(err != NULL ? err : "the document does not render"),

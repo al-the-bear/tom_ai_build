@@ -2441,6 +2441,120 @@ static void dv_record_items(const DocSpecsSchema *schema, DvNode *node,
   som_strlist_free(&columns);
 }
 
+/* ---- the rendition's generated lead (SOM §11.11, §11.12) ----------------- */
+
+static int dv_blank_line(const char *s) {
+  char *t = trim_space(s);
+  int blank = t[0] == '\0';
+  free(t);
+  return blank;
+}
+
+static size_t dv_skip_blank(char *const *lines, size_t len, size_t i) {
+  while (i < len && dv_blank_line(lines[i])) i++;
+  return i;
+}
+
+/* `^\[.*\]\{\.linked\}$`: a paragraph that is one `linked` span. */
+static int dv_linked_paragraph(const char *para) {
+  size_t n = strlen(para);
+  static const char tail[] = "]{.linked}";
+  size_t tl = sizeof(tail) - 1;
+  return n >= 11 && para[0] == '[' && memcmp(para + n - tl, tail, tl) == 0 &&
+         strchr(para, '\n') == NULL;
+}
+
+/* `^ {0,3}(:{3,})[ \t]*\{\.derived(?=[\s}])`: the opening fence of a
+ * `derived` block; returns its colon count, 0 for none. */
+static size_t dv_derived_open(const char *line) {
+  size_t p = 0;
+  while (p < 3 && line[p] == ' ') p++;
+  size_t colons = 0;
+  while (line[p + colons] == ':') colons++;
+  if (colons < 3) return 0;
+  p += colons;
+  while (line[p] == ' ' || line[p] == '\t') p++;
+  static const char open[] = "{.derived";
+  if (strncmp(line + p, open, sizeof(open) - 1) != 0) return 0;
+  char ch = line[p + sizeof(open) - 1];
+  return ch == '}' || ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r' ||
+                 ch == '\f' || ch == '\v'
+             ? colons
+             : 0;
+}
+
+/* `^ {0,3}:{n,}[ \t]*$`: the closing fence of a block opened with `n`
+ * colons. */
+static int dv_fence_close(const char *line, size_t n) {
+  size_t p = 0;
+  while (p < 3 && line[p] == ' ') p++;
+  size_t colons = 0;
+  while (line[p + colons] == ':') colons++;
+  if (colons < n) return 0;
+  for (const char *q = line + p + colons; *q != '\0'; q++) {
+    if (*q != ' ' && *q != '\t') return 0;
+  }
+  return 1;
+}
+
+/* The number of leading lines of a section's `lines` that the rendition
+ * writes from the document and that hold no value: a paragraph that is one
+ * `linked` span (SOM §11.11), then a `derived` block (SOM §11.12), with the
+ * blank lines around them (DocSpecs RN-5, *Not text*). */
+static size_t dv_generated_lead(char *const *lines, size_t len) {
+  size_t i = dv_skip_blank(lines, len, 0);
+  size_t end = i;
+  while (end < len && !dv_blank_line(lines[end])) end++;
+  if (end > i) {
+    SomBuf b;
+    som_buf_init(&b);
+    for (size_t k = i; k < end; k++) {
+      if (k > i) som_buf_putc(&b, ' ');
+      som_buf_puts(&b, lines[k]);
+    }
+    char *joined = som_buf_take(&b);
+    char *para = trim_space(joined);
+    if (dv_linked_paragraph(para)) i = dv_skip_blank(lines, len, end);
+    free(para);
+    free(joined);
+  }
+  size_t n = i < len ? dv_derived_open(lines[i]) : 0;
+  if (n > 0) {
+    size_t k = i + 1;
+    while (k < len && !dv_fence_close(lines[k], n)) k++;
+    if (k < len) i = dv_skip_blank(lines, len, k + 1);
+  }
+  return i;
+}
+
+/* `text` without its generated lead: what the text rules read. Owned. */
+static char *dv_without_generated_text(const char *text) {
+  SomStrList lines;
+  som_strlist_init(&lines);
+  const char *p = text;
+  for (;;) {
+    const char *nl = strchr(p, '\n');
+    if (nl == NULL) {
+      som_strlist_push_copy(&lines, p);
+      break;
+    }
+    som_strlist_push(&lines, som_strdup_n(p, (size_t)(nl - p)));
+    p = nl + 1;
+  }
+  size_t lead = dv_generated_lead(lines.items, lines.len);
+  SomBuf b;
+  som_buf_init(&b);
+  for (size_t k = lead; k < lines.len; k++) {
+    if (k > lead) som_buf_putc(&b, '\n');
+    som_buf_puts(&b, lines.items[k]);
+  }
+  som_strlist_free(&lines);
+  char *joined = som_buf_take(&b);
+  char *out = trim_space(joined);
+  free(joined);
+  return out;
+}
+
 /* A list container's body: one `refs` div or one `records` div stands for
  * its items when the container has no item heading; the items become virtual
  * sections of the container's one subsection type, the div's lines blank. */
@@ -2469,8 +2583,9 @@ static void dv_expand_list_body(const DocSpecsValidator *val, DvNode *node,
               vcat("unclosed ", kind, " fence", NULL), node->id, "");
       return; /* its lines stay text */
     }
+    size_t lead = dv_generated_lead(node->body.items, node->body.len);
     int beside_text = 0;
-    for (size_t k = 0; k < node->body.len; k++) {
+    for (size_t k = lead; k < node->body.len; k++) {
       if (k >= i && k <= close) continue;
       char *t = trim_space(node->body.items[k]);
       if (t[0] != '\0') beside_text = 1;
@@ -2554,7 +2669,10 @@ static void validate_text(const DocSpecsValidator *val,
       return; /* form sections carry fields, not body text */
     }
   }
-  char *text = dv_node_text(section);
+  /* The rendition's marker and generated block are no text either. */
+  char *raw = dv_node_text(section);
+  char *text = dv_without_generated_text(raw);
+  free(raw);
   if (t->text_required && text[0] == '\0') {
     dv_push(v, DOCSPECS_RULE_TEXT_REQUIRED, section->line,
             som_strdup("section requires body text but has none"),

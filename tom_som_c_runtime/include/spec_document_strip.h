@@ -42,7 +42,9 @@ extern const char *const SPEC_STRIP_NOTATION_KINDS[SPEC_STRIP_NOTATION_KIND_COUN
 /* The index of `name` in SPEC_STRIP_KIND_NAMES, or -1. */
 int spec_strip_kind_index(const char *name);
 
-/* What a strip does with each kind: bit `1 << i` for SPEC_STRIP_KIND_NAMES[i]. */
+/* What a strip does with each kind: bit `1 << i` for SPEC_STRIP_KIND_NAMES[i].
+ * The rendition leaves the `linked` marker out when `linked` is dropped or
+ * unmarked (SOM §11.11), the generated parts when `derived` is (SOM §11.12). */
 typedef struct {
   unsigned drop;     /* the kinds removed with their content */
   unsigned unmark;   /* the kinds whose markers go and whose content stays */
@@ -222,6 +224,11 @@ typedef struct {
   const char *root_type;           /* the root rendered; default the single
                                     * populated one */
   const SpecReadableSource *source; /* named in the readable header */
+  const char *file_stem;           /* the codec's file stem: the files a link
+                                    * to another document root names
+                                    * (SpecMarkdownExportOptions.file_stem) */
+  const SomMap *document_files;    /* the codec's document files
+                                    * (SpecMarkdownExportOptions.document_files) */
 } SpecDocumentStripOptions;
 
 /* Strips every value of `document` — content, form-field values and stored

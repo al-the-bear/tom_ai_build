@@ -198,13 +198,29 @@ typedef struct {
  * export's failure conditions returns 0 with `*out` empty (safe to free) and
  * `*err` written when non-NULL. */
 /* The options of an export beyond the document: the reading view's
- * styled-div headings below level six and a stripped rendition's readable
- * header (SOM §11.1, §11.2). */
+ * styled-div headings below level six, a stripped rendition's readable header
+ * (SOM §11.1, §11.2), the files a link to another document root names, and
+ * the navigation and generated parts (SOM §11.11, §11.12). A zeroed struct is
+ * the default: no divs, no header, no stem, markers and generated parts
+ * written. */
 typedef struct {
   int heading_divs;            /* sections deeper than level 6 as
                                 * `<div class="heading<N>" …>` lines */
   const char *readable_header; /* written after the docspec line; borrowed,
                                 * NULL for none */
+  const char *file_stem;       /* a link to another document root names
+                                * `<file_stem>.<root id in lower
+                                * case>.tomspecs.md`; NULL / "": no stem */
+  const SomMap *document_files; /* the rendition file of a document root,
+                                 * keyed by its section id or type (wins over
+                                 * the stem); borrowed, NULL for none */
+  int no_linked_markers;       /* leaves the `linked` marker after a markable
+                                * heading out (SOM §11.11); the parser removes
+                                * it either way */
+  int no_generated_parts;      /* leaves the generated parts out (SOM
+                                * §11.12); the parser removes them either way,
+                                * and an empty value under a generated block is
+                                * no missing value */
 } SpecMarkdownExportOptions;
 
 /* spec_markdown_export_root_with_map with `options` (NULL: none). */

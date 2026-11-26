@@ -1354,7 +1354,8 @@ int spec_strip_merge(const SpecDocument *original, const char *edited,
     origin = base;
   }
 
-  SpecDocumentStripOptions so = {model, schema, root_type, NULL};
+  SpecDocumentStripOptions so = {model, schema, root_type, NULL,
+                                 extra->file_stem, extra->document_files};
   spec_document_strip(origin, &opts, &so, &strip);
   have_strip = 1;
   if (!spec_strip_result_ok(&strip) || strip.readable == NULL) {

@@ -9,6 +9,7 @@
  * deeper again. The container carries no body of its own; item identity is
  * purely positional. */
 #include "spec_document_markdown.h"
+#include "spec_document_markdown_internal.h"
 
 #include <ctype.h>
 #include <stdbool.h>
@@ -658,40 +659,6 @@ char *spec_markdown_form_label(const char *field_name) {
 /* Codec object                                                              */
 /* ======================================================================== */
 
-/* One tree per root type, built lazily and cached. */
-typedef struct {
-  char *root_type; /* owned */
-  SomMetaTree *tree;
-} TreeEntry;
-
-/* The class names one root's meta tree reaches (for reference links). */
-typedef struct {
-  char *root_type; /* owned */
-  SomMap names;    /* class name -> "1" */
-} MdReach;
-
-typedef struct {
-  const SpecModel *model;
-  const SpecDocument *document;
-  TreeEntry *trees;
-  size_t trees_len;
-  size_t trees_cap;
-  /* When non-NULL, the document path of every heading written, in emission
-   * order (`spec_markdown_export_root_with_map`). Borrowed. */
-  SomStrList *heading_paths;
-  /* The export in progress: its root and tree (borrowed), the document's
-   * paths per kind (loaded once per export), the reach of each root. */
-  const SpecRoot *current_root;
-  const SomMetaTree *current_tree;
-  SomStrList content_paths, form_paths, list_paths, units_paths, headline_paths;
-  MdReach *reach;
-  size_t reach_len, reach_cap;
-  /* The export's options (spec_markdown_export_root_with_options): sections
-   * deeper than level 6 as styled-div headings, and the readable header
-   * written after the docspec line (borrowed, NULL when none). */
-  int heading_divs;
-  const char *readable_header;
-} MdCodec;
 
 static void codec_init(MdCodec *c, const SpecModel *model,
                        const SpecDocument *document) {
@@ -713,6 +680,16 @@ static void codec_init(MdCodec *c, const SpecModel *model,
   c->reach = NULL;
   c->reach_len = 0;
   c->reach_cap = 0;
+  c->file_stem = NULL;
+  c->document_files = NULL;
+  c->linked_markers = 1;
+  c->generated_parts = 1;
+  c->nav = NULL;
+  c->gen = NULL;
+  c->sync_loaded = 0;
+  c->sync_ok = 0;
+  memset(&c->sync_set, 0, sizeof(c->sync_set));
+  c->empty_document = NULL;
 }
 
 static void codec_free(MdCodec *c) {
@@ -731,6 +708,13 @@ static void codec_free(MdCodec *c) {
     som_map_free(&c->reach[i].names);
   }
   free(c->reach);
+  spec_mdi_gen_free(c->gen);
+  spec_mdi_nav_free(c->nav);
+  if (c->sync_ok) spec_document_set_free(&c->sync_set);
+  if (c->empty_document != NULL) {
+    spec_document_free(c->empty_document);
+    free(c->empty_document);
+  }
 }
 
 /* Returns the cached / newly-built tree for `root_type`, or NULL writing `*err`. */
@@ -805,18 +789,6 @@ static int is_value_leaf(const char *kind) {
          strcmp(kind, SOM_META_KIND_SCALAR) == 0 ||
          strcmp(kind, SOM_META_KIND_ENUM_VALUE) == 0;
 }
-
-/* mdNodeRel: node + relative path. */
-typedef struct {
-  const SomMetaNode *node;
-  char *rel; /* owned */
-} NodeRel;
-
-typedef struct {
-  NodeRel *items;
-  size_t len;
-  size_t cap;
-} NodeRelVec;
 
 static void nrv_init(NodeRelVec *v) {
   v->items = NULL;
@@ -954,9 +926,13 @@ static char *md_anchor_of(MdCodec *c, const char *path);
  * non-NULL and non-empty it is written as a ` codeSpec="…"` key inside the
  * headline comment (codespecs_mapping.md §9.2); byte-identical to before when empty/NULL.
  * A non-empty `units` follows as a second key, ` units="…"` (SOM §11.2). */
+/* The `linked` marker follows the heading (SOM §11.11), then a generated table
+ * opening its section (SOM §11.12). `section_table`: the heading's children
+ * are written as a section table. */
 static void md_write_heading(MdCodec *c, SomBuf *b, int depth, const char *id,
                              const char *title, const char *path,
-                             const char *code_spec, const char *units) {
+                             const char *code_spec, const char *units,
+                             int section_table) {
   if (c->heading_paths != NULL) {
     som_strlist_push_copy(c->heading_paths, path);
   }
@@ -1017,6 +993,31 @@ static void md_write_heading(MdCodec *c, SomBuf *b, int depth, const char *id,
   if (div) som_buf_puts(b, "</div>");
   som_buf_putc(b, '\n');
   som_buf_putc(b, '\n');
+  if (c->nav != NULL && c->linked_markers) {
+    SomStrList entries;
+    spec_mdi_nav_entries(c->nav, c, path, section_table, &entries);
+    if (entries.len > 0) {
+      char *joined = som_strlist_join(&entries, "; ");
+      som_buf_putc(b, '[');
+      som_buf_puts(b, joined);
+      som_buf_puts(b, "]{.linked}\n\n");
+      free(joined);
+    } else if (spec_mdi_nav_markable(c->nav, c, path)) {
+      som_buf_puts(b, SPEC_MDI_LINKED_PLACEHOLDER "\n\n");
+    }
+    som_strlist_free(&entries);
+  }
+  if (c->gen != NULL && spec_mdi_is_generated_place(c->nav, c, path)) {
+    const char *block = spec_mdi_gen_block(c->gen, c, path);
+    som_buf_puts(b, block != NULL ? block : SPEC_MDI_DERIVED_PLACEHOLDER);
+    som_buf_puts(b, "\n\n");
+  }
+}
+
+/* Whether a generated part stands at or beneath `path` of the current export,
+ * which writes its heading even without a value. */
+static int md_forced(MdCodec *c, const char *path) {
+  return c->gen != NULL && spec_mdi_gen_forces(c->gen, c, path);
 }
 
 /* prepareValue: trim leading/trailing blank lines, escape heading-like lines
@@ -1287,12 +1288,25 @@ static const char *md_class_by_section_id(const MdCodec *c, const char *sid) {
   return NULL;
 }
 
-/* The rendition file of `root`: `<root id in lower case>.tomspecs.md`. */
-static char *md_file_of_root(const SpecRoot *root) {
+/* The rendition file of `root`: `<file stem>.<root id in lower
+ * case>.tomspecs.md` (without the stem when it is empty), or the name the
+ * codec's document files give it (keyed by the root's section id, then its
+ * type). */
+static char *md_file_of_root(MdCodec *c, const SpecRoot *root) {
   const char *id = root->section_id[0] != '\0' ? root->section_id : root->type;
+  if (c->document_files != NULL) {
+    const char *mapped = som_map_get(c->document_files, id);
+    if (mapped == NULL) mapped = som_map_get(c->document_files, root->type);
+    if (mapped != NULL) return som_strdup(mapped);
+  }
   char *lower = lower_dup(id);
   char *out = vcat3(lower, ".tomspecs", ".md");
   free(lower);
+  if (c->file_stem != NULL && c->file_stem[0] != '\0') {
+    char *stemmed = vcat3(c->file_stem, ".", out);
+    free(out);
+    out = stemmed;
+  }
   return out;
 }
 
@@ -1321,7 +1335,7 @@ static char *md_file_for(MdCodec *c, const char *class_name) {
       best_size = reach->len;
     }
   }
-  return best != NULL ? md_file_of_root(best) : NULL;
+  return best != NULL ? md_file_of_root(c, best) : NULL;
 }
 
 /* `[ID](<file>#ID)` for a reference id of form field `f`, `[ID](#ID)` when
@@ -1421,90 +1435,10 @@ static char *md_linked_cell_text(MdCodec *c, const SomFormFieldMeta *f,
 }
 
 /* The anchor of the heading `path` names (SOM §11.2): the section id, or its
- * qualified form below a list item or a `@SameAs` copy. Owned. */
+ * qualified form below a list item or a `@SameAs` copy, from the export's
+ * navigation (one anchor walk, cached). Owned. */
 static char *md_anchor_of(MdCodec *c, const char *path) {
-  const SomMetaNode *node = c->current_tree->root;
-  SomStrList segs;
-  spec_path_segments(path, &segs);
-  const char *root_seg = som_meta_node_segment(node);
-  char *anchor = som_strdup(root_seg);
-  char *scope = NULL;
-  char *section = som_strdup(root_seg);
-  char *cur = som_strdup(segs.len > 0 ? segs.items[0] : root_seg);
-  for (size_t i = 1; i < segs.len; i++) {
-    const char *seg = segs.items[i];
-    const SomMetaNode *child = som_meta_node_child_by_segment(node, seg);
-    if (child != NULL) {
-      char *next = vcat3(cur, "/", seg);
-      free(cur);
-      cur = next;
-      node = child;
-      if (is_transparent_section(c, child) || is_transparent_value(child)) {
-        continue;
-      }
-      char *id = heading_id_of(c, child);
-      int container = strcmp(child->kind, SOM_META_KIND_LIST) == 0;
-      char *a = NULL, *s = NULL;
-      qualify_anchor(scope, section, id, container, 0,
-                     !container && is_copy_node(c, child), &a, &s);
-      free(anchor);
-      anchor = a;
-      free(scope);
-      scope = s;
-      if (!container) {
-        free(section);
-        section = id;
-      } else {
-        free(id);
-      }
-      continue;
-    }
-    char *base = NULL;
-    long long seq = 0;
-    if (!spec_split_list_item_segment(seg, &base, &seq)) break;
-    const SomMetaNode *list_node = som_meta_node_child_by_segment(node, base);
-    if (list_node == NULL || strcmp(list_node->kind, SOM_META_KIND_LIST) != 0) {
-      free(base);
-      break;
-    }
-    char *item_path = vcat3(cur, "/", seg);
-    char *list_path = vcat3(cur, "/", base);
-    free(base);
-    long long pos = 0;
-    const SomStrList *items = spec_document_list_items(c->document, list_path);
-    for (size_t k = 0; items != NULL && k < items->len; k++) {
-      if (strcmp(items->items[k], item_path) == 0) pos = (long long)k + 1;
-    }
-    free(list_path);
-    const char *pattern = list_node->section_id_pattern;
-    if (pattern[0] == '\0' && list_node->element_node != NULL) {
-      pattern = list_node->element_node->section_id_pattern;
-    }
-    const char *member = list_node->member_name[0] != '\0'
-                             ? list_node->member_name
-                             : som_meta_node_segment(list_node);
-    char *id = spec_effective_list_item_section_id(
-        spec_document_item_section_id(c->document, item_path),
-        pattern[0] != '\0' ? pattern : NULL, pos == 0 ? seq : pos, member);
-    char *a = NULL, *s = NULL;
-    qualify_anchor(scope, section, id, 0, 1, 0, &a, &s);
-    free(anchor);
-    anchor = a;
-    free(scope);
-    scope = s;
-    free(section);
-    section = id;
-    free(cur);
-    cur = item_path;
-    const SomMetaNode *element = list_node->element_node;
-    node = element != NULL ? element : list_node;
-    if (element == NULL && i < segs.len - 1) break;
-  }
-  free(scope);
-  free(section);
-  free(cur);
-  som_strlist_free(&segs);
-  return anchor;
+  return spec_mdi_nav_anchor_of(c->nav, c, path);
 }
 
 /* The document's paths of one kind, loaded once per export. */
@@ -1742,7 +1676,17 @@ static int md_write_record_table(MdCodec *c, SomBuf *b, const SomMetaNode *node,
     char *id = spec_effective_list_item_section_id(
         spec_document_item_section_id(c->document, item_path),
         pattern[0] != '\0' ? pattern : NULL, (long long)i + 1, member);
-    char *id_cell = md_anchored(c, item_path, id);
+    /* A summary naming its detail element by its own id links it from the Id
+     * cell (SOM §11.5, §11.11). */
+    char *id_cell = NULL;
+    if (c->nav != NULL) {
+      const char *dash = strrchr(item_path, '-');
+      char *list_path = dash != NULL ? som_strdup_n(item_path, (size_t)(dash - item_path))
+                                     : som_strdup(item_path);
+      id_cell = spec_mdi_nav_summary_id_cell(c->nav, c, item_path, list_path, id);
+      free(list_path);
+    }
+    if (id_cell == NULL) id_cell = md_anchored(c, item_path, id);
     som_buf_puts(b, "| ");
     som_buf_puts(b, id_cell);
     free(id_cell);
@@ -2292,9 +2236,11 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
                             const char *list_path, int depth, char **err) {
   const SomStrList *items = spec_document_list_items(c->document, list_path);
   size_t n = items != NULL ? items->len : 0;
-  if (n == 0) {
+  if (n == 0 && !md_forced(c, list_path)) {
     return 1;
   }
+  static const SomStrList no_items = {NULL, 0, 0};
+  if (items == NULL) items = &no_items;
   /* The container heading: its id is the list's `-LST` @SectionId (else the
      member segment for a pattern-less list); its title is the member name
      (or the stored headline, YRD3). */
@@ -2303,7 +2249,7 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
     char *ctitle = heading_title(c, list_path, node);
     md_write_heading(c, b, depth, chid, ctitle, list_path,
                      spec_document_code_spec(c->document, list_path),
-                     spec_document_units(c->document, list_path));
+                     spec_document_units(c->document, list_path), 0);
     free(chid);
     free(ctitle);
   }
@@ -2353,9 +2299,17 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
       free(pos_str);
     }
     /* Items sit one level below the container heading. */
+    int section_table = 0;
+    if (element != NULL && !element->recursive) {
+      SomBuf scratch;
+      som_buf_init(&scratch);
+      section_table = md_write_section_table(c, &scratch, element, item_path);
+      som_buf_free(&scratch);
+    }
     md_write_heading(c, b, depth + 1, item_id, title, item_path,
                      spec_document_code_spec(c->document, item_path),
-                     spec_document_units(c->document, item_path));
+                     spec_document_units(c->document, item_path),
+                     section_table);
     free(title);
     free(item_id);
     if (element == NULL) {
@@ -2391,7 +2345,8 @@ static int write_children(MdCodec *c, SomBuf *b, const SomMetaNode *node,
   for (size_t i = 0; i < eff.len && ok; i++) {
     const SomMetaNode *child = eff.items[i].node;
     char *path = spec_path_join(base_path, eff.items[i].rel);
-    if (!spec_document_has_values_under(c->document, path)) {
+    if (!spec_document_has_values_under(c->document, path) &&
+        !md_forced(c, path)) {
       free(path);
       continue;
     }
@@ -2400,6 +2355,7 @@ static int write_children(MdCodec *c, SomBuf *b, const SomMetaNode *node,
         strcmp(kind, SOM_META_KIND_SCALAR) == 0 ||
         strcmp(kind, SOM_META_KIND_ENUM_VALUE) == 0) {
       const char *value = spec_document_content(c->document, path);
+      if (value == NULL && md_forced(c, path)) value = "";
       if (value == NULL) {
         free(path);
         continue;
@@ -2408,7 +2364,7 @@ static int write_children(MdCodec *c, SomBuf *b, const SomMetaNode *node,
       char *title = heading_title(c, path, child);
       md_write_heading(c, b, depth, hid, title, path,
                        spec_document_code_spec(c->document, path),
-                     spec_document_units(c->document, path));
+                       spec_document_units(c->document, path), 0);
       free(hid);
       free(title);
       ok = write_body(c, b, value, path, err);
@@ -2421,17 +2377,21 @@ static int write_children(MdCodec *c, SomBuf *b, const SomMetaNode *node,
       char *title = heading_title(c, path, child);
       md_write_heading(c, b, depth, hid, title, path,
                        spec_document_code_spec(c->document, path),
-                     spec_document_units(c->document, path));
+                       spec_document_units(c->document, path), 0);
       free(hid);
       free(title);
       ok = write_form(c, b, child, path, err);
     } else if (strcmp(kind, SOM_META_KIND_SECTION) == 0 ||
                strcmp(kind, SOM_META_KIND_COMPLEX) == 0) {
+      SomBuf scratch;
+      som_buf_init(&scratch);
+      int section_table = md_write_section_table(c, &scratch, child, path);
+      som_buf_free(&scratch);
       char *hid = heading_id_of(c, child);
       char *title = heading_title(c, path, child);
       md_write_heading(c, b, depth, hid, title, path,
                        spec_document_code_spec(c->document, path),
-                     spec_document_units(c->document, path));
+                       spec_document_units(c->document, path), section_table);
       free(hid);
       free(title);
       ok = write_section_body(c, b, child, path, err);
@@ -2456,6 +2416,10 @@ static char *export_root_impl(MdCodec *c, const SpecRoot *root, char **err) {
   const SomMetaNode *node = tree->root;
   c->current_root = root;
   c->current_tree = tree;
+  spec_mdi_gen_free(c->gen);
+  spec_mdi_nav_free(c->nav);
+  c->nav = spec_mdi_nav_new(c->model, root, tree);
+  c->gen = c->generated_parts ? spec_mdi_gen_new(c->nav) : NULL;
   som_strlist_free(&c->content_paths);
   som_strlist_free(&c->form_paths);
   som_strlist_free(&c->list_paths);
@@ -2493,16 +2457,21 @@ static char *export_root_impl(MdCodec *c, const SpecRoot *root, char **err) {
                        : (node->headline[0] != '\0' ? node->headline
                                                     : root->title),
                    root_seg, spec_document_code_spec(c->document, root_seg),
-                   spec_document_units(c->document, root_seg));
-  if (!write_section_body(c, &b, node, root_seg, err)) {
+                   spec_document_units(c->document, root_seg), 0);
+  int ok = write_section_body(c, &b, node, root_seg, err) &&
+           write_children(c, &b, node, root_seg, 2, err);
+  spec_mdi_gen_free(c->gen);
+  spec_mdi_nav_free(c->nav);
+  c->gen = NULL;
+  c->nav = NULL;
+  c->current_root = NULL;
+  c->current_tree = NULL;
+  if (!ok) {
     som_buf_free(&b);
     return NULL;
   }
-  if (!write_children(c, &b, node, root_seg, 2, err)) {
-    som_buf_free(&b);
-    return NULL;
-  }
-  return som_buf_take(&b);
+  return spec_mdi_resolve_linked_placeholders(
+      spec_mdi_resolve_derived_placeholders(som_buf_take(&b)));
 }
 
 char *spec_markdown_export_root(const SpecModel *model,
@@ -2557,6 +2526,10 @@ int spec_markdown_export_root_with_options(
   if (options != NULL) {
     c.heading_divs = options->heading_divs;
     c.readable_header = options->readable_header;
+    c.file_stem = options->file_stem;
+    c.document_files = options->document_files;
+    c.linked_markers = !options->no_linked_markers;
+    c.generated_parts = !options->no_generated_parts;
   }
   char *markdown = export_root_impl(&c, root, err);
   codec_free(&c);
@@ -2718,6 +2691,9 @@ typedef struct {
    * id a copy's anchor is qualified by. Both owned, NULL when unset. */
   char *anchor_scope;
   char *anchor_section;
+  /* Whether its body opened with a generated block (SOM §11.12): the heading
+   * stands for the block, so an empty value is no rejection. */
+  int generated;
 } MdFrame;
 
 typedef struct {
@@ -2756,6 +2732,10 @@ typedef struct {
   MdBlockList pending;
   MdBlockList orphans;
   SomMap kept_content;
+  /* The navigation of each root parsed, for its markable places (owned). */
+  MdNav **navs;
+  const SpecRoot **nav_roots;
+  size_t navs_len;
 } MdParser;
 
 static void parser_push_rejection(MdParser *p, size_t line, const char *reason,
@@ -4984,11 +4964,88 @@ static void keep_ignored(MdParser *p, MdFrame *frame) {
   free(blocks.items);
 }
 
+/* The navigation of the root `path` lies in, for its markable places; one per
+ * root parsed. NULL when the root is unknown. */
+static MdNav *parser_nav_for(MdParser *p, const char *path) {
+  const char *slash = strchr(path, '/');
+  size_t n = slash != NULL ? (size_t)(slash - path) : strlen(path);
+  const SpecModel *model = p->codec->model;
+  const SpecRoot *root = NULL;
+  for (size_t i = 0; i < model->roots_len && root == NULL; i++) {
+    const SpecRoot *r = &model->roots[i];
+    const char *id = r->section_id[0] != '\0' ? r->section_id : r->type;
+    if (strlen(id) == n && strncmp(id, path, n) == 0) root = r;
+  }
+  if (root == NULL) return NULL;
+  for (size_t i = 0; i < p->navs_len; i++) {
+    if (strcmp(p->nav_roots[i]->type, root->type) == 0) return p->navs[i];
+  }
+  char *err = NULL;
+  SomMetaTree *tree = codec_tree_for(p->codec, root->type, &err);
+  free(err);
+  if (tree == NULL) return NULL;
+  p->navs = realloc(p->navs, (p->navs_len + 1) * sizeof(MdNav *));
+  p->nav_roots = realloc(p->nav_roots, (p->navs_len + 1) * sizeof(SpecRoot *));
+  p->navs[p->navs_len] = spec_mdi_nav_new(model, root, tree);
+  p->nav_roots[p->navs_len] = root;
+  return p->navs[p->navs_len++];
+}
+
+/* Removes the `linked` marker (SOM §11.11): the first paragraph of the body
+ * of a markable heading when it is one `linked` span. Its lines are blanked,
+ * not removed, so the body indices kept blocks refer to hold. */
+static void strip_linked_marker(MdParser *p, MdFrame *frame) {
+  MdNav *nav = parser_nav_for(p, frame->path);
+  if (nav == NULL || !spec_mdi_nav_markable(nav, p->codec, frame->path)) return;
+  LineVec *body = &frame->body;
+  size_t k = 0;
+  while (k < body->len && trim_is_blank(body->items[k])) k++;
+  size_t end = k;
+  while (end < body->len && !trim_is_blank(body->items[end])) end++;
+  if (end == k) return;
+  SomBuf para;
+  som_buf_init(&para);
+  for (size_t i = k; i < end; i++) {
+    if (i > k) som_buf_putc(&para, '\n');
+    som_buf_puts(&para, body->items[i]);
+  }
+  char *text = som_buf_take(&para);
+  int linked = spec_mdi_is_linked_paragraph(text);
+  free(text);
+  if (!linked) return;
+  for (size_t i = k; i < end; i++) body->items[i][0] = '\0';
+}
+
+/* Removes a generated part (SOM §11.12): the first block of a generated
+ * place's body, after its marker, when it is a `derived` block. Its lines are
+ * blanked, as the marker's are. */
+static void strip_generated(MdParser *p, MdFrame *frame) {
+  MdNav *nav = parser_nav_for(p, frame->path);
+  if (nav == NULL || !spec_mdi_is_generated_place(nav, p->codec, frame->path)) {
+    return;
+  }
+  LineVec *body = &frame->body;
+  size_t k = 0;
+  while (k < body->len && trim_is_blank(body->items[k])) k++;
+  if (k >= body->len || !spec_mdi_opens_derived(body->items[k])) return;
+  size_t end = k + 1;
+  while (end < body->len && !spec_mdi_closes_derived(body->items[k], body->items[end])) {
+    end++;
+  }
+  if (end >= body->len) return; /* unclosed: the value's, reported there */
+  for (size_t i = k + 1; i <= end; i++) body->items[i][0] = '\0';
+  body->items[k][0] = '\0';
+  frame->generated = 1;
+}
+
 static void finalize_frame(MdParser *p, MdFrame *frame) {
   if (frame->ignored) {
     keep_ignored(p, frame);
     return;
   }
+  /* A scalar list item's frame has no node; it is markable all the same. */
+  strip_linked_marker(p, frame);
+  strip_generated(p, frame);
   const SomMetaNode *node = frame->node;
   if (node != NULL && strcmp(node->kind, SOM_META_KIND_FORM) == 0) {
     finalize_form(p, frame, node, frame->path);
@@ -5051,7 +5108,7 @@ static void finalize_frame(MdParser *p, MdFrame *frame) {
     }
     if (value[0] != '\0') {
       staged_set_content(p, frame->path, value);
-    } else if (node != NULL && is_value_leaf(node->kind)) {
+    } else if (!frame->generated && node != NULL && is_value_leaf(node->kind)) {
       parser_push_rejection(p, frame->line, SPEC_MARKDOWN_REJECT_MISSING_VALUE,
                             "no value text under this section heading",
                             frame->path);
@@ -5096,6 +5153,7 @@ static void parser_push_frame(MdParser *p, int level, const SomMetaNode *node,
   f->deferred.cap = 0;
   f->anchor_scope = NULL;
   f->anchor_section = NULL;
+  f->generated = 0;
 }
 
 static void parser_finalize_top(MdParser *p) {
@@ -5632,6 +5690,9 @@ void spec_markdown_parse(const SpecModel *model, const char *text,
   p.orphans.len = 0;
   p.orphans.cap = 0;
   som_map_init(&p.kept_content);
+  p.navs = NULL;
+  p.nav_roots = NULL;
+  p.navs_len = 0;
 
   LineVec lines;
   split_lines(text, &lines);
@@ -5721,6 +5782,9 @@ void spec_markdown_parse(const SpecModel *model, const char *text,
   free(p.lists);
   free(p.stack);
   som_map_free(&p.given);
+  for (size_t i = 0; i < p.navs_len; i++) spec_mdi_nav_free(p.navs[i]);
+  free(p.navs);
+  free(p.nav_roots);
   codec_free(&codec);
 }
 
@@ -5943,4 +6007,75 @@ void spec_document_from_markdown(const char *text, const SpecModel *model,
   spec_markdown_parse(model, text, &out->result);
   (void)spec_document_apply_markdown_result(out->document, &out->result, 1,
                                             NULL);
+}
+
+/* ======================================================================== */
+/* The helpers the navigation and the generated parts read                   */
+/* (spec_document_markdown_internal.h)                                       */
+/* ======================================================================== */
+
+SomMetaTree *spec_mdi_tree_for(MdCodec *c, const char *root_type, char **err) {
+  return codec_tree_for(c, root_type, err);
+}
+
+char *spec_mdi_heading_id_of(MdCodec *c, const SomMetaNode *node) {
+  return heading_id_of(c, node);
+}
+
+int spec_mdi_is_transparent_section(MdCodec *c, const SomMetaNode *n) {
+  return is_transparent_section(c, n);
+}
+
+int spec_mdi_is_transparent_value(const SomMetaNode *n) {
+  return is_transparent_value(n);
+}
+
+int spec_mdi_is_copy_node(const MdCodec *c, const SomMetaNode *n) {
+  return is_copy_node(c, n);
+}
+
+void spec_mdi_qualify_anchor(const char *scope, const char *section,
+                             const char *id, int container, int item, int copy,
+                             char **anchor, char **new_scope) {
+  qualify_anchor(scope, section, id, container, item, copy, anchor, new_scope);
+}
+
+void spec_mdi_body_slots(MdCodec *c, const SomMetaNode *node, NodeRelVec *out) {
+  body_slots(c, node, out);
+}
+
+void spec_mdi_effective_children(MdCodec *c, const SomMetaNode *node,
+                                 NodeRelVec *out) {
+  effective_children(c, node, out);
+}
+
+void spec_mdi_nrv_free(NodeRelVec *v) { nrv_free(v); }
+
+char *spec_mdi_linked_cell_text(MdCodec *c, const SomFormFieldMeta *f,
+                                const char *value) {
+  return md_linked_cell_text(c, f, value);
+}
+
+char *spec_mdi_file_of_root(MdCodec *c, const SpecRoot *root) {
+  return md_file_of_root(c, root);
+}
+
+const SpecDocumentSet *spec_mdi_sync(MdCodec *c) {
+  if (!c->sync_loaded) {
+    c->sync_loaded = 1;
+    SpecDocumentSetError err;
+    spec_document_set_error_init(&err);
+    c->sync_ok = spec_document_set_new(c->model, NULL, 0, &c->sync_set, &err);
+    spec_document_set_error_free(&err);
+  }
+  return c->sync_ok ? &c->sync_set : NULL;
+}
+
+const SpecDocument *spec_mdi_document(MdCodec *c) {
+  if (c->document != NULL) return c->document;
+  if (c->empty_document == NULL) {
+    c->empty_document = malloc(sizeof(SpecDocument));
+    spec_document_init(c->empty_document);
+  }
+  return c->empty_document;
 }

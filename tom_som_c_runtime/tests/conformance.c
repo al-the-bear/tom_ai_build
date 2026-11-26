@@ -4638,6 +4638,7 @@ static SpecQuestionDraft draft_from_json(const SomJson *j,
 
 #include "conformance_links.h"
 #include "conformance_document_set.h"
+#include "conformance_rendition.h"
 
 /* Runs one op; returns its result as JSON text (owned) — `{"error":true}`
  * when it raised the annotation error. For `strip` writes the stripped
@@ -5872,6 +5873,7 @@ static void test_strip(Checker *c, const SpecModel *model) {
     }
     const SomJson *rt = som_json_get(kase, "rootType");
     SpecDocumentStripOptions extra;
+    memset(&extra, 0, sizeof(extra));
     extra.model = with_model ? model : NULL;
     extra.schema = with_model ? schema : NULL;
     extra.root_type = rt != NULL ? som_json_as_str(rt) : NULL;
@@ -6106,7 +6108,8 @@ static void test_strip_merge(Checker *c, const SpecModel *model) {
     SpecDocument *state = heap_doc_from_json(som_json_get(kase, "state"));
     SpecReadableSource src;
     int has_source = case_source(kase, &src);
-    SpecDocumentStripOptions so = {model, schema, NULL, has_source ? &src : NULL};
+    SpecDocumentStripOptions so = {model, schema, NULL, has_source ? &src : NULL,
+                                   NULL, NULL};
     SpecStripResult sr;
     spec_document_strip(state, &o, &so, &sr);
     if (sr.readable == NULL) {
@@ -6674,6 +6677,8 @@ int main(int argc, char **argv) {
   test_document_set(&c);
   test_derive_fields(&c);
   test_prefill_backfill(&c);
+  test_link_rendition(&c);
+  test_rendition_schema_tier(&c);
   ds_release_real_model();
 
   int rc = checker_finish(&c);

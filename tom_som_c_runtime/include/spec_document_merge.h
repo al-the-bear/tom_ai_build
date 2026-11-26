@@ -145,6 +145,9 @@ typedef struct {
                                     * hand; NULL when none */
   SpecStripLoadBase load_base;     /* NULL: no loader */
   void *load_base_context;
+  const char *file_stem;           /* the codec's file stem
+                                    * (SpecMarkdownExportOptions.file_stem) */
+  const SomMap *document_files;    /* the codec's document files */
 } SpecStripMergeOptions;
 
 /* Merges `edited`, a `.readable.md` made from `original` and changed by a

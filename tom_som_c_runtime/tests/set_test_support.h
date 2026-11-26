@@ -248,4 +248,124 @@ static inline int strlist_is(const SomStrList *l, const char *const *want, size_
   return 1;
 }
 
+/* The `link_rendition_cases.json` case whose intent names a token, with the
+ * model it runs against (an inline one, the real one for a case marked `som`,
+ * else the links fixture) and its document. Owns everything. */
+typedef struct {
+  SomJson *table;
+  const SomJson *kase; /* borrowed from `table` */
+  SpecModel *model;
+  SpecDocument doc;
+} RenditionFixture;
+
+static inline void rendition_fixture(const char *token, RenditionFixture *out) {
+  out->table = table("link_rendition_cases.json");
+  out->kase = NULL;
+  const SomJson *cases = som_json_get(out->table, "cases");
+  for (size_t i = 0; i < som_json_array_len(cases) && out->kase == NULL; i++) {
+    const SomJson *c = som_json_array_at(cases, i);
+    const SomJson *intent = som_json_get(c, "intent");
+    for (size_t k = 0; k < som_json_array_len(intent); k++) {
+      const char *t = som_json_as_str(som_json_array_at(intent, k));
+      if (t != NULL && strcmp(t, token) == 0) out->kase = c;
+    }
+  }
+  if (out->kase == NULL) {
+    fprintf(stderr, "fatal: no rendition case with intent %s\n", token);
+    exit(2);
+  }
+  const SomJson *inline_model = som_json_get(out->kase, "inline");
+  if (inline_model != NULL && inline_model->type == SOM_JSON_OBJECT) {
+    out->model = spec_model_from_json(inline_model);
+  } else if (strcmp(som_json_str_or(out->kase, "model"), "som") == 0) {
+    char *text = read_file("../tom_som_dart_v0/meta/spec_model.meta.json");
+    char *err = NULL;
+    out->model = spec_model_from_json_str(text, &err);
+    free(text);
+    if (out->model == NULL) {
+      fprintf(stderr, "fatal: the SOM model: %s\n", err != NULL ? err : "");
+      exit(2);
+    }
+  } else {
+    out->model = table_model(out->table);
+  }
+  state_document(som_json_get(out->kase, "state"), &out->doc);
+}
+
+static inline void rendition_fixture_free(RenditionFixture *f) {
+  spec_document_free(&f->doc);
+  spec_model_free(f->model);
+  som_json_free(f->table);
+}
+
+/* The golden rendition of the fixture's case. Borrowed. */
+static inline const char *rendition_golden(const RenditionFixture *f) {
+  return som_json_str_or(som_json_get(f->kase, "expect"), "markdown");
+}
+
+/* The first root (with a section id) `doc` holds a value under. */
+static inline const SpecRoot *populated_root(const SpecModel *model,
+                                             const SpecDocument *doc) {
+  for (size_t i = 0; i < model->roots_len; i++) {
+    const SpecRoot *r = &model->roots[i];
+    if (r->section_id[0] != '\0' && spec_document_has_values_under(doc, r->section_id)) {
+      return r;
+    }
+  }
+  fprintf(stderr, "fatal: no populated root\n");
+  exit(2);
+}
+
+/* The root with section id `id`. */
+static inline const SpecRoot *root_with_id(const SpecModel *model, const char *id) {
+  for (size_t i = 0; i < model->roots_len; i++) {
+    if (strcmp(model->roots[i].section_id, id) == 0) return &model->roots[i];
+  }
+  fprintf(stderr, "fatal: no root %s\n", id);
+  exit(2);
+}
+
+/* `root` of `doc` rendered with `o` (NULL: file stem `links`, markers and
+ * generated parts on). Owned. */
+static inline char *render_root(const SpecModel *model, const SpecDocument *doc,
+                                const SpecRoot *root,
+                                const SpecMarkdownExportOptions *o) {
+  SpecMarkdownExportOptions dflt;
+  memset(&dflt, 0, sizeof(dflt));
+  dflt.file_stem = "links";
+  SpecMarkdownRendition r;
+  char *err = NULL;
+  if (!spec_markdown_export_root_with_options(model, doc, root, o != NULL ? o : &dflt,
+                                              &r, &err)) {
+    fprintf(stderr, "fatal: export: %s\n", err != NULL ? err : "");
+    exit(2);
+  }
+  char *md = r.markdown;
+  r.markdown = NULL;
+  spec_markdown_rendition_free(&r);
+  return md;
+}
+
+/* Whether `md` parses back to `doc` without a rejection. */
+static inline int round_trips(const char *md, const SpecModel *model,
+                              const SpecDocument *doc) {
+  SpecMarkdownImport imp;
+  spec_document_from_markdown(md, model, &imp);
+  int ok = imp.result.rejections_len == 0 && same_doc(imp.document, doc);
+  spec_markdown_import_free(&imp);
+  return ok;
+}
+
+/* `s` with the first `from` replaced by `to`. Owned. */
+static inline char *replace_first(const char *s, const char *from, const char *to) {
+  const char *at = strstr(s, from);
+  if (at == NULL) return som_strdup(s);
+  size_t a = (size_t)(at - s), fl = strlen(from), tl = strlen(to);
+  char *out = (char *)malloc(strlen(s) - fl + tl + 1);
+  memcpy(out, s, a);
+  memcpy(out + a, to, tl);
+  strcpy(out + a + tl, at + fl);
+  return out;
+}
+
 #endif /* SET_TEST_SUPPORT_H */

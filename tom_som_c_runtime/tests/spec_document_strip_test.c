@@ -153,7 +153,7 @@ static void check_reads_back(const char *name, const char *md,
 static void test_heading_divs(const SpecModel *model, const SpecRoot *root) {
   SpecDocument doc;
   deep_document(&doc);
-  SpecMarkdownExportOptions mo = {1, NULL};
+  SpecMarkdownExportOptions mo = {1, NULL, NULL, NULL, 0, 0};
   SpecMarkdownRendition r;
   char *err = NULL;
   check("divs: export", spec_markdown_export_root_with_options(
@@ -240,7 +240,7 @@ static void test_heading_divs(const SpecModel *model, const SpecRoot *root) {
 
 static void test_readable(const SpecModel *model) {
   SpecReadableSource source = {"deep.tomspecs.yaml", "r3", "8e1d2a7", 1};
-  SpecDocumentStripOptions extra = {model, NULL, NULL, &source};
+  SpecDocumentStripOptions extra = {model, NULL, NULL, &source, NULL, NULL};
   SomStrList drop, none;
   som_strlist_init(&drop);
   som_strlist_init(&none);

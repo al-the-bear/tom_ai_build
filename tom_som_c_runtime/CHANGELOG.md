@@ -2,6 +2,37 @@
 
 ## Unreleased
 
+- **Section automation, third part** (SOM §11.2, §11.11, §11.12): the
+  rendition's navigation (`src/spec_document_markdown_linked.c`): the
+  qualified anchors from one anchor walk, the `linked` marker after a
+  markable heading with its entries in SOM §11.11 order (`Also in`,
+  `Summary of`, `Summarised in`, `Derived from`, `Extracted from`, `Copy of`,
+  `Copied to`), the empty marker `[]{.linked}` before a value that begins
+  with a `linked` span, and a summary row's `Id` cell linking the detail
+  element it names; the generated parts
+  (`src/spec_document_markdown_generated.c`): the four requirement views'
+  tables (traceability, coverage, relationships, use-case traceability) in a
+  `derived` block at the start of their section, the headings a block forces
+  written even without a value, the empty block before a value that begins
+  with a `derived` block. `SpecMarkdownExportOptions` gains `file_stem` and
+  `document_files` (the file a link to another document root names) and
+  `no_linked_markers` / `no_generated_parts` (a zeroed struct writes both);
+  `SpecDocumentStripOptions` and `SpecStripMergeOptions` pass the file stem
+  and document files through, and a strip dropping or unmarking `linked` /
+  `derived` turns the marker / the generated parts off. The parser removes
+  the marker and a closed `derived` block at their place, and an empty value
+  under a generated block is no `missingValue` (in the kept-block import
+  too). The DocSpecs validator reads the marker and the generated block as no
+  text (the text-length rules, a `refs` / `records` div beside them). The
+  conformance runner replays `link_rendition_cases.json` (markdown, given,
+  rejections, parseMatches, reemitMatches, keys and the intent tokens) and the
+  schema tier over the real model's renditions with and without navigation
+  (`uam_requirements_cut.json` with the `tom_som_dart_v0` schemas;
+  `tests/conformance_rendition.h`; 4513 → 4689 checks);
+  `tests/spec_document_markdown_linked_test.c` and
+  `tests/spec_document_markdown_generated_test.c` hold the codec's surface
+  around the rendition and the modules' helpers.
+
 - **Section automation, second part** (`tom_specs_model_rules.md` §9.7): the
   document set (`spec_document_set.h` / `.c`): `SpecDocumentSet` built from
   documents (`spec_document_set_new`), from fragments assembled per root
