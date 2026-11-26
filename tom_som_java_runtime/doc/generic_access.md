@@ -59,6 +59,9 @@ anything that computes the path rather than knowing it.
 | `SpecValidator` / `validateDocument` | The instance tier: a filled document's values checked against the model; a typed value or reference holding inline marks is read as its old value (SOM §11.9.3) |
 | `SpecValidator.validateLinks` | The link checks of one document (`tom_specs_model_rules.md` §9.7): derived values against their sources, summaries against their detail lists, each end of a link against the other, ids named in a text against the link rows, `@SameAs` copies against their holders |
 | `SpecPlace`, `SpecPlaceFilter` | The place and filter grammar the link annotations are written in, resolved under an anchor without reading a value; the typed link readers (`syncedWith()`, `summaryOf()`, `derivedFrom()`, `extractsLinks()`, `sameAs()`, the form-field `derivedFrom` / `inverseOf` / `summaryOf`) are on the model's classes, fields and form fields |
+| `SpecDeriveFields.deriveFields` | The derived places of one document written (§9.7), plain or as inline marks under review; `dryRun` answers the changes on a copy |
+| `SpecDocumentSet`, `syncReport`, `renameId` | The documents of a project read side by side, one per root: the places a Phase 3 document shares with the Blueprint compared, the links across two documents checked, an id renamed in every document at once |
+| `SpecPrefill.prefill`, `SpecBackfill.backfill` | The Blueprint into a new Phase 3 document, and the accepted Phase 3 end state back into the Blueprint |
 | the YAML and Markdown codecs | `*.tomspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages; the emitter writes the reading view's form, record and section tables and reference lines with an anchor in every heading (SOM §11.2, §11.4, §11.5), and the parser reads them as well as the older `Field:` lines; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7); the emitter writes a stripped rendition's readable header and styled-div headings on request, and the parser reads them back and stops at its appendix (SOM §11.1, §11.2) |
 | `DocSpecsValidator` | The DocSpecs schema check of a rendition, in the `Field:` layout and in the reading view's tables, list bodies and styled-div headings |
 | `SpecDocumentStrip.stripNotationText` | The strip of one text value (SOM §11.10): secondary prose of named kinds dropped, unmarked or moved to an appendix, with the pieces removed |
@@ -157,6 +160,33 @@ A place or filter that does not parse or resolve throws a `SpecPlaceException`
 whose `problem` (`SpecPlaceProblem`) says why: `malformed`, `anchorUnresolved`,
 `notScoped`, `unresolved`, `ambiguous`, `noSuchField`, `noContent`,
 `notListElement`, `reservedSlot`.
+
+Across documents, the set compares what a Phase 3 document shares with the
+Blueprint; `deriveFields` writes a document's derived places:
+
+```java
+import java.util.List;
+import java.util.Map;
+import tom_som_runtime.SpecDeriveChange;
+import tom_som_runtime.SpecDeriveFields;
+import tom_som_runtime.SpecDeriveOptions;
+import tom_som_runtime.SpecDocumentSet;
+import tom_som_runtime.SpecSyncFinding;
+
+// Throws a SpecDocumentSetError for two documents of one root, …
+SpecDocumentSet set =
+    new SpecDocumentSet(
+        model, List.of(Map.entry("sbp.tomspecs.yaml", sbp), Map.entry("rsp.tomspecs.yaml", rsp)));
+for (SpecSyncFinding f : SpecDocumentSet.syncReport(set).findings) {
+  System.out.println(f.code.value + " " + f.resolution.value + " " + f.message);
+}
+
+SpecDeriveOptions options = new SpecDeriveOptions(); // marked; plain(): plain values
+options.dryRun = true;
+for (SpecDeriveChange c : SpecDeriveFields.deriveFields(model, rsp, options).changes) {
+  System.out.println(c.step + " " + c.kind + " " + c.path + " " + c.field + " " + c.newValue);
+}
+```
 
 ## When to prefer the generic path
 

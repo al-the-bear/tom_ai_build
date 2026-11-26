@@ -50,6 +50,22 @@ import tom_som_runtime.SomTextPattern;
 import tom_som_runtime.SomVersionError;
 import tom_som_runtime.SpecAssemblyOverlap;
 import tom_som_runtime.SpecClass;
+import tom_som_runtime.SpecBackfill;
+import tom_som_runtime.SpecBackfillError;
+import tom_som_runtime.SpecBackfillOptions;
+import tom_som_runtime.SpecDeriveFields;
+import tom_som_runtime.SpecDeriveOptions;
+import tom_som_runtime.SpecDeriveResult;
+import tom_som_runtime.SpecDocumentSet;
+import tom_som_runtime.SpecDocumentSetError;
+import tom_som_runtime.SpecPrefill;
+import tom_som_runtime.SpecPrefillError;
+import tom_som_runtime.SpecPrefillOptions;
+import tom_som_runtime.SpecRenameChange;
+import tom_som_runtime.SpecRenameError;
+import tom_som_runtime.SpecSyncFinding;
+import tom_som_runtime.SpecSyncPair;
+import tom_som_runtime.SpecSyncReport;
 import tom_som_runtime.SpecCreationCode;
 import tom_som_runtime.SpecCreationError;
 import tom_som_runtime.SpecDocument;
@@ -4194,6 +4210,529 @@ public final class ConformanceRunner {
     }
   }
 
+  // --- the document set (tom_specs_model_rules.md §9.7) ---------------------
+
+  private static SpecModel realModel;
+
+  /** The real SOM model (11 MB), loaded once across the tables. */
+  private static SpecModel realModel() throws IOException {
+    if (realModel == null) {
+      realModel =
+          SpecModel.fromJson(
+              Json.parseObject(
+                  new String(
+                      Files.readAllBytes(
+                          corpus.resolve("../../tom_som_dart_v0/meta/spec_model.meta.json").normalize()),
+                      StandardCharsets.UTF_8)));
+    }
+    return realModel;
+  }
+
+  @SuppressWarnings("unchecked")
+  private static List<Map<String, Object>> setCases(Map<String, Object> table, String group) {
+    List<Map<String, Object>> out = new ArrayList<>();
+    Object raw = table.get(group);
+    if (raw instanceof List) {
+      for (Object x : (List<Object>) raw) {
+        out.add((Map<String, Object>) x);
+      }
+    }
+    return out;
+  }
+
+  /** The documents of a case, {@code [[name, state], …]}. */
+  @SuppressWarnings("unchecked")
+  private static List<Map.Entry<String, SpecDocument>> setDocuments(Object entries) {
+    List<Map.Entry<String, SpecDocument>> out = new ArrayList<>();
+    if (entries instanceof List) {
+      for (Object e : (List<Object>) entries) {
+        List<Object> pair = (List<Object>) e;
+        out.add(Map.entry((String) pair.get(0), stateDocument(pair.get(1))));
+      }
+    }
+    return out;
+  }
+
+  /** The case's {@code pairs} list, {@code null} when it has none. */
+  @SuppressWarnings("unchecked")
+  private static List<String> casePairs(Map<String, Object> c) {
+    Object raw = c.get("pairs");
+    if (!(raw instanceof List)) {
+      return null;
+    }
+    List<String> out = new ArrayList<>();
+    for (Object x : (List<Object>) raw) {
+      out.add(String.valueOf(x));
+    }
+    return out;
+  }
+
+  @SuppressWarnings("unchecked")
+  private static List<String> caseIntent(Map<String, Object> c) {
+    List<String> out = new ArrayList<>();
+    Object raw = c.get("intent");
+    if (raw instanceof List) {
+      for (Object x : (List<Object>) raw) {
+        out.add(String.valueOf(x));
+      }
+    }
+    return out;
+  }
+
+  private static boolean caseFlag(Map<String, Object> c, String key) {
+    return Boolean.TRUE.equals(c.get(key));
+  }
+
+  private static SpecModel corpusModel(Object name) throws IOException {
+    return SpecModel.fromJson(readJsonObject(name == null ? "links.meta.json" : (String) name));
+  }
+
+  /** The model a case runs against: an inline one, the real one, or the fixture. */
+  @SuppressWarnings("unchecked")
+  private static SpecModel caseModel(SpecModel fixture, Map<String, Object> c) throws IOException {
+    if (c.get("inline") instanceof Map) {
+      return SpecModel.fromJson((Map<String, Object>) c.get("inline"));
+    }
+    if ("som".equals(c.get("model"))) {
+      return realModel();
+    }
+    return fixture;
+  }
+
+  private interface CaseRun {
+    Object run() throws IOException;
+  }
+
+  /** Compares one case's output (as JSON) with its expectation. */
+  private static void checkCase(String name, CaseRun run, Object expect) {
+    Object got;
+    try {
+      got = Json.parse(Json.write(run.run()));
+    } catch (IOException | RuntimeException e) {
+      check(name, false, "threw " + e);
+      return;
+    }
+    check(name, Objects.equals(got, expect), "got " + Json.write(got) + " want " + Json.write(expect));
+  }
+
+  private static List<Object> stringsJson(List<String> ss) {
+    return new ArrayList<Object>(ss);
+  }
+
+  private static Object setConstructionCase(SpecModel model, Map<String, Object> c) {
+    List<Map.Entry<String, SpecDocument>> docs = setDocuments(c.get("documents"));
+    SpecDocumentSet s;
+    try {
+      s = caseFlag(c, "fragments")
+          ? SpecDocumentSet.fromFragments(model, docs)
+          : new SpecDocumentSet(model, docs);
+    } catch (SpecDocumentSetError e) {
+      Map<String, Object> out = new LinkedHashMap<>();
+      out.put("refused", e.toJson());
+      return out;
+    }
+    List<Object> pairs = new ArrayList<>();
+    for (SpecSyncPair p : s.pairs()) {
+      pairs.add(p.toJson());
+    }
+    Map<String, Object> out = new LinkedHashMap<>();
+    out.put("blueprintRoot", s.blueprintRoot);
+    out.put("names", stringsJson(s.names()));
+    out.put("roots", stringsJson(s.roots()));
+    out.put("missingRoots", stringsJson(s.missingRoots()));
+    out.put("pairs", pairs);
+    return out;
+  }
+
+  private static Object setRenameCase(SpecModel model, Map<String, Object> c) {
+    SpecDocumentSet s = new SpecDocumentSet(model, setDocuments(c.get("documents")));
+    List<SpecRenameChange> changes;
+    try {
+      changes = SpecDocumentSet.renameId(s, (String) c.get("from"), (String) c.get("to"));
+    } catch (SpecRenameError e) {
+      Map<String, Object> out = new LinkedHashMap<>();
+      out.put("refused", stringsJson(e.documents));
+      return out;
+    }
+    SpecSyncReport after = SpecDocumentSet.syncReport(s);
+    List<Object> list = new ArrayList<>();
+    for (SpecRenameChange x : changes) {
+      list.add(x.toJson());
+    }
+    int n = 0;
+    for (SpecSyncFinding f : after.findings) {
+      if (!f.isInfo()) {
+        n++;
+      }
+    }
+    Map<String, Object> out = new LinkedHashMap<>();
+    out.put("changes", list);
+    out.put("cleanAfter", after.clean());
+    out.put("findingsAfter", n);
+    return out;
+  }
+
+  private static int listLen(Object v) {
+    return v instanceof List ? ((List<?>) v).size() : 0;
+  }
+
+  /** Every token a document-set expectation shows (the Dart test's {@code _setTokens}). */
+  @SuppressWarnings("unchecked")
+  private static Set<String> setTokens(Object expect) {
+    Set<String> out = new HashSet<>();
+    Map<String, Object> e = (Map<String, Object>) expect;
+    Object refused = e.get("refused");
+    if (refused instanceof Map) {
+      out.add(String.valueOf(((Map<String, Object>) refused).get("refusal")));
+    }
+    if (refused instanceof List) {
+      out.add("refused");
+    }
+    if (e.get("pairs") != null && refused == null) {
+      out.add("built");
+      if (listLen(e.get("missingRoots")) > 0) {
+        out.add("missingRoots");
+      }
+    }
+    if (e.get("findings") != null) {
+      if (Boolean.TRUE.equals(e.get("clean"))) {
+        out.add("clean");
+      }
+      if (listLen(e.get("notStarted")) > 0) {
+        out.add("notStarted");
+      }
+      if (listLen(e.get("notStartedPairs")) > 0) {
+        out.add("notStartedPairs");
+      }
+      for (Object f : (List<Object>) e.get("findings")) {
+        Map<String, Object> fm = (Map<String, Object>) f;
+        out.add(String.valueOf(fm.get("code")));
+        out.add(String.valueOf(fm.get("resolution")));
+      }
+      for (Object d : (List<Object>) e.get("documentFindings")) {
+        for (Object x : (List<Object>) ((List<Object>) d).get(1)) {
+          out.add(String.valueOf(((Map<String, Object>) x).get("code")));
+        }
+      }
+    }
+    if (listLen(e.get("changes")) > 0) {
+      out.add("renamed");
+    }
+    return out;
+  }
+
+  private interface SetCaseFn {
+    Object run(Map<String, Object> c) throws IOException;
+  }
+
+  /** {@code document_set_cases.json}: the set, its report and the global rename. */
+  @SuppressWarnings("unchecked")
+  private static void testDocumentSet() throws IOException {
+    Map<String, Object> table = readJsonObject("document_set_cases.json");
+    SpecModel fixture = corpusModel(table.get("model"));
+    Map<String, SetCaseFn> groups = new LinkedHashMap<>();
+    groups.put(
+        "construction",
+        c ->
+            setConstructionCase(
+                c.get("meta") instanceof Map
+                    ? SpecModel.fromJson((Map<String, Object>) c.get("meta"))
+                    : fixture,
+                c));
+    groups.put(
+        "reports",
+        c ->
+            SpecDocumentSet.syncReport(
+                    new SpecDocumentSet(caseModel(fixture, c), setDocuments(c.get("documents"))),
+                    casePairs(c))
+                .toJson());
+    groups.put("renames", c -> setRenameCase(fixture, c));
+    for (Map.Entry<String, SetCaseFn> g : groups.entrySet()) {
+      String group = g.getKey();
+      List<Map<String, Object>> cases = setCases(table, group);
+      for (Map<String, Object> c : cases) {
+        String name = "set." + group + "[" + c.get("name") + "]";
+        checkCase(name, () -> g.getValue().run(c), c.get("expect"));
+        Set<String> shown = setTokens(c.get("expect"));
+        for (String token : caseIntent(c)) {
+          check("set." + group + ".intent[" + c.get("name") + ": " + token + "]", shown.contains(token), "");
+        }
+      }
+    }
+    // DSC4: the real model pairs every synced class.
+    try {
+      SpecDocumentSet real = new SpecDocumentSet(realModel());
+      check("set.DSC4.blueprintRoot", "D00SolutionBlueprint".equals(real.blueprintRoot),
+          String.valueOf(real.blueprintRoot));
+      check("set.DSC4.pairs", real.pairs().size() == 132, String.valueOf(real.pairs().size()));
+    } catch (SpecDocumentSetError e) {
+      check("set.DSC4.blueprintRoot", false, e.toString());
+      check("set.DSC4.pairs", false, e.toString());
+    }
+  }
+
+  // --- deriveFields ----------------------------------------------------------
+
+  private static Object deriveCase(SpecModel model, Map<String, Object> c) {
+    SpecDocument doc = stateDocument(c.get("state"));
+    SpecDeriveOptions options = new SpecDeriveOptions();
+    if (c.get("marked") instanceof Boolean) {
+      options.marked = (Boolean) c.get("marked");
+    }
+    options.author = (String) c.get("author");
+    options.at = (String) c.get("at");
+    options.dryRun = caseFlag(c, "dryRun");
+    SpecDeriveResult first = SpecDeriveFields.deriveFields(model, doc, options);
+    SpecDeriveResult second = SpecDeriveFields.deriveFields(model, doc, options);
+    // The first run's result is read after the second, as the reference
+    // runners read it (the same document unless it is a dry run).
+    Map<String, Object> firstJson = first.toJson();
+    List<SpecValidationError> after = new ArrayList<>(SpecValidator.validateLinks(model, second.document));
+    after.addAll(SpecValidator.validateDocument(model, second.document));
+    Map<String, Object> out = new LinkedHashMap<>();
+    out.put("first", firstJson);
+    out.put("second", second.toJson());
+    out.put("findingsAfter", validationPairs(after));
+    out.put("given", doc.toJson());
+    return out;
+  }
+
+  /** Whether a derive intent token holds of the expectation; {@code null}: unknown token. */
+  @SuppressWarnings("unchecked")
+  private static Boolean deriveIntentHolds(String token, Map<String, Object> c) {
+    Map<String, Object> e = (Map<String, Object>) c.get("expect");
+    Map<String, Object> first = (Map<String, Object>) e.get("first");
+    List<Object> changes = (List<Object>) first.get("changes");
+    switch (token) {
+      case "nothing":
+        return changes.isEmpty();
+      case "step1":
+      case "step2":
+      case "step3":
+        return anyEntry(changes, "step", Integer.valueOf(token.charAt(4) - '0'));
+      case "rowAdded":
+      case "rowRemoved":
+        return anyEntry(changes, "kind", token);
+      case "marked":
+        for (Object x : changes) {
+          if (String.valueOf(((Map<String, Object>) x).get("new")).contains("{")) {
+            return true;
+          }
+        }
+        return false;
+      case "clean":
+        return listLen(e.get("findingsAfter")) == 0;
+      case "idempotent":
+        {
+          Map<String, Object> second = (Map<String, Object>) e.get("second");
+          return listLen(second.get("changes")) == 0
+              && Objects.equals(second.get("document"), first.get("document"));
+        }
+      case "unchanged":
+        return Objects.equals(e.get("given"), c.get("state"));
+      case "unmarkable":
+      case "derivedLookupMiss":
+        return anyEntry((List<Object>) first.get("unresolved"), "code", token);
+      default:
+        return null;
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  private static boolean anyEntry(List<Object> rows, String key, Object want) {
+    if (rows == null) {
+      return false;
+    }
+    for (Object x : rows) {
+      if (Objects.equals(((Map<String, Object>) x).get(key), want)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static void checkIntent(String label, Map<String, Object> c, String token, Boolean holds) {
+    check(label + ".intent[" + c.get("name") + ": " + token + "]", Boolean.TRUE.equals(holds),
+        holds == null ? "unknown intent token" : "does not hold");
+  }
+
+  /** {@code derive_cases.json}: deriveFields, plain and marked, run twice. */
+  private static void testDeriveFields() throws IOException {
+    Map<String, Object> table = readJsonObject("derive_cases.json");
+    SpecModel model = corpusModel(table.get("model"));
+    List<Map<String, Object>> cases = setCases(table, "cases");
+    for (Map<String, Object> c : cases) {
+      checkCase("derive[" + c.get("name") + "]", () -> deriveCase(model, c), c.get("expect"));
+      for (String token : caseIntent(c)) {
+        checkIntent("derive", c, token, deriveIntentHolds(token, c));
+      }
+    }
+  }
+
+  // --- prefill and backfill --------------------------------------------------
+
+  private static Object prefillCase(SpecModel model, Map<String, Object> c) {
+    SpecDocumentSet s = new SpecDocumentSet(model, setDocuments(c.get("documents")));
+    SpecPrefillOptions options = new SpecPrefillOptions();
+    options.name = (String) c.get("name_");
+    options.pairs = casePairs(c);
+    Object[] runs = new Object[2];
+    for (int i = 0; i < 2; i++) {
+      try {
+        runs[i] = SpecPrefill.prefill(s, (String) c.get("root"), options).toJson();
+      } catch (SpecPrefillError e) {
+        Map<String, Object> refused = new LinkedHashMap<>();
+        refused.put("refused", e.code);
+        runs[i] = refused;
+      }
+    }
+    SpecSyncReport after = SpecDocumentSet.syncReport(s);
+    Map<String, Object> report = new LinkedHashMap<>();
+    report.put("countsByCode", after.countsByCodeJson());
+    report.put("notStartedPairs", stringsJson(after.notStartedPairs));
+    Map<String, Object> out = new LinkedHashMap<>();
+    out.put("first", runs[0]);
+    out.put("second", runs[1]);
+    out.put("reportAfter", report);
+    return out;
+  }
+
+  @SuppressWarnings("unchecked")
+  private static Boolean prefillIntentHolds(String token, Map<String, Object> c) {
+    Map<String, Object> e = (Map<String, Object>) c.get("expect");
+    Map<String, Object> first = (Map<String, Object>) e.get("first");
+    Map<String, Object> second = (Map<String, Object>) e.get("second");
+    switch (token) {
+      case "created":
+        return Boolean.TRUE.equals(first.get("created"));
+      case "filled":
+        return listLen(first.get("filledPairs")) > 0;
+      case "skipped":
+        return listLen(first.get("skippedPairs")) > 0;
+      case "derived":
+        {
+          Object d = first.get("derived");
+          return d instanceof Map && listLen(((Map<String, Object>) d).get("changes")) > 0;
+        }
+      case "idempotent":
+        {
+          Object d = second.get("derived");
+          return listLen(second.get("filledPairs")) == 0
+              && (!(d instanceof Map) || listLen(((Map<String, Object>) d).get("changes")) == 0)
+              && Objects.equals(second.get("document"), first.get("document"));
+        }
+      case "agrees":
+        {
+          Map<String, Object> report = (Map<String, Object>) e.get("reportAfter");
+          for (Object x : (List<Object>) report.get("countsByCode")) {
+            if (String.valueOf(((List<Object>) x).get(0)).startsWith("shared")) {
+              return false;
+            }
+          }
+          return true;
+        }
+      case "noBlueprint":
+      case "unknownRoot":
+        return token.equals(first.get("refused"));
+      default:
+        return null;
+    }
+  }
+
+  private static Object backfillCase(SpecModel fixture, Map<String, Object> c) throws IOException {
+    SpecDocumentSet s = new SpecDocumentSet(caseModel(fixture, c), setDocuments(c.get("documents")));
+    SpecBackfillOptions options = new SpecBackfillOptions();
+    options.pairs = casePairs(c);
+    options.path = (String) c.get("path");
+    options.dryRun = caseFlag(c, "dryRun");
+    options.author = (String) c.get("author");
+    options.date = (String) c.get("date");
+    Object[] runs = new Object[2];
+    for (int i = 0; i < 2; i++) {
+      try {
+        runs[i] = SpecBackfill.backfill(s, options).toJson();
+      } catch (SpecBackfillError e) {
+        Map<String, Object> refused = new LinkedHashMap<>();
+        refused.put("refused", e.toJson());
+        runs[i] = refused;
+      }
+    }
+    SpecSyncReport after = SpecDocumentSet.syncReport(s);
+    List<Object> given = new ArrayList<>();
+    for (String n : s.names()) {
+      given.add(List.of(n, s.get(n).toJson()));
+    }
+    Map<String, Object> report = new LinkedHashMap<>();
+    report.put("countsByCode", after.countsByCodeJson());
+    report.put("clean", after.clean());
+    Map<String, Object> out = new LinkedHashMap<>();
+    out.put("first", runs[0]);
+    out.put("second", runs[1]);
+    out.put("reportAfter", report);
+    out.put("given", given);
+    return out;
+  }
+
+  @SuppressWarnings("unchecked")
+  private static Boolean backfillIntentHolds(String token, Map<String, Object> c) {
+    Map<String, Object> e = (Map<String, Object>) c.get("expect");
+    Map<String, Object> first = (Map<String, Object>) e.get("first");
+    Map<String, Object> second = (Map<String, Object>) e.get("second");
+    List<Object> changes = (List<Object>) first.get("changes");
+    List<Object> left = (List<Object>) first.get("left");
+    switch (token) {
+      case "nothing":
+        return first.get("refused") == null && listLen(changes) == 0;
+      case "value":
+      case "elementAdded":
+      case "elementRemoved":
+      case "revision":
+      case "derived":
+        return anyEntry(changes, "kind", token);
+      case "heldHere":
+      case "mayBeAdded":
+      case "agent":
+        return anyEntry(left, "reason", token);
+      case "setHasMarks":
+        {
+          Object refused = first.get("refused");
+          return refused instanceof Map
+              && "setHasMarks".equals(((Map<String, Object>) refused).get("code"))
+              && listLen(((Map<String, Object>) refused).get("places")) > 0;
+        }
+      case "idempotent":
+        return listLen(second.get("changes")) == 0;
+      case "unchanged":
+        return Objects.equals(e.get("given"), c.get("documents"));
+      case "cleanAfter":
+        return Boolean.TRUE.equals(((Map<String, Object>) e.get("reportAfter")).get("clean"));
+      default:
+        return null;
+    }
+  }
+
+  /** {@code prefill_cases.json} and {@code backfill_cases.json}, each run twice. */
+  private static void testPrefillBackfill() throws IOException {
+    Map<String, Object> prefillTable = readJsonObject("prefill_cases.json");
+    SpecModel prefillModel = corpusModel(prefillTable.get("model"));
+    List<Map<String, Object>> prefillCases = setCases(prefillTable, "cases");
+    for (Map<String, Object> c : prefillCases) {
+      checkCase("prefill[" + c.get("name") + "]", () -> prefillCase(prefillModel, c), c.get("expect"));
+      for (String token : caseIntent(c)) {
+        checkIntent("prefill", c, token, prefillIntentHolds(token, c));
+      }
+    }
+    Map<String, Object> backfillTable = readJsonObject("backfill_cases.json");
+    SpecModel backfillModel = corpusModel(backfillTable.get("model"));
+    List<Map<String, Object>> backfillCases = setCases(backfillTable, "cases");
+    for (Map<String, Object> c : backfillCases) {
+      checkCase("backfill[" + c.get("name") + "]", () -> backfillCase(backfillModel, c), c.get("expect"));
+      for (String token : caseIntent(c)) {
+        checkIntent("backfill", c, token, backfillIntentHolds(token, c));
+      }
+    }
+  }
+
   public static void main(String[] args) throws IOException {
     String corpusArg =
         args.length > 0 ? args[0] : "../tom_som_conformance/corpus";
@@ -4253,6 +4792,9 @@ public final class ConformanceRunner {
     testImpactWalk();
     testLinkReaders();
     testLinkValidation();
+    testDocumentSet();
+    testDeriveFields();
+    testPrefillBackfill();
 
     int total = passed + failed.size();
     if (!failed.isEmpty()) {

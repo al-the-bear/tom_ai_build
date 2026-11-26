@@ -2,6 +2,47 @@
 
 ## Unreleased
 
+- **Section automation, second part** (`tom_specs_model_rules.md` §9.7),
+  ported from the Go runtime (the Python, JavaScript and TypeScript ports and
+  the Dart reference behind it).
+  - `SpecDocumentSet`: a project's documents read side by side, one per root
+    (the constructor, `fromFragments` assembling the fragments of one root,
+    `load` reading YAML or SOM Markdown files), with the anchor pairs of the
+    synced classes (`SpecSyncPair`), `blueprintRoot`, `missingRoots` and the
+    accessors by type name or section id; refused with a
+    `SpecDocumentSetError` (`SpecDocumentSetRefusal`: `sameRoot`, `noRoot`,
+    `twoRoots`, `projection`, `overlap`, `unpairable`).
+  - `SpecDocumentSet.syncReport` (`SpecSyncReport`, `SpecSyncFinding`,
+    `SpecSyncPlace`, `SpecSyncCode`, `SpecSyncResolution`, `SpecSyncHolder`,
+    `SpecDocumentFindings`): the shared places of each Phase 3 document
+    against the Blueprint, element by element and value by value, the
+    summaries and inverses across two documents, pending and unmarkable
+    values, each document's own findings, the pairs not started, counts per
+    code and per resolution. `SpecDocumentSet.renameId` (`SpecRenameChange`,
+    `SpecRenameError`) renames an id in every document at once. The
+    comparison internals `SpecSetCheck`, `SpecSetSide`, `SpecSetValue` and
+    `SpecSetFound` are public, as backfill and prefill read them.
+  - `SpecDeriveFields.deriveFields` (`SpecDeriveOptions`, `SpecDeriveResult`,
+    `SpecDeriveChange`): the derived places of one document written in three
+    steps, plain or as inline marks under review, the `SpecLinkFix` entries
+    applied in the order each records; a change that cannot be marked exactly
+    is left `unmarkable`; `dryRun` works on a copy.
+  - `SpecPrefill.prefill` (`SpecPrefillOptions`, `SpecPrefillResult`,
+    `SpecPrefillError`: `noBlueprint`, `unknownRoot`): a Phase 3 document
+    started from the Blueprint, the pairs that hold nothing yet copied with
+    their elements' ids, then derived.
+  - `SpecBackfill.backfill` (`SpecBackfillOptions`, `SpecBackfillResult`,
+    `SpecBackfillChange`, `SpecBackfillLeft`, `SpecBackfillError`:
+    `setHasMarks`, `noBlueprint`): the accepted Phase 3 end state carried into
+    the Blueprint as plain values (elements added after their nearest
+    preceding neighbour, or removed), one revision entry
+    (`SpecBackfill.bump`), the Blueprint's derived places rewritten.
+  - The conformance runner replays `document_set_cases.json`,
+    `derive_cases.json`, `prefill_cases.json` and `backfill_cases.json`
+    (2089 -> 2325 checks, the real model giving 132 pairs);
+    `SpecDocumentSetTest`, `SpecDeriveFieldsTest` and
+    `SpecPrefillBackfillTest` are new. The rendition's navigation follows.
+
 - **Section automation, first part** (`tom_specs_model_rules.md` §9.7),
   ported from the Go runtime (the Python, JavaScript and TypeScript ports and
   the Dart reference behind it).
@@ -42,9 +83,7 @@
   - The conformance runner replays `link_reader_cases.json`,
     `link_validation_cases.json` and the `typedCases` of
     `inline_mark_cases.json` / `change_mark_cases.json` (1862 -> 2089
-    checks); `SpecPlaceTest` and `SpecLinkValidatorTest` are new. The
-    document set, `deriveFields`, `backfill`, `prefill` and the rendition's
-    navigation follow.
+    checks); `SpecPlaceTest` and `SpecLinkValidatorTest` are new.
 
 - **The merge back** (SOM §11.10), as Dart, TypeScript, C, JavaScript and
   C++ have it: `SpecStripMerge.mergeStrippedValue` merges the edited text of

@@ -74,6 +74,10 @@ install / JDK-only `build_jar.sh` routes and how to pin.
 | `SpecSync`, `SpecListRelation`, `SpecSummaryOf`, `SpecDerivation`, `SpecInverseOf`, `SpecExtractsLinks`, `SpecSameAs` | The typed readers of the link annotations (`tom_specs_model_rules.md` §9.7): `syncedWith()`, `summaryOf()`, `derivedFrom()`, `extractsLinks()`, `sameAs()` and `annotationsNamed()` on `SpecClass` and `SpecField`, the form-field qualifiers `FormFieldSpec.derivedFrom` / `inverseOf` / `summaryOf`, `SpecClass.isCodeSpecsProjection()`. A string → string argument (`repeats`, `map`, `set`) keeps the meta's order. |
 | `SpecPlace`, `SpecPlaceFilter`, `SpecPlaceResolution`, `SpecPlaceKind`, `SpecPlaceProblem`, `SpecPlaceException`, `SpecSameAsBinding`, `SpecSectionPosition` | The place and filter grammar of the links between places (`tom_specs_model_rules.md` §9.7): a place parsed and resolved under an anchor to the path its value is stored at (list items written `<list>-*`), a filter `<SECTIONID>.<field>=<value>` with `\|` alternatives (read by `countOf` too), the `@SameAs` bindings (`SpecPlace.sameAsBindings`) and the section positions of a root (`SpecPlace.sectionPositions`). |
 | `SpecLinkValidator`, `SpecLinkFix` | `SpecValidator.validateLinks` — the link checks of one document: derived copies, rows, lookups and lists in step, inverses named back, ids named in a text with their rows, summaries against their details, `@SameAs` copies against their holders; a value holding pending marks is read with them rejected and listed (`linkValuePending`). `SpecLinkValidator` collects beside every finding the fix `deriveFields` writes (`SpecLinkFix`, the order of an added row's values and of a derived list's places recorded). |
+| `SpecDeriveFields`, `SpecDeriveOptions`, `SpecDeriveResult`, `SpecDeriveChange` | `deriveFields` — the derived places of one document written (link ends and rows, derived values and lists, repeats and `@SameAs` copies, then counts, products and ranks), plain or as inline marks in a document under review; a change that cannot be marked exactly is left `unmarkable`; `dryRun` works on a copy. |
+| `SpecDocumentSet`, `SpecSyncPair`, `SpecSyncReport`, `SpecSyncFinding`, `SpecSyncPlace`, `SpecSyncCode`, `SpecSyncResolution`, `SpecSyncHolder`, `SpecDocumentFindings`, `SpecDocumentSetError`, `SpecDocumentSetRefusal`, `SpecRenameChange`, `SpecRenameError`, `SpecSetCheck`, `SpecSetSide` | A project's documents read side by side, one per root (`new SpecDocumentSet`, `fromFragments`, `load`), with the anchor pairs of the synced classes; `syncReport` (the shared places of each Phase 3 document against the Blueprint, the links across two documents, pending and unmarkable values, each document's own findings) and `renameId` (an id renamed in every document at once). |
+| `SpecPrefill`, `SpecPrefillOptions`, `SpecPrefillResult`, `SpecPrefillError` | `prefill` — a Phase 3 document started from the Blueprint: the pairs that hold nothing yet copied with their elements' ids, then derived. |
+| `SpecBackfill`, `SpecBackfillOptions`, `SpecBackfillResult`, `SpecBackfillChange`, `SpecBackfillLeft`, `SpecBackfillError` | `backfill` — the accepted Phase 3 end state carried into the Blueprint as plain values, with one revision entry; refused while a document holds marks or annotation blocks. |
 | `SpecReflection`, `SpecResolution`, `SpecNodeKind` | Value-free enumeration + path resolution. |
 | `SpecDocument` | A sparse in-memory document — values keyed by section path. |
 | `SpecDocumentAssembly`, `SpecAssemblyOverlap` | Assembling one document from fragments written in parallel (`SpecDocument.assemble`): a refusing merge of the plain-data stores — a content path, form field, list, headline or code-spec location two fragments both write is an overlap, and an assembly with any overlap has no document. |
@@ -163,10 +167,14 @@ operations behaviour, and the Phase-4 CodeSpecs extracts (exit 0 on success).
 
 The section-automation tables of this port so far run in the same runner: the
 link readers and the place / filter grammar (`link_reader_cases.json`),
-`validateLinks` (`link_validation_cases.json`) and the typed inline marks (the
-`typedCases` of `inline_mark_cases.json` / `change_mark_cases.json`) — over the
-fixture model `corpus/links.meta.json` and, for the cases naming it, the real
-model of `tom_som_dart_v0/meta/`. `SpecPlaceTest` and `SpecLinkValidatorTest`
+`validateLinks` (`link_validation_cases.json`), the typed inline marks (the
+`typedCases` of `inline_mark_cases.json` / `change_mark_cases.json`), the
+document set with `syncReport` and `renameId` (`document_set_cases.json`),
+`deriveFields` (`derive_cases.json`), `prefill` and `backfill`
+(`prefill_cases.json`, `backfill_cases.json`) — over the fixture model
+`corpus/links.meta.json` and, for the cases naming it, the real model of
+`tom_som_dart_v0/meta/`. `SpecPlaceTest`, `SpecLinkValidatorTest`,
+`SpecDocumentSetTest`, `SpecDeriveFieldsTest` and `SpecPrefillBackfillTest`
 hold the Java surface around them.
 
 ## Architecture
@@ -198,6 +206,7 @@ hold the Java surface around them.
 | `SpecNodeCreator` | The creation gate — a document may only grow in ways the model permits. |
 | `SpecValidator` | The instance tier: a filled document's values checked against the model; `validateLinks`, the link checks of one document (`tom_specs_model_rules.md` §9.7). |
 | `SpecPlace`, `SpecPlaceFilter` | The place and filter grammar the link annotations are written in, resolved without reading a value. |
+| `SpecDocumentSet`, `SpecDeriveFields`, `SpecPrefill`, `SpecBackfill` | The documents of a project side by side: the shared places compared (`syncReport`), an id renamed everywhere (`renameId`), a document's derived places written (`deriveFields`), the Blueprint into a new Phase 3 document (`prefill`) and the accepted Phase 3 end state back (`backfill`). |
 | `SpecDocumentYaml` | Byte-stable `*.tomspecs.yaml` encode/decode. |
 | `SpecDocumentMarkdown` | DocSpecs-conform Markdown export, parse and round-trip. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
@@ -250,5 +259,5 @@ hold the Java surface around them.
 ## Status
 
 Version **1.13.0**, tracking the TomSpecs model version. Requires JDK ≥ 17
-(verified with `javac`/`java` 21). Covered by 18 test files; the conformance
-runner reports **OK: 2089 checks passed** and `./run_tests.sh` is green.
+(verified with `javac`/`java` 21). Covered by 21 test files; the conformance
+runner reports **OK: 2325 checks passed** and `./run_tests.sh` is green.
