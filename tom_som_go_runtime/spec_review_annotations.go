@@ -2333,6 +2333,13 @@ func CountAnnotationsText(value string) int {
 	return len(p.blocks) + len(p.marks)
 }
 
+// AnnotationIssuesText is the malformed review annotations of value (SOM
+// §11.9.3), one message each; empty when every block and mark is well formed.
+// What a merge back (SOM §11.10) checks a merged value against.
+func AnnotationIssuesText(value string) []string {
+	return append([]string{}, annParse(value).malformed...)
+}
+
 // StripAnnotationsText returns value without any comment block, question
 // block or inline mark (every mark accepted). Plain quotes and code stay.
 func StripAnnotationsText(value string) string {

@@ -87,6 +87,7 @@ tag / path-`replace` routes and how to pin.
 | `spec_document_yaml.go` | Byte-stable `*.tomspecs.yaml` codec (`SOM §12`). |
 | `spec_document_markdown.go` | Meta-data-driven Markdown import/export codec (`SOM §11`): the emitter writes the reading view's form tables, record tables, reference lines and section tables with an anchor in every heading, a value no table cell holds as a `Field:` paragraph (SOM §11.2, §11.4, §11.5); with `HeadingDivs` styled-div headings below level six and with `ReadableHeader` a stripped rendition's readable header (SOM §11.1, §11.2); the parser reads them, styled-div headings and the older `Field:` layout, skips a readable header (`SpecMarkdownResult.ReadableHeader`) and stops at the appendix marker; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7). |
 | `spec_document_strip.go` | Stripped renditions (SOM §11.10). The strip of one value: `StripNotationText(value, options)` drops, unmarks or moves to the appendix the secondary prose of the named kinds (`provenance`, `trace`, `editorial`, `aside`, `linked`, `derived`, `comments`) and returns a `SpecStripTextResult` — the text, the counts per kind, `MarksDropped`, the appendix entries (`SpecAppendixEntry`) and the pieces it removed (`SpecStripPiece`, UTF-16 offsets); a value with a notation error is refused unchanged. `SpecStripOptionsFromNames` reads the kind names a user gives (`all`, comma-joined lists) and refuses a misuse with `SpecStripUsageError`. The strip of a document: `SpecDocumentStrip{}.Strip` strips every value into a copy with the emptying rule and writes its readable rendition, the readable header (`SpecReadableHeader`, `SpecReadableSource`) and the appendix *Notes* included (`SpecStripResult`). |
+| `spec_document_merge.go` | The merge back of an edited stripped rendition (SOM §11.10). One value: `MergeStrippedValue(original, stripped, edited, pieces)` puts every piece the strip removed back between its unchanged neighbours, places it after an edited run (`SpecStripMergePlaced`) or reports a conflict (`SpecStripMergeConflict`: `crossesBoundary`, `sentenceRemoved`, `stripTextEdited`, `unplaceable`, `notation`, `annotations`) in a `SpecStripValueMerge`. A document: `SpecStripMerge{}.Merge(original, edited, options)` reads the switches from the readable header (or `SpecStripMergeOptions.Options`), merges three ways from a base when the original is stale (`CurrentRevision`, `Base`, `LoadBase`; `GitShowFile` reads a commit's file), refuses structural edits (`SpecStripMergeRefusal`), takes a wrapped paragraph read back on one line as no edit (SOM §11.4 rule 13) and checks the merged document strips back and adds no finding (`SpecStripMergeResult`: `OK`, `ExitCode`, `Report`). |
 | `som_facade.go` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList[T]`) for the generated `tom_som_go_v0`. |
 | `spec_review_annotations.go` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks (`SpecReviewAnnotations`: insert, answer, decide, comment on a change, assign comment ids, strip, validate), conflict blocks, change times and attribution. |
 | `spec_review_merge.go` | Team review (SOM §11.9.8): `MergeReviews` / `MergeMarkdownReviews` merge the returned copies of a round into one document with votes, individual answers and conflict blocks. |
@@ -192,7 +193,9 @@ shared contract — parsing `expected.tables.md` or `expected.tomspecs.md` lands
 the same memory as the YAML route), reflection resolution,
 validation, the imperative operations script, and the Phase-4 CodeSpecs extract
 tier (routing verdicts, the per-area YAML/Markdown goldens, the verbatim-copy
-guard and the `ROUTE-TOTAL` error cases).
+guard and the `ROUTE-TOTAL` error cases), the stripped renditions
+(`strip_cases.json`) and the merge back of an edited one
+(`strip_merge_cases.json`).
 
 ## Architecture
 
@@ -227,6 +230,8 @@ guard and the `ROUTE-TOTAL` error cases).
 | `SpecDocumentMarkdown` | DocSpecs-conform Markdown export, parse and round-trip. |
 | `StripNotationText` | The strip of one value (SOM §11.10): secondary prose dropped, unmarked or moved to an appendix, with the pieces that went. |
 | `SpecDocumentStrip` | The strip of a whole document (SOM §11.10): the stripped copy, the emptying rule, the appendix and the readable rendition with its readable header, checked to read back and validate. |
+| `MergeStrippedValue` | The merge back of one edited stripped value (SOM §11.10): the pieces put back, placed or in conflict. |
+| `SpecStripMerge` | The merge back of an edited readable rendition onto its document (SOM §11.10): three-way when stale, structural edits refused, the result checked to strip back and add no finding. |
 | `SpecQueryEngine` | Lexical/structural search over a document, matching with `SomTextPattern`. |
 | `CodeSpecsExtractor` | The Phase-4 extract generator — one verbatim, cited extract per CodeSpecs area. |
 | `SpecGenerationUnit` | One generation unit of a document's register, with its mapping per area and its standard emitters (`SpecGenerationUnits`). |
@@ -275,6 +280,6 @@ guard and the `ROUTE-TOTAL` error cases).
 
 ## Status
 
-Version **1.10.0**, tracking the TomSpecs model version. Requires Go ≥ 1.21.
-Covered by 10 test files; the conformance runner reports
-**OK: 971 checks passed** and `./run_tests.sh` is green.
+Version **1.13.0**, tracking the TomSpecs model version. Requires Go ≥ 1.21.
+Covered by 21 test files; the conformance runner reports
+**OK: 2075 checks passed** and `./run_tests.sh` is green.

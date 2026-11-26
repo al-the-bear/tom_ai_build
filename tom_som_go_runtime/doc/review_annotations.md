@@ -97,6 +97,7 @@ The same program runs as `ExampleSpecReviewAnnotations` in
 | `*SpecReviewAnnotationError` | An operation named something that is not there |
 | `StripAnnotationsText` | One value without its annotations |
 | `CountAnnotationsText` | How many comment, question and conflict blocks and inline marks one value holds: what `StripAnnotationsText` removes |
+| `AnnotationIssuesText` | The malformed blocks and marks of one value, one message each: what a merge back (SOM §11.10) checks a merged value against |
 | `FormatCommentBlock` / `FormatQuestionBlock` / `FormatConflictBlock` | The lines of a block as the operations write it |
 | `SpecMarkDecision`, `SpecMarkEntry`, `SpecMarkOutcome`, `SpecMarkIssue`, `SpecMarkReport` | The inline-mark review: decisions, listed marks, what was done, malformed marks |
 

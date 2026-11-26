@@ -29,7 +29,9 @@
 //     ApplyMarkdownResult);
 //   - the DocSpecs section-body replacement (DocSpecsReplaceSectionBody);
 //   - assembling one document from fragments (AssembleSpecDocuments);
-//   - review annotations (SpecReviewAnnotations, SOM §11.9).
+//   - review annotations (SpecReviewAnnotations, SOM §11.9);
+//   - stripped renditions and the merge back of an edited one (SOM §11.10:
+//     strip_cases.json, strip_merge_cases.json).
 //
 // `go test ./tests/` is the native runner; exit 0 == all green.
 package tests
@@ -224,6 +226,7 @@ func TestConformance(t *testing.T) {
 	testDocSpecs(c, t)
 	testNotation(c, t)
 	testStripCases(c, t, model)
+	testStripMergeCases(c, t, model)
 	testDocSpecsReplace(c, t)
 	testDocSpecsPaths(c, t, model)
 	testAssembly(c, t)

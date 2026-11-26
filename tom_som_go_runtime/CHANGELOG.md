@@ -2,6 +2,37 @@
 
 ## Unreleased
 
+- **The merge back of an edited stripped rendition** (SOM §11.10, RV9),
+  ported from the JavaScript and Rust runtimes; `spec_document_merge.go` is
+  new. Go now has the whole reading view.
+  - One value: `MergeStrippedValue(original, stripped, edited, pieces)` puts
+    each piece the strip removed back between its unchanged neighbours; next
+    to an edit it places it after the edited run (`SpecStripMergePlaced`,
+    UTF-16 offset) or reports a `SpecStripMergeConflict` —
+    `crossesBoundary`, `sentenceRemoved`, `stripTextEdited`, `unplaceable`,
+    and `notation` / `annotations` for a merged value with an error neither
+    side had (`SpecStripValueMerge`; `SpecStripMergeLabel` names a value in a
+    report).
+  - A document: `SpecStripMerge{}.Merge(original, edited, options)` takes the
+    switches from the readable header or `SpecStripMergeOptions.Options`
+    (which must agree; a `*SpecStripUsageError` otherwise), merges three ways
+    when the original is stale (`CurrentRevision`, `Base`, `LoadBase`),
+    refuses rejected blocks and structural edits (`SpecStripMergeRefusal`:
+    sections or list items added, removed or moved, a changed codeSpec or
+    units), takes a wrapped paragraph read back on one line as no edit (SOM
+    §11.4 rule 13) and writes the merged document only when it changes just
+    the merged values, strips back to the edited text and adds no finding
+    (`SpecStripMergeResult`: `OK`, `ExitCode`, `Report`, `ReportLines`;
+    `SpecStripMergedValue`). `FileStem` and `DocumentFiles` go to the codec.
+    `SpecStripMerge{}.GitShowFile(commit, path)` reads a file as it was at a
+    commit (`git show <commit>:./<name>` in its folder; a commit starting
+    with `-` is refused).
+  - `AnnotationIssuesText`: the malformed review annotations of one value.
+  - The conformance runner reads all `valueCases` and `documentCases` of
+    `strip_merge_cases.json` (2031 -> 2075 checks);
+    `tests/spec_document_merge_test.go` is new (its git checks use a scratch
+    repository in the system temp directory).
+
 - **Stripped renditions** (SOM §11.10, RV7 and RV8), ported from the
   JavaScript and Rust runtimes; `spec_document_strip.go` is new.
   - The strip of one value: `StripNotationText(value, options)` drops,
