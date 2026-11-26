@@ -18,7 +18,12 @@ use crate::spec_reflection::{
     SPEC_NODE_KIND_SECTION,
 };
 use crate::spec_section_id::{effective_list_item_section_id, K_SECTION_ID_SLOT};
-use crate::spec_typed_values::{som_scalar_base, som_typed_text_readable};
+use crate::spec_place::SpecPlaceFilter;
+use crate::spec_review_annotations::apply_inline_marks_text;
+use crate::spec_typed_values::{
+    is_int_text, som_format_double, som_is_typed_field, som_scalar_base, som_typed_reading,
+    som_typed_text_readable,
+};
 use std::collections::{BTreeMap, BTreeSet};
 
 /// Why a single value in a document is invalid against the model.
@@ -94,12 +99,48 @@ pub const SPEC_VALIDATION_CODE_UNIT_AREA_MALFORMED: &str = "unitAreaMalformed";
 /// ([`SPEC_STANDARD_EMITTERS`]: `openapi`, `jsonschema`, `icu`, `asyncapi`, `markdown`).
 pub const SPEC_VALIDATION_CODE_UNIT_EMITTER_UNKNOWN: &str = "unitEmitterUnknown";
 
+// The link checks of one document (`validate_links`,
+// `tom_specs_model_rules.md` §9.7). A stored derived value its sources do not
+// give is reported as derivedValueMismatch above.
+
+/// A `@DerivedFrom.lookup` finds no row for its key, or more than one.
+pub const SPEC_VALIDATION_CODE_DERIVED_LOOKUP_MISS: &str = "derivedLookupMiss";
+/// Two link rows beneath one element name the same id with the same type (the
+/// values `@ExtractsLinks` sets); reported at the second.
+pub const SPEC_VALIDATION_CODE_DUPLICATE_LINK_ROW: &str = "duplicateLinkRow";
+/// A link names an entry whose other end (`inverseOf`) does not name it back,
+/// or a symmetric row has no counterpart on the entry it names. An end whose
+/// registry the document does not hold is skipped.
+pub const SPEC_VALIDATION_CODE_INVERSE_MISSING: &str = "inverseMissing";
+/// An id named in an `@ExtractsLinks` text has no row. An id that has a row of
+/// any type is a reference to it and is not reported.
+pub const SPEC_VALIDATION_CODE_EXTRACTED_LINK_MISSING: &str = "extractedLinkMissing";
+/// A generated row (its `@ExtractsLinks` `set` values match) names an id the
+/// text no longer names.
+pub const SPEC_VALIDATION_CODE_EXTRACTED_LINK_STALE: &str = "extractedLinkStale";
+/// A summary row (`@SummaryOf`) names no element of its detail list.
+pub const SPEC_VALIDATION_CODE_SUMMARY_NOT_IN_DETAIL: &str = "summaryNotInDetail";
+/// Under `relation: equal`, a detail element no summary row names.
+pub const SPEC_VALIDATION_CODE_DETAIL_NOT_IN_SUMMARY: &str = "detailNotInSummary";
+/// Two summary rows name one detail element; reported at the second.
+pub const SPEC_VALIDATION_CODE_SUMMARY_DUPLICATE: &str = "summaryDuplicate";
+/// A `@SameAs` copy holds a value its holder does not (or lacks one it holds):
+/// the two positions of the section were edited apart.
+pub const SPEC_VALIDATION_CODE_SAME_AS_MISMATCH: &str = "sameAsMismatch";
+/// A value a link check reads holds pending change marks. It is read with
+/// every mark rejected (the reviewed state) and listed for the user.
+pub const SPEC_VALIDATION_CODE_LINK_VALUE_PENDING: &str = "linkValuePending";
+/// A change `deriveFields` would write in a document under review that cannot
+/// be marked exactly (a difference inside fenced code, SOM §11.9.3); it is
+/// left as it was, for the agent.
+pub const SPEC_VALIDATION_CODE_UNMARKABLE: &str = "unmarkable";
+
 /// Every `SPEC_VALIDATION_CODE_*` constant, in declaration order — the
 /// enumerable vocabulary Dart has from its enum, as [`DOCSPECS_ALL_RULES`](crate::DOCSPECS_ALL_RULES)
 /// is for the §14 rules. A tool switches over it exhaustively instead of
 /// matching on message text; a runtime test reads the constants above and
 /// fails when one is missing here.
-pub const SPEC_VALIDATION_ALL_CODES: [&str; 21] = [
+pub const SPEC_VALIDATION_ALL_CODES: [&str; 32] = [
     SPEC_VALIDATION_CODE_DANGLING_PATH,
     SPEC_VALIDATION_CODE_KIND_MISMATCH,
     SPEC_VALIDATION_CODE_UNKNOWN_FORM_FIELD,
@@ -121,7 +162,27 @@ pub const SPEC_VALIDATION_ALL_CODES: [&str; 21] = [
     SPEC_VALIDATION_CODE_UNIT_BUILDS_NOTHING,
     SPEC_VALIDATION_CODE_UNIT_AREA_MALFORMED,
     SPEC_VALIDATION_CODE_UNIT_EMITTER_UNKNOWN,
+    SPEC_VALIDATION_CODE_DERIVED_LOOKUP_MISS,
+    SPEC_VALIDATION_CODE_DUPLICATE_LINK_ROW,
+    SPEC_VALIDATION_CODE_INVERSE_MISSING,
+    SPEC_VALIDATION_CODE_EXTRACTED_LINK_MISSING,
+    SPEC_VALIDATION_CODE_EXTRACTED_LINK_STALE,
+    SPEC_VALIDATION_CODE_SUMMARY_NOT_IN_DETAIL,
+    SPEC_VALIDATION_CODE_DETAIL_NOT_IN_SUMMARY,
+    SPEC_VALIDATION_CODE_SUMMARY_DUPLICATE,
+    SPEC_VALIDATION_CODE_SAME_AS_MISMATCH,
+    SPEC_VALIDATION_CODE_LINK_VALUE_PENDING,
+    SPEC_VALIDATION_CODE_UNMARKABLE,
 ];
+
+/// The declaration order of `code` (Dart's `SpecValidationCode.index`), which
+/// sorted finding lists follow; `-1` for a code that is not one.
+pub fn spec_validation_code_index(code: &str) -> i64 {
+    SPEC_VALIDATION_ALL_CODES
+        .iter()
+        .position(|c| *c == code)
+        .map_or(-1, |i| i as i64)
+}
 
 /// One problem found while validating a document.
 #[derive(Debug, Clone, PartialEq)]
@@ -239,7 +300,7 @@ pub fn validate_document(model: &SpecModel, doc: &SpecDocument) -> Vec<SpecValid
                 }
             };
             if spec.enum_values.is_empty() {
-                let text = doc.form_field_or(&path, &name);
+                let text = typed_value(doc.form_field_or(&path, &name), spec);
                 // A stated count (`count_of`) is checked by countMismatch, a
                 // derived value (`product_of`, `rank_of`) by
                 // derivedValueMismatch; both already report text that is no
@@ -262,7 +323,7 @@ pub fn validate_document(model: &SpecModel, doc: &SpecDocument) -> Vec<SpecValid
                 }
                 continue;
             }
-            let value = doc.form_field_or(&path, &name);
+            let value = typed_value(doc.form_field_or(&path, &name), spec);
             // Absence is not a bad value.
             if value.is_empty() {
                 continue;
@@ -297,7 +358,7 @@ pub fn validate_document(model: &SpecModel, doc: &SpecDocument) -> Vec<SpecValid
             if !ff.required {
                 continue;
             }
-            if doc.form_field_or(&path, &ff.name).trim().is_empty() {
+            if typed_value(doc.form_field_or(&path, &ff.name), ff).trim().is_empty() {
                 errors.push(SpecValidationError {
                     path: path.clone(),
                     code: SPEC_VALIDATION_CODE_MISSING_REQUIRED_FIELD.to_string(),
@@ -442,10 +503,12 @@ fn validate_one_of_instances(refl: &SpecReflection, doc: &SpecDocument) -> Vec<S
             Some(f) => f,
             None => continue, // static tier flagged the mismatch
         };
-        let chosen = doc.form_field_or(
+        // The discriminator is an enum: under review it reads as its old
+        // value.
+        let chosen = som_typed_reading(&doc.form_field_or(
             &format!("{}/{}", path, refl.field_segment(form_holder)),
             &discriminator,
-        );
+        ));
         if chosen.is_empty() {
             continue; // no case chosen yet
         }
@@ -558,7 +621,7 @@ fn validate_reference_instances(
             continue;
         }
         for ff in &form.field.form_fields {
-            let value = doc.form_field_or(&form.path, &ff.name).trim().to_string();
+            let value = typed_value(doc.form_field_or(&form.path, &ff.name), ff).trim().to_string();
             if value.is_empty() {
                 continue;
             }
@@ -609,7 +672,7 @@ fn validate_reference_instances(
             if ff.refers_to.is_empty() {
                 continue;
             }
-            let value = doc.form_field_or(&form.path, &ff.name).trim().to_string();
+            let value = typed_value(doc.form_field_or(&form.path, &ff.name), ff).trim().to_string();
             if value.is_empty() {
                 continue;
             }
@@ -730,7 +793,7 @@ fn validate_count_instances(refl: &SpecReflection, doc: &SpecDocument) -> Vec<Sp
             None => continue,
         };
         for ff in &field.form_fields {
-            let v = doc.form_field_or(&path, &ff.name).trim().to_string();
+            let v = typed_value(doc.form_field_or(&path, &ff.name), ff).trim().to_string();
             if v.is_empty() {
                 continue;
             }
@@ -745,35 +808,9 @@ fn validate_count_instances(refl: &SpecReflection, doc: &SpecDocument) -> Vec<Sp
 
     // A target written `./…` counts only the entries beneath `owner`, the
     // section holding the form; any other target counts the whole document.
-    let count_target = |target: &str, owner: &str| -> usize {
-        let scoped = target.starts_with("./");
-        let target = if scoped { &target[2..] } else { target };
-        let prefix = format!("{}/", owner);
-        let in_scope = |item: &String| !scoped || item.starts_with(&prefix);
-        let dot = match target.find('.') {
-            Some(d) => d,
-            None => {
-                return entries_by_id
-                    .get(target)
-                    .map_or(0, |e| e.iter().filter(|i| in_scope(i)).count())
-            }
-        };
-        let id = &target[..dot];
-        let eq = target[dot..].find('=').map(|e| dot + e);
-        let field = &target[dot + 1..eq.unwrap_or(target.len())];
-        let value = eq.map_or("", |e| &target[e + 1..]);
-        entries_by_id.get(id).map_or(0, |items| {
-            items
-                .iter()
-                .filter(|item| in_scope(item))
-                .filter(|item| {
-                    values_by_item
-                        .get(item.as_str())
-                        .and_then(|m| m.get(field))
-                        .is_some_and(|vs| vs.contains(value))
-                })
-                .count()
-        })
+    // `X.f=a|b` counts the entries whose `f` holds one of the alternatives.
+    let count_target = |target: &SpecPlaceFilter, owner: &str| -> usize {
+        count_filter_entries(target, owner, &entries_by_id, &values_by_item)
     };
 
     let mut errors = Vec::new();
@@ -782,19 +819,19 @@ fn validate_count_instances(refl: &SpecReflection, doc: &SpecDocument) -> Vec<Sp
             if ff.count_of.is_empty() {
                 continue;
             }
-            let stated = doc.form_field_or(&form.path, &ff.name).trim().to_string();
+            let stated = typed_value(doc.form_field_or(&form.path, &ff.name), ff).trim().to_string();
             if stated.is_empty() {
                 continue;
             }
-            if !ff
-                .count_of
-                .iter()
-                .all(|t| scope.contains(registry_section_id(count_target_id(t))))
-            {
-                continue;
-            }
+            // A target that is no filter, or whose entries the root cannot
+            // reach, makes the count undecidable here: skipped, never
+            // reported.
+            let filters = match count_filters(&ff.count_of, &scope) {
+                Some(f) => f,
+                None => continue,
+            };
             let owner = &form.path[..form.path.rfind('/').unwrap_or(0)];
-            let counted: usize = ff.count_of.iter().map(|t| count_target(t, owner)).sum();
+            let counted: usize = filters.iter().map(|t| count_target(t, owner)).sum();
             let targets = ff.count_of.join(" + ");
             if !stated.bytes().all(|b| b.is_ascii_digit()) {
                 errors.push(SpecValidationError {
@@ -820,14 +857,56 @@ fn validate_count_instances(refl: &SpecReflection, doc: &SpecDocument) -> Vec<Sp
     errors
 }
 
-/// The section id of a `countOf` target — the part before any `.field=value`,
-/// without the `./` scope prefix.
-fn count_target_id(target: &str) -> &str {
-    let target = target.strip_prefix("./").unwrap_or(target);
-    match target.find('.') {
-        Some(dot) => &target[..dot],
-        None => target,
+/// Every `countOf` target read as a [`SpecPlaceFilter`]; `None` when one is no
+/// filter or names entries the document's root cannot reach (`scope`), which
+/// makes the count undecidable.
+fn count_filters(count_of: &[String], scope: &BTreeSet<String>) -> Option<Vec<SpecPlaceFilter>> {
+    count_of
+        .iter()
+        .map(|t| {
+            SpecPlaceFilter::try_parse(t)
+                .filter(|f| scope.contains(registry_section_id(&f.section_id)))
+        })
+        .collect()
+}
+
+/// The entries one `countOf` filter selects beneath `owner` (a scoped filter)
+/// or in the whole document.
+fn count_filter_entries(
+    target: &SpecPlaceFilter,
+    owner: &str,
+    entries_by_id: &BTreeMap<String, Vec<String>>,
+    values_by_item: &BTreeMap<String, BTreeMap<String, BTreeSet<String>>>,
+) -> usize {
+    let prefix = format!("{}/", owner);
+    entries_by_id.get(&target.section_id).map_or(0, |items| {
+        items
+            .iter()
+            .filter(|item| !target.scoped || item.starts_with(&prefix))
+            .filter(|item| {
+                if target.field.is_empty() {
+                    return true;
+                }
+                let stored: Vec<&String> = values_by_item
+                    .get(item.as_str())
+                    .and_then(|m| m.get(&target.field))
+                    .map(|vs| vs.iter().collect())
+                    .unwrap_or_default();
+                target.matches(&stored)
+            })
+            .count()
+    })
+}
+
+/// A form field's value as the instance tier reads it: a typed value (an
+/// enum, `int`, `double`, `num`, `bool`) or a reference (`refersTo`) holding
+/// inline marks reads as its old value (SOM §11.9.3); any other value as
+/// stored.
+fn typed_value(raw: String, spec: &FormFieldSpec) -> String {
+    if som_is_typed_field(&spec.type_, &spec.enum_values) || !spec.refers_to.is_empty() {
+        return som_typed_reading(&raw);
     }
+    raw
 }
 
 /// Instance-tier derived-value check (uamtc10): a `productOf` field must hold
@@ -863,7 +942,7 @@ fn validate_derived_values(refl: &SpecReflection, doc: &SpecDocument) -> Vec<Spe
     // The number a filled form field contributes, or `None` when it is empty or
     // unreadable.
     let number_of = |form_path: &str, spec: &FormFieldSpec| -> Option<f64> {
-        let v = doc.form_field_or(form_path, &spec.name).trim().to_string();
+        let v = typed_value(doc.form_field_or(form_path, &spec.name), spec).trim().to_string();
         if v.is_empty() {
             return None;
         }
@@ -902,7 +981,7 @@ fn validate_derived_values(refl: &SpecReflection, doc: &SpecDocument) -> Vec<Spe
         let owner = &form.path[..form.path.rfind('/').unwrap_or(0)];
         for ff in &form.field.form_fields {
             if !ff.product_of.is_empty() {
-                let stated = doc.form_field_or(&form.path, &ff.name).trim().to_string();
+                let stated = typed_value(doc.form_field_or(&form.path, &ff.name), ff).trim().to_string();
                 if !stated.is_empty() {
                     let mut product: Option<f64> = Some(1.0);
                     for operand in &ff.product_of {
@@ -950,7 +1029,7 @@ fn validate_derived_values(refl: &SpecReflection, doc: &SpecDocument) -> Vec<Spe
                 }
             }
             if let Some(by) = &ff.rank_of {
-                let stated = doc.form_field_or(&form.path, &ff.name).trim().to_string();
+                let stated = typed_value(doc.form_field_or(&form.path, &ff.name), ff).trim().to_string();
                 let score = spec_at(&form.path, by).and_then(|spec| number_of(&form.path, &spec));
                 if let (false, Some(score)) = (stated.is_empty(), score) {
                     let key = format!("{}#{}#{}", form.cls.name, form.field.name, ff.name);
@@ -1324,4 +1403,223 @@ fn registry_scope(refl: &SpecReflection, doc: &SpecDocument) -> BTreeSet<String>
         }
     }
     ids
+}
+
+/// One derived number [`spec_derived_numbers`] computes: the value the form
+/// field `field` of the form at `path` should hold.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct SpecDerivedNumber {
+    pub path: String,
+    pub field: String,
+    pub value: String,
+}
+
+/// The value every derived number of `doc` should hold, by the rules the
+/// instance tier checks (`countOf`, `productOf`, `rankOf`): one entry per form
+/// field whose value is decidable, whether it is filled or not. With
+/// `read_proposed`, values holding pending marks are read with the marks
+/// accepted (the proposal `deriveFields` writes in a document under review),
+/// else with them rejected. `deriveFields` writes these (step 3).
+pub fn spec_derived_numbers(
+    model: &SpecModel,
+    doc: &SpecDocument,
+    read_proposed: bool,
+) -> Vec<SpecDerivedNumber> {
+    let refl = SpecReflection::new(model);
+    let forms = resolved_forms(&refl, doc);
+
+    // The trimmed value, `None` when the form holds no such field.
+    let read = |path: &str, name: &str| -> Option<String> {
+        let raw = doc.form_field(path, name)?;
+        if !raw.contains('{') {
+            return Some(raw.trim().to_string());
+        }
+        Some(apply_inline_marks_text(raw, read_proposed).trim().to_string())
+    };
+
+    let mut out = Vec::new();
+
+    // countOf.
+    let scope = registry_scope(&refl, doc);
+    let mut entries_by_id: BTreeMap<String, Vec<String>> = BTreeMap::new();
+    let mut list_paths = doc.list_paths();
+    list_paths.sort();
+    for list_path in list_paths {
+        for item in doc.list_items(&list_path) {
+            if let Some(c) = refl.resolve(&item).and_then(|r| r.target_class) {
+                if !c.section_id.is_empty() {
+                    entries_by_id.entry(c.section_id).or_default().push(item);
+                }
+            }
+        }
+    }
+    let mut values_by_item: BTreeMap<String, BTreeMap<String, BTreeSet<String>>> = BTreeMap::new();
+    for path in doc.form_paths() {
+        let slash = match path.rfind('/') {
+            Some(s) if s > 0 => s,
+            _ => continue,
+        };
+        let field = match refl.resolve(&path).and_then(|r| r.field) {
+            Some(f) => f,
+            None => continue,
+        };
+        for ff in &field.form_fields {
+            let v = read(&path, &ff.name).unwrap_or_default();
+            if v.is_empty() {
+                continue;
+            }
+            values_by_item
+                .entry(path[..slash].to_string())
+                .or_default()
+                .entry(ff.name.clone())
+                .or_default()
+                .insert(v);
+        }
+    }
+    for form in &forms {
+        let owner = &form.path[..form.path.rfind('/').unwrap_or(0)];
+        for ff in &form.field.form_fields {
+            if ff.count_of.is_empty() {
+                continue;
+            }
+            let targets = match count_filters(&ff.count_of, &scope) {
+                Some(t) => t,
+                None => continue,
+            };
+            let counted: usize = targets
+                .iter()
+                .map(|t| count_filter_entries(t, owner, &entries_by_id, &values_by_item))
+                .sum();
+            out.push(SpecDerivedNumber {
+                path: form.path.clone(),
+                field: ff.name.clone(),
+                value: counted.to_string(),
+            });
+        }
+    }
+
+    // productOf, then rankOf over the products just derived.
+    let mut products: BTreeMap<String, f64> = BTreeMap::new();
+    let spec_at = |path: &str, name: &str| -> Option<FormFieldSpec> {
+        let res = refl.resolve(path)?;
+        if res.kind != SPEC_NODE_KIND_FORM {
+            return None;
+        }
+        res.field?.form_fields.into_iter().find(|ff| ff.name == name)
+    };
+    let number_of =
+        |products: &BTreeMap<String, f64>, path: &str, spec: &FormFieldSpec| -> Option<f64> {
+            if let Some(derived) = products.get(&format!("{}#{}", path, spec.name)) {
+                return Some(*derived);
+            }
+            let v = read(path, &spec.name).unwrap_or_default();
+            if v.is_empty() {
+                return None;
+            }
+            if !spec.enum_values.is_empty() {
+                return spec.enum_values.iter().position(|e| *e == v).map(|i| (i + 1) as f64);
+            }
+            if !is_decimal_number(&v) {
+                return None;
+            }
+            v.parse::<f64>().ok()
+        };
+
+    for form in &forms {
+        let owner = &form.path[..form.path.rfind('/').unwrap_or(0)];
+        for ff in &form.field.form_fields {
+            if ff.product_of.is_empty() {
+                continue;
+            }
+            let mut product = Some(1.0);
+            for operand in &ff.product_of {
+                let (path, name) = match operand.find('.') {
+                    Some(dot) => (format!("{}/{}", owner, &operand[..dot]), &operand[dot + 1..]),
+                    None => (form.path.clone(), operand.as_str()),
+                };
+                match spec_at(&path, name).and_then(|spec| number_of(&products, &path, &spec)) {
+                    Some(n) => product = product.map(|p| p * n),
+                    None => {
+                        product = None;
+                        break;
+                    }
+                }
+            }
+            let product = match product {
+                Some(p) => p,
+                None => continue,
+            };
+            products.insert(format!("{}#{}", form.path, ff.name), product);
+            // Written as the field's type writes it (`3.0` in a double).
+            let text = match som_scalar_base(Some(&ff.type_)) {
+                Some("double") => som_format_double(Some(product)),
+                Some("int") if product == product.round() => format!("{}", product.round() as i64),
+                _ => format_number(product),
+            };
+            out.push(SpecDerivedNumber {
+                path: form.path.clone(),
+                field: ff.name.clone(),
+                value: text,
+            });
+        }
+    }
+
+    struct RankEntry {
+        path: String,
+        name: String,
+        score: f64,
+        had: Option<i64>,
+    }
+    let mut groups: Vec<(String, Vec<RankEntry>)> = Vec::new();
+    for form in &forms {
+        for ff in &form.field.form_fields {
+            let by = match &ff.rank_of {
+                Some(by) => by,
+                None => continue,
+            };
+            let score = match spec_at(&form.path, by)
+                .and_then(|spec| number_of(&products, &form.path, &spec))
+            {
+                Some(s) => s,
+                None => continue,
+            };
+            let had_text = read(&form.path, &ff.name).unwrap_or_default();
+            let had = if is_int_text(&had_text) {
+                had_text.trim_start_matches('+').parse::<i64>().ok()
+            } else {
+                None
+            };
+            let entry = RankEntry {
+                path: form.path.clone(),
+                name: ff.name.clone(),
+                score,
+                had,
+            };
+            let key = format!("{}#{}#{}", form.cls.name, form.field.name, ff.name);
+            match groups.iter_mut().find(|(k, _)| *k == key) {
+                Some((_, group)) => group.push(entry),
+                None => groups.push((key, vec![entry])),
+            }
+        }
+    }
+    for (_, mut group) in groups {
+        // Highest score first; equal scores keep the order their ranks give
+        // (the rule leaves it open), then path order.
+        let had_key = |e: &RankEntry| e.had.unwrap_or(1 << 30);
+        group.sort_by(|a, b| {
+            b.score
+                .partial_cmp(&a.score)
+                .unwrap_or(std::cmp::Ordering::Equal)
+                .then_with(|| had_key(a).cmp(&had_key(b)))
+                .then_with(|| a.path.cmp(&b.path))
+        });
+        for (i, e) in group.into_iter().enumerate() {
+            out.push(SpecDerivedNumber {
+                path: e.path,
+                field: e.name,
+                value: (i + 1).to_string(),
+            });
+        }
+    }
+    out
 }

@@ -29,13 +29,16 @@ pub mod spec_document_yaml;
 pub mod spec_editor;
 pub mod spec_generation_units;
 pub mod spec_impact_walk;
+pub mod spec_links_validator;
 pub mod spec_meta;
 pub mod spec_meta_bridge;
 pub mod spec_meta_diff;
 pub mod spec_model;
+pub mod spec_model_links;
 pub mod spec_node_creation;
 pub mod spec_notation;
 pub mod spec_paths;
+pub mod spec_place;
 pub mod spec_query;
 pub mod spec_reflection;
 pub mod spec_review_annotations;
@@ -178,7 +181,28 @@ pub use spec_reflection::{
     SPEC_NODE_KIND_LIST_ITEM_COMPLEX, SPEC_NODE_KIND_LIST_ITEM_SCALAR, SPEC_NODE_KIND_ROOT,
     SPEC_NODE_KIND_SCALAR, SPEC_NODE_KIND_SECTION,
 };
+pub use spec_links_validator::{
+    spec_expand_pattern, spec_link_field_of, spec_link_ids, spec_resolve_link_place,
+    spec_resolve_place_at, validate_links, SpecLinkFix, SpecLinkValidator, SpecSubtreeValue,
+    SPEC_LINK_FIX_ADD_ROW, SPEC_LINK_FIX_APPEND, SPEC_LINK_FIX_COPY, SPEC_LINK_FIX_LIST,
+    SPEC_LINK_FIX_REMOVE_ROW, SPEC_LINK_FIX_SET,
+};
+pub use spec_model_links::{
+    annotations_named, spec_string_pair_value, SpecDerivation, SpecExtractsLinks, SpecInverseOf,
+    SpecListRelation, SpecSameAs, SpecStringPair, SpecSummaryOf, SpecSync,
+};
+pub use spec_place::{
+    spec_same_as_bindings, spec_section_positions, SpecPlace, SpecPlaceError, SpecPlaceFilter,
+    SpecPlaceResolution, SpecSameAsBinding, SpecSectionPosition, SPEC_PLACE_KIND_CONTENT,
+    SPEC_PLACE_KIND_FORM, SPEC_PLACE_KIND_FORM_FIELD, SPEC_PLACE_KIND_HEADLINE,
+    SPEC_PLACE_KIND_LIST, SPEC_PLACE_KIND_SECTION, SPEC_PLACE_KIND_SECTION_ID,
+    SPEC_PLACE_PROBLEM_AMBIGUOUS, SPEC_PLACE_PROBLEM_ANCHOR_UNRESOLVED,
+    SPEC_PLACE_PROBLEM_MALFORMED, SPEC_PLACE_PROBLEM_NOT_LIST_ELEMENT,
+    SPEC_PLACE_PROBLEM_NOT_SCOPED, SPEC_PLACE_PROBLEM_NO_CONTENT, SPEC_PLACE_PROBLEM_NO_SUCH_FIELD,
+    SPEC_PLACE_PROBLEM_RESERVED_SLOT, SPEC_PLACE_PROBLEM_UNRESOLVED,
+};
 pub use spec_review_annotations::{
+    K_SPEC_HEADLINE_FIELD,
     annotation_issues_text, apply_inline_marks_text, count_annotations_text, decide_all_marks_text, format_comment_block,
     format_conflict_block,
     format_question_block, is_review_member_id, is_review_time, mark_change_text,
@@ -204,11 +228,19 @@ pub use spec_section_id::{
 pub use spec_serialization_order::{SpecSerializationOrder, SERIALIZATION_UNORDERED_FALLBACK};
 pub use spec_text_pattern::{SomPatternError, SomTextPattern, SpecMatchSpan};
 pub use spec_typed_values::{
+    som_is_typed_field, som_typed_reading,
     som_format_bool, som_format_double, som_format_enum_name, som_format_int, som_format_num,
     som_parse_bool, som_parse_double, som_parse_enum_name, som_parse_int, som_parse_num,
     som_scalar_base, som_typed_text_readable, SomNum,
 };
 pub use spec_validator::{
+    spec_derived_numbers, spec_validation_code_index, SpecDerivedNumber,
+    SPEC_VALIDATION_CODE_DERIVED_LOOKUP_MISS, SPEC_VALIDATION_CODE_DETAIL_NOT_IN_SUMMARY,
+    SPEC_VALIDATION_CODE_DUPLICATE_LINK_ROW, SPEC_VALIDATION_CODE_EXTRACTED_LINK_MISSING,
+    SPEC_VALIDATION_CODE_EXTRACTED_LINK_STALE, SPEC_VALIDATION_CODE_INVERSE_MISSING,
+    SPEC_VALIDATION_CODE_LINK_VALUE_PENDING, SPEC_VALIDATION_CODE_SAME_AS_MISMATCH,
+    SPEC_VALIDATION_CODE_SUMMARY_DUPLICATE, SPEC_VALIDATION_CODE_SUMMARY_NOT_IN_DETAIL,
+    SPEC_VALIDATION_CODE_UNMARKABLE,
     validate_document, SpecValidationError, SPEC_VALIDATION_CODE_ANNOTATION_MALFORMED,
     SPEC_VALIDATION_CODE_ANNOTATION_MISPLACED, SPEC_VALIDATION_CODE_COUNT_MISMATCH,
     SPEC_VALIDATION_ALL_CODES, SPEC_VALIDATION_CODE_DANGLING_PATH,

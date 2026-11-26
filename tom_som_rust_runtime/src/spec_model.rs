@@ -9,6 +9,9 @@
 use std::collections::HashMap;
 
 use crate::json::Json;
+use crate::spec_model_links::{
+    form_field_qualifiers, SpecDerivation, SpecInverseOf, SpecSummaryOf,
+};
 
 /// Field render kind: an expandable list of element instances.
 pub const SPEC_FIELD_KIND_LIST: &str = "list";
@@ -254,6 +257,15 @@ pub struct FormFieldSpec {
     /// (`Field.multiParagraph`): the markdown renderer writes them as a
     /// `Field:` paragraph, never as a row of the form table (SOM §11.4).
     pub multi_paragraph: bool,
+    /// The derivation this field's value follows (`Field.derivedFrom`,
+    /// `tom_specs_model_rules.md` §9.7), or `None` when it states none.
+    pub derived_from: Option<SpecDerivation>,
+    /// The other ends of the link this reference field is one end of
+    /// (`Field.inverseOf`), or `None` when it states none.
+    pub inverse_of: Option<SpecInverseOf>,
+    /// The detailed list this multi-valued reference field summarises
+    /// (`Field.summaryOf`), or `None` when it states none.
+    pub summary_of: Option<SpecSummaryOf>,
 }
 
 /// A single field of a [`SpecClass`].
@@ -858,6 +870,7 @@ fn field_from_json(f: &Json) -> SpecField {
                 .get("rankOf")
                 .and_then(|v| v.as_str())
                 .map(|s| s.to_string());
+            let (derived_from, inverse_of, summary_of) = form_field_qualifiers(ff);
             form_fields.push(FormFieldSpec {
                 name: fname,
                 label,
@@ -872,6 +885,9 @@ fn field_from_json(f: &Json) -> SpecField {
                 rank_of: ff_rank_of,
                 code: ff.bool_or("code"),
                 multi_paragraph: ff.bool_or("multiParagraph"),
+                derived_from,
+                inverse_of,
+                summary_of,
             });
         }
     }

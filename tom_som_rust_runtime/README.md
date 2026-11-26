@@ -68,12 +68,15 @@ path routes, version pinning, and `cargo package` from source.
 | ---- | -------------- |
 | `spec_paths.rs` | The section-path grammar (root / child / list-item segments). |
 | `spec_model.rs` | The meta-data loader — the exported class graph (`SpecModel`, `SpecRoot`, `SpecClass`, `SpecField`, …). |
+| `spec_model_links.rs` | The typed link readers (`tom_specs_model_rules.md` §9.7): `SpecSync` (`SpecListRelation`), `SpecSummaryOf`, `SpecDerivation`, `SpecInverseOf`, `SpecExtractsLinks`, `SpecSameAs`, read through `synced_with`, `summary_of`, `derived_from`, `extracts_links`, `same_as` on classes and fields and the form-field qualifiers `derived_from` / `inverse_of` / `summary_of`; a string → string argument keeps the meta's order. |
+| `spec_place.rs` | The place and filter grammar of the link vocabulary: `SpecPlace` and `SpecPlaceFilter` (`|` alternatives) resolved under an anchor without reading a value (`SpecPlaceResolution`, `SpecPlaceError` with its `SPEC_PLACE_PROBLEM_*`), `spec_same_as_bindings`, `spec_section_positions`. |
+| `spec_links_validator.rs` | `validate_links` — the link checks of one document: derived values against their sources, summaries against their detail lists, each end of a link against the other, ids named in a text against the link rows, `@SameAs` copies against their holders, pending changes read with every mark rejected; `SpecLinkValidator` collects beside each finding the fix `deriveFields` writes (`SpecLinkFix`). |
 | `spec_reflection.rs` | Value-free enumeration + path resolution (`SpecReflection`, `SpecResolution`, node-kind constants). |
 | `spec_document.rs` | A sparse in-memory document — values keyed by section path. `SpecDocument::move_list_item` moves a list item to another position of its list, or into another list of the same element class: the affected lists are renumbered, every value under each item travels with it, and an anonymous item whose position changed keeps its old id (`SpecListItemMove`; refusals are `SpecListMoveError`). `rekey_review` (`spec_document_yaml.rs`) re-keys a `review:` pass with the move's `renamed` pairs. |
 | `spec_document_assembly.rs` | Assembling one document from fragments written in parallel (`SpecDocument::assemble`, `assemble_spec_documents`): a refusing merge of the plain-data stores — a content path, form field, list, headline or code-spec location two fragments both write is a `SpecAssemblyOverlap`, and an assembly with any overlap has no document. |
 | `spec_typed_values.rs` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
 | `spec_editor.rs` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |
-| `spec_validator.rs` | Validates a document's values against the model. |
+| `spec_validator.rs` | Validates a document's values against the model; a typed value or reference holding inline marks is read as its old value (SOM §11.9.3), a `countOf` target as a `SpecPlaceFilter`. `spec_derived_numbers` gives the value every `countOf`, `productOf` and `rankOf` field calls for. |
 | `spec_text_pattern.rs` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (std ships no regex, and the `regex` crate would be both a dependency this crate does not take and a different grammar). |
 | `spec_query.rs` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
 | `spec_node_creation.rs` | The constrained node-creation gate (`check_add_node`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
@@ -190,6 +193,13 @@ validation, the imperative operations script, and the **Phase-4 CodeSpecs tier**
 the "copied, never composed" guard and the `ROUTE-TOTAL` error cases), and the
 reading back of extracts and the gate record (`codespecs_record_cases.json`).
 
+The section-automation tables of this port so far run in
+`tests/conformance_links/mod.rs`: the link readers and the place / filter
+grammar (`link_reader_cases.json`), `validate_links`
+(`link_validation_cases.json`) and the typed inline marks (`typedCases`) —
+over the fixture model `corpus/links.meta.json` and, for the cases naming it,
+the real model of `tom_som_dart_v0/meta/`.
+
 ## Architecture
 
 ```
@@ -218,6 +228,8 @@ reading back of extracts and the gate record (`codespecs_record_cases.json`).
 | `SpecEditor` | Typed edits over any path, driven by the meta-model rather than by generated structs. |
 | `SpecNodeCreator` | The creation gate — a document may only grow in ways the model permits. |
 | `validate_document` | The instance tier: a filled document's values checked against the model. |
+| `validate_links` | The link checks of one document (`tom_specs_model_rules.md` §9.7), with the fixes `deriveFields` writes collected by `SpecLinkValidator`. |
+| `SpecPlace` / `SpecPlaceFilter` | The place and filter grammar of the link annotations, resolved under an anchor without reading a value. |
 | `spec_document_yaml` | Byte-stable `*.tomspecs.yaml` encode/decode. |
 | `spec_document_markdown` | DocSpecs-conform Markdown export (the reading view's tables), parse (the tables and the older `Field:` lines, rejected blocks kept for review) and round-trip. |
 | `strip_notation_text` | The strip of one value (SOM §11.10): secondary prose dropped, unmarked or moved to an appendix, with the pieces that went. |

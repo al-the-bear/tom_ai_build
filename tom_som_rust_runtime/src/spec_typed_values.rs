@@ -31,7 +31,10 @@
 //!     parsing accepts exactly those, anything else reads as `None`;
 //!   * enums — stored as the constant **name** (e.g. `high`); the generic layer
 //!     validates against the field's `enum_values` domain, the generated facade
-//!     converts name ⇄ native constant.
+//!     converts name ⇄ native constant;
+//!   * a typed value holding inline marks (SOM §11.9.3, a change under
+//!     review: `{~~ 30 ~> 15 ~~}`) reads as its **old** value, every mark
+//!     rejected, until the marks are decided ([`som_typed_reading`]).
 //!
 //! Writes are strict and reads are forgiving, so the one fallible helper
 //! ([`som_format_enum_name`]) returns `Result<_, String>` — the crate's error
@@ -50,15 +53,45 @@ pub enum SomNum {
     Double(f64),
 }
 
+/// The reading of a typed value under review: `raw` with every inline mark
+/// rejected (its old value), trimmed; `raw` itself when it holds no mark.
+///
+/// A typed value marked as a change (SOM §11.9.3) is the old value until the
+/// change is accepted: the parsers below, the validator and every typed read
+/// see that value, never the markup.
+pub fn som_typed_reading(raw: &str) -> String {
+    if !raw.contains('{') {
+        return raw.to_string();
+    }
+    let old = crate::spec_review_annotations::apply_inline_marks_text(raw, false);
+    if old == raw {
+        return raw.to_string();
+    }
+    old.trim().to_string()
+}
+
+/// [`som_typed_reading`] over an optional stored value.
+fn typed_reading_opt(raw: Option<&str>) -> Option<String> {
+    raw.map(som_typed_reading)
+}
+
+/// Whether a form field holds a typed value: an enum (`enum_values` not
+/// empty), or `int`, `double`, `num` or `bool` — the values that read as their
+/// old value while marked.
+pub fn som_is_typed_field(type_name: &str, enum_values: &[String]) -> bool {
+    !enum_values.is_empty()
+        || matches!(som_scalar_base(Some(type_name)), Some("int" | "double" | "num" | "bool"))
+}
+
 /// Whether `text` is an optional sign followed by one or more decimal digits.
-fn is_int_text(text: &str) -> bool {
+pub(crate) fn is_int_text(text: &str) -> bool {
     let digits = text.strip_prefix(['+', '-']).unwrap_or(text);
     !digits.is_empty() && digits.bytes().all(|b| b.is_ascii_digit())
 }
 
 /// Whether `text` is a decimal literal with an optional exponent:
 /// `[+-]?(digits(.digits?)?|.digits)([eE][+-]?digits)?`.
-fn is_float_text(text: &str) -> bool {
+pub(crate) fn is_float_text(text: &str) -> bool {
     let b = text.as_bytes();
     let mut i = 0;
     if i < b.len() && (b[i] == b'+' || b[i] == b'-') {
@@ -100,9 +133,10 @@ fn is_float_text(text: &str) -> bool {
 /// Parses a stored string as `int`, or `None` when absent or when the text,
 /// with surrounding whitespace trimmed, is not an optional sign and digits.
 pub fn som_parse_int(raw: Option<&str>) -> Option<i64> {
-    match raw {
+    let raw = typed_reading_opt(raw);
+    match raw.as_deref() {
         None => None,
-        Some(s) if s.is_empty() => None,
+        Some("") => None,
         Some(s) => {
             let text = s.trim();
             if is_int_text(text) {
@@ -126,9 +160,10 @@ pub fn som_format_int(value: Option<i64>) -> String {
 /// with surrounding whitespace trimmed, is not a decimal or exponent literal
 /// (NaN, Infinity, hexadecimal and digit separators are refused).
 pub fn som_parse_double(raw: Option<&str>) -> Option<f64> {
-    match raw {
+    let raw = typed_reading_opt(raw);
+    match raw.as_deref() {
         None => None,
-        Some(s) if s.is_empty() => None,
+        Some("") => None,
         Some(s) => {
             let text = s.trim();
             if is_float_text(text) {
@@ -168,9 +203,10 @@ pub fn som_format_double(value: Option<f64>) -> String {
 /// Mirrors Dart's `num.tryParse`: an integral literal yields an `int`, so `num`
 /// fields keep the narrower type when the text carries no fraction.
 pub fn som_parse_num(raw: Option<&str>) -> Option<SomNum> {
-    let s = match raw {
+    let raw = typed_reading_opt(raw);
+    let s = match raw.as_deref() {
         None => return None,
-        Some(s) if s.is_empty() => return None,
+        Some("") => return None,
         Some(s) => s,
     };
     if let Some(n) = som_parse_int(Some(s)) {
@@ -190,7 +226,8 @@ pub fn som_format_num(value: Option<SomNum>) -> String {
 
 /// Parses a stored string as `bool` — exactly `true`/`false`, else `None`.
 pub fn som_parse_bool(raw: Option<&str>) -> Option<bool> {
-    match raw {
+    let raw = typed_reading_opt(raw);
+    match raw.as_deref() {
         Some("true") => Some(true),
         Some("false") => Some(false),
         _ => None,
@@ -213,8 +250,9 @@ pub fn som_format_bool(value: Option<bool>) -> String {
 /// as unset rather than erroring, the same forgiveness the other parsers extend
 /// to malformed numbers.
 pub fn som_parse_enum_name(raw: Option<&str>, values: &[String]) -> Option<String> {
-    match raw {
-        Some(s) if values.iter().any(|v| v == s) => Some(s.to_string()),
+    let raw = typed_reading_opt(raw);
+    match raw.as_deref() {
+        Some(s) if !s.is_empty() && values.iter().any(|v| v == s) => Some(s.to_string()),
         _ => None,
     }
 }
@@ -314,7 +352,8 @@ pub fn som_scalar_base(type_name: Option<&str>) -> Option<&str> {
 /// setters refuse to store one, and the typed reads return `Err` for one — so
 /// text a typed field cannot read is never silently read as unset.
 pub fn som_typed_text_readable(type_name: Option<&str>, raw: Option<&str>) -> bool {
-    let raw = match raw {
+    let raw = typed_reading_opt(raw);
+    let raw = match raw.as_deref() {
         None | Some("") => return true,
         Some(r) => r,
     };

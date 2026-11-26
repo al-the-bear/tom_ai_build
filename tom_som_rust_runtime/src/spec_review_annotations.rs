@@ -3216,10 +3216,20 @@ fn replace_text_run(value: &str, b: &Block, text: &str) -> String {
 // Document level.
 // ---------------------------------------------------------------------------
 
-/// Every value as (path, field, text), in document order.
+/// The reserved field name under which a headline is a value of the review
+/// operations ([`SpecReviewAnnotations::set_marked`], the mark listing, the
+/// decisions): a headline takes inline marks (SOM §11.9.3), named as the place
+/// grammar names it (`<SECTIONID>.@headline`).
+pub const K_SPEC_HEADLINE_FIELD: &str = "@headline";
+
+/// Every value as (path, field, text), in document order: content, form
+/// fields, then the headlines that hold an inline mark, under the reserved
+/// field [`K_SPEC_HEADLINE_FIELD`] (SOM §11.9.3). A headline without a mark is
+/// no value here, so a document's revision is what it was before headlines
+/// could be marked.
 fn values_of(doc: &SpecDocument) -> Vec<(String, Option<String>, String)> {
     let mut out = Vec::new();
-    // Both lists come back sorted (byte order) from the document's maps.
+    // The lists come back sorted (byte order) from the document's maps.
     for path in doc.content_paths() {
         let text = doc.content(&path).cloned().unwrap_or_default();
         out.push((path, None, text));
@@ -3230,7 +3240,24 @@ fn values_of(doc: &SpecDocument) -> Vec<(String, Option<String>, String)> {
             out.push((path.clone(), Some(f), text));
         }
     }
+    for path in doc.headline_paths() {
+        let text = doc.headline_or(&path);
+        if text.contains('{') && !parse(&text).marks.is_empty() {
+            out.push((path, Some(K_SPEC_HEADLINE_FIELD.to_string()), text));
+        }
+    }
     out
+}
+
+/// Refuses a comment or question block in a headline: a headline is one
+/// line, it takes inline marks, never a block.
+fn refuse_block_in(field: Option<&str>) -> Result<(), SpecReviewAnnotationError> {
+    if field == Some(K_SPEC_HEADLINE_FIELD) {
+        return Err(SpecReviewAnnotationError::new(
+            "a headline takes inline marks only, not a comment or question block".to_string(),
+        ));
+    }
+    Ok(())
 }
 
 fn list_of(doc: &SpecDocument, qualifier: Option<&str>) -> Vec<SpecReviewAnnotation> {
@@ -3372,6 +3399,7 @@ impl<'a> SpecReviewAnnotations<'a> {
     fn get(&self, path: &str, field: Option<&str>) -> String {
         match field {
             None => self.doc.content(path),
+            Some(K_SPEC_HEADLINE_FIELD) => self.doc.headline(path),
             Some(f) => self.doc.form_field(path, f),
         }
         .cloned()
@@ -3381,6 +3409,7 @@ impl<'a> SpecReviewAnnotations<'a> {
     fn set(&mut self, path: &str, field: Option<&str>, value: &str) {
         match field {
             None => self.doc.set_content(path, value),
+            Some(K_SPEC_HEADLINE_FIELD) => self.doc.set_headline(path, value),
             Some(f) => self.doc.set_form_field(path, f, value),
         }
     }
@@ -3485,6 +3514,7 @@ impl<'a> SpecReviewAnnotations<'a> {
             Some(i) => i.to_string(),
             None => self.next_comment_id(0),
         };
+        refuse_block_in(field)?;
         let value = self.get(path, field);
         let end = paragraph_last_line(&value, after_paragraph)?;
         let block = format_comment_block(&cid, text, author, Some(&time));
@@ -3539,6 +3569,7 @@ impl<'a> SpecReviewAnnotations<'a> {
         at: Option<&str>,
     ) -> Result<(), SpecReviewAnnotationError> {
         let time = self.change_time(at)?;
+        refuse_block_in(field)?;
         let value = self.get(path, field);
         let end = paragraph_last_line(&value, after_paragraph)?;
         let block = format_question_block(question, Some(&time));

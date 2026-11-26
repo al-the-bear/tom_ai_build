@@ -56,7 +56,9 @@ anything that computes the path rather than knowing it.
 | `SpecDocument` | The sparse, path-keyed store of content, form and list values |
 | `SpecModel` | The exported class graph — roots, classes, fields, annotations |
 | `SpecReflection` | Resolves and enumerates paths against the model **without reading values** |
-| `SpecValidator` / `validateDocument` | The instance tier: a filled document's values checked against the model |
+| `SpecValidator` / `validateDocument` | The instance tier: a filled document's values checked against the model; a typed value or reference holding inline marks is read as its old value (SOM §11.9.3) |
+| `validate_links` | The link checks of one document (`tom_specs_model_rules.md` §9.7): derived values against their sources, summaries against their detail lists, each end of a link against the other, ids named in a text against the link rows, `@SameAs` copies against their holders |
+| `SpecPlace`, `SpecPlaceFilter` | The place and filter grammar the link annotations are written in, resolved under an anchor without reading a value; the typed link readers (`synced_with`, `summary_of`, `derived_from`, `extracts_links`, `same_as`, the form-field `derived_from` / `inverse_of` / `summary_of`) are on the model's classes, fields and form fields |
 | the YAML and Markdown codecs | `*.tomspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages; the emitter writes the reading view's form, record and section tables and reference lines with an anchor in every heading (SOM §11.2, §11.4, §11.5), and the parser reads them as well as the older `Field:` lines; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7) |
 | `DocSpecsValidator` | The DocSpecs schema check of a rendition, in the `Field:` layout and in the reading view's tables, list bodies and styled-div headings, skipping a stripped rendition's readable header and appendix |
 | `scan_notation` | The reading notation of one text value: its divs, spans and citations and the notation's findings, which the DocSpecs validator reports as rules |
@@ -122,6 +124,29 @@ println!("kind={}  value_leaf={}", res.kind, res.is_value_leaf());
 This is the surface that makes generic editing safe rather than blind: before
 writing to a path you can ask whether the model has one, what kind of node it
 is, and whether it is a value leaf.
+
+The links between places (`tom_specs_model_rules.md` §9.7) are model data too:
+the readers return them typed, and a place resolves to where its value is
+stored — list items below the anchor written `<list>-*` — again without a
+document. `validate_links` then holds a document to them.
+
+```rust
+if let Some(sync) = model
+    .class_named("AcceptanceCriteriaList")
+    .and_then(|c| c.synced_with())
+{
+    println!("{}", sync.document); // the root it is kept in sync with
+}
+
+let place = som::SpecPlace::parse("FRED.description").expect("a place");
+let r = place.resolve(&reflection, "SBP").expect("resolves");
+println!("{} {} {}", r.kind, r.path, r.field());
+// formField SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST-*/FRED description
+
+for e in som::validate_links(&model, &doc) {
+    println!("{} {} {}", e.code, e.path, e.message);
+}
+```
 
 ## When to prefer the generic path
 

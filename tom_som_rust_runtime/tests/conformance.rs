@@ -46,7 +46,13 @@
 //!     `valueCases` and `documentCases`);
 //!   - the SOM §14 DocSpecs tier (one case per violation rule), and its
 //!     findings bound to document paths through the renderer's heading map
-//!     (docspecs_path_cases.json).
+//!     (docspecs_path_cases.json);
+//!   - the section-link readers and the place / filter grammar
+//!     (link_reader_cases.json), the link checks of one document
+//!     (link_validation_cases.json) and the typed values and headlines under
+//!     review (the typedCases of inline_mark_cases.json /
+//!     change_mark_cases.json), `tom_specs_model_rules.md` §9.7
+//!     (`conformance_links/mod.rs`).
 //!
 //! `cargo test` is the native runner; exit 0 == all green.
 
@@ -109,6 +115,8 @@ use tom_som_rust_runtime::{
     SpecStripUsageError, SpecDocumentStrip, SpecDocumentStripOptions, SpecReadableHeader,
     SpecReadableSource, merge_stripped_value, SpecStripMerge, SpecStripMergeOptions,
 };
+
+mod conformance_links;
 
 const MODEL_VERSION: &str = "1.0";
 
@@ -250,6 +258,8 @@ fn conformance() {
     test_generation_units(&mut c, &model);
     test_impact_walk(&mut c);
     test_typed_values(&mut c);
+    conformance_links::test_link_readers(&mut c);
+    conformance_links::test_link_validation(&mut c);
 
     c.finish();
 }
@@ -3916,6 +3926,12 @@ fn test_inline_marks(c: &mut Checker, model: &SpecModel, tree: &SomMetaTree) {
             );
         }
     }
+    // Typed values and headlines under review (SOM §11.9.3).
+    let typed = cases(&table, "typedCases");
+    c.check("typedInlineMark.cases", !typed.is_empty(), "no typedCases");
+    for cc in typed {
+        check_annotation_case(c, model, tree, cc, "typedInlineMark");
+    }
     let scripted = cases(&table, "cases");
     c.check("inlineMarks.cases", !scripted.is_empty(), "no cases");
     for cc in scripted {
@@ -3959,6 +3975,12 @@ fn test_change_marks(c: &mut Checker, model: &SpecModel, tree: &SomMetaTree) {
                 &format!("got {:?} want {:?}", got, want),
             );
         }
+    }
+    // Typed values and headlines written as marks (SOM §11.9.3).
+    let typed = cases(&table, "typedCases");
+    c.check("typedChangeMark.cases", !typed.is_empty(), "no typedCases");
+    for cc in typed {
+        check_annotation_case(c, model, tree, cc, "typedChangeMark");
     }
     let scripted = cases(&table, "cases");
     c.check("changeMarks.cases", !scripted.is_empty(), "no cases");
@@ -4065,6 +4087,8 @@ fn check_annotation_case_with(
                 DocumentJson::from_json(g).to_canonical_json()
                     == DocumentJson::from_json(want).to_canonical_json()
             }
+            // A typed reading compares numbers by value (`2` == `2.0`).
+            ("typedRead", Ok(g)) => conformance_links::json_num_eq(g, want),
             (_, Ok(g)) => json_eq(g, want),
             (_, Err(_)) => json_eq(&obj(vec![("error", Json::Bool(true))]), want),
         };
@@ -4240,6 +4264,11 @@ fn run_annotation_case(
                     s("at"),
                 )
                 .map(|m| m.to_json()),
+            // The instance tier's findings as `{path, code}`: a marked typed
+            // value is read as its old value (SOM §11.9.3).
+            "validate" => Ok(conformance_links::validation_pairs(&validate_document(model, api.doc()))),
+            // The typed reading of one value, as the typed accessors read it.
+            "typedRead" => Ok(conformance_links::typed_read(model, api.doc(), op)),
             "strip" => Json::parse(&api.stripped().to_json().to_canonical_json())
                 .map_err(|e| panic!("strip state does not parse: {}", e)),
             "roundTrip" => {

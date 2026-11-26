@@ -2,6 +2,50 @@
 
 ## Unreleased
 
+- **Section automation, first part** (`tom_specs_model_rules.md` §9.7),
+  ported from the Go and Java runtimes (the Dart reference behind them).
+  - The typed link readers (the new module `spec_model_links`): `SpecSync`
+    with `SpecListRelation`, `SpecSummaryOf`, `SpecDerivation`,
+    `SpecInverseOf`, `SpecExtractsLinks`, `SpecSameAs`; `synced_with`,
+    `summary_of`, `derived_from`, `extracts_links`, `same_as` and
+    `annotations_named` on `SpecClass` and `SpecField`; the form-field
+    qualifiers `FormFieldSpec::derived_from` / `inverse_of` / `summary_of`;
+    `SpecClass::is_code_specs_projection`. A string → string argument
+    (`repeats`, `map`, `set`) keeps the meta's order (`Vec<SpecStringPair>`,
+    `spec_string_pair_value`).
+  - The place and filter grammar (the new module `spec_place`): `SpecPlace`,
+    `SpecPlaceResolution`, `SpecPlaceFilter` with `|` alternatives,
+    `SPEC_PLACE_KIND_*`, `SPEC_PLACE_PROBLEM_*`, `SpecPlaceError`,
+    `spec_same_as_bindings` (`SpecSameAsBinding`), `spec_section_positions`
+    (`SpecSectionPosition`). `countOf` reads its targets as filters, `|`
+    included; a target that is no filter makes the count undecidable.
+  - `validate_links` (the new module `spec_links_validator`): derived copies,
+    rows, lookups and lists, inverses named back, ids named in a text with
+    their rows, summaries against their details, `@SameAs` copies against
+    their holders, pending changes read with every mark rejected; eleven new
+    `SPEC_VALIDATION_CODE_*` constants (`unmarkable` included, for
+    `deriveFields`) and `spec_validation_code_index`; `SpecLinkValidator` with
+    the fixes `deriveFields` will read (`SpecLinkFix`, the write order of a
+    row's values and a list's tuples recorded in `value_keys` /
+    `tuple_keys`) and its value readers; `spec_expand_pattern`,
+    `spec_resolve_place_at`, `spec_resolve_link_place`, `spec_link_ids`,
+    `spec_link_field_of`. `spec_derived_numbers` (`SpecDerivedNumber`) gives
+    the values `countOf`, `productOf` and `rankOf` call for. Findings,
+    messages, fixes and derived numbers agree with the Go runtime on every
+    link-validation case, in both readings.
+  - Typed values and references holding inline marks read as their old value
+    until decided (`som_typed_reading`, `som_is_typed_field`; the parsers,
+    the instance tier and the `@OneOf` discriminator, SOM §11.9.3). A
+    headline takes inline marks under the reserved field
+    `K_SPEC_HEADLINE_FIELD`, never a comment or question block.
+  - The conformance suite replays `link_reader_cases.json`,
+    `link_validation_cases.json` and the `typedCases` of
+    `inline_mark_cases.json` / `change_mark_cases.json`
+    (`tests/conformance_links/mod.rs`; 5643 -> 5924 checks);
+    `tests/spec_place.rs` and `tests/spec_links_validator.rs` are new. The
+    document set, `deriveFields`, `backfill`, `prefill` and the rendition's
+    navigation follow.
+
 - **The merge back of a stripped rendition** (SOM §11.10, the new module
   `spec_document_merge`): `merge_stripped_value(original, stripped, edited,
   &pieces)` puts the pieces one value's strip removed back into its edited
