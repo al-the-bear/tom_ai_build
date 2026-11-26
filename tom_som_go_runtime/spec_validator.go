@@ -92,6 +92,42 @@ const (
 	// A generation-unit emitter names no standard emitter
 	// (SpecStandardEmitters: `openapi`, `jsonschema`, `icu`, `asyncapi`, `markdown`).
 	SpecValidationCodeUnitEmitterUnknown = "unitEmitterUnknown"
+
+	// The link checks of one document (ValidateLinks,
+	// `tom_specs_model_rules.md` §9.7). A stored derived value its sources do
+	// not give is reported as derivedValueMismatch above.
+
+	// A `@DerivedFrom.lookup` finds no row for its key, or more than one.
+	SpecValidationCodeDerivedLookupMiss = "derivedLookupMiss"
+	// Two link rows beneath one element name the same id with the same type
+	// (the values `@ExtractsLinks` sets); reported at the second.
+	SpecValidationCodeDuplicateLinkRow = "duplicateLinkRow"
+	// A link names an entry whose other end (`inverseOf`) does not name it
+	// back, or a symmetric row has no counterpart on the entry it names. An
+	// end whose registry the document does not hold is skipped.
+	SpecValidationCodeInverseMissing = "inverseMissing"
+	// An id named in an `@ExtractsLinks` text has no row. An id that has a row
+	// of any type is a reference to it and is not reported.
+	SpecValidationCodeExtractedLinkMissing = "extractedLinkMissing"
+	// A generated row (its `@ExtractsLinks` `set` values match) names an id the
+	// text no longer names.
+	SpecValidationCodeExtractedLinkStale = "extractedLinkStale"
+	// A summary row (`@SummaryOf`) names no element of its detail list.
+	SpecValidationCodeSummaryNotInDetail = "summaryNotInDetail"
+	// Under `relation: equal`, a detail element no summary row names.
+	SpecValidationCodeDetailNotInSummary = "detailNotInSummary"
+	// Two summary rows name one detail element; reported at the second.
+	SpecValidationCodeSummaryDuplicate = "summaryDuplicate"
+	// A `@SameAs` copy holds a value its holder does not (or lacks one it
+	// holds): the two positions of the section were edited apart.
+	SpecValidationCodeSameAsMismatch = "sameAsMismatch"
+	// A value a link check reads holds pending change marks. It is read with
+	// every mark rejected (the reviewed state) and listed for the user.
+	SpecValidationCodeLinkValuePending = "linkValuePending"
+	// A change `deriveFields` would write in a document under review that
+	// cannot be marked exactly (a difference inside fenced code, SOM §11.9.3);
+	// it is left as it was, for the agent.
+	SpecValidationCodeUnmarkable = "unmarkable"
 )
 
 // SpecValidationAllCodes is the complete SpecValidationCode vocabulary, in
@@ -121,6 +157,29 @@ var SpecValidationAllCodes = []string{
 	SpecValidationCodeUnitBuildsNothing,
 	SpecValidationCodeUnitAreaMalformed,
 	SpecValidationCodeUnitEmitterUnknown,
+	SpecValidationCodeDerivedLookupMiss,
+	SpecValidationCodeDuplicateLinkRow,
+	SpecValidationCodeInverseMissing,
+	SpecValidationCodeExtractedLinkMissing,
+	SpecValidationCodeExtractedLinkStale,
+	SpecValidationCodeSummaryNotInDetail,
+	SpecValidationCodeDetailNotInSummary,
+	SpecValidationCodeSummaryDuplicate,
+	SpecValidationCodeSameAsMismatch,
+	SpecValidationCodeLinkValuePending,
+	SpecValidationCodeUnmarkable,
+}
+
+// SpecValidationCodeIndex returns the declaration order of code (Dart's
+// `SpecValidationCode.index`), which sorted finding lists follow; -1 for a
+// code that is not one.
+func SpecValidationCodeIndex(code string) int {
+	for i, c := range SpecValidationAllCodes {
+		if c == code {
+			return i
+		}
+	}
+	return -1
 }
 
 // SpecValidationError is one problem found while validating a document.
@@ -223,7 +282,7 @@ func ValidateDocument(model *SpecModel, doc *SpecDocument) []SpecValidationError
 				continue
 			}
 			if len(spec.EnumValues) == 0 {
-				text := doc.FormFieldOr(path, name)
+				text := typedValue(doc.FormFieldOr(path, name), spec)
 				// A stated count (CountOf) is checked by countMismatch, a derived
 				// value (ProductOf, RankOf) by derivedValueMismatch; both already
 				// report text that is no number, and one finding is enough.
@@ -238,7 +297,7 @@ func ValidateDocument(model *SpecModel, doc *SpecDocument) []SpecValidationError
 				}
 				continue
 			}
-			value := doc.FormFieldOr(path, name)
+			value := typedValue(doc.FormFieldOr(path, name), spec)
 			// Absence is not a bad value.
 			if value == "" {
 				continue
@@ -272,7 +331,7 @@ func ValidateDocument(model *SpecModel, doc *SpecDocument) []SpecValidationError
 			if !ff.Required {
 				continue
 			}
-			if strings.TrimSpace(doc.FormFieldOr(path, ff.Name)) == "" {
+			if strings.TrimSpace(typedValue(doc.FormFieldOr(path, ff.Name), ff)) == "" {
 				errors = append(errors, SpecValidationError{
 					Path:    path,
 					Code:    SpecValidationCodeMissingRequiredField,
@@ -423,7 +482,8 @@ func validateOneOfInstances(refl *SpecReflection, doc *SpecDocument) []SpecValid
 		if formHolder == nil {
 			continue // static tier flagged the mismatch
 		}
-		chosen := doc.FormFieldOr(path+"/"+refl.FieldSegment(formHolder), discriminator)
+		// The discriminator is an enum: under review it reads as its old value.
+		chosen := SomTypedReading(doc.FormFieldOr(path+"/"+refl.FieldSegment(formHolder), discriminator))
 		if chosen == "" {
 			continue // no case chosen yet
 		}
@@ -538,7 +598,7 @@ func validateReferenceInstances(refl *SpecReflection, doc *SpecDocument) []SpecV
 			continue
 		}
 		for _, ff := range form.field.FormFields {
-			value := strings.TrimSpace(doc.FormFieldOr(form.path, ff.Name))
+			value := strings.TrimSpace(typedValue(doc.FormFieldOr(form.path, ff.Name), ff))
 			if value == "" {
 				continue
 			}
@@ -581,7 +641,7 @@ func validateReferenceInstances(refl *SpecReflection, doc *SpecDocument) []SpecV
 			if len(ff.RefersTo) == 0 {
 				continue
 			}
-			value := strings.TrimSpace(doc.FormFieldOr(form.path, ff.Name))
+			value := strings.TrimSpace(typedValue(doc.FormFieldOr(form.path, ff.Name), ff))
 			if value == "" {
 				continue
 			}
@@ -660,10 +720,11 @@ func validateReferenceInstances(refl *SpecReflection, doc *SpecDocument) []SpecV
 // An *entry* is a list item whose element class carries @SectionId(X). A target
 // `X` counts every such entry; `X.f=v` counts only the entries one of whose own
 // forms — a form member of the entry, at `<item>/<member>` — holds `v` in form
-// field `f`. The count is the sum over the targets. As with the reference check,
-// a target whose section id the document's root cannot reach makes the field
-// undecidable here, so it is skipped rather than reported, and an empty value is
-// completeness, not a count.
+// field `f`, and `X.f=a|b` those holding either alternative. A target is read as
+// a SpecPlaceFilter. The count is the sum over the targets. As with the
+// reference check, a target whose section id the document's root cannot reach —
+// or that is no filter at all — makes the field undecidable here, so it is
+// skipped rather than reported, and an empty value is completeness, not a count.
 func validateCountInstances(refl *SpecReflection, doc *SpecDocument) []SpecValidationError {
 	forms := resolvedForms(refl, doc)
 	anyCount := false
@@ -704,7 +765,7 @@ func validateCountInstances(refl *SpecReflection, doc *SpecDocument) []SpecValid
 			continue
 		}
 		for _, ff := range res.Field.FormFields {
-			v := strings.TrimSpace(doc.FormFieldOr(path, ff.Name))
+			v := strings.TrimSpace(typedValue(doc.FormFieldOr(path, ff.Name), ff))
 			if v == "" {
 				continue
 			}
@@ -719,37 +780,18 @@ func validateCountInstances(refl *SpecReflection, doc *SpecDocument) []SpecValid
 	}
 
 	// A target written `./…` counts only the entries beneath owner, the section
-	// holding the form; any other target counts the whole document.
-	countTarget := func(target, owner string) int {
-		scoped := strings.HasPrefix(target, "./")
-		if scoped {
-			target = target[2:]
-		}
-		inScope := func(item string) bool {
-			return !scoped || strings.HasPrefix(item, owner+"/")
-		}
-		dot := strings.Index(target, ".")
-		if dot < 0 {
-			n := 0
-			for _, item := range entriesByID[target] {
-				if inScope(item) {
-					n++
-				}
-			}
-			return n
-		}
-		id := target[:dot]
-		field := target[dot+1:]
-		value := ""
-		if eq := strings.Index(target[dot:], "="); eq >= 0 {
-			field = target[dot+1 : dot+eq]
-			value = target[dot+eq+1:]
-		}
+	// holding the form; any other target counts the whole document. `X.f=a|b`
+	// counts the entries whose `f` holds one of the alternatives.
+	countTarget := func(target *SpecPlaceFilter, owner string) int {
 		n := 0
-		for _, item := range entriesByID[id] {
-			if inScope(item) && valuesByItem[item][field][value] {
-				n++
+		for _, item := range entriesByID[target.SectionID] {
+			if target.Scoped && !strings.HasPrefix(item, owner+"/") {
+				continue
 			}
+			if target.Field != "" && !target.matchesSet(valuesByItem[item][target.Field]) {
+				continue
+			}
+			n++
 		}
 		return n
 	}
@@ -760,23 +802,19 @@ func validateCountInstances(refl *SpecReflection, doc *SpecDocument) []SpecValid
 			if len(ff.CountOf) == 0 {
 				continue
 			}
-			stated := strings.TrimSpace(doc.FormFieldOr(form.path, ff.Name))
+			stated := strings.TrimSpace(typedValue(doc.FormFieldOr(form.path, ff.Name), ff))
 			if stated == "" {
 				continue
 			}
-			allInScope := true
-			for _, target := range ff.CountOf {
-				if !scope[registrySectionID(countTargetID(target))] {
-					allInScope = false
-					break
-				}
-			}
-			if !allInScope {
+			// A target that is no filter, or whose entries the root cannot
+			// reach, makes the count undecidable here: skipped, never reported.
+			filters, ok := countFilters(ff.CountOf, scope)
+			if !ok {
 				continue
 			}
 			owner := form.path[:strings.LastIndex(form.path, "/")]
 			counted := 0
-			for _, target := range ff.CountOf {
+			for _, target := range filters {
 				counted += countTarget(target, owner)
 			}
 			targets := strings.Join(ff.CountOf, " + ")
@@ -818,14 +856,30 @@ func isWholeNumber(s string) bool {
 	return true
 }
 
-// countTargetID returns the section id of a `countOf` target — the part before
-// any `.field=value`, without the `./` scope prefix.
-func countTargetID(target string) string {
-	target = strings.TrimPrefix(target, "./")
-	if dot := strings.Index(target, "."); dot >= 0 {
-		return target[:dot]
+// countFilters reads every `countOf` target as a SpecPlaceFilter; ok=false
+// when one is no filter or names entries the document's root cannot reach
+// (scope), which makes the count undecidable.
+func countFilters(countOf []string, scope map[string]bool) ([]*SpecPlaceFilter, bool) {
+	filters := make([]*SpecPlaceFilter, 0, len(countOf))
+	for _, t := range countOf {
+		f := TryParseSpecPlaceFilter(t)
+		if f == nil || !scope[registrySectionID(f.SectionID)] {
+			return nil, false
+		}
+		filters = append(filters, f)
 	}
-	return target
+	return filters, true
+}
+
+// typedValue is a form field's value as the instance tier reads it: a typed
+// value (an enum, `int`, `double`, `num`, `bool`) or a reference (`refersTo`)
+// holding inline marks reads as its old value (SOM §11.9.3); any other value
+// as stored.
+func typedValue(raw string, spec *FormFieldSpec) string {
+	if SomIsTypedField(spec.Type, spec.EnumValues) || len(spec.RefersTo) > 0 {
+		return SomTypedReading(raw)
+	}
+	return raw
 }
 
 // validateDerivedValues is the instance-tier derived-value check (uamtc10): a
@@ -864,7 +918,7 @@ func validateDerivedValues(refl *SpecReflection, doc *SpecDocument) []SpecValida
 	// The number a filled form field contributes, or ok=false when it is empty
 	// or unreadable.
 	numberOf := func(formPath string, spec *FormFieldSpec) (float64, bool) {
-		v := strings.TrimSpace(doc.FormFieldOr(formPath, spec.Name))
+		v := strings.TrimSpace(typedValue(doc.FormFieldOr(formPath, spec.Name), spec))
 		if v == "" {
 			return 0, false
 		}
@@ -913,7 +967,7 @@ func validateDerivedValues(refl *SpecReflection, doc *SpecDocument) []SpecValida
 		for i := range form.field.FormFields {
 			ff := form.field.FormFields[i]
 			if len(ff.ProductOf) > 0 {
-				stated := strings.TrimSpace(doc.FormFieldOr(form.path, ff.Name))
+				stated := strings.TrimSpace(typedValue(doc.FormFieldOr(form.path, ff.Name), ff))
 				if stated != "" {
 					product := 1.0
 					decidable := true
@@ -962,7 +1016,7 @@ func validateDerivedValues(refl *SpecReflection, doc *SpecDocument) []SpecValida
 				}
 			}
 			if ff.RankOf != "" {
-				stated := strings.TrimSpace(doc.FormFieldOr(form.path, ff.Name))
+				stated := strings.TrimSpace(typedValue(doc.FormFieldOr(form.path, ff.Name), ff))
 				scoreSpec := specAt(form.path, ff.RankOf)
 				if stated != "" && scoreSpec != nil {
 					if score, ok := numberOf(form.path, scoreSpec); ok {
@@ -1323,4 +1377,243 @@ func registryScope(refl *SpecReflection, doc *SpecDocument) map[string]bool {
 		}
 	}
 	return ids
+}
+
+// SpecDerivedNumber is one derived number SpecDerivedNumbers computes: the
+// value the form field Field of the form at Path should hold.
+type SpecDerivedNumber struct {
+	Path  string
+	Field string
+	Value string
+}
+
+// SpecDerivedNumbers returns the value every derived number of doc should
+// hold, by the rules the instance tier checks (`countOf`, `productOf`,
+// `rankOf`): one entry per form field whose value is decidable, whether it is
+// filled or not. With readProposed, values holding pending marks are read with
+// the marks accepted (the proposal `deriveFields` writes in a document under
+// review), else with them rejected. `deriveFields` writes these (step 3).
+func SpecDerivedNumbers(model *SpecModel, doc *SpecDocument, readProposed bool) []SpecDerivedNumber {
+	refl := NewSpecReflection(model)
+	forms := resolvedForms(refl, doc)
+
+	// read is the trimmed value, ok=false when the form holds no such field.
+	read := func(path string, ff *FormFieldSpec) (string, bool) {
+		raw, ok := doc.FormField(path, ff.Name)
+		if !ok {
+			return "", false
+		}
+		if !strings.Contains(raw, "{") {
+			return strings.TrimSpace(raw), true
+		}
+		return strings.TrimSpace(ApplyInlineMarksText(raw, readProposed)), true
+	}
+
+	out := []SpecDerivedNumber{}
+
+	// countOf.
+	scope := registryScope(refl, doc)
+	entriesByID := map[string][]string{}
+	for _, listPath := range sortedCopy(doc.ListPaths()) {
+		for _, item := range doc.ListItems(listPath) {
+			r := refl.Resolve(item)
+			if r == nil || r.TargetClass == nil || r.TargetClass.SectionID == "" {
+				continue
+			}
+			id := r.TargetClass.SectionID
+			entriesByID[id] = append(entriesByID[id], item)
+		}
+	}
+	valuesByItem := map[string]map[string]map[string]bool{}
+	for _, path := range doc.FormPaths() {
+		slash := strings.LastIndex(path, "/")
+		if slash <= 0 {
+			continue
+		}
+		res := refl.Resolve(path)
+		if res == nil || res.Field == nil {
+			continue
+		}
+		for _, ff := range res.Field.FormFields {
+			v, _ := read(path, ff)
+			if v == "" {
+				continue
+			}
+			owner := path[:slash]
+			if valuesByItem[owner] == nil {
+				valuesByItem[owner] = map[string]map[string]bool{}
+			}
+			if valuesByItem[owner][ff.Name] == nil {
+				valuesByItem[owner][ff.Name] = map[string]bool{}
+			}
+			valuesByItem[owner][ff.Name][v] = true
+		}
+	}
+	for _, form := range forms {
+		owner := form.path[:strings.LastIndex(form.path, "/")]
+		for _, ff := range form.field.FormFields {
+			if len(ff.CountOf) == 0 {
+				continue
+			}
+			targets, ok := countFilters(ff.CountOf, scope)
+			if !ok {
+				continue
+			}
+			counted := 0
+			for _, t := range targets {
+				for _, item := range entriesByID[t.SectionID] {
+					if t.Scoped && !strings.HasPrefix(item, owner+"/") {
+						continue
+					}
+					if t.Field != "" && !t.matchesSet(valuesByItem[item][t.Field]) {
+						continue
+					}
+					counted++
+				}
+			}
+			out = append(out, SpecDerivedNumber{Path: form.path, Field: ff.Name, Value: strconv.Itoa(counted)})
+		}
+	}
+
+	// productOf, then rankOf over the products just derived.
+	products := map[string]float64{}
+	specAt := func(path, name string) *FormFieldSpec {
+		res := refl.Resolve(path)
+		if res == nil || res.Kind != SpecNodeKindForm || res.Field == nil {
+			return nil
+		}
+		for _, ff := range res.Field.FormFields {
+			if ff.Name == name {
+				return ff
+			}
+		}
+		return nil
+	}
+	numberOf := func(path string, spec *FormFieldSpec) (float64, bool) {
+		if derived, ok := products[path+"#"+spec.Name]; ok {
+			return derived, true
+		}
+		v, _ := read(path, spec)
+		if v == "" {
+			return 0, false
+		}
+		if len(spec.EnumValues) > 0 {
+			for i, e := range spec.EnumValues {
+				if e == v {
+					return float64(i + 1), true
+				}
+			}
+			return 0, false
+		}
+		if !isDecimalNumber(v) {
+			return 0, false
+		}
+		f, err := strconv.ParseFloat(v, 64)
+		return f, err == nil
+	}
+
+	for _, form := range forms {
+		owner := form.path[:strings.LastIndex(form.path, "/")]
+		for _, ff := range form.field.FormFields {
+			if len(ff.ProductOf) == 0 {
+				continue
+			}
+			product := 1.0
+			decidable := true
+			for _, operand := range ff.ProductOf {
+				path, name := form.path, operand
+				if dot := strings.Index(operand, "."); dot >= 0 {
+					path = owner + "/" + operand[:dot]
+					name = operand[dot+1:]
+				}
+				spec := specAt(path, name)
+				if spec == nil {
+					decidable = false
+					break
+				}
+				n, ok := numberOf(path, spec)
+				if !ok {
+					decidable = false
+					break
+				}
+				product *= n
+			}
+			if !decidable {
+				continue
+			}
+			products[form.path+"#"+ff.Name] = product
+			// Written as the field's type writes it (`3.0` in a double).
+			var text string
+			switch base := SomScalarBase(ff.Type); {
+			case base == "double":
+				text = SomFormatDouble(product)
+			case base == "int" && product == math.Round(product):
+				text = strconv.FormatInt(int64(math.Round(product)), 10)
+			default:
+				text = formatNumber(product)
+			}
+			out = append(out, SpecDerivedNumber{Path: form.path, Field: ff.Name, Value: text})
+		}
+	}
+
+	type rankEntry struct {
+		path, name string
+		score      float64
+		had        int
+		hasHad     bool
+	}
+	groups := map[string][]rankEntry{}
+	var groupOrder []string
+	for _, form := range forms {
+		for _, ff := range form.field.FormFields {
+			if ff.RankOf == "" {
+				continue
+			}
+			scoreSpec := specAt(form.path, ff.RankOf)
+			if scoreSpec == nil {
+				continue
+			}
+			score, ok := numberOf(form.path, scoreSpec)
+			if !ok {
+				continue
+			}
+			hadText, _ := read(form.path, ff)
+			e := rankEntry{path: form.path, name: ff.Name, score: score}
+			if intText.MatchString(hadText) {
+				if n, err := strconv.Atoi(strings.TrimPrefix(hadText, "+")); err == nil {
+					e.had, e.hasHad = n, true
+				}
+			}
+			key := form.cls.Name + "#" + form.field.Name + "#" + ff.Name
+			if _, seen := groups[key]; !seen {
+				groupOrder = append(groupOrder, key)
+			}
+			groups[key] = append(groups[key], e)
+		}
+	}
+	for _, key := range groupOrder {
+		group := append([]rankEntry{}, groups[key]...)
+		// Highest score first; equal scores keep the order their ranks give
+		// (the rule leaves it open), then path order.
+		hadKey := func(e rankEntry) int {
+			if e.hasHad {
+				return e.had
+			}
+			return 1 << 30
+		}
+		sort.SliceStable(group, func(i, j int) bool {
+			a, b := group[i], group[j]
+			if a.score != b.score {
+				return a.score > b.score
+			}
+			if hadKey(a) != hadKey(b) {
+				return hadKey(a) < hadKey(b)
+			}
+			return a.path < b.path
+		})
+		for i, e := range group {
+			out = append(out, SpecDerivedNumber{Path: e.path, Field: e.name, Value: strconv.Itoa(i + 1)})
+		}
+	}
+	return out
 }

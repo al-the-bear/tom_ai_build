@@ -2666,6 +2666,17 @@ type annValue struct {
 	path, field, text string // field "" for content
 }
 
+// KSpecHeadlineField is the reserved field name under which a headline is a
+// value of the review operations (SetMarked, the mark listing, the
+// decisions): a headline takes inline marks (SOM §11.9.3), named as the place
+// grammar names it (`<SECTIONID>.@headline`).
+const KSpecHeadlineField = "@headline"
+
+// values returns every value as (path, field, text), in document order:
+// content, form fields, then the headlines that hold an inline mark, under
+// the reserved field KSpecHeadlineField (SOM §11.9.3). A headline without a
+// mark is no value here, so a document's revision is what it was before
+// headlines could be marked.
 func (r *SpecReviewAnnotations) values() []annValue {
 	var out []annValue
 	for _, path := range sortedCopy(r.Doc.ContentPaths()) {
@@ -2676,22 +2687,45 @@ func (r *SpecReviewAnnotations) values() []annValue {
 			out = append(out, annValue{path, f, r.Doc.FormFieldOr(path, f)})
 		}
 	}
+	for _, path := range sortedCopy(r.Doc.HeadlinePaths()) {
+		text := r.Doc.HeadlineOr(path)
+		if strings.Contains(text, "{") && len(annParse(text).marks) > 0 {
+			out = append(out, annValue{path, KSpecHeadlineField, text})
+		}
+	}
 	return out
 }
 
 func (r *SpecReviewAnnotations) get(path, field string) string {
-	if field == "" {
+	switch field {
+	case KSpecHeadlineField:
+		return r.Doc.HeadlineOr(path)
+	case "":
 		return r.Doc.ContentOr(path)
 	}
 	return r.Doc.FormFieldOr(path, field)
 }
 
 func (r *SpecReviewAnnotations) set(path, field, value string) {
-	if field == "" {
+	switch field {
+	case KSpecHeadlineField:
+		r.Doc.SetHeadline(path, value)
+	case "":
 		r.Doc.SetContent(path, value)
-	} else {
+	default:
 		r.Doc.SetFormField(path, field, value)
 	}
+}
+
+// annRefuseBlockIn refuses a comment or question block in a headline: a
+// headline is one line, it takes inline marks, never a block.
+func annRefuseBlockIn(field string) error {
+	if field == KSpecHeadlineField {
+		return &SpecReviewAnnotationError{
+			Message: "a headline takes inline marks only, not a comment or question block",
+		}
+	}
+	return nil
 }
 
 // List returns every annotation, in document order.
@@ -2809,6 +2843,9 @@ func (r *SpecReviewAnnotations) InsertComment(path, field string, afterParagraph
 	if cid == "" {
 		cid = r.NextCommentID(0)
 	}
+	if err := annRefuseBlockIn(field); err != nil {
+		return "", err
+	}
 	value := r.get(path, field)
 	end, err := r.paragraphLastLine(value, afterParagraph)
 	if err != nil {
@@ -2867,6 +2904,9 @@ func (r *SpecReviewAnnotations) Paragraphs(path, field string) ([]SpecParagraph,
 func (r *SpecReviewAnnotations) InsertQuestion(path, field string, afterParagraph int, question SpecQuestionDraft, at string) error {
 	when, err := r.changeTime(at)
 	if err != nil {
+		return err
+	}
+	if err := annRefuseBlockIn(field); err != nil {
 		return err
 	}
 	value := r.get(path, field)

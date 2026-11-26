@@ -31,7 +31,13 @@
 //   - assembling one document from fragments (AssembleSpecDocuments);
 //   - review annotations (SpecReviewAnnotations, SOM §11.9);
 //   - stripped renditions and the merge back of an edited one (SOM §11.10:
-//     strip_cases.json, strip_merge_cases.json).
+//     strip_cases.json, strip_merge_cases.json);
+//   - the section-link readers and the place / filter grammar
+//     (link_reader_cases.json), the link checks of one document
+//     (link_validation_cases.json) and the typed values and headlines under
+//     review (the typedCases of inline_mark_cases.json /
+//     change_mark_cases.json), `tom_specs_model_rules.md` §9.7
+//     (conformance_links_test.go).
 //
 // `go test ./tests/` is the native runner; exit 0 == all green.
 package tests
@@ -249,6 +255,8 @@ func TestConformance(t *testing.T) {
 	testGenerationUnits(c, t, model)
 	testTypedValues(c, t)
 	testImpactWalk(c, t)
+	testLinkReaders(c, t)
+	testLinkValidation(c, t)
 
 	c.finish()
 }
@@ -3377,6 +3385,13 @@ func runAnnotationCase(t *testing.T, model *som.SpecModel, tree *som.SomMetaTree
 			if err == nil {
 				result = marked.ToJSON()
 			}
+		case "validate":
+			// The instance tier's findings as `{path, code}`: a marked typed
+			// value is read as its old value (SOM §11.9.3).
+			result = validationPairs(som.ValidateDocument(model, doc))
+		case "typedRead":
+			// The typed reading of one value, as the typed accessors read it.
+			result = typedRead(model, doc, op)
 		case "roundTrip":
 			current := canonJSON(t, doc.ToJSON())
 			yamlOK := false
@@ -3600,7 +3615,8 @@ func testInlineMarks(c *checker, t *testing.T, model *som.SpecModel, tree *som.S
 			Reject  string `json:"reject"`
 			Removed string `json:"removed"`
 		} `json:"changeCommentTextCases"`
-		Cases []annotationCase `json:"cases"`
+		Cases      []annotationCase `json:"cases"`
+		TypedCases []annotationCase `json:"typedCases"`
 	}
 	readJSON(t, "inline_mark_cases.json", &table)
 	c.check("inlineMarks.textCases", len(table.TextCases) > 0, "no textCases in inline_mark_cases.json")
@@ -3626,6 +3642,8 @@ func testInlineMarks(c *checker, t *testing.T, model *som.SpecModel, tree *som.S
 		c.check("inlineMarks.changeComments["+tc.Name+"].removed", removed == tc.Removed,
 			"got "+strconv.Quote(removed)+" want "+strconv.Quote(tc.Removed))
 	}
+	// Typed values and headlines under review (SOM §11.9.3).
+	runTypedMarkCases(c, t, "typedInlineMark", model, tree, table.TypedCases)
 	for _, cc := range table.Cases {
 		got := runAnnotationCase(t, model, tree, cc, false)
 		want := toGenericJSON(t, cc.Expect)
@@ -3721,7 +3739,8 @@ func testChangeMarks(c *checker, t *testing.T, model *som.SpecModel, tree *som.S
 			Accept string `json:"accept"`
 			Reject string `json:"reject"`
 		} `json:"textCases"`
-		Cases []annotationCase `json:"cases"`
+		Cases      []annotationCase `json:"cases"`
+		TypedCases []annotationCase `json:"typedCases"`
 	}
 	readJSON(t, "change_mark_cases.json", &table)
 	c.check("changeMarks.textCases", len(table.TextCases) > 0, "no textCases in change_mark_cases.json")
@@ -3739,6 +3758,8 @@ func testChangeMarks(c *checker, t *testing.T, model *som.SpecModel, tree *som.S
 		c.check("changeMarks.text["+tc.Name+"].reject", rej == tc.Reject,
 			"got "+strconv.Quote(rej)+" want "+strconv.Quote(tc.Reject))
 	}
+	// Typed values and headlines written as marks (SOM §11.9.3).
+	runTypedMarkCases(c, t, "typedChangeMark", model, tree, table.TypedCases)
 	for _, cc := range table.Cases {
 		got := runAnnotationCase(t, model, tree, cc, false)
 		want := toGenericJSON(t, cc.Expect)

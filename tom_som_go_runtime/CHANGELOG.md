@@ -2,6 +2,48 @@
 
 ## Unreleased
 
+- **Section automation, first part** (`tom_specs_model_rules.md` §9.7),
+  ported from the Python and JavaScript runtimes (the TypeScript port and the
+  Dart reference behind them).
+  - The typed link readers (`spec_model_links.go`): `SpecSync` with
+    `SpecListRelation`, `SpecSummaryOf`, `SpecDerivation`, `SpecInverseOf`,
+    `SpecExtractsLinks`, `SpecSameAs`; `SyncedWith`, `SummaryOf`,
+    `DerivedFrom`, `ExtractsLinks`, `SameAs` and `AnnotationsNamed` on
+    `SpecClass` and `SpecField`; the form-field qualifiers
+    `FormFieldSpec.DerivedFrom` / `InverseOf` / `SummaryOf`;
+    `SpecClass.IsCodeSpecsProjection`. A string → string argument
+    (`repeats`, `map`, `set`) keeps the meta's order (`[]SpecStringPair`):
+    `SpecAnnotation` keeps the raw text of its arguments.
+  - The place and filter grammar (`spec_place.go`): `SpecPlace`,
+    `SpecPlaceResolution`, `SpecPlaceFilter` with `|` alternatives,
+    `SpecPlaceKind*`, `SpecPlaceProblem*`, `*SpecPlaceError`,
+    `SpecSameAsBindings`, `SpecSectionPositions`. `countOf` reads its targets
+    as filters, `|` included; a target that is no filter makes the count
+    undecidable.
+  - `ValidateLinks` (`spec_links_validator.go`): derived copies, rows,
+    lookups and lists, inverses named back, ids named in a text with their
+    rows, summaries against their details, `@SameAs` copies against their
+    holders, pending changes read with every mark rejected; eleven new
+    `SpecValidationCode`s (`unmarkable` included, for `deriveFields`) and
+    `SpecValidationCodeIndex`; `SpecLinkValidator` with the fixes
+    `deriveFields` will read (`SpecLinkFix`) and its value readers;
+    `SpecExpandPattern`, `SpecResolvePlaceAt`, `SpecResolveLinkPlace`.
+    `SpecDerivedNumbers` gives the values `countOf`, `productOf` and `rankOf`
+    call for. Fixes, messages and derived numbers agree with the JavaScript
+    and Python runtimes on every link-validation case.
+  - Typed values and references holding inline marks read as their old value
+    until decided (`SomTypedReading`, `SomIsTypedField`; the parsers, the
+    instance tier and the `@OneOf` discriminator, SOM §11.9.3). A headline
+    takes inline marks under the reserved field `KSpecHeadlineField`, never a
+    comment or question block.
+  - The conformance suite replays `link_reader_cases.json`,
+    `link_validation_cases.json` and the `typedCases` of
+    `inline_mark_cases.json` / `change_mark_cases.json`
+    (`tests/conformance_links_test.go`; 2075 -> 2302 checks);
+    `tests/spec_place_test.go` and `tests/spec_links_validator_test.go` are
+    new. The document set, `deriveFields`, `backfill`, `prefill` and the
+    rendition's navigation follow.
+
 - **The merge back of an edited stripped rendition** (SOM §11.10, RV9),
   ported from the JavaScript and Rust runtimes; `spec_document_merge.go` is
   new. Go now has the whole reading view.

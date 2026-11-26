@@ -34,7 +34,10 @@ package somruntime
 //     accepts exactly those, anything else reads as unset;
 //   - enums — stored as the constant **name** (e.g. `high`); the generic layer
 //     validates against the field's EnumValues domain, the generated facade
-//     converts name ⇄ native constant.
+//     converts name ⇄ native constant;
+//   - a typed value holding inline marks (SOM §11.9.3, a change under review:
+//     `{~~ 30 ~> 15 ~~}`) reads as its **old** value, every mark rejected,
+//     until the marks are decided (SomTypedReading).
 //
 // # Go's stand-in for the other ports' null
 //
@@ -51,6 +54,38 @@ import (
 	"strings"
 )
 
+// SomTypedReading is the reading of a typed value under review: raw with every
+// inline mark rejected (its old value), trimmed; raw itself when it holds no
+// mark.
+//
+// A typed value marked as a change (SOM §11.9.3) is the old value until the
+// change is accepted: the parsers below, the validator and every typed read
+// see that value, never the markup.
+func SomTypedReading(raw string) string {
+	if !strings.Contains(raw, "{") {
+		return raw
+	}
+	old := ApplyInlineMarksText(raw, false)
+	if old == raw {
+		return raw
+	}
+	return strings.TrimSpace(old)
+}
+
+// SomIsTypedField reports whether a form field holds a typed value: an enum,
+// or `int`, `double`, `num` or `bool` — the values that read as their old
+// value while marked.
+func SomIsTypedField(typeName string, enumValues []string) bool {
+	if len(enumValues) > 0 {
+		return true
+	}
+	switch scalarBase(typeName) {
+	case "int", "double", "num", "bool":
+		return true
+	}
+	return false
+}
+
 // intText is a decimal integer literal with an optional sign.
 var intText = regexp.MustCompile(`^[+-]?[0-9]+$`)
 
@@ -63,6 +98,7 @@ var floatText = regexp.MustCompile(`^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE
 // absent (empty) or, with surrounding whitespace trimmed, not an optional sign
 // and decimal digits.
 func SomParseInt(raw string) (int, bool) {
+	raw = SomTypedReading(raw)
 	if raw == "" {
 		return 0, false
 	}
@@ -85,6 +121,7 @@ func SomFormatInt(value int) string { return itoa(value) }
 // or exponent literal. A plain integer parses fine — `2` reads as 2.0; NaN,
 // Infinity, hexadecimal and digit separators are refused.
 func SomParseDouble(raw string) (float64, bool) {
+	raw = SomTypedReading(raw)
 	if raw == "" {
 		return 0, false
 	}
@@ -153,6 +190,7 @@ func SomFormatNum(value float64) string {
 // SomParseBool parses a stored string as a bool — exactly `true` / `false`,
 // with ok=false for anything else.
 func SomParseBool(raw string) (bool, bool) {
+	raw = SomTypedReading(raw)
 	if raw == "true" {
 		return true, true
 	}
@@ -175,6 +213,7 @@ func SomFormatBool(value bool) string {
 // not in the domain — a stale/foreign name reads as unset rather than erroring,
 // the same forgiveness the other parsers extend to malformed numbers.
 func SomParseEnumName(raw string, values []string) (string, bool) {
+	raw = SomTypedReading(raw)
 	if raw == "" {
 		return "", false
 	}
@@ -236,6 +275,7 @@ func SomScalarBase(typeName string) string { return scalarBase(typeName) }
 // refuse to store one, and the typed reads return an error for one — so text
 // a typed field cannot read is never silently read as unset.
 func SomTypedTextReadable(typeName, raw string) bool {
+	raw = SomTypedReading(raw)
 	if raw == "" {
 		return true
 	}

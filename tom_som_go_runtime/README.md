@@ -70,12 +70,15 @@ tag / path-`replace` routes and how to pin.
 | ---- | -------------- |
 | `spec_paths.go` | The section-path grammar (root / child / list-item segments). |
 | `spec_model.go` | The meta-data loader — the exported class graph (`SpecModel`, `SpecRoot`, `SpecClass`, `SpecField`, …). |
+| `spec_model_links.go` | The typed readers of the link annotations (`tom_specs_model_rules.md` §9.7): `SpecSync`, `SpecSummaryOf`, `SpecDerivation`, `SpecInverseOf`, `SpecExtractsLinks`, `SpecSameAs` on classes and fields, and the form-field qualifiers `DerivedFrom`, `InverseOf`, `SummaryOf`. |
+| `spec_place.go` | The place and filter grammar of the links between places (`tom_specs_model_rules.md` §9.7): `SpecPlace` (parsed, resolved under an anchor to the path its value is stored at, list items written `<list>-*`), `SpecPlaceFilter` (`<SECTIONID>.<field>=<value>`, `\|` alternatives, read by `countOf` too), the `@SameAs` bindings (`SpecSameAsBindings`) and the section positions of a root. |
+| `spec_links_validator.go` | `ValidateLinks` — the link checks of one document: derived copies, rows, lookups and lists in step, inverses named back, ids named in a text with their rows, summaries against their details, `@SameAs` copies against their holders; a value holding pending marks is read with them rejected and listed (`linkValuePending`). |
 | `spec_reflection.go` | Value-free enumeration + path resolution (`SpecReflection`, `SpecResolution`, `SpecNodeKind*`). |
 | `spec_document.go` | A sparse in-memory document — values keyed by section path. |
 | `spec_document_assembly.go` | Assembles one document from fragments written in parallel (`AssembleSpecDocuments`, `SpecDocumentAssemble`) — a refusing merge: a place two fragments both write is reported as a `SpecAssemblyOverlap` and yields no document. |
-| `spec_typed_values.go` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
+| `spec_typed_values.go` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided; a typed value holding inline marks reads as its old value (`SomTypedReading`, SOM §11.9.3). |
 | `spec_editor.go` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |
-| `spec_validator.go` | Validates a document's values against the model. |
+| `spec_validator.go` | Validates a document's values against the model (typed values and references under review read as their old value); `SpecDerivedNumbers` gives the values `countOf`, `productOf` and `rankOf` call for. |
 | `spec_text_pattern.go` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (Go's RE2-based `regexp` is leftmost-longest and would not). |
 | `spec_query.go` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
 | `spec_node_creation.go` | The constrained node-creation gate (`CheckAddNode`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
@@ -89,7 +92,7 @@ tag / path-`replace` routes and how to pin.
 | `spec_document_strip.go` | Stripped renditions (SOM §11.10). The strip of one value: `StripNotationText(value, options)` drops, unmarks or moves to the appendix the secondary prose of the named kinds (`provenance`, `trace`, `editorial`, `aside`, `linked`, `derived`, `comments`) and returns a `SpecStripTextResult` — the text, the counts per kind, `MarksDropped`, the appendix entries (`SpecAppendixEntry`) and the pieces it removed (`SpecStripPiece`, UTF-16 offsets); a value with a notation error is refused unchanged. `SpecStripOptionsFromNames` reads the kind names a user gives (`all`, comma-joined lists) and refuses a misuse with `SpecStripUsageError`. The strip of a document: `SpecDocumentStrip{}.Strip` strips every value into a copy with the emptying rule and writes its readable rendition, the readable header (`SpecReadableHeader`, `SpecReadableSource`) and the appendix *Notes* included (`SpecStripResult`). |
 | `spec_document_merge.go` | The merge back of an edited stripped rendition (SOM §11.10). One value: `MergeStrippedValue(original, stripped, edited, pieces)` puts every piece the strip removed back between its unchanged neighbours, places it after an edited run (`SpecStripMergePlaced`) or reports a conflict (`SpecStripMergeConflict`: `crossesBoundary`, `sentenceRemoved`, `stripTextEdited`, `unplaceable`, `notation`, `annotations`) in a `SpecStripValueMerge`. A document: `SpecStripMerge{}.Merge(original, edited, options)` reads the switches from the readable header (or `SpecStripMergeOptions.Options`), merges three ways from a base when the original is stale (`CurrentRevision`, `Base`, `LoadBase`; `GitShowFile` reads a commit's file), refuses structural edits (`SpecStripMergeRefusal`), takes a wrapped paragraph read back on one line as no edit (SOM §11.4 rule 13) and checks the merged document strips back and adds no finding (`SpecStripMergeResult`: `OK`, `ExitCode`, `Report`). |
 | `som_facade.go` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList[T]`) for the generated `tom_som_go_v0`. |
-| `spec_review_annotations.go` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks (`SpecReviewAnnotations`: insert, answer, decide, comment on a change, assign comment ids, strip, validate), conflict blocks, change times and attribution. |
+| `spec_review_annotations.go` | Review annotations (SOM §11.9): comments, questions and their answers (team and individual), inline marks, in headlines too under `KSpecHeadlineField` (`SpecReviewAnnotations`: insert, answer, decide, comment on a change, assign comment ids, strip, validate), conflict blocks, change times and attribution. |
 | `spec_review_merge.go` | Team review (SOM §11.9.8): `MergeReviews` / `MergeMarkdownReviews` merge the returned copies of a round into one document with votes, individual answers and conflict blocks. |
 | `spec_answers.go` | A review round's answers (SOM §11.9.7): `ExtractAnswers` collects the answered questions and comments with their section-id chain and line, `RenderAnswers` writes `answers.md`. |
 | `spec_meta.go` | The metadata tree types (`SomMetaTree`, `SomMetaNode`, …) the YAML codec and the facade navigate by. |
@@ -184,6 +187,13 @@ go test ./tests/ -run Conformance -count=1 -v   # → "OK: N checks passed"
 ./run_conformance.sh                            # the same, via the wrapper
 ./run_tests.sh                                  # conformance + the per-module suites
 ```
+
+The section-automation tables of this port so far run in
+`tests/conformance_links_test.go`: the link readers and the place / filter
+grammar (`link_reader_cases.json`), `ValidateLinks`
+(`link_validation_cases.json`) and the typed inline marks (`typedCases`) —
+over the fixture model `corpus/links.meta.json` and, for the cases naming it,
+the real model of `tom_som_dart_v0/meta/`.
 
 The runner reproduces every golden byte-for-byte and exercises the same cases as
 the Dart/Python/Java/JavaScript/TypeScript runners: model meta-data load,

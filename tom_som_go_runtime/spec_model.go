@@ -53,6 +53,10 @@ func ParseFieldKind(raw string) string {
 type SpecAnnotation struct {
 	Name      string                 `json:"name"`
 	Arguments map[string]interface{} `json:"arguments"`
+	// rawArguments is the JSON text Arguments was decoded from (nil for an
+	// annotation built in code): the link readers take the key order of a
+	// string → string argument from it (spec_model_links.go).
+	rawArguments json.RawMessage
 }
 
 // Argument returns the resolved value of a named annotation argument.
@@ -227,6 +231,16 @@ type FormFieldSpec struct {
 	// `Field:` paragraph, never as a row of the form table (SOM §11.4).
 	// Omitted from the export when false.
 	MultiParagraph bool `json:"multiParagraph"`
+	// DerivedFrom is the derivation this field's value follows
+	// (`Field.derivedFrom`, `tom_specs_model_rules.md` §9.7), or nil when it
+	// states none.
+	DerivedFrom *SpecDerivation `json:"-"`
+	// InverseOf names the other ends of the link this reference field is one
+	// end of (`Field.inverseOf`), or nil when it states none.
+	InverseOf *SpecInverseOf `json:"-"`
+	// SummaryOf is the detailed list this multi-valued reference field
+	// summarises (`Field.summaryOf`), or nil when it states none.
+	SummaryOf *SpecSummaryOf `json:"-"`
 }
 
 // SpecField is a single field of a SpecClass.
