@@ -59,6 +59,9 @@ anything that computes the path rather than knowing it.
 | `SpecValidator` / `validateDocument` | The instance tier: a filled document's values checked against the model; a typed value or reference holding inline marks is read as its old value (SOM §11.9.3) |
 | `validate_links` | The link checks of one document (`tom_specs_model_rules.md` §9.7): derived values against their sources, summaries against their detail lists, each end of a link against the other, ids named in a text against the link rows, `@SameAs` copies against their holders |
 | `SpecPlace`, `SpecPlaceFilter` | The place and filter grammar the link annotations are written in, resolved under an anchor without reading a value; the typed link readers (`synced_with`, `summary_of`, `derived_from`, `extracts_links`, `same_as`, the form-field `derived_from` / `inverse_of` / `summary_of`) are on the model's classes, fields and form fields |
+| `derive_fields` | The derived places of one document written (§9.7), plain or as inline marks under review; `dry_run` answers the changes on a copy |
+| `SpecDocumentSet`, `sync_report`, `rename_id` | The documents of a project read side by side, one per root: the places a Phase 3 document shares with the Blueprint compared, the links across two documents checked, an id renamed in every document at once |
+| `prefill`, `backfill` | The Blueprint into a new Phase 3 document, and the accepted Phase 3 end state back into the Blueprint |
 | the YAML and Markdown codecs | `*.tomspecs.yaml` and DocSpecs markdown, byte-stable across all nine languages; the emitter writes the reading view's form, record and section tables and reference lines with an anchor in every heading (SOM §11.2, §11.4, §11.5), and the parser reads them as well as the older `Field:` lines; an import accepting rejections keeps each rejected block as a `rejected` div for review (SOM §11.7); the emitter writes a stripped rendition's readable header and styled-div headings on request, and the parser reads them back and stops at its appendix (SOM §11.1, §11.2) |
 | `DocSpecsValidator` | The DocSpecs schema check of a rendition, in the `Field:` layout and in the reading view's tables, list bodies and styled-div headings |
 | `scan_notation` | The reading notation of one text value: its divs, spans and citations and the notation's findings, which the DocSpecs validator reports as rules |
@@ -138,6 +141,22 @@ print(r.kind, r.path, r.field)
 
 for e in validate_links(model, doc):
     print(e.code.value, e.path, e.message)
+```
+
+Across documents, the set compares what a Phase 3 document shares with the
+Blueprint; `derive_fields` writes a document's derived places:
+
+```python
+from tom_som_runtime import SpecDocumentSet, derive_fields, sync_report
+
+doc_set = SpecDocumentSet(model, {"sbp.tomspecs.yaml": sbp, "rsp.tomspecs.yaml": rsp})
+report = sync_report(doc_set)
+for f in report.findings:
+    print(f.code, f.resolution, f.message)
+
+result = derive_fields(model, rsp, marked=False, dry_run=True)
+for c in result.changes:
+    print(c.step, c.kind, c.path, c.field, c.new_value)
 ```
 
 ## When to prefer the generic path

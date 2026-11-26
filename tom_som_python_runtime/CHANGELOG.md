@@ -2,6 +2,28 @@
 
 ## Unreleased
 
+- **Section automation, second part** (`tom_specs_model_rules.md` §9.7), the
+  port of the Dart runtime as TypeScript and JavaScript have it: the document
+  set (`spec_document_set.py`: `SpecDocumentSet` — one document per root,
+  built from documents, fragments (`from_fragments`) or files (`load`),
+  refused with `SpecDocumentSetError` / `SpecDocumentSetRefusal`; its anchor
+  pairs `SpecSyncPair`), `sync_report` (`SpecSyncReport` of `SpecSyncFinding`s
+  with their `SpecSyncPlace` sides, `SpecSyncCode`, `SpecSyncResolution`,
+  `SpecSyncHolder`, the counts per code and resolution, the pairs not started)
+  and `rename_id` (`SpecRenameChange`, `SpecRenameError`); `derive_fields`
+  (`spec_derive_fields.py`: the derived places of one document written plain
+  or as marks from the `SpecLinkFix`es, `SpecDeriveChange`,
+  `SpecDeriveResult`); `prefill` (`spec_prefill.py`: a Phase 3 document
+  started from the Blueprint, `SpecPrefillResult`, `SpecPrefillError`) and
+  `backfill` (`spec_backfill.py`: the accepted Phase 3 end state carried into
+  the Blueprint with a revision entry, `SpecBackfillChange`,
+  `SpecBackfillLeft`, `SpecBackfillResult`, `SpecBackfillError`). The
+  conformance runner replays `document_set_cases.json`, `derive_cases.json`,
+  `prefill_cases.json` and `backfill_cases.json` (1997 -> 2233 checks);
+  `spec_document_set_test.py` (60 checks), `spec_derive_fields_test.py` (19)
+  and `spec_prefill_backfill_test.py` (43) are new. The rendition's
+  navigation follows.
+
 - **Section automation, first part** (`tom_specs_model_rules.md` §9.7), the
   port of the Dart runtime as TypeScript and JavaScript have it: the typed
   link readers in `spec_model.py` (`SpecSync` with `SpecListRelation`,
@@ -29,8 +51,7 @@
   `inline_mark_cases.json` / `change_mark_cases.json` (1776 -> 1997 checks);
   `spec_place_test.py` (59 checks) and `spec_links_validator_test.py` (32
   checks: the fixes, `read_proposed`, the derived numbers, the typed reading,
-  the headline field) are new. The document set, `deriveFields`, `backfill`,
-  `prefill` and the rendition's navigation follow.
+  the headline field) are new.
 
 - **The merge back** (SOM §11.10), as Dart, TypeScript, C, JavaScript, C++
   and Java have it: `merge_stripped_value(original, stripped, edited, pieces)`

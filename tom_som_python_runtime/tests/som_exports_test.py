@@ -4,7 +4,8 @@ or unexported (runtime parity audit, ``runtime_parity.md`` § python): the YAML
 helpers, ``SpecDocumentYaml``, ``format_conflict_block``,
 ``code_specs_yaml_string`` and ``som_model_version_string``; and the names of
 the section automation's first part (the link readers, ``SpecPlace``,
-``validate_links``, ...).
+``validate_links``, ...) and of its second part (the document set,
+``sync_report``, ``rename_id``, ``derive_fields``, ``prefill``, ``backfill``).
 
 Each expected value was produced by the TypeScript runtime for the same
 input, so a check holds the Python output to TS's, not only its presence.
@@ -114,6 +115,34 @@ def test_exported() -> None:
         "SpecDerivedNumber",
         "spec_derived_numbers",
         "validate_links",
+        "SpecDeriveChange",
+        "SpecDeriveResult",
+        "derive_fields",
+        "SpecSyncCode",
+        "spec_sync_code_index",
+        "SpecSyncResolution",
+        "SpecSyncHolder",
+        "SpecDocumentSetRefusal",
+        "SpecDocumentSetError",
+        "SpecSyncPair",
+        "SpecDocumentSet",
+        "SpecSyncPlace",
+        "SpecSyncFinding",
+        "SpecSyncReport",
+        "sync_report",
+        "SpecSetSide",
+        "SpecSetCheck",
+        "SpecRenameError",
+        "SpecRenameChange",
+        "rename_id",
+        "SpecPrefillError",
+        "SpecPrefillResult",
+        "prefill",
+        "SpecBackfillError",
+        "SpecBackfillChange",
+        "SpecBackfillLeft",
+        "SpecBackfillResult",
+        "backfill",
         "K_SPEC_HEADLINE_FIELD",
     ):
         _check(f"exported.{name}", hasattr(tom_som_runtime, name))

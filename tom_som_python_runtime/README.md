@@ -67,6 +67,10 @@ editable routes and how to pin.
 | `spec_model` | The meta-data loader — the exported class graph (`SpecModel`), with the typed readers of the link annotations (`tom_specs_model_rules.md` §9.7: `SpecSync`, `SpecSummaryOf`, `SpecDerivation`, `SpecInverseOf`, `SpecExtractsLinks`, `SpecSameAs`, and the form-field qualifiers `derived_from`, `inverse_of`, `summary_of`). |
 | `spec_place` | The place and filter grammar of the links between places (`tom_specs_model_rules.md` §9.7): `SpecPlace` (parsed, resolved under an anchor to the path its value is stored at, list items written `<list>-*`), `SpecPlaceFilter` (`<SECTIONID>.<field>=<value>`, `\|` alternatives, read by `countOf` too), the `@SameAs` bindings (`spec_same_as_bindings`) and the section positions of a root. |
 | `spec_links_validator` | `validate_links` — the link checks of one document: derived copies, rows, lookups and lists in step, inverses named back, ids named in a text with their rows, summaries against their details, `@SameAs` copies against their holders; a value holding pending marks is read with them rejected and listed (`linkValuePending`). |
+| `spec_derive_fields` | `derive_fields` — the derived places of one document written (link ends and rows, derived values and lists, repeats and `@SameAs` copies, then counts, products and ranks), plain or as inline marks in a document under review; a change that cannot be marked exactly is left `unmarkable`; `dry_run` works on a copy. |
+| `spec_document_set` | `SpecDocumentSet` — a project's documents read side by side, one per root, with the anchor pairs of the synced classes; `sync_report` (the shared places of each Phase 3 document against the Blueprint, the links across two documents, pending and unmarkable values, each document's own findings) and `rename_id` (an id renamed in every document at once). |
+| `spec_prefill` | `prefill` — a Phase 3 document started from the Blueprint: the pairs that hold nothing yet copied with their elements' ids, then derived. |
+| `spec_backfill` | `backfill` — the accepted Phase 3 end state carried into the Blueprint as plain values, with one revision entry; refused while a document holds marks or annotation blocks. |
 | `spec_reflection` | Value-free enumeration + path resolution (`SpecReflection`). |
 | `spec_document` | A sparse in-memory document — values keyed by section path. |
 | `spec_document_assembly` | Assembles one document from fragments written in parallel (`SpecDocument.assemble`, `assemble_spec_documents`) — a refusing merge: a place two fragments both write is reported as a `SpecAssemblyOverlap` and yields no document. |
@@ -154,8 +158,10 @@ The runner asserts byte-for-byte equality of the YAML and Markdown encodings, th
 document round-trips, and the reflection / validation / operations behaviour.
 It also replays the section-automation tables of this port so far: the link
 readers and the place / filter grammar (`link_reader_cases.json`),
-`validate_links` (`link_validation_cases.json`) and the typed inline marks
-(`typedCases`) — over the fixture model `corpus/links.meta.json` and, for the
+`validate_links` (`link_validation_cases.json`), the typed inline marks
+(`typedCases`), the document set with `sync_report` and `rename_id`
+(`document_set_cases.json`), `derive_fields` (`derive_cases.json`), `prefill`
+and `backfill` (`prefill_cases.json`, `backfill_cases.json`) — over the fixture model `corpus/links.meta.json` and, for the
 cases naming it, the real model of `tom_som_dart_v0/meta/`.
 
 ## Architecture

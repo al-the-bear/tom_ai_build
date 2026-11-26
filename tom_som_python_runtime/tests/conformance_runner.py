@@ -39,7 +39,11 @@ golden byte-for-byte and matches every behavioural case:
     (``link_reader_cases.json``), the link checks of one document
     (``link_validation_cases.json``) and the typed values and headlines
     under review (the ``typedCases`` of ``inline_mark_cases.json`` /
-    ``change_mark_cases.json``), `tom_specs_model_rules.md` §9.7.
+    ``change_mark_cases.json``), `tom_specs_model_rules.md` §9.7;
+  * the document set, its report and the global rename
+    (``document_set_cases.json``), ``derive_fields`` (``derive_cases.json``),
+    ``prefill`` and ``backfill`` (``prefill_cases.json``,
+    ``backfill_cases.json``), `tom_specs_model_rules.md` §9.7.
 
 Run with: ``python3 tests/conformance_runner.py``. Exit code 0 == all green.
 """
@@ -148,6 +152,16 @@ from tom_som_runtime import (  # noqa: E402
     SpecValidationCode,
     spec_same_as_bindings,
     validate_links,
+    SpecBackfillError,
+    SpecDocumentSet,
+    SpecDocumentSetError,
+    SpecPrefillError,
+    SpecRenameError,
+    backfill,
+    derive_fields,
+    prefill,
+    rename_id,
+    sync_report,
 )
 from tom_som_runtime.spec_typed_values import (  # noqa: E402
     som_format_double,
@@ -3044,6 +3058,390 @@ def test_link_validation() -> None:
         _check(f"links.validate.provoked[{code.value}]", code.value in provoked)
 
 
+# ---------------------------------------------------------------------------
+# The document set (`document_set_cases.json` over `links.meta.json`)
+# ---------------------------------------------------------------------------
+
+
+def _set_documents(entries) -> list:
+    """The documents of a case, ``[[name, state], ...]``, as stores."""
+    return [(e[0], _document_from_state(json.loads(json.dumps(e[1])))) for e in entries]
+
+
+def _set_construction_case(model: SpecModel, c: dict) -> dict:
+    """One construction case: the set built (from fragments when
+    ``fragments``), answered as its pairs and roots, or the refusal."""
+    docs = _set_documents(c["documents"])
+    try:
+        if c.get("fragments") is True:
+            s = SpecDocumentSet.from_fragments(model, docs)
+        else:
+            s = SpecDocumentSet(model, docs)
+        return {
+            "blueprintRoot": s.blueprint_root,
+            "names": s.names,
+            "roots": s.roots,
+            "missingRoots": s.missing_roots,
+            "pairs": [p.to_json() for p in s.pairs],
+        }
+    except SpecDocumentSetError as e:
+        return {"refused": e.to_json()}
+
+
+_SOM_MODEL_CACHE: list = []
+
+
+def _som_model() -> SpecModel:
+    """The real model, loaded once (11 MB)."""
+    if not _SOM_MODEL_CACHE:
+        _SOM_MODEL_CACHE.append(_load_som_model())
+    return _SOM_MODEL_CACHE[0]
+
+
+def _set_model_of(fixture: SpecModel, c: dict) -> SpecModel:
+    """The model a case runs against: an inline one, the real one, or the
+    fixture."""
+    if isinstance(c.get("inline"), dict):
+        return SpecModel.from_json(c["inline"])
+    return _som_model() if c.get("model") == "som" else fixture
+
+
+def _set_report_case(fixture: SpecModel, c: dict) -> dict:
+    """One report case: ``sync_report`` over the documents, optionally
+    scoped."""
+    s = SpecDocumentSet(_set_model_of(fixture, c), _set_documents(c["documents"]))
+    pairs = c["pairs"] if isinstance(c.get("pairs"), list) else None
+    return sync_report(s, pairs=pairs).to_json()
+
+
+def _set_rename_case(model: SpecModel, c: dict) -> dict:
+    """One rename case: ``rename_id``, answered as its changes and the report
+    after it, or the documents that refused it."""
+    s = SpecDocumentSet(model, _set_documents(c["documents"]))
+    try:
+        changes = rename_id(s, c["from"], c["to"])
+    except SpecRenameError as e:
+        return {"refused": e.documents}
+    after = sync_report(s)
+    return {
+        "changes": [x.to_json() for x in changes],
+        "cleanAfter": after.clean,
+        "findingsAfter": len([f for f in after.findings if not f.is_info]),
+    }
+
+
+def _set_tokens(e: dict) -> set:
+    """Every token a document-set expectation shows (the Dart test's
+    ``_setTokens``)."""
+    out: set = set()
+    refused = e.get("refused")
+    if isinstance(refused, dict):
+        out.add(refused["refusal"])
+    if isinstance(refused, list):
+        out.add("refused")
+    if e.get("pairs") is not None and refused is None:
+        out.add("built")
+        if len(e["missingRoots"]) > 0:
+            out.add("missingRoots")
+    if e.get("findings") is not None:
+        if e.get("clean") is True:
+            out.add("clean")
+        if len(e["notStarted"]) > 0:
+            out.add("notStarted")
+        if len(e["notStartedPairs"]) > 0:
+            out.add("notStartedPairs")
+        for f in e["findings"]:
+            out.add(f["code"])
+            out.add(f["resolution"])
+        for d in e["documentFindings"]:
+            for x in d[1]:
+                out.add(x["code"])
+    if e.get("changes") is not None and len(e["changes"]) > 0:
+        out.add("renamed")
+    return out
+
+
+def test_document_set() -> None:
+    """``document_set_cases.json``: construction, reports and renames
+    reproduced from their inputs, compared as JSON (Dart
+    ``section_link_conformance_test.dart``, group ``document set``, DSC2);
+    every case shows its intent (DSC3); the real model pairs every synced
+    class (DSC4)."""
+    table = _read_json("document_set_cases.json")
+    fixture = SpecModel.from_json(_read_json(table.get("model") or "links.meta.json"))
+
+    def run(group: str, f) -> None:
+        for c in table[group]:
+            name = f"set.{group}[{c['name']}]"
+            try:
+                got = json.loads(json.dumps(f(c)))
+                _check(name, _deep_equal(got, c["expect"]), _json_mismatch(got, c["expect"]))
+            except Exception as e:  # noqa: BLE001 - reported as a failed check
+                _check(name, False, f"threw {e!r}")
+            shown = _set_tokens(c["expect"])
+            for token in c["intent"]:
+                _check(f"set.{group}.intent[{c['name']}: {token}]", token in shown)
+
+    run(
+        "construction",
+        lambda c: _set_construction_case(
+            fixture if c.get("meta") is None else SpecModel.from_json(c["meta"]), c
+        ),
+    )
+    run("reports", lambda c: _set_report_case(fixture, c))
+    run("renames", lambda c: _set_rename_case(fixture, c))
+
+    # DSC4: the real model pairs every synced class.
+    real = SpecDocumentSet(_som_model())
+    _check(
+        "set.DSC4.blueprintRoot",
+        real.blueprint_root == "D00SolutionBlueprint",
+        str(real.blueprint_root),
+    )
+    _check("set.DSC4.pairs", len(real.pairs) == 132, str(len(real.pairs)))
+
+
+# ---------------------------------------------------------------------------
+# derive_fields (`derive_cases.json` over `links.meta.json`)
+# ---------------------------------------------------------------------------
+
+
+def _derive_case(model: SpecModel, c: dict) -> dict:
+    """One derive case: ``derive_fields`` run twice on the case's document
+    (the second run shows idempotence), each as its result, then the findings
+    of both tiers on the document after it, and the given document after both
+    runs (unchanged on a dry run). The Dart test's ``deriveCase``."""
+    doc = _document_from_state(json.loads(json.dumps(c["state"])))
+
+    def run():
+        return derive_fields(
+            model,
+            doc,
+            marked=c["marked"] if c.get("marked") is not None else True,
+            author=c.get("author"),
+            at=c.get("at"),
+            dry_run=bool(c.get("dryRun") or False),
+        )
+
+    first = run()
+    second = run()
+
+    def pairs(errors) -> list:
+        return [{"path": e.path, "code": e.code.value} for e in errors]
+
+    return {
+        "first": first.to_json(),
+        "second": second.to_json(),
+        "findingsAfter": pairs(
+            validate_links(model, second.document) + validate_document(model, second.document)
+        ),
+        "given": doc.to_json(),
+    }
+
+
+def _derive_intent_holds(token: str, c: dict):
+    """Whether the derive-case intent *token* holds (the Dart test's
+    ``_deriveIntentHolds``); an unknown token is ``None``."""
+    e = c["expect"]
+    changes = e["first"]["changes"]
+
+    def unresolved(code: str) -> bool:
+        return any(u["code"] == code for u in e["first"]["unresolved"])
+
+    if token == "nothing":
+        return len(changes) == 0
+    if token in ("step1", "step2", "step3"):
+        return any(x["step"] == int(token[4:]) for x in changes)
+    if token in ("rowAdded", "rowRemoved"):
+        return any(x["kind"] == token for x in changes)
+    if token == "marked":
+        return any("{" in x["new"] for x in changes)
+    if token == "clean":
+        return len(e["findingsAfter"]) == 0
+    if token == "idempotent":
+        return len(e["second"]["changes"]) == 0 and _deep_equal(
+            e["second"]["document"], e["first"]["document"]
+        )
+    if token == "unchanged":
+        return _deep_equal(e["given"], c["state"])
+    if token in ("unmarkable", "derivedLookupMiss"):
+        return unresolved(token)
+    return None
+
+
+def test_derive_fields() -> None:
+    """``derive_cases.json``: every case reproduced from its inputs (Dart
+    ``section_link_conformance_test.dart``, DRC2) and showing its intent
+    (DRC3)."""
+    table = _read_json("derive_cases.json")
+    model = SpecModel.from_json(_read_json(table.get("model") or "links.meta.json"))
+    for c in table["cases"]:
+        name = f"derive[{c['name']}]"
+        try:
+            got = json.loads(json.dumps(_derive_case(model, c)))
+            _check(name, _deep_equal(got, c["expect"]), _json_mismatch(got, c["expect"]))
+        except Exception as e:  # noqa: BLE001 - reported as a failed check
+            _check(name, False, f"threw {e!r}")
+        for token in c["intent"]:
+            holds = _derive_intent_holds(token, c)
+            _check(
+                f"derive.intent[{c['name']}: {token}]",
+                holds is True,
+                "unknown intent token" if holds is None else "does not hold",
+            )
+
+
+# ---------------------------------------------------------------------------
+# prefill and backfill (`prefill_cases.json`, `backfill_cases.json`)
+# ---------------------------------------------------------------------------
+
+
+def _prefill_case(model: SpecModel, c: dict) -> dict:
+    """One prefill case: ``prefill`` run twice for the case's root (the
+    second run writes nothing), or its refusal; then the set's report after
+    it. The Dart test's ``prefillCase``."""
+    s = SpecDocumentSet(model, _set_documents(c["documents"]))
+    pairs = c["pairs"] if isinstance(c.get("pairs"), list) else None
+
+    def run() -> dict:
+        try:
+            return prefill(s, c["root"], name=c.get("name_"), pairs=pairs).to_json()
+        except SpecPrefillError as e:
+            return {"refused": e.code}
+
+    first = run()
+    second = run()
+    after = sync_report(s)
+    return {
+        "first": first,
+        "second": second,
+        "reportAfter": {
+            "countsByCode": [[k, v] for k, v in after.counts_by_code().items()],
+            "notStartedPairs": after.not_started_pairs,
+        },
+    }
+
+
+def _prefill_intent_holds(token: str, c: dict):
+    """Whether the prefill-case intent *token* holds (the Dart test's
+    ``_prefillIntentHolds``); an unknown token is ``None``."""
+    e = c["expect"]
+    first = e["first"]
+    second = e["second"]
+    if token == "created":
+        return first.get("created") is True
+    if token == "filled":
+        return len(first.get("filledPairs") or []) > 0
+    if token == "skipped":
+        return len(first.get("skippedPairs") or []) > 0
+    if token == "derived":
+        return len(((first.get("derived") or {}).get("changes")) or []) > 0
+    if token == "idempotent":
+        return (
+            len(second["filledPairs"]) == 0
+            and len(second["derived"]["changes"]) == 0
+            and _deep_equal(second["document"], first["document"])
+        )
+    if token == "agrees":
+        return all(not str(x[0]).startswith("shared") for x in e["reportAfter"]["countsByCode"])
+    if token in ("noBlueprint", "unknownRoot"):
+        return first.get("refused") == token
+    return None
+
+
+def _backfill_case(fixture: SpecModel, c: dict) -> dict:
+    """One backfill case: ``backfill`` run twice on the case's set (the
+    second run shows idempotence), or its refusal; then the set's report
+    after it, and the documents as the set holds them after both runs. The
+    Dart test's ``backfillCase``."""
+    s = SpecDocumentSet(_set_model_of(fixture, c), _set_documents(c["documents"]))
+    pairs = c["pairs"] if isinstance(c.get("pairs"), list) else None
+
+    def run() -> dict:
+        try:
+            return backfill(
+                s,
+                pairs=pairs,
+                path=c.get("path"),
+                dry_run=bool(c.get("dryRun") or False),
+                author=c.get("author"),
+                date=c.get("date"),
+            ).to_json()
+        except SpecBackfillError as e:
+            return {"refused": e.to_json()}
+
+    first = run()
+    second = run()
+    after = sync_report(s)
+    return {
+        "first": first,
+        "second": second,
+        "reportAfter": {
+            "countsByCode": [[k, v] for k, v in after.counts_by_code().items()],
+            "clean": after.clean,
+        },
+        "given": [[n, s.get(n).to_json()] for n in s.names],
+    }
+
+
+def _backfill_intent_holds(token: str, c: dict):
+    """Whether the backfill-case intent *token* holds (the Dart test's
+    ``_backfillIntentHolds``); an unknown token is ``None``."""
+    e = c["expect"]
+    first = e["first"]
+    second = e["second"]
+    changes = first.get("changes") or []
+    left = first.get("left") or []
+    if token == "nothing":
+        return first.get("refused") is None and len(changes) == 0
+    if token in ("value", "elementAdded", "elementRemoved", "revision", "derived"):
+        return any(x["kind"] == token for x in changes)
+    if token in ("heldHere", "mayBeAdded", "agent"):
+        return any(x["reason"] == token for x in left)
+    if token == "setHasMarks":
+        refused = first.get("refused")
+        return (
+            isinstance(refused, dict)
+            and refused.get("code") == "setHasMarks"
+            and len(refused["places"]) > 0
+        )
+    if token == "idempotent":
+        return len(second["changes"]) == 0
+    if token == "unchanged":
+        return _deep_equal(e["given"], c["documents"])
+    if token == "cleanAfter":
+        return e["reportAfter"]["clean"] is True
+    return None
+
+
+def test_prefill_backfill() -> None:
+    """``prefill_cases.json`` and ``backfill_cases.json``: every case
+    reproduced from its inputs, compared as JSON (Dart
+    ``section_link_conformance_test.dart``, PFC2 / BFC2) and showing its
+    intent (PFC3 / BFC3)."""
+    groups = (
+        ("prefill", "prefill_cases.json", _prefill_case, _prefill_intent_holds),
+        ("backfill", "backfill_cases.json", _backfill_case, _backfill_intent_holds),
+    )
+    for label, file, kase, holds in groups:
+        table = _read_json(file)
+        model = SpecModel.from_json(_read_json(table.get("model") or "links.meta.json"))
+        for c in table["cases"]:
+            name = f"{label}[{c['name']}]"
+            try:
+                got = json.loads(json.dumps(kase(model, c)))
+                _check(name, _deep_equal(got, c["expect"]), _json_mismatch(got, c["expect"]))
+            except Exception as e:  # noqa: BLE001 - reported as a failed check
+                _check(name, False, f"threw {e!r}")
+            for token in c["intent"]:
+                h = holds(token, c)
+                _check(
+                    f"{label}.intent[{c['name']}: {token}]",
+                    h is True,
+                    "unknown intent token" if h is None else "does not hold",
+                )
+
+
 def main() -> int:
     if not os.path.isdir(_CORPUS):
         print(f"corpus not found at {_CORPUS}", file=sys.stderr)
@@ -3097,6 +3495,9 @@ def main() -> int:
     test_impact_walk()
     test_link_readers()
     test_link_validation()
+    test_derive_fields()
+    test_document_set()
+    test_prefill_backfill()
 
     total = _passed + len(_failed)
     if _failed:
